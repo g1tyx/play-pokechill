@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokechill</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="bg-pattern"></div>
+
+
+    <div id="debug-panel" style="display: none;">
+
+    <div onclick="changeTheme('dark')">Dark Theme</div>
+    <div onclick="changeTheme('light')">Light Theme</div>
+    <div onclick="changeTheme('verdant')">Verdant Theme</div>
+    <div onclick="changeTheme('lilac')">Lilac Theme</div>
+    <div onclick="changeTheme('cherry')">Cherry Theme</div>
+    <div onclick="changeTheme('onyx')">Onyx Theme</div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div id="main-content">
+
+
+    <div id="item-menu" style="display: none;">
+
+
+        <div class="item-menu-tags"> <!-- da hells this lol -->
+            <div id="item-menu-cancel" onClick='
+            document.getElementById(`item-menu`).style.zIndex = "30";
+            document.getElementById(`item-menu`).style.zIndex = "30";
+            document.getElementById(`team-menu`).style.zIndex = "50";
+            document.getElementById(`team-menu`).style.display = "flex" ;
+            setTimeout(() => { document.getElementById(`item-menu`).style.display = "none";
+            document.getElementById(`item-menu`).style.zIndex = "30" }, 500);
+            document.getElementById("item-menu-cancel").style.display = "none";
+                if (saved.currentPreviewTeam == saved.preview1) saved.preview1[dexTeamSelect].item = undefined;
+                if (saved.currentPreviewTeam == saved.preview2) saved.preview2[dexTeamSelect].item = undefined;
+                if (saved.currentPreviewTeam == saved.preview3) saved.preview3[dexTeamSelect].item = undefined; 
+                if (saved.currentPreviewTeam == saved.preview4) saved.preview4[dexTeamSelect].item = undefined;
+                if (saved.currentPreviewTeam == saved.preview5) saved.preview5[dexTeamSelect].item = undefined;
+                if (saved.currentPreviewTeam == saved.preview6) saved.preview6[dexTeamSelect].item = undefined;
+                dexTeamSelect = undefined; updateItemBag(); 
+                updatePreviewTeam()'
+                 style="display: none; background: rgb(255, 81, 81); color: white; border: none; ">Cancel</div>
+            <div onClick="bagCategory = 'held'; updateItemBag()">Held</div>
+            <div onClick="bagCategory = 'tm'; updateItemBag()">TM's</div>
+            <div onClick="bagCategory = 'key'; updateItemBag()">Key</div>
+        </div>
+
+
+        <div id="item-menu-list">
+
+
+        </div>
+
+
+
+
+    </div>
+
+    <div id="team-menu" style="display: none;">
+    <div class="pkmn-editor-exit" id="preview-team-exit"  onclick="afkSeconds = 0 ;injectPreviewTeam(); saveGame()">
+        <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
+        Save and exit
+    </div>
+
+    <div class="team-menu-header">
+        <span>
+            <strong onClick="cyclePreviewTeams(-1)">◀</strong>
+            <div id="team-preview-slot-1"></div>
+            <div id="team-preview-slot-2"></div>
+            <div id="team-preview-slot-3"></div>
+            <div id="team-preview-slot-4"></div>
+            <div id="team-preview-slot-5"></div>
+            <div id="team-preview-slot-6"></div>
+            <strong onClick="cyclePreviewTeams(+1)">▶</strong>
+        </span>
+    </div>
+
+    <span class="pkmn-editor-move-title">Change or edit team</span>
+
+    <div id="team-preview">
+
+    </div>
+
+
+    </div>
+
+    <div id="pokedex-menu" style="display: none;">
+
+        <img class="pokedex-menu-flair" src="img/icons/pokeball.svg">
+        <div class="pokedex-filters">
+
+            <div id="pokedex-filters-title" style="display: none; cursor: default;">Select a pokemon to teach Hydro Pump</div>
+            <div id="pokedex-filters-cancel" onClick="exitTmTeaching()" style="display: none; background: rgb(255, 81, 81); color: white;">Cancel</div>
+
+            <div>Filter type
+            <select id="pokedex-filter-type">
+                <option value="all">all</option>
+                <option value="normal">normal</option>
+                <option value="fire">fire</option>
+                <option value="water">water</option>
+                <option value="electric">electric</option>
+                <option value="grass">grass</option>
+                <option value="ice">ice</option>
+                <option value="fighting">fighting</option>
+                <option value="poison">poison</option>
+                <option value="ground">ground</option>
+                <option value="flying">flying</option>
+                <option value="psychic">psychic</option>
+                <option value="bug">bug</option>
+                <option value="rock">rock</option>
+                <option value="ghost">ghost</option>
+                <option value="dragon">dragon</option>
+                <option value="dark">dark</option>
+                <option value="steel">steel</option>
+                <option value="fairy">fairy</option>
+            </select>
+            </div>
+
+            <div>Filter level
+            <select id="pokedex-filter-level">
+                <option value="all">all</option>
+                <option value="20">1-20</option>
+                <option value="40">20-40</option>
+                <option value="60">40-60</option>
+                <option value="80">60-80</option>
+                <option value="100">80-100</option>
+            </select>
+            </div>
+
+
+
+        </div>
+
+        <div id="pokedex-list">
+
+
+        </div>
+
+
+
+    </div>
+
+
+        <div id="settings-menu" style="display: none;">
+
+        <div id="settings-menu-header">
+
+            <span>Settings </span>
+            
+            
+        </div>
+
+        <div class="settings-list">
+            <div onclick="exportData()">Export Data</div>
+            <div onclick="importData()">Import Data</div>
+
+            <div>Theme: <select id="settings-theme">
+                <option value="dark">dark</option>
+                <option value="verdant">verdant</option>
+                <option value="lilac">lilac</option>
+                <option value="cherry">cherry</option>
+                <option value="onyx">onyx</option>
+            </select></div>
+
+            <div onclick='document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `Credits`
+        document.getElementById("tooltipMid").style.display = `none`
+        document.getElementById("tooltipBottom").innerHTML = `Made by Duck<br><br>Pokemon and trainer sprites by Pokemon Showdown (Artists include: Beliot419, kyledove, Brumirage and ZacWeavile)<br><br>All characters and related assets featured in this game are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company, and are used here strictly for non-commercial purposes.`
+        openTooltip()' >Credits</div>
+            <div onclick="window.open('https://discord.gg/VnukKfSs3S', '_blank')">Discord</div>
+
+            <div style="margin-top: 3rem;background: rgb(206, 83, 83); color: white; " onclick='document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `Are you sure you want to delete all data forever?`
+        document.getElementById("tooltipMid").style.display = `none`
+        document.getElementById("tooltipBottom").innerHTML = `<div onClick = "clearData()" style="cursor:pointer; font-size:2rem">Yeah!</div>`
+        openTooltip()'
+            
+            >Wipe Data</div>
+
+
+        </div>
+
+        </div>
+
+
+
+       <div id="disclaimer-menu" style="display: none;">
+        This project is entirely unofficial!
+        <br><br>
+        All characters and related intellectual property featured are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company.
+        <br><br>
+        Any use of assets is solely for non-commercial and entertainment purposes. No ownership is claimed, and all rights remain with their respective owners
+        <br><br>
+        Go play the official games!
+       </div>
+
+       <div id="starter-menu" style="display: none;">
+
+        <span>Select a starter!</span>
+
+        <div class="starter-list">
+
+            <div data-pkmn="litten" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.litten,10); voidAnimation('starter-menu','tooltipBoxAppear 0.5s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 400); ">
+                <img src="img/pkmn/sprite/litten.png">Litten<br>Fire Type
+            </div>
+
+            <div data-pkmn="turtwig" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.turtwig,10); voidAnimation('starter-menu','tooltipBoxAppear 0.5s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 400); ">
+                <img src="img/pkmn/sprite/turtwig.png">Turtwig<br>Grass Type
+            </div>
+
+            <div data-pkmn="froakie" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.froakie,10); voidAnimation('starter-menu','tooltipBoxAppear 0.5s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 400); ">
+                <img src="img/pkmn/sprite/froakie.png">Froakie<br>Water Type
+            </div>
+
+        <span style="color: white; background: transparent; padding: 0 2rem;">Tip: Right click (or long-press on mobile) on most elements for additional information</span>
+
+        </div>
+
+       </div>
+
+
+
+       <div id="vs-menu" style="display: none;">
+
+        
+
+        <div id="vs-menu-header">
+
+            <span data-help="VS">VS Trainers
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
+            </span>
+            
+        </div>
+
+            <div id="vs-listing">
+
+
+
+
+
+        </div>
+
+       </div>
+
+
+    <div id="explore-menu" style="display: none;">
+
+        
+
+        <div id="explore-menu-header">
+
+            <span>Wild Areas
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
+            </span>
+            
+        </div>
+
+        <div class="explore-menu-selector">
+            <div onclick="setWildAreas()">Wild Areas</div>
+            <div onclick="setDungeonAreas()">Dungeons</div>
+            <div onclick="setEventAreas()">Events</div>
+        </div>
+
+        <div id="explore-listing">
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <div id="white-transition"></div>
+
+        <div id="explore-transition">
+        <svg xmlns="http://www.w3.org/2000/svg" width="576" height="512" viewBox="0 0 576 512"><path fill="currentColor" d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64H365.7L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1h-56.2c-10.6 0-18.3-10.2-15.4-20.4l49-171.6H112l-43.2 57.6c-3 4-7.8 6.4-12.8 6.4H14c-7.8 0-14-6.3-14-14c0-1.3.2-2.6.5-3.9L32 256L.5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14h42c5 0 9.8 2.4 12.8 6.4L112 192h102.9l-49-171.6c-3-10.2 4.7-20.4 15.3-20.4h56.2c11.5 0 22.1 6.2 27.8 16.1L365.7 192z"/></svg>
+        </div>
+
+    <div id="area-end" style="display: none;">
+
+    <div class="pkmn-editor-exit" onClick='voidAnimation("area-end","tooltipBoxAppear 0.3s reverse 1 ease-in"); setTimeout(() => {document.getElementById("area-end").style.display = "none"}, 250); saveGame()'>
+        <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
+        Save and exit
+    </div>
+    
+    <div class="area-end-category" id="area-end-moves-title" style="display: none;"></div>
+
+    <div class="area-end-category" id="area-end-item-title">New Items!</div>
+    <div class="area-end-container" id="area-end-item-list"> 
+
+
+    </div>
+
+    <div class="area-end-category" id="area-end-pkmn-title">New Pokemon!</div>
+    <div class="area-end-container" id="area-end-pkmn-list"> 
+
+    </div>
+
+
+    </div>
+
+
+
+
+    <div id="pkmn-editor" style="display: none;">
+
+    <div class="pkmn-editor-exit" onClick='closePkmnEditor(); saveGame()'>
+        <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
+        Save and exit
+    </div>
+
+    <div id="pkmn-editor-header" style="flex-direction: column;">
+
+
+
+        <div style="display: flex;" >
+
+        <div class="pkmn-editor-side" style="display: flex; flex-direction: column;" >
+
+                        <span style="font-weight: 700;"><strong class="explore-pkmn-level" style="font-size: 1.3rem;" id="pkmn-editor-name">Arcanine</strong><br><strong class="explore-pkmn-level" id="pkmn-editor-level">lvl 100</strong></span>
+
+
+            <div class="explore-sprite" style="cursor: default;">
+            <img class="sprite-trim" style="animation: pkmn-active 0.5s infinite; z-index: 1;" src="img/pkmn/sprite/mew.png" id="pkmn-editor-sprite">
+            </div>
+
+                        <strong class="explore-pkmn-level" style="width: 9rem; z-index: 5;" id="pkmn-editor-type">Fire / Water</strong>
+
+
+            </div>
+
+            <div class="explore-header-infobox" style="width: auto; box-shadow: rgba(0, 0, 0, 0.5) 5px 5px 2px;">
+
+                
+
+                <div class="pkmn-stats-panel" id="pkmn-editor-stats" style="padding-right:0.5rem">
+
+                    
+
+                    <svg style="height: 3rem; width:3rem; margin-top:1rem; color:rgb(110, 105, 105)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
+
+                </div>
+
+
+                <div class="pkmn-stats-panel" id="pkmn-editor-ivs" style="padding-right:0.5rem; display: none;">
+
+                   
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+</div>
+
+<div class="pkmn-stats-stat-abilities" style="margin-top: 0.5rem;">
+
+            <svg style="color: gray;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M22.833 10.117L16.937 7.24c-.07-.035-.106-.106-.142-.177l-2.912-5.896c-.498-1.03-1.776-1.457-2.807-.96a2.1 2.1 0 0 0-.959.96L7.205 7.063a.8.8 0 0 1-.142.177l-5.896 2.913c-1.03.497-1.457 1.776-.96 2.806a2.1 2.1 0 0 0 .96.96l5.896 2.876c.07.036.106.107.142.142l2.948 5.896c.497 1.03 1.776 1.457 2.806.96a2.1 2.1 0 0 0 .959-.96l2.877-5.896c.036-.07.107-.142.142-.142l5.896-2.912c1.03-.498 1.457-1.776.96-2.806c-.178-.427-.533-.746-.96-.96m-4.368.427l-2.735 2.38c-.533.497-.924 1.136-1.066 1.847l-.71 3.551c-.036.143-.178.25-.32.214c-.071 0-.107-.036-.142-.107l-2.38-2.735c-.497-.533-1.137-.923-1.847-1.066l-3.552-.71c-.142-.035-.249-.178-.213-.32c0-.07.035-.106.106-.142l2.735-2.38c.533-.497.924-1.136 1.066-1.847l.71-3.551c.036-.143.178-.25.32-.214a.27.27 0 0 1 .142.071l2.38 2.735c.497.533 1.137.924 1.847 1.066l3.552.71c.142.036.249.178.213.32a.4.4 0 0 1-.106.178"/></svg>
+
+                    <div>
+                        [Coming Soon]</div>
+                    <div >
+                        <svg style="margin-right: 0.5rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
+                        [Coming Soon]</div>
+                </div>
+
+        <div class="pkmn-stats-stat-switch" style="margin-bottom: 0.5rem;  margin-top: 1rem;">
+                    <div onclick='document.getElementById("pkmn-editor-stats").style.display = "flex"; document.getElementById("pkmn-editor-ivs").style.display = "none"; '>
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
+                        Base Stats</div>
+                    <div onclick='document.getElementById("pkmn-editor-stats").style.display = "none"; document.getElementById("pkmn-editor-ivs").style.display = "flex"; '>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
+                        IV's Stats</div>
+                </div>
+
+           
+
+        </div>
+
+
+        <span id="pkmn-editor-extra-info"></span>
+
+        <span class="pkmn-editor-move-title">Select a move below and replace it with one of the list of learnt moves</span>
+        <div class="pkmn-editor-move-container" id="pkmn-editor-current-moves">
+
+
+            
+         
+        </div>
+
+        <div class="pkmn-editor-learnt-move-title">Learnt Moves</div>
+        <div class="pkmn-editor-learnt-move-list" id="pkmn-editor-movepool">
+           
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="tooltipBackground">
+        <div id="tooltipClose" onclick="closeTooltip()">X</div>
+        <div id="tooltipBox">
+            <div id="tooltipTop">
+            </div>
+            <div id="tooltipTitle" >
+            </div>
+            <div id="tooltipMid" >
+
+            
+
+
+            </div>
+            <div id="tooltipBottom" >
+
+            
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div id="menu-button-parent" ><div id="menu-button">
+        
+<svg onclick="openMenu()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" height="24" width="24">
+  <path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0 -18 0" stroke-width="2"></path>
+  <path d="M9 12a3 3 0 1 0 6 0 3 3 0 1 0 -6 0" stroke-width="2"></path>
+  <path d="M3 12h6" stroke-width="2"></path>
+  <path d="M15 12h6" stroke-width="2"></path>
+</svg>
+
+    <div id="menu-items">
+
+
+        <div class="menu-item" id="menu-item-travel" onClick="switchMenu('travel')">
+            <img src="img/items/oldMap.png">
+            <span>Travel</span>
+        </div>
+
+        <div class="menu-item" id="menu-item-vs" onClick="switchMenu('vs')">
+            <img src="img/items/vs.png">
+            <span>VS</span>
+        </div>
+
+        <div class="menu-item" id="menu-item-items" onClick="switchMenu('items')">
+            <img src="img/items/items.png">
+            <span>Items</span>
+        </div>
+
+        <div class="menu-item" id="menu-item-team" onClick="switchMenu('team')">
+            <img src="img/items/pokeball.png">
+            <span>Team</span>
+        </div>
+
+        <div class="menu-item" id="menu-item-dex" onClick="switchMenu('dex')">
+            <img src="img/items/dex.png">
+            <span>Dex</span>
+        </div>
+
+
+
+        <div class="menu-item" id="menu-item-settings" onClick="switchMenu('settings')">
+            <img src="img/items/key.png">
+            <span>Settings</span>
+        </div>
+
+        <div class="menu-item" id="menu-item-fullscreen" onclick="document.documentElement.requestFullscreen();">
+            <img src="img/items/wideLens.png">
+            <span>Full Screen</span>
+        </div>
+
+
+        
+    </div>
+
+    </div></div>
+
+
+    <div id="content-explore">
+
+        <div id="explore-header">
+            <div id="team-indicator">
+
+                <img id="team-indicator-slot-1"src="img/icons/pokeball.svg">
+                <img id="team-indicator-slot-2"src="img/icons/pokeball.svg">
+                <img id="team-indicator-slot-3"src="img/icons/pokeball.svg">
+                <img id="team-indicator-slot-4"src="img/icons/pokeball.svg">
+                <img id="team-indicator-slot-5"src="img/icons/pokeball.svg">
+                <img id="team-indicator-slot-6"src="img/icons/pokeball.svg">
+
+            </div>
+            <div style="display: flex; width: 100%;">
+
+            <div class="explore-sprite" id="explore-wild-sprite-data" style="cursor: help;">
+            <img class="sprite-trim" style="animation: none; z-index: 1;" id="explore-wild-sprite" src="img/resources/none.png">
+            <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 0; transform: translateY(2rem); image-rendering: initial;" src="img/resources/pkmn-shadow.png">
+            <div id="wild-buff-list">
+                
+            </div>
+        </div>
+
+            <div class="explore-header-infobox">
+
+                <div class="explore-header-hpbox">
+                <span style="color: white;" id="explore-wild-name"></span>
+                <div class="explore-hp" id="exploe-wild-hp"></div>
+                </div>
+
+                <div class="explore-header-moves" id="explore-header-moves-wild">
+                
+
+
+                </div>
+
+
+
+            </div>
+
+            </div>
+
+
+
+        </div>
+
+
+        <div id="explore-team">
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <div id="explore-drops">
+            </div>
+
+            <div id="explore-leave" onclick="leaveCombat()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1m14.242-.97l-8-2A1 1 0 0 0 10 3v18a.998.998 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97M15 12.188a1.001 1.001 0 0 1-2 0v-.377a1 1 0 1 1 2 .001z"/></svg>
+                Leave Combat
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="scripts/HackTimer.js"></script>
+
+
+    <script src="scripts/moveDictionary.js"></script>
+    <script src="scripts/itemDictionary.js"></script>
+    <script src="scripts/pkmnDictionary.js"></script>
+    <script src="scripts/areasDictionary.js"></script>
+    <script src="scripts/teamPreviews.js"></script>
+
+
+    <script src="scripts/script.js"></script>
+    <script src="scripts/explore.js"></script>
+
+    <script src="scripts/save.js"></script>
+</body>
+</html>
+
+<!--
+<div id="tooltip-inspect-pkmn">
+
+                <div class="pkmn-stats-stat-switch">
+                    <div>
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
+                        Base Stats</div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
+                        IV's Stats</div>
+                </div>
+                
+            <div style="display: flex;">
+
+            <div class="pkmn-stats-panel-info"> 
+            <strong style="font-weight: 700;">Arcanine<br><strong class="explore-pkmn-level">lvl 100</strong></strong>
+            <div class="explore-sprite" style="width: 3rem;">
+            <img style="scale:1;animation: pkmn-active 0.5s infinite; z-index: 1;" src="img/pkmn/sprite/arcanine.png">
+            <img style="scale:1;animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 0; transform: translateY(1.5rem);" src="img/resources/pkmn-shadow.png">
+            </div>
+        
+             </div>
+
+             <div class="explore-header-infobox" style="background: transparent;">
+
+                
+
+                <div class="pkmn-stats-panel">
+
+                    <div class="pkmn-stats-panel-bst">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0.3" d="M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9c0 0 -7.43 -7.79 -8.24 -9c-0.48 -0.71 -0.76 -1.57 -0.76 -2.5c0 -2.49 2.01 -4.5 4.5 -4.5c1.56 0 2.87 0.84 3.74 2c0.76 1 0.76 1 0.76 1Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c0 0 0 0 -0.76 -1c-0.88 -1.16 -2.18 -2 -3.74 -2c-2.49 0 -4.5 2.01 -4.5 4.5c0 0.93 0.28 1.79 0.76 2.5c0.81 1.21 8.24 9 8.24 9M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9"/></svg>
+                        <strong>⬤ ⬤</strong>● ● ● ●
+                    </div>
+
+                    <div class="pkmn-stats-panel-bst">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.975l1.475-1.475H15.5v-2.025L16.975 12L15.5 10.525V8.5h-2.025L12 7.025L10.525 8.5H8.5v2.025L7.025 12L8.5 13.475V15.5h2.025zm0 6.325L8.65 20H4v-4.65L.7 12L4 8.65V4h4.65L12 .7L15.35 4H20v4.65L23.3 12L20 15.35V20h-4.65z"/></svg>
+                        <strong>⬤ ⬤ ⬤</strong>● ● ●
+                    </div>
+
+                    <div class="pkmn-stats-panel-bst">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="currentColor" d="M306.72 22.688c-87.212.763-181.58 53.14-238.19 140.406c-.944 1.46-1.677 3.068-2.593 4.53c.455-.397.86-.917 1.313-1.31c-40.253 56.984-35.183 136.503 15.813 187.5c54.553 54.552 141.745 56.65 199.093 6.78c-4.676 6.576-9.916 13.137-15.812 19.03c-57 57-149.53 57-206.53 0c-17.814-17.81-30.103-38.73-36.783-61.312c2.928 65.605 34.97 122.74 93.907 151.97c103.593 51.374 250.2-2.8 326.875-121C510.904 245.856 502.47 127.374 429.938 65c-10.36-8.91-22.206-16.483-35.156-22.906c-25.897-12.844-54.454-19.11-83.905-19.407c-1.38-.013-2.772-.012-4.156 0zm1.06 62.406c47.14-.705 82.63 23.414 90.376 58.906v.03c1.417 6.492 1.806 13.565 1.344 21.032c-3.682 59.742-68.786 126.655-145.438 149.563c-.945.282-1.872.422-2.812.688l.938-.47c-37.843 12.718-74.086-.708-84.438-33.624c-7.03-22.36-.468-48.544 15.25-70.408c-1.695 7.2-.05 13.91 5.344 18.375c10.643 8.816 31.83 5.575 47.312-7.25c15.483-12.824 19.394-30.37 8.75-39.187c-6.294-5.214-16.287-6.21-26.594-3.5l.532-.313c-.755.257-1.52.54-2.28.813c-.344.123-.69.217-1.033.344a54 54 0 0 0-8 3.344c-.656.307-1.315.61-1.968.937c-42.374 21.24-83.226 68.335-71.656 105.125c3.616 11.497 10.213 20.614 19.094 27.094c-30.253-10.44-48.35-34.526-46.563-68.53c3.682-70.837 83.193-133.31 159.844-156.22c14.673-4.385 28.802-6.553 42-6.75z"/></svg>
+                        <strong>⬤ ⬤</strong>● ● ● ●
+                    </div>
+
+                    <div class="pkmn-stats-panel-bst">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3 11.991c0 5.638 4.239 8.375 6.899 9.536c.721.315 1.082.473 2.101.473V8l-9 3z"/><path fill="currentColor" d="M14.101 21.527C16.761 20.365 21 17.63 21 11.991V11l-9-3v14c1.02 0 1.38-.158 2.101-.473M8.838 2.805L8.265 3c-3.007 1.03-4.51 1.545-4.887 2.082C3 5.62 3 7.22 3 10.417V11l9-3V2c-.811 0-1.595.268-3.162.805" opacity="0.5"/><path fill="currentColor" d="m15.735 3l-.573-.195C13.595 2.268 12.812 2 12 2v6l9 3v-.583c0-3.198 0-4.797-.378-5.335c-.377-.537-1.88-1.052-4.887-2.081"/></svg>
+                        <strong>⬤</strong>● ● ● ● ●
+                    </div>
+
+                    <div class="pkmn-stats-panel-bst">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="currentColor" fill-rule="evenodd" d="m311.874 171.817l65.452-99.754l-.865-.367l50.206 12.144l-.221 17.259l.049 93.284l.119 25.42c.562 109.632-58.957 176.828-107.749 213.459l-11.037 7.917l-15.418 9.91l-9.239 5.345l-8.181 4.374l-12.415 5.962l-6.126 2.563l-6.403-2.682l-5.725-2.644l-7.222-3.591l-10.821-5.871l-12.434-7.468l-10.839-7.169c-48.347-33.416-112.698-97.735-117.398-205.151l-.274-12.587V84.09L256.45 42.668l22.726 5.497l-62.978 142.683l48.901 20.757l-80.615 154.048l176.882-172.827z" clip-rule="evenodd"/></svg>
+                        <strong>⬤ ⬤ ⬤</strong>● ● ●
+                    </div>
+
+                    <div class="pkmn-stats-panel-bst">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9 19v-2H5.675q-.5 0-.7-.45t.125-.8l6.15-6.9q.3-.35.75-.35t.75.35l6.15 6.9q.325.35.125.8t-.7.45H15v2q0 .425-.288.713T14 20h-4q-.425 0-.712-.288T9 19m3-13l-5.025 5.675q-.15.15-.35.238t-.4.087q-.65 0-.912-.575t.162-1.075l5.775-6.5q.3-.35.75-.35t.75.35l5.775 6.5q.425.5.163 1.075t-.913.575q-.2 0-.4-.075t-.35-.25z"/></svg>
+                        <strong>⬤ ⬤ ⬤ ⬤</strong>● ● 
+                    </div>
+
+                </div>
+
+       
+            </div>
+
+            </div>
+            
+            
+            </div>
+
+
+             <div class="pkmn-stats-stat-switch" style="background: transparent;">
+                    <div style="box-shadow: black 2px 2px 2px;">
+                        
+                        Unaware</div>
+                    <div style="box-shadow: black 2px 2px 2px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
+                        Iron Claws</div>
+                </div>
+
+            <div class="separator-solid"></div>
+
+
+            </div>
+
+
+        </div>
+
+-->
