@@ -57,6 +57,17 @@ body {
         position: fixed;
 }
 
+
+#game-version{
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0.3;
+
+}
+
 #debug-panel{
     position: absolute;
     left: 2rem;
@@ -126,7 +137,7 @@ body {
     display: none;
     justify-content: start;
     align-items: center;
-        animation: tooltipBoxAppear 0.5s 1;
+        animation: tooltipBoxAppear 0.2s 1;
     flex-direction: column;
     padding-bottom: 3rem;
     z-index: 20;
@@ -268,7 +279,7 @@ flex-direction: column;
 
 
 @keyframes moveboxFire {
-    0%{scale: 0.95; filter: brightness(2);}
+    0%{scale: 0.95; filter: brightness(1.5);}
     100%{scale: 1; filter: brightness(1);}
 }
 
@@ -285,7 +296,7 @@ flex-direction: column;
     border-radius: 0.3rem;
     position: relative;
     cursor: help;
-    transition: 0.1s;
+    transition: 0;
     white-space: nowrap;
 }
 
@@ -491,7 +502,6 @@ flex-direction: column;
     background: var(--light2);
     border-radius: 0 0 100% 0;
     padding: 0.5rem;
-    transition: all 0.3s;
     overflow: hidden;
 }
 
@@ -589,7 +599,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     justify-content: center;
     align-items: start;
     padding: 1rem;
-        animation: tooltipBoxAppear 0.5s 1;
+        animation: tooltipBoxAppear 0.2s 1;
 
 }
 
@@ -845,7 +855,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: start;
     align-items: center;
-    animation: tooltipBoxAppear 0.5s 1;
+    animation: tooltipBoxAppear 0.2s 1;
     flex-direction: column;
 
 }
@@ -1137,13 +1147,12 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     overflow: hidden;
     opacity: 0;
     display: none;
-    animation: transition 1s 1 linear !important;
+    animation: transition 0.8s 1 linear !important;
 }
 
 @keyframes transition {
-    0%{opacity: 0;}
-    30%{opacity: 1;}
-    70%{opacity: 1;}
+    0%{opacity: 1;}
+    50%{opacity: 1;}
     100%{opacity: 0;}
 }
 
@@ -1167,7 +1176,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: start;
     align-items: center;
-        animation: tooltipBoxAppear 0.5s 1;
+    animation: tooltipBoxAppear 0.2s 1;
     flex-direction: column;
     padding-bottom: 0.8rem;
     z-index: 30;
@@ -1563,7 +1572,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     background: var(--dark1);
     z-index: 150;
 
-        animation: tooltipBoxAppear 0.5s 1;
+        animation: tooltipBoxAppear 0.2s 1;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -1694,7 +1703,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     width: 50%;
     background: var(--dark1);
     z-index: 150;
-    animation: tooltipBoxAppear 0.5s 1;
+    animation: tooltipBoxAppear 0.2s 1;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -1818,7 +1827,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: start;
     align-items: center;
-        animation: tooltipBoxAppear 0.5s 1;
+        animation: tooltipBoxAppear 0.2s 1;
     flex-direction: column;
     padding-bottom: 3rem;
     z-index: 30;
@@ -1990,7 +1999,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     background: var(--dark1);
     z-index: 150;
 
-        animation: tooltipBoxAppear 0.5s 1;
+        animation: tooltipBoxAppear 0.2s 1;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -2125,7 +2134,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: start;
     align-items: center;
-        animation: tooltipBoxAppear 0.5s 1;
+        animation: tooltipBoxAppear 0.2s 1;
     flex-direction: column;
     padding-bottom: 3rem;
     z-index: 30;

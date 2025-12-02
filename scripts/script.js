@@ -10,6 +10,16 @@ document.getElementById("settings-theme").addEventListener("change", e => {
 });
 
 
+saved.version = 0.1
+
+function updateGameVersion() {
+
+  saved.version = 0.1
+  document.getElementById(`game-version`).innerHTML = `v${saved.version}`
+
+}
+
+
 function changeTheme(){
 
     if (saved.theme === "dark"){

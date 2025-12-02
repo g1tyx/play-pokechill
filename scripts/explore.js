@@ -79,35 +79,36 @@ function arrayPick(array, n = 1) {
 
 
 function givePkmn(poke, level) {
-    // Nivel final del Pokémon
     const finalLevel = level ?? 1;
 
-    // Marcar como capturado
     poke.caught = 1;
-
-    // Reiniciar movepool y moves (por si acaso)
     poke.movepool = poke.movepool || [];
+    poke.moves = poke.moves || { slot1: null, slot2: null, slot3: null, slot4: null };
+    // Asegurarse de que exista newMoves
+    poke.newMoves = poke.newMoves || [];
 
-    // Aprender todos los movimientos correspondientes al nivel
     for (let lvl = 1; lvl <= finalLevel; lvl++) {
         if (lvl === 1 || lvl % 7 === 0) {
             const learntMove = learnPkmnMove(poke.id, lvl);
-            if (learntMove) {
+            if (!learntMove) continue;
+
+            // Añadir al movepool solo si no está ya
+            if (!poke.movepool.includes(learntMove)) {
                 poke.movepool.push(learntMove);
             }
+
         }
     }
 
-    // Equipar el último movimiento aprendido en slot1
+    // Equipar slot1 con el último movimiento del movepool sólo si no está ya equipado
     const lastMove = poke.movepool[poke.movepool.length - 1];
     if (lastMove) {
-        poke.moves.slot1 = lastMove;
+    poke.moves.slot1 = lastMove;
+        
     }
 
-    // Asignar nivel final
     poke.level = finalLevel;
-
-    updatePokedex()
+    updatePokedex();
 }
 
 
@@ -122,6 +123,9 @@ let wildLevel = 0
 let currentTrainerSlot = 1
 
 function setWildPkmn(){
+
+    barProgressWild = 0
+    exploreCombatWildTurn = 1  
 
     if (saved.currentArea == undefined) return
 
@@ -328,9 +332,11 @@ function updateItemsGot(){
         divItem.id = `explore-item-${i}`;
 
         divItem.dataset.item = i
+        console.log(item[i].move)
 
         if (item[i].type !== "tm") divItem.innerHTML = `<img src="img/items/${i}.png"> <span>x${item[i].newItem}</span>`;
-        if (item[i].type == "tm") divItem.innerHTML = `<img src="img/items/tm${move[item[i].move].type}.png"> <span>x${item[i].newItem}</span>`;
+        if (item[i].type == "tm") divItem.innerHTML = `<img src="img/items/tm${format(move[item[i].id].type)}.png"> <span>x${item[i].newItem}</span>`;
+
 
         document.getElementById("explore-drops").appendChild(divItem);
 
@@ -400,21 +406,17 @@ function leaveCombat(){
     };
 
 
-    setTimeout(() => {
+            if (document.getElementById(`menu-button`).classList.contains(`menu-button-open`)) openMenu()
+
         document.getElementById("area-end").style.display = "flex"
-        document.getElementById("explore-menu").style.display = "flex"
-        if (document.getElementById(`menu-button`).classList.contains(`menu-button-open`)) openMenu()
         document.getElementById("explore-drops").innerHTML = ""
         document.getElementById(`content-explore`).style.display = "none"
-    }, 300);
+
 
 
     if (areas[saved.currentArea].trainer) {
-        setTimeout(() => {
-        document.getElementById("explore-menu").style.display = "none"
         document.getElementById("vs-menu").style.display = "flex"
-        }, 310);
-    }
+    } else  document.getElementById("explore-menu").style.display = "flex"
 
     if (areas[saved.currentArea].trainer) {updateVS()}
 
@@ -440,7 +442,7 @@ function leaveCombat(){
         divItem.className = "area-end-item";
         divItem.dataset.item = i
         if (item[i].type !== "tm") divItem.innerHTML = `<img src="img/items/${i}.png"><span>+${item[i].newItem}</span>`;
-        if (item[i].type == "tm") divItem.innerHTML = `<img src="img/items/tm${move[item[i].move].type}.png"><span>+${item[i].newItem}</span>`;
+        if (item[i].type == "tm") divItem.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"><span>+${item[i].newItem}</span>`;
         document.getElementById("area-end-item-list").appendChild(divItem);
 
         item[i].newItem = 0;
@@ -448,7 +450,7 @@ function leaveCombat(){
     }
 
     //new pokemon
-    if (item.mysteryEgg.got>0) {
+    if (item.mysteryEgg.got>0 && areas[saved.currentArea].spawns!=undefined) {
 
     for (let i = 0; i < item.mysteryEgg.got; i++) {
     let hatchedPkmn = arrayPick(areas[saved.currentArea].spawns.common).id
@@ -580,6 +582,8 @@ function updateWildPkmn(){
     if (percent <= 0) { //on wild death enemy kill
 
 
+  
+
     for (const buff in wildBuffs){ if ( wildBuffs[buff]>0) wildBuffs[buff] = 0 }
     updateWildBuffs()
 
@@ -655,7 +659,7 @@ function updateWildPkmn(){
 function closePkmnEditor(){
 
 
-    voidAnimation("pkmn-editor","tooltipBoxAppear 0.3s reverse 1 ease-in")
+    voidAnimation("pkmn-editor","tooltipBoxAppear 0.2s reverse 1 ease-in")
 
 
 
@@ -663,7 +667,7 @@ function closePkmnEditor(){
     document.getElementById("pkmn-editor-movepool").innerHTML = ""
     document.getElementById("pkmn-editor-current-moves").innerHTML = ""
     document.getElementById("pkmn-editor").style.display = "none"
-    }, 250);
+    }, 150);
 
 
 
@@ -675,7 +679,7 @@ function closePkmnEditor(){
 function closeTooltip(){
 
 
-    voidAnimation("tooltipBackground","tooltipBoxAppear 0.3s reverse 1 ease-in")
+    voidAnimation("tooltipBackground","tooltipBoxAppear 0.2s reverse 1 ease-in")
 
 
 
@@ -691,14 +695,14 @@ function closeTooltip(){
     document.getElementById("tooltipMid").innerHTML = ""
     document.getElementById("tooltipBottom").innerHTML = ""
     document.getElementById("tooltipBackground").style.display = "none"
-    }, 250);
+    }, 150);
 
 
 }
 
 
 function openTooltip(){
-    voidAnimation("tooltipBackground","tooltipBoxAppear 0.5s 1")
+    voidAnimation("tooltipBackground","tooltipBoxAppear 0.2s 1")
     document.getElementById("tooltipBackground").style.display = "flex"
 }
 
@@ -1049,7 +1053,28 @@ for (const i in saved.currentPreviewTeam) {
 updatePreviewTeam()
 
 
+function setPkmnTeamHp(){
 
+    for (const i in team) {
+
+    if (team[i].pkmn === undefined) continue
+
+    let hpMultiplier = 10
+    if (areas[saved.currentArea].trainer) hpMultiplier = 3
+
+    pkmn[team[i].pkmn.id].playerHp =
+    (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, pkmn[team[i].pkmn.id].ivs.hp) )
+    * ( 1+(pkmn[team[i].pkmn.id].level * 0.2) )       
+    ) * hpMultiplier;
+
+
+    pkmn[ team[i].pkmn.id ].playerHpMax = pkmn[ team[i].pkmn.id ].playerHp
+
+
+    }
+
+
+}
 
 
 
@@ -1058,7 +1083,6 @@ function setPkmnTeam(){
     if (saved.currentArea == undefined) return
 
 
-    exploreActiveMember = 'slot1'
 
     cancelCurrentPlayerAttack = true
     document.getElementById(`explore-header`).style.backgroundImage = `url(img/bg/${areas[saved.currentArea].background}.png)`
@@ -1070,7 +1094,7 @@ function setPkmnTeam(){
 
     const div = document.createElement("div")
     div.className = `explore-team-member`
-    if (i != "slot1") div.classList.add('member-inactive')
+    if (i != exploreActiveMember) div.classList.add('member-inactive')
 
 
     div.addEventListener("click", e => { //change team member
@@ -1078,9 +1102,10 @@ function setPkmnTeam(){
         if (!div.classList.contains("member-inactive")) return;
         if (pkmn[ team[i].pkmn.id ].playerHp <= 0) return;
 
-
-        cancelCurrentPlayerAttack = true
+        barProgressPlayer = 0
+        barPlayer.style.width = 0
         exploreCombatPlayerTurn = 1
+
         exploreActiveMember = i
         
         //exploreCombatPlayer()
@@ -1098,17 +1123,9 @@ function setPkmnTeam(){
     pkmn[ team[i].pkmn.id ].currentTurn = 1;
 
 
-    let hpMultiplier = 10
-    if (areas[saved.currentArea].trainer) hpMultiplier = 3
-
-    pkmn[team[i].pkmn.id].playerHp =
-    (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, pkmn[team[i].pkmn.id].ivs.hp) )
-    * ( 1+(pkmn[team[i].pkmn.id].level * 0.2) )       
-    ) * hpMultiplier;
 
 
-    pkmn[ team[i].pkmn.id ].playerHpMax = pkmn[ team[i].pkmn.id ].playerHp
-    
+
     
     div.id = `explore-${i}-member`
 
@@ -1183,6 +1200,7 @@ function setPkmnTeam(){
 
 
     updateTeamItems()
+    updateTeamPkmn()
 
 
 }
@@ -1239,6 +1257,8 @@ for (const i in team) {
             else if (pkmn[ team[i].pkmn.id ].moves.slot4 === null) pkmn[ team[i].pkmn.id ].moves.slot4 = learntMove
 
             pkmn[ team[i].pkmn.id ].newMoves.push(learntMove)
+
+            setPkmnTeam()
 
 
         }
@@ -1420,7 +1440,7 @@ document.addEventListener("contextmenu", e => {
         if (listName === "uncommon") { tag = `<span>Uncommon</span>`; }
         div.className = "area-preview";
         if (item.type!=="tm") div.innerHTML = `<img style="scale:2" src="img/items/${item.id}.png">` + tag;
-        if (item.type=="tm") div.innerHTML = `<img style="scale:2" src="img/items/tm${move[item.move].type}.png">` + tag;
+        if (item.type=="tm") div.innerHTML = `<img style="scale:2" src="img/items/tm${format(move[item.move].type)}.png">` + tag;
         document.getElementById("area-preview-items").appendChild(div);
         }}
 
@@ -1477,7 +1497,7 @@ document.addEventListener("contextmenu", e => {
         else {div.dataset.pkmn = i.id;}
         div.className = "area-preview";
         if (i.type!=="tm") div.innerHTML = `<img style="scale:2" src="img/${meow}/${i.id}.png">`;
-        if (i.type=="tm") div.innerHTML = `<img style="scale:2" src="img/${meow}/tm${move[i.move].type}.png">` + tag;
+        if (i.type=="tm") div.innerHTML = `<img style="scale:2" src="img/${meow}/tm${format(move[i.move].type)}.png">` + tag;
         if (meow == `pkmn/sprite`) div.innerHTML = `<img style="scale:1" src="img/${meow}/${i.id}.png">`;
         document.getElementById("area-preview-items").appendChild(div);
         }
@@ -1555,7 +1575,7 @@ document.addEventListener("contextmenu", e => {
 
         document.getElementById("tooltipTop").style.display = "flex"
         if (item[el.dataset.item].type !== "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${el.dataset.item}.png">`
-        if (item[el.dataset.item].type == "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${move[item[el.dataset.item].move].type}.png">`
+        if (item[el.dataset.item].type == "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${format(move[item[el.dataset.item].move].type)}.png">`
         
         document.getElementById("tooltipTitle").innerHTML = format(el.dataset.item)
         document.getElementById("tooltipBottom").innerHTML = item[el.dataset.item].info()
@@ -1644,7 +1664,7 @@ document.addEventListener("contextmenu", e => {
 
         const poke = pkmn[el.dataset.pkmnEditor]
 
-        voidAnimation("pkmn-editor","tooltipBoxAppear 0.5s 1")
+        voidAnimation("pkmn-editor","tooltipBoxAppear 0.2s 1")
         document.getElementById("pkmn-editor").style.display = "flex"
 
         document.getElementById("pkmn-editor-sprite").src = `img/pkmn/sprite/${poke.id}.png`
@@ -1815,7 +1835,7 @@ document.addEventListener("contextmenu", e => {
     el.classList.remove('highlighted-move');
     el.style.animation = 'none';
     void el.offsetWidth;
-    el.style.animation = `moveboxFire 1 0.5s`;
+    el.style.animation = `moveboxFire 1 0.3s`;
     });
 
     pkmn[el.dataset.pkmnEditor].moves[moveSlotReplace] = moveId
@@ -1827,7 +1847,7 @@ document.addEventListener("contextmenu", e => {
     document.getElementById(`pkmn-editor-movepool`).innerHTML = ""
     updateMovepool()
 
-    cancelCurrentPlayerAttack = true
+    //cancelCurrentPlayerAttack = true
     //moveSlotReplace = key
 
 
@@ -1931,16 +1951,16 @@ function returnItemLevel(id, mod) {
 
 
 
-let exploreCombatPlayerTurn = 1
-let exploreActiveMember = 'slot1'
 
 
 function shouldCombatStop(){
+
 
     if (document.getElementById(`team-menu`).style.display === "flex") return true
     if (document.getElementById(`item-menu`).style.display === "flex") return true
     if (document.getElementById(`pokedex-menu`).style.display === "flex") return true
     if (wildLevel===0) return true
+    if (wildPkmnHp<0) return true
     if (saved.currentArea === undefined) return true
     if (document.getElementById(`tooltipBackground`).style.display === "flex") return true
     if (document.getElementById(`pkmn-editor`).style.display === "flex") return true
@@ -1948,7 +1968,7 @@ function shouldCombatStop(){
 
 }
 
-function exploreCombatPlayer() {
+/*function exploreCombatPlayer() {
 
 
     let nextMoveBox = document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}`);
@@ -2171,6 +2191,193 @@ function exploreCombatPlayer() {
     }
 
     requestAnimationFrame(animate);
+}*/
+
+
+let exploreActiveMember = 'slot1'
+let exploreCombatPlayerTurn = 1
+let barProgressPlayer = 0;
+let nextMoveBoxPlayer;
+let nextMovePlayer;
+let moveTimerPlayer; 
+let barPlayer;
+
+
+function exploreCombatPlayer() {
+
+    if (shouldCombatStop()) {
+        requestAnimationFrame(exploreCombatPlayer)
+        return;
+    }
+
+    //set parameters once
+    if (nextMoveBoxPlayer != document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}`)) nextMoveBoxPlayer = document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}`);
+    if (nextMovePlayer != nextMoveBoxPlayer?.dataset?.move) nextMovePlayer = nextMoveBoxPlayer?.dataset?.move;
+    if (moveTimerPlayer != move[nextMovePlayer]?.timer) moveTimerPlayer = move[nextMovePlayer]?.timer; 
+    if (barPlayer != document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}-bar`)) barPlayer = document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}-bar`);
+
+    //rotation reset
+    if (exploreCombatPlayerTurn >= 5){
+        exploreCombatPlayerTurn = 1;
+        requestAnimationFrame(exploreCombatPlayer)
+        return;
+    }
+
+    // if it finds an undefined move
+    if (!nextMovePlayer) {
+        exploreCombatPlayerTurn++;
+        requestAnimationFrame(exploreCombatPlayer)
+        return;
+    }
+
+
+
+
+    //override battle timer (debug)
+    if (saved.overrideBattleTimer != defaultPlayerMoveTimer && moveTimerPlayer != saved.overrideBattleTimer) moveTimerPlayer = saved.overrideBattleTimer
+    
+    //buff modifiers
+    if (team[exploreActiveMember].buffs?.paralysis > 0) moveTimerPlayer = move[nextMovePlayer]?.timer * 2
+    if (team[exploreActiveMember].buffs?.spedown1 > 0) moveTimerPlayer = move[nextMovePlayer]?.timer * 1.5
+    if (team[exploreActiveMember].buffs?.spedown2 > 0) moveTimerPlayer = move[nextMovePlayer]?.timer * 2
+    if (team[exploreActiveMember].buffs?.speup1 > 0) moveTimerPlayer = move[nextMovePlayer]?.timer / 1.5
+    if (team[exploreActiveMember].buffs?.speup2 > 0) moveTimerPlayer = move[nextMovePlayer]?.timer / 2
+
+    if (afkSeconds > 0 && !areas[saved.currentArea]?.trainer) { //afk time
+        const increment = 100 / (
+        (moveTimerPlayer * (Math.pow(0.9, pkmn[team[exploreActiveMember].pkmn.id].bst.spe) * Math.pow(0.95, pkmn[team[exploreActiveMember].pkmn.id].ivs.spe)))
+        / (1000 / 60)
+        );
+
+        // Cada segundo AFK = 60 "ticks" de avance
+        let ticks = afkSeconds * 60;
+
+        // No pasarse del 100%
+        const simulate = Math.min(ticks, Math.ceil((100 - barProgressPlayer) / increment));
+
+        barProgressPlayer += simulate * increment;
+
+        // Consumir segundos exactos en función de lo simulado
+        afkSeconds -= simulate / 60;
+    } else {
+        barProgressPlayer += 100 / ((moveTimerPlayer * (Math.pow(0.9, pkmn[team[exploreActiveMember].pkmn.id].bst.spe) * Math.pow(0.95, pkmn[team[exploreActiveMember].pkmn.id].ivs.spe) )     ) / (1000 / 60));
+        barPlayer.style.width = `${barProgressPlayer}%`;
+    }
+
+
+    if (barProgressPlayer < 99) {
+        requestAnimationFrame(exploreCombatPlayer)
+        return
+    } else {
+
+        barProgressPlayer = 0
+        if (afkSeconds <= 0) voidAnimation(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}`, "moveboxFire 1 0.3s");
+        exploreCombatPlayerTurn++;
+        barPlayer.style.width = `0%`;
+
+        //on move execution
+        let totalPower = 0
+        const atacker = pkmn[ team[exploreActiveMember].pkmn.id ]
+        const defender = pkmn[ saved.currentPkmn ]
+            
+        if (move[nextMovePlayer].split == 'physical') {
+            totalPower = 
+            ( move[nextMovePlayer].power + Math.max(0, ( (atacker.bst.atk * 30) * Math.pow(1.1, atacker.ivs.atk) ) - (defender.bst.def * 30) )  )
+            * ( 1+(pkmn[ team[exploreActiveMember].pkmn.id ].level * 0.1) )        
+            * 1;
+        }
+
+        if (move[nextMovePlayer].split == 'special') {
+            totalPower = 
+            ( move[nextMovePlayer].power +  Math.max(0, ( (atacker.bst.satk * 30) * Math.pow(1.1, atacker.ivs.satk) ) - (defender.bst.sdef * 30) )  )
+            * ( 1+(atacker.level * 0.1) )         
+            * 1;
+        }
+
+
+        //buffs
+        if (move[nextMovePlayer].split == 'special') {
+            if (team[exploreActiveMember].buffs?.satkup1 > 0) totalPower *=1.5
+            if (team[exploreActiveMember].buffs?.satkup2 > 0) totalPower *=2
+            if (team[exploreActiveMember].buffs?.poisoned > 0) totalPower /=1.5
+            if (wildBuffs.sdefup1 > 0) totalPower /=1.5
+            if (wildBuffs.sdefup2 > 0) totalPower /=2
+        }
+
+        if (move[nextMovePlayer].split == 'physical') {
+            if (team[exploreActiveMember].buffs?.atkup1 > 0) totalPower *=1.5
+            if (team[exploreActiveMember].buffs?.atkup2 > 0) totalPower *=2
+            if (team[exploreActiveMember].buffs?.burn > 0) totalPower /=1.5
+            if (wildBuffs.defup1 > 0) totalPower /=1.5
+            if (wildBuffs.defup2 > 0) totalPower /=2
+        }
+
+        //stab
+        if (atacker.type.includes(move[nextMovePlayer].type)) totalPower *=1.5
+                 
+        //type effectiveness
+        totalPower *= typeEffectiveness(move[nextMovePlayer].type, pkmn[saved.currentPkmn].type)
+
+        //items
+        if (team[exploreActiveMember].item == item.blackBelt.id && move[nextMovePlayer].type == 'fighting') totalPower *= (item.blackBelt.power() /100) +1
+        if (team[exploreActiveMember].item == item.blackGlasses.id && move[nextMovePlayer].type == 'dark') totalPower *= (item.blackGlasses.power() /100) +1
+        if (team[exploreActiveMember].item == item.charcoal.id && move[nextMovePlayer].type == 'fire') totalPower *= (item.charcoal.power() /100) +1
+        if (team[exploreActiveMember].item == item.dragonFang.id && move[nextMovePlayer].type == 'dragon') totalPower *= (item.dragonFang.power() /100) +1
+        if (team[exploreActiveMember].item == item.fairyFeather.id && move[nextMovePlayer].type == 'fairy') totalPower *= (item.fairyFeather.power() /100) +1
+        if (team[exploreActiveMember].item == item.hardStone.id && move[nextMovePlayer].type == 'rock') totalPower *= (item.hardStone.power() /100) +1
+        if (team[exploreActiveMember].item == item.magnet.id && move[nextMovePlayer].type == 'electric') totalPower *= (item.magnet.power() /100) +1
+        if (team[exploreActiveMember].item == item.metalCoat.id && move[nextMovePlayer].type == 'steel') totalPower *= (item.metalCoat.power() /100) +1
+        if (team[exploreActiveMember].item == item.miracleSeed.id && move[nextMovePlayer].type == 'grass') totalPower *= (item.miracleSeed.power() /100) +1
+        if (team[exploreActiveMember].item == item.mysticWater.id && move[nextMovePlayer].type == 'water') totalPower *= (item.mysticWater.power() /100) +1
+        if (team[exploreActiveMember].item == item.neverMeltIce.id && move[nextMovePlayer].type == 'ice') totalPower *= (item.neverMeltIce.power() /100) +1
+        if (team[exploreActiveMember].item == item.poisonBarb.id && move[nextMovePlayer].type == 'poison') totalPower *= (item.poisonBarb.power() /100) +1
+        if (team[exploreActiveMember].item == item.sharpBeak.id && move[nextMovePlayer].type == 'flying') totalPower *= (item.sharpBeak.power() /100) +1
+        if (team[exploreActiveMember].item == item.silkScarf.id && move[nextMovePlayer].type == 'normal') totalPower *= (item.silkScarf.power() /100) +1
+        if (team[exploreActiveMember].item == item.silverPowder.id && move[nextMovePlayer].type == 'bug') totalPower *= (item.silverPowder.power() /100) +1
+        if (team[exploreActiveMember].item == item.softSand.id && move[nextMovePlayer].type == 'ground') totalPower *= (item.softSand.power() /100) +1
+        if (team[exploreActiveMember].item == item.spellTag.id && move[nextMovePlayer].type == 'ghost') totalPower *= (item.spellTag.power() /100) +1
+        if (team[exploreActiveMember].item == item.twistedSpoon.id && move[nextMovePlayer].type == 'psychic') totalPower *= (item.twistedSpoon.power() /100) +1
+                 
+
+        if (move[nextMovePlayer].power === 0) totalPower = 0
+
+
+        if (team[exploreActiveMember].buffs?.confused>0 && rng(0.5)) totalPower = 0
+        if (team[exploreActiveMember].buffs?.paralysis>0 && rng(0.25)) totalPower = 0
+        if (team[exploreActiveMember].buffs?.freeze>0 ) totalPower = 0
+        if (team[exploreActiveMember].buffs?.sleep>0 ) totalPower = 0
+
+
+        wildPkmnHp -= totalPower;
+
+
+        if (areas[saved.currentArea]?.trainer){
+        if (team[exploreActiveMember].buffs?.burn>0 ) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/4;}
+        if (team[exploreActiveMember].buffs?.poisoned>0 ) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/4;}
+        } else {
+            if (team[exploreActiveMember].buffs?.burn>0 ) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/30;}
+            if (team[exploreActiveMember].buffs?.poisoned>0 ) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/30;}
+        }
+
+
+                
+        for (const i in team[exploreActiveMember].buffs){
+            if (team[exploreActiveMember].buffs[i]>0) team[exploreActiveMember].buffs[i] -= 1
+        }
+                
+
+        if (move[nextMovePlayer].hitEffect) move[nextMovePlayer].hitEffect("wild")
+        updateTeamBuffs()
+        updateWildBuffs()
+        updateWildPkmn();
+
+
+        atacker.playerHp -= atacker.playerHpMax/200
+        updateTeamPkmn()
+
+    }
+
+ requestAnimationFrame(exploreCombatPlayer)
 }
 
 
@@ -2201,9 +2408,8 @@ function typeEffectiveness(attacking, defending) {
 }
 
 
-let exploreCombatWildTurn = 1
 
-function exploreCombatWild() {
+/*function exploreCombatWild() { //deprecated
 
     //if (saved.currentArea == undefined) return
 
@@ -2432,15 +2638,184 @@ function exploreCombatWild() {
     }
 
     requestAnimationFrame(animate);
+}*/
+
+
+
+
+let exploreCombatWildTurn = 1
+let barProgressWild = 0;
+let nextMoveBoxWild;
+let nextMoveWild;
+let moveTimerWild; 
+let barWild;
+
+
+function exploreCombatWild() {
+
+    if (shouldCombatStop()) {
+        requestAnimationFrame(exploreCombatWild)
+        return;
+    }
+
+    //set parameters once
+    if (nextMoveBoxWild != document?.getElementById(`pkmn-movebox-wild-${exploreCombatWildTurn}`)) nextMoveBoxWild = document?.getElementById(`pkmn-movebox-wild-${exploreCombatWildTurn}`); 
+    if (nextMoveWild != nextMoveBoxWild?.dataset?.move) nextMoveWild = nextMoveBoxWild?.dataset?.move;
+    if (moveTimerWild != move[nextMoveWild]?.timer) moveTimerWild = move[nextMoveWild]?.timer; 
+    if (barWild != document.getElementById(`pkmn-movebox-wild-${exploreCombatWildTurn}-bar`)) barWild = document.getElementById(`pkmn-movebox-wild-${exploreCombatWildTurn}-bar`)
+
+    //end of move rotation
+    if (!nextMoveWild) {
+        exploreCombatWildTurn = 1;
+        requestAnimationFrame(exploreCombatWild)
+        return;
+    }
+
+    //override battle timer (debug)
+    if (saved.overrideBattleTimer != defaultPlayerMoveTimer && moveTimerWild != saved.overrideBattleTimer) moveTimerWild = saved.overrideBattleTimer
+    
+    //buff modifiers
+    if (wildBuffs.paralysis > 0) moveTimerWild = move[nextMoveWild]?.timer * 2
+    if (wildBuffs.spedown1 > 0) moveTimerWild = move[nextMoveWild]?.timer * 1.5
+    if (wildBuffs.spedown2 > 0) moveTimerWild = move[nextMoveWild]?.timer * 2
+    if (wildBuffs.speup1 > 0) moveTimerWild = move[nextMoveWild]?.timer / 1.5
+    if (wildBuffs.speup2 > 0) moveTimerWild = move[nextMoveWild]?.timer / 2
+
+    //afk time
+    if (afkSeconds > 0 && !areas[saved.currentArea]?.trainer) { 
+        const increment = 100 / (
+        (moveTimerWild * Math.pow(0.9, pkmn[saved.currentPkmn].bst.spe))
+        / (1000 / 60)
+        );
+
+        // Cada segundo AFK = 60 "ticks" de avance
+        let ticks = afkSeconds * 60;
+
+        // No pasarse del 100%
+        const simulate = Math.min(ticks, Math.ceil((100 - barProgressWild) / increment));
+
+        barProgressWild += simulate * increment;
+
+        // Consumir segundos exactos en función de lo simulado
+        afkSeconds -= simulate / 60;
+    } else {
+        barProgressWild += 100 / ((moveTimerWild * Math.pow(0.9, pkmn[saved.currentPkmn].bst.spe)) / (1000 / 60));
+        barWild.style.width = `${barProgressWild}%`;
+    }
+
+
+    if (barProgressWild < 99) {
+        requestAnimationFrame(exploreCombatWild)
+        return
+    } else {
+
+        barProgressWild = 0
+        if (afkSeconds <= 0) voidAnimation(`pkmn-movebox-wild-${exploreCombatWildTurn}`, "moveboxFire 1 0.3s");
+        exploreCombatWildTurn++;
+        if (exploreCombatWildTurn >= 5) exploreCombatWildTurn = 1;
+        barWild.style.width = `0%`;
+
+        //move execution
+
+        let totalPower = 0
+
+        if (move[nextMoveWild].split == 'physical') {
+            totalPower = 
+            ( move[nextMoveWild].power + Math.max(0, (pkmn[ saved.currentPkmn ].bst.atk * 30) - (  (pkmn[ team[exploreActiveMember].pkmn.id ].bst.def * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.def)  ) )  )
+            * ( 1+(wildLevel * 0.1) )        
+            * 1;
+        }
+
+        if (move[nextMoveWild].split == 'special') {
+            totalPower = 
+            ( move[nextMoveWild].power + Math.max(0, (pkmn[ saved.currentPkmn ].bst.satk * 30) - (  (pkmn[ team[exploreActiveMember].pkmn.id ].bst.sdef * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.sdef)  ) )  )
+            * ( 1+(wildLevel * 0.1) )         
+            * 1;
+        }
+
+
+        //buffs
+        if (move[nextMoveWild].split == 'special') {
+            if (wildBuffs.satkup1 > 0) totalPower *=1.5
+            if (wildBuffs.satkup2 > 0) totalPower *=2
+            if (wildBuffs.poisoned > 0) totalPower /=1.5
+            if (team[exploreActiveMember].sdefup1 > 0) totalPower /=1.5
+            if (team[exploreActiveMember].sdefup2 > 0) totalPower /=2
+        }
+
+        if (move[nextMoveWild].split == 'physical') {
+            if (wildBuffs.atkup1 > 0) totalPower *=1.5
+            if (wildBuffs.atkup2 > 0) totalPower *=2
+            if (wildBuffs.burn > 0) totalPower /=1.5
+            if (team[exploreActiveMember].defup1 > 0) totalPower /=1.5
+            if (team[exploreActiveMember].defup2 > 0) totalPower /=2
+        }
+
+
+        let superEffective = false
+        if (typeEffectiveness(move[nextMoveWild].type, pkmn[team[exploreActiveMember].pkmn.id].type) == 1.5) superEffective = true
+
+        //stab
+        if (pkmn[saved.currentPkmn].type.includes(move[nextMoveWild].type)) totalPower *=1.5
+                 
+        //type effectiveness
+        totalPower *= typeEffectiveness(move[nextMoveWild].type, pkmn[team[exploreActiveMember].pkmn.id].type)
+
+
+        if (team[exploreActiveMember].item == item.occaBerry.id && move[nextMoveWild].type == 'fire' && superEffective) {totalPower /= (item.occaBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.passhoBerry.id && move[nextMoveWild].type == 'water' && superEffective) {totalPower /= (item.passhoBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.wacanBerry.id && move[nextMoveWild].type == 'electric' && superEffective) {totalPower /= (item.wacanBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.rindoBerry.id && move[nextMoveWild].type == 'grass' && superEffective) {totalPower /= (item.rindoBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.yacheBerry.id && move[nextMoveWild].type == 'ice' && superEffective) {totalPower /= (item.yacheBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.chopleBerry.id && move[nextMoveWild].type == 'fighting' && superEffective) {totalPower /= (item.chopleBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.kebiaBerry.id && move[nextMoveWild].type == 'poison' && superEffective) {totalPower /= (item.kebiaBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.shucaBerry.id && move[nextMoveWild].type == 'ground' && superEffective) {totalPower /= (item.cobaBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.cobaBerry.id && move[nextMoveWild].type == 'flying' && superEffective) {totalPower /= (item.occaBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.payapaBerry.id && move[nextMoveWild].type == 'psychic' && superEffective) {totalPower /= (item.payapaBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.tangaBerry.id && move[nextMoveWild].type == 'bug' && superEffective) {totalPower /= (item.tangaBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.chartiBerry.id && move[nextMoveWild].type == 'rock' && superEffective) {totalPower /= (item.chartiBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.kasibBerry.id && move[nextMoveWild].type == 'ghost' && superEffective) {totalPower /= (item.kasibBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.habanBerry.id && move[nextMoveWild].type == 'dragon' && superEffective) {totalPower /= (item.habanBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.colburBerry.id && move[nextMoveWild].type == 'dark' && superEffective) {totalPower /= (item.colburBerry.power() /100) +1}
+        if (team[exploreActiveMember].item == item.babiriBerry.id && move[nextMoveWild].type == 'steel' && superEffective) {totalPower /= (item.babiriBerry.power() /100) +1}
+
+        if (move[nextMoveWild].power === 0) totalPower = 0
+
+        if (wildBuffs.confused>0 && rng(0.5)) totalPower = 0
+        if (wildBuffs.paralysis>0 && rng(0.25)) totalPower = 0
+        if (wildBuffs.freeze>0 ) totalPower = 0
+        if (wildBuffs.sleep>0 ) totalPower = 0
+
+        pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -= totalPower;
+
+
+        if (wildBuffs.burn>0 ) {wildPkmnHp -=  wildPkmnHpMax/4 ; updateWildPkmn()}
+        if (wildBuffs.poisoned>0 ) {wildPkmnHp -=  wildPkmnHpMax/4 ; updateWildPkmn()}
+
+        for (const buff in wildBuffs){
+            if ( wildBuffs[buff]>0) wildBuffs[buff]--
+        }
+
+        if (move[nextMoveWild].hitEffect) move[nextMoveWild].hitEffect("player")
+
+        //can be optimised
+        updateWildBuffs()
+        updateTeamBuffs()
+        updateTeamPkmn()
+    }
+
+ requestAnimationFrame(exploreCombatWild)
 }
 
 function initialiseArea(){
 
 
     exploreActiveMember = `slot1`
+    setPkmnTeamHp()
     setPkmnTeam()
     setWildPkmn()
     updateTeamExp()
+    
     //exploreCombatPlayer()
     //exploreCombatPlayer()
     //exploreCombatWild()
@@ -2487,6 +2862,7 @@ function setWildAreas() {
 
         let unlockRequirement = ""
         if (areas[i].unlockRequirement && !areas[i].unlockRequirement()) unlockRequirement =`<span class="ticket-unlock">${areas[i].unlockDescription}</span>`
+
 
         divAreas.innerHTML = `
                 ${unlockRequirement}
@@ -2947,7 +3323,7 @@ function updateItemBag(){
 
         div.dataset.item = i
         if (item[i].type !== "tm") div.innerHTML = `<img src="img/items/${i}.png"> <span>${format(i)}</span> <span>x${item[i].got}</span>`
-        if (item[i].move && move[item[i].move]) div.innerHTML = `<img src="img/items/tm${move[item[i].move].type}.png"> <span>${format(i)}</span> <span>x${item[i].got}</span>`
+        if (item[i].move && move[item[i].move]) div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span>${format(i)}</span> <span>x${item[i].got}</span>`
 
 
 
@@ -3065,6 +3441,8 @@ function updateVS() {
 
         divAreas.className = `vs-card`
         divAreas.innerHTML = `
+                        <span class="hitbox"></span>
+
                 <img class="vs-card-flair" src="img/icons/pokeball.svg">
                 <div class="vs-card-bg"></div>
                     <span class="explore-ticket-left" style="z-index: 2;">
@@ -3343,10 +3721,13 @@ window.addEventListener('load', function() {
     
     setTimeout(() => {
         saveGame()
-    }, 100);
+    }, 5000);
 
 
     changeTheme()
+
+    
+    updateGameVersion()
 
 
 

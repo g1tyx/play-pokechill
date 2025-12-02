@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,8 @@
 
 
     </div>
+
+    <div id="game-version">v0.1</div>
 
 
 
@@ -219,15 +221,15 @@
 
         <div class="starter-list">
 
-            <div data-pkmn="litten" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.litten,10); voidAnimation('starter-menu','tooltipBoxAppear 0.5s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 400); ">
+            <div data-pkmn="litten" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.litten,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
                 <img src="img/pkmn/sprite/litten.png">Litten<br>Fire Type
             </div>
 
-            <div data-pkmn="turtwig" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.turtwig,10); voidAnimation('starter-menu','tooltipBoxAppear 0.5s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 400); ">
+            <div data-pkmn="turtwig" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.turtwig,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
                 <img src="img/pkmn/sprite/turtwig.png">Turtwig<br>Grass Type
             </div>
 
-            <div data-pkmn="froakie" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.froakie,10); voidAnimation('starter-menu','tooltipBoxAppear 0.5s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 400); ">
+            <div data-pkmn="froakie" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.froakie,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
                 <img src="img/pkmn/sprite/froakie.png">Froakie<br>Water Type
             </div>
 
@@ -299,7 +301,7 @@
 
     <div id="area-end" style="display: none;">
 
-    <div class="pkmn-editor-exit" onClick='voidAnimation("area-end","tooltipBoxAppear 0.3s reverse 1 ease-in"); setTimeout(() => {document.getElementById("area-end").style.display = "none"}, 250); saveGame()'>
+    <div class="pkmn-editor-exit" onClick='voidAnimation("area-end","tooltipBoxAppear 0.2s reverse 1 ease-in"); setTimeout(() => {document.getElementById("area-end").style.display = "none"}, 150); saveGame()'>
         <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
         Save and exit
     </div>
@@ -509,7 +511,7 @@
             <span>Settings</span>
         </div>
 
-        <div class="menu-item" id="menu-item-fullscreen" onclick="document.documentElement.requestFullscreen();">
+        <div class="menu-item" id="menu-item-fullscreen" onclick="document.documentElement.requestFullscreen(); openMenu()">
             <img src="img/items/wideLens.png">
             <span>Full Screen</span>
         </div>
@@ -628,7 +630,7 @@
     <script src="scripts/explore.js"></script>
 
     <script src="scripts/save.js"></script>
-<!--客服 开始-->
+    <!--客服 开始-->
 <script src="//g8hh.github.io/static/js/jquery.min.js"></script>
 <link rel="stylesheet" href="//g8hh.github.io/static/css/kf.css" type="text/css" media="screen" charset="utf-8">
 <script src="//g8hh.github.io/static/js/kf.js"></script>

@@ -129,9 +129,11 @@ function importData() {
     };
 
     reader.readAsText(file);
+    window.location.reload();
   };
 
   input.click();
+  
 }
 
 

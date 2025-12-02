@@ -304,8 +304,8 @@ item.rockSlideTm = {}
 item.powerGemTm = {}
 //ghost
 item.lickTm = {}
-item.bitterMaliceTm = {}
-item.phantomForceTm = {}
+item.hexTm = {}
+item.shadowBallTm = {}
 //dragon
 item.twisterTm = {}
 item.dragonTailTm = {}
@@ -316,7 +316,7 @@ item.biteTm = {}
 item.darkPulseTm = {}
 //fairy
 item.disarmingVoiceTm = {}
-item.spiritBreakTm = {}
+item.dazzlingGleamTm = {}
 item.playRoughTm = {}
 
 

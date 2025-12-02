@@ -503,7 +503,7 @@ areas.advancedTrainingIII = {
     },
     drops: {
         common : [item.nothing],
-        uncommon : [item.psychoCutTm, item.rockSlideTm, item.bitterMaliceTm, item.dragonTailTm, item.biteTm, item.spiritBreakTm]
+        uncommon : [item.psychoCutTm, item.rockSlideTm, item.hexTm, item.dragonTailTm, item.biteTm, item.dazzlingGleamTm]
     },
 }
 
@@ -520,7 +520,7 @@ areas.expertTrainingIII = {
     },
     drops: {
         common : [item.nothing],
-        uncommon : [item.psychicTm, item.powerGemTm, item.phantomForceTm, item.dragonRushTm, item.darkPulseTm, item.playRoughTm]
+        uncommon : [item.psychicTm, item.powerGemTm, item.shadowBallTm, item.dragonRushTm, item.darkPulseTm, item.playRoughTm]
     },
 }
 
@@ -820,7 +820,7 @@ areas.vsSwimmerDan = {
         slot6 : pkmn.alolanRaichu,
         slot6Moves : [move.psychic.id, move.zenHeadbut.id, move.surf.id],
     },
-    reward : [item.magikarp]
+    reward : [pkmn.magikarp]
 }
 
 areas.vsVeteranToshiro = {
