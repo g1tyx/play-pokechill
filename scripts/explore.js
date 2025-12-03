@@ -332,10 +332,9 @@ function updateItemsGot(){
         divItem.id = `explore-item-${i}`;
 
         divItem.dataset.item = i
-        console.log(item[i].move)
 
         if (item[i].type !== "tm") divItem.innerHTML = `<img src="img/items/${i}.png"> <span>x${item[i].newItem}</span>`;
-        if (item[i].type == "tm") divItem.innerHTML = `<img src="img/items/tm${format(move[item[i].id].type)}.png"> <span>x${item[i].newItem}</span>`;
+        if (item[i].type == "tm") divItem.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span>x${item[i].newItem}</span>`;
 
 
         document.getElementById("explore-drops").appendChild(divItem);
@@ -388,6 +387,7 @@ function transition(){
 
 function leaveCombat(){
 
+    if (saved.tutorial && saved.tutorialStep === "battle") {saved.tutorialStep = "battleEnd"; openTutorial()}
 
     currentTrainerSlot = 1
     afkSeconds = 0
@@ -601,7 +601,10 @@ function updateWildPkmn(){
 
     let expGained = 0
     if ( wildLevel > (pkmn[ team[exploreActiveMember].pkmn.id ].level-10) ) { expGained = baseExpGain ;}
-
+    if (wildLevel >= pkmn[ team[exploreActiveMember].pkmn.id ].level + 5) { expGained = baseExpGain*3 }
+    if (wildLevel >= pkmn[ team[exploreActiveMember].pkmn.id ].level + 10) { expGained = baseExpGain*6 }
+    if (wildLevel >= pkmn[ team[exploreActiveMember].pkmn.id ].level + 20) { expGained = baseExpGain*12 }
+    
     pkmn[ team[exploreActiveMember].pkmn.id ].exp += expGained
 
     for (const i in team) {
@@ -611,12 +614,12 @@ function updateWildPkmn(){
 
     expGained = 0
     if (wildLevel > (pkmn[ team[i].pkmn.id ].level-10) ) { expGained = baseExpGain ;}
-    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 10) { expGained = baseExpGain*2 }
-    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 20) { expGained = baseExpGain*4 }
-    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 40) { expGained = baseExpGain*8 }
-    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 50) { expGained = baseExpGain*16 }
-    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 60) { expGained = baseExpGain*32 }
-    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 70) { expGained = baseExpGain*64 }
+    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 5) { expGained = baseExpGain*3 }
+    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 10) { expGained = baseExpGain*6 }
+    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 20) { expGained = baseExpGain*12 }
+    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 30) { expGained = baseExpGain*32 }
+    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 40) { expGained = baseExpGain*64 }
+    if (wildLevel >= pkmn[ team[i].pkmn.id ].level + 50) { expGained = baseExpGain*128 }
 
     pkmn[ team[i].pkmn.id ].exp+= expGained/2
 
@@ -786,6 +789,8 @@ function cyclePreviewTeams(order){
 
 function injectPreviewTeam(){
 
+    if (saved.tutorial && saved.tutorialStep === "moves") {saved.tutorialStep = "battle"; openTutorial(); item.mysteryEgg.got++; item.mysteryEgg.newItem++ }
+
     if (pkmn[saved.currentPreviewTeam.slot1.pkmn]===undefined){
 
     document.getElementById("tooltipTop").style.display = "none"    
@@ -837,7 +842,10 @@ function injectPreviewTeam(){
 }
 
 function updatePreviewTeam(){
-    
+
+    if (saved.tutorial && saved.tutorialStep === "travel") {saved.tutorialStep = "moves"; openTutorial()}
+    saved.firstTimePlaying = false
+
     if (currentPreviewNumber == 1) saved.currentPreviewTeam = saved.preview1
     if (currentPreviewNumber == 2) saved.currentPreviewTeam = saved.preview2
     if (currentPreviewNumber == 3) saved.currentPreviewTeam = saved.preview3
@@ -883,9 +891,7 @@ for (const i in saved.currentPreviewTeam) {
             document.getElementById("pokedex-filters-title").innerHTML = `Select a Pokemon add to team`
 //document.getElementById("menu-button-parent").style.display = "none"
 
-            setTimeout(() => {
-                document.getElementById(`team-menu`).style.display = "none"
-            }, 500);
+            document.getElementById(`team-menu`).style.display = "none"
         
     })
 
@@ -946,9 +952,7 @@ for (const i in saved.currentPreviewTeam) {
 
             //document.getElementById("menu-button-parent").style.display = "none"
 
-            setTimeout(() => {
                 document.getElementById(`team-menu`).style.display = "none"
-            }, 500);
     })
 
 
@@ -2366,7 +2370,7 @@ function exploreCombatPlayer() {
         }
                 
 
-        if (move[nextMovePlayer].hitEffect) move[nextMovePlayer].hitEffect("wild")
+        if (move[nextMovePlayer].hitEffect && typeEffectiveness(move[nextMovePlayer].type, pkmn[saved.currentPkmn].type)!= 0) move[nextMovePlayer].hitEffect("wild")
         updateTeamBuffs()
         updateWildBuffs()
         updateWildPkmn();
@@ -2796,7 +2800,7 @@ function exploreCombatWild() {
             if ( wildBuffs[buff]>0) wildBuffs[buff]--
         }
 
-        if (move[nextMoveWild].hitEffect) move[nextMoveWild].hitEffect("player")
+        if (move[nextMoveWild].hitEffect && typeEffectiveness(move[nextMoveWild].type, pkmn[team[exploreActiveMember].pkmn.id].type)!= 0) move[nextMoveWild].hitEffect("player")
 
         //can be optimised
         updateWildBuffs()
@@ -3016,26 +3020,31 @@ let rotationWildCurrent = 1;
 let rotationDungeonCurrent = 1;
 
 function getSeed() {
+  const halfDayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 12));
   const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
 
-  rotationWildCurrent = (dayNumber % rotationWildMax) + 1;
+  rotationWildCurrent = (halfDayNumber % rotationWildMax) + 1;
   rotationDungeonCurrent = (dayNumber % rotationDungeonMax) + 1;
 
   const period = Math.floor(dayNumber / 3);
   rotationEventCurrent = (period % rotationEventMax) + 1;
-
 
   return dayNumber;
 }
 
 function updateDailyCounters() {
   const contadores = document.querySelectorAll('.time-counter-daily');
-  
-  const ahora = new Date();
-  const finDelDia = new Date();
-  finDelDia.setHours(24, 0, 0, 0);
 
-  const diff = finDelDia - ahora;
+  const ahora = new Date();
+  const proximoCambio = new Date();
+
+  if (ahora.getHours() < 12) {
+    proximoCambio.setHours(12, 0, 0, 0);
+  } else {
+    proximoCambio.setHours(24, 0, 0, 0); 
+  }
+
+  const diff = proximoCambio - ahora;
 
   const horas = String(Math.floor(diff / 3600000)).padStart(2, '0');
   const minutos = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
@@ -3158,10 +3167,8 @@ function updatePokedex(){
                 document.getElementById(`team-menu`).style.display = "flex"
                 updateItemBag()
 
-                setTimeout(() => {
                 document.getElementById(`pokedex-menu`).style.display = "none"
                 document.getElementById(`pokedex-menu`).style.zIndex = "30"
-                }, 500);
                 
 
                 dexTeamSelect = undefined
@@ -3224,7 +3231,7 @@ function exitTmTeaching(){
 
 function switchMenu(id){
 
-
+    if (saved.tutorial && saved.tutorialStep === "intro") {saved.tutorialStep = "travel"; openTutorial()}
 
     document.getElementById(`explore-menu`).style.zIndex = "30"
     document.getElementById(`pokedex-menu`).style.zIndex = "30"
@@ -3233,6 +3240,7 @@ function switchMenu(id){
     document.getElementById(`content-explore`).style.zIndex = "30"
     document.getElementById(`team-menu`).style.zIndex = "30"
     document.getElementById(`settings-menu`).style.zIndex = "30"
+    document.getElementById(`guide-menu`).style.zIndex = "30"
 
 
     if (id==="travel") {
@@ -3262,6 +3270,11 @@ function switchMenu(id){
         document.getElementById(`settings-menu`).style.zIndex = "40"
     } 
 
+    if (id==="guide") {
+        document.getElementById(`guide-menu`).style.display = "flex"
+        document.getElementById(`guide-menu`).style.zIndex = "40"
+    } 
+
     if (id==="team") {
 
         if (document.getElementById(`content-explore`).style.display == "flex") {openMenu(); return; }
@@ -3287,7 +3300,6 @@ function switchMenu(id){
     } 
 
 
-    setTimeout(() => {
     if (id!=="items") document.getElementById(`item-menu`).style.display = "none"
     if (id!=="dex") document.getElementById(`pokedex-menu`).style.display = "none"
     if (id!=="travel") document.getElementById(`explore-menu`).style.display = "none"    
@@ -3295,7 +3307,7 @@ function switchMenu(id){
     if (id!=="vs") document.getElementById(`vs-menu`).style.display = "none"    
     if (id!=="team") document.getElementById(`team-menu`).style.display = "none"    
     if (id!=="settings") document.getElementById(`settings-menu`).style.display = "none"    
-    }, 500);
+    if (id!=="guide") document.getElementById(`guide-menu`).style.display = "none"    
 
 
     openMenu()
@@ -3342,9 +3354,7 @@ function updateItemBag(){
             document.getElementById("pokedex-filters-title").innerHTML = `Select a Pokemon to teach ${format(item[i].move)}`
             document.getElementById("menu-button-parent").style.display = "none"
 
-            setTimeout(() => {
                 document.getElementById(`item-menu`).style.display = "none"
-            }, 500);
 
             })
         }
@@ -3379,10 +3389,8 @@ function updateItemBag(){
                 document.getElementById(`team-menu`).style.display = "flex"
                 updateItemBag()
 
-                setTimeout(() => {
                 document.getElementById(`item-menu`).style.display = "none"
                 document.getElementById(`item-menu`).style.zIndex = "30"
-                }, 500);
                 
                 document.getElementById("item-menu-cancel").style.display = "none"
                 dexTeamSelect = undefined
@@ -3672,14 +3680,14 @@ function moveBuff(target,buff,mod){
 
 
     if ((target==="player" && mod=="self") || (mod==undefined && target==="wild")) {
+        if (buff == "paralysis" && pkmn[saved.currentPkmn].type.includes("electric")) return
         wildBuffs[buff] = affectedTurns
         return
     } 
 
 
     if ((target==="wild" && mod=="self") || (mod==undefined && target==="player")) {
-
-
+        if (buff == "paralysis" && pkmn[team[exploreActiveMember].pkmn.id].type.includes("electric")) return
         team[exploreActiveMember].buffs[buff] = affectedTurns
         return
     } 
@@ -3714,10 +3722,6 @@ window.addEventListener('load', function() {
     if (saved.firstTimePlaying){
             newGameIntro()
     }
-
-    saved.firstTimePlaying = false
-
-    
     
     setTimeout(() => {
         saveGame()
@@ -3728,7 +3732,7 @@ window.addEventListener('load', function() {
 
     
     updateGameVersion()
-
+    openTutorial()
 
 
     //updateTeamExp()

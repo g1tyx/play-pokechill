@@ -183,6 +183,11 @@
                 <option value="onyx">onyx</option>
             </select></div>
 
+            <div>Tutorials: <select id="settings-tutorial">
+                <option value="enabled">enabled</option>
+                <option value="disabled">disabled</option>
+            </select></div>
+
             <div onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Credits`
         document.getElementById("tooltipMid").style.display = `none`
@@ -221,15 +226,15 @@
 
         <div class="starter-list">
 
-            <div data-pkmn="litten" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.litten,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
+            <div data-pkmn="litten" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.charcoal.got++; givePkmn(pkmn.litten,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
                 <img src="img/pkmn/sprite/litten.png">Litten<br>Fire Type
             </div>
 
-            <div data-pkmn="turtwig" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.turtwig,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
+            <div data-pkmn="turtwig" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.miracleSeed.got++; givePkmn(pkmn.turtwig,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
                 <img src="img/pkmn/sprite/turtwig.png">Turtwig<br>Grass Type
             </div>
 
-            <div data-pkmn="froakie" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; givePkmn(pkmn.froakie,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
+            <div data-pkmn="froakie" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.mysticWater.got++; givePkmn(pkmn.froakie,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
                 <img src="img/pkmn/sprite/froakie.png">Froakie<br>Water Type
             </div>
 
@@ -240,6 +245,26 @@
        </div>
 
 
+       <div id="tutorial" style="display: none;">
+
+
+
+        <img class="sprite-trim" src="img/pkmn/sprite/pikachuPhd.png">
+        <span id="tutorial-text">While in combat, Pokemon get tired and lose a very small fraction of their hp yada yada.</span>
+       </div>
+
+        <div id="guide-menu" style="display: none;">
+
+            <div id="guide-menu-header">
+
+            <span>Game Guide
+            </span>
+            
+        </div>
+
+                <div id="guide-list"></div>
+
+        </div>
 
        <div id="vs-menu" style="display: none;">
 
@@ -301,7 +326,11 @@
 
     <div id="area-end" style="display: none;">
 
-    <div class="pkmn-editor-exit" onClick='voidAnimation("area-end","tooltipBoxAppear 0.2s reverse 1 ease-in"); setTimeout(() => {document.getElementById("area-end").style.display = "none"}, 150); saveGame()'>
+    <div class="pkmn-editor-exit" onClick='
+    if (saved.tutorial && saved.tutorialStep === "battleEnd") {saved.tutorialStep = "none"; openTutorial()}
+    voidAnimation("area-end","tooltipBoxAppear 0.2s reverse 1 ease-in");
+    setTimeout(() => {document.getElementById("area-end").style.display = "none"}, 150);
+    saveGame()'>
         <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
         Save and exit
     </div>
@@ -509,6 +538,11 @@
         <div class="menu-item" id="menu-item-settings" onClick="switchMenu('settings')">
             <img src="img/items/key.png">
             <span>Settings</span>
+        </div>
+
+        <div class="menu-item" id="menu-item-guide" onClick="switchMenu('guide')">
+            <img src="img/items/tv.png">
+            <span>Guide</span>
         </div>
 
         <div class="menu-item" id="menu-item-fullscreen" onclick="document.documentElement.requestFullscreen(); openMenu()">

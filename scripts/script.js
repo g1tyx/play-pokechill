@@ -10,11 +10,16 @@ document.getElementById("settings-theme").addEventListener("change", e => {
 });
 
 
-saved.version = 0.1
+saved.version = 0.2
 
 function updateGameVersion() {
 
-  saved.version = 0.1
+  if (saved.version<0.2) {
+    saved.tutorial = false
+    saved.tutorialStep = "intro"
+  }
+
+  saved.version = 0.2
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 
 }
@@ -204,3 +209,148 @@ function learnPkmnMove(id, level, mod) {
         return move[chosenMove].id;
     }
 }
+
+
+
+
+function newGameIntro(){
+  saved.tutorial = true
+  document.getElementById('disclaimer-menu').style.display = "flex"
+  setTimeout(() => {
+    document.getElementById('disclaimer-menu').style.opacity = "0"
+    document.getElementById('starter-menu').style.display = "flex"
+  }, 5000);
+    setTimeout(() => {
+    document.getElementById('disclaimer-menu').style.display = "none"
+    
+  }, 6000);
+
+  
+}
+
+saved.tutorial = false
+saved.tutorialStep = "intro"
+
+document.getElementById("settings-tutorial").addEventListener("change", e => {
+  if (document.getElementById(`settings-tutorial`).value === "enabled") {saved.tutorial = true; openTutorial()}
+  if (document.getElementById(`settings-tutorial`).value === "disabled") {saved.tutorial = false; openTutorial()}
+});
+
+
+function openTutorial(){
+
+  //document.getElementById("tutorial").style.zIndex = 200
+
+
+  if (saved.tutorial != true){
+    document.getElementById("tutorial").style.display = "none"
+    return
+  }
+
+  if (saved.tutorialStep == "none") {
+    document.getElementById("tutorial").style.display = "none"
+    return
+  }
+
+  if (saved.tutorialStep == "intro") document.getElementById("tutorial-text").innerHTML = `Howdy! I have been assigned to show the ropes, but you can disable me in the settings at any time.<br>Let's start by getting new pokemon shall we? Select "Travel" on the top left menu`
+  if (saved.tutorialStep == "travel") document.getElementById("tutorial-text").innerHTML = `You can right click/long tap almost everything on the screen for more info! You can also do this within the info itself too`
+  if (saved.tutorialStep == "moves") document.getElementById("tutorial-text").innerHTML = `Right click/long tap a pokemon in your team to set their moves, you can also do this while in battle.<br>If you got any held items, you can also assign them here`
+  if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell`
+  if (saved.tutorialStep == "battleEnd") {document.getElementById("tutorial-text").innerHTML = `You can check a more in-depth explanation about stats and battle mechanics in the Guide menu. For now, I will take a break... Enjoy your stay!`}
+  document.getElementById("tutorial").style.display = "flex"
+  
+}
+
+
+const guide = {}
+
+guide.inspecting = {
+  name: `Inspecting`,
+  description: function() { return `Right click/long press on most elements can give further information. You can furhter right click/long press on information within information.<br><br>Some elements that can be inspected include areas, trainers, moves, status effects, wild pokemon, team pokemon and items`}
+}
+
+guide.stats = {
+  name: `Battle: Stats`,
+  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level.<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves).<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon`}
+}
+
+guide.moves = {
+  name: `Battle: Moves`,
+  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon.<br><br>Damaging moves are divided into physical and special moves.<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense`}
+}
+
+guide.stab = {
+  name: `Battle: STAB`,
+  description: function() { return `If a Pokemon uses a damaging move that has the same type as one of that Pokemon's types, the move's damage is increased by x1.5.<br>This is known as same-type attack bonus, or STAB` }
+}
+
+guide.battleFatigue = {
+  name: `Battle: Battle Fatigue`,
+  description: function() { return `Pokemon lose a very small fraction of their maximum health when attacking.<br><br>Refreshing the browser restores their health back to full` }
+}
+
+guide.statusEffects = {
+  name: `Battle: Status Effects`,
+  description: function() { return `Certain moves inflict status effects, such as ${tagConfused}, ${tagBurn}, ${tagPoisoned}, ${tagFreeze}, ${tagParalysis} or ${tagSleep}.<br><br>You can further check their effects by right click/long press` }
+}
+
+function setGuide(){
+
+  for (const i in guide){
+
+
+    const div = document.createElement("div")
+
+    div.innerHTML = `<div>${guide[i].name}</div>`
+
+    document.getElementById("guide-list").appendChild(div)
+
+
+
+      div.addEventListener("click", e => {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `${guide[i].name}`
+        document.getElementById("tooltipMid").style.display = `none`
+        document.getElementById("tooltipBottom").innerHTML = `${guide[i].description()}`
+
+
+        if (i === "stats") {
+          document.getElementById("tooltipMid").style.display = `flex`
+          document.getElementById("tooltipMid").innerHTML = `
+          <div class="pkmn-stats-panel" style = "width:100%; justify-content:center; align-items:center;">
+                  <div class="pkmn-stats-panel-bst">
+                        <svg style="color:white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0.3" d="M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9c0 0 -7.43 -7.79 -8.24 -9c-0.48 -0.71 -0.76 -1.57 -0.76 -2.5c0 -2.49 2.01 -4.5 4.5 -4.5c1.56 0 2.87 0.84 3.74 2c0.76 1 0.76 1 0.76 1Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c0 0 0 0 -0.76 -1c-0.88 -1.16 -2.18 -2 -3.74 -2c-2.49 0 -4.5 2.01 -4.5 4.5c0 0.93 0.28 1.79 0.76 2.5c0.81 1.21 8.24 9 8.24 9M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9"/></svg>
+                        Health
+                    </div>
+                    <div class="pkmn-stats-panel-bst">
+                        <svg style="color:white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.975l1.475-1.475H15.5v-2.025L16.975 12L15.5 10.525V8.5h-2.025L12 7.025L10.525 8.5H8.5v2.025L7.025 12L8.5 13.475V15.5h2.025zm0 6.325L8.65 20H4v-4.65L.7 12L4 8.65V4h4.65L12 .7L15.35 4H20v4.65L23.3 12L20 15.35V20h-4.65z"/></svg>
+                        Attack
+                    </div>
+                    <div class="pkmn-stats-panel-bst">
+                        <svg style="color:white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3 11.991c0 5.638 4.239 8.375 6.899 9.536c.721.315 1.082.473 2.101.473V8l-9 3z"/><path fill="currentColor" d="M14.101 21.527C16.761 20.365 21 17.63 21 11.991V11l-9-3v14c1.02 0 1.38-.158 2.101-.473M8.838 2.805L8.265 3c-3.007 1.03-4.51 1.545-4.887 2.082C3 5.62 3 7.22 3 10.417V11l9-3V2c-.811 0-1.595.268-3.162.805" opacity="0.5"/><path fill="currentColor" d="m15.735 3l-.573-.195C13.595 2.268 12.812 2 12 2v6l9 3v-.583c0-3.198 0-4.797-.378-5.335c-.377-.537-1.88-1.052-4.887-2.081"/></svg>
+                        Defense
+                    </div>
+                    <div class="pkmn-stats-panel-bst">
+                        <svg style="color:white" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="currentColor" d="M306.72 22.688c-87.212.763-181.58 53.14-238.19 140.406c-.944 1.46-1.677 3.068-2.593 4.53c.455-.397.86-.917 1.313-1.31c-40.253 56.984-35.183 136.503 15.813 187.5c54.553 54.552 141.745 56.65 199.093 6.78c-4.676 6.576-9.916 13.137-15.812 19.03c-57 57-149.53 57-206.53 0c-17.814-17.81-30.103-38.73-36.783-61.312c2.928 65.605 34.97 122.74 93.907 151.97c103.593 51.374 250.2-2.8 326.875-121C510.904 245.856 502.47 127.374 429.938 65c-10.36-8.91-22.206-16.483-35.156-22.906c-25.897-12.844-54.454-19.11-83.905-19.407c-1.38-.013-2.772-.012-4.156 0zm1.06 62.406c47.14-.705 82.63 23.414 90.376 58.906v.03c1.417 6.492 1.806 13.565 1.344 21.032c-3.682 59.742-68.786 126.655-145.438 149.563c-.945.282-1.872.422-2.812.688l.938-.47c-37.843 12.718-74.086-.708-84.438-33.624c-7.03-22.36-.468-48.544 15.25-70.408c-1.695 7.2-.05 13.91 5.344 18.375c10.643 8.816 31.83 5.575 47.312-7.25c15.483-12.824 19.394-30.37 8.75-39.187c-6.294-5.214-16.287-6.21-26.594-3.5l.532-.313c-.755.257-1.52.54-2.28.813c-.344.123-.69.217-1.033.344a54 54 0 0 0-8 3.344c-.656.307-1.315.61-1.968.937c-42.374 21.24-83.226 68.335-71.656 105.125c3.616 11.497 10.213 20.614 19.094 27.094c-30.253-10.44-48.35-34.526-46.563-68.53c3.682-70.837 83.193-133.31 159.844-156.22c14.673-4.385 28.802-6.553 42-6.75z"/></svg>
+                        Special Attack
+                    </div>
+                    <div class="pkmn-stats-panel-bst">
+                        <svg style="color:white" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="currentColor" fill-rule="evenodd" d="m311.874 171.817l65.452-99.754l-.865-.367l50.206 12.144l-.221 17.259l.049 93.284l.119 25.42c.562 109.632-58.957 176.828-107.749 213.459l-11.037 7.917l-15.418 9.91l-9.239 5.345l-8.181 4.374l-12.415 5.962l-6.126 2.563l-6.403-2.682l-5.725-2.644l-7.222-3.591l-10.821-5.871l-12.434-7.468l-10.839-7.169c-48.347-33.416-112.698-97.735-117.398-205.151l-.274-12.587V84.09L256.45 42.668l22.726 5.497l-62.978 142.683l48.901 20.757l-80.615 154.048l176.882-172.827z" clip-rule="evenodd"/></svg>
+                        Special Defense
+                    </div>
+                    <div class="pkmn-stats-panel-bst">
+                        <svg style="color:white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9 19v-2H5.675q-.5 0-.7-.45t.125-.8l6.15-6.9q.3-.35.75-.35t.75.35l6.15 6.9q.325.35.125.8t-.7.45H15v2q0 .425-.288.713T14 20h-4q-.425 0-.712-.288T9 19m3-13l-5.025 5.675q-.15.15-.35.238t-.4.087q-.65 0-.912-.575t.162-1.075l5.775-6.5q.3-.35.75-.35t.75.35l5.775 6.5q.425.5.163 1.075t-.913.575q-.2 0-.4-.075t-.35-.25z"/></svg>
+                        Speed
+                    </div>
+                </div>
+                    `
+        }
+
+
+        openTooltip()
+      })
+
+
+  }
+
+}setGuide()

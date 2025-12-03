@@ -1143,7 +1143,7 @@ pkmn.onix = {
         sdef: 45,
         spe: 70,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.steelix, item: metalCoat } } },
+    evolve: function() { return { 1: { pkmn: pkmn.steelix, item: item.metalCoat } } },
 }
 
 pkmn.steelix = {
@@ -3867,6 +3867,7 @@ pkmn.mightyena = {
     }
 }
 
+
 // 263 Zigzagoon → Linoone
 pkmn.zigzagoon = {
     type: ["normal"],
@@ -4331,6 +4332,55 @@ pkmn.hariyama = {
     }
 }
 
+
+pkmn.sableye = {
+    type: ["dark","ghost"],
+    bst: {
+        hp: 50,
+        atk: 75,
+        def: 75,
+        satk: 65,
+        sdef: 65,
+        spe: 50,
+    }
+}
+
+pkmn.banette = {
+    type: ["ghost"],
+    bst: {
+        hp: 64,
+        atk: 115,
+        def: 65,
+        satk: 83,
+        sdef: 63,
+        spe: 65,
+    }
+}
+
+pkmn.castform = {
+    type: ["normal"],
+    bst: {
+        hp: 70,
+        atk: 70,
+        def: 70,
+        satk: 70,
+        sdef: 70,
+        spe: 70,
+    }
+}
+
+pkmn.kecleon = {
+    type: ["normal"],
+    bst: {
+        hp: 60,
+        atk: 90,
+        def: 70,
+        satk: 60,
+        sdef: 120,
+        spe: 40,
+    }
+}
+
 // 301 Aron → Lairon → Aggron
 pkmn.aron = {
     type: ["steel","rock"],
@@ -4734,6 +4784,31 @@ pkmn.cacturne = {
         satk: 115,
         sdef: 60,
         spe: 55,
+    }
+}
+
+pkmn.swablu = {
+    type: ["normal","flying"],
+    bst: {
+        hp: 45,
+        atk: 40,
+        def: 60,
+        satk: 40,
+        sdef: 75,
+        spe: 50,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.cacturne, level: evolutionLevel2 } } },
+}
+
+pkmn.altaria = {
+    type: ["dragon","flying"],
+    bst: {
+        hp: 75,
+        atk: 70,
+        def: 90,
+        satk: 70,
+        sdef: 105,
+        spe: 80,
     }
 }
 
@@ -8151,6 +8226,20 @@ pkmn.stunfisk = {
 }
 
 // 618 Mienshao
+pkmn.mienfoo = {
+    type: ["fighting"],
+    bst: {
+        hp: 45,
+        atk: 85,
+        def: 50,
+        satk: 55,
+        sdef: 50,
+        spe: 65,
+    },
+  evolve: function() { return { 1: { pkmn: pkmn.mienshao, level: evolutionLevel3 } } },
+
+}
+
 pkmn.mienshao = {
   type: ["fighting"],
   bst: {

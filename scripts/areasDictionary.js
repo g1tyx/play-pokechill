@@ -8,7 +8,7 @@ const areas = {}
 //area 4 rs = pseudo-legendary
 
 
-const rotationWildMax = 4;
+const rotationWildMax = 6;
 
 const wildAreaLevel1 = 10
 const wildAreaLevel2 = 30
@@ -226,7 +226,6 @@ areas.sunkenShip = {
 }
 
 //rotation 4
-
 areas.offshoreRigger = {
     rotation : 4,
     level : wildAreaLevel1,
@@ -268,7 +267,7 @@ areas.coolBeach = {
     background : `beach`,
     icon: pkmn.pyukumuku,
     spawns: {
-        common : [pkmn.starmie,pkmn.pyukumuku, pkmn.binacle],
+        common : [pkmn.starly,pkmn.pyukumuku, pkmn.binacle],
         uncommon : [pkmn.slowpoke],
         rare : [pkmn.squirtle]
     },
@@ -296,7 +295,144 @@ areas.computeringLab = {
 }
 
 
+//rotation 5
+areas.gemstoneCavern = {
+    rotation : 5,
+    level : wildAreaLevel1,
+    type: `wild`,
+    background : `cave`,
+    icon: pkmn.carbink,
+    spawns: {
+        common : [pkmn.machop,pkmn.minior, pkmn.arrokuda],
+        uncommon : [pkmn.carbink],
+        rare : [pkmn.sableye]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.hardStone]
+    }
+}
 
+areas.frozenLake = {
+    rotation : 5,
+    level : wildAreaLevel2,
+    type: `wild`,
+    background : `snow`,
+    icon: pkmn.vanillite,
+    spawns: {
+        common : [pkmn.vanillite,pkmn.cubchoo, pkmn.swinub],
+        uncommon : [pkmn.cryogonal],
+        rare : [pkmn.alolanVulpix]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.neverMeltIce]
+    }
+}
+
+areas.abandonedManor = {
+    rotation : 5,
+    level : wildAreaLevel3,
+    type: `wild`,
+    background : `night`,
+    icon: pkmn.litwick,
+    spawns: {
+        common : [pkmn.litwick,pkmn.rattata, pkmn.gothita],
+        uncommon : [pkmn.banette],
+        rare : [pkmn.litten]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.spellTag]
+    }
+}
+
+areas.dracoLair = {
+    rotation : 5,
+    level : wildAreaLevel4,
+    type: `wild`,
+    background : `cave`,
+    icon: pkmn.gible,
+    spawns: {
+        common : [pkmn.shellos,pkmn.bronzor, pkmn.croagunk],
+        uncommon : [pkmn.noibat],
+        rare : [pkmn.gible]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.dragonFang]
+    }
+}
+
+//rotation 6
+areas.mountainTrail = {
+    rotation : 6,
+    level : wildAreaLevel1,
+    type: `wild`,
+    background : `mountain`,
+    icon: pkmn.mudbray,
+    spawns: {
+        common : [pkmn.patrat,pkmn.deerling, pkmn.mudbray],
+        uncommon : [pkmn.mawile],
+        rare : [pkmn.rockruff]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.hardStone]
+    }
+}
+
+
+areas.teaParlor = {
+    rotation : 6,
+    level : wildAreaLevel2,
+    type: `wild`,
+    background : `town`,
+    icon: pkmn.sinistea,
+    spawns: {
+        common : [pkmn.swirlix,pkmn.sinistea, pkmn.milcery],
+        uncommon : [pkmn.combee],
+        rare : [pkmn.applin]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.fairyFeather]
+    }
+}
+
+areas.pokemonDojo = {
+    rotation : 6,
+    level : wildAreaLevel3,
+    type: `wild`,
+    background : `gym`,
+    icon: pkmn.makuhita,
+    spawns: {
+        common : [pkmn.makuhita,pkmn.tyrogue, pkmn.mienfoo],
+        uncommon : [pkmn.riolu],
+        rare : [pkmn.scorbunny]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.blackBelt]
+    }
+}
+
+areas.skyHigh = {
+    rotation : 6,
+    level : wildAreaLevel4,
+    type: `wild`,
+    background : `sea`,
+    icon: pkmn.swablu,
+    spawns: {
+        common : [pkmn.castform,pkmn.fletchling, pkmn.rookidee],
+        uncommon : [pkmn.swablu],
+        rare : [pkmn.dratini]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.sharpBeak]
+    }
+}
 
 
 
@@ -688,7 +824,7 @@ areas.vsGymLeaderBrock = {
     level : 20,
     team : {
         slot1 : pkmn.onix,
-        slot1Moves : [move.rockTomb.id,move.mudShot.id],
+        slot1Moves : [move.rockThrow.id,move.mudShot.id],
         slot2 : pkmn.geodude,
         slot2Moves : [move.rollout.id, move.quickAttack.id],
         slot3 : pkmn.kabuto,
@@ -698,7 +834,7 @@ areas.vsGymLeaderBrock = {
         slot5 : pkmn.rhyhorn,
         slot5Moves : [move.mudShot.id, move.ancientPower.id],
         slot6 : pkmn.aerodactyl,
-        slot6Moves : [move.smackDown.id, move.skyDrop.id],
+        slot6Moves : [move.smackDown.id, move.gust.id],
     },
     reward : [item.hardStone]
 }
@@ -712,17 +848,17 @@ areas.vsBlackBeltRyan = {
     level : 25,
     team : {
         slot1 : pkmn.hitmonchan,
-        slot1Moves : [move.thunderPunch.id,move.bulkUp.id, move.stormThrow.id],
+        slot1Moves : [move.machPunk.id,move.bulkUp.id, move.rockSmash.id],
         slot2 : pkmn.poliwrath,
-        slot2Moves : [move.aquaJet.id, move.brickBreak.id, move.machPunk.id],
+        slot2Moves : [move.aquaJet.id, move.vacuumWave.id, move.machPunk.id],
         slot3 : pkmn.primeape,
         slot3Moves : [move.dizzyPunch.id, move.powerupPunch.id, move.swagger.id],
         slot4 : pkmn.breloom,
-        slot4Moves : [move.machPunk.id, move.brickBreak.id, move.thunderPunch.id],
+        slot4Moves : [move.machPunk.id, move.vacuumWave.id, move.thunderPunch.id],
         slot5 : pkmn.sawk,
         slot5Moves : [move.machPunk.id, move.bulkUp.id, move.firePunch.id],
         slot6 : pkmn.machoke,
-        slot6Moves : [move.dizzyPunch.id, move.brickBreak.id, move.machPunk.id],
+        slot6Moves : [move.rockSmash.id, move.brickBreak.id, move.machPunk.id],
     },
     reward : [pkmn.makuhita]
 }
@@ -740,13 +876,13 @@ areas.vsSchoolKidAaron = {
         slot2 : pkmn.porygon2,
         slot2Moves : [move.tackle.id, move.swagger.id, move.triAttack.id],
         slot3 : pkmn.ledian,
-        slot3Moves : [move.dizzyPunch.id, move.powerupPunch.id, move.swagger.id],
+        slot3Moves : [move.quickAttack.id, move.powerupPunch.id, move.swagger.id],
         slot4 : pkmn.herdier,
         slot4Moves : [move.leer.id, move.strength.id, move.stomp.id],
         slot5 : pkmn.kirlia,
         slot5Moves : [move.psybeam.id, move.alluringVoice.id, move.fairyWind.id],
         slot6 : pkmn.kadabra,
-        slot6Moves : [move.calmMind.id, move.psybeam.id, move.psychic.id],
+        slot6Moves : [move.calmMind.id, move.psybeam.id, move.confusion.id],
     },
     reward : [pkmn.abra]
 }
@@ -760,9 +896,9 @@ areas.vsRocketGrunt1 = {
     level : 35,
     team : {
         slot1 : pkmn.muk,
-        slot1Moves : [move.sludge.id,move.poisonJab.id, move.toxic.id],
+        slot1Moves : [move.sludge.id,move.acid.id, move.toxic.id],
         slot2 : pkmn.fearow,
-        slot2Moves : [move.featherDance.id, move.swagger.id, move.drillPeck.id],
+        slot2Moves : [move.featherDance.id, move.swagger.id, move.skyDrop.id],
         slot3 : pkmn.raticate,
         slot3Moves : [move.hyperVoice.id, move.stomp.id, move.swagger.id],
         slot4 : pkmn.hypno,
@@ -784,17 +920,17 @@ areas.vsGymLeaderMisty = {
     level : 40,
     team : {
         slot1 : pkmn.golduck,
-        slot1Moves : [move.aquaJet.id,move.zenHeadbut.id, move.thunderWave.id],
+        slot1Moves : [move.aquaJet.id,move.psybeam.id, move.thunderWave.id],
         slot2 : pkmn.quagsire,
-        slot2Moves : [move.waterfall.id, move.dig.id, move.mudShot.id],
+        slot2Moves : [move.waterGun.id, move.dig.id, move.mudShot.id],
         slot3 : pkmn.lanturn,
-        slot3Moves : [move.thunderbolt.id, move.chargeBeam.id, move.waterfall.id],
+        slot3Moves : [move.thunderbolt.id, move.chargeBeam.id, move.waterGun.id],
         slot4 : pkmn.floatzel,
         slot4Moves : [move.aquaJet.id, move.futureSight.id, move.chillingWater.id],
         slot5 : pkmn.lapras,
-        slot5Moves : [move.waterfall.id, move.surf.id, move.zenHeadbut.id],
+        slot5Moves : [move.waterfall.id, move.waterPulse.id, move.psybeam.id],
         slot6 : pkmn.starmie,
-        slot6Moves : [move.psychic.id, move.auroraBeam.id, move.surf.id],
+        slot6Moves : [move.psychic.id, move.auroraBeam.id, move.waterPulse.id],
     },
     reward : [item.mysticWater]
 }

@@ -1,20 +1,8 @@
-saved.firstTimePlaying = true
+saved.firstTimePlaying = true //esta flag se tiene que quitar cuando seleccione el pkmn, es lo que hace que no puedas guardar
 
-function newGameIntro(){
-  document.getElementById('disclaimer-menu').style.display = "flex"
-  setTimeout(() => {
-    document.getElementById('disclaimer-menu').style.opacity = "0"
-    document.getElementById('starter-menu').style.display = "flex"
-  }, 5000);
-    setTimeout(() => {
-    document.getElementById('disclaimer-menu').style.display = "none"
-    
-  }, 6000);
-
-  
-}
 
 function saveGame() {
+  if (saved.firstTimePlaying == true) return //scary!
   let data = {};
 
   // Variable suelta
