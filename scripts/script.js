@@ -10,7 +10,7 @@ document.getElementById("settings-theme").addEventListener("change", e => {
 });
 
 
-saved.version = 0.2
+saved.version = undefined
 
 function updateGameVersion() {
 
@@ -19,7 +19,8 @@ function updateGameVersion() {
     saved.tutorialStep = "intro"
   }
 
-  saved.version = 0.2
+
+  saved.version = 0.6
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 
 }
@@ -160,11 +161,7 @@ observer.observe(document.body, {
 
 
 
-
-
-
-
-function learnPkmnMove(id, level, mod) {
+/*function learnPkmnMove(id, level, mod) {
     while (true) {
         const types = pkmn[id].type;
         const knownMoves = pkmn[id].movepool || [];
@@ -196,7 +193,7 @@ function learnPkmnMove(id, level, mod) {
         const roll = Math.random();
         let chosenList;
 
-        if (roll < 0.40) chosenList = typeMatch.length ? typeMatch : movesetMatch.length ? movesetMatch : allTag;
+        if (roll < 0.90) chosenList = typeMatch.length ? typeMatch : movesetMatch.length ? movesetMatch : allTag;
         else if (roll < 0.80) chosenList = movesetMatch.length ? movesetMatch : typeMatch.length ? typeMatch : allTag;
         else chosenList = allTag.length ? allTag : typeMatch.length ? typeMatch : movesetMatch;
 
@@ -208,7 +205,100 @@ function learnPkmnMove(id, level, mod) {
 
         return move[chosenMove].id;
     }
+}*/
+
+function learnPkmnMove(id, level, mod) {
+    while (true) {
+        const types = pkmn[id].type;
+        const knownMoves = pkmn[id].movepool || [];
+
+        let tier = 1;
+        if (level >= 10 && rng(0.25)) tier++;
+        if (level >= 20 && rng(0.25)) tier++;
+        if (level >= 30 && rng(0.25)) tier++;
+        if (level >= 50 && rng(0.25)) tier++;
+        if (level >= 60 && rng(0.25)) tier++;
+        tier = Math.min(tier, 3);
+
+        const allMoves = Object.keys(move).filter(m => {
+            const data = move[m];
+            const notKnown = mod !== "wild" ? !knownMoves.includes(m) : true;
+            return data.rarity === tier && notKnown;
+        });
+
+        const typeMatch = [];
+        const movesetMatch = [];
+        const allTag = [];
+
+        allMoves.forEach(m => {
+            const data = move[m];
+            if (types.includes(data.type)) typeMatch.push(m);
+            else if (data.moveset.includes("all")) allTag.push(m);
+            else if (types.some(t => data.moveset.includes(t))) movesetMatch.push(m);
+        });
+
+        if (level === 1) {
+            if (!typeMatch.length) continue;
+            const chosenMove = typeMatch[Math.floor(Math.random() * typeMatch.length)];
+            if (move[chosenMove].power <= 0) continue;
+            return move[chosenMove].id;
+        }
+
+        const roll = Math.random();
+        let chosenList;
+
+        if (roll < 0.65) {
+            if (typeMatch.length) chosenList = typeMatch;
+            else if (movesetMatch.length) chosenList = movesetMatch;
+            else continue; 
+        }
+        else if (roll < 0.50) {
+            if (movesetMatch.length) chosenList = movesetMatch;
+            else if (typeMatch.length) chosenList = typeMatch;
+            else continue; 
+        }
+        else {
+            if (allTag.length) chosenList = allTag;
+            else if (typeMatch.length) chosenList = typeMatch;
+            else if (movesetMatch.length) chosenList = movesetMatch;
+            else continue;
+        }
+
+        if (!Array.isArray(chosenList) || chosenList.length === 0) continue;
+
+        const chosenMove = chosenList[Math.floor(Math.random() * chosenList.length)];
+
+        return move[chosenMove].id;
+    }
 }
+
+
+
+
+
+function learnPkmnAbility(id) {
+    const types = pkmn[id].type;
+
+    // Tier simple
+    let tier = 1;
+    if (rng(0.20)) tier = 2;
+    else if (rng(0.08)) tier = 3;
+
+    // Filtrar habilidades que coincidan por tipo o incluyan "all"
+    const pool = Object.keys(ability).filter(a => {
+        const ab = ability[a];
+        if (ab.rarity !== tier) return false;
+
+        // ab.type es un array → mirar si incluye "all" o si comparte tipo con el Pokémon
+        return ab.type.includes("all") || ab.type.some(t => types.includes(t));
+    });
+
+    // Elegir una aleatoria del pool
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+
+    return pick;
+}
+
 
 
 
@@ -271,17 +361,22 @@ guide.inspecting = {
 
 guide.stats = {
   name: `Battle: Stats`,
-  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level.<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves).<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon`}
+  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves). The speed stat determines how fast a Pokemon executes a move<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon`}
+}
+
+guide.experience = {
+  name: `Battle: Experience`,
+  description: function() { return `Pokemon gain experience by defeating foes, and share a portion of it among the team. This will also be the case even if the team Pokemon are defeated<br><br>Experience gain is proportional to the level difference. A level difference of +-5 levels will net the same amount, while more than 5 levels of difference will greatly increase the amount received.<br><br>A Pokemon 10 levels higher will not yield any experience`}
 }
 
 guide.moves = {
   name: `Battle: Moves`,
-  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon.<br><br>Damaging moves are divided into physical and special moves.<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense`}
+  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon<br><br>Damaging moves are divided into physical and special moves<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense`}
 }
 
 guide.stab = {
   name: `Battle: STAB`,
-  description: function() { return `If a Pokemon uses a damaging move that has the same type as one of that Pokemon's types, the move's damage is increased by x1.5.<br>This is known as same-type attack bonus, or STAB` }
+  description: function() { return `If a Pokemon uses a damaging move that has the same type as one of that Pokemon's types, the move's damage is increased by x1.5<br>This is known as same-type attack bonus, or STAB` }
 }
 
 guide.battleFatigue = {
@@ -292,6 +387,11 @@ guide.battleFatigue = {
 guide.statusEffects = {
   name: `Battle: Status Effects`,
   description: function() { return `Certain moves inflict status effects, such as ${tagConfused}, ${tagBurn}, ${tagPoisoned}, ${tagFreeze}, ${tagParalysis} or ${tagSleep}.<br><br>You can further check their effects by right click/long press` }
+}
+
+guide.shiny = {
+  name: `Shiny Pokemon`,
+  description: function() { return `At a rate of 1/400, Pokemon can be shiny. These odds can be boosted through different means<br><br>Shiny Pokemon deal 15% more damage. The visual distinction can be toggled from their move menu. This wont affect the damage bonus they get`}
 }
 
 function setGuide(){

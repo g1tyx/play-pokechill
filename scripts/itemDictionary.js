@@ -44,6 +44,7 @@ item.magnet = {
 
 item.metalCoat = {
     type: "held",
+    evo: true,
     info: function() {return `When held: Increase the power of Metal-Type moves by ${this.power()}%`},
     power : function() { return 10+(10*returnItemLevel(this.id))}
 }
@@ -209,15 +210,159 @@ item.babiriBerry = {
 }
 
 
+item.waterStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+item.thunderStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+item.sunStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+
+item.linkStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel4}+)`},
+}
+
+item.ovalStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+item.moonStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+item.leafStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+item.iceStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+
+item.fireStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+item.duskStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+item.dawnStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+
+item.shinyStone = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
+}
+
+
+item.hpUp = {
+    type: 'key',
+    vitamin: true,
+    info: function() {return `Increase the HP IV of a Pokemon by 1`},
+}
+
+item.protein = {
+    type: 'key',
+    vitamin: true,
+    info: function() {return `Increase the Attack IV of a Pokemon by 1`},
+}
+
+item.iron = {
+    type: 'key',
+    vitamin: true,
+    info: function() {return `Increase the Defense IV of a Pokemon by 1`},
+}
+
+item.calcium = {
+    type: 'key',
+    vitamin: true,
+    info: function() {return `Increase the Special Attack IV of a Pokemon by 1`},
+}
+
+item.zinc = {
+    type: 'key',
+    vitamin: true,
+    info: function() {return `Increase the Special Defense IV of a Pokemon by 1`},
+}
+
+item.carbos = {
+    type: 'key',
+    vitamin: true,
+    info: function() {return `Increase the Speed IV of a Pokemon by 1`},
+}
+
+
+item.eviolite = {
+    type: "held",
+    info: function() {return `When held: If a Pokemon has not fully evolved, increase overall defense by x${this.power()}`},
+    power : function() { return 1+(returnItemLevel(this.id)/5)}
+}
+
+item.lightClay = {
+    type: "held",
+    info: function() {return `When held: Increases the duration of positive buffs used by 1 turn and increases damage dealt by ${this.power()}%`},
+    power : function() { return 5+(5*returnItemLevel(this.id))}
+}
+
+item.mentalHerb = {
+    type: "held",
+    info: function() {return `When held: Decreases the duration of negative buffs received by 1 turn and decreases damage taken by ${this.power()}%`},
+    power : function() { return 5+(5*returnItemLevel(this.id))}
+}
 
 
 
 
+item.thunderousRock = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch Zapdos once. Expires after event finishes`},
+}
 
+item.fieryRock = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch Moltres once. Expires after event finishes`},
+}
 
+item.articRock = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch Articuno once. Expires after event finishes`},
+}
 
+item.ancientOrchid = {
+    type: "key",
+    rotation: 2,
+    info: function() {return `Can be used to catch a privimite Paradox Pokemon once. Expires after event finishes`},
+}
 
+item.ancientKeystone = {
+    type: "key",
+    rotation: 3,
+    info: function() {return `Can be used to catch Regirock once. Expires after event finishes`},
+}
 
+item.steelKeystone = {
+    type: "key",
+    rotation: 3,
+    info: function() {return `Can be used to catch Registeel once. Expires after event finishes`},
+}
+
+item.frozenKeystone = {
+    type: "key",
+    rotation: 3,
+    info: function() {return `Can be used to catch Regice once. Expires after event finishes`},
+}
 
 
 

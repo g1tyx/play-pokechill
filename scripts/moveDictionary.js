@@ -13,6 +13,17 @@ const defaultPlayerMoveTimer = 2000
 
 //unique skills
 
+//tier 4 - learnt by normal pokemon = 110-120 uncompromised dmg
+//tier 5 - learnt by legendary pokemon = 130-150 uncompromised dmg
+
+move.howl = {
+    split: "special",
+    type: "normal",
+    power: 0,
+    info: function() {return `Increases Attack by 50% to the entire team`},
+    hitEffect: function(target) { moveBuff(target,'atkup1',"team")},
+}
+
 move.mysticalPower = {
     split: "special",
     type: "psychic",
@@ -101,10 +112,18 @@ move.relicSong = {
     hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'sleep') },
 }
 
+move.zapCannon = {
+    split: "special",
+    type: "electric",
+    power: 90,
+    info: function() {return `Inflicts ${tagParalysis}`},
+    hitEffect: function(target) { moveBuff(target,'paralysis') },
+}
+
 move.triAttack = {
     split: "special",
     type: "normal",
-    power: 120,
+    power: 110,
     info: function() {return `10% chance to inflict ${tagBurn},${tagParalysis} or ${tagFreeze}`},
     hitEffect: function(target) { if (rng(0.10)){ if (rng(0.33)) {moveBuff(target,'burn')} else if (rng(0.33)) { moveBuff(target,'paralysis')} else moveBuff(target,'freeze') }},
 }
@@ -278,16 +297,6 @@ move.stomp = {
     rarity: 2,
     type: "normal",
     power: 65
-}
-
-move.howl = {
-    moveset: [`normal`, `dark`],
-    split: "special",
-    rarity: 3,
-    type: "normal",
-    power: 0,
-    info: function() {return `Increases Attack by 50% to the entire team`},
-    hitEffect: function(target) { moveBuff(target,'atkup1',"team")},
 }
 
 
@@ -732,7 +741,7 @@ move.ironDefense = {
     type: "steel",
     power: 0,
     info: function() {return `Increases Defense by 100%`},
-    hitEffect: function(target) { moveBuff(target,'atkup1',"self");},
+    hitEffect: function(target) { moveBuff(target,'defup2',"self");},
 }
 
 
@@ -1079,7 +1088,7 @@ move.blizzard = {
     split: "special",
     rarity: 3,
     type: "ice",
-    power: 110,
+    power: 100,
     info: function() {return `10% chance to inflict ${tagFreeze}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'freeze') },
 }
@@ -1248,7 +1257,7 @@ move.chillingWater = {
     type: "water",
     power: 50,
     info: function() {return `Decreases enemy Attack by 50%`},
-    hitEffect: function(target) { moveBuff(target,'atkdown2') },
+    hitEffect: function(target) { moveBuff(target,'atkdown1') },
 }
 
 move.bubbleBeam = {
@@ -1503,7 +1512,7 @@ move.hammerArm = {
     rarity: 3,
     type: "fighting",
     power: 90,
-    info: function() {return `Increases Speed by 50%`},
+    info: function() {return `Decreases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1','self') },
 }
 
@@ -2074,10 +2083,641 @@ move.sweetKiss = {
     hitEffect: function(target) { moveBuff(target,'confused') },
 }
 
-
-
-
 for (const i in move){
     move[i].id = i
     if (move[i].timer == undefined) move[i].timer = defaultPlayerMoveTimer
+}
+
+
+const ability = {}
+
+
+//tier 1
+
+
+ability.grabGuard = {
+    type: [`fighting`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Fighting-type moves`},
+}
+
+ability.waterGuard = {
+    type: [`water`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Water-type moves`},
+}
+
+ability.flameGuard = {
+    type: [`fire`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Flame-type moves`},
+}
+
+ability.curseGuard = {
+    type: [`ghost`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Ghost-type moves`},
+}
+
+ability.poisonGuard = {
+    type: [`poison`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Poison-type moves`},
+}
+
+ability.iceGuard = {
+    type: [`ice`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Ice-type moves`},
+}
+
+ability.psychicGuard = {
+    type: [`psychic`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Psychic-type moves`},
+}
+
+ability.fairyGuard = {
+    type: [`fairy`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Fairy-type moves`},
+}
+
+ability.leafGuard = {
+    type: [`grass`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Grass-type moves`},
+}
+
+ability.plainGuard = {
+    type: [`normal`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Normal-type moves`},
+}
+
+ability.sinisterGuard = {
+    type: [`dark`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Dark-type moves`},
+}
+
+ability.steelGuard = {
+    type: [`steel`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Steel-type moves`},
+}
+
+ability.dragonGuard = {
+    type: [`dragon`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Steel-type moves`},
+}
+
+ability.bugGuard = {
+    type: [`bug`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Bug-type moves`},
+}
+
+ability.rockGuard = {
+    type: [`rock`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Rock-type moves`},
+}
+
+ability.groundGuard = {
+    type: [`ground`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Ground-type moves`},
+}
+
+ability.flyingGuard = {
+    type: [`flying`],
+    rarity: 1,
+    info: function() {return `Halves the damage received of Flying-type moves`},
+}
+
+ability.insomnia = {
+    type: [`all`],
+    rarity: 1,
+    info: function() {return `Grants immunity to ${tagSleep}`},
+}
+
+ability.immunity = {
+    type: [`all`],
+    rarity: 1,
+    info: function() {return `Grants immunity to ${tagPoisoned}`},
+}
+
+ability.limber = {
+    type: [`all`],
+    rarity: 1,
+    info: function() {return `Grants immunity to ${tagParalysis}`},
+}
+
+ability.ownTempo = {
+    type: [`all`],
+    rarity: 1,
+    info: function() {return `Grants immunity to ${tagConfused}`},
+}
+
+ability.magmaArmor = {
+    type: [`fire`],
+    rarity: 1,
+    info: function() {return `Grants immunity to ${tagFreeze}`},
+}
+
+ability.waterVeil = {
+    type: [`water`, `ice`],
+    rarity: 1,
+    info: function() {return `Grants immunity to ${tagBurn}`},
+}
+
+ability.synchronize = {
+    type: [`all`],
+    rarity: 1,
+    info: function() {return `Inflicts active status effects to the attacker aswell`},
+}
+
+ability.marvelScale = {
+    type: [`water`, `dragon`],
+    rarity: 1,
+    info: function() {return `Increases Defense by 50% if afflicted with a status effect`},
+}
+
+ability.livingShield = {
+    type: [`bug`,`grass`],
+    rarity: 1,
+    info: function() {return `Increases Special Defense by 50% if afflicted with a status effect`},
+}
+
+
+ability.overgrow = {
+    type: [`grass`],
+    rarity: 1,
+    info: function() {return `Increases the power of Grass-type moves by 30% below 50% HP`},
+}
+
+ability.blaze = {
+    type: [`fire`],
+    rarity: 1,
+    info: function() {return `Increases the power of Fire-type moves by 30% below 50% HP`},
+}
+
+ability.swarm = {
+    type: [`bug`],
+    rarity: 1,
+    info: function() {return `Increases the power of Bug-type moves by 30% below 50% HP`},
+}
+
+ability.torrent = {
+    type: [`water`],
+    rarity: 1,
+    info: function() {return `Increases the power of Water-type moves by 30% below 50% HP`},
+}
+
+ability.bastion = {
+    type: [`steel`],
+    rarity: 1,
+    info: function() {return `Increases the power of Steel-type moves by 30% below 50% HP`},
+}
+
+ability.average = {
+    type: [`normal`],
+    rarity: 1,
+    info: function() {return `Increases the power of Normal-type moves by 30% below 50% HP`},
+}
+
+ability.resolve = {
+    type: [`fighting`],
+    rarity: 1,
+    info: function() {return `Increases the power of Fighting-type moves by 30% below 50% HP`},
+}
+
+ability.mistify = {
+    type: [`psychic`],
+    rarity: 1,
+    info: function() {return `Increases the power of Psychic-type moves by 30% below 50% HP`},
+}
+
+ability.hexerei = {
+    type: [`ghost`],
+    rarity: 1,
+    info: function() {return `Increases the power of Ghost-type moves by 30% below 50% HP`},
+}
+
+ability.glimmer = {
+    type: [`fairy`],
+    rarity: 1,
+    info: function() {return `Increases the power of Fairy-type moves by 30% below 50% HP`},
+}
+
+ability.skyward = {
+    type: [`flying`],
+    rarity: 1,
+    info: function() {return `Increases the power of Flying-type moves by 30% below 50% HP`},
+}
+
+ability.draconic = {
+    type: [`dragon`],
+    rarity: 1,
+    info: function() {return `Increases the power of Dragon-type moves by 30% below 50% HP`},
+}
+
+ability.noxious = {
+    type: [`poison`],
+    rarity: 1,
+    info: function() {return `Increases the power of Poison-type moves by 30% below 50% HP`},
+}
+
+ability.solid = {
+    type: [`rock`],
+    rarity: 1,
+    info: function() {return `Increases the power of Rock-type moves by 30% below 50% HP`},
+}
+
+ability.rime = {
+    type: [`ice`],
+    rarity: 1,
+    info: function() {return `Increases the power of Ice-type moves by 30% below 50% HP`},
+}
+
+ability.voltage = {
+    type: [`electric`],
+    rarity: 1,
+    info: function() {return `Increases the power of Electric-type moves by 30% below 50% HP`},
+}
+
+ability.hyperCutter = {
+    type: [`bug`],
+    rarity: 1,
+    info: function() {return `Prevents the lowering of the Attack stat`},
+}
+
+ability.bigPecks = {
+    type: [`flying`],
+    rarity: 1,
+    info: function() {return `Prevents the lowering of the Defense stat`},
+}
+
+ability.wonderSkin = {
+    type: [`all`],
+    rarity: 1,
+    info: function() {return `50% chance for received Status Effects to miss`},
+}
+
+
+//tier 2
+
+
+ability.static = {
+    type: [`electric`],
+    rarity: 2,
+    info: function() {return `10% chance to inflict ${tagParalysis} when attacked`},
+}
+
+ability.flameBody = {
+    type: [`fire`],
+    rarity: 2,
+    info: function() {return `10% chance to inflict ${tagBurn} when attacked`},
+}
+
+ability.poisonPoint = {
+    type: [`poison`],
+    rarity: 2,
+    info: function() {return `10% chance to inflict ${tagPoisoned} when attacked`},
+}
+
+ability.strangeCharm = {
+    type: [`psychic`, `fairy`],
+    rarity: 2,
+    info: function() {return `10% chance to inflict ${tagConfused} when attacked`},
+}
+
+ability.effectSpore = {
+    type: [`grass`],
+    rarity: 2,
+    info: function() {return `5% chance to inflict ${tagSleep} when attacked`},
+}
+
+ability.glacialBody = {
+    type: [`ice`],
+    rarity: 2,
+    info: function() {return `5% chance to inflict ${tagFreeze} when attacked`},
+}
+
+ability.naturalCure = {
+    type: [`all`],
+    rarity: 2,
+    info: function() {return `Status effects are cleared when switching Pokemon`},
+}
+
+ability.technician = {
+    type: [`all`],
+    rarity: 2,
+    info: function() {return `Multiplies by 1.5x the power of moves with less than 60 power`},
+}
+
+ability.scrappy = {
+    type: [`normal`, `fighting`],
+    rarity: 2,
+    info: function() {return `Ghost-type pokemon can be hit with Normal and Fighting-type moves`},
+}
+
+ability.unaware = {
+    type: [`all`],
+    rarity: 2,
+    info: function() {return `When attacking, ignores the target's stat changes`},
+}
+
+ability.magicGuard = {
+    type: [`psychic`, `fairy`],
+    rarity: 2,
+    info: function() {return `Can only take damage from damaging moves`},
+}
+
+
+ability.voltAbsorb = {
+    type: [`electric`],
+    rarity: 2,
+    info: function() {return `Nullifies received Electric-type moves`},
+}
+
+ability.waterAbsorb = {
+    type: [`water`],
+    rarity: 2,
+    info: function() {return `Nullifies received Water-type moves`},
+}
+
+ability.flareAbsorb = {
+    type: [`fire`],
+    rarity: 2,
+    info: function() {return `Nullifies received Fire-type moves`},
+}
+
+ability.curseAbsorb = {
+    type: [`ghost`],
+    rarity: 2,
+    info: function() {return `Nullifies received Ghost-type moves`},
+}
+
+ability.poisonAbsorb = {
+    type: [`poison`],
+    rarity: 2,
+    info: function() {return `Nullifies received Poison-type moves`},
+}
+
+ability.frostAbsorb = {
+    type: [`ice`],
+    rarity: 2,
+    info: function() {return `Nullifies received Ice-type moves`},
+}
+
+ability.psychicAbsorb = {
+    type: [`psychic`],
+    rarity: 2,
+    info: function() {return `Nullifies received Psychic-type moves`},
+}
+
+ability.lightAbsorb = {
+    type: [`fairy`],
+    rarity: 2,
+    info: function() {return `Nullifies received Fairy-type moves`},
+}
+
+ability.growthAbsorb = {
+    type: [`grass`],
+    rarity: 2,
+    info: function() {return `Nullifies received Grass-type moves`},
+}
+
+ability.ironFist = {
+    type: [`fighting`],
+    rarity: 2,
+    info: function() {return `"Punch"-related moves have their power multiplied by x1.3`},
+}
+
+ability.strongJaw = {
+    type: [`dark`],
+    rarity: 2,
+    info: function() {return `"Fang"-related moves have their power multiplied by x1.3`},
+}
+
+ability.toughClaws = {
+    type: [`dragon`],
+    rarity: 2,
+    info: function() {return `"Claw"-related moves have their power multiplied by x1.3`},
+}
+
+ability.rivalry = {
+    type: [`dragon`, `dark`],
+    rarity: 2,
+    info: function() {return `Multiplies the power of moves by x1.3 when the opposite Pokemon shares a type`},
+}
+
+ability.pickPocket = {
+    type: [`dark`, `flying`, `normal`],
+    rarity: 2,
+    info: function() {return `Increases the chance of getting a rare item from the area by 50%(Can stack)`},
+}
+
+ability.guts = {
+    type: [`fighting`,`normal`],
+    rarity: 2,
+    info: function() {return `Increases Attack by 50% if afflicted with a status effect`},
+}
+
+ability.brittleArmor = {
+    type: [`ice`,`rock`],
+    rarity: 2,
+    info: function() {return `Increases Special Attack by 50% if afflicted with a status effect`},
+}
+
+
+
+//tier 3
+
+//tier 3 names based on gemini, pisces, o luna, mars, etc
+//increase atk further by 50% if increased etc
+
+ability.intimidate = {
+    type: [`dragon`, `ghost`],
+    rarity: 3,
+    info: function() {return `Decreases enemy Attack by 50% when the opposing Pokemon enters the battle`},
+}
+
+ability.dauntingLook = {
+    type: [`bug`, `fire`, `fighting`],
+    rarity: 3,
+    info: function() {return `Decreases enemy Special Attack by 50% when the opposing Pokemon enters the battle`},
+}
+
+ability.unburden = {
+    type: [`normal`, `fighting`, `flying`],
+    rarity: 3,
+    info: function() {return `Increases Speed by 50% if no item is being held`},
+}
+
+ability.tintedLens = {
+    type: [`bug`],
+    rarity: 3,
+    info: function() {return `Moves that are resisted by typing do instead normal damage`},
+}
+
+ability.multiscale = {
+    type: [`water`],
+    rarity: 3,
+    info: function() {return `Damage received is halved when over 50% HP`},
+}
+
+ability.prankster = {
+    type: [`dark`],
+    rarity: 3,
+    info: function() {return `Dark-type moves are x0.8 faster than usual`},
+}
+
+/*ability.speedBoost = {
+    type: [`flying`],
+    rarity: 3,
+    info: function() {return `Increases Speed by 50% when defeating a Pokemon`},
+}*/
+
+ability.moxie = {
+    type: [`dark`],
+    rarity: 3,
+    info: function() {return `Increases Attack by 50% when defeating a Pokemon`},
+}
+
+ability.strategist = {
+    type: [`psychic`],
+    rarity: 3,
+    info: function() {return `Increases Special Attack by 50% when defeating a Pokemon`},
+}
+
+ability.sheerForce = {
+    type: [`ground`, `steel`, `fighting`, `rock`],
+    rarity: 3,
+    info: function() {return `Secondary effect of harmful moves are removed, and their power is multiplied by x1.2`},
+}
+
+ability.levitate = {
+    type: [`electric`, `steel`],
+    rarity: 3,
+    info: function() {return `Grants immunity to Ground-type moves`},
+}
+
+ability.thickFat = {
+    type: [`normal`, `ice`],
+    rarity: 3,
+    info: function() {return `Halves damage received from Fire and Ice-type moves`},
+}
+
+ability.adaptability = {
+    type: [`all`],
+    rarity: 3,
+    info: function() {return `Doubles Same-Type-Attack-Bonus`},
+}
+
+ability.noGuard = {
+    type: [`all`],
+    rarity: 3,
+    info: function() {return `Moves always hit regardless of the type`},
+}
+
+
+
+
+
+
+//hidden
+ability.sereneGrace = {
+    info: function() {return `Secondary effect of moves are executed twice`},
+}
+
+ability.hugePower = {
+    info: function() {return `Attack stat is multiplied by x1.5`},
+}
+
+ability.darkAura = {
+    info: function() {return `Multiplies by x1.1 the damage of Dark-type moves of all team members`},
+}
+
+ability.contrary = {
+}
+
+ability.libero = {
+}
+
+ability.simple = {
+}
+
+ability.parentalBond = {
+}
+
+ability.moody = {
+}
+
+ability.ferrilate = {
+    type: [`steel`],
+    info: function() {return `Normal-type moves become Steel-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.cryolate = {
+    type: [`ice`],
+    info: function() {return `Normal-type moves become Ice-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.terralate = {
+    type: [`ground`],
+    info: function() {return `Normal-type moves become Ground-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.toxilate = {
+    type: [`poison`],
+    info: function() {return `Normal-type moves become Poison-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.hydrolate = {
+    type: [`water`],
+    info: function() {return `Normal-type moves become Water-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.pyrolate = {
+    type: [`fire`],
+    info: function() {return `Normal-type moves become Fire-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.chrysilate = {
+    type: [`bug`],
+    info: function() {return `Normal-type moves become Bug-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.surgilate = {
+    type: [`electric`],
+    info: function() {return `Normal-type moves become Electric-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.gloomilate = {
+    type: [`dark`],
+    info: function() {return `Normal-type moves become Dark-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.espilate = {
+    type: [`psychic`],
+    info: function() {return `Normal-type moves become Psychic-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.aerilate = {
+    type: [`flying`],
+    info: function() {return `Normal-type moves become Flying-type moves, and their power is multiplied by x1.5`},
+}
+
+ability.pixilate = {
+    type: [`fairy`],
+    info: function() {return `Normal-type moves become Fairy-type moves, and their power is multiplied by x1.5`},
+}
+
+
+for (const i in ability){
+    ability[i].id = i
 }

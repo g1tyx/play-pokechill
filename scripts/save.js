@@ -33,6 +33,9 @@ function saveGame() {
     data[i].ivs = pkmn[i].ivs;
     data[i].exp = pkmn[i].exp;
     data[i].newEvolution = pkmn[i].newEvolution;
+    data[i].ability = pkmn[i].ability;
+    data[i].shiny = pkmn[i].shiny;
+    data[i].shinyDisabled = pkmn[i].shinyDisabled;
   }
 
   localStorage.setItem("gameData", JSON.stringify(data));
@@ -73,6 +76,9 @@ function loadGame() {
       pkmn[i].ivs = data[i].ivs;
       pkmn[i].exp = data[i].exp;
       pkmn[i].newEvolution = data[i].newEvolution;
+      pkmn[i].ability = data[i].ability;
+      pkmn[i].shiny = data[i].shiny;
+      pkmn[i].shinyDisabled = data[i].shinyDisabled;
     }
   }
 
@@ -88,7 +94,7 @@ function exportData() {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = `Idlemon-${new Date().toISOString().split("T")[0]}.json`;
+  a.download = `Pokechill-${new Date().toISOString().split("T")[0]}.json`;
   a.click();
 
   URL.revokeObjectURL(url);

@@ -139,7 +139,7 @@ pkmn.caterpie = {
         sdef: 20,
         spe: 45,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.metapod, level: 7 } } },
+    evolve: function() { return { 1: { pkmn: pkmn.metapod, level: evolutionLevel1 } } },
 }
 
 pkmn.metapod = {
@@ -152,7 +152,7 @@ pkmn.metapod = {
         sdef: 25,
         spe: 30,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.butterfree, level: evolutionLevel1 } } },
+    evolve: function() { return { 1: { pkmn: pkmn.butterfree, level: evolutionLevel2 } } },
 }
 
 pkmn.butterfree = {
@@ -178,7 +178,7 @@ pkmn.weedle = {
         sdef: 20,
         spe: 50,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.kakuna, level: 7 } } },
+    evolve: function() { return { 1: { pkmn: pkmn.kakuna, level: evolutionLevel1 } } },
 }
 
 pkmn.kakuna = {
@@ -191,7 +191,7 @@ pkmn.kakuna = {
         sdef: 25,
         spe: 35,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.beedrill, level: evolutionLevel1 } } },
+    evolve: function() { return { 1: { pkmn: pkmn.beedrill, level: evolutionLevel2 } } },
 }
 
 pkmn.beedrill = {
@@ -324,6 +324,67 @@ pkmn.arbok = {
 }
 
 // 025 Pikachu → Raichu
+
+pkmn.pikachuBelle = {
+    type: ["electric"],
+    bst: {
+        hp: 60,
+        atk: 90,
+        def: 55,
+        satk: 90,
+        sdef: 80,
+        spe: 110,
+    }
+}
+
+pkmn.pikachuLibre = {
+    type: ["electric"],
+    bst: {
+        hp: 60,
+        atk: 90,
+        def: 55,
+        satk: 90,
+        sdef: 80,
+        spe: 110,
+    }
+}
+
+pkmn.pikachuPhd = {
+    type: ["electric"],
+    bst: {
+        hp: 60,
+        atk: 90,
+        def: 55,
+        satk: 90,
+        sdef: 80,
+        spe: 110,
+    }
+}
+
+pkmn.pikachuPopstar = {
+    type: ["electric"],
+    bst: {
+        hp: 60,
+        atk: 90,
+        def: 55,
+        satk: 90,
+        sdef: 80,
+        spe: 110,
+    }
+}
+
+pkmn.pikachuRockstar = {
+    type: ["electric"],
+    bst: {
+        hp: 60,
+        atk: 90,
+        def: 55,
+        satk: 90,
+        sdef: 80,
+        spe: 110,
+    }
+}
+
 pkmn.pichu = {
     type: ["electric"],
     bst: {
@@ -519,6 +580,20 @@ pkmn.ninetales = {
 }
 
 // 033 Jigglypuff → Wigglytuff
+
+pkmn.igglybuff = {
+    type: ["normal","fairy"],
+    bst: {
+        hp: 90,
+        atk: 30,
+        def: 15,
+        satk: 40,
+        sdef: 20,
+        spe: 15,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.jigglypuff, friendship: true } } }, // evoluciona con amistad
+}
+
 pkmn.jigglypuff = {
     type: ["normal","fairy"],
     bst: {
@@ -986,7 +1061,7 @@ pkmn.kadabra = {
         sdef: 70,
         spe: 105,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.alakazam, trade: true } } },
+    evolve: function() { return { 1: { pkmn: pkmn.alakazam, item: item.linkStone } } },
 }
 
 pkmn.alakazam = {
@@ -1025,7 +1100,7 @@ pkmn.machoke = {
         sdef: 60,
         spe: 45,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.machamp, trade: true } } },
+    evolve: function() { return { 1: { pkmn: pkmn.machamp, item: item.linkStone } } },
 }
 
 pkmn.machamp = {
@@ -1183,7 +1258,7 @@ pkmn.graveler = {
         sdef: 45,
         spe: 35,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.golem, trade: true } } },
+    evolve: function() { return { 1: { pkmn: pkmn.golem, item: item.linkStone } } },
 }
 
 pkmn.golem = {
@@ -1294,7 +1369,7 @@ pkmn.magneton = {
         sdef: 70,
         spe: 70,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.magnezone, location: "Magnet Rock" } } },
+    evolve: function() { return { 1: { pkmn: pkmn.magnezone, item: item.thunderStone } } },
 }
 
 pkmn.magnezone = {
@@ -1515,7 +1590,7 @@ pkmn.haunter = {
         sdef: 55,
         spe: 95,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.gengar, trade: true } } },
+    evolve: function() { return { 1: { pkmn: pkmn.gengar, item: item.linkStone } } },
 }
 
 pkmn.gengar = {
@@ -1594,7 +1669,7 @@ pkmn.lickitung = {
         sdef: 75,
         spe: 30,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.lickilicky, item: item.kingsRock } } },
+    evolve: function() { return { 1: { pkmn: pkmn.lickilicky, item: item.ovalStone } } },
 }
 
 pkmn.lickilicky = {
@@ -1659,7 +1734,7 @@ pkmn.rhydon = {
         sdef: 45,
         spe: 40,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.rhyperior, item: item.protectivePadding } } },
+    evolve: function() { return { 1: { pkmn: pkmn.rhyperior, item: item.linkStone } } },
 }
 
 pkmn.rhyperior = {
@@ -1853,7 +1928,7 @@ pkmn.electabuzz = {
         sdef: 85,
         spe: 105,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.electivire, item: item.electirizer } } },
+    evolve: function() { return { 1: { pkmn: pkmn.electivire, item: item.linkStone } } },
 }
 
 pkmn.electivire = {
@@ -1891,7 +1966,7 @@ pkmn.magmar = {
         sdef: 55,
         spe: 93,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.magmortar, item: item.magmarizer } } },
+    evolve: function() { return { 1: { pkmn: pkmn.magmortar, item: item.linkStone } } },
 }
 
 pkmn.magmortar = {
@@ -1933,6 +2008,79 @@ pkmn.tauros = {
 }
 
 // 129 Magikarp → Gyarados
+
+pkmn.magikarpKoi = {
+    type: ["water"],
+    bst: {
+        hp: 100,
+        atk: 10,
+        def: 55,
+        satk: 100,
+        sdef: 20,
+        spe: 80,
+    }
+}
+
+pkmn.magikarpRegal = {
+    type: ["water"],
+    bst: {
+        hp: 100,
+        atk: 10,
+        def: 55,
+        satk: 100,
+        sdef: 20,
+        spe: 80,
+    }
+}
+
+pkmn.magikarpSakura = {
+    type: ["water"],
+    bst: {
+        hp: 100,
+        atk: 10,
+        def: 55,
+        satk: 100,
+        sdef: 20,
+        spe: 80,
+    }
+}
+
+pkmn.magikarpSkelly = {
+    type: ["water"],
+    bst: {
+        hp: 100,
+        atk: 10,
+        def: 55,
+        satk: 100,
+        sdef: 20,
+        spe: 80,
+    }
+}
+
+pkmn.magikarpSoar = {
+    type: ["water"],
+    bst: {
+        hp: 100,
+        atk: 10,
+        def: 55,
+        satk: 100,
+        sdef: 20,
+        spe: 80,
+    }
+}
+
+pkmn.magikarpTiger = {
+    type: ["water"],
+    bst: {
+        hp: 100,
+        atk: 10,
+        def: 55,
+        satk: 100,
+        sdef: 20,
+        spe: 80,
+    }
+}
+
 pkmn.magikarp = {
     type: ["water"],
     bst: {
@@ -2194,6 +2342,66 @@ pkmn.dragonair = {
         spe: 70,
     },
     evolve: function() { return { 1: { pkmn: pkmn.dragonite, level: evolutionLevel3 } } },
+}
+
+pkmn.articuno = {
+    type: ["ice","flying"],
+    bst: {
+        hp: 90,
+        atk: 85,
+        def: 100,
+        satk: 95,
+        sdef: 125,
+        spe: 85,
+    }
+}
+
+pkmn.zapdos = {
+    type: ["electric","flying"],
+    bst: {
+        hp: 90,
+        atk: 90,
+        def: 85,
+        satk: 125,
+        sdef: 90,
+        spe: 100,
+    }
+}
+
+pkmn.moltres = {
+    type: ["fire","flying"],
+    bst: {
+        hp: 90,
+        atk: 100,
+        def: 90,
+        satk: 125,
+        sdef: 85,
+        spe: 90,
+    }
+}
+
+pkmn.mew = {
+    type: ["psychic"],
+    bst: {
+        hp: 100,
+        atk: 100,
+        def: 100,
+        satk: 100,
+        sdef: 100,
+        spe: 100,
+    }
+}
+
+pkmn.mewtwo = {
+    type: ["psychic"],
+    bst: {
+        hp: 106,
+        atk: 110,
+        def: 90,
+        satk: 154,
+        sdef: 90,
+        spe: 130,
+    }
 }
 
 pkmn.dragonite = {
@@ -2638,7 +2846,7 @@ pkmn.aipom = {
         sdef: 55,
         spe: 85,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.ambipom, trade: true, item: item.heldItem } } },
+    evolve: function() { return { 1: { pkmn: pkmn.ambipom, level: evolutionLevel2 } } },
 }
 
 pkmn.ambipom = {
@@ -3080,6 +3288,20 @@ pkmn.unownQuestion = {
     }
 }
 // 202 Wobbuffet
+
+pkmn.wynaut = {
+    type: ["psychic"],
+    bst: {
+        hp: 95,
+        atk: 23,
+        def: 48,
+        satk: 23,
+        sdef: 48,
+        spe: 23,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.wobbuffet, level: evolutionLevel2 } } },
+}
+
 pkmn.wobbuffet = {
     type: ["psychic"],
     bst: {
@@ -3155,7 +3377,7 @@ pkmn.gligar = {
         sdef: 65,
         spe: 85,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.gliscor, item: item.razorFang, time: "night" } } },
+    evolve: function() { return { 1: { pkmn: pkmn.gliscor, level: evolutionLevel3 } } },
 }
 
 pkmn.gliscor = {
@@ -3246,7 +3468,7 @@ pkmn.sneasel = {
         sdef: 75,
         spe: 115,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.weavile, item: item.razorClaw, time: "night" } } },
+    evolve: function() { return { 1: { pkmn: pkmn.weavile, item: item.duskStone} } },
 }
 
 pkmn.weavile = {
@@ -3337,7 +3559,7 @@ pkmn.piloswine = {
         sdef: 60,
         spe: 50,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.mamoswine, item: item.diveClaw } } },
+    evolve: function() { return { 1: { pkmn: pkmn.mamoswine, item: item.iceStone } } },
 }
 
 pkmn.mamoswine = {
@@ -3506,7 +3728,7 @@ pkmn.porygon = {
         sdef: 75,
         spe: 40,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.porygon2, item: item.upGrade } } },
+    evolve: function() { return { 1: { pkmn: pkmn.porygon2, level: evolutionLevel2 } } },
 }
 
 pkmn.porygon2 = {
@@ -3519,7 +3741,7 @@ pkmn.porygon2 = {
         sdef: 95,
         spe: 60,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.porygonZ, item: item.dubiousDisc } } },
+    evolve: function() { return { 1: { pkmn: pkmn.porygonZ, level: evolutionLevel3 } } },
 }
 
 pkmn.porygonZ = {
@@ -3603,7 +3825,7 @@ pkmn.happiny = {
         sdef: 65,
         spe: 30,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.chansey, happiness: true } } },
+    evolve: function() { return { 1: { pkmn: pkmn.chansey, item: item.ovalStone } } },
 }
 
 pkmn.chansey = {
@@ -3667,6 +3889,30 @@ pkmn.suicune = {
         satk: 90,
         sdef: 115,
         spe: 85,
+    }
+}
+
+pkmn.seviper = {
+    type: ["poison"],
+    bst: {
+        hp: 73,
+        atk: 100,
+        def: 60,
+        satk: 100,
+        sdef: 60,
+        spe: 65,
+    }
+}
+
+pkmn.zangoose = {
+    type: ["normal"],
+    bst: {
+        hp: 73,
+        atk: 115,
+        def: 60,
+        satk: 60,
+        sdef: 60,
+        spe: 90,
     }
 }
 
@@ -4145,7 +4391,7 @@ pkmn.kirlia = {
     evolve: function() { 
         return { 
             1: { pkmn: pkmn.gardevoir, level: evolutionLevel2 },
-            2: { pkmn: pkmn.gallade, item: item.dawnStone, gender: "male" }
+            2: { pkmn: pkmn.gallade, item: item.dawnStone }
         } 
     },
 }
@@ -4797,7 +5043,7 @@ pkmn.swablu = {
         sdef: 75,
         spe: 50,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.cacturne, level: evolutionLevel2 } } },
+    evolve: function() { return { 1: { pkmn: pkmn.altaria, level: evolutionLevel2 } } },
 }
 
 pkmn.altaria = {
@@ -4902,7 +5148,30 @@ pkmn.solrock = {
     }
 }
 
+pkmn.lileep = {
+    type: ["rock","grass"],
+    bst: {
+        hp: 66,
+        atk: 41,
+        def: 77,
+        satk: 61,
+        sdef: 87,
+        spe: 23,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.cradily, level: evolutionLevel3 } } },
+}
 
+pkmn.cradily = {
+    type: ["rock","grass"],
+    bst: {
+        hp: 86,
+        atk: 81,
+        def: 97,
+        satk: 81,
+        sdef: 107,
+        spe: 43,
+    }
+}
 
 // 342 Baltoy → Claydol
 pkmn.baltoy = {
@@ -5022,7 +5291,7 @@ pkmn.chingling = {
         sdef: 50,
         spe: 45,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.chimecho, level: 0, friendship: true } } }, // evoluciona con amistad
+    evolve: function() { return { 1: { pkmn: pkmn.chimecho, friendship: true } } }, // evoluciona con amistad
 }
 
 pkmn.chimecho = {
@@ -5065,7 +5334,7 @@ pkmn.snorunt = {
     evolve: function() { 
         return { 
             1: { pkmn: pkmn.glalie, level: evolutionLevel3 },
-            2: { pkmn: pkmn.froslass, item: item.dawnStone, gender: "female" }
+            2: { pkmn: pkmn.froslass, item: item.dawnStone }
         }
     },
 }
@@ -5144,6 +5413,30 @@ pkmn.luvdisc = {
         satk: 40,
         sdef: 65,
         spe: 97,
+    }
+}
+
+pkmn.feebas = {
+    type: ["water"],
+    bst: {
+        hp: 20,
+        atk: 15,
+        def: 20,
+        satk: 10,
+        sdef: 55,
+        spe: 80,
+    }
+}
+
+pkmn.milotic = {
+    type: ["water"],
+    bst: {
+        hp: 95,
+        atk: 60,
+        def: 79,
+        satk: 100,
+        sdef: 125,
+        spe: 81,
     }
 }
 
@@ -5715,7 +6008,7 @@ pkmn.combee = {
         sdef: 42,
         spe: 70,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.vespiquen, gender: "female" } } },
+    evolve: function() { return { 1: { pkmn: pkmn.vespiquen, level: evolutionLevel2 } } },
 }
 
 pkmn.vespiquen = {
@@ -5918,6 +6211,18 @@ pkmn.garchomp = {
     }
 }
 
+pkmn.megaGarchomp = {
+    type: ["dragon","ground"],
+    bst: {
+        hp: 108,
+        atk: 170,
+        def: 115,
+        satk: 120,
+        sdef: 95,
+        spe: 92,
+    }
+}
+
 // 431 Glameow → Purugly
 pkmn.glameow = {
     type: ["normal"],
@@ -6010,7 +6315,7 @@ pkmn.mimejr = {
         sdef: 90,
         spe: 60,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.mrmime, level: 0, item: item.dummyTm } } }, 
+    evolve: function() { return { 1: { pkmn: pkmn.mrmime, friendship: true } } }, 
     // evolución por amistad; placeholder item
 }
 
@@ -6091,7 +6396,7 @@ pkmn.riolu = {
         sdef: 40,
         spe: 60,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.lucario, level: 0, friendship: true } } }, // evoluciona con amistad
+    evolve: function() { return { 1: { pkmn: pkmn.lucario,friendship: true } } }, // evoluciona con amistad
 }
 
 pkmn.lucario = {
@@ -6221,7 +6526,7 @@ pkmn.mantyke = {
         sdef: 120,
         spe: 50,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.mantine, item: item.dummyTm } } }, // Evoluciona al nivel con Remoraid en el equipo
+    evolve: function() { return { 1: { pkmn: pkmn.mantine, item: item.waterStone } } }, // Evoluciona al nivel con Remoraid en el equipo
 }
 
 pkmn.mantine = {
@@ -6264,6 +6569,33 @@ pkmn.abomasnow = {
 
 
 // 468 Togekiss
+
+pkmn.togepi = {
+    type: ["fairy"],
+    bst: {
+        hp: 35,
+        atk: 20,
+        def: 65,
+        satk: 40,
+        sdef: 65,
+        spe: 20,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.togetic, friendship: true } } }, // evoluciona con amistad
+}
+
+pkmn.togetic = {
+    type: ["fairy","flying"],
+    bst: {
+        hp: 55,
+        atk: 40,
+        def: 85,
+        satk: 80,
+        sdef: 105,
+        spe: 40,
+    },
+  evolve: function() { return { 1: { pkmn: pkmn.togekiss, item: item.shinyStone /*o equivalente*/ } } },
+}
+
 pkmn.togekiss = {
     type: ["fairy","flying"],
     bst: {
@@ -6908,7 +7240,7 @@ pkmn.munna = {
     sdef: 55,
     spe: 24,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.musharna, item: item.dreamStone /* o equivalente */ } } },
+  evolve: function() { return { 1: { pkmn: pkmn.musharna, item: item.dawnStone /* o equivalente */ } } },
 }
 
 pkmn.musharna = {
@@ -7012,7 +7344,7 @@ pkmn.boldore = {
     sdef: 50,
     spe: 20,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.gigalith, item: item.stealthRock/*o un objeto de “union” si lo usas*/ } } },
+  evolve: function() { return { 1: { pkmn: pkmn.gigalith, item: item.linkStone/*o un objeto de “union” si lo usas*/ } } },
 }
 
 pkmn.gigalith = {
@@ -7116,7 +7448,7 @@ pkmn.gurdurr = {
     sdef: 50,
     spe: 40,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.conkeldurr, item: item.machoBrace/*o “union” si usas algo así*/ } } },
+  evolve: function() { return { 1: { pkmn: pkmn.conkeldurr, item: item.linkStone/*o “union” si usas algo así*/ } } },
 }
 
 pkmn.conkeldurr = {
@@ -7833,7 +8165,7 @@ pkmn.karrablast = {
     sdef: 45,
     spe: 60,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.escavalier, trade: true } } },
+  evolve: function() { return { 1: { pkmn: pkmn.escavalier, item: item.linkStone } } },
 }
 
 pkmn.escavalier = {
@@ -8197,7 +8529,7 @@ pkmn.shelmet = {
     sdef: 65,
     spe: 25,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.accelgor, trade: true/*tradición de intercambio con Karrablast*/ } } },
+  evolve: function() { return { 1: { pkmn: pkmn.accelgor, item: item.linkStone } } },
 }
 
 pkmn.accelgor = {
@@ -9083,7 +9415,7 @@ pkmn.swirlix = {
     sdef: 57,
     spe: 49,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.slurpuff, item: item.cutiePie } } },
+  evolve: function() { return { 1: { pkmn: pkmn.slurpuff, item: item.shinyStone } } },
 }
 
 pkmn.slurpuff = {
@@ -9239,7 +9571,7 @@ pkmn.tyrunt = {
     sdef: 45,
     spe: 48,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.tyrantrum, item: item.rareBone } } },
+  evolve: function() { return { 1: { pkmn: pkmn.tyrantrum, level: evolutionLevel3 } } },
 }
 
 pkmn.tyrantrum = {
@@ -10135,7 +10467,7 @@ pkmn.typeNull = {
     sdef: 95,
     spe: 59,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.silvally, item: item.adamantMemory } } },
+  evolve: function() { return { 1: { pkmn: pkmn.silvally, level: evolutionLevel3 } } },
 }
 
 pkmn.silvally = {
@@ -10543,7 +10875,7 @@ pkmn.poipole = {
     sdef: 67,
     spe: 73,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.naganadel, item: item.rareCandy } } },
+  evolve: function() { return { 1: { pkmn: pkmn.naganadel, level: evolutionLevel3 } } },
 }
 
 pkmn.naganadel = {
@@ -10608,7 +10940,7 @@ pkmn.meltan = {
     sdef: 35,
     spe: 34,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.melmetal, item: item.meltanCandy } } },
+  evolve: function() { return { 1: { pkmn: pkmn.melmetal, level: evolutionLevel3 } } },
 }
 
 pkmn.melmetal = {
@@ -11392,7 +11724,7 @@ pkmn.milcery = {
     sdef: 61,
     spe: 34,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.alcremie, item: item.sweet } } },
+  evolve: function() { return { 1: { pkmn: pkmn.alcremie, level: evolutionLevel2 } } },
 }
 
 pkmn.alcremie = {
@@ -11692,7 +12024,7 @@ pkmn.kubfu = {
     sdef: 50,
     spe: 72,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.urshifu, item: item.rareCandy } } },
+  evolve: function() { return { 1: { pkmn: pkmn.urshifu, level: evolutionLevel3 } } },
 }
 
 pkmn.urshifu = {
@@ -12226,20 +12558,89 @@ pkmn.hisuianSneasler = {
 }
 
 
+pkmn.greatTusk = {
+    type: ["ground", "fighting"],
+    bst: {
+        hp: 115,
+        atk: 131,
+        def: 131,
+        satk: 53,
+        sdef: 53,
+        spe: 87,
+    }
+}
 
+pkmn.screamTail = {
+    type: ["fairy", "psychic"],
+    bst: {
+        hp: 115,
+        atk: 65,
+        def: 99,
+        satk: 65,
+        sdef: 115,
+        spe: 111,
+    }
+}
 
+pkmn.bruteBonnet = {
+    type: ["grass", "dark"],
+    bst: {
+        hp: 111,
+        atk: 127,
+        def: 99,
+        satk: 79,
+        sdef: 99,
+        spe: 55,
+    }
+}
 
+pkmn.flutterMane = {
+    type: ["ghost", "fairy"],
+    bst: {
+        hp: 55,
+        atk: 55,
+        def: 55,
+        satk: 135,
+        sdef: 135,
+        spe: 135,
+    }
+}
 
+pkmn.slitherWing = {
+    type: ["bug", "fighting"],
+    bst: {
+        hp: 85,
+        atk: 135,
+        def: 79,
+        satk: 85,
+        sdef: 105,
+        spe: 81,
+    }
+}
 
+pkmn.sandyShocks = {
+    type: ["electric", "ground"],
+    bst: {
+        hp: 85,
+        atk: 81,
+        def: 97,
+        satk: 121,
+        sdef: 85,
+        spe: 101,
+    }
+}
 
-
-
-
-
-
-
-
-
+pkmn.roaringMoon = {
+    type: ["dragon", "dark"],
+    bst: {
+        hp: 105,
+        atk: 139,
+        def: 71,
+        satk: 55,
+        sdef: 101,
+        spe: 119,
+    }
+}
 
 pkmn.megaRayquaza = {
     type : ["dragon","flying"],
