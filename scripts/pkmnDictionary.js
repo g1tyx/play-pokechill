@@ -1893,6 +1893,20 @@ pkmn.scizor = {
 }
 
 // 124 Jynx
+
+pkmn.smoochum = {
+    type: ["ice","psychic"],
+    bst: {
+        hp: 45,
+        atk: 30,
+        def: 15,
+        satk: 85,
+        sdef: 65,
+        spe: 65,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.seaking, level: evolutionLevel2 } } },
+}
+
 pkmn.jynx = {
     type: ["ice","psychic"],
     bst: {
@@ -4469,6 +4483,31 @@ pkmn.slaking = {
         satk: 95,
         sdef: 65,
         spe: 100,
+    }
+}
+
+pkmn.paras = {
+    type: ["bug","grass"],
+    bst: {
+        hp: 35,
+        atk: 70,
+        def: 55,
+        satk: 45,
+        sdef: 55,
+        spe: 25,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.slaking, level: evolutionLevel2 } } },
+}
+
+pkmn.parasect = {
+    type: ["bug","grass"],
+    bst: {
+        hp: 60,
+        atk: 95,
+        def: 80,
+        satk: 60,
+        sdef: 80,
+        spe: 30,
     }
 }
 
@@ -11025,8 +11064,8 @@ pkmn.cinderace = {
   type: ["fire"],
   bst: {
     hp: 80,
-    atk: 116,
-    def: 75,
+    atk: 110,
+    def: 70,
     satk: 65,
     sdef: 75,
     spe: 119,
@@ -11358,7 +11397,7 @@ pkmn.applin = {
   },
   evolve: function() { 
     return { 
-      1: { pkmn: pkmn.flapple, item: item.tartApple }, 
+      1: { pkmn: pkmn.flapple, item: item.leafStone }, 
       2: { pkmn: pkmn.appletun, item: item.sweetApple } 
     } 
   },
@@ -11542,7 +11581,7 @@ pkmn.sinistea = {
     sdef: 54,
     spe: 50,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.polteageist, item: item.iceStone } } },
+  evolve: function() { return { 1: { pkmn: pkmn.polteageist, item: item.duskStone } } },
 }
 
 pkmn.polteageist = {
@@ -12635,7 +12674,7 @@ pkmn.roaringMoon = {
     bst: {
         hp: 105,
         atk: 139,
-        def: 71,
+        def: 80,
         satk: 55,
         sdef: 101,
         spe: 119,

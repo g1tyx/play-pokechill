@@ -8,7 +8,7 @@ const areas = {}
 //area 4 rs = pseudo-legendary
 
 
-const rotationWildMax = 8;
+const rotationWildMax = 10;
 
 const wildAreaLevel1 = 10
 const wildAreaLevel2 = 30
@@ -593,6 +593,149 @@ areas.strangeSpace = {
         rare : wildRareItemsDragon
     }
 }
+
+//rotation 9
+areas.unovaWorks = {
+    rotation : 9,
+    level : wildAreaLevel1,
+    type: `wild`,
+    background : `town`,
+    icon: pkmn.timburr,
+    spawns: {
+        common : [pkmn.timburr, pkmn.mankey, pkmn.shieldon],
+        uncommon : [pkmn.buneary],
+        rare : [pkmn.riolu]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : wildRareItemsFighting
+    }
+}
+
+
+areas.snowpointCliff = {
+    rotation : 9,
+    level : wildAreaLevel2,
+    type: `wild`,
+    background : `snow`,
+    icon: pkmn.snom,
+    spawns: {
+        common : [pkmn.snom,pkmn.eiscue, pkmn.taillow],
+        uncommon : [pkmn.smoochum],
+        rare : [pkmn.delibird]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : wildRareItemsIce
+    }
+}
+
+
+areas.hollowNest = {
+    rotation : 9,
+    level : wildAreaLevel3,
+    type: `wild`,
+    background : `forest`,
+    icon: pkmn.nincada,
+    spawns: {
+        common : [pkmn.paras,pkmn.tangela, pkmn.nincada],
+        uncommon : [pkmn.wimpod],
+        rare : [pkmn.chespin]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : wildRareItemsBug
+    }
+}
+
+areas.poniCanyon = {
+    rotation : 9,
+    level : wildAreaLevel4,
+    type: `wild`,
+    background : `mountain`,
+    icon: pkmn.vullaby,
+    spawns: {
+        common : [pkmn.cubone,pkmn.baltoy, pkmn.vullaby],
+        uncommon : [pkmn.hawlucha],
+        rare : [pkmn.jangmoo]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : wildRareItemsFighting
+    }
+}
+
+//rotation 10
+areas.seaBed = {
+    rotation : 10,
+    level : wildAreaLevel1,
+    type: `wild`,
+    background : `sea`,
+    icon: pkmn.remoraid,
+    spawns: {
+        common : [pkmn.remoraid, pkmn.shellder, pkmn.goldeen],
+        uncommon : [pkmn.corsola],
+        rare : [pkmn.wailmer]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : wildRareItemsWater
+    }
+}
+
+
+areas.lonLonRanch = {
+    rotation : 10,
+    level : wildAreaLevel2,
+    type: `wild`,
+    background : `snow`,
+    icon: pkmn.wooloo,
+    spawns: {
+        common : [pkmn.wooloo,pkmn.buneary, pkmn.rufflet],
+        uncommon : [pkmn.bouffalant],
+        rare : [pkmn.miltank]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : wildRareItemsNormal
+    }
+}
+
+
+areas.saruTemple = {
+    rotation : 10,
+    level : wildAreaLevel3,
+    type: `wild`,
+    background : `night`,
+    icon: pkmn.pansage,
+    spawns: {
+        common : [pkmn.pansage,pkmn.pansear, pkmn.panpour],
+        uncommon : [pkmn.passimian],
+        rare : [pkmn.chimchar]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : wildRareItemsFire
+    }
+}
+
+areas.evilSummit = {
+    rotation : 10,
+    level : wildAreaLevel4,
+    type: `wild`,
+    background : `mountain`,
+    icon: pkmn.deino,
+    spawns: {
+        common : [pkmn.poochyena,pkmn.murkrow, pkmn.impidimp],
+        uncommon : [pkmn.zorua],
+        rare : [pkmn.deino]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : wildRareItemsDark
+    }
+}
+
 
 
 /*

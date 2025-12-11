@@ -301,6 +301,17 @@ item.carbos = {
 }
 
 
+item.bottleCap = {
+    type: "key",
+    info: function() {return `Obtained when acquiring an exceeding number of items. Can be used in the Item Fabricator (not yet implemented!)`},
+}
+
+item.goldenBottleCap = {
+    type: "key",
+    info: function() {return `Obtained in events and the Battle Tower. Can be used in the Item Fabricator (not yet implemented!)`},
+}
+
+
 item.eviolite = {
     type: "held",
     info: function() {return `When held: If a Pokemon has not fully evolved, increase overall defense by x${this.power()}`},

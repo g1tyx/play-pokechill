@@ -128,9 +128,11 @@
             <div id="pokedex-filters-cancel" onClick="exitTmTeaching('cancel')" style="display: none; background: rgb(255, 81, 81); color: white;">Cancel</div>
             <div id="pokedex-filters-remove" onClick="exitTmTeaching('remove')" style="display: none; background: rgb(255, 81, 81); color: white;">Remove</div>
 
-            <div>Filter type
+            <div>Filter by :
+            </div>
+
             <select id="pokedex-filter-type">
-                <option value="all">all</option>
+                <option value="all">type</option>
                 <option value="normal">normal</option>
                 <option value="fire">fire</option>
                 <option value="water">water</option>
@@ -150,35 +152,47 @@
                 <option value="steel">steel</option>
                 <option value="fairy">fairy</option>
             </select>
-            </div>
 
-            <div>Filter level
             <select id="pokedex-filter-level">
-                <option value="all">all</option>
+                <option value="all">level</option>
                 <option value="20">1-20</option>
                 <option value="40">20-40</option>
                 <option value="60">40-60</option>
                 <option value="80">60-80</option>
                 <option value="100">80-100</option>
             </select>
-            </div>
 
-            <div>Filter ability
+            <select id="pokedex-filter-division">
+                <option value="all">division</option>
+                <option value="D">D</option>
+                <option value="C">C</option>
+                <option value="B">B</option>
+                <option value="A">A</option>
+                <option value="S">S</option>
+                <option value="SS">SS</option>
+                <option value="SSS">SSS</option>
+                <option value="SSS+">SSS+</option>
+            </select>
+
+            <select id="pokedex-filter-evolution">
+                <option value="all">evolution</option>
+                <option value="true">not evolved</option>
+            </select>
+
             <select id="pokedex-filter-ability">
-                <option value="all">all</option>
+                <option value="all">ability</option>
                 <option value=1>common</option>
                 <option value=2>uncommon</option>
                 <option value=3>rare</option>
             </select>
-            </div>
 
-            <div>Filter shiny
             <select id="pokedex-filter-shiny">
-                <option value="all">all</option>
-                <option value=true>shiny</option>
+                <option value="all">shiny</option>
+                <option value=true>is shiny</option>
                 <option value=undefined>not shiny</option>
             </select>
-            </div>
+
+      
 
 
 

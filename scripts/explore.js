@@ -393,8 +393,11 @@ function dropItem(){
         if (pkmn[ team[slot].pkmn.id ]?.ability == ability.pickPocket.id) rareDropChance += 0.01
      }
 
-    if (rng(0.15)) drop = arrayPick(areas[saved.currentArea].drops?.uncommon).id
-    if (rng(rareDropChance)) drop = arrayPick(areas[saved.currentArea].drops?.rare).id
+    if (areas[saved.currentArea].drops?.uncommon && rng(0.15)) drop = arrayPick(areas[saved.currentArea].drops?.uncommon).id
+    if (areas[saved.currentArea].drops?.rare && rng(rareDropChance)) drop = arrayPick(areas[saved.currentArea].drops?.rare).id
+
+    if (item[drop].type=="held" && item[drop].got>= 20) drop = item.bottleCap.id
+    if (item[drop].type!=="held" && item[drop].evo && item[drop].got>= 10) drop = item.bottleCap.id
 
 
 
@@ -552,7 +555,6 @@ function leaveCombat(){
     for (const i in pkmn) { // if new pokemon via trainer reward
     if (pkmn[i].newPokemon !== true) continue
 
-    console.log()
 
     let divTag = ""
 
@@ -561,13 +563,13 @@ function leaveCombat(){
         //let maxIv = 3
         let newIv = 0
 
-        if (rng(0.10)) newIv++
-        if (rng(0.10)) newIv++
-        if (rng(0.10)) newIv++
-        if (rng(0.10)) newIv++           
-        if (rng(0.10)) newIv++
-        if (rng(0.10)) newIv++           
-        if (rng(0.10)) newIv++           
+        if (rng(0.20)) newIv++
+        if (rng(0.20)) newIv++
+        if (rng(0.20)) newIv++
+        if (rng(0.20)) newIv++           
+        if (rng(0.20)) newIv++
+        if (rng(0.20)) newIv++           
+        if (rng(0.20)) newIv++           
         
         if (newIv>ivId) {
             pkmn[i].ivs[iv] = newIv
@@ -584,7 +586,7 @@ function leaveCombat(){
     } 
 
 
-    if (rng(1/400)){ //shiny
+    if (rng(1/100)){ //shiny
         pkmn[i].shiny = true
         divTag = `<span>✦Shiny✦!</span>`
     }
@@ -695,7 +697,7 @@ function updateWildPkmn(){
     for (const buff in wildBuffs){ if ( wildBuffs[buff]>0) wildBuffs[buff] = 0 }
     updateWildBuffs()
 
-    if (rng(0.20)) dropItem()
+    if (rng(0.20) && !areas[saved.currentArea]?.trainer) dropItem()
     //document.getElementById(`pkmn-movebox-wild-${exploreCombatWildTurn}-bar`).style.transition = "0s linear"
     //document.getElementById(`pkmn-movebox-wild-${exploreCombatWildTurn}-bar`).style.width = "0%";
 
@@ -989,6 +991,8 @@ for (const i in saved.currentPreviewTeam) {
 
     div.addEventListener("click", e => { //change team member
 
+         resetPokedexFilters()
+         
         document.getElementById(`pokedex-menu`).style.display = "flex"
             document.getElementById(`pokedex-menu`).style.zIndex = "200"
 
@@ -1725,13 +1729,14 @@ document.addEventListener("contextmenu", e => {
         
         document.getElementById("tooltipTitle").innerHTML = format(el.dataset.item)
         document.getElementById("tooltipBottom").innerHTML = item[el.dataset.item].info()
+        
 
         if (item[el.dataset.item].type==="held"){
             document.getElementById("tooltipTitle").innerHTML = format(el.dataset.item) + `<br>Level ${returnItemLevel(el.dataset.item)}`
             document.getElementById("tooltipMid").innerHTML = `${returnItemLevel(el.dataset.item,"stars")}<br>${item[el.dataset.item].got} in total ${returnItemLevel(el.dataset.item,"left")}`
         }
 
-        else document.getElementById("tooltipMid").style.display = "none"
+        else document.getElementById("tooltipMid").innerHTML = `${item[el.dataset.item].got} in bag`
 
         openTooltip()
 
@@ -1789,11 +1794,13 @@ document.addEventListener("contextmenu", e => {
             </div>
             </div>
              <div class="pkmn-stats-stat-switch" style="background: transparent;">
-                    <div style="box-shadow: none; outline:none">
-                        [Coming Soon]</div>
+                    
                     <div style="box-shadow: none; outline:none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
                         [Coming Soon]</div>
+
+                    <div style="box-shadow: none; outline:none">
+                        ${returnDivisionLetter(returnPkmnDivision(pkmn[el.dataset.pkmn]))}</div>
                 </div>
             
             
@@ -1868,7 +1875,8 @@ document.addEventListener("contextmenu", e => {
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9 19v-2H5.675q-.5 0-.7-.45t.125-.8l6.15-6.9q.3-.35.75-.35t.75.35l6.15 6.9q.325.35.125.8t-.7.45H15v2q0 .425-.288.713T14 20h-4q-.425 0-.712-.288T9 19m3-13l-5.025 5.675q-.15.15-.35.238t-.4.087q-.65 0-.912-.575t.162-1.075l5.775-6.5q.3-.35.75-.35t.75.35l5.775 6.5q.425.5.163 1.075t-.913.575q-.2 0-.4-.075t-.35-.25z"/></svg>
                         ${returnStatDots(poke.id, "spe")}
                     </div>
-                    <svg style="height: 3rem; width:3rem; margin-top:1rem; color:rgb(110, 105, 105)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
+                    <div class="pkmn-edit-division"><span>${returnDivisionLetter(returnPkmnDivision(poke))}</span>division</div>
+                    <svg style="height: 3rem; width:3rem; margin-top:0.3rem; color:rgb(110, 105, 105)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
         `
 
         document.getElementById("pkmn-editor-ivs").innerHTML = `
@@ -3490,12 +3498,29 @@ document.getElementById("pokedex-filter-ability").addEventListener("change", e =
 document.getElementById("pokedex-filter-shiny").addEventListener("change", e => {
   updatePokedex()
 });
+
+document.getElementById("pokedex-filter-division").addEventListener("change", e => {
+  updatePokedex()
+});
+
+document.getElementById("pokedex-filter-evolution").addEventListener("change", e => {
+  updatePokedex()
+});
+
+function resetPokedexFilters(){
+    document.getElementById("pokedex-filter-type").value = "all";
+    document.getElementById("pokedex-filter-level").value = "all";
+    document.getElementById("pokedex-filter-division").value = "all";
+    document.getElementById("pokedex-filter-evolution").value = "all";
+    document.getElementById("pokedex-filter-ability").value = "all";
+    document.getElementById("pokedex-filter-shiny").value = "all";
+}
+
 function updatePokedex(){
 
     document.getElementById(`pokedex-list`).innerHTML = ""
     document.getElementById("pokedex-filters-title").style.display = "none"
     document.getElementById("pokedex-filters-cancel").style.display = "none"
-
 
     for (const i in pkmn) {
 
@@ -3506,8 +3531,10 @@ function updatePokedex(){
         if (document.getElementById(`pokedex-filter-level`).value !== "all" && !( pkmn[i].level <= (document.getElementById(`pokedex-filter-level`).value) &&  pkmn[i].level >= (document.getElementById(`pokedex-filter-level`).value-19) )    ) continue
         if (document.getElementById(`pokedex-filter-ability`).value !== "all" && ability[pkmn[i].ability].rarity !=  document.getElementById(`pokedex-filter-ability`).value   ) continue
         if ((v = document.getElementById("pokedex-filter-shiny").value) !== "all" && pkmn[i].shiny != (v === "true" ? true : undefined)) continue;
-
-
+        if (document.getElementById(`pokedex-filter-division`).value !== "all" && returnPkmnDivision(pkmn[i]) !=  document.getElementById(`pokedex-filter-division`).value   ) continue
+        
+        if (document.getElementById(`pokedex-filter-evolution`).value !== "all" && pkmn[i].evolve==undefined ) continue
+        if (document.getElementById(`pokedex-filter-evolution`).value !== "all" && pkmn[ pkmn[i].evolve()[1].pkmn.id ].caught>0 ) continue
 
 
         //if (!rng(0.05)) continue
@@ -3587,6 +3614,12 @@ function updatePokedex(){
             document.getElementById("pokedex-filters-cancel").style.display = "flex"
             document.getElementById("pokedex-filters-title").innerHTML = `Select a Pokemon to use the ${format(evoItemToUse)}`
            
+            if (vitaminToUse === "hpUp" && pkmn[i].ivs.hp >= 6) continue
+            if (vitaminToUse === "protein" && pkmn[i].ivs.atk >= 6) continue
+            if (vitaminToUse === "iron" && pkmn[i].ivs.def >= 6) continue
+            if (vitaminToUse === "calcium" && pkmn[i].ivs.satk >= 6) continue
+            if (vitaminToUse === "zinc" && pkmn[i].ivs.sdef >= 6) continue
+            if (vitaminToUse === "carbos" && pkmn[i].ivs.spe >= 6) continue
 
                 div.addEventListener("click", e => { 
 
@@ -3721,6 +3754,8 @@ function exitTmTeaching(mod){
 
 function switchMenu(id){
 
+    resetPokedexFilters()
+
 
     if (id=="team") document.getElementById(`pkmn-team-return`).style.display = "none"
     else document.getElementById(`pkmn-team-return`).style.display = "flex"
@@ -3838,12 +3873,13 @@ function updateItemBag(){
 
         div.dataset.item = i
         if (item[i].type !== "tm") div.innerHTML = `<img src="img/items/${i}.png"> <span>${format(i)}</span> <span>x${item[i].got}</span>`
-        if (item[i].move && move[item[i].move]) div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span>${format(i)}</span> <span>x${item[i].got}</span>`
+        if (item[i].move && move[item[i].move]) div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span>${format(i)} <strong style="opacity:0.6; font-weight:200">(${move[item[i].move].power} BP, ${format(move[item[i].move].split)})</strong> </span>  <span>x${item[i].got}</span>`
 
 
 
         if (item[i].type == "tm") {
             div.addEventListener("click", e => { 
+                 resetPokedexFilters()
             document.getElementById(`pokedex-menu`).style.display = "flex"
             document.getElementById(`pokedex-menu`).style.zIndex = "40"
 
@@ -3863,6 +3899,7 @@ function updateItemBag(){
 
         if (item[i].evo) {
             div.addEventListener("click", e => { 
+                 resetPokedexFilters()
             document.getElementById(`pokedex-menu`).style.display = "flex"
             document.getElementById(`pokedex-menu`).style.zIndex = "40"
 
@@ -3882,6 +3919,7 @@ function updateItemBag(){
 
         if (item[i].vitamin) {
             div.addEventListener("click", e => { 
+                 resetPokedexFilters()
             document.getElementById(`pokedex-menu`).style.display = "flex"
             document.getElementById(`pokedex-menu`).style.zIndex = "40"
 
@@ -4310,6 +4348,8 @@ function claimExportReward(){
         
         openTooltip()
 
+        exportData()
+
 }
 
 let currentEditedPkmn;
@@ -4341,6 +4381,40 @@ function exitPkmnTeam(){
     document.getElementById("menu-button-parent").style.display = "flex"
     saved.currentArea = undefined
 
+
+}
+
+
+function returnPkmnDivision(id,mod){
+
+    id
+
+    const totalSum = id.bst.hp + id.bst.atk + id.bst.satk + id.bst.def + id.bst.sdef + id.bst.spe
+
+    if (mod=="sum") return totalSum
+    if (totalSum<10) return "D"
+    if (totalSum<14) return "C"
+    if (totalSum<16) return "B"
+    if (totalSum<19) return "A"
+    if (totalSum<21) return "S"
+    if (totalSum<24) return "SS"
+    if (totalSum<26) return "SSS"
+    else return "SSS+"
+
+}
+
+
+function returnDivisionLetter(division){
+
+
+    if (division==="D") return `<strong style="color:#DAA867" class="tier-letter">D</strong>`
+    if (division==="C") return `<strong style="color:#73C46A" class="tier-letter">C</strong>`
+    if (division==="B") return `<strong class="tier-letter">B</strong>`
+    if (division==="A") return `<strong style="color:#EB535D" class="tier-letter">A</strong>`
+    if (division==="S") return `<strong class="tier-letter-s">S</strong>`
+    if (division==="SS") return `<strong class="tier-letter-s">SS</strong>`
+    if (division==="SSS") return `<strong class="tier-letter-s">SSS</strong>`
+    if (division==="SSS+") return `<strong class="tier-letter-s">SSS+</strong>`
 
 }
 
@@ -4379,6 +4453,7 @@ window.addEventListener('load', function() {
 
 
     changeTheme()
+    resetPokedexFilters()
 
     
     updateGameVersion()
