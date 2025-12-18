@@ -3,6 +3,16 @@
     padding: 0;
     box-sizing: border-box;
     scrollbar-width: thin;
+    scrollbar-color: var(--dark2) var(--dark1);
+
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark2);
 }
 
 @font-face {
@@ -137,7 +147,7 @@ body {
     display: none;
     justify-content: start;
     align-items: center;
-        animation: tooltipBoxAppear 0.2s 1;
+    animation: tooltipBoxAppear 0.2s 1;
     flex-direction: column;
     padding-bottom: 3rem;
     z-index: 20;
@@ -219,6 +229,11 @@ body {
     100% { transform: translateY( -5%);}
 }
 
+@keyframes selectPoke{
+    0% { }
+    100% { scale: 0.9; filter: brightness(2);}
+}
+
 .explore-header-hpbox{
     background: var(--dark1);
     height: auto;
@@ -246,6 +261,16 @@ body {
     transition: 0.5s all;
     flex-shrink: 0;
     
+}
+
+.explore-hp-wild{
+        position: absolute;
+    width: 100%;
+    height: 0.5rem;
+    background: rgb(130, 211, 130);
+    border-radius: 0.1rem;
+    transition: 0.5s all;
+    flex-shrink: 0;
 }
 
 .explore-header-moves{
@@ -514,7 +539,6 @@ flex-direction: column;
 
 .menu-button-open {
     height: auto !important;
-    max-height: 26rem !important;
     width: 100% !important;
     border-radius: 0.3rem !important;
     box-shadow: rgba(0, 0, 0, 0.4) 5px 0 5px;
@@ -781,10 +805,13 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    padding: 0.3rem 0.5rem;
+    flex-direction: column;
+    gap: 0.3rem;
     border-radius: 0.2rem;
     background: var(--dark1);
+    font-size: 1.1rem;
+    color: var(--light2);
+    padding: 0.5rem;
 }
 
 .pkmn-stats-stat-abilities div{
@@ -798,6 +825,19 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     white-space: nowrap;
     color: var(--light2);
     cursor: help;
+}
+
+.pkmn-stats-stat-abilities div span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.pkmn-stats-stat-abilities div svg{
+    height: 1.3rem;
+    width: auto;
+    pointer-events: none;
 }
 
 .pkmn-stats-stat-switch{
@@ -1704,6 +1744,11 @@ color: var(--dark2);
     overflow-y: scroll;
     z-index: 1;
     padding-top: 1.5rem;
+    transition: 0.1s;
+}
+
+#pokedex-list div:active{
+    scale: 0.9;
 }
 
 #pokedex-list div{
@@ -1751,8 +1796,8 @@ color: var(--dark2);
     animation: pkmn-active 0.5s infinite;
 }
 
-.pokedex-filters{
-    height: 12rem;
+#pokedex-filters{
+    height: auto;
     width: 100%;
     background: var(--light1);
     background-image: url(img/bg/mini/special7.png);
@@ -1761,29 +1806,24 @@ color: var(--dark2);
     align-items: center;
     justify-items: end;
     align-content: end;
-    padding: 2rem;
     border-radius: 0.4rem;
     z-index: 1;
     box-shadow: rgba(0, 0, 0, 0.4) 0 0 10px 10px;
     gap: 0rem;
     flex-wrap: wrap;
-}
-
-@media (max-width: 1000px) {
-    .pokedex-filters {
-        height: 15rem;
-    padding: 0.5rem;
-
-    }
+    padding: 0.2rem;
+    padding-bottom: 1rem;
+    padding-top: 7rem;
 }
 
 
 
 
 
-.pokedex-filters select,.pokedex-filters div {
+#pokedex-filters select, #pokedex-filters div {
     font-size: 1rem;
     padding: 0.4rem 0.5rem;
+    height: 2.5rem;
     background-color: var(--dark2);
     color: var(--light2);
     outline: none;
@@ -2048,6 +2088,13 @@ color: var(--dark2);
     outline: solid 1px #818CF8;
     padding: 0 0.3rem;
     font-size: 1.1rem;
+}
+
+.buff-tag svg{
+    height: 1.2rem !important;
+    width: 1.2rem !important;
+    color: #818CF8 !important;
+    margin-left: 0.2rem;
 }
 
 .team-buff-list{
@@ -2492,6 +2539,7 @@ color: var(--dark2);
 }
 
 
+
 #guide-menu-header{
     height: 8rem;
     width: 100%;
@@ -2505,6 +2553,8 @@ color: var(--dark2);
     text-align: center;
     flex-shrink: 0;
     box-shadow: rgba(0, 0, 0, 0.4) 0 5px 5px;
+    position: sticky;
+    top: 0;
 
 }
 
@@ -2709,3 +2759,481 @@ color: var(--dark2);
         background-position: 0 0;
     }
 }
+
+
+#genetics-menu{
+    position: fixed;
+    height: 100%;
+    width: 50%;
+    background: var(--dark2);
+    z-index: 150;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    z-index: 30;
+   background-color: #404555;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23898097' fill-opacity='0.29'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+}
+
+@media (max-width: 1000px) {
+    #genetics-menu {
+        width: 100%;
+    }
+}
+
+
+#genetics-menu-header{
+    height: auto;
+    width: 100%;
+    background-image: url(img/bg/space.png);
+    background-size: cover;
+    background-position:bottom left;
+    image-rendering: pixelated;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding-top: 3rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.7) 15px 0px 5px;
+}
+
+#genetics-menu-header span {
+    height: 3rem;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--dark1);
+    color: var(--light2);
+    padding: 0 1rem;
+    border-radius: 0.3rem;
+    font-size: 1.1rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 5px 5px;
+    cursor: help;
+}
+
+#genetics-menu-header span svg{
+    margin-left: 1rem;
+}
+
+.genetics-header-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10rem;
+    gap: 0rem;
+    margin-bottom: 1rem;
+    
+}
+
+.genetics-header-flex img{
+    scale: 2;
+}
+
+.genetics-sample{
+    position: relative;
+    display: flex;
+    justify-content:
+    center;
+    align-items:
+    center;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 100%;
+    background: var(--dark1);
+    border: rgb(158, 112, 189) ridge 15px;
+    margin-left: 2rem;
+    flex-shrink: 0;
+}
+
+.genetics-sample img{
+    scale: 1;
+}
+
+#genetics-arrow{
+    height: 3.5rem;
+    width: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--dark2);
+    border-radius: 0.3rem;
+    color: rgb(229, 143, 255);
+    box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 2px;
+    padding-top: 0.3rem;
+}
+
+@keyframes genetics-arrow {
+    0%,100% {
+        color: rgb(179, 81, 209);
+    }
+    50% {
+        color: rgb(229, 209, 255);
+    }
+}
+
+
+.genetics-parameter{
+    background: var(--dark1);
+    border-radius: 100rem;
+    width: 95%;
+    height: 1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    border: var(--dark2) solid 3px;
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+    position: relative;
+}
+
+.genetics-parameter strong{
+    background: var(--dark2);
+    border-radius: 20rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    height: 1.5rem;
+    font-weight: 100;
+    color: white;
+    margin-left: -0.2rem;
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+    z-index: 1;
+    white-space: nowrap;
+    width: 12rem;
+    justify-content: center;
+}
+
+.genetics-parameter-bar{
+    background: rgb(229, 143, 255);
+    width: 50%;
+    height: 100%;
+    border-radius: 0 10rem 10rem 0;
+    margin-left: -0.2rem;
+    z-index: 0;
+    
+}
+
+.genetics-overview{
+    height: auto;
+    padding: 0.5rem;
+    width: 95%;
+    background: var(--light2);
+    border-radius: 0.3rem;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+
+.genetics-overview-data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.genetics-overview-data div{
+    width: 100%;
+    height: 0.3rem;
+    border-radius: 3rem;
+    background-color: var(--light1);
+}
+
+.genetics-overview-data span{
+    white-space: nowrap;
+    padding: 0 0.4rem;
+    color: var(--dark1);
+}
+
+#genetics-host-div, #genetics-sample-div{
+    cursor: help;
+    transition: 0.1s;
+}
+
+#genetics-host-div:hover, #genetics-sample-div:hover{
+    scale: 1.05;
+}
+
+#genetics-host-div svg{
+    color: black;
+    scale: 2;
+    opacity: 0.6;
+}
+
+#genetics-sample-div svg{
+    color: black;
+    opacity: 0.6;
+}
+
+#genetics-progress{
+    width: 95%;
+    height: 2rem;
+    background: var(--dark2);
+    border-radius: 0.3rem;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    border: var(--dark1) solid 2px;
+    padding: 0.5rem;
+    animation: tooltipBoxAppear 1s 1;
+
+}
+
+#genetics-progress div{
+    width: 100%;
+    height: 100%;
+    background: var(--dark1);
+    border-radius: 0.2rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+#genetics-progress strong{
+    padding: 0 0.5rem;
+    font-weight: 300;
+    white-space: nowrap;
+    color: rgb(189, 123, 219);
+    width: 10rem;
+}
+
+#genetics-progress div span{
+    width: 50%;
+    height: 100%;
+    background: 
+    rgb(189, 123, 219)
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='white' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E")
+    ;
+    border-radius: 0.2rem;
+    animation: bg-vertical infinite 1000s linear;
+    transition: 1s ;
+}
+
+@keyframes bg-vertical {
+    0%{background-position-y: -10000%;}
+    100%{background-position-y: 10000%;}
+}
+
+#genetics-start{
+    width: 10rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    border-radius: 0.2rem;
+    background: var(--dark1);
+    outline: rgb(189, 123, 219) solid 2px;
+    color: rgb(189, 123, 219);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.6) 2px 2px 5px 2px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+#genetics-start:hover{
+        outline: rgb(200, 165, 255) solid 2px;
+    color: rgb(200, 165, 255);
+
+}
+
+#genetics-start:active{
+    scale: 0.95;
+
+}
+
+
+.genetics-overview-tags{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    gap: 0.2rem;
+    flex-direction: column;
+    overflow-y: scroll;
+    max-height: 15rem;
+    padding: 1rem;
+}
+
+.genetics-overview-tags div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    color: #a3ffee;
+    border-radius: 0.2rem;
+    background: var(--dark1);
+    padding: 0.2rem;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+
+
+
+#shop-menu{
+    position: fixed;
+    height: 100%;
+    width: 50%;
+    background: 
+    
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='black' fill-opacity='0.1'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E")
+    ,rgb(201, 201, 201)
+    ;
+    background-size: 10%;
+    z-index: 150;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    z-index: 30;
+    animation: bg-diagonal infinite 1500s linear;
+}
+
+@keyframes bg-diagonal {
+    0%{background-position-y: -2000%; background-position-x: -2000%;}
+    100%{background-position-y: 2000%; background-position-x: 2000%;}
+}
+
+@media (max-width: 1000px) {
+    #shop-menu {
+        width: 100%;
+    }
+}
+
+
+#shop-menu-header{
+    height: 8rem;
+    width: 100%;
+    background-image: url(img/bg/mall.png);
+    background-size: cover;
+    background-position:bottom left;
+    image-rendering: pixelated;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 5px 5px;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+}
+
+
+#shop-menu-header span {
+    height: 3rem;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--dark1);
+    color: var(--light2);
+    padding: 0 1rem;
+    border-radius: 0.3rem;
+    font-size: 1.1rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 5px 5px;
+    cursor: help;
+}
+
+#shop-menu-header span svg{
+    margin-left: 1rem;
+}
+
+#shop-listing{
+    height: auto;
+    margin-top: 0.1rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+
+}
+
+.shop-currency{
+    padding: 0 0.2rem;
+    border-radius: 0.2rem;
+    background: white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--dark2);
+    width: 7rem;
+    outline: rgb(183, 183, 207) solid 2px;
+}
+
+#shop-listing div{
+    width: 100%;
+    height: 2rem;
+    border-radius: 0.2rem;
+    background: var(--dark2);
+    outline: white solid 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 2px 5px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: white;
+    cursor: help;
+    transition: 0.05s;
+}
+
+#shop-listing div:active{
+    scale: 0.95;
+}
+
+#shop-listing div:hover{
+    background: var(--dark1);
+}
+
+#shop-listing img{
+    background: white;
+    width: auto;
+    image-rendering: pixelated;
+    margin-right: 0.5rem;
+}
+
+#shop-listing strong{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background: white;
+    color: var(--dark2);
+    margin-left: auto;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    padding-right: 0.5rem;
+    width: 4rem;
+}
+
+#shop-listing strong img{
+    margin: 0;
+}
+

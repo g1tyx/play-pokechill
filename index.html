@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokechill</title>
-
+    <link rel="icon" type="image/x-icon" href="/img/icons/icon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -45,13 +45,26 @@
 
         <div class="item-menu-tags"> <!-- da hells this lol -->
             <div id="item-menu-cancel" onClick='
+
+
+            if (geneticItemSelect==true){
+
+                document.getElementById("item-menu").style.display = "none"
+                document.getElementById("item-menu").style.zIndex = "30"
+                document.getElementById("item-menu-cancel").style.display = "none"
+                geneticItemSelect = false
+                return
+            }
+
+
+
             document.getElementById(`team-menu`).style.display = "flex" ;
             document.getElementById(`item-menu`).style.display = "none";
             document.getElementById(`item-menu`).style.zIndex = "30" 
             document.getElementById("item-menu-cancel").style.display = "none";
                 dexTeamSelect = undefined; updateItemBag(); 
                 updatePreviewTeam()'
-                 style="display: none; background: rgb(255, 81, 81); color: white; border: none; ">Cancel</div>
+                 style="display: none; background: rgb(255, 81, 81); color: white; border: none; text-align: center; display: flex; justify-content: center; align-items: center; ">Cancel</div>
 
             <div id="item-menu-remove" onClick='
             document.getElementById(`team-menu`).style.display = "flex" ;
@@ -122,7 +135,7 @@
     <div id="pokedex-menu" style="display: none;">
 
         <img class="pokedex-menu-flair" src="img/icons/pokeball.svg">
-        <div class="pokedex-filters">
+        <div id="pokedex-filters">
 
             <div id="pokedex-filters-title" style="display: none; cursor: default;">Select a pokemon to teach Hydro Pump</div>
             <div id="pokedex-filters-cancel" onClick="exitTmTeaching('cancel')" style="display: none; background: rgb(255, 81, 81); color: white;">Cancel</div>
@@ -171,7 +184,6 @@
                 <option value="S">S</option>
                 <option value="SS">SS</option>
                 <option value="SSS">SSS</option>
-                <option value="SSS+">SSS+</option>
             </select>
 
             <select id="pokedex-filter-evolution">
@@ -193,6 +205,7 @@
             </select>
 
       
+            <div onClick="resetPokedexFilters(); updatePokedex()" style="background: rgb(155, 102, 77); color: white; cursor: pointer;">Clear Filters</div>
 
 
 
@@ -237,7 +250,7 @@
             <div onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Credits`
         document.getElementById("tooltipMid").style.display = `none`
-        document.getElementById("tooltipBottom").innerHTML = `Made by Duck<br><br>Pokemon and trainer sprites by Pokemon Showdown (Artists include: Beliot419, kyledove, Brumirage and ZacWeavile)<br><br>All characters and related assets featured in this game are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company, and are used here strictly for non-commercial purposes.`
+        document.getElementById("tooltipBottom").innerHTML = `Made by Duck<br><br>Pokemon and trainer sprites by Pokemon Showdown (Including artists: Beliot419, kyledove, Brumirage and ZacWeavile. Go check their work. Now.)<br><br>All characters and related assets featured in this game are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company, and are used here strictly for non-commercial purposes.`
         openTooltip()' >Credits</div>
             <div onclick="window.open('https://discord.gg/VnukKfSs3S', '_blank')">Discord</div>
 
@@ -311,6 +324,171 @@
                 <div id="guide-list"></div>
 
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <div id="genetics-menu" style="display: none;">
+
+        
+
+        <div id="genetics-menu-header">
+
+            <span data-help="Genetics">Genetics<svg style="pointer-events: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
+            </span>
+
+
+
+            <div class="genetics-header-flex">
+
+            <div style="position: relative; display: flex; justify-content: center;align-items: center; width:10rem" id="genetics-host-div">
+            <img class="sprite-trim" style="z-index: 1; transform-origin: bottom; margin-top: auto; position: absolute; bottom: -4.5rem;" id="genetics-host" src="img/pkmn/sprite/magikarp.png">
+            <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 0; transform: translateY(0.5rem); image-rendering: initial;" src="img/resources/pkmn-shadow.png">
+            </div>
+
+            <div id="genetics-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v3.586a1 1 0 0 1-1.707.707l-6.586-6.586a1 1 0 0 1 0-1.414l6.586-6.586A1 1 0 0 1 12 5.414V9h6v6zm9 0V9"/></svg>
+            </div>
+
+            <div class="genetics-sample" id="genetics-sample-div">
+            <img class="sprite-trim" style="animation: none; z-index: 1;" id="genetics-sample" src="img/pkmn/sprite/arceus.png">
+            </div>
+
+            </div>
+
+            <div class="genetics-parameter">
+                <strong>Compatibility</strong><div style="width: 100%; height: 100%; position: relative;"><div class="genetics-parameter-bar" id="genetics-bar-compatibility"></div></div> 
+            </div>
+
+            <div class="genetics-parameter">
+                <strong>Power Cost</strong><div style="width: 100%; height: 100%; position: relative;"><div class="genetics-parameter-bar" id="genetics-bar-power"></div></div> 
+            </div>
+            
+        </div>
+
+
+
+        <div class="genetics-overview">
+
+
+            <div class="genetics-overview-data"><span>Time to complete operation</span><div></div><span id="genetics-data-time">12:84:12</span></div>
+            <div class="genetics-overview-data"><span>% for shiny mutation</span><div></div><span id="genetics-data-shiny">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit a move from the sample</span><div></div><span id="genetics-data-moves">5%</span></div>
+            <br>
+            <!--<div class="genetics-overview-data"><span>% to swap sample's ability</span><div></div><span>12%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's signature move</span><div></div><span>8%</span></div>
+            <br> these require special items -->
+            <div class="genetics-overview-data"><span>% to inherit sample's HP Iv's</span><div></div><span id="genetics-data-hp">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's Attack Iv's</span><div></div><span id="genetics-data-atk">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's S. Attack Iv's</span><div></div><span id="genetics-data-satk">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's Defense Iv's</span><div></div><span id="genetics-data-def">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's S. Defense Iv's</span><div></div><span id="genetics-data-sdef">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's Speed Iv's</span><div></div><span id="genetics-data-spe">5%</span></div>
+
+        </div>
+
+        <div id="genetics-progress">
+
+            <strong id="genetics-progress-time">1h 31m 20s</strong>
+            <div>
+                <span id="genetics-progress-bar">
+
+                </span>
+            </div>
+        </div>
+
+        <div id="genetics-start">
+
+            Start
+
+        </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+       <div id="shop-menu" style="display: none;">
+
+        
+
+        <div id="shop-menu-header">
+
+            <span data-help="Shop">Poke-Mart
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
+            </span>
+
+            <div style="display: flex; margin-top: 1rem; gap:1rem">
+            <div class="shop-currency" id="shop-currency">
+                    <img src="img/items/bottleCap.png"> x12
+            </div>
+          
+            
+            <div class="shop-currency" id="shop-currency-gold">
+                    <img src="img/items/goldenBottleCap.png"> x123
+            </div>
+            </div>
+
+        </div>
+
+            <div id="shop-listing">
+
+            <div>
+                <img src="img/items/calcium.png">
+                <span>Calcium Bottle</span>
+                <strong>
+                    <img src="img/items/bottleCap.png">
+                    x12
+                </strong>
+            </div>
+
+
+
+
+
+        </div>
+
+       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
        <div id="vs-menu" style="display: none;">
 
@@ -460,17 +638,6 @@
 
 </div>
 
-<div class="pkmn-stats-stat-abilities" style="margin-top: 0.5rem;">
-
-            <svg style="color: gray;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M22.833 10.117L16.937 7.24c-.07-.035-.106-.106-.142-.177l-2.912-5.896c-.498-1.03-1.776-1.457-2.807-.96a2.1 2.1 0 0 0-.959.96L7.205 7.063a.8.8 0 0 1-.142.177l-5.896 2.913c-1.03.497-1.457 1.776-.96 2.806a2.1 2.1 0 0 0 .96.96l5.896 2.876c.07.036.106.107.142.142l2.948 5.896c.497 1.03 1.776 1.457 2.806.96a2.1 2.1 0 0 0 .959-.96l2.877-5.896c.036-.07.107-.142.142-.142l5.896-2.912c1.03-.498 1.457-1.776.96-2.806c-.178-.427-.533-.746-.96-.96m-4.368.427l-2.735 2.38c-.533.497-.924 1.136-1.066 1.847l-.71 3.551c-.036.143-.178.25-.32.214c-.071 0-.107-.036-.142-.107l-2.38-2.735c-.497-.533-1.137-.923-1.847-1.066l-3.552-.71c-.142-.035-.249-.178-.213-.32c0-.07.035-.106.106-.142l2.735-2.38c.533-.497.924-1.136 1.066-1.847l.71-3.551c.036-.143.178-.25.32-.214a.27.27 0 0 1 .142.071l2.38 2.735c.497.533 1.137.924 1.847 1.066l3.552.71c.142.036.249.178.213.32a.4.4 0 0 1-.106.178"/></svg>
-
-                    <div id="pkmn-edit-ability">
-                        [Coming Soon]</div>
-                    <div >
-                        <svg style="margin-right: 0.5rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
-                        [Coming Soon]</div>
-                </div>
-
         <div class="pkmn-stats-stat-switch" style="margin-bottom: 0.5rem;  margin-top: 1rem;">
                     <div onclick='document.getElementById("pkmn-editor-stats").style.display = "flex"; document.getElementById("pkmn-editor-ivs").style.display = "none"; '>
                         
@@ -480,6 +647,19 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
                         IV's Stats</div>
                 </div>
+
+<div class="pkmn-stats-stat-abilities" style="margin-top: 0.5rem;">
+
+                    Abilities
+                        <span style="display: flex; gap: 1rem;">
+                    <div id="pkmn-edit-ability">
+                        [Coming Soon]</div>
+                    <div id="pkmn-edit-ability-hidden" >
+                        [Coming Soon]</div>
+                </div>
+                </span>
+
+
 
            
 
@@ -582,7 +762,15 @@
             <span>Dex</span>
         </div>
 
+        <div class="menu-item" id="menu-item-shop" onClick="switchMenu('shop')">
+            <img src="img/items/maxPotion.png">
+            <span>Poke-Mart</span>
+        </div>
 
+        <div class="menu-item" id="menu-item-genetics" onClick="switchMenu('genetics')">
+            <img src="img/items/dnaSplicer.png">
+            <span>Genetics</span>
+        </div>
 
         <div class="menu-item" id="menu-item-settings" onClick="switchMenu('settings')">
             <img src="img/items/key.png">
@@ -638,7 +826,10 @@
 
                 <div class="explore-header-hpbox">
                 <span style="color: white;" id="explore-wild-name"></span>
-                <div class="explore-hp" id="exploe-wild-hp"></div>
+                <div style="position: relative; height: 0.5rem; width: 100%;">
+                <div class="explore-hp-wild" id="exploe-wild-hp"></div>
+                <div style="background: rgb(134, 141, 238);" class="explore-hp-wild" id="exploe-wild-hp-2"></div>
+                </div>
                 </div>
 
                 <div class="explore-header-moves" id="explore-header-moves-wild">

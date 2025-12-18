@@ -210,6 +210,86 @@ item.babiriBerry = {
 }
 
 
+item.luckIncense = {
+    type: "held",
+    info: function() {return `When held: Increases the weight of rare item drops by ${this.power()}%`},
+    power : function() { return 0.5+(0.5*returnItemLevel(this.id))}
+}
+
+item.pureIncense = {
+    type: "held",
+    info: function() {return `When held: Increases the weight of rare pokemon by ${this.power()}%`},
+    power : function() { return 0.5+(0.5*returnItemLevel(this.id))}
+}
+
+item.luckyEgg = {
+    type: "held",
+    info: function() {return `When held: Increases the experience gained by the pokemon by ${this.power()}%`},
+    power : function() { return 40+(10*returnItemLevel(this.id))}
+}
+
+item.shinyCharm = {
+    type: "held",
+    info: function() {return `When held: Increases the chance of encountering a wild shiny pokemon by ${this.power()}%`},
+    power : function() { return 0+(10*returnItemLevel(this.id))}
+}
+
+item.dampRock = {
+    type: "held",
+    info: function() {return `When held: Increases the duration of ${tagRainy} weather by ${this.power()} turns`},
+    power : function() { return 2+(1*returnItemLevel(this.id))}
+}
+
+item.heatRock = {
+    type: "held",
+    info: function() {return `When held: Increases the duration of ${tagSunny} weather by ${this.power()} turns`},
+    power : function() { return 2+(1*returnItemLevel(this.id))}
+}
+
+item.icyRock = {
+    type: "held",
+    info: function() {return `When held: Increases the duration of ${tagHail} weather by ${this.power()} turns`},
+    power : function() { return 2+(1*returnItemLevel(this.id))}
+}
+
+item.smoothRock = {
+    type: "held",
+    info: function() {return `When held: Increases the duration of ${tagSandstorm} weather by ${this.power()} turns`},
+    power : function() { return 2+(1*returnItemLevel(this.id))}
+}
+
+item.flameOrb = {
+    type: "held",
+    info: function() {return `When held: Increases the Special Attack of the user by x${this.power()}, but inflicts ${tagBurn}`},
+    power : function() { return 1+(0.15*returnItemLevel(this.id))}
+}
+
+item.toxicOrb = {
+    type: "held",
+    info: function() {return `When held: Increases the Attack of the user by x${this.power()}, but inflicts ${tagPoisoned}`},
+    power : function() { return 1+(0.15*returnItemLevel(this.id))}
+}
+
+item.choiceBand = {
+    type: "held",
+    info: function() {return `When held: Increases the Attack of the user by x${this.power()}, but prevents them from switching`},
+    power : function() { return 1+(0.15*returnItemLevel(this.id))}
+}
+
+item.choiceSpecs = {
+    type: "held",
+    info: function() {return `When held: Increases the Special Attack of the user by x${this.power()}, but prevents them from switching`},
+    power : function() { return 1+(0.15*returnItemLevel(this.id))}
+}
+
+item.lifeOrb = {
+    type: "held",
+    info: function() {return `When held: Increases the damage of the user by x${this.power()}, but loses 1/10 of its max HP per turn`},
+    power : function() { return 1+(0.2*returnItemLevel(this.id))}
+}
+
+
+
 item.waterStone = {
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
@@ -263,6 +343,28 @@ item.shinyStone = {
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 
+item.oddRock = {
+    evo: true,
+    info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel4}+)`},
+}
+
+item.rareCandy = {
+    type: 'key',
+    itemToUse: true,
+    info: function() {return `Increases the level of a Pokemon by 1`},
+}
+
+item.abilityPatch = {
+    type: 'key',
+    itemToUse: true,
+    info: function() {return `Re-rolls the ability of a Pokemon`},
+}
+
+item.abilityCapsule = {
+    type: 'key',
+    itemToUse: true,
+    info: function() {return `Unlocks the hidden ability of a Pokemon`},
+}
 
 item.hpUp = {
     type: 'key',
@@ -303,13 +405,67 @@ item.carbos = {
 
 item.bottleCap = {
     type: "key",
-    info: function() {return `Obtained when acquiring an exceeding number of items. Can be used in the Item Fabricator (not yet implemented!)`},
+    info: function() {return `Obtained when acquiring an exceeding number of items. Can be exchanged in the Poke-Mart`},
 }
 
 item.goldenBottleCap = {
     type: "key",
-    info: function() {return `Obtained in events and the Battle Tower. Can be used in the Item Fabricator (not yet implemented!)`},
+    info: function() {return `Obtained in the Battle Frontier. Can be exchanged in the Poke-Mart`},
 }
+
+
+
+
+item.everstone = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Ensures the Pokemon will retain its original ability`},
+}
+
+item.powerAnklet = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Speed Iv's`},
+}
+
+item.powerBand = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Special Defense Iv's`},
+}
+
+item.powerBelt = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Defense Iv's`},
+}
+
+item.powerBracer = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Attack Iv's`},
+}
+
+item.powerLens = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Special Attack Iv's`},
+}
+
+item.powerWeight = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit HP Iv's`},
+}
+
+
+item.destinyKnot = { //very rare i guess
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Swaps the ability of the Pokemon with the sample`},
+}
+
+
 
 
 item.eviolite = {
@@ -333,46 +489,376 @@ item.mentalHerb = {
 
 
 
+
+
+item.glalitite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Glalie by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.absolite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Absol by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.aerodactylite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Aerodactyl by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.aggronite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Aggron by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.alakazite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Alakazam by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.altarianite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Altaria by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.ampharosite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Ampharos by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.audinite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Audino by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.banettite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Banette by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.beedrillite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Beedrill by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.blastoisinite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Blastoise by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.blazikenite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Blaziken by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.cameruptite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Camerupt by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.charizarditeX = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Charizard X by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.charizarditeY = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Charizard Y by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.diancite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Diancie by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.galladite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Gallade by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.garchompite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Garchomp by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.gardevoirite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Gardevoir by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.gengarite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Gengar by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.gyaradosite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Gyarados by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.heracronite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Heracross by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.houndoominite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Houndoom by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.kangaskhanite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Kangaskhan by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.lopunnite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Lopunny by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.lucarionite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Lucario by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.manectite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Manectric by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.mawilite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Mawile by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.medichamite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Medicham by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.metagrossite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Metagross by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.mewtwoniteX = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Mewtwo X by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.mewtwoniteY = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Mewtwo Y by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.pidgeotite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Pidgeot by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.pinsirite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Pinsir by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.sablenite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Sableye by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.abomasite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Abomasnow by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.salamencite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Salamence by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.sceptilite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Sceptile by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.scizorite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Scizor by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.sharpedonite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Sharpedo by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.slowbronite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Slowbro by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.steelixite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Steelix by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.swampertite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Swampert by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.tyranitarite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Tyranitar by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+item.venusaurite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by Mega Venusaur by x${this.power()}`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 item.thunderousRock = {
     type: "key",
     rotation: 1,
-    info: function() {return `Can be used to catch Zapdos once. Expires after event finishes`},
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
 item.fieryRock = {
     type: "key",
     rotation: 1,
-    info: function() {return `Can be used to catch Moltres once. Expires after event finishes`},
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
 item.articRock = {
     type: "key",
     rotation: 1,
-    info: function() {return `Can be used to catch Articuno once. Expires after event finishes`},
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
 item.ancientOrchid = {
     type: "key",
     rotation: 2,
-    info: function() {return `Can be used to catch a privimite Paradox Pokemon once. Expires after event finishes`},
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
 item.ancientKeystone = {
     type: "key",
     rotation: 3,
-    info: function() {return `Can be used to catch Regirock once. Expires after event finishes`},
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
 item.steelKeystone = {
     type: "key",
     rotation: 3,
-    info: function() {return `Can be used to catch Registeel once. Expires after event finishes`},
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
 item.frozenKeystone = {
     type: "key",
     rotation: 3,
-    info: function() {return `Can be used to catch Regice once. Expires after event finishes`},
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
 

@@ -552,7 +552,7 @@ areas.lavaLake = {
     spawns: {
         common : [pkmn.slugma,pkmn.sizzlipede, pkmn.houndour],
         uncommon : [pkmn.magby],
-        rare : [pkmn.camerupt]
+        rare : [pkmn.numel]
     },
     drops: {
         common : [item.mysteryEgg],
@@ -688,7 +688,7 @@ areas.lonLonRanch = {
     rotation : 10,
     level : wildAreaLevel2,
     type: `wild`,
-    background : `snow`,
+    background : `forest`,
     icon: pkmn.wooloo,
     spawns: {
         common : [pkmn.wooloo,pkmn.buneary, pkmn.rufflet],
@@ -706,7 +706,7 @@ areas.saruTemple = {
     rotation : 10,
     level : wildAreaLevel3,
     type: `wild`,
-    background : `night`,
+    background : `snow`,
     icon: pkmn.pansage,
     spawns: {
         common : [pkmn.pansage,pkmn.pansear, pkmn.panpour],
@@ -818,7 +818,7 @@ areas.sinnohUndergroundI = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.waterStone, item.thunderStone, item.sunStone, item.linkStone]
+        rare : [item.waterStone, item.thunderStone, item.sunStone, item.linkStone, item.dampRock]
     },
 }
 
@@ -886,7 +886,7 @@ areas.victoryRoadI = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.lightClay]
+        rare : [item.lightClay, item.powerAnklet, item.powerBand, item.powerBelt]
     },
 }
 
@@ -906,7 +906,7 @@ areas.sinnohUndergroundII = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.ovalStone, item.moonStone, item.leafStone, item.iceStone]
+        rare : [item.ovalStone, item.moonStone, item.leafStone, item.iceStone, item.icyRock, item.oddRock]
     },
 }
 
@@ -974,7 +974,7 @@ areas.victoryRoadII = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.mentalHerb]
+        rare : [item.mentalHerb, item.everstone , item.powerBracer]
     },
 }
 
@@ -993,7 +993,7 @@ areas.sinnohUndergroundIII = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.fireStone, item.duskStone, item.dawnStone, item.shinyStone]
+        rare : [item.fireStone, item.duskStone, item.dawnStone, item.shinyStone, item.heatRock, item.smoothRock]
     },
 }
 
@@ -1062,7 +1062,7 @@ areas.victoryRoadIII = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.eviolite]
+        rare : [item.eviolite, item.powerLens, item.powerWeight]
     },
 }
 
@@ -1082,6 +1082,9 @@ areas.victoryRoadIII = {
 
 
 const rotationEventMax = 3;
+const tier1difficulty = 25;
+const tier2difficulty = 100;
+
 
 areas.alphaRuins = {
     rotation: 1,
@@ -1117,26 +1120,6 @@ areas.thunderSummit = {
     },
 }
 
-areas.eventZapdos = {
-    rotation: 1,
-    type: `event`,
-    name: `Zapdos Lair`,
-    background : `cave`,
-    icon: pkmn.zapdos,
-    trainer: true,
-    encounter: true,
-    difficulty: 25,
-    encounterEffect : function() {item.thunderousRock.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/thunderousRock.png"> Thunderous Rock to enter`,
-    unlockRequirement : function() { return item.thunderousRock.got>0 },
-    level : 90,
-    team : {
-        slot1 : pkmn.zapdos,
-        slot1Moves : [move.thunderbolt.id,move.discharge.id, move.hurricane.id, move.fly.id],
-    },
-    reward : [pkmn.zapdos]
-}
-
 areas.articSummit = {
     rotation: 1,
     type: `event`,
@@ -1155,25 +1138,6 @@ areas.articSummit = {
     },
 }
 
-areas.eventArticuno = {
-    rotation: 1,
-    type: `event`,
-    name: `Articuno Den`,
-    background : `cave`,
-    icon: pkmn.articuno,
-    trainer: true,
-    encounter: true,
-    difficulty: 25,
-    encounterEffect : function() {item.articRock.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/articRock.png"> Artic Rock to enter`,
-    unlockRequirement : function() { return item.articRock.got>0 },
-    level : 90,
-    team : {
-        slot1 : pkmn.articuno,
-        slot1Moves : [move.blizzard.id,move.iceBeam.id, move.hurricane.id, move.fly.id],
-    },
-    reward : [pkmn.articuno]
-}
 
 areas.fierySummit = {
     rotation: 1,
@@ -1193,6 +1157,47 @@ areas.fierySummit = {
     },
 }
 
+
+areas.eventZapdos = {
+    rotation: 1,
+    type: `event`,
+    name: `Zapdos Lair`,
+    background : `cave`,
+    icon: pkmn.zapdos,
+    trainer: true,
+    encounter: true,
+    difficulty: tier1difficulty,
+    encounterEffect : function() {item.thunderousRock.got--},
+    unlockDescription : `🔒 Requires a <img src="img/items/thunderousRock.png"> Thunderous Rock to enter`,
+    unlockRequirement : function() { return item.thunderousRock.got>0 },
+    level : 90,
+    team : {
+        slot1 : pkmn.zapdos,
+        slot1Moves : [move.thunderbolt.id,move.discharge.id, move.hurricane.id, move.fly.id],
+    },
+    reward : [pkmn.zapdos]
+}
+
+areas.eventArticuno = {
+    rotation: 1,
+    type: `event`,
+    name: `Articuno Den`,
+    background : `cave`,
+    icon: pkmn.articuno,
+    trainer: true,
+    encounter: true,
+    difficulty: tier1difficulty,
+    encounterEffect : function() {item.articRock.got--},
+    unlockDescription : `🔒 Requires a <img src="img/items/articRock.png"> Artic Rock to enter`,
+    unlockRequirement : function() { return item.articRock.got>0 },
+    level : 90,
+    team : {
+        slot1 : pkmn.articuno,
+        slot1Moves : [move.blizzard.id,move.iceBeam.id, move.hurricane.id, move.fly.id],
+    },
+    reward : [pkmn.articuno]
+}
+
 areas.eventMoltres = {
     rotation: 1,
     type: `event`,
@@ -1201,7 +1206,7 @@ areas.eventMoltres = {
     icon: pkmn.moltres,
     trainer: true,
     encounter: true,
-    difficulty: 25,
+    difficulty: tier1difficulty,
     encounterEffect : function() {item.fieryRock.got--},
     unlockDescription : `🔒 Requires a <img src="img/items/fieryRock.png"> Fiery Rock to enter`,
     unlockRequirement : function() { return item.fieryRock.got>0 },
@@ -1213,8 +1218,65 @@ areas.eventMoltres = {
     reward : [pkmn.moltres]
 }
 
+areas.eventMegaCamerupt = {
+    rotation: 1,
+    type: `event`,
+    name: `Camerupt Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaCamerupt,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.fieryRock.got-=3},
+    unlockDescription : `🔒 Requires x3 <img src="img/items/fieryRock.png"> Fiery Rocks to enter`,
+    unlockRequirement : function() { return item.fieryRock.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.megaCamerupt,
+        slot1Moves : [move.sunnyDay.id,move.flamethrower.id, move.flameBurst.id, move.earthquake.id],
+    },
+    reward : [item.cameruptite, pkmn.numel]
+}
 
+areas.eventMegaManectric = {
+    rotation: 1,
+    type: `event`,
+    name: `Manectric Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaManectric,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.thunderousRock.got-=3},
+    unlockDescription : `🔒 Requires x3 <img src="img/items/thunderousRock.png"> Thunderous Rocks to enter`,
+    unlockRequirement : function() { return item.thunderousRock.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.megaManectric,
+        slot1Moves : [move.electricTerrain.id,move.discharge.id, move.iceBeam.id, move.thunderFang.id],
+    },
+    reward : [item.manectite, pkmn.electrike]
+}
 
+areas.eventMegaAbomasnow = {
+    rotation: 1,
+    type: `event`,
+    name: `Abomasnow Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaAbomasnow,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.articRock.got-=3},
+    unlockDescription : `🔒 Requires x3 <img src="img/items/articRock.png"> Artic Rocks to enter`,
+    unlockRequirement : function() { return item.articRock.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.megaAbomasnow,
+        slot1Moves : [move.hail.id,move.iceBeam.id, move.energyBall.id, move.surf.id],
+    },
+    reward : [item.abomasite, pkmn.snover]
+}
 
 //rotation 2
 
@@ -1244,7 +1306,7 @@ areas.primitiveGrove = {
     unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
-        common : [pkmn.kabutops,pkmn.aerodactyl,pkmn.rampardos,pkmn.yanmega],
+        common : [pkmn.haxorus,pkmn.aerodactyl,pkmn.rampardos,pkmn.yanmega],
     },
     drops: {
         common : [item.nothing],
@@ -1260,9 +1322,9 @@ areas.eventGreatTusk = {
     icon: pkmn.greatTusk,
     trainer: true,
     encounter: true,
-    difficulty: 25,
+    difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1275,14 +1337,14 @@ areas.eventGreatTusk = {
 areas.eventScreamTail = {
     rotation: 2,
     type: `event`,
-    name: `Screaming Tail Revival`,
+    name: `Scream Tail Revival`,
     background : `cave`,
     icon: pkmn.screamTail,
     trainer: true,
     encounter: true,
-    difficulty: 25,
+    difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1300,9 +1362,9 @@ areas.eventBruteBonnet = {
     icon: pkmn.bruteBonnet,
     trainer: true,
     encounter: true,
-    difficulty: 25,
+    difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1320,9 +1382,9 @@ areas.eventFlutterMane = {
     icon: pkmn.flutterMane,
     trainer: true,
     encounter: true,
-    difficulty: 25,
+    difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1340,9 +1402,9 @@ areas.eventSlitherWing = {
     icon: pkmn.slitherWing,
     trainer: true,
     encounter: true,
-    difficulty: 25,
+    difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1360,9 +1422,9 @@ areas.eventSandyShocks = {
     icon: pkmn.sandyShocks,
     trainer: true,
     encounter: true,
-    difficulty: 25,
+    difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1380,16 +1442,56 @@ areas.eventRoaringMoon = {
     icon: pkmn.roaringMoon,
     trainer: true,
     encounter: true,
-    difficulty: 25,
-    encounterEffect : function() {item.ancientOrchid.got-=2},
-    unlockDescription : `🔒 Requires two <img src="img/items/ancientOrchid.png"> Ancient Orchids to enter`,
-    unlockRequirement : function() { return item.ancientOrchid.got>1 },
+    difficulty: tier1difficulty,
+    encounterEffect : function() {item.ancientOrchid.got--},
+    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
         slot1 : pkmn.roaringMoon,
         slot1Moves : [move.dragonDance.id,move.fly.id, move.dragonRush.id, move.crunch.id],
     },
     reward : [pkmn.roaringMoon]
+}
+
+areas.eventMegaAerodactly = {
+    rotation: 2,
+    type: `event`,
+    name: `Aerodactly Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaAerodactyl,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.ancientOrchid.got-=3},
+    unlockDescription : `🔒 Requires x3 <img src="img/items/ancientOrchid.png"> Ancient Orchids to enter`,
+    unlockRequirement : function() { return item.ancientOrchid.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.megaAerodactyl,
+        slot1Moves : [move.dragonDance.id,move.stoneEdge.id, move.airShlash.id, move.earthquake.id],
+    },
+    reward : [item.aerodactylite, pkmn.aerodactyl]
+}
+
+areas.eventMegaBeedrill = {
+    rotation: 2,
+    type: `event`,
+    name: `Beedrill Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaBeedrill,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.ancientOrchid.got-=3},
+    unlockDescription : `🔒 Requires x3 <img src="img/items/ancientOrchid.png"> Ancient Orchids to enter`,
+    unlockRequirement : function() { return item.ancientOrchid.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.megaBeedrill,
+        slot1Moves : [move.stringShot.id,move.xScissor.id, move.crossPoison.id, move.bugBuzz.id],
+    },
+    reward : [item.beedrillite, pkmn.weedle]
 }
 
 
@@ -1422,32 +1524,12 @@ areas.ancientTomb = {
     unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
-        common : [pkmn.tyranitar,pkmn.rhyperior,pkmn.golem,pkmn.probopass],
+        common : [pkmn.tyranitar,pkmn.rhyperior,pkmn.flygon,pkmn.garchomp],
     },
     drops: {
         common : [item.nothing],
         uncommon : [item.ancientKeystone]
     },
-}
-
-areas.eventRegirock = {
-    rotation: 3,
-    type: `event`,
-    name: `Regirock Tomb`,
-    background : `cave`,
-    icon: pkmn.regirock,
-    trainer: true,
-    encounter: true,
-    difficulty: 25,
-    encounterEffect : function() {item.ancientKeystone.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/ancientKeystone.png"> Ancient Keystone to enter`,
-    unlockRequirement : function() { return item.ancientKeystone.got>0 },
-    level : 90,
-    team : {
-        slot1 : pkmn.regirock,
-        slot1Moves : [move.zapCannon.id,move.ancientPower.id, move.earthquake.id, move.stoneEdge.id],
-    },
-    reward : [pkmn.regirock]
 }
 
 areas.steelTomb = {
@@ -1460,34 +1542,13 @@ areas.steelTomb = {
     unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
-        common : [pkmn.metagross,pkmn.bastiodon,pkmn.excadrill,pkmn.durant],
+        common : [pkmn.metagross,pkmn.bastiodon,pkmn.excadrill,pkmn.aggron],
     },
     drops: {
         common : [item.nothing],
         uncommon : [item.steelKeystone]
     },
 }
-
-areas.eventRegisteel = {
-    rotation: 3,
-    type: `event`,
-    name: `Registeel Tomb`,
-    background : `cave`,
-    icon: pkmn.registeel,
-    trainer: true,
-    encounter: true,
-    difficulty: 25,
-    encounterEffect : function() {item.steelKeystone.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/steelKeystone.png"> Steel Keystone to enter`,
-    unlockRequirement : function() { return item.steelKeystone.got>0 },
-    level : 90,
-    team : {
-        slot1 : pkmn.registeel,
-        slot1Moves : [move.zapCannon.id,move.ancientPower.id, move.ironHead.id, move.rockPolish.id],
-    },
-    reward : [pkmn.registeel]
-}
-
 
 areas.frozenTomb = {
     rotation: 3,
@@ -1499,12 +1560,52 @@ areas.frozenTomb = {
     unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
-        common : [pkmn.mamoswine,pkmn.abomasnow,pkmn.avalugg,pkmn.cryogonal],
+        common : [pkmn.mamoswine,pkmn.abomasnow,pkmn.avalugg,pkmn.crabominable],
     },
     drops: {
         common : [item.nothing],
         uncommon : [item.frozenKeystone]
     },
+}
+
+areas.eventRegirock = {
+    rotation: 3,
+    type: `event`,
+    name: `Regirock Tomb`,
+    background : `cave`,
+    icon: pkmn.regirock,
+    trainer: true,
+    encounter: true,
+    difficulty: tier1difficulty,
+    encounterEffect : function() {item.ancientKeystone.got--},
+    unlockDescription : `🔒 Requires a <img src="img/items/ancientKeystone.png"> Ancient Keystone to enter`,
+    unlockRequirement : function() { return item.ancientKeystone.got>0 },
+    level : 90,
+    team : {
+        slot1 : pkmn.regirock,
+        slot1Moves : [move.zapCannon.id,move.ancientPower.id, move.earthquake.id, move.stoneEdge.id],
+    },
+    reward : [pkmn.regirock]
+}
+
+areas.eventRegisteel = {
+    rotation: 3,
+    type: `event`,
+    name: `Registeel Tomb`,
+    background : `cave`,
+    icon: pkmn.registeel,
+    trainer: true,
+    encounter: true,
+    difficulty: tier1difficulty,
+    encounterEffect : function() {item.steelKeystone.got--},
+    unlockDescription : `🔒 Requires a <img src="img/items/steelKeystone.png"> Steel Keystone to enter`,
+    unlockRequirement : function() { return item.steelKeystone.got>0 },
+    level : 90,
+    team : {
+        slot1 : pkmn.registeel,
+        slot1Moves : [move.zapCannon.id,move.ancientPower.id, move.ironHead.id, move.rockPolish.id],
+    },
+    reward : [pkmn.registeel]
 }
 
 areas.eventRegice = {
@@ -1515,7 +1616,7 @@ areas.eventRegice = {
     icon: pkmn.regice,
     trainer: true,
     encounter: true,
-    difficulty: 25,
+    difficulty: tier1difficulty,
     encounterEffect : function() {item.frozenKeystone.got--},
     unlockDescription : `🔒 Requires a <img src="img/items/frozenKeystone.png"> Frozen Keystone to enter`,
     unlockRequirement : function() { return item.frozenKeystone.got>0 },
@@ -1527,7 +1628,65 @@ areas.eventRegice = {
     reward : [pkmn.regice]
 }
 
+areas.eventMegaMawile = {
+    rotation: 3,
+    type: `event`,
+    name: `Mawile Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaMawile,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.steelKeystone.got-=3},
+    unlockDescription : `🔒 Requires x3 <img src="img/items/steelKeystone.png"> Steel Keystones to enter`,
+    unlockRequirement : function() { return item.steelKeystone.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.megaMawile,
+        slot1Moves : [move.swordsDance.id,move.ironHead.id, move.playRough.id, move.shiftGear.id],
+    },
+    reward : [item.mawilite, pkmn.mawile]
+}
 
+areas.eventMegaGlalie = {
+    rotation: 3,
+    type: `event`,
+    name: `Glalie Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaGlalie,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.frozenKeystone.got-=3},
+    unlockDescription : `🔒 Requires x3 <img src="img/items/frozenKeystone.png"> Frozen Keystones to enter`,
+    unlockRequirement : function() { return item.frozenKeystone.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.megaGlalie,
+        slot1Moves : [move.hail.id,move.blizzard.id, move.iceBeam.id, move.thunderbolt.id],
+    },
+    reward : [item.glalitite, pkmn.snorunt]
+}
+
+areas.eventMegaSteelix = {
+    rotation: 3,
+    type: `event`,
+    name: `Steelix Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaSteelix,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.ancientKeystone.got-=3},
+    unlockDescription : `🔒 Requires x3 <img src="img/items/ancientKeystone.png"> Ancient Keystones to enter`,
+    unlockRequirement : function() { return item.ancientKeystone.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.megaSteelix,
+        slot1Moves : [move.ironDefense.id,move.ironTail.id, move.earthquake.id, move.rockSlide.id],
+    },
+    reward : [item.steelixite, pkmn.onix]
+}
 
 
 
@@ -1557,7 +1716,7 @@ areas.vsYounsterBilly = {
         slot3 : pkmn.starly,
         slot3Moves : [move.peck.id],
     },
-    reward : [pkmn.chewtle]
+    reward : [pkmn.chewtle, item.bottleCap]
 }
 
 areas.vsAromaLadyCatherine = {
@@ -1577,7 +1736,7 @@ areas.vsAromaLadyCatherine = {
         slot4 : pkmn.happiny,
         slot4Moves : [move.fakeTears.id, move.disarmingVoice.id],
     },
-    reward : [pkmn.riolu]
+    reward : [pkmn.riolu, item.bottleCap]
 }
 
 areas.vsBugCatcherMilo = {
@@ -1599,7 +1758,7 @@ areas.vsBugCatcherMilo = {
         slot5 : pkmn.pinsir,
         slot5Moves : [move.twineedle.id, move.bugBuzz.id],
     },
-    reward : [item.chartiBerry]
+    reward : [item.chartiBerry, item.bottleCap]
 }
 
 areas.vsGymLeaderBrock = {
@@ -1623,7 +1782,7 @@ areas.vsGymLeaderBrock = {
         slot6 : pkmn.aerodactyl,
         slot6Moves : [move.smackDown.id, move.gust.id],
     },
-    reward : [item.hardStone]
+    reward : [item.hardStone, item.goldenBottleCap]
 }
 
 areas.vsBlackBeltRyan = {
@@ -1647,7 +1806,7 @@ areas.vsBlackBeltRyan = {
         slot6 : pkmn.machoke,
         slot6Moves : [move.rockSmash.id, move.brickBreak.id, move.machPunk.id],
     },
-    reward : [pkmn.makuhita]
+    reward : [pkmn.makuhita, item.bottleCap]
 }
 
 areas.vsSchoolKidAaron = {
@@ -1671,7 +1830,7 @@ areas.vsSchoolKidAaron = {
         slot6 : pkmn.kadabra,
         slot6Moves : [move.calmMind.id, move.psybeam.id, move.confusion.id],
     },
-    reward : [pkmn.abra]
+    reward : [pkmn.abra, item.bottleCap]
 }
 
 areas.vsRocketGrunt1 = {
@@ -1695,7 +1854,7 @@ areas.vsRocketGrunt1 = {
         slot6 : pkmn.haunter,
         slot6Moves : [move.hex.id, move.ominousWind.id, move.psychic.id],
     },
-    reward : [pkmn.gastly]
+    reward : [pkmn.gastly, item.bottleCap]
 }
 
 areas.vsGymLeaderMisty = {
@@ -1707,19 +1866,19 @@ areas.vsGymLeaderMisty = {
     level : 40,
     team : {
         slot1 : pkmn.golduck,
-        slot1Moves : [move.aquaJet.id,move.psybeam.id, move.thunderWave.id],
+        slot1Moves : [move.aquaJet.id,move.confusion.id, move.thunderWave.id],
         slot2 : pkmn.quagsire,
-        slot2Moves : [move.waterGun.id, move.dig.id, move.mudShot.id],
+        slot2Moves : [move.waterGun.id, move.mudSlap.id, move.mudShot.id],
         slot3 : pkmn.lanturn,
-        slot3Moves : [move.thunderbolt.id, move.chargeBeam.id, move.waterGun.id],
+        slot3Moves : [move.thunderWave.id, move.chargeBeam.id, move.waterGun.id],
         slot4 : pkmn.floatzel,
         slot4Moves : [move.aquaJet.id, move.futureSight.id, move.chillingWater.id],
         slot5 : pkmn.lapras,
-        slot5Moves : [move.waterfall.id, move.waterPulse.id, move.psybeam.id],
+        slot5Moves : [move.waterGun.id, move.waterPulse.id, move.psybeam.id],
         slot6 : pkmn.starmie,
         slot6Moves : [move.psychic.id, move.auroraBeam.id, move.waterPulse.id],
     },
-    reward : [item.mysticWater]
+    reward : [item.mysticWater, item.goldenBottleCap]
 }
 
 areas.vsSwimmerDan = {
@@ -1743,7 +1902,7 @@ areas.vsSwimmerDan = {
         slot6 : pkmn.alolanRaichu,
         slot6Moves : [move.psychic.id, move.zenHeadbut.id, move.surf.id],
     },
-    reward : [pkmn.magikarp]
+    reward : [pkmn.magikarp, item.bottleCap]
 }
 
 areas.vsVeteranToshiro = {
@@ -1767,7 +1926,7 @@ areas.vsVeteranToshiro = {
         slot6 : pkmn.shiftry,
         slot6Moves : [move.leafage.id, move.leafBlade.id, move.pursuit.id],
     },
-    reward : [item.shucaBerry]
+    reward : [item.shucaBerry, item.bottleCap]
 }
 
 areas.vsClownDuck = {
@@ -1791,7 +1950,7 @@ areas.vsClownDuck = {
         slot6 : pkmn.sirfetchd,
         slot6Moves : [move.dizzyPunch.id, move.powerupPunch.id, move.metalClaw.id],
     },
-    reward : [pkmn.ducklett]
+    reward : [pkmn.ducklett, item.bottleCap]
 }
 
 areas.vsGymLeaderPhoebe = {
@@ -1811,11 +1970,11 @@ areas.vsGymLeaderPhoebe = {
         slot4 : pkmn.cofagrigus,
         slot4Moves : [move.ominousWind.id, move.hex.id, move.shadowBall.id, move.shadowSneak.id],
         slot5 : pkmn.dusknoir,
-        slot5Moves : [move.firePunch.id, move.hex.id, move.confuseRay.id, move.thunderWave.id],
+        slot5Moves : [move.willOWisp.id, move.hex.id, move.confuseRay.id, move.thunderWave.id],
         slot6 : pkmn.dragapult,
         slot6Moves : [move.dragonClaw.id, move.hex.id, move.shadowBall.id, move.dragonDance.id],
     },
-    reward : [item.spellTag]
+    reward : [item.spellTag, item.goldenBottleCap]
 }
 
 areas.vsTwinTrainersBellisse = {
@@ -1839,7 +1998,7 @@ areas.vsTwinTrainersBellisse = {
         slot6 : pkmn.wigglytuff,
         slot6Moves : [move.hyperVoice.id, move.moonblast.id, move.hyperBeam.id],
     },
-    reward : [pkmn.plusle]
+    reward : [pkmn.plusle, item.bottleCap]
 }
 
 areas.vsAceTrainerRicardo = {
@@ -1863,7 +2022,7 @@ areas.vsAceTrainerRicardo = {
         slot6 : pkmn.salamence,
         slot6Moves : [move.fireFang.id, move.dragonDance.id, move.dragonClaw.id],
     },
-    reward : [pkmn.charmander]
+    reward : [pkmn.charmander, item.bottleCap]
 }
 
 areas.vsAceTrainerLily = {
@@ -1887,13 +2046,14 @@ areas.vsAceTrainerLily = {
         slot6 : pkmn.tyranitar,
         slot6Moves : [move.crunch.id, move.hyperBeam.id, move.earthPower.id],
     },
-    reward : [pkmn.mudkip]
+    reward : [pkmn.mudkip, item.bottleCap]
 }
 
 areas.vsEliteTrainerCynthia = {
     name: `Elite Trainer Cynthia`,
     background : `gym`,
     sprite : `cynthia`,
+    difficulty : 5,
     trainer: true,
     type: `vs`,
     level : 80,
@@ -1911,7 +2071,107 @@ areas.vsEliteTrainerCynthia = {
         slot6 : pkmn.megaGarchomp,
         slot6Moves : [move.swordsDance.id, move.dragonTail.id, move.dragonRush.id, move.earthquake.id],
     },
-    reward : [item.dragonFang]
+    reward : [item.dragonFang, item.goldenBottleCap]
+}
+
+areas.vsEliteFourLorelei = {
+    name: `Elite Four Lorelei`,
+    background : `gym`,
+    sprite : `lorelei`,
+    trainer: true,
+    type: `vs`,
+    difficulty : 7,
+    level : 85,
+    team : {
+        slot1 : pkmn.weavile,
+        slot1Moves : [move.iceShard.id,move.icicleCrash.id, move.nightSlash.id],
+        slot2 : pkmn.crabominable,
+        slot2Moves : [move.avalanche.id, move.confuseRay.id, move.lowSweep.id],
+        slot3 : pkmn.mamoswine,
+        slot3Moves : [move.iceShard.id, move.avalanche.id, move.earthPower.id],
+        slot4 : pkmn.regice,
+        slot4Moves : [move.iceBeam.id, move.energyBall.id, move.thunderbolt.id],
+        slot5 : pkmn.avalugg,
+        slot5Moves : [move.avalanche.id, move.icicleCrash.id, move.ancientPower.id],
+        slot6 : pkmn.articuno,
+        slot6Moves : [move.iceBeam.id, move.blizzard.id, move.fly.id],
+    },
+    reward : [pkmn.totodile, item.bottleCap]
+}
+
+areas.vsEliteFourFlint = {
+    name: `Elite Four Flint`,
+    background : `gym`,
+    sprite : `flint`,
+    trainer: true,
+    difficulty : 7,
+    type: `vs`,
+    level : 90,
+    team : {
+        slot1 : pkmn.houndoom,
+        slot1Moves : [move.willOWisp.id,move.fireBlast.id, move.darkPulse.id],
+        slot2 : pkmn.charizard,
+        slot2Moves : [move.flamethrower.id, move.fireBlast.id, move.airShlash.id],
+        slot3 : pkmn.arcanine,
+        slot3Moves : [move.flamethrower.id, move.extremeSpeed.id, move.fireSpin.id],
+        slot4 : pkmn.regirock,
+        slot4Moves : [move.earthPower.id, move.earthquake.id, move.ancientPower.id],
+        slot5 : pkmn.infernape,
+        slot5Moves : [move.flamethrower.id, move.powerupPunch.id, move.crossChop.id],
+        slot6 : pkmn.moltres,
+        slot6Moves : [move.flamethrower.id, move.fireBlast.id, move.fly.id],
+    },
+    reward : [pkmn.cyndaquil, item.bottleCap]
+}
+
+areas.vsEliteFourPoppy = {
+    name: `Elite Four Poppy`,
+    background : `gym`,
+    sprite : `poppy`,
+    difficulty : 8,
+    trainer: true,
+    type: `vs`,
+    level : 95,
+    team : {
+        slot1 : pkmn.lucario,
+        slot1Moves : [move.bulletPunch.id,move.powerupPunch.id, move.lowSweep.id],
+        slot2 : pkmn.excadrill,
+        slot2Moves : [move.earthquake.id, move.honeClaws.id, move.metalClaw.id],
+        slot3 : pkmn.magnezone,
+        slot3Moves : [move.bulletPunch.id, move.thunderbolt.id, move.flashCannon.id],
+        slot4 : pkmn.registeel,
+        slot4Moves : [move.ironHead.id, move.zapCannon.id, move.ironTail.id],
+        slot5 : pkmn.metagross,
+        slot5Moves : [move.bulletPunch.id, move.ironHead.id, move.zenHeadbut.id],
+        slot6 : pkmn.zapdos,
+        slot6Moves : [move.thunderbolt.id, move.thunderWave.id, move.fly.id],
+    },
+    reward : [pkmn.chikorita, item.bottleCap]
+}
+
+areas.vsEliteFourLance = {
+    name: `Elite Four Lance`,
+    background : `gym`,
+    sprite : `lance`,
+    trainer: true,
+    type: `vs`,
+    difficulty : 8,
+    level : 100,
+    team : {
+        slot1 : pkmn.salamence,
+        slot1Moves : [move.dragonDance.id,move.fly.id, move.fireFang.id, move.dragonRush.id],
+        slot2 : pkmn.goodra,
+        slot2Moves : [move.dragonDance.id, move.dragonRush.id, move.solarBeam.id, move.acidArmor.id],
+        slot3 : pkmn.haxorus,
+        slot3Moves : [move.dragonDance.id, move.dragonRush.id, move.extremeSpeed.id, move.earthquake.id],
+        slot4 : pkmn.dragonite,
+        slot4Moves : [move.dragonDance.id, move.fly.id, move.thunderPunch.id, move.dragonTail.id],
+        slot5 : pkmn.garchomp,
+        slot5Moves : [move.dragonDance.id, move.earthquake.id, move.dragonTail.id, move.ironHead.id],
+        slot6 : pkmn.rayquaza,
+        slot6Moves : [move.dragonDance.id, move.fly.id, move.fireBlast.id, move.dragonPulse.id],
+    },
+    reward : [item.luckIncense, item.goldenBottleCap]
 }
 
 

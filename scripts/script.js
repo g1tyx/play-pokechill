@@ -1,6 +1,43 @@
 
 
 
+
+
+
+
+
+
+
+
+(function () { //simulates contextmenu via longpress, thank you ios, very cool
+  let timer;
+  const LONG_PRESS = 500;
+
+  document.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+
+    timer = setTimeout(() => {
+      const touch = e.touches[0];
+
+      const evt = new MouseEvent("contextmenu", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+
+      touch.target.dispatchEvent(evt);
+    }, LONG_PRESS);
+  }, { passive: false });
+
+  document.addEventListener("touchend", () => clearTimeout(timer));
+  document.addEventListener("touchmove", () => clearTimeout(timer));
+})();
+
+
+
+
 saved.theme = "dark"
 
 document.getElementById("settings-theme").addEventListener("change", e => {
@@ -19,8 +56,24 @@ function updateGameVersion() {
     saved.tutorialStep = "intro"
   }
 
+  if (saved.version<0.9) {
+    let bottlecapGot = 0
+    for (let i in areas){
+      if (areas[i].type!=="vs") continue
+      if (areas[i].defeated!=true) continue
+      bottlecapGot++
+    }
+    item.bottleCap.got += bottlecapGot
+    item.goldenBottleCap.got += parseInt((bottlecapGot/3).toFixed(0))
+    document.getElementById("tooltipTitle").innerHTML = `New items!`
+    document.getElementById("tooltipTop").style.display = "none"    
+    document.getElementById("tooltipMid").innerHTML = `Due to the vs rewards update you have been rewarded for your defeated trainers:`
+    document.getElementById("tooltipBottom").innerHTML = `x${bottlecapGot} Bottle Caps | x${(bottlecapGot/3).toFixed(0)} Golden Bottle Caps`
+    openTooltip()
+  }
 
-  saved.version = 0.7
+
+  saved.version = 1.1
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 
 }
@@ -288,6 +341,8 @@ function learnPkmnAbility(id) {
     const pool = Object.keys(ability).filter(a => {
         const ab = ability[a];
         if (ab.rarity !== tier) return false;
+        if (ab.type == undefined) return false;
+        if (a == pkmn[id].hiddenAbility?.id) return false
 
         // ab.type es un array → mirar si incluye "all" o si comparte tipo con el Pokémon
         return ab.type.includes("all") || ab.type.some(t => types.includes(t));
@@ -364,6 +419,11 @@ guide.stats = {
   description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves). The speed stat determines how fast a Pokemon executes a move<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon`}
 }
 
+guide.abilities = {
+  name: `Battle: Abilities`,
+  description: function() { return `Abilities are traits that a Pokemon can have. While they are randomised, some abilities can only appear on specific typings. Abilities are sorted in three categories; common, uncommon and rare<br><br>Hidden abilities are innate species-dependant traits that need to be unlocked with an Ability Capsule. Once unlocked, their effect will permanently be active alongside their other ability`}
+}
+
 guide.experience = {
   name: `Battle: Experience`,
   description: function() { return `Pokemon gain experience by defeating foes, and share a portion of it among the team. This will also be the case even if the team Pokemon are defeated<br><br>Experience gain is proportional to the level difference. A level difference of +-5 levels will net the same amount, while more than 5 levels of difference will greatly increase the amount received.<br><br>A Pokemon 10 levels higher will not yield any experience`}
@@ -386,12 +446,27 @@ guide.battleFatigue = {
 
 guide.statusEffects = {
   name: `Battle: Status Effects`,
-  description: function() { return `Certain moves inflict status effects, such as ${tagConfused}, ${tagBurn}, ${tagPoisoned}, ${tagFreeze}, ${tagParalysis} or ${tagSleep}.<br><br>You can further check their effects by right click/long press` }
+  description: function() { return `Certain moves inflict status effects such as ${tagConfused}, ${tagBurn}, ${tagPoisoned}, ${tagFreeze}, ${tagParalysis} or ${tagSleep}.<br><br>You can further check their effects by right click/long press<br><br>Status effects, like temporal stat changes, will count down with turns` }
+}
+
+guide.weather = {
+  name: `Battle: Weather`,
+  description: function() { return `Certain moves can change the weather to altered ones such as ${tagSunny}, ${tagRainy}, ${tagSandstorm}, ${tagHail}, ${tagFoggy}, ${tagElectricTerrain}, ${tagGrassyTerrain} or ${tagMistyTerrain}<br><br>You can further check their effects by right click/long press<br><br>Altered weathers will last for 15 turns, and only can be changed after 30` }
 }
 
 guide.shiny = {
   name: `Shiny Pokemon`,
   description: function() { return `At a rate of 1/400, Pokemon can be shiny. These odds can be boosted through different means<br><br>Shiny Pokemon deal 15% more damage. The visual distinction can be toggled from their move menu. This wont affect the damage bonus they get`}
+}
+
+guide.compatibility = {
+  name: `Genetics: Compatibility`,
+  description: function() { return `Compatibility determines how similar the sample is to the host. This influences various parameters such as the chances of inherit, or shiny mutations (only if the sample is shiny)<br><br>Sharing one type with the sample will yield one level of compatibility, whereas sharing two types will increase it by two levels.<br><br>Additionally, if the sample is of the same evolutive line as the host, it will recieve maximum compatibility`}
+}
+
+guide.powerCost = {
+  name: `Genetics: Power Cost`,
+  description: function() { return `Power cost determines how taxing it is to modify the host. This influences the time to complete the operation<br><br>This is determined by the division of the host. A higher division will exponentially increase the time required to modify the Pokemon`}
 }
 
 function setGuide(){
