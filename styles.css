@@ -456,6 +456,9 @@ flex-direction: column;
     white-space: nowrap;
 }
 
+
+
+
 #explore-drops{
     height: auto;
     width: 100%;
@@ -1729,6 +1732,7 @@ color: var(--dark2);
         width: 100%;
     }
 }
+
 
 #pokedex-list{
     width: 100%;
@@ -3237,3 +3241,46 @@ color: var(--dark2);
     margin: 0;
 }
 
+.explore-pkmn-tag{
+    font-size: 1rem;
+    padding: 0 0rem;
+    height: 1.9rem;
+    background: var(--light2);
+    color: var(--dark2);
+    border-radius: 0.2rem;
+    white-space: nowrap;
+    width: 90%;
+    margin-top: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 2px 2px;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0.5rem;
+}
+
+
+.explore-pkmn-tag select{
+    background: var(--light2);
+    border: none;
+    width: auto;
+    color: var(--dark2);
+    font-size: 1rem;
+    padding: 0 0.3rem;
+    cursor: pointer;
+
+
+}
+
+.explore-pkmn-tag svg{
+    all: initial;
+    color: var(--light2);
+    background: var(--light1);
+    height: 100%;
+    width: auto;
+    margin-left: auto;
+}
+
+.explore-pkmn-tag svg:hover{
+    scale: 1;
+    
+}

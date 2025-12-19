@@ -3059,7 +3059,7 @@ pkmn.marill = {
         sdef: 50,
         spe: 40,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.azumarill, item: waterStone } } },
+    evolve: function() { return { 1: { pkmn: pkmn.azumarill, item: item.waterStone } } },
     hiddenAbility: ability.hugePower,
 }
 
@@ -5983,7 +5983,7 @@ pkmn.chingling = {
         sdef: 50,
         spe: 45,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.chimecho, item: item.smoothRock } } },
+    evolve: function() { return { 1: { pkmn: pkmn.chimecho, item: item.shinyStone } } },
     hiddenAbility: ability.levitate,
 }
 
@@ -7983,6 +7983,7 @@ pkmn.patrat = {
     sdef: 39,
     spe: 42,
   },
+    evolve: function() { return { 1: { pkmn: pkmn.samurott, level: evolutionLevel1 } } },
 }
 
 // 505 Watchog

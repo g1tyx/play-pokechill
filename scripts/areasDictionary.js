@@ -1758,7 +1758,7 @@ areas.vsBugCatcherMilo = {
         slot5 : pkmn.pinsir,
         slot5Moves : [move.twineedle.id, move.bugBuzz.id],
     },
-    reward : [item.chartiBerry, item.bottleCap]
+    reward : [pkmn.tangela, item.chartiBerry,  item.bottleCap]
 }
 
 areas.vsGymLeaderBrock = {
@@ -1830,7 +1830,7 @@ areas.vsSchoolKidAaron = {
         slot6 : pkmn.kadabra,
         slot6Moves : [move.calmMind.id, move.psybeam.id, move.confusion.id],
     },
-    reward : [pkmn.abra, item.bottleCap]
+    reward : [pkmn.pichu, item.bottleCap]
 }
 
 areas.vsRocketGrunt1 = {
@@ -1926,7 +1926,7 @@ areas.vsVeteranToshiro = {
         slot6 : pkmn.shiftry,
         slot6Moves : [move.leafage.id, move.leafBlade.id, move.pursuit.id],
     },
-    reward : [item.shucaBerry, item.bottleCap]
+    reward : [pkmn.swirlix, item.bottleCap]
 }
 
 areas.vsClownDuck = {

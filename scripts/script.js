@@ -6,10 +6,20 @@
 
 
 
+const isIOS = (() => {
+  const ua = navigator.userAgent;
+  const platform = navigator.platform;
+
+  return (
+    /iPhone|iPod|iPad/.test(platform) ||
+    (platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
+})();
 
 
+(function () {
+  if (!isIOS) return;
 
-(function () { //simulates contextmenu via longpress, thank you ios, very cool
   let timer;
   const LONG_PRESS = 500;
 
@@ -17,17 +27,17 @@
     if (e.touches.length !== 1) return;
 
     timer = setTimeout(() => {
-      const touch = e.touches[0];
+      const t = e.touches[0];
 
       const evt = new MouseEvent("contextmenu", {
         bubbles: true,
         cancelable: true,
         view: window,
-        clientX: touch.clientX,
-        clientY: touch.clientY
+        clientX: t.clientX,
+        clientY: t.clientY
       });
 
-      touch.target.dispatchEvent(evt);
+      t.target.dispatchEvent(evt);
     }, LONG_PRESS);
   }, { passive: false });
 
@@ -73,7 +83,7 @@ function updateGameVersion() {
   }
 
 
-  saved.version = 1.1
+  saved.version = 1.2
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 
 }
@@ -398,8 +408,8 @@ function openTutorial(){
   }
 
   if (saved.tutorialStep == "intro") document.getElementById("tutorial-text").innerHTML = `Howdy! I have been assigned to show the ropes, but you can disable me in the settings at any time.<br>Let's start by getting new pokemon shall we? Select "Travel" on the top left menu`
-  if (saved.tutorialStep == "travel") document.getElementById("tutorial-text").innerHTML = `You can right click/long tap almost everything on the screen for more info! You can also do this within the info itself too`
-  if (saved.tutorialStep == "moves") document.getElementById("tutorial-text").innerHTML = `Right click/long tap a pokemon in your team to set their moves, you can also do this while in battle.<br>If you got any held items, you can also assign them here`
+  if (saved.tutorialStep == "travel") document.getElementById("tutorial-text").innerHTML = `You can right click/long tap almost everything on the screen for more info! You can also do this within the info itself too. Try going into the first Wild Area to start catching Pokemon`
+  if (saved.tutorialStep == "moves") document.getElementById("tutorial-text").innerHTML = `Right click/long tap a pokemon in your team to set their moves, you can also do this while in battle. If you got any held items, you can also assign them here<br>Once you are ready, press Save and Go! at the top of the screen`
   if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell`
   if (saved.tutorialStep == "battleEnd") {document.getElementById("tutorial-text").innerHTML = `You can check a more in-depth explanation about stats and battle mechanics in the Guide menu. For now, I will take a break... Enjoy your stay!`}
   document.getElementById("tutorial").style.display = "flex"
@@ -456,7 +466,7 @@ guide.weather = {
 
 guide.shiny = {
   name: `Shiny Pokemon`,
-  description: function() { return `At a rate of 1/400, Pokemon can be shiny. These odds can be boosted through different means<br><br>Shiny Pokemon deal 15% more damage. The visual distinction can be toggled from their move menu. This wont affect the damage bonus they get`}
+  description: function() { return `At a rate of 1/400, Pokemon can be shiny. These odds can be boosted through different means<br><br>Shiny Pokemon deal 15% more damage. The visual distinction can be toggled from their move menu. This wont affect the damage bonus they get<br><br>Shiny Pokemon do not carry over their evolutions. Instead, genetics must be used`}
 }
 
 guide.compatibility = {

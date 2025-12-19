@@ -2,6 +2,7 @@ const item = {}
 
 item.blackBelt = {
     type: "held",
+     evo: true,
     info: function() {return `When held: Increase the power of Fighting-Type moves by ${this.power()}%`},
     power : function() { return 10+(10*returnItemLevel(this.id))}
 }
@@ -291,59 +292,72 @@ item.lifeOrb = {
 
 
 item.waterStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 item.thunderStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 item.sunStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 
 item.linkStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel4}+)`},
 }
 
 item.ovalStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 item.moonStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 item.leafStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 item.iceStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 
 item.fireStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 item.duskStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 item.dawnStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 
 item.shinyStone = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel2}+)`},
 }
 
 item.oddRock = {
+    type: "key",
     evo: true,
     info: function() {return `Evolve certain kinds of Pokemon (Must be level ${wildAreaLevel4}+)`},
 }
