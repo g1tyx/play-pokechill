@@ -1,11 +1,5 @@
 
-
-
-
-
-
-
-
+//--Workarround for IOS not appreciating the press-hold function. It fires a contextmenu at the pointer location
 const isIOS = (() => {
   const ua = navigator.userAgent;
   const platform = navigator.platform;
@@ -29,6 +23,7 @@ const isIOS = (() => {
     timer = setTimeout(() => {
       const t = e.touches[0];
 
+      //Simulate event at position of the finger
       const evt = new MouseEvent("contextmenu", {
         bubbles: true,
         cancelable: true,
@@ -47,18 +42,8 @@ const isIOS = (() => {
 
 
 
-
-saved.theme = "dark"
-
-document.getElementById("settings-theme").addEventListener("change", e => {
-  saved.theme = document.getElementById(`settings-theme`).value
-  changeTheme()
-
-});
-
-
+//--Updates game version, used for firing retroactive features
 saved.version = undefined
-
 function updateGameVersion() {
 
   if (saved.version<0.2) {
@@ -83,52 +68,61 @@ function updateGameVersion() {
   }
 
 
-  saved.version = 1.4
+  saved.version = 1.5
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
-
 }
 
+
+
+//--Theme settings
+saved.theme = "dark"
+
+document.getElementById("settings-theme").addEventListener("change", e => {
+  saved.theme = document.getElementById(`settings-theme`).value
+  changeTheme()
+});
 
 function changeTheme(){
 
-    if (saved.theme === "dark"){
-        document.documentElement.style.setProperty('--dark1', '#36342F');
-        document.documentElement.style.setProperty('--dark2', '#444138');
-        document.documentElement.style.setProperty('--light1', '#94886B');
-        document.documentElement.style.setProperty('--light2', '#ECDEB7');
-        saved
-    }
+  if (saved.theme === "dark"){
+    document.documentElement.style.setProperty('--dark1', '#36342F');
+    document.documentElement.style.setProperty('--dark2', '#444138');
+    document.documentElement.style.setProperty('--light1', '#94886B');
+    document.documentElement.style.setProperty('--light2', '#ECDEB7');
+  }
 
-    if (saved.theme === "verdant"){
-        document.documentElement.style.setProperty('--dark1', '#32493dff');
-        document.documentElement.style.setProperty('--dark2', '#475243ff');
-        document.documentElement.style.setProperty('--light1', '#94886B');
-        document.documentElement.style.setProperty('--light2', '#ECDEB7');
-    }
+  if (saved.theme === "verdant"){
+    document.documentElement.style.setProperty('--dark1', '#32493dff');
+    document.documentElement.style.setProperty('--dark2', '#475243ff');
+    document.documentElement.style.setProperty('--light1', '#94886B');
+    document.documentElement.style.setProperty('--light2', '#ECDEB7');
+  }
 
-    if (saved.theme === "lilac"){
-        document.documentElement.style.setProperty('--dark1', '#454152ff');
-        document.documentElement.style.setProperty('--dark2', '#4d5163ff');
-        document.documentElement.style.setProperty('--light1', '#6b9486ff');
-        document.documentElement.style.setProperty('--light2', '#b7ddecff');
-    }
+  if (saved.theme === "lilac"){
+    document.documentElement.style.setProperty('--dark1', '#454152ff');
+    document.documentElement.style.setProperty('--dark2', '#4d5163ff');
+    document.documentElement.style.setProperty('--light1', '#6b9486ff');
+    document.documentElement.style.setProperty('--light2', '#b7ddecff');
+  }
 
-    if (saved.theme === "cherry"){
-        document.documentElement.style.setProperty('--dark1', '#523a3eff');
-        document.documentElement.style.setProperty('--dark2', '#6b4c4dff');
-        document.documentElement.style.setProperty('--light1', '#a78b66ff');
-        document.documentElement.style.setProperty('--light2', '#F9E7B2');
-    }
+  if (saved.theme === "cherry"){
+    document.documentElement.style.setProperty('--dark1', '#523a3eff');
+    document.documentElement.style.setProperty('--dark2', '#6b4c4dff');
+    document.documentElement.style.setProperty('--light1', '#a78b66ff');
+    document.documentElement.style.setProperty('--light2', '#F9E7B2');
+  }
 
-    if (saved.theme === "onyx"){
-        document.documentElement.style.setProperty('--dark1', '#212324');
-        document.documentElement.style.setProperty('--dark2', '#282A2B');
-        document.documentElement.style.setProperty('--light1', '#3F4144');
-        document.documentElement.style.setProperty('--light2', '#D0D1D4');
-    }
+  if (saved.theme === "onyx"){
+    document.documentElement.style.setProperty('--dark1', '#212324');
+    document.documentElement.style.setProperty('--dark2', '#282A2B');
+    document.documentElement.style.setProperty('--light1', '#3F4144');
+    document.documentElement.style.setProperty('--light2', '#D0D1D4');
+  }
 
 }
 
+
+//--Automatically trims all images with specified class. Used for all Pokemon sprites
 async function trimTransparent(img) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -172,7 +166,7 @@ async function trimTransparent(img) {
 async function processSprite(img) {
   if (!img.src) return;
 
-  // Evita recortes repetidos del mismo contenido
+  // Prevents unnecesary trimming
   if (img.dataset.lastSrc === img.src) return;
 
   img.dataset.lastSrc = img.src;
@@ -189,10 +183,9 @@ async function processSprite(img) {
   }
 }
 
-// Procesar imágenes presentes
 document.querySelectorAll("img.sprite-trim").forEach(processSprite);
 
-// Observar nuevas imágenes Y cambios de atributos
+//Observe changes to apply trimming
 const observer = new MutationObserver(mutations => {
   for (const m of mutations) {
     if (m.type === "childList") {
@@ -224,54 +217,12 @@ observer.observe(document.body, {
 
 
 
-/*function learnPkmnMove(id, level, mod) {
-    while (true) {
-        const types = pkmn[id].type;
-        const knownMoves = pkmn[id].movepool || [];
-        let tier = 1;
-        if (level >= 10 && rng(0.25)) tier++;
-        if (level >= 20 && rng(0.25)) tier++;
-        if (level >= 30 && rng(0.25)) tier++;
-        if (level >= 50 && rng(0.25)) tier++;
-        if (level >= 60 && rng(0.25)) tier++;
-        tier = Math.min(tier, 3);
-
-        const allMoves = Object.keys(move).filter(m => {
-            const data = move[m];
-            const notKnown = mod !== "wild" ? !knownMoves.includes(m) : true;
-            return data.rarity === tier && notKnown;
-        });
-
-        const typeMatch = [];
-        const movesetMatch = [];
-        const allTag = [];
-
-        allMoves.forEach(m => {
-            const data = move[m];
-            if (types.includes(data.type)) typeMatch.push(m);
-            else if (data.moveset.includes("all")) allTag.push(m);
-            else if (types.some(t => data.moveset.includes(t))) movesetMatch.push(m);
-        });
-
-        const roll = Math.random();
-        let chosenList;
-
-        if (roll < 0.90) chosenList = typeMatch.length ? typeMatch : movesetMatch.length ? movesetMatch : allTag;
-        else if (roll < 0.80) chosenList = movesetMatch.length ? movesetMatch : typeMatch.length ? typeMatch : allTag;
-        else chosenList = allTag.length ? allTag : typeMatch.length ? typeMatch : movesetMatch;
-
-        if (!chosenList.length) continue;
-
-        const chosenMove = chosenList[Math.floor(Math.random() * chosenList.length)];
-
-        if (level === 1 && move[chosenMove].power <= 0) continue;
-
-        return move[chosenMove].id;
-    }
-}*/
-
+//--Gives Pokemon appropiate moves
 function learnPkmnMove(id, level, mod) {
-    while (true) {
+    let attempts = 0;
+    const MAX_ATTEMPTS = 100;
+
+    while (attempts++ < MAX_ATTEMPTS) {
         const types = pkmn[id].type;
         const knownMoves = pkmn[id].movepool || [];
 
@@ -288,6 +239,9 @@ function learnPkmnMove(id, level, mod) {
             const notKnown = mod !== "wild" ? !knownMoves.includes(m) : true;
             return data.rarity === tier && notKnown;
         });
+
+        //safefail for when no moves are given
+        if (!allMoves.length) return null;
 
         const typeMatch = [];
         const movesetMatch = [];
@@ -310,54 +264,41 @@ function learnPkmnMove(id, level, mod) {
         let chosenList;
 
         if (rng(0.70)) {
-            if (typeMatch.length) chosenList = typeMatch;
-            else if (movesetMatch.length) chosenList = movesetMatch;
-            else continue; 
-        }
-        else if (rng(0.50)) {
-            if (movesetMatch.length) chosenList = movesetMatch;
-            else if (typeMatch.length) chosenList = typeMatch;
-            else continue; 
-        }
-        else {
-            if (allTag.length) chosenList = allTag;
-            else if (typeMatch.length) chosenList = typeMatch;
-            else if (movesetMatch.length) chosenList = movesetMatch;
-            else continue;
+            chosenList = typeMatch.length ? typeMatch : movesetMatch;
+        } else if (rng(0.50)) {
+            chosenList = movesetMatch.length ? movesetMatch : typeMatch;
+        } else {
+            chosenList = allTag.length ? allTag : (typeMatch.length ? typeMatch : movesetMatch);
         }
 
-        if (!Array.isArray(chosenList) || chosenList.length === 0) continue;
+        if (!chosenList || !chosenList.length) continue;
 
         const chosenMove = chosenList[Math.floor(Math.random() * chosenList.length)];
-
         return move[chosenMove].id;
     }
+
+    return undefined;
 }
 
 
 
-
-
+//--Gives Pokemon appropiate abilities
 function learnPkmnAbility(id) {
     const types = pkmn[id].type;
 
-    // Tier simple
     let tier = 1;
     if (rng(0.20)) tier = 2;
     else if (rng(0.08)) tier = 3;
 
-    // Filtrar habilidades que coincidan por tipo o incluyan "all"
     const pool = Object.keys(ability).filter(a => {
         const ab = ability[a];
         if (ab.rarity !== tier) return false;
         if (ab.type == undefined) return false;
         if (a == pkmn[id].hiddenAbility?.id) return false
 
-        // ab.type es un array → mirar si incluye "all" o si comparte tipo con el Pokémon
         return ab.type.includes("all") || ab.type.some(t => types.includes(t));
     });
 
-    // Elegir una aleatoria del pool
     const pick = pool[Math.floor(Math.random() * pool.length)];
 
     return pick;
@@ -367,6 +308,7 @@ function learnPkmnAbility(id) {
 
 
 
+//--Tutorial stuff
 function newGameIntro(){
   saved.tutorial = true
   document.getElementById('disclaimer-menu').style.display = "flex"
@@ -376,10 +318,8 @@ function newGameIntro(){
   }, 5000);
     setTimeout(() => {
     document.getElementById('disclaimer-menu').style.display = "none"
-    
   }, 6000);
 
-  
 }
 
 saved.tutorial = false
@@ -392,9 +332,6 @@ document.getElementById("settings-tutorial").addEventListener("change", e => {
 
 
 function openTutorial(){
-
-  //document.getElementById("tutorial").style.zIndex = 200
-
 
   if (saved.tutorial != true){
     document.getElementById("tutorial").style.display = "none"
@@ -538,3 +475,47 @@ function setGuide(){
   }
 
 }setGuide()
+
+
+function info() {
+  console.info("Type a command for further info");
+  console.table([
+    {command:"infoPkmn()", info:"Modify Pokemon"},
+    {command:"infoItem()", info:"Modify Items"},
+    {command:"infoRotation()", info:"Modify Rotations"},
+    {command:"infoMisc()", info:"Miscellaneous Commands"},
+
+  ]);
+
+}
+
+function infoPkmn(){
+    console.table([
+      {command:"givePkmn(pkmn.NAME, LEVEL)", effect:"Give Pokemon"},
+      {command:"pkmn.NAME.level=LEVEL", effect:"Modify Pokemon level"},
+      {command:"pkmn.NAME.movepool.push(move.NAME.id)", effect:"Add Pokemon Move"},
+      {command:"pkmn.NAME.ability=ability.NAME.id", effect:"Modify Pokemon Ability"},
+      {command:"pkmn.NAME.hiddenAbilityUnlocked=true", effect:"Unlock Hidden Ability"},
+      ]);
+}
+
+function infoItem(){
+    console.table([
+      {command:"item.NAME.got=AMOUNT", effect:"Give Items"},
+      ]);
+}
+
+function infoRotation(){
+    console.table([
+      {command:"rotationWildCurrent=NUMBER", effect:"Modify Wild Rotation"},
+      {command:"rotationDungeonCurrent=NUMBER", effect:"Modify Dungeon Rotation"},
+      {command:"rotationEventCurrent=NUMBER", effect:"Modify Event Rotation"},
+      {command:"rotationFrontierCurrent=NUMBER", effect:"Modify Frontier Rotation"},
+      ]);
+}
+
+function infoMisc(){
+    console.table([
+      {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
+      ]);
+}

@@ -473,7 +473,7 @@ item.powerWeight = {
 }
 
 
-item.destinyKnot = { //very rare i guess
+item.destinyKnot = {
     type: "key",
     genetics: true,
     info: function() {return `Genetics-aiding item: Swaps the ability of the Pokemon with the sample. Can only be used with at least one level of compatibility`},
@@ -853,7 +853,13 @@ item.articRock = {
 
 item.ancientOrchid = {
     type: "key",
-    rotation: 2,
+    rotation: [2,5],
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.futureDisk = {
+    type: "key",
+    rotation: [2,5],
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
@@ -872,6 +878,37 @@ item.steelKeystone = {
 item.frozenKeystone = {
     type: "key",
     rotation: 3,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.aetherKeycard = {
+    type: "key",
+    rotation: 4,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.wormholeResidue = {
+    type: "key",
+    rotation: 4,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+
+item.redChain = {
+    type: "key",
+    rotation: 6,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.wisdomPetal = {
+    type: "key",
+    rotation: 6,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.willpowerFeather = {
+    type: "key",
+    rotation: 6,
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 

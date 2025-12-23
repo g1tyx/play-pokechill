@@ -2891,9 +2891,8 @@ ability.unaware = {
 ability.magicGuard = {
     type: [`psychic`, `fairy`],
     rarity: 2,
-    info: function() {return `Can only take damage from damaging moves`},
+    info: function() {return `Can only take damage from direct damaging moves`},
 }
-
 
 ability.voltAbsorb = {
     type: [`electric`],
@@ -2982,7 +2981,7 @@ ability.pickPocket = {
 ability.guts = {
     type: [`fighting`,`normal`],
     rarity: 2,
-    info: function() {return `Increases Attack by 50% if afflicted with a status effect`},
+    info: function() {return `Increases Attack by 50% if afflicted with a status effect, and nullifies the stat redution of the condition`},
 }
 
 ability.brittleArmor = {
@@ -3034,19 +3033,19 @@ ability.chlorophyll  = { //new
 //increase atk further by 50% if increased etc
 
 
-ability.slushRush  = { //new
+ability.slushRush  = { 
     type: [`ice`],
     rarity: 3,
     info: function() {return `Increases Speed by 50% on ${tagHail} weather`},
 }
 
-ability.swiftSwim  = { //new
+ability.swiftSwim  = { 
     type: [`water`],
     rarity: 3,
     info: function() {return `Increases Speed by 50% on ${tagRainy} weather`},
 }
 
-ability.sandRush  = { //new
+ability.sandRush  = { 
     type: [`ground`],
     rarity: 3,
     info: function() {return `Increases Speed by 50% on ${tagSandstorm} weather`},
@@ -3087,7 +3086,7 @@ ability.multiscale = {
 ability.prankster = {
     type: [`dark`],
     rarity: 3,
-    info: function() {return `Dark-type moves are x1.5 faster than usual`},
+    info: function() {return `Ghost and Dark-type moves are x1.5 faster than usual`},
 }
 
 /*ability.speedBoost = {
@@ -3147,6 +3146,87 @@ ability.noGuard = {
 
 
 //hidden
+
+ability.toxicBoost = {
+    info: function() {return `Increases the Damage dealt by x1.2 when afflicted with ${tagPoisoned}, and nullifies the damage overtime caused by it`},
+    rarity: 3,
+}
+
+ability.flareBoost = {
+    info: function() {return `Increases the Damage dealt by x1.2 when afflicted with ${tagBurn}, and nullifies the damage overtime caused by it`},
+    rarity: 3,
+}
+
+ability.fullMetalBody = {
+    info: function() {return `Prevents all stat decreases`},
+    rarity: 3,
+}
+
+ability.supremeOverlord = {
+    info: function() {return `Increases the Damage dealt by x1.1 for every team member defeated`},
+    rarity: 3,
+}
+
+ability.gorillaTactics = {
+    info: function() {return `Increases the Attack by x1.2, but prevents them from switching`},
+    rarity: 3,
+}
+
+ability.beastBoost = {
+    info: function() {return `Increases the highest stat of the user by 50% when defeating a Pokemon`},
+    rarity: 3,
+}
+
+ability.quarkDrive = {
+    info: function() {return `Increases the highest stat of the user by 50% on ${tagElectricTerrain}`},
+    rarity: 3,
+}
+
+ability.protosynthesis = {
+    info: function() {return `Increases the highest stat of the user by 50% on ${tagSunny} weather`},
+    rarity: 3,
+}
+
+ability.drizzle = {
+    info: function() {return `Changes the weather to ${tagRainy} when entering the battle`},
+    rarity: 3,
+}
+
+ability.drought = {
+    info: function() {return `Changes the weather to ${tagSunny} when entering the battle`},
+    rarity: 3,
+}
+
+ability.sandStream = {
+    info: function() {return `Changes the weather to ${tagSandstorm} when entering the battle`},
+    rarity: 3,
+}
+
+ability.snowWarning = {
+    info: function() {return `Changes the weather to ${tagHail} when entering the battle`},
+    rarity: 3,
+}
+
+ability.somberField = {
+    info: function() {return `Changes the weather to ${tagFoggy} when entering the battle`},
+    rarity: 3,
+}
+
+ability.electricSurge = {
+    info: function() {return `Changes the weather to ${tagElectricTerrain} when entering the battle`},
+    rarity: 3,
+}
+
+ability.grassySurge = {
+    info: function() {return `Changes the weather to ${tagGrassyTerrain} when entering the battle`},
+    rarity: 3,
+}
+
+ability.mistySurge = {
+    info: function() {return `Changes the weather to ${tagMistyTerrain} when entering the battle`},
+    rarity: 3,
+}
+
 ability.sereneGrace = {
     info: function() {return `Secondary effect of moves are executed twice`},
     rarity: 3,

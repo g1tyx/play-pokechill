@@ -745,6 +745,14 @@ if (areas[saved.currentArea].encounter && areas[saved.currentArea].difficulty ==
     if (testAbility(`active`,  ability.moxie.id)) team[exploreActiveMember].buffs.atkup1 = 3
     if (testAbility(`active`,  ability.strategist.id)) team[exploreActiveMember].buffs.satkup1 = 3
 
+    if (testAbility(`active`,  ability.beastBoost.id)){
+        if (returnHighestStat(team[exploreActiveMember].pkmn)=="spe") team[exploreActiveMember].buffs.speup1 = 3
+        if (returnHighestStat(team[exploreActiveMember].pkmn)=="atk") team[exploreActiveMember].buffs.atkup1 = 3
+        if (returnHighestStat(team[exploreActiveMember].pkmn)=="def") team[exploreActiveMember].buffs.defup1 = 3
+        if (returnHighestStat(team[exploreActiveMember].pkmn)=="satk") team[exploreActiveMember].buffs.satkup1 = 3
+        if (returnHighestStat(team[exploreActiveMember].pkmn)=="sdef") team[exploreActiveMember].buffs.sdefup1 = 3
+    }
+
 
     for (const buff in wildBuffs){ if ( wildBuffs[buff]>0) wildBuffs[buff] = 0 }
     updateWildBuffs()
@@ -1334,6 +1342,7 @@ function setPkmnTeam(){
 
         if (team[exploreActiveMember].item == item.choiceSpecs.id) return
         if (team[exploreActiveMember].item == item.choiceBand.id) return
+        if (testAbility(`active`,  ability.gorillaTactics.id )) return
 
         if (!div.classList.contains("member-inactive")) return;
         if (pkmn[ team[i].pkmn.id ].playerHp <= 0) return;
@@ -1494,6 +1503,8 @@ for (const i in team) {
         if (pkmn[ team[i].pkmn.id ].level % 7 === 0) {//every 7 levels, learn move
 
             const learntMove = learnPkmnMove(pkmn[ team[i].pkmn.id ].id, pkmn[ team[i].pkmn.id ].level)
+
+            if (learntMove == undefined) continue
 
 
             pkmn[ team[i].pkmn.id ].movepool.push(learntMove)
@@ -2567,7 +2578,7 @@ function exploreCombatPlayer() {
     
 
     //abilities
-    if (testAbility(`active`, ability.prankster.id) && move[nextMovePlayer].type == "dark") moveTimerPlayer /= 1.5
+    if (testAbility(`active`, ability.prankster.id) && (move[nextMovePlayer].type == "dark" || move[nextMovePlayer].type == "ghost")) moveTimerPlayer /= 1.5
 
 
     //buff modifiers
@@ -2655,7 +2666,7 @@ function exploreCombatPlayer() {
         if (move[nextMovePlayer].split == 'special') {
             if (team[exploreActiveMember].buffs?.satkup1 > 0) totalPower *=1.5
             if (team[exploreActiveMember].buffs?.satkup2 > 0) totalPower *=2
-            if (team[exploreActiveMember].buffs?.poisoned > 0) totalPower /=1.5
+            if (team[exploreActiveMember].buffs?.poisoned > 0 && !testAbility(`active`, ability.guts.id) ) totalPower /=1.5
 
 
          if ( testAbility(`active`,  ability.unaware.id) == false ){
@@ -2672,7 +2683,7 @@ function exploreCombatPlayer() {
         if (move[nextMovePlayer].split == 'physical') {
             if (team[exploreActiveMember].buffs?.atkup1 > 0) totalPower *=1.5
             if (team[exploreActiveMember].buffs?.atkup2 > 0) totalPower *=2
-            if (team[exploreActiveMember].buffs?.burn > 0) totalPower /=1.5
+            if (team[exploreActiveMember].buffs?.burn > 0 && !testAbility(`active`, ability.guts.id) ) totalPower /=1.5
 
          if ( testAbility(`active`,  ability.unaware.id ) == false ){
 
@@ -2837,7 +2848,29 @@ function exploreCombatPlayer() {
         
         if (testAbility(`active`, ability.hugePower.id) && move[nextMovePlayer].split == 'physical') totalPower *= 2
 
+        if (testAbility(`active`, ability.toxicBoost.id) && team[exploreActiveMember].buffs?.poisoned>0 ) totalPower *= 1.2
+        if (testAbility(`active`, ability.flareBoost.id) && team[exploreActiveMember].buffs?.burn>0 ) totalPower *= 1.2
 
+        if (testAbility(`active`, ability.supremeOverlord.id)) {
+            let overlordBoost = 1
+            for (const member in team) {
+                if (team[member].pkmn==undefined) return
+                if (pkmn[team[member].pkmn.id].playerHp<0) overlordBoost *= 0.1
+            }
+            totalPower *= overlordBoost
+        }
+
+        if (testAbility(`active`, ability.gorillaTactics.id)) totalPower *= 1.2
+
+
+        if ( ( testAbility(`active`,  ability.quarkDrive.id) && saved.weatherTimer>0 && saved.weather=="electricTerrain" )
+        || ( testAbility(`active`,  ability.protosynthesis.id) && saved.weatherTimer>0 && saved.weather=="sunny" ) ){
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="spe") team[exploreActiveMember].buffs.speup1 = 3
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="atk") team[exploreActiveMember].buffs.atkup1 = 3
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="def") team[exploreActiveMember].buffs.defup1 = 3
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="satk") team[exploreActiveMember].buffs.satkup1 = 3
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="sdef") team[exploreActiveMember].buffs.sdefup1 = 3
+        }
 
 
 
@@ -2872,10 +2905,10 @@ function exploreCombatPlayer() {
 
 
         let dotDamage = 50
-        if (areas[saved.currentArea]?.trainer) dotDamage = 10
+        if (areas[saved.currentArea]?.trainer) dotDamage = 12
 
-        if (team[exploreActiveMember].buffs?.burn>0 ) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/dotDamage;}
-        if (team[exploreActiveMember].buffs?.poisoned>0 ) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/dotDamage;}
+        if (team[exploreActiveMember].buffs?.burn>0 && !testAbility(`active`, ability.flareBoost.id)) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/dotDamage;}
+        if (team[exploreActiveMember].buffs?.poisoned>0  && !testAbility(`active`, ability.toxicBoost.id)) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/dotDamage;}
         if (team[exploreActiveMember].item == item.lifeOrb.id) {pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -=  pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/10;}
 
         }
@@ -3319,7 +3352,8 @@ function exploreCombatWild() {
         if (team[exploreActiveMember].item == item.colburBerry.id && move[nextMoveWild].type == 'dark' && superEffective) {totalPower /= (item.colburBerry.power() /100) +1}
         if (team[exploreActiveMember].item == item.babiriBerry.id && move[nextMoveWild].type == 'steel' && superEffective) {totalPower /= (item.babiriBerry.power() /100) +1}
 
-        if (team[exploreActiveMember].item == item.eviolite.id && pkmn[team[exploreActiveMember].pkmn.id].evolve !== undefined) {totalPower /= item.eviolite.power()}
+        if (team[exploreActiveMember].item == item.eviolite.id && pkmn[team[exploreActiveMember].pkmn.id].evolve !== undefined && pkmn[team[exploreActiveMember].pkmn.id].evolve()[1].pkmn.id.slice(0, 4) !== "mega") 
+        {totalPower /= item.eviolite.power();}
 
         if (team[exploreActiveMember].item == item.mentalHerb.id) {totalPower /= (item.mentalHerb.power() /100) +1}
 
@@ -3404,7 +3438,7 @@ function exploreCombatWild() {
         pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -= totalPower;
 
         let dotDamage = 5
-        if (areas[saved.currentArea]?.trainer) dotDamage = 10
+        if (areas[saved.currentArea]?.trainer) dotDamage = 12
         if (areas[saved.currentArea]?.encounter) dotDamage = 50
         
         if (wildBuffs.burn>0 ) {wildPkmnHp -=  wildPkmnHpMax/dotDamage ; updateWildPkmn()}
@@ -3696,7 +3730,8 @@ function setEventAreas() {
 
   for (const i in areas) {
         if (areas[i].type !== "event") continue;
-        if (areas[i].rotation !== rotationEventCurrent) continue;    
+        if (!Array.isArray(areas[i].rotation) && areas[i].rotation !== rotationEventCurrent) continue;    
+        if (Array.isArray(areas[i].rotation) && !areas[i].rotation.includes(rotationEventCurrent)) continue;    
 
         const divAreas = document.createElement("div");
         divAreas.className = "explore-ticket";
@@ -3705,10 +3740,10 @@ function setEventAreas() {
         if ( areas[i].unlockRequirement == undefined || areas[i].unlockRequirement() ) {
 
 
-        if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) return
 
         divAreas.addEventListener("click", e => { 
-
+            
+            if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) return
             saved.currentAreaBuffer = i
             document.getElementById(`preview-team-exit`).style.display = "flex"
             document.getElementById(`team-menu`).style.zIndex = `50`
@@ -3728,7 +3763,9 @@ function setEventAreas() {
        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16" opacity="0.5"/><path fill="currentColor" d="M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z"/></svg>
        <span>${areas[i].unlockDescription}</span>
        </span>`
-       if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) unlockRequirement =`<span class="ticket-unlock">Defeat Elite Four Lance in VS to unlock</span>`
+       if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) unlockRequirement =`<span class="ticket-unlock">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16" opacity="0.5"/><path fill="currentColor" d="M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z"/></svg>
+       Defeat Elite Four Lance in VS to unlock</span>`
 
 
        let eventTag ;
@@ -3827,11 +3864,11 @@ function getSeed() {
   const halfDayNumber = Math.floor(utcTime / (1000 * 60 * 60 * 12));
   const dayNumber = Math.floor(utcTime / (1000 * 60 * 60 * 24));
 
-  rotationWildCurrent = (halfDayNumber % rotationWildMax) + 1;
+  rotationWildCurrent = ((halfDayNumber-6) % rotationWildMax) + 1;
   rotationDungeonCurrent = (halfDayNumber % rotationDungeonMax) + 1;
 
   const period = Math.floor(dayNumber / 3);
-  rotationEventCurrent = (period % rotationEventMax) + 1;
+  rotationEventCurrent = ((period-3) % rotationEventMax) + 1;
   rotationFrontierCurrent = (period % rotationFrontierMax) + 1;
 
   return dayNumber;
@@ -3903,6 +3940,7 @@ setInterval(updateEventCounters, 1000);
 document.getElementById("explore-pkmn-tag").addEventListener("change", e => {
   pkmn[currentEditedPkmn].tag = document.getElementById("explore-pkmn-tag").value
   if (document.getElementById("explore-pkmn-tag").value=="none") pkmn[currentEditedPkmn].tag = undefined
+  updatePokedex()
 });
 
 document.getElementById("pokedex-filter-tag").addEventListener("change", e => {
@@ -4050,9 +4088,12 @@ function updatePokedex(){
         if (pkmn[i].tag=="red") nameMarks += `<strong style="color:#FF4942; margin-left:0.2rem">⬤</strong>`
         if (pkmn[i].tag=="orange") nameMarks += `<strong style="color:#FFAD42; margin-left:0.2rem">⬤</strong>`
         if (pkmn[i].tag=="yellow") nameMarks += `<strong style="color:#FFFF5E; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="green") nameMarks += `<strong style="color:#67BE4F; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="green") nameMarks += `<strong style="color:#4F9E3A; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="lime") nameMarks += `<strong style="color:#A8EA6B; margin-left:0.2rem">⬤</strong>`
         if (pkmn[i].tag=="blue") nameMarks += `<strong style="color:#5454FF; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="teal") nameMarks += `<strong style="color:#6BEAA4; margin-left:0.2rem">⬤</strong>`
         if (pkmn[i].tag=="pink") nameMarks += `<strong style="color:pink; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="magenta") nameMarks += `<strong style="color:#CA478F; margin-left:0.2rem">⬤</strong>`
 
 
         
@@ -4160,7 +4201,11 @@ function updatePokedex(){
 
                 pkmn[i].level++
 
-                if (pkmn[ i ].level % 7 === 0) pkmn[ i ].movepool.push(learnPkmnMove(pkmn[i].id, pkmn[i].level))
+                let learntMove = learnPkmnMove(pkmn[i].id, pkmn[i].level)
+                if (learntMove != undefined) {
+                if (pkmn[ i ].level % 7 === 0) pkmn[ i ].movepool.push(learntMove)
+                }
+
 
                 item.rareCandy.got--
                 updatePokedex()  
@@ -4552,7 +4597,8 @@ function updateItemBag(){
         if (!item[i].type?.includes(bagCategory)) continue
         //if (item[i].evo && bagCategory!== "key" && !item[i].type?.includes(bagCategory)) continue
         
-        if (item[i].rotation && item[i].rotation!== rotationEventCurrent) item[i].got=0
+        if (item[i].rotation && !Array.isArray(item[i].rotation) && item[i].rotation!== rotationEventCurrent) item[i].got=0
+        if (item[i].rotation && Array.isArray(item[i].rotation) && !item[i].rotation.includes(rotationEventCurrent)) item[i].got=0
 
         //if (!rng(0.05)) continue
         if (item[i].got==0) continue
@@ -5278,6 +5324,7 @@ function updateTeamBuffs(){
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(i) && testAbility(slot,  ability.guts.id) ) team[slot].buffs.atkup1 = 1
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(i) && testAbility(slot,  ability.brittleArmor.id) ) team[slot].buffs.satkup1 = 1
 
+
         if (testAbility(slot, ability.insomnia.id) && i == "sleep") team[slot].buffs.sleep = 0
         if (testAbility(slot, ability.immunity.id) && i == "poisoned") team[slot].buffs.poisoned = 0
         if (testAbility(slot, ability.limber.id) && i == "paralysis") team[slot].buffs.paralysis = 0
@@ -5288,8 +5335,6 @@ function updateTeamBuffs(){
         if (testAbility(slot, ability.hyperCutter.id ) && (i == "atkdown1" || i == "atkdown2")) {team[slot].buffs.atkdown1 = 0; team[slot].buffs.atkdown2 = 0; continue}
         if (testAbility(slot, ability.bigPecks.id ) && (i == "defdown1" || i == "defdown2")) {team[slot].buffs.defdown1 = 0; team[slot].buffs.defdown2 = 0; continue}
 
-        if (testAbility(slot, ability.synchronize.id)  && /burn|freeze|confused|paralysis|poisoned|sleep/.test(i) )  { wildBuffs[i] = 3; updateWildBuffs()}
-
         if (testAbility(slot, ability.chlorophyll.id)  && saved.weather == "sunny" && saved.weatherTimer>0) {team[slot].buffs.speup1 = 2;}
         if (testAbility(slot, ability.slushRush.id ) && saved.weather == "hail" && saved.weatherTimer>0) {team[slot].buffs.speup1 = 2;}
         if (testAbility(slot, ability.swiftSwim.id ) && saved.weather == "rainy" && saved.weatherTimer>0) {team[slot].buffs.speup1 = 2;}
@@ -5299,6 +5344,8 @@ function updateTeamBuffs(){
         if (testAbility(slot, ability.iceBody.id ) && saved.weather == "hail" && saved.weatherTimer>0) {team[slot].buffs.defup1 = 2;}
         if (testAbility(slot, ability.rainDish.id ) && saved.weather == "rainy" && saved.weatherTimer>0) {team[slot].buffs.satkup1 = 2;}
         if (testAbility(slot, ability.sandForce.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0) {team[slot].buffs.atkup1 = 2;}
+
+        if (testAbility(slot, ability.fullMetalBody.id) && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2/.test(i) ) team[slot].buffs[i] = 0
 
         const div = document.createElement("span");
         div.className = "buff-tag";
@@ -5451,6 +5498,7 @@ function moveBuff(target,buff,mod){
         if (buff == "paralysis" && pkmn[team[exploreActiveMember].pkmn.id].type.includes("electric")) return
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.sleep>0 )) return
 
+        if (testAbility(`active`, ability.synchronize.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) { wildBuffs[i] = 3; updateWildBuffs()}
 
         if (testAbility(`active`, ability.wonderSkin.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && rng(0.5)) return
         
@@ -6305,6 +6353,12 @@ div.addEventListener("click", () => {
 
 }
 
+function returnHighestStat(pokemon) { //ignores hp bst, used for beast boost etc
+    return Object.keys(pokemon.bst)
+        .filter(stat => stat !== "hp")
+        .reduce((a, b) => pokemon.bst[a] > pokemon.bst[b] ? a : b);
+}
+
 
 
 function testAbility(target,ability){
@@ -6372,4 +6426,3 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
-
