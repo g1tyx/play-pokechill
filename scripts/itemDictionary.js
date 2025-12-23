@@ -476,7 +476,7 @@ item.powerWeight = {
 item.destinyKnot = { //very rare i guess
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Swaps the ability of the Pokemon with the sample`},
+    info: function() {return `Genetics-aiding item: Swaps the ability of the Pokemon with the sample. Can only be used with at least one level of compatibility`},
 }
 
 

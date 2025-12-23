@@ -16,12 +16,30 @@ const defaultPlayerMoveTimer = 2000
 //tier 4 - learnt by normal pokemon = 120-140 uncompromised dmg
 //tier 5 - learnt by legendary pokemon = 160-180 uncompromised dmg
 
+const t4Base = 140
+const t5Base = 170
+
 move.blazeKick = {
     split: "physical",
     type: "fire",
-    power: 75,
+    power: t4Base,
     info: function() {return `10% chance to inflict ${tagBurn}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
+}
+
+move.braveBird = {
+    split: "physical",
+    type: "flying",
+    power: t4Base,
+}
+
+move.voltTackle = {
+    split: "physical",
+    rarity: 4,
+    type: "electric",
+    power: t4Base,
+    info: function() {return `10% chance to inflict ${tagParalysis}`},
+    hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'paralysis') },
 }
 
 move.howl = {
@@ -32,18 +50,34 @@ move.howl = {
     hitEffect: function(target) { moveBuff(target,'atkup1',"team")},
 }
 
+move.boneRush = {
+    split: "physical",
+    type: "ground",
+    power: t4Base/4,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
+}
+
 move.mysticalPower = {
     split: "special",
     type: "psychic",
-    power: 70,
+    power: t4Base-20,
     info: function() {return `Increases Special Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'satkup1',"self") },
+}
+
+move.quiverDance = {
+    split: "special",
+    type: "bug",
+    power: 0,
+    info: function() {return `Increases Speed, Special Defense and Special Attack by 50%`},
+    hitEffect: function(target) { moveBuff(target,'speup1',"self"); moveBuff(target,'sdefup1',"self"); moveBuff(target,'satkup1',"self") },
 }
 
 move.prismaticLaser = {
     split: "physical",
     type: "psychic",
-    power: 160,
+    power: t5Base+10*1.2,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`} ,
 }
@@ -51,7 +85,7 @@ move.prismaticLaser = {
 move.dynamicPunch = {
     split: "physical",
     type: "fighting",
-    power: 100,
+    power: t4Base-20,
     info: function() {return `Inflicts ${tagConfused}`},
     hitEffect: function(target) { moveBuff(target,'confused') },
 }
@@ -59,7 +93,7 @@ move.dynamicPunch = {
 move.thunderousKick = {
     split: "physical",
     type: "fighting",
-    power: 90,
+    power: t5Base-10,
     info: function() {return `Decreases enemy Defense by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1') },
 }
@@ -67,7 +101,7 @@ move.thunderousKick = {
 move.meteorAssault = {
     split: "physical",
     type: "fighting",
-    power: 150,
+    power: t5Base+20*1.2,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`} ,
 }
@@ -83,7 +117,7 @@ move.cottonGuard = {
 move.drumBeating = {
     split: "physical",
     type: "grass",
-    power: 80,
+    power: t4Base-20,
     info: function() {return `Decreases enemy Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1') },
 }
@@ -91,7 +125,7 @@ move.drumBeating = {
 move.tropKick = {
     split: "physical",
     type: "grass",
-    power: 70,
+    power: t4Base-10,
     info: function() {return `Decreases enemy Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'atkdown1') },
 }
@@ -115,7 +149,7 @@ move.gearUp = {
 move.relicSong = {
     split: "special",
     type: "normal",
-    power: 100,
+    power: t5Base-10,
     info: function() {return `30% chance to inflict ${tagSleep}`},
     hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'sleep') },
 }
@@ -123,7 +157,7 @@ move.relicSong = {
 move.zapCannon = {
     split: "special",
     type: "electric",
-    power: 90,
+    power: t5Base-20,
     info: function() {return `Inflicts ${tagParalysis}`},
     hitEffect: function(target) { moveBuff(target,'paralysis') },
 }
@@ -131,15 +165,15 @@ move.zapCannon = {
 move.triAttack = {
     split: "special",
     type: "normal",
-    power: 110,
+    power: t4Base,
     info: function() {return `10% chance to inflict ${tagBurn},${tagParalysis} or ${tagFreeze}`},
     hitEffect: function(target) { if (rng(0.10)){ if (rng(0.33)) {moveBuff(target,'burn')} else if (rng(0.33)) { moveBuff(target,'paralysis')} else moveBuff(target,'freeze') }},
 }
 
 move.judgment = { 
     split: "special",
-    type: "fighting",
-    power: 150
+    type: "normal",
+    power: t5Base+30
 }
 
 move.nobleRoar = {
@@ -153,13 +187,13 @@ move.nobleRoar = {
 move.hyperDrill = { 
     split: "physical",
     type: "normal",
-    power: 150
+    power: t4Base+10
 }
 
 move.fieryDance = {
     split: "special",
     type: "fire",
-    power: 100,
+    power: t4Base-10,
     info: function() {return `30% chance to increase Special Attack by 50%`},
     hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'satkup1',"self") },
 }
@@ -167,7 +201,7 @@ move.fieryDance = {
 move.torchSong = {
     split: "special",
     type: "fire",
-    power: 80,
+    power: t4Base-40,
     info: function() {return `Increases Special Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'satkup1',"self") },
 }
@@ -175,7 +209,7 @@ move.torchSong = {
 move.sacredFire = {
     split: "physical",
     type: "fire",
-    power: 120,
+    power: t5Base,
     info: function() {return `10% chance to inflict ${tagBurn}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
 }
@@ -183,7 +217,7 @@ move.sacredFire = {
 move.vCreate = {
     split: "physical",
     type: "fire",
-    power: 180,
+    power: t5Base+30,
     info: function() {return `Decreases Defense, Special Defense and Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1',`self`); moveBuff(target,'sdefdown1',`self`); moveBuff(target,'spedown1',`self`); },
 }
@@ -191,7 +225,7 @@ move.vCreate = {
 move.headlongRush = {
     split: "physical",
     type: "ground",
-    power: 150,
+    power: t4Base+20,
     info: function() {return `Decreases Defense by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1',`self`) },
 }
@@ -199,7 +233,7 @@ move.headlongRush = {
 move.sandsearStorm = {
     split: "special",
     type: "ground",
-    power: 120,
+    power: t4Base,
     info: function() {return `10% chance to inflict ${tagBurn}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
 }
@@ -214,7 +248,7 @@ move.splash = {
 move.flameBurst = {
     split: "special",
     type: "fire",
-    power: 70,
+    power: t4Base,
     info: function() {return `Inflicts ${tagBurn} to the entire team`},
     hitEffect: function(target) { moveBuff(target,'burn',"team") },
 }
@@ -230,7 +264,7 @@ move.quickAttack = {
     type: "normal",
     power: 40,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.tackle = {
@@ -263,6 +297,7 @@ move.leer = {
     moveset: [`normal`, `all`],
     split: "special",
     rarity: 1,
+    unavoidable: true,
     type: "normal",
     power: 0,
     info: function() {return `Decreases enemy Defense by 50%`},
@@ -273,6 +308,7 @@ move.growl = {//new
     moveset: [`normal`, `all`, `dark`],
     split: "special",
     rarity: 1,
+    unavoidable: true,
     type: "normal",
     power: 0,
     info: function() {return `Decreases enemy Attack by 50%`},
@@ -283,6 +319,7 @@ move.swagger = {
     moveset: [`all`],
     split: "special",
     rarity: 2,
+    unavoidable: true,
     type: "normal",
     power: 0,
     info: function() {return `Inflicts ${tagConfused}, but increases Attack by 100%`},
@@ -303,6 +340,7 @@ move.playNice = {
     moveset: [`normal`, `all`],
     split: "special",
     rarity: 2,
+    unavoidable: true,
     type: "normal",
     power: 0,
     info: function() {return `Decreases enemy Attack by 50%`},
@@ -316,7 +354,7 @@ move.swift = {
     type: "normal",
     power: 60,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.dizzyPunch = {
@@ -342,6 +380,7 @@ move.screech = {
     moveset: [`bug`],
     split: "special",
     rarity: 3,
+    unavoidable: true,
     type: "normal",
     power: 0,
     info: function() {return `Decreases enemy Defense by 100%`},
@@ -377,7 +416,7 @@ move.extremeSpeed = {
     type: "normal",
     power: 75,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.strength = {
@@ -428,6 +467,7 @@ move.swordsDance = {
     moveset: [`normal`, `all`],
     split: "special",
     rarity: 3,
+    unavoidable: true,
     type: "normal",
     power: 0,
     info: function() {return `Increases Attack by 100%`},
@@ -540,12 +580,20 @@ move.fireBlast = {
     split: "special",
     rarity: 3,
     type: "fire",
-    power: 110,
+    power: 120,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`} ,
 }
 
-
+move.flareBlitz = {
+    moveset: [`fire`],
+    split: "physical",
+    rarity: 3,
+    type: "fire",
+    power: 120,
+    timer: defaultPlayerMoveTimer*1.2,
+    info: function() {return `Attacks x1.2 slower than usual`} ,
+}
 
 
 move.overheat = { //new
@@ -580,6 +628,7 @@ move.magneticFlux = {
     split: "special",
     rarity: 1,
     type: "electric",
+    unavoidable: true,
     power: 0,
     info: function() {return `Increases Special Defense by 50%`},
     hitEffect: function(target) { moveBuff(target,'sdefup1',"self") },
@@ -668,11 +717,22 @@ move.discharge = {
 move.electricTerrain = {//new
     moveset: [`electric`,`steel`],
     split: "special",
+    unavoidable: true,
     rarity: 3,
     type: "electric",
     power: 0,
     info: function() {return `Changes the weather to ${tagElectricTerrain}`} ,
     hitEffect: function(target) { changeWeather("electricTerrain") },
+}
+
+move.thunder = {
+    moveset: [`electric`],
+    split: "special",
+    rarity: 3,
+    type: "electric",
+    power: 120,
+    timer: defaultPlayerMoveTimer*1.2,
+    info: function() {return `Attacks x1.2 slower than usual`} ,
 }
 
 
@@ -785,7 +845,7 @@ move.bulletPunch = {
     type: "steel",
     power: 40,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`},
+    info: function() {return `Attacks x1.2 faster than usual`},
 }
 
 move.metalClaw = {
@@ -1148,7 +1208,7 @@ move.iceShard = {
     type: "ice",
     power: 40,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.powderSnow = {
@@ -1419,7 +1479,7 @@ move.aquaJet = {
     type: "water",
     power: 40,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.whirlpool = { //new
@@ -1522,6 +1582,16 @@ move.muddyWater = {
     rarity: 3,
     type: "water",
     power: 90
+}
+
+move.hydroPump = {
+    moveset: [`water`],
+    split: "special",
+    rarity: 3,
+    type: "water",
+    power: 120,
+    timer: defaultPlayerMoveTimer*1.2,
+    info: function() {return `Attacks x1.2 slower than usual`} ,
 }
 
 
@@ -1673,7 +1743,7 @@ move.vacuumWave = {
     type: "fighting",
     power: 40,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.machPunk = {
@@ -1684,7 +1754,7 @@ move.machPunk = {
     type: "fighting",
     power: 40,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.armThrust = { //new
@@ -1955,7 +2025,7 @@ move.accelerock = {
     type: "rock",
     power: 40,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.rockBlast = { //new
@@ -2057,7 +2127,7 @@ move.shadowSneak = {
     type: "ghost",
     power: 40,
     timer: defaultPlayerMoveTimer*0.8,
-    info: function() {return `Attacks x0.8 faster than usual`} ,
+    info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
 move.confuseRay = {
@@ -2082,6 +2152,7 @@ move.fog = {//new
     moveset: [`dark`,`ghost`],
     split: "special",
     rarity: 2,
+    unavoidable: true,
     type: "ghost",
     power: 0,
     info: function() {return `Changes the weather to ${tagFoggy}`} ,
@@ -2155,7 +2226,7 @@ move.dualChop = { //new
 
 move.dragonBreath = {
     moveset: [`dragon`],
-    split: "physical",
+    split: "special",
     rarity: 2,
     type: "dragon",
     power: 60,
@@ -2213,6 +2284,7 @@ move.dragonDance = {
     moveset: [`dragon`],
     split: "special",
     rarity: 3,
+    unavoidable: true,
     type: "dragon",
     power: 0,
     info: function() {return `Increases Attack and Speed by 50%`},
@@ -2949,16 +3021,18 @@ ability.pixiePelt = { //new
     info: function() {return `Prevents negative stat changes and status effects while on ${tagFoggy} weather`},
 }
 
+ability.chlorophyll  = { //new
+    type: [`grass`],
+    rarity: 2,
+    info: function() {return `Increases Speed by 50% on ${tagSunny} weather`},
+}
+
+
 //tier 3
 
 //tier 3 names based on gemini, pisces, o luna, mars, etc
 //increase atk further by 50% if increased etc
 
-ability.chlorophyll  = { //new
-    type: [`grass`],
-    rarity: 3,
-    info: function() {return `Increases Speed by 50% on ${tagSunny} weather`},
-}
 
 ability.slushRush  = { //new
     type: [`ice`],
@@ -2967,7 +3041,7 @@ ability.slushRush  = { //new
 }
 
 ability.swiftSwim  = { //new
-    type: [`grass`],
+    type: [`water`],
     rarity: 3,
     info: function() {return `Increases Speed by 50% on ${tagRainy} weather`},
 }
@@ -3013,7 +3087,7 @@ ability.multiscale = {
 ability.prankster = {
     type: [`dark`],
     rarity: 3,
-    info: function() {return `Dark-type moves are x0.8 faster than usual`},
+    info: function() {return `Dark-type moves are x1.5 faster than usual`},
 }
 
 /*ability.speedBoost = {

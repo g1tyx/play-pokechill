@@ -83,7 +83,7 @@ function updateGameVersion() {
   }
 
 
-  saved.version = 1.2
+  saved.version = 1.4
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 
 }
@@ -307,15 +307,14 @@ function learnPkmnMove(id, level, mod) {
             return move[chosenMove].id;
         }
 
-        const roll = Math.random();
         let chosenList;
 
-        if (roll < 0.65) {
+        if (rng(0.70)) {
             if (typeMatch.length) chosenList = typeMatch;
             else if (movesetMatch.length) chosenList = movesetMatch;
             else continue; 
         }
-        else if (roll < 0.50) {
+        else if (rng(0.50)) {
             if (movesetMatch.length) chosenList = movesetMatch;
             else if (typeMatch.length) chosenList = typeMatch;
             else continue; 

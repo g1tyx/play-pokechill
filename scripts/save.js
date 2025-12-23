@@ -20,6 +20,13 @@ function saveGame() {
   for (const i in areas) {
     data[i] = {};
     data[i].defeated = areas[i].defeated;
+
+    if (areas[i].type=="frontier") data[i].level = areas[i].level;
+    if (areas[i].type=="frontier") data[i].team = areas[i].team;
+    if (areas[i].type=="frontier") data[i].difficulty = areas[i].difficulty;
+    if (areas[i].type=="frontier") data[i].tier = areas[i].tier;
+    if (areas[i].type=="frontier") data[i].reward = areas[i].reward;
+    if (areas[i].type=="frontier") data[i].background = areas[i].background;
   }
 
   // Pokémon
@@ -65,6 +72,13 @@ function loadGame() {
   for (const i in areas) {
     if (data[i]) {
       areas[i].defeated = data[i].defeated;
+
+    if (areas[i].type=="frontier") areas[i].level = data[i].level;
+    if (areas[i].type=="frontier") areas[i].team = data[i].team;
+    if (areas[i].type=="frontier") areas[i].difficulty = data[i].difficulty;
+    if (areas[i].type=="frontier") areas[i].tier = data[i].tier;
+    if (areas[i].type=="frontier") areas[i].reward = data[i].reward;
+    if (areas[i].type=="frontier") areas[i].background = data[i].background;
     }
   }
 

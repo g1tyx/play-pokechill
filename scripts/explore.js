@@ -54,6 +54,7 @@ function voidAnimation(divName, animationName) {
 function format(input) {
     let str = String(input);
     if (move[input]?.rename) str = String(move[input].rename);
+    if (pkmn[input]?.rename) str = String(pkmn[input].rename);
 
     str = str.replace(/hisuian/gi, 'hsn. ');
     str = str.replace(/alolan/gi, 'aln. ');
@@ -82,6 +83,9 @@ function arrayPick(array, n = 1) {
 
     return n === 1 ? picks[0] : picks;
 }
+
+
+
 
 
 function givePkmn(poke, level) {
@@ -129,6 +133,7 @@ function givePkmn(poke, level) {
 
 //saved.currentArea = areas.activeVolcano.id;
 saved.currentArea = undefined;
+saved.currentAreaBuffer = undefined;
 saved.currentPkmn;
 
 let wildPkmnHp;
@@ -431,6 +436,7 @@ function leaveCombat(){
 
     if (saved.tutorial && saved.tutorialStep === "battle") {saved.tutorialStep = "battleEnd"; openTutorial()}
 
+    saved.currentAreaBuffer = undefined
     currentTrainerSlot = 1
     afkSeconds = 0
     transition()
@@ -445,7 +451,7 @@ function leaveCombat(){
 
 
 
-    if (areas[saved.currentArea].type == "vs") {
+    if (areas[saved.currentArea].type == "vs" || areas[saved.currentArea].type == "frontier") {
         document.getElementById("vs-menu").style.display = "flex"
     } else  document.getElementById("explore-menu").style.display = "flex"
 
@@ -524,7 +530,8 @@ function leaveCombat(){
         if (rng(0.10)) newIv++
         if (rng(0.10)) newIv++           
         if (rng(0.10)) newIv++           
-        
+        if (newIv>6) newIv = 6           
+
         if (newIv>ivId) {
             pkmn[hatchedPkmn].ivs[iv] = newIv
              divTag = `<span>Iv's Up!</span>`
@@ -579,7 +586,8 @@ function leaveCombat(){
         if (rng(0.20)) newIv++
         if (rng(0.20)) newIv++           
         if (rng(0.20)) newIv++           
-        
+        if (newIv>6) newIv = 6           
+
         if (newIv>ivId) {
             pkmn[i].ivs[iv] = newIv
              divTag = `<span>Iv's Up!</span>`
@@ -824,7 +832,6 @@ function closePkmnEditor(){
     //setPkmnTeam()
     voidAnimation("pkmn-editor","tooltipBoxAppear 0.2s reverse 1 ease-in")
 
-  updatePokedex()
 
     setTimeout(() => {
     document.getElementById("pkmn-editor-movepool").innerHTML = ""
@@ -953,6 +960,29 @@ function cyclePreviewTeams(order){
 
 function injectPreviewTeam(){
 
+    let frontierError = false
+    for (const i in saved.currentPreviewTeam) {
+    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) frontierError = true
+    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) frontierError = true
+    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="A" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) frontierError = true
+    }
+
+    if (frontierError) {
+
+        document.getElementById("tooltipTop").style.display = "none"
+        document.getElementById("tooltipBottom").style.display = "none"
+        document.getElementById("tooltipTitle").innerHTML = `Banned Pokemon`
+        document.getElementById("tooltipMid").innerHTML = `One or more Pokemon in the current team do not met the division restrictions of the current league`
+        openTooltip()
+
+
+        return
+    }
+
+
+
+    saved.currentArea = saved.currentAreaBuffer
+
     if (saved.tutorial && saved.tutorialStep === "moves") {saved.tutorialStep = "battle"; openTutorial(); item.mysteryEgg.got++; item.mysteryEgg.newItem++ }
 
     if (pkmn[saved.currentPreviewTeam.slot1.pkmn]===undefined){
@@ -1069,15 +1099,24 @@ for (const i in saved.currentPreviewTeam) {
     let itemDiv = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><g fill="currentColor"><path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96" opacity="0.2"/><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88m48-88a8 8 0 0 1-8 8h-32v32a8 8 0 0 1-16 0v-32H88a8 8 0 0 1 0-16h32V88a8 8 0 0 1 16 0v32h32a8 8 0 0 1 8 8"/></g></svg>`
     if (saved.currentPreviewTeam[i].item !== undefined) itemDiv = `<img src="img/items/${ saved.currentPreviewTeam[i].item }.png">`
 
-
+    let nameTag = ""
+    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) nameTag += ` ⛔`
+    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) nameTag += ` ⛔`
+    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="A" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) nameTag += ` ⛔`
     
-    let pkmnName = `${format(saved.currentPreviewTeam[i].pkmn)} <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[ saved.currentPreviewTeam[i].pkmn ].level}</span>`
-    if (pkmn[saved.currentPreviewTeam[i].pkmn].shiny) pkmnName = `${format(saved.currentPreviewTeam[i].pkmn)} <span style="color:#FF4671;">✦</span> <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[ saved.currentPreviewTeam[i].pkmn ].level}</span>`
+    let pkmnName = `${format(saved.currentPreviewTeam[i].pkmn)} ${nameTag} <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[ saved.currentPreviewTeam[i].pkmn ].level}</span>`
+    if (pkmn[saved.currentPreviewTeam[i].pkmn].shiny) pkmnName = `${format(saved.currentPreviewTeam[i].pkmn)} ${nameTag} <span style="color:#FF4671;">✦</span> <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[ saved.currentPreviewTeam[i].pkmn ].level}</span>`
 
 
     let pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${saved.currentPreviewTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
     if (pkmn[saved.currentPreviewTeam[i].pkmn].shiny) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/shiny/${saved.currentPreviewTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
     if (pkmn[saved.currentPreviewTeam[i].pkmn].shiny && pkmn[saved.currentPreviewTeam[i].pkmn].shinyDisabled == true) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${saved.currentPreviewTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
+
+
+
+    
+
+
 
 
     div.innerHTML = `
@@ -1679,7 +1718,6 @@ document.addEventListener("contextmenu", e => {
         if (areas[el.dataset.trainer].team.slot5) spawns.push(areas[el.dataset.trainer].team.slot5.id)
         if (areas[el.dataset.trainer].team.slot6) spawns.push(areas[el.dataset.trainer].team.slot6.id)
         
-
         for (const item of spawns) {
         const div = document.createElement("div");
         div.className = "area-preview";
@@ -1752,6 +1790,9 @@ document.addEventListener("contextmenu", e => {
         if (el.dataset.help === `VS`) document.getElementById("tooltipTitle").innerHTML = `VS Trainers`
         if (el.dataset.help === `VS`) document.getElementById("tooltipBottom").innerHTML = `Defeat increasingly difficult trainers and carve yourself a path of fame! You may unlock additional areas to explore as your progress`
 
+        if (el.dataset.help === `Frontier`) document.getElementById("tooltipTitle").innerHTML = `Battle Frontier`
+        if (el.dataset.help === `Frontier`) document.getElementById("tooltipBottom").innerHTML = `The Battle Frontier houses different types of challenges under a specific division restriction that rotates every three days. Trainers fought here will reset every day`
+
         if (el.dataset.help === `Wild Areas`) document.getElementById("tooltipTitle").innerHTML = `Wild Areas`
         if (el.dataset.help === `Wild Areas`) document.getElementById("tooltipBottom").innerHTML = `All Pokemon in Wild Areas might be caught by defeating them. Wild Areas rotate every day, so be sure to check out what can be caught today!`
 
@@ -1759,7 +1800,7 @@ document.addEventListener("contextmenu", e => {
         if (el.dataset.help === `Dungeons`) document.getElementById("tooltipBottom").innerHTML = `Pokemon in Dungeons can't be caught, but they can drop useful items and EXP. Dungeons rotate every day aswell`
 
         if (el.dataset.help === `Events`) document.getElementById("tooltipTitle").innerHTML = `Events`
-        if (el.dataset.help === `Events`) document.getElementById("tooltipBottom").innerHTML = `Events are might house both items and Pokemon to get. Events marked with a skull signify powerful foes that usually require an item to catch (The item wont be consumed if failed to defeat). All Events rotate every three days.`
+        if (el.dataset.help === `Events`) document.getElementById("tooltipBottom").innerHTML = `Events might house both items and Pokemon to get. Events marked with a skull signify powerful foes that usually require an item to catch (The item wont be consumed if failed to defeat). All Events rotate every three days.`
 
         if (el.dataset.help === `Genetics`) document.getElementById("tooltipTitle").innerHTML = `Genetics`
         if (el.dataset.help === `Genetics`) document.getElementById("tooltipBottom").innerHTML = `With genetics, you can modify the parameters of a level 100 Pokemon (the host) and influence them based on another Pokemon (the sample)<br><br>Doing so, the level of the host will reset back to 1 while keeping all 4 of its currently selected moves, aswell as re-rolling its ability and a chance to increase its IV's<br><br>Genetics can also be influenced by using genetic-aiding items, which you can use at the end of the operation<br><br>You can find more information about the specifics of genetics in the guide section`
@@ -2585,6 +2626,15 @@ function exploreCombatPlayer() {
         if (testAbility(`active`, ability.technician.id) && movePower<60 ) movePower *= 1.5
 
 
+        let multihit = 1
+        if (move[nextMovePlayer].multihit) multihit = random(move[nextMovePlayer].multihit[0], move[nextMovePlayer].multihit[1])
+        if (move[nextMovePlayer].multihit && testAbility(`active`, ability.skillLink.id)) multihit = move[nextMovePlayer].multihit[1]
+        movePower *= multihit
+        
+        
+
+
+
             
         if (move[nextMovePlayer].split == 'physical') {
             totalPower = 
@@ -2664,7 +2714,7 @@ function exploreCombatPlayer() {
         let typeMultiplier = typeEffectiveness(moveType, pkmn[saved.currentPkmn].type)
 
         if ( testAbility(`active`, ability.scrappy.id) && pkmn[saved.currentPkmn].type.includes("ghost") && (moveType == 'fighting' || moveType == 'normal')  ) typeMultiplier=1
-        if ( testAbility(`active`, ability.tintedLens.id) && typeMultiplier == 0.5 ) typeMultiplier=1
+        if ( testAbility(`active`, ability.tintedLens.id) && (typeMultiplier == 0.5 || typeMultiplier == 0.25) ) typeMultiplier=1
         if ( testAbility(`active`, ability.noGuard.id) && typeMultiplier == 0 ) typeMultiplier=1
 
 
@@ -2810,17 +2860,10 @@ function exploreCombatPlayer() {
         if (pkmn[ team[exploreActiveMember].pkmn.id ]?.shiny==true) totalPower *= 1.15
 
 
-        let multihit = 1
-        if (move[nextMovePlayer].multihit) multihit = random(move[nextMovePlayer].multihit[0], move[nextMovePlayer].multihit[1])
-        if (move[nextMovePlayer].multihit && testAbility(`active`, ability.skillLink.id)) multihit = move[nextMovePlayer].multihit[1]
-
-        
-        for (let i = 0; i < multihit; i++) {
-
         wildPkmnHp -= totalPower;
         if (testAbility(`active`, ability.parentalBond.id)) wildPkmnHp -= totalPower/2;
 
-        }
+       
 
 
 
@@ -2851,7 +2894,7 @@ function exploreCombatPlayer() {
 
         if (!(team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.sleep>0)){
         if (testAbility(`active`,  ability.sheerForce.id ) == false || ( testAbility(`active`, ability.sheerForce.id ) && totalPower==0  )){
-        if (move[nextMovePlayer].hitEffect && typeEffectiveness(moveType, pkmn[saved.currentPkmn].type)!= 0) {
+        if (move[nextMovePlayer].hitEffect && (typeEffectiveness(moveType, pkmn[saved.currentPkmn].type)!= 0 || move[nextMovePlayer].unavoidable==true)) {
             move[nextMovePlayer].hitEffect("wild")
         }
         }
@@ -2859,8 +2902,8 @@ function exploreCombatPlayer() {
 
         }
 
-        if (testAbility(`active`, ability.sereneGrace.id)) move[nextMovePlayer].hitEffect("wild")
-        if (testAbility(`active`, ability.parentalBond.id)) move[nextMovePlayer].hitEffect("wild")
+        if (testAbility(`active`, ability.sereneGrace.id) && move[nextMovePlayer].hitEffect) move[nextMovePlayer].hitEffect("wild")
+        if (testAbility(`active`, ability.parentalBond.id) && move[nextMovePlayer].hitEffect) move[nextMovePlayer].hitEffect("wild")
 
 
         updateTeamBuffs()
@@ -3407,15 +3450,38 @@ function initialiseArea(){
 
 function setWildAreas() {
 
+
+    document.getElementById("explore-selector").innerHTML = `
+            <div style="background: #967546; outline: solid 1px #FF9E3D; color: white; z-index: 2;" onclick="setWildAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m17.861 3.163l.16.054l1.202.4c.463.155.87.29 1.191.44c.348.162.667.37.911.709s.341.707.385 1.088c.04.353.04.781.04 1.27v8.212c0 .698 0 1.287-.054 1.753c-.056.484-.182.962-.535 1.348a2.25 2.25 0 0 1-.746.538c-.478.212-.971.18-1.448.081c-.46-.096-1.018-.282-1.68-.503l-.043-.014c-1.12-.374-1.505-.49-1.877-.477a2.3 2.3 0 0 0-.441.059c-.363.085-.703.299-1.686.954l-1.382.922l-.14.093c-1.062.709-1.8 1.201-2.664 1.317c-.863.116-1.705-.165-2.915-.57l-.16-.053l-1.202-.4c-.463-.155-.87-.29-1.191-.44c-.348-.162-.667-.37-.911-.71c-.244-.338-.341-.706-.385-1.088c-.04-.353-.04-.78-.04-1.269V8.665c0-.699 0-1.288.054-1.753c.056-.484.182-.962.535-1.348a2.25 2.25 0 0 1 .746-.538c.478-.213.972-.181 1.448-.081c.46.095 1.018.282 1.68.503l.043.014c1.12.373 1.505.49 1.878.477a2.3 2.3 0 0 0 .44-.059c.363-.086.703-.3 1.686-.954l1.382-.922l.14-.094c1.062-.708 1.8-1.2 2.663-1.316c.864-.116 1.706.165 2.916.57m-2.111.943V16.58c.536.058 1.1.246 1.843.494l.125.042c.717.239 1.192.396 1.555.472c.356.074.477.04.532.016a.75.75 0 0 0 .249-.179c.04-.044.11-.149.152-.51c.043-.368.044-.869.044-1.624V7.163c0-.54-.001-.88-.03-1.138c-.028-.239-.072-.328-.112-.382c-.039-.054-.109-.125-.326-.226c-.236-.11-.56-.218-1.07-.389l-1.165-.388c-.887-.296-1.413-.464-1.797-.534m-1.5 12.654V4.434c-.311.18-.71.441-1.276.818l-1.382.922l-.11.073c-.688.46-1.201.802-1.732.994v12.326c.311-.18.71-.442 1.276-.819l1.382-.921l.11-.073c.688-.46 1.201-.802 1.732-.994m-6 3.135V7.42c-.536-.058-1.1-.246-1.843-.494l-.125-.042c-.717-.239-1.192-.396-1.556-.472c-.355-.074-.476-.041-.53-.017a.75.75 0 0 0-.25.18c-.04.043-.11.148-.152.509c-.043.368-.044.87-.044 1.625v8.128c0 .54.001.88.03 1.138c.028.239.072.327.112.382c.039.054.109.125.326.226c.236.11.56.218 1.07.389l1.165.388c.887.295 1.412.463 1.797.534" clip-rule="evenodd"/></svg>                Wild Areas</div>
+            <div onclick="setDungeonAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M4 10a8 8 0 1 1 16 0v8.667c0 1.246 0 1.869-.268 2.333a2 2 0 0 1-.732.732c-.464.268-1.087.268-2.333.268H7.333C6.087 22 5.464 22 5 21.732A2 2 0 0 1 4.268 21C4 20.536 4 19.913 4 18.667z"/><path d="M20 18H9c-.943 0-1.414 0-1.707.293S7 19.057 7 20v2m13-8h-7c-.943 0-1.414 0-1.707.293S11 15.057 11 16v2m9-8h-3c-.943 0-1.414 0-1.707.293S15 11.057 15 12v2"/></g></svg>
+                Dungeons</div>
+            <div onclick="setEventAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5.658 11.002l-1.47 3.308c-1.856 4.174-2.783 6.261-1.77 7.274s3.098.085 7.272-1.77L13 18.342c2.517-1.119 3.776-1.678 3.976-2.757s-.774-2.053-2.722-4l-1.838-1.839c-1.947-1.948-2.921-2.922-4-2.721c-1.079.2-1.638 1.459-2.757 3.976M6.5 10.5l7 7m-9-2l4 4M16 8l3-3m-4.803-3c.4.667.719 2.4-1.197 4m9 3.803c-.667-.4-2.4-.719-4 1.197m0-9v.02M22 6v.02M21 13v.02M11 3v.02"/></svg>
+                Events</div>
+    `
+
+
     document.getElementById("explore-listing").innerHTML = ""
     document.getElementById("explore-menu-header").innerHTML = `
-    <span data-help="Wild Areas">Wild Areas
-    <svg data-help="Wild Areas" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
+    <div style="display:flex; gap:0.2rem" >
+    <span >
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m17.861 3.163l.16.054l1.202.4c.463.155.87.29 1.191.44c.348.162.667.37.911.709s.341.707.385 1.088c.04.353.04.781.04 1.27v8.212c0 .698 0 1.287-.054 1.753c-.056.484-.182.962-.535 1.348a2.25 2.25 0 0 1-.746.538c-.478.212-.971.18-1.448.081c-.46-.096-1.018-.282-1.68-.503l-.043-.014c-1.12-.374-1.505-.49-1.877-.477a2.3 2.3 0 0 0-.441.059c-.363.085-.703.299-1.686.954l-1.382.922l-.14.093c-1.062.709-1.8 1.201-2.664 1.317c-.863.116-1.705-.165-2.915-.57l-.16-.053l-1.202-.4c-.463-.155-.87-.29-1.191-.44c-.348-.162-.667-.37-.911-.71c-.244-.338-.341-.706-.385-1.088c-.04-.353-.04-.78-.04-1.269V8.665c0-.699 0-1.288.054-1.753c.056-.484.182-.962.535-1.348a2.25 2.25 0 0 1 .746-.538c.478-.213.972-.181 1.448-.081c.46.095 1.018.282 1.68.503l.043.014c1.12.373 1.505.49 1.878.477a2.3 2.3 0 0 0 .44-.059c.363-.086.703-.3 1.686-.954l1.382-.922l.14-.094c1.062-.708 1.8-1.2 2.663-1.316c.864-.116 1.706.165 2.916.57m-2.111.943V16.58c.536.058 1.1.246 1.843.494l.125.042c.717.239 1.192.396 1.555.472c.356.074.477.04.532.016a.75.75 0 0 0 .249-.179c.04-.044.11-.149.152-.51c.043-.368.044-.869.044-1.624V7.163c0-.54-.001-.88-.03-1.138c-.028-.239-.072-.328-.112-.382c-.039-.054-.109-.125-.326-.226c-.236-.11-.56-.218-1.07-.389l-1.165-.388c-.887-.296-1.413-.464-1.797-.534m-1.5 12.654V4.434c-.311.18-.71.441-1.276.818l-1.382.922l-.11.073c-.688.46-1.201.802-1.732.994v12.326c.311-.18.71-.442 1.276-.819l1.382-.921l.11-.073c.688-.46 1.201-.802 1.732-.994m-6 3.135V7.42c-.536-.058-1.1-.246-1.843-.494l-.125-.042c-.717-.239-1.192-.396-1.556-.472c-.355-.074-.476-.041-.53-.017a.75.75 0 0 0-.25.18c-.04.043-.11.148-.152.509c-.043.368-.044.87-.044 1.625v8.128c0 .54.001.88.03 1.138c.028.239.072.327.112.382c.039.054.109.125.326.226c.236.11.56.218 1.07.389l1.165.388c.887.295 1.412.463 1.797.534" clip-rule="evenodd"/></svg>    Wild Areas
     </span>
-    <span data-help="Wild Areas">Rotation ${rotationWildCurrent}/${rotationWildMax} (ends in <strong class="time-counter-daily"></strong>)</span>
+    <span class="header-help" data-help="Wild Areas"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+    </div>
+
+    <div class="rotation-timer">
+    <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972s1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828S6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172S22 17.772 22 14" opacity="0.5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg>
+    Rotation ${rotationWildCurrent}/${rotationWildMax}</strong>
+    <div class="time-counter-daily"></div>
+    </div>
     `
+
     document.getElementById("explore-menu-header").style.backgroundImage = "url(img/bg/forest.png)"
 
+    let ticketIndex = 0
 
     for (const i in areas) {
         if (areas[i].type !== "wild") continue;
@@ -3428,39 +3494,48 @@ function setWildAreas() {
 
         if ( areas[i].unlockRequirement == undefined || areas[i].unlockRequirement() ) {
         divAreas.addEventListener("click", e => { 
-            saved.currentArea = i
+            saved.currentAreaBuffer = i
             document.getElementById(`preview-team-exit`).style.display = "flex"
             document.getElementById(`team-menu`).style.zIndex = `50`
             document.getElementById(`team-menu`).style.display = `flex`
             document.getElementById("menu-button-parent").style.display = "none"
             updatePreviewTeam()
             afkSeconds = 0
-            setTimeout(() => {
-                document.getElementById(`explore-menu`).style.display = `none`
-            }, 500);
+            document.getElementById(`explore-menu`).style.display = `none`
         })
         }
 
 
         let unlockRequirement = ""
-        if (areas[i].unlockRequirement && !areas[i].unlockRequirement()) unlockRequirement =`<span class="ticket-unlock">${areas[i].unlockDescription}</span>`
-
+        if (areas[i].unlockRequirement && !areas[i].unlockRequirement()) unlockRequirement =`<span class="ticket-unlock">
+       
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16" opacity="0.5"/><path fill="currentColor" d="M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z"/></svg>
+       <span>${areas[i].unlockDescription}</span>
+       </span>`
+        ticketIndex++
 
         divAreas.innerHTML = `
                 ${unlockRequirement}
                 <span class="hitbox"></span>
 
                 
-                <div style="width: 100%;  border-right: dotted var(--light1) 4px; ">
+                <div style="width: 100%;">
 
 
-                <svg class="barcode-flair xmlns="http://www.w3.org/2000/svg" width="236" height="144"><svg id="barcodeSVG" role="img" aria-label="Barcode preview" width="234px" height="142px" x="0px" y="0px" viewBox="0 0 234 142" xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform: translate(0,0)"><rect x="0" y="0" width="234" height="142" style="fill:none;"/><g transform="translate(10, 10)" style="fill:#000000;"><text style="font: 20px Roboto" text-anchor="start" x="0" y="122">5</text></g><g transform="translate(34, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g><g transform="translate(40, 10)" style="fill:#000000;"><rect x="6" y="0" width="2" height="100"/><rect x="10" y="0" width="4" height="100"/><rect x="16" y="0" width="2" height="100"/><rect x="22" y="0" width="6" height="100"/><rect x="30" y="0" width="4" height="100"/><rect x="38" y="0" width="4" height="100"/><rect x="46" y="0" width="2" height="100"/><rect x="52" y="0" width="4" height="100"/><rect x="58" y="0" width="8" height="100"/><rect x="68" y="0" width="2" height="100"/><rect x="74" y="0" width="6" height="100"/><rect x="82" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">901234</text></g><g transform="translate(124, 10)" style="fill:#000000;"><rect x="2" y="0" width="2" height="112"/><rect x="6" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="5" y="134"></text></g><g transform="translate(134, 10)" style="fill:#000000;"><rect x="0" y="0" width="4" height="100"/><rect x="8" y="0" width="4" height="100"/><rect x="14" y="0" width="4" height="100"/><rect x="20" y="0" width="4" height="100"/><rect x="28" y="0" width="2" height="100"/><rect x="38" y="0" width="2" height="100"/><rect x="42" y="0" width="2" height="100"/><rect x="46" y="0" width="6" height="100"/><rect x="56" y="0" width="2" height="100"/><rect x="62" y="0" width="6" height="100"/><rect x="70" y="0" width="2" height="100"/><rect x="78" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">123457</text></g><g transform="translate(218, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g></svg></svg>
+                <svg class="barcode-flair" xmlns="http://www.w3.org/2000/svg" width="236" height="144"><svg id="barcodeSVG" role="img" aria-label="Barcode preview" width="234px" height="142px" x="0px" y="0px" viewBox="0 0 234 142" xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform: translate(0,0)"><rect x="0" y="0" width="234" height="142" style="fill:none;"/><g transform="translate(10, 10)" style="fill:#000000;"><text style="font: 20px Roboto" text-anchor="start" x="0" y="122">5</text></g><g transform="translate(34, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g><g transform="translate(40, 10)" style="fill:#000000;"><rect x="6" y="0" width="2" height="100"/><rect x="10" y="0" width="4" height="100"/><rect x="16" y="0" width="2" height="100"/><rect x="22" y="0" width="6" height="100"/><rect x="30" y="0" width="4" height="100"/><rect x="38" y="0" width="4" height="100"/><rect x="46" y="0" width="2" height="100"/><rect x="52" y="0" width="4" height="100"/><rect x="58" y="0" width="8" height="100"/><rect x="68" y="0" width="2" height="100"/><rect x="74" y="0" width="6" height="100"/><rect x="82" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">901234</text></g><g transform="translate(124, 10)" style="fill:#000000;"><rect x="2" y="0" width="2" height="112"/><rect x="6" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="5" y="134"></text></g><g transform="translate(134, 10)" style="fill:#000000;"><rect x="0" y="0" width="4" height="100"/><rect x="8" y="0" width="4" height="100"/><rect x="14" y="0" width="4" height="100"/><rect x="20" y="0" width="4" height="100"/><rect x="28" y="0" width="2" height="100"/><rect x="38" y="0" width="2" height="100"/><rect x="42" y="0" width="2" height="100"/><rect x="46" y="0" width="6" height="100"/><rect x="56" y="0" width="2" height="100"/><rect x="62" y="0" width="6" height="100"/><rect x="70" y="0" width="2" height="100"/><rect x="78" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">123457</text></g><g transform="translate(218, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g></svg></svg>
 
 
 
                     <span class="explore-ticket-left">
-                        <span><strong>${format(i)}</strong></span>
-                        <span><strong>Level :</strong><span> ${Math.max(1,areas[i].level-10)}-${areas[i].level}  ✈</span></span>
+
+                    
+                <span class="ticket-flair">
+                #000${ticketIndex}
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M25.719 4.781a2.9 2.9 0 0 0-1.125.344l-4.719 2.5L13.5 6.062l-.375-.093l-.375.187l-2.156 1.25l-1.281.75l1.187.906l2.719 2.063l-3.406 1.813l-3.657-1.657l-.437-.187l-.438.219l-1.75.937l-1.156.625l.875.938l5.406 5.812l.5.594l.688-.375L15 17.094l-1.031 5.687l-.344 1.813l1.719-.719l2.562-1.094l.375-.156l.157-.375l3.718-9.031l5.25-2.813c1.446-.777 2.028-2.617 1.25-4.062a3 3 0 0 0-1.781-1.438a3.1 3.1 0 0 0-1.156-.125m.187 2c.125-.008.254-.004.375.032a.979.979 0 0 1 .188 1.812l-5.594 3.031l-.313.156l-.125.344l-3.718 8.938l-.438.187l1.063-5.906l.375-2.031l-1.813.969l-6.312 3.406l-3.969-4.313l.156-.094l3.657 1.626l.468.218l.406-.25l15.22-8.031a.9.9 0 0 1 .374-.094M13.375 8.094l3.844.937l-2.063 1.063l-2.25-1.719zM3 26v2h26v-2z"/></svg>
+                </span>
+
+                        <span style="font-size:1.2rem">${format(i)}</span>
+                        <span><strong style="background:#B18451">Level: ${Math.max(1,areas[i].level-10)}-${areas[i].level}</strong><span></span></span>
                     </span>
                 </div>
                 <div style="width: 8rem;" class="explore-ticket-right">
@@ -3477,13 +3552,39 @@ function setWildAreas() {
 
 function setDungeonAreas() {
 
+
+    document.getElementById("explore-selector").innerHTML = `
+            <div onclick="setWildAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m17.861 3.163l.16.054l1.202.4c.463.155.87.29 1.191.44c.348.162.667.37.911.709s.341.707.385 1.088c.04.353.04.781.04 1.27v8.212c0 .698 0 1.287-.054 1.753c-.056.484-.182.962-.535 1.348a2.25 2.25 0 0 1-.746.538c-.478.212-.971.18-1.448.081c-.46-.096-1.018-.282-1.68-.503l-.043-.014c-1.12-.374-1.505-.49-1.877-.477a2.3 2.3 0 0 0-.441.059c-.363.085-.703.299-1.686.954l-1.382.922l-.14.093c-1.062.709-1.8 1.201-2.664 1.317c-.863.116-1.705-.165-2.915-.57l-.16-.053l-1.202-.4c-.463-.155-.87-.29-1.191-.44c-.348-.162-.667-.37-.911-.71c-.244-.338-.341-.706-.385-1.088c-.04-.353-.04-.78-.04-1.269V8.665c0-.699 0-1.288.054-1.753c.056-.484.182-.962.535-1.348a2.25 2.25 0 0 1 .746-.538c.478-.213.972-.181 1.448-.081c.46.095 1.018.282 1.68.503l.043.014c1.12.373 1.505.49 1.878.477a2.3 2.3 0 0 0 .44-.059c.363-.086.703-.3 1.686-.954l1.382-.922l.14-.094c1.062-.708 1.8-1.2 2.663-1.316c.864-.116 1.706.165 2.916.57m-2.111.943V16.58c.536.058 1.1.246 1.843.494l.125.042c.717.239 1.192.396 1.555.472c.356.074.477.04.532.016a.75.75 0 0 0 .249-.179c.04-.044.11-.149.152-.51c.043-.368.044-.869.044-1.624V7.163c0-.54-.001-.88-.03-1.138c-.028-.239-.072-.328-.112-.382c-.039-.054-.109-.125-.326-.226c-.236-.11-.56-.218-1.07-.389l-1.165-.388c-.887-.296-1.413-.464-1.797-.534m-1.5 12.654V4.434c-.311.18-.71.441-1.276.818l-1.382.922l-.11.073c-.688.46-1.201.802-1.732.994v12.326c.311-.18.71-.442 1.276-.819l1.382-.921l.11-.073c.688-.46 1.201-.802 1.732-.994m-6 3.135V7.42c-.536-.058-1.1-.246-1.843-.494l-.125-.042c-.717-.239-1.192-.396-1.556-.472c-.355-.074-.476-.041-.53-.017a.75.75 0 0 0-.25.18c-.04.043-.11.148-.152.509c-.043.368-.044.87-.044 1.625v8.128c0 .54.001.88.03 1.138c.028.239.072.327.112.382c.039.054.109.125.326.226c.236.11.56.218 1.07.389l1.165.388c.887.295 1.412.463 1.797.534" clip-rule="evenodd"/></svg>                Wild Areas</div>
+            <div style="background: #58644bff; outline: solid 1px #82df60ff; color: white; z-index: 2;" onclick="setDungeonAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M4 10a8 8 0 1 1 16 0v8.667c0 1.246 0 1.869-.268 2.333a2 2 0 0 1-.732.732c-.464.268-1.087.268-2.333.268H7.333C6.087 22 5.464 22 5 21.732A2 2 0 0 1 4.268 21C4 20.536 4 19.913 4 18.667z"/><path d="M20 18H9c-.943 0-1.414 0-1.707.293S7 19.057 7 20v2m13-8h-7c-.943 0-1.414 0-1.707.293S11 15.057 11 16v2m9-8h-3c-.943 0-1.414 0-1.707.293S15 11.057 15 12v2"/></g></svg>
+                Dungeons</div>
+            <div onclick="setEventAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5.658 11.002l-1.47 3.308c-1.856 4.174-2.783 6.261-1.77 7.274s3.098.085 7.272-1.77L13 18.342c2.517-1.119 3.776-1.678 3.976-2.757s-.774-2.053-2.722-4l-1.838-1.839c-1.947-1.948-2.921-2.922-4-2.721c-1.079.2-1.638 1.459-2.757 3.976M6.5 10.5l7 7m-9-2l4 4M16 8l3-3m-4.803-3c.4.667.719 2.4-1.197 4m9 3.803c-.667-.4-2.4-.719-4 1.197m0-9v.02M22 6v.02M21 13v.02M11 3v.02"/></svg>
+                Events</div>
+    `
+
     document.getElementById("explore-listing").innerHTML = ""
     document.getElementById("explore-menu-header").innerHTML = `
-    <span data-help="Dungeons">Dungeons <svg data-help="Dungeons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
+    <div style="display:flex; gap:0.2rem" >
+    <span >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M4 10a8 8 0 1 1 16 0v8.667c0 1.246 0 1.869-.268 2.333a2 2 0 0 1-.732.732c-.464.268-1.087.268-2.333.268H7.333C6.087 22 5.464 22 5 21.732A2 2 0 0 1 4.268 21C4 20.536 4 19.913 4 18.667z"/><path d="M20 18H9c-.943 0-1.414 0-1.707.293S7 19.057 7 20v2m13-8h-7c-.943 0-1.414 0-1.707.293S11 15.057 11 16v2m9-8h-3c-.943 0-1.414 0-1.707.293S15 11.057 15 12v2"/></g></svg>
+    Dungeons
     </span>
-    <span data-help="Wild Areas">Rotation ${rotationDungeonCurrent}/${rotationDungeonMax} (ends in <strong class="time-counter-daily"></strong>)</span>
+    <span class="header-help" data-help="Dungeons"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+    </div>
+
+    <div class="rotation-timer">
+    <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972s1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828S6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172S22 17.772 22 14" opacity="0.5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg>
+    Rotation ${rotationDungeonCurrent}/${rotationDungeonMax}</strong>
+    <div class="time-counter-daily"></div>
+    </div>
+
+
+
     `
     document.getElementById("explore-menu-header").style.backgroundImage = "url(img/bg/cave.png)" 
+    let ticketIndex = 0
 
     for (const i in areas) {
         if (areas[i].type !== "dungeon") continue;
@@ -3491,40 +3592,54 @@ function setDungeonAreas() {
 
 
         const divAreas = document.createElement("div");
-        divAreas.className = "explore-ticket ticket-dungeon";
+        divAreas.className = "explore-ticket";
         divAreas.dataset.area = i
 
         if ( areas[i].unlockRequirement == undefined || areas[i].unlockRequirement() ) {
         divAreas.addEventListener("click", e => { 
 
-            saved.currentArea = i
+            saved.currentAreaBuffer = i
             document.getElementById(`preview-team-exit`).style.display = "flex"
             document.getElementById(`team-menu`).style.zIndex = `50`
             document.getElementById(`team-menu`).style.display = `flex`
             document.getElementById("menu-button-parent").style.display = "none"
             updatePreviewTeam()
             afkSeconds = 0
-            setTimeout(() => {
-                document.getElementById(`explore-menu`).style.display = `none`
-            }, 500);
+            document.getElementById(`explore-menu`).style.display = `none`
 
         })
     }
 
         let unlockRequirement = ""
-        if (areas[i].unlockRequirement && !areas[i].unlockRequirement()) unlockRequirement =`<span class="ticket-unlock">${areas[i].unlockDescription}</span>`
-
+        if (areas[i].unlockRequirement && !areas[i].unlockRequirement()) unlockRequirement =`<span class="ticket-unlock">
+       
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16" opacity="0.5"/><path fill="currentColor" d="M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z"/></svg>
+       <span>${areas[i].unlockDescription}</span>
+       </span>`
+        ticketIndex++
 
         divAreas.innerHTML = `
                 ${unlockRequirement}
                 <span class="hitbox"></span>
-                <div style="width: 100%;  border-right: dotted var(--light1) 4px; ">
 
-                                <svg class="barcode-flair xmlns="http://www.w3.org/2000/svg" width="236" height="144"><svg id="barcodeSVG" role="img" aria-label="Barcode preview" width="234px" height="142px" x="0px" y="0px" viewBox="0 0 234 142" xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform: translate(0,0)"><rect x="0" y="0" width="234" height="142" style="fill:none;"/><g transform="translate(10, 10)" style="fill:#000000;"><text style="font: 20px Roboto" text-anchor="start" x="0" y="122">5</text></g><g transform="translate(34, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g><g transform="translate(40, 10)" style="fill:#000000;"><rect x="6" y="0" width="2" height="100"/><rect x="10" y="0" width="4" height="100"/><rect x="16" y="0" width="2" height="100"/><rect x="22" y="0" width="6" height="100"/><rect x="30" y="0" width="4" height="100"/><rect x="38" y="0" width="4" height="100"/><rect x="46" y="0" width="2" height="100"/><rect x="52" y="0" width="4" height="100"/><rect x="58" y="0" width="8" height="100"/><rect x="68" y="0" width="2" height="100"/><rect x="74" y="0" width="6" height="100"/><rect x="82" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">901234</text></g><g transform="translate(124, 10)" style="fill:#000000;"><rect x="2" y="0" width="2" height="112"/><rect x="6" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="5" y="134"></text></g><g transform="translate(134, 10)" style="fill:#000000;"><rect x="0" y="0" width="4" height="100"/><rect x="8" y="0" width="4" height="100"/><rect x="14" y="0" width="4" height="100"/><rect x="20" y="0" width="4" height="100"/><rect x="28" y="0" width="2" height="100"/><rect x="38" y="0" width="2" height="100"/><rect x="42" y="0" width="2" height="100"/><rect x="46" y="0" width="6" height="100"/><rect x="56" y="0" width="2" height="100"/><rect x="62" y="0" width="6" height="100"/><rect x="70" y="0" width="2" height="100"/><rect x="78" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">123457</text></g><g transform="translate(218, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g></svg></svg>
+                
+                <div style="width: 100%;">
+
+
+                <svg class="barcode-flair" xmlns="http://www.w3.org/2000/svg" width="236" height="144"><svg id="barcodeSVG" role="img" aria-label="Barcode preview" width="234px" height="142px" x="0px" y="0px" viewBox="0 0 234 142" xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform: translate(0,0)"><rect x="0" y="0" width="234" height="142" style="fill:none;"/><g transform="translate(10, 10)" style="fill:#000000;"><text style="font: 20px Roboto" text-anchor="start" x="0" y="122">5</text></g><g transform="translate(34, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g><g transform="translate(40, 10)" style="fill:#000000;"><rect x="6" y="0" width="2" height="100"/><rect x="10" y="0" width="4" height="100"/><rect x="16" y="0" width="2" height="100"/><rect x="22" y="0" width="6" height="100"/><rect x="30" y="0" width="4" height="100"/><rect x="38" y="0" width="4" height="100"/><rect x="46" y="0" width="2" height="100"/><rect x="52" y="0" width="4" height="100"/><rect x="58" y="0" width="8" height="100"/><rect x="68" y="0" width="2" height="100"/><rect x="74" y="0" width="6" height="100"/><rect x="82" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">901234</text></g><g transform="translate(124, 10)" style="fill:#000000;"><rect x="2" y="0" width="2" height="112"/><rect x="6" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="5" y="134"></text></g><g transform="translate(134, 10)" style="fill:#000000;"><rect x="0" y="0" width="4" height="100"/><rect x="8" y="0" width="4" height="100"/><rect x="14" y="0" width="4" height="100"/><rect x="20" y="0" width="4" height="100"/><rect x="28" y="0" width="2" height="100"/><rect x="38" y="0" width="2" height="100"/><rect x="42" y="0" width="2" height="100"/><rect x="46" y="0" width="6" height="100"/><rect x="56" y="0" width="2" height="100"/><rect x="62" y="0" width="6" height="100"/><rect x="70" y="0" width="2" height="100"/><rect x="78" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">123457</text></g><g transform="translate(218, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g></svg></svg>
+
+
 
                     <span class="explore-ticket-left">
-                        <span><strong>${format(i)}</strong></span>
-                        <span><strong>Level :</strong><span> ${Math.max(1,areas[i].level-10)}-${areas[i].level} ✈</span></span>
+
+                    
+                <span class="ticket-flair">
+                #000${ticketIndex}
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M25.719 4.781a2.9 2.9 0 0 0-1.125.344l-4.719 2.5L13.5 6.062l-.375-.093l-.375.187l-2.156 1.25l-1.281.75l1.187.906l2.719 2.063l-3.406 1.813l-3.657-1.657l-.437-.187l-.438.219l-1.75.937l-1.156.625l.875.938l5.406 5.812l.5.594l.688-.375L15 17.094l-1.031 5.687l-.344 1.813l1.719-.719l2.562-1.094l.375-.156l.157-.375l3.718-9.031l5.25-2.813c1.446-.777 2.028-2.617 1.25-4.062a3 3 0 0 0-1.781-1.438a3.1 3.1 0 0 0-1.156-.125m.187 2c.125-.008.254-.004.375.032a.979.979 0 0 1 .188 1.812l-5.594 3.031l-.313.156l-.125.344l-3.718 8.938l-.438.187l1.063-5.906l.375-2.031l-1.813.969l-6.312 3.406l-3.969-4.313l.156-.094l3.657 1.626l.468.218l.406-.25l15.22-8.031a.9.9 0 0 1 .374-.094M13.375 8.094l3.844.937l-2.063 1.063l-2.25-1.719zM3 26v2h26v-2z"/></svg>
+                </span>
+
+                        <span style="font-size:1.2rem">${format(i)}</span>
+                        <span><strong style="background:#6BBC77">Level: ${Math.max(1,areas[i].level-10)}-${areas[i].level}</strong><span></span></span>
                     </span>
                 </div>
                 <div style="width: 8rem;" class="explore-ticket-right">
@@ -3544,20 +3659,47 @@ function setDungeonAreas() {
 
 function setEventAreas() {
 
+
+    document.getElementById("explore-selector").innerHTML = `
+            <div onclick="setWildAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m17.861 3.163l.16.054l1.202.4c.463.155.87.29 1.191.44c.348.162.667.37.911.709s.341.707.385 1.088c.04.353.04.781.04 1.27v8.212c0 .698 0 1.287-.054 1.753c-.056.484-.182.962-.535 1.348a2.25 2.25 0 0 1-.746.538c-.478.212-.971.18-1.448.081c-.46-.096-1.018-.282-1.68-.503l-.043-.014c-1.12-.374-1.505-.49-1.877-.477a2.3 2.3 0 0 0-.441.059c-.363.085-.703.299-1.686.954l-1.382.922l-.14.093c-1.062.709-1.8 1.201-2.664 1.317c-.863.116-1.705-.165-2.915-.57l-.16-.053l-1.202-.4c-.463-.155-.87-.29-1.191-.44c-.348-.162-.667-.37-.911-.71c-.244-.338-.341-.706-.385-1.088c-.04-.353-.04-.78-.04-1.269V8.665c0-.699 0-1.288.054-1.753c.056-.484.182-.962.535-1.348a2.25 2.25 0 0 1 .746-.538c.478-.213.972-.181 1.448-.081c.46.095 1.018.282 1.68.503l.043.014c1.12.373 1.505.49 1.878.477a2.3 2.3 0 0 0 .44-.059c.363-.086.703-.3 1.686-.954l1.382-.922l.14-.094c1.062-.708 1.8-1.2 2.663-1.316c.864-.116 1.706.165 2.916.57m-2.111.943V16.58c.536.058 1.1.246 1.843.494l.125.042c.717.239 1.192.396 1.555.472c.356.074.477.04.532.016a.75.75 0 0 0 .249-.179c.04-.044.11-.149.152-.51c.043-.368.044-.869.044-1.624V7.163c0-.54-.001-.88-.03-1.138c-.028-.239-.072-.328-.112-.382c-.039-.054-.109-.125-.326-.226c-.236-.11-.56-.218-1.07-.389l-1.165-.388c-.887-.296-1.413-.464-1.797-.534m-1.5 12.654V4.434c-.311.18-.71.441-1.276.818l-1.382.922l-.11.073c-.688.46-1.201.802-1.732.994v12.326c.311-.18.71-.442 1.276-.819l1.382-.921l.11-.073c.688-.46 1.201-.802 1.732-.994m-6 3.135V7.42c-.536-.058-1.1-.246-1.843-.494l-.125-.042c-.717-.239-1.192-.396-1.556-.472c-.355-.074-.476-.041-.53-.017a.75.75 0 0 0-.25.18c-.04.043-.11.148-.152.509c-.043.368-.044.87-.044 1.625v8.128c0 .54.001.88.03 1.138c.028.239.072.327.112.382c.039.054.109.125.326.226c.236.11.56.218 1.07.389l1.165.388c.887.295 1.412.463 1.797.534" clip-rule="evenodd"/></svg>                Wild Areas</div>
+            <div  onclick="setDungeonAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M4 10a8 8 0 1 1 16 0v8.667c0 1.246 0 1.869-.268 2.333a2 2 0 0 1-.732.732c-.464.268-1.087.268-2.333.268H7.333C6.087 22 5.464 22 5 21.732A2 2 0 0 1 4.268 21C4 20.536 4 19.913 4 18.667z"/><path d="M20 18H9c-.943 0-1.414 0-1.707.293S7 19.057 7 20v2m13-8h-7c-.943 0-1.414 0-1.707.293S11 15.057 11 16v2m9-8h-3c-.943 0-1.414 0-1.707.293S15 11.057 15 12v2"/></g></svg>
+                Dungeons</div>
+            <div style="background: #91718B; outline: solid 1px #F97DFF; color: white; z-index: 2;" onclick="setEventAreas()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5.658 11.002l-1.47 3.308c-1.856 4.174-2.783 6.261-1.77 7.274s3.098.085 7.272-1.77L13 18.342c2.517-1.119 3.776-1.678 3.976-2.757s-.774-2.053-2.722-4l-1.838-1.839c-1.947-1.948-2.921-2.922-4-2.721c-1.079.2-1.638 1.459-2.757 3.976M6.5 10.5l7 7m-9-2l4 4M16 8l3-3m-4.803-3c.4.667.719 2.4-1.197 4m9 3.803c-.667-.4-2.4-.719-4 1.197m0-9v.02M22 6v.02M21 13v.02M11 3v.02"/></svg>
+                Events</div>
+    `
+
+
+
     document.getElementById("explore-listing").innerHTML = ""
     document.getElementById("explore-menu-header").innerHTML = `
-    <span data-help="Events">Events <svg data-help="Events" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
+
+
+    <div style="display:flex; gap:0.2rem" >
+    <span >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5.658 11.002l-1.47 3.308c-1.856 4.174-2.783 6.261-1.77 7.274s3.098.085 7.272-1.77L13 18.342c2.517-1.119 3.776-1.678 3.976-2.757s-.774-2.053-2.722-4l-1.838-1.839c-1.947-1.948-2.921-2.922-4-2.721c-1.079.2-1.638 1.459-2.757 3.976M6.5 10.5l7 7m-9-2l4 4M16 8l3-3m-4.803-3c.4.667.719 2.4-1.197 4m9 3.803c-.667-.4-2.4-.719-4 1.197m0-9v.02M22 6v.02M21 13v.02M11 3v.02"/></svg>
+    Events
     </span>
-    <span data-help="Wild Areas">Rotation ${rotationEventCurrent}/${rotationEventMax} (ends in <strong class="time-counter-event"></strong>)</span>
+    <span class="header-help" data-help="Events"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+    </div>
+
+    <div class="rotation-timer">
+    <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972s1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828S6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172S22 17.772 22 14" opacity="0.5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg>
+    Rotation ${rotationEventCurrent}/${rotationEventMax}</strong>
+    <div class="time-counter-event"></div>
+    </div>
     `
     document.getElementById("explore-menu-header").style.backgroundImage = "url(img/bg/mini/special6.png)" 
+    let ticketIndex = 0
 
   for (const i in areas) {
         if (areas[i].type !== "event") continue;
         if (areas[i].rotation !== rotationEventCurrent) continue;    
 
         const divAreas = document.createElement("div");
-        divAreas.className = "explore-ticket ticket-event";
+        divAreas.className = "explore-ticket";
         divAreas.dataset.area = i
 
         if ( areas[i].unlockRequirement == undefined || areas[i].unlockRequirement() ) {
@@ -3567,24 +3709,26 @@ function setEventAreas() {
 
         divAreas.addEventListener("click", e => { 
 
-            saved.currentArea = i
+            saved.currentAreaBuffer = i
             document.getElementById(`preview-team-exit`).style.display = "flex"
             document.getElementById(`team-menu`).style.zIndex = `50`
             document.getElementById(`team-menu`).style.display = `flex`
             document.getElementById("menu-button-parent").style.display = "none"
             updatePreviewTeam()
-             afkSeconds = 0
-            setTimeout(() => {
-                document.getElementById(`explore-menu`).style.display = `none`
-            }, 500);
+            afkSeconds = 0
+            document.getElementById(`explore-menu`).style.display = `none`
 
         })
     }
 
 
        let unlockRequirement = ""
-       if (areas[i].unlockRequirement && !areas[i].unlockRequirement()) unlockRequirement =`<span class="ticket-unlock">${areas[i].unlockDescription}</span>`
-       if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) unlockRequirement =`<span class="ticket-unlock">🔒 Defeat Elite Four Lance in VS to unlock</span>`
+       if (areas[i].unlockRequirement && !areas[i].unlockRequirement()) unlockRequirement =`<span class="ticket-unlock">
+       
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16" opacity="0.5"/><path fill="currentColor" d="M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z"/></svg>
+       <span>${areas[i].unlockDescription}</span>
+       </span>`
+       if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) unlockRequirement =`<span class="ticket-unlock">Defeat Elite Four Lance in VS to unlock</span>`
 
 
        let eventTag ;
@@ -3599,30 +3743,59 @@ function setEventAreas() {
        let eventName = format(i)
        if (areas[i].name) eventName = areas[i].name
 
-        divAreas.classList.add("event-ticket")
 
         let levelrange = `${Math.max(1,areas[i].level-10)}-${areas[i].level}`
         if (areas[i].encounter) levelrange = areas[i].level
+        ticketIndex++
 
         divAreas.innerHTML = `
-        ${unlockRequirement}
+
+
+
+
+
+
+
+                        ${unlockRequirement}
                 <span class="hitbox"></span>
-                <div style="width: 100%; ">
+
+                
+                <div style="width: 100%;">
+
+
+                <svg class="barcode-flair" xmlns="http://www.w3.org/2000/svg" width="236" height="144"><svg id="barcodeSVG" role="img" aria-label="Barcode preview" width="234px" height="142px" x="0px" y="0px" viewBox="0 0 234 142" xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform: translate(0,0)"><rect x="0" y="0" width="234" height="142" style="fill:none;"/><g transform="translate(10, 10)" style="fill:#000000;"><text style="font: 20px Roboto" text-anchor="start" x="0" y="122">5</text></g><g transform="translate(34, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g><g transform="translate(40, 10)" style="fill:#000000;"><rect x="6" y="0" width="2" height="100"/><rect x="10" y="0" width="4" height="100"/><rect x="16" y="0" width="2" height="100"/><rect x="22" y="0" width="6" height="100"/><rect x="30" y="0" width="4" height="100"/><rect x="38" y="0" width="4" height="100"/><rect x="46" y="0" width="2" height="100"/><rect x="52" y="0" width="4" height="100"/><rect x="58" y="0" width="8" height="100"/><rect x="68" y="0" width="2" height="100"/><rect x="74" y="0" width="6" height="100"/><rect x="82" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">901234</text></g><g transform="translate(124, 10)" style="fill:#000000;"><rect x="2" y="0" width="2" height="112"/><rect x="6" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="5" y="134"></text></g><g transform="translate(134, 10)" style="fill:#000000;"><rect x="0" y="0" width="4" height="100"/><rect x="8" y="0" width="4" height="100"/><rect x="14" y="0" width="4" height="100"/><rect x="20" y="0" width="4" height="100"/><rect x="28" y="0" width="2" height="100"/><rect x="38" y="0" width="2" height="100"/><rect x="42" y="0" width="2" height="100"/><rect x="46" y="0" width="6" height="100"/><rect x="56" y="0" width="2" height="100"/><rect x="62" y="0" width="6" height="100"/><rect x="70" y="0" width="2" height="100"/><rect x="78" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">123457</text></g><g transform="translate(218, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g></svg></svg>
+
+
+
                     <span class="explore-ticket-left">
-                        <span><strong>${eventName}</strong>${nameTag}</span>
-                        <span><strong>Level :</strong><span> ${levelrange}</span>  ${eventTag}</span>
+
+                    
+                <span class="ticket-flair">
+                #000${ticketIndex}
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M25.719 4.781a2.9 2.9 0 0 0-1.125.344l-4.719 2.5L13.5 6.062l-.375-.093l-.375.187l-2.156 1.25l-1.281.75l1.187.906l2.719 2.063l-3.406 1.813l-3.657-1.657l-.437-.187l-.438.219l-1.75.937l-1.156.625l.875.938l5.406 5.812l.5.594l.688-.375L15 17.094l-1.031 5.687l-.344 1.813l1.719-.719l2.562-1.094l.375-.156l.157-.375l3.718-9.031l5.25-2.813c1.446-.777 2.028-2.617 1.25-4.062a3 3 0 0 0-1.781-1.438a3.1 3.1 0 0 0-1.156-.125m.187 2c.125-.008.254-.004.375.032a.979.979 0 0 1 .188 1.812l-5.594 3.031l-.313.156l-.125.344l-3.718 8.938l-.438.187l1.063-5.906l.375-2.031l-1.813.969l-6.312 3.406l-3.969-4.313l.156-.094l3.657 1.626l.468.218l.406-.25l15.22-8.031a.9.9 0 0 1 .374-.094M13.375 8.094l3.844.937l-2.063 1.063l-2.25-1.719zM3 26v2h26v-2z"/></svg>
+                </span>
+
+                        <span style="font-size:1.1rem">${eventName}${nameTag}</span>
+                        <span><strong style="background:#BF72CE">Level: ${levelrange}</strong>${eventTag}<span></span></span>
                     </span>
                 </div>
                 <div style="width: 8rem;" class="explore-ticket-right">
                     <span class="explore-ticket-bg" style="background-image: url(img/bg/${areas[i].background}.png);"></span>
                     <img class="explore-ticket-sprite sprite-trim" style="z-index: 10;" src="img/pkmn/sprite/${areas[i].icon.id}.png">
                 </div>
+
+
+
+
+
+
+
         `;
 
         if (areas[i].encounter) {
         delete divAreas.dataset.area;
         divAreas.dataset.trainer = i
-        divAreas.classList.add("encounter-ticket")
+        //divAreas.classList.add("encounter-ticket")
         }
 
 
@@ -3646,6 +3819,7 @@ function setEventAreas() {
 let rotationEventCurrent = 1;
 let rotationWildCurrent = 1;
 let rotationDungeonCurrent = 1;
+let rotationFrontierCurrent = 1;
 
 function getSeed() {
   const now = new Date();
@@ -3658,62 +3832,67 @@ function getSeed() {
 
   const period = Math.floor(dayNumber / 3);
   rotationEventCurrent = (period % rotationEventMax) + 1;
+  rotationFrontierCurrent = (period % rotationFrontierMax) + 1;
 
   return dayNumber;
 }
 
+let lastHalfDayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 12));
+
 function updateDailyCounters() {
   const contadores = document.querySelectorAll('.time-counter-daily');
 
-  const ahora = Date.now(); 
+  const ahora = Date.now();
   const halfDayNumber = Math.floor(ahora / (1000 * 60 * 60 * 12));
-  const nextHalfDayStart = (halfDayNumber + 1) * (1000 * 60 * 60 * 12);
 
-  let diff = nextHalfDayStart - ahora;
+  if (halfDayNumber !== lastHalfDayNumber) {
+    lastHalfDayNumber = halfDayNumber;
 
-  if (diff <= 0) {
-    getSeed(); 
+    getSeed();
     setWildAreas();
     setDungeonAreas();
-
-    const newHalfDayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 12));
-    const newNextHalfDayStart = (newHalfDayNumber + 1) * (1000 * 60 * 60 * 12);
-    diff = newNextHalfDayStart - Date.now();
   }
+
+  const nextHalfDayStart = (halfDayNumber + 1) * (1000 * 60 * 60 * 12);
+  const diff = nextHalfDayStart - ahora;
 
   const horas = String(Math.floor(diff / 3600000)).padStart(2, '0');
   const minutos = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
   const segundos = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
 
-  contadores.forEach(c => c.textContent = `${horas}:${minutos}:${segundos}`);
+  contadores.forEach(c => {
+    c.textContent = `${horas}:${minutos}:${segundos}`;
+  });
 }
+
+let lastEventPeriod = Math.floor(
+  Math.floor(Date.now() / 86400000) / 3
+);
 
 function updateEventCounters() {
   const contadores = document.querySelectorAll('.time-counter-event');
 
   const ahora = Date.now();
-  const dayNumber = Math.floor(ahora / 86400000); 
+  const dayNumber = Math.floor(ahora / 86400000);
   const currentPeriod = Math.floor(dayNumber / 3);
-  const nextPeriodStart = (currentPeriod + 1) * 3;
-  let finDelPeriodo = nextPeriodStart * 86400000;
 
-  let diff = finDelPeriodo - ahora;
+  if (currentPeriod !== lastEventPeriod) {
+    lastEventPeriod = currentPeriod;
 
-  if (diff <= 0) {
-    getSeed(); 
+    getSeed();
     setEventAreas();
-    const newDayNumber = Math.floor(Date.now() / 86400000);
-    const newCurrentPeriod = Math.floor(newDayNumber / 3);
-    const newNextPeriodStart = (newCurrentPeriod + 1) * 3;
-    finDelPeriodo = newNextPeriodStart * 86400000;
-    diff = finDelPeriodo - Date.now();
   }
+
+  const nextPeriodStart = (currentPeriod + 1) * 3 * 86400000;
+  const diff = nextPeriodStart - ahora;
 
   const horas = String(Math.floor(diff / 3600000)).padStart(2, '0');
   const minutos = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
   const segundos = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
 
-  contadores.forEach(c => c.textContent = `${horas}:${minutos}:${segundos}`);
+  contadores.forEach(c => {
+    c.textContent = `${horas}:${minutos}:${segundos}`;
+  });
 }
 
 
@@ -3759,6 +3938,7 @@ document.getElementById("pokedex-filter-evolution").addEventListener("change", e
 });
 
 function resetPokedexFilters(){
+    document.getElementById("pokedex-filter-tag").value = "all";
     document.getElementById("pokedex-filter-type").value = "all";
     document.getElementById("pokedex-filter-type-2").value = "all";
     document.getElementById("pokedex-filter-level").value = "all";
@@ -3767,35 +3947,6 @@ function resetPokedexFilters(){
     document.getElementById("pokedex-filter-ability").value = "all";
     document.getElementById("pokedex-filter-shiny").value = "all";
 }
-
-
-const pokedexList = document.getElementById('pokedex-list');
-
-const observerPokedex = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      // Elemento visible: restaurar contenido
-      if (entry.target.dataset.content) {
-        entry.target.innerHTML = entry.target.dataset.content;
-        delete entry.target.dataset.content;
-      }
-    } else {
-      // Elemento no visible: guardar contenido y vaciar
-      if (!entry.target.dataset.content) {
-        entry.target.dataset.content = entry.target.innerHTML;
-      }
-      const height = entry.target.offsetHeight;
-      entry.target.innerHTML = '';
-      entry.target.style.minHeight = height + 'px';
-    }
-  });
-}, {
-  root: null,
-  rootMargin: '0px',
-  threshold: 0
-});
-
-
 
 
 
@@ -3852,7 +4003,11 @@ function updatePokedex(){
         document.getElementById("pokedex-filters-title").innerHTML = `Select a sample Pokemon`
     }
 
+    let totalPokemon = 0
+    let gotPokemon = 0
+
     for (const i in pkmn) {
+
 
         if (pkmn[i].ability == undefined) pkmn[i].ability = learnPkmnAbility(pkmn[i].id)   
             
@@ -3869,9 +4024,22 @@ function updatePokedex(){
         if (document.getElementById(`pokedex-filter-evolution`).value !== "all" && pkmn[ pkmn[i].evolve()[1].pkmn.id ].caught>0 ) continue
 
 
+
         //if (!rng(0.05)) continue
+
+        totalPokemon++
+
+
         if (pkmn[i].caught==0) continue
 
+
+        if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[i])!="C" &&  returnPkmnDivision(pkmn[i])!="D")) continue
+        if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[i])!="B" && returnPkmnDivision(pkmn[i])!="C" &&  returnPkmnDivision(pkmn[i])!="D")) continue
+        if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[i])!="A" && returnPkmnDivision(pkmn[i])!="B" && returnPkmnDivision(pkmn[i])!="C" &&  returnPkmnDivision(pkmn[i])!="D")) continue
+
+        gotPokemon++
+
+        //if (gotPokemon>50) continue
 
         const div = document.createElement(`div`)
 
@@ -3991,6 +4159,9 @@ function updatePokedex(){
                 div.addEventListener("click", e => { 
 
                 pkmn[i].level++
+
+                if (pkmn[ i ].level % 7 === 0) pkmn[ i ].movepool.push(learnPkmnMove(pkmn[i].id, pkmn[i].level))
+
                 item.rareCandy.got--
                 updatePokedex()  
 
@@ -4142,9 +4313,20 @@ function updatePokedex(){
 
 
         document.getElementById("pokedex-list").appendChild(div);
-        observerPokedex.observe(div); 
 
     }
+
+
+    document.getElementById(`pokedex-total`).innerHTML = `Caught: ${gotPokemon}/${totalPokemon}`
+    if (gotPokemon == totalPokemon) document.getElementById(`pokedex-total`).style.background = "rgba(151, 126, 89, 1)"
+    else document.getElementById(`pokedex-total`).style.background = "rgb(90, 133, 113)"
+
+    document.getElementById(`pokedex-total`).style.display = "flex"
+    if (document.getElementById(`pokedex-filter-level`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
+    if (document.getElementById(`pokedex-filter-shiny`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
+    if (document.getElementById(`pokedex-filter-tag`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
+    if (document.getElementById(`pokedex-filter-ability`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
+    if (document.getElementById(`pokedex-filter-evolution`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
 
 }
 
@@ -4513,9 +4695,11 @@ function updateItemBag(){
 
     if (geneticItemSelect == true) {
 
-                        document.getElementById("item-menu-cancel").style.display = "inline"
-
+        document.getElementById("item-menu-cancel").style.display = "inline"
         if (item[i].genetics!=true) continue
+
+        const sharedType = pkmn[saved.geneticHost].type.filter(type => pkmn[saved.geneticSample].type.includes(type) ).length;
+        if (i == item.destinyKnot.id && sharedType==0) continue
 
 
         div.addEventListener("click", e => { 
@@ -4548,7 +4732,36 @@ function updateItemBag(){
 function updateVS() {
 
 
+
+
+
+        document.getElementById("vs-selector").innerHTML = `
+            <div style="background: #465f96; outline: solid 1px #3d61ff; color: white; z-index: 2;"  onclick="updateVS()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m10.618 15.27l.817.788q.242.242.565.242t.566-.242l.816-.789h1.08q.343 0 .575-.232t.232-.575v-1.08l.789-.816q.242-.243.242-.566t-.242-.565l-.789-.817v-1.08q0-.343-.232-.575t-.575-.232h-1.083l-.95-.945q-.183-.186-.427-.186t-.43.186l-.95.945H9.538q-.344 0-.576.232t-.232.576v1.08l-.789.816Q7.7 11.677 7.7 12t.242.566l.789.816v1.08q0 .343.232.575t.576.232zM9.066 19h-2.45q-.667 0-1.141-.475T5 17.386v-2.451l-1.79-1.803q-.237-.243-.349-.534t-.111-.594q0-.301.112-.596t.347-.538L5 9.066v-2.45q0-.667.475-1.141T6.615 5h2.451l1.803-1.79q.243-.237.534-.349t.594-.111q.301 0 .596.112t.538.347L14.934 5h2.45q.667 0 1.142.475T19 6.615v2.451l1.79 1.803q.237.243.349.534t.111.594q0 .301-.111.596t-.348.538L19 14.934v2.45q0 .667-.475 1.142t-1.14.474h-2.451l-1.803 1.79q-.243.237-.534.349t-.594.111q-.301 0-.596-.111t-.538-.348zm.433-1l2.059 2.058q.173.173.442.173t.442-.173L14.502 18h2.882q.27 0 .443-.173t.173-.442V14.5l2.058-2.059q.173-.173.173-.442t-.173-.442L18 9.498V6.617q0-.27-.173-.443T17.385 6H14.5l-2.059-2.058Q12.27 3.77 12 3.77t-.442.173L9.498 6H6.617q-.27 0-.443.173T6 6.616v2.883l-2.058 2.059q-.173.173-.173.442t.173.442L6 14.502v2.882q0 .27.173.443t.443.173zM12 12"/></svg>
+            Trainers</div>
+            <div onclick="updateFrontier()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M17 22H7a2 2 0 0 1-2-2v-8.818a.6.6 0 0 0-.1-.333L3.1 8.15a.6.6 0 0 1-.1-.333V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h2.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v5.218a.6.6 0 0 1-.1.333l-1.8 2.698a.6.6 0 0 0-.1.333V20a2 2 0 0 1-2 2Z"/></svg>
+            Battle Frontier</div>
+    `
+
+
+    document.getElementById(`frontier-listing`).innerHTML = ""
     document.getElementById(`vs-listing`).innerHTML = ""
+
+    document.getElementById("vs-menu-header").innerHTML = `
+
+    <div style="display:flex; gap:0.2rem" >
+    <span >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m10.618 15.27l.817.788q.242.242.565.242t.566-.242l.816-.789h1.08q.343 0 .575-.232t.232-.575v-1.08l.789-.816q.242-.243.242-.566t-.242-.565l-.789-.817v-1.08q0-.343-.232-.575t-.575-.232h-1.083l-.95-.945q-.183-.186-.427-.186t-.43.186l-.95.945H9.538q-.344 0-.576.232t-.232.576v1.08l-.789.816Q7.7 11.677 7.7 12t.242.566l.789.816v1.08q0 .343.232.575t.576.232zM9.066 19h-2.45q-.667 0-1.141-.475T5 17.386v-2.451l-1.79-1.803q-.237-.243-.349-.534t-.111-.594q0-.301.112-.596t.347-.538L5 9.066v-2.45q0-.667.475-1.141T6.615 5h2.451l1.803-1.79q.243-.237.534-.349t.594-.111q.301 0 .596.112t.538.347L14.934 5h2.45q.667 0 1.142.475T19 6.615v2.451l1.79 1.803q.237.243.349.534t.111.594q0 .301-.111.596t-.348.538L19 14.934v2.45q0 .667-.475 1.142t-1.14.474h-2.451l-1.803 1.79q-.243.237-.534.349t-.594.111q-.301 0-.596-.111t-.538-.348zm.433-1l2.059 2.058q.173.173.442.173t.442-.173L14.502 18h2.882q.27 0 .443-.173t.173-.442V14.5l2.058-2.059q.173-.173.173-.442t-.173-.442L18 9.498V6.617q0-.27-.173-.443T17.385 6H14.5l-2.059-2.058Q12.27 3.77 12 3.77t-.442.173L9.498 6H6.617q-.27 0-.443.173T6 6.616v2.883l-2.058 2.059q-.173.173-.173.442t.173.442L6 14.502v2.882q0 .27.173.443t.443.173zM12 12"/></svg>
+    VS Trainers
+    </span>
+    <span class="header-help" data-help="VS"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+    </div>
+
+
+    `
+    document.getElementById("vs-menu-header").style.backgroundImage = "url(img/bg/gym.png)"
+
 
     let firstOne = true
 
@@ -4569,19 +4782,22 @@ function updateVS() {
         if (firstOne) {
         divAreas.addEventListener("click", e => { 
 
-            saved.currentArea = i
+            saved.currentAreaBuffer = i
             document.getElementById(`preview-team-exit`).style.display = "flex"
             document.getElementById(`team-menu`).style.zIndex = `50`
             document.getElementById(`team-menu`).style.display = `flex`
             document.getElementById("menu-button-parent").style.display = "none"
             updatePreviewTeam()
             afkSeconds = 0
-            setTimeout(() => {
                 document.getElementById(`explore-menu`).style.display = `none`
-            }, 500);
 
         })
     }
+
+
+           let nameTag = "";
+       if (areas[i].reward.includes(item.goldenBottleCap)) nameTag = `<svg class="event-icon" style="color:#465f96" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.795 2h-2c-1.886 0-2.829 0-3.414.586c-.586.586-.586 1.528-.586 3.414v3.5h10V6c0-1.886 0-2.828-.586-3.414S14.681 2 12.795 2" opacity="0.5"/><path fill="currentColor" fill-rule="evenodd" d="M13.23 5.783a3 3 0 0 0-2.872 0L5.564 8.397A3 3 0 0 0 4 11.031v4.938a3 3 0 0 0 1.564 2.634l4.794 2.614a3 3 0 0 0 2.872 0l4.795-2.614a3 3 0 0 0 1.564-2.634V11.03a3 3 0 0 0-1.564-2.634zM11.794 10.5c-.284 0-.474.34-.854 1.023l-.098.176c-.108.194-.162.29-.246.354s-.19.088-.399.135l-.19.044c-.739.167-1.108.25-1.195.532c-.088.283.163.577.666 1.165l.13.152c.144.167.215.25.247.354s.022.215 0 .438l-.02.203c-.076.785-.114 1.178.116 1.352s.575.015 1.266-.303l.179-.082c.196-.09.294-.135.398-.135s.203.045.399.135l.179.082c.69.319 1.036.477 1.266.303s.192-.567.116-1.352l-.02-.203c-.022-.223-.033-.334 0-.438c.032-.103.103-.187.246-.354l.13-.152c.504-.588.755-.882.667-1.165c-.088-.282-.457-.365-1.194-.532l-.191-.044c-.21-.047-.315-.07-.399-.135c-.084-.064-.138-.16-.246-.354l-.098-.176c-.38-.682-.57-1.023-.855-1.023" clip-rule="evenodd"/></svg>`
+
 
 
         divAreas.className = `vs-card`
@@ -4591,8 +4807,8 @@ function updateVS() {
                 <img class="vs-card-flair" src="img/icons/pokeball.svg">
                 <div class="vs-card-bg"></div>
                     <span class="explore-ticket-left" style="z-index: 2;">
-                        <span><strong style="font-size:1rem" id="trainer-name-${areas[i].name}">${areas[i].name}</strong></span>
-                        <span><strong style="font-size:1rem">Trainer Level</strong><strong style="font-size:1rem; margin-left:0.3rem">${Math.max(1,(areas[i].level))}</strong></span>
+                        <span id="trainer-name-${areas[i].name}" style="font-size:1.3rem">${areas[i].name}${nameTag}</span>
+                        <span><strong style="font-size:1rem; background:#465f96">Trainer Level ${Math.max(1,(areas[i].level))}</strong></span>
                     </span>
                 <div>
                 </div>
@@ -4618,9 +4834,302 @@ function updateVS() {
 
  }
 
+ if (document.getElementById(`vs-listing`).innerHTML == "") document.getElementById(`vs-listing`).innerHTML = `<div style="display:flex; flex-direction:column; justify-content:center; align-items:center; background:#ECDEB7; border-radius:0.3rem; height:15rem; width:15rem; text-align:center"><img src="img/pkmn/sprite/pikachuRockstar.png">All trainers defeated!<br><span style="font-size:0.9rem; opacity:0.7">How about the Battle Frontier?</span></div>`
+
 }
 
 updateVS()
+
+saved.lastFrontierRotation = undefined
+
+function createFrontierTrainers(){
+
+    if (saved.lastFrontierRotation == rotationWildCurrent) return
+    if (saved.lastFrontierRotation != rotationWildCurrent) { saved.lastFrontierRotation = rotationWildCurrent }
+
+
+        
+    
+    
+
+const trainers = [];
+
+for (const i in areas) {  
+  if (areas[i].type !== "frontier") continue;
+  areas[i].tier = undefined
+  areas[i].team = undefined
+  areas[i].defeated = undefined
+  areas[i].difficulty = undefined
+  areas[i].reward = undefined
+  areas[i].level = undefined
+}
+
+for (const i in areas) {  
+  if (areas[i].type !== "frontier") continue;
+  if (areas[i].league !== rotationFrontierCurrent) continue;
+  trainers.push(areas[i]);
+}
+
+for (let i = trainers.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [trainers[i], trainers[j]] = [trainers[j], trainers[i]];
+}
+
+trainers.slice(0, 4).forEach((area, index) => {
+  area.tier = index + 1;
+});
+
+
+for (const i in areas) {
+  if (areas[i].type !== "frontier") continue;
+  if (areas[i].tier == undefined) continue;
+  
+  areas[i].background = "tower"
+
+  if (areas[i].tier==1) areas[i].level = 100
+  if (areas[i].tier==2) areas[i].level = 120
+  if (areas[i].tier==3) areas[i].level = 130
+  if (areas[i].tier==4) areas[i].level = 150
+
+  if (areas[i].tier==1) areas[i].difficulty = 8
+  if (areas[i].tier==2) areas[i].difficulty = 10
+  if (areas[i].tier==3) areas[i].difficulty = 15
+  if (areas[i].tier==4) areas[i].difficulty = 20
+
+  if (areas[i].tier==1) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+  if (areas[i].tier==2) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+  if (areas[i].tier==3) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+  if (areas[i].tier==4) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+
+  let divisionToUse = "C"
+  if (rotationFrontierCurrent == 2) divisionToUse = "B"
+  if (rotationFrontierCurrent == 3) divisionToUse = "A"
+  if (rotationFrontierCurrent == 4) divisionToUse = "S"
+
+  let pkmn1 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing)]
+  let pkmn2 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id])]
+  let pkmn3 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id, pkmn2?.id])]
+  let pkmn4 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id, pkmn2?.id, pkmn3?.id])]
+  let pkmn5 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id, pkmn2?.id, pkmn3?.id, pkmn4?.id])]
+  let pkmn6 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id, pkmn2?.id, pkmn3?.id, pkmn4?.id, pkmn5?.id])]
+
+
+  if (rotationFrontierCurrent == 3) divisionToUse = "B"
+  if (rotationFrontierCurrent == 4) divisionToUse = "A"
+
+  if (pkmn1 == undefined) pkmn1 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing)]
+  if (pkmn2 == undefined) pkmn2 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1])]
+  if (pkmn3 == undefined) pkmn3 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2])]
+  if (pkmn4 == undefined) pkmn4 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3])]
+  if (pkmn5 == undefined) pkmn5 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3, pkmn4])]
+  if (pkmn6 == undefined) pkmn6 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3, pkmn4, pkmn5])]
+
+
+  areas[i].team = {}
+  areas[i].team.slot1 = pkmn1
+  areas[i].team.slot1Moves = [learnPkmnMove(pkmn1.id, 100, "wild"),learnPkmnMove(pkmn1.id, 100, "wild"),learnPkmnMove(pkmn1.id, 100, "wild"),learnPkmnMove(pkmn1.id, 100, "wild")]
+  areas[i].team.slot2 = pkmn2
+  areas[i].team.slot2Moves = [learnPkmnMove(pkmn2.id, 100, "wild"),learnPkmnMove(pkmn2.id, 100, "wild"),learnPkmnMove(pkmn2.id, 100, "wild"),learnPkmnMove(pkmn2.id, 100, "wild")]
+  areas[i].team.slot3 = pkmn3
+  areas[i].team.slot3Moves = [learnPkmnMove(pkmn3.id, 100, "wild"),learnPkmnMove(pkmn3.id, 100, "wild"),learnPkmnMove(pkmn3.id, 100, "wild"),learnPkmnMove(pkmn3.id, 100, "wild")]
+  areas[i].team.slot4 = pkmn4
+  areas[i].team.slot4Moves = [learnPkmnMove(pkmn4.id, 100, "wild"),learnPkmnMove(pkmn4.id, 100, "wild"),learnPkmnMove(pkmn4.id, 100, "wild"),learnPkmnMove(pkmn4.id, 100, "wild")]
+  areas[i].team.slot5 = pkmn5
+  areas[i].team.slot5Moves = [learnPkmnMove(pkmn5.id, 100, "wild"),learnPkmnMove(pkmn5.id, 100, "wild"),learnPkmnMove(pkmn5.id, 100, "wild"),learnPkmnMove(pkmn5.id, 100, "wild")]
+  areas[i].team.slot6 = pkmn6
+  areas[i].team.slot6Moves = [learnPkmnMove(pkmn6.id, 100, "wild"),learnPkmnMove(pkmn6.id, 100, "wild"),learnPkmnMove(pkmn6.id, 100, "wild"),learnPkmnMove(pkmn6.id, 100, "wild")]
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+    
+}
+
+function randomDivisionPkmn(division, type, exclude) {
+    const selection = []
+
+    for (const i in pkmn) {
+        if (returnPkmnDivision(pkmn[i]) !== division) continue
+        if (!pkmn[i].type.includes(type)) continue
+        if (i.includes("unown")) continue
+        if (exclude && exclude.includes(pkmn[i].id)) continue
+
+        selection.push(i)
+    }
+
+    return arrayPick(selection)
+}
+
+
+function updateFrontier() {
+
+
+        if (areas.vsTeamLeaderGiovanni.defeated != true){
+
+        document.getElementById("tooltipTop").style.display = "none"
+        document.getElementById("tooltipBottom").style.display = "none"
+        document.getElementById("tooltipTitle").style.display = "none"
+        document.getElementById("tooltipMid").innerHTML = `Defeat Team Leader Giovanni in VS mode to unlock`
+        openTooltip()
+        return
+
+    }
+
+
+    createFrontierTrainers()
+
+    document.getElementById(`frontier-listing`).innerHTML = ""
+
+        document.getElementById("vs-selector").innerHTML = `
+            <div   onclick="updateVS()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m10.618 15.27l.817.788q.242.242.565.242t.566-.242l.816-.789h1.08q.343 0 .575-.232t.232-.575v-1.08l.789-.816q.242-.243.242-.566t-.242-.565l-.789-.817v-1.08q0-.343-.232-.575t-.575-.232h-1.083l-.95-.945q-.183-.186-.427-.186t-.43.186l-.95.945H9.538q-.344 0-.576.232t-.232.576v1.08l-.789.816Q7.7 11.677 7.7 12t.242.566l.789.816v1.08q0 .343.232.575t.576.232zM9.066 19h-2.45q-.667 0-1.141-.475T5 17.386v-2.451l-1.79-1.803q-.237-.243-.349-.534t-.111-.594q0-.301.112-.596t.347-.538L5 9.066v-2.45q0-.667.475-1.141T6.615 5h2.451l1.803-1.79q.243-.237.534-.349t.594-.111q.301 0 .596.112t.538.347L14.934 5h2.45q.667 0 1.142.475T19 6.615v2.451l1.79 1.803q.237.243.349.534t.111.594q0 .301-.111.596t-.348.538L19 14.934v2.45q0 .667-.475 1.142t-1.14.474h-2.451l-1.803 1.79q-.243.237-.534.349t-.594.111q-.301 0-.596-.111t-.538-.348zm.433-1l2.059 2.058q.173.173.442.173t.442-.173L14.502 18h2.882q.27 0 .443-.173t.173-.442V14.5l2.058-2.059q.173-.173.173-.442t-.173-.442L18 9.498V6.617q0-.27-.173-.443T17.385 6H14.5l-2.059-2.058Q12.27 3.77 12 3.77t-.442.173L9.498 6H6.617q-.27 0-.443.173T6 6.616v2.883l-2.058 2.059q-.173.173-.173.442t.173.442L6 14.502v2.882q0 .27.173.443t.443.173zM12 12"/></svg>
+            Trainers</div>
+            <div style="background: #964646ff; outline: solid 1px #ff3d3dff; color: white; z-index: 2;" onclick="updateFrontier()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M17 22H7a2 2 0 0 1-2-2v-8.818a.6.6 0 0 0-.1-.333L3.1 8.15a.6.6 0 0 1-.1-.333V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h2.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v5.218a.6.6 0 0 1-.1.333l-1.8 2.698a.6.6 0 0 0-.1.333V20a2 2 0 0 1-2 2Z"/></svg>
+            Battle Frontier</div>
+    `
+
+
+    document.getElementById(`vs-listing`).innerHTML = ""
+
+
+    const cupsvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 16c-5.76 0-6.78-5.74-6.96-10.294c-.051-1.266-.076-1.9.4-2.485c.475-.586 1.044-.682 2.183-.874A26.4 26.4 0 0 1 12 2c1.784 0 3.253.157 4.377.347c1.139.192 1.708.288 2.184.874s.45 1.219.4 2.485C18.781 10.26 17.761 16 12.001 16" opacity="0.5"/><path fill="currentColor" d="m17.64 12.422l2.817-1.565c.752-.418 1.128-.627 1.336-.979C22 9.526 22 9.096 22 8.235v-.073c0-1.043 0-1.565-.283-1.958s-.778-.558-1.768-.888L19 5l-.017.085q-.008.283-.022.621c-.088 2.225-.377 4.733-1.32 6.716M5.04 5.706c.087 2.225.376 4.733 1.32 6.716l-2.817-1.565c-.752-.418-1.129-.627-1.336-.979S2 9.096 2 8.235v-.073c0-1.043 0-1.565.283-1.958s.778-.558 1.768-.888L5 5l.017.087q.008.281.022.62"/><path fill="currentColor" fill-rule="evenodd" d="M5.25 22a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/><path fill="currentColor" d="M15.458 21.25H8.542l.297-1.75a1 1 0 0 1 .98-.804h4.361a1 1 0 0 1 .98.804z" opacity="0.5"/><path fill="currentColor" d="M12 16q-.39 0-.75-.034v2.73h1.5v-2.73A8 8 0 0 1 12 16"/></svg>`
+    
+    let divisionText = ``
+    if (rotationFrontierCurrent==1) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Little Cup${cupsvg}</span><div>${returnDivisionLetter("C")} division and below only</div>`
+    if (rotationFrontierCurrent==2) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Great League${cupsvg}</span><div>${returnDivisionLetter("B")} division and below only</div>`
+    if (rotationFrontierCurrent==3) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Ultra League${cupsvg}</span><div>${returnDivisionLetter("A")} division and below only</div>`
+    if (rotationFrontierCurrent==4) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Master League${cupsvg}</span><div>${returnDivisionLetter("S")} division and below only</div>`
+    
+    
+    document.getElementById(`frontier-listing`).innerHTML = `<div class="frontier-league">${divisionText}</div>`
+
+
+    document.getElementById("vs-menu-header").innerHTML = `
+
+
+
+    <div style="display:flex; gap:0.2rem" >
+    <span >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M17 22H7a2 2 0 0 1-2-2v-8.818a.6.6 0 0 0-.1-.333L3.1 8.15a.6.6 0 0 1-.1-.333V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h2.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v5.218a.6.6 0 0 1-.1.333l-1.8 2.698a.6.6 0 0 0-.1.333V20a2 2 0 0 1-2 2Z"/></svg>
+    VS Frontier
+    </span>
+    <span class="header-help" data-help="Frontier"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+    </div>
+
+    <div style="display:flex; gap:0.2rem">
+    <div class="rotation-timer">
+    <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972s1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828S6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172S22 17.772 22 14" opacity="0.5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg>
+    Rotation ${rotationFrontierCurrent}/${rotationFrontierMax}</strong>
+    <div class="time-counter-event"></div>
+    </div>
+
+    <div class="rotation-timer">
+    <strong><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972s1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828S6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172S22 17.772 22 14" opacity="0.5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg>
+    Trainer Reset</strong>
+    <div class="time-counter-daily"></div>
+    </div>
+    </div>
+
+    `
+
+updateEventCounters()
+updateDailyCounters()
+    document.getElementById("vs-menu-header").style.backgroundImage = "url(img/bg/tower.png)"
+
+
+
+const frontierArray = [];
+
+for (const i in areas) {
+    if (areas[i].type !== "frontier") continue;
+    if (areas[i].team == undefined) continue;
+    if (areas[i].defeated) continue;
+
+    frontierArray.push({ key: i, data: areas[i] });
+}
+
+frontierArray.sort((a, b) => a.data.tier - b.data.tier);
+
+    for (const obj of frontierArray) {
+
+    const i = obj.key;
+
+
+
+        const divAreas = document.createElement("div");
+        divAreas.className = "explore-ticket ticket-event";
+
+    divAreas.dataset.trainer = i
+
+
+        let nameTag = "";
+       //if (areas[i].reward.includes(item.goldenBottleCap)) nameTag = `<svg class="event-icon" style="color:#465f96" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.795 2h-2c-1.886 0-2.829 0-3.414.586c-.586.586-.586 1.528-.586 3.414v3.5h10V6c0-1.886 0-2.828-.586-3.414S14.681 2 12.795 2" opacity="0.5"/><path fill="currentColor" fill-rule="evenodd" d="M13.23 5.783a3 3 0 0 0-2.872 0L5.564 8.397A3 3 0 0 0 4 11.031v4.938a3 3 0 0 0 1.564 2.634l4.794 2.614a3 3 0 0 0 2.872 0l4.795-2.614a3 3 0 0 0 1.564-2.634V11.03a3 3 0 0 0-1.564-2.634zM11.794 10.5c-.284 0-.474.34-.854 1.023l-.098.176c-.108.194-.162.29-.246.354s-.19.088-.399.135l-.19.044c-.739.167-1.108.25-1.195.532c-.088.283.163.577.666 1.165l.13.152c.144.167.215.25.247.354s.022.215 0 .438l-.02.203c-.076.785-.114 1.178.116 1.352s.575.015 1.266-.303l.179-.082c.196-.09.294-.135.398-.135s.203.045.399.135l.179.082c.69.319 1.036.477 1.266.303s.192-.567.116-1.352l-.02-.203c-.022-.223-.033-.334 0-.438c.032-.103.103-.187.246-.354l.13-.152c.504-.588.755-.882.667-1.165c-.088-.282-.457-.365-1.194-.532l-.191-.044c-.21-.047-.315-.07-.399-.135c-.084-.064-.138-.16-.246-.354l-.098-.176c-.38-.682-.57-1.023-.855-1.023" clip-rule="evenodd"/></svg>`
+        let prefix = "Rookie Trainer "
+        if (areas[i].tier==2) prefix = "Veteran Trainer "
+        if (areas[i].tier==3) prefix = "Ace Trainer "
+        if (areas[i].tier==4) prefix = "Master Trainer "
+
+
+
+        divAreas.addEventListener("click", e => { 
+
+            saved.currentAreaBuffer = i
+            document.getElementById(`preview-team-exit`).style.display = "flex"
+            document.getElementById(`team-menu`).style.zIndex = `50`
+            document.getElementById(`team-menu`).style.display = `flex`
+            document.getElementById("menu-button-parent").style.display = "none"
+            updatePreviewTeam()
+            afkSeconds = 0
+            document.getElementById(`explore-menu`).style.display = `none`
+
+        })
+
+       
+
+        divAreas.className = `vs-card`
+        divAreas.innerHTML = `
+                        <span class="hitbox"></span>
+
+                <img class="vs-card-flair" src="img/icons/pokeball.svg">
+                <div class="vs-card-bg"></div>
+                    <span class="explore-ticket-left" style="z-index: 2;">
+                        <span style="font-size:1.3rem">${prefix}${i.replace(/frontier/gi, "")}${nameTag}</span>
+                        <span><strong style="font-size:1rem; background:#964646ff">Trainer Level ${Math.max(1,(areas[i].level))}</strong></span>
+                    </span>
+                <div>
+                </div>
+                <div class="vs-card-left">
+                    <img id="trainer-image-${areas[i].name}" class="sprite-trim" src="img/trainers/${areas[i].sprite}.png">
+                </div>
+        `;
+
+
+        
+
+
+        document.getElementById(`frontier-listing`).appendChild(divAreas)
+
+
+
+
+ }
+
+ //if (document.getElementById(`vs-listing`).innerHTML == "") document.getElementById(`vs-listing`).innerHTML = `<div style="display:flex; flex-direction:column; justify-content:center; align-items:center; background:#ECDEB7; border-radius:0.3rem; height:15rem; width:15rem; text-align:center"><img src="img/pkmn/sprite/pikachuRockstar.png">All trainers defeated!<br><span style="font-size:0.9rem; opacity:0.7">How about the Battle Frontier?</span></div>`
+
+ 
+}
+
 
 /*let afkSeconds = 0
 function afkTimer(){
@@ -4940,6 +5449,8 @@ function moveBuff(target,buff,mod){
     if ((target==="wild" && mod=="self") || (mod==undefined && target==="player")) {
 
         if (buff == "paralysis" && pkmn[team[exploreActiveMember].pkmn.id].type.includes("electric")) return
+        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.sleep>0 )) return
+
 
         if (testAbility(`active`, ability.wonderSkin.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && rng(0.5)) return
         
@@ -5012,14 +5523,12 @@ function switchShiny(){
     if (pkmn[currentEditedPkmn].shiny && pkmn[currentEditedPkmn].shinyDisabled!==true){
         pkmn[currentEditedPkmn].shinyDisabled = true
         document.getElementById("pkmn-editor-sprite").src = `img/pkmn/sprite/${currentEditedPkmn}.png` 
-        updatePokedex()
         return
     }
 
     if (pkmn[currentEditedPkmn].shiny && pkmn[currentEditedPkmn].shinyDisabled==true){
         pkmn[currentEditedPkmn].shinyDisabled = false
         document.getElementById("pkmn-editor-sprite").src = `img/pkmn/shiny/${currentEditedPkmn}.png` 
-        updatePokedex()
         return
     }
 
@@ -5398,7 +5907,8 @@ if (mod==="end"){
         if (rng(0.20)) newIv++           
         if (rng(0.20)) newIv++
         if (rng(0.20)) newIv++           
-        if (rng(0.20)) newIv++           
+        if (rng(0.20)) newIv++
+        if (newIv>6) newIv = 6           
         
         if (newIv>ivId) {
             pkmn[saved.geneticHost].ivs[iv] = newIv
@@ -5695,7 +6205,7 @@ shop.abilityCapsule = {
 }
 shop.shinyCharm = {
     icon: item.shinyCharm.id,
-    price: 15,
+    price: 20,
     currency: `gold`
 }
 

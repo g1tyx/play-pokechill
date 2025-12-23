@@ -279,12 +279,12 @@ pkmn.beedrill = {
 pkmn.megaBeedrill = {
     type: ["bug","poison"],
     bst: {
-        hp: 65,
+        hp: 80,
         atk: 150,
         def: 40,
         satk: 15,
         sdef: 80,
-        spe: 145,
+        spe: 160,
     },
     hiddenAbility: ability.adaptability,
 }
@@ -306,12 +306,12 @@ pkmn.pidgey = {
 pkmn.pidgeotto = {
     type: ["normal","flying"],
     bst: {
-        hp: 63,
+        hp: 80,
         atk: 60,
         def: 55,
         satk: 50,
         sdef: 50,
-        spe: 71,
+        spe: 80,
     },
     evolve: function() { return { 1: { pkmn: pkmn.pidgeot, level: evolutionLevel2 } } },
 }
@@ -554,7 +554,7 @@ pkmn.sandslash = {
 }
 
 // 027 Nidoran♀ → Nidorina → Nidoqueen
-pkmn.nidoran_f = {
+pkmn.nidoranF = {
     type: ["poison"],
     bst: {
         hp: 55,
@@ -596,7 +596,7 @@ pkmn.nidoqueen = {
 }
 
 // 028 Nidoran♂ → Nidorino → Nidoking
-pkmn.nidoran_m = {
+pkmn.nidoranM = {
     type: ["poison"],
     bst: {
         hp: 46,
@@ -1955,7 +1955,7 @@ pkmn.kangaskhan = {
 pkmn.megaKangaskhan = {
     type: ["normal"],
     bst: {
-        hp: 105,
+        hp: 120,
         atk: 125,
         def: 100,
         satk: 60,
@@ -2580,7 +2580,7 @@ pkmn.dratini = {
 pkmn.dragonair = {
     type: ["dragon"],
     bst: {
-        hp: 61,
+        hp: 80,
         atk: 84,
         def: 65,
         satk: 70,
@@ -2915,8 +2915,8 @@ pkmn.spinarak = {
 pkmn.ariados = {
     type: ["bug","poison"],
     bst: {
-        hp: 70,
-        atk: 90,
+        hp: 80,
+        atk: 100,
         def: 70,
         satk: 60,
         sdef: 70,
@@ -4670,10 +4670,10 @@ pkmn.cascoon = {
 pkmn.dustox = {
     type: ["bug","poison"],
     bst: {
-        hp: 60,
+        hp: 80,
         atk: 50,
-        def: 70,
-        satk: 50,
+        def: 80,
+        satk: 80,
         sdef: 90,
         spe: 65,
     }
@@ -5148,9 +5148,9 @@ pkmn.megaSableye = {
     bst: {
         hp: 50,
         atk: 85,
-        def: 125,
+        def: 160,
         satk: 85,
-        sdef: 115,
+        sdef: 160,
         spe: 20,
     },
     hiddenAbility: ability.prankster,
@@ -5293,13 +5293,12 @@ pkmn.megaMedicham = {
     type: ["fighting","psychic"],
     bst: {
         hp: 60,
-        atk: 100,
+        atk: 160,
         def: 85,
         satk: 80,
         sdef: 85,
         spe: 100,
-    },
-    hiddenAbility: ability.hugePower,
+    }
 }
 
 // 307 Mawile
@@ -5321,14 +5320,13 @@ pkmn.mawile = {
 pkmn.megaMawile = {
     type: ["steel","fairy"],
     bst: {
-        hp: 50,
-        atk: 105,
+        hp: 80,
+        atk: 180,
         def: 125,
-        satk: 55,
+        satk: 60,
         sdef: 95,
         spe: 50,
-    },
-    hiddenAbility: ability.hugePower,
+    }
 }
 
 // 309 Plusle
@@ -5488,7 +5486,7 @@ pkmn.megaSharpedo = {
         def: 70,
         satk: 110,
         sdef: 65,
-        spe: 105,
+        spe: 160,
     },
     hiddenAbility: ability.strongJaw,
 }
@@ -5537,7 +5535,7 @@ pkmn.skitty = {
 pkmn.delcatty = {
     type: ["normal"],
     bst: {
-        hp: 70,
+        hp: 80,
         atk: 65,
         def: 65,
         satk: 55,
@@ -5768,11 +5766,11 @@ pkmn.camerupt = {
 pkmn.megaCamerupt = {
     type: ["fire","ground"],
     bst: {
-        hp: 70,
+        hp: 100,
         atk: 120,
         def: 100,
         satk: 145,
-        sdef: 105,
+        sdef: 125,
         spe: 20,
     },
     hiddenAbility: ability.sheerForce,
@@ -6341,12 +6339,12 @@ pkmn.latias = {
 pkmn.megaLatias = {
     type: ["dragon","psychic"],
     bst: {
-        hp: 80,
+        hp: 120,
         atk: 100,
         def: 120,
         satk: 140,
-        sdef: 150,
-        spe: 110,
+        sdef: 180,
+        spe: 140,
     },
     hiddenAbility: ability.levitate,
 }
@@ -6370,12 +6368,12 @@ pkmn.latios = {
 pkmn.megaLatios = {
     type: ["dragon","psychic"],
     bst: {
-        hp: 80,
-        atk: 130,
+        hp: 120,
+        atk: 140,
         def: 100,
-        satk: 160,
+        satk: 180,
         sdef: 120,
-        spe: 110,
+        spe: 140,
     },
     hiddenAbility: ability.levitate,
 }
@@ -6424,9 +6422,9 @@ pkmn.megaRayquaza = {
     bst: {
         hp: 105,
         atk: 180,
-        def: 100,
+        def: 120,
         satk: 180,
-        sdef: 100,
+        sdef: 120,
         spe: 115,
     }
 }
@@ -7003,7 +7001,7 @@ pkmn.lopunny = {
 pkmn.megaLopunny = {
     type: ["normal","fighting"],
     bst: {
-        hp: 65,
+        hp: 80,
         atk: 136,
         def: 94,
         satk: 54,
@@ -7161,6 +7159,7 @@ pkmn.bronzong = {
 
 // 439 Mime Jr. → Mr. Mime
 pkmn.mimejr = {
+    rename: `mimeJr`,
     type: ["psychic","fairy"],
     bst: {
         hp: 20,
@@ -7175,6 +7174,7 @@ pkmn.mimejr = {
 }
 
 pkmn.mrmime = {
+    rename: `mrMime`,
     type: ["psychic","fairy"],
     bst: {
         hp: 40,
@@ -7447,7 +7447,7 @@ pkmn.abomasnow = {
 pkmn.megaAbomasnow = {
     type: ["grass","ice"],
     bst: {
-        hp: 90,
+        hp: 120,
         atk: 132,
         def: 105,
         satk: 132,
@@ -7654,11 +7654,11 @@ pkmn.uxie = {
     type: ["psychic"],
     bst: {
         hp: 75,
-        atk: 75,
-        def: 130,
+        atk: 30,
+        def: 120,
         satk: 75,
-        sdef: 130,
-        spe: 95,
+        sdef: 120,
+        spe: 80,
     },
     hiddenAbility: ability.levitate,
 }
@@ -7682,9 +7682,9 @@ pkmn.azelf = {
     type: ["psychic"],
     bst: {
         hp: 75,
-        atk: 125,
+        atk: 100,
         def: 70,
-        satk: 125,
+        satk: 100,
         sdef: 70,
         spe: 115,
     },
@@ -7983,7 +7983,7 @@ pkmn.patrat = {
     sdef: 39,
     spe: 42,
   },
-    evolve: function() { return { 1: { pkmn: pkmn.samurott, level: evolutionLevel1 } } },
+    evolve: function() { return { 1: { pkmn: pkmn.watchog, level: evolutionLevel1 } } },
 }
 
 // 505 Watchog
@@ -8191,7 +8191,7 @@ pkmn.pidove = {
 pkmn.tranquill = {
   type: ["normal","flying"],
   bst: {
-    hp: 62,
+    hp: 80,
     atk: 77,
     def: 62,
     satk: 50,
@@ -9739,8 +9739,8 @@ pkmn.deino = {
 pkmn.zweilous = {
   type: ["dark","dragon"],
   bst: {
-    hp: 72,
-    atk: 85,
+    hp: 80,
+    atk: 90,
     def: 70,
     satk: 65,
     sdef: 70,
@@ -10113,7 +10113,7 @@ pkmn.fletchling = {
 pkmn.fletchinder = {
   type: ["fire","flying"],
   bst: {
-    hp: 62,
+    hp: 80,
     atk: 73,
     def: 55,
     satk: 56,
@@ -10126,7 +10126,7 @@ pkmn.fletchinder = {
 pkmn.talonflame = {
   type: ["fire","flying"],
   bst: {
-    hp: 78,
+    hp: 80,
     atk: 81,
     def: 71,
     satk: 74,
@@ -11497,10 +11497,17 @@ pkmn.rockruff = {
         satk: 30,
         sdef: 40,
         spe: 60,
-    }
+    },
+    evolve: function() { 
+        return { 
+            1: { pkmn: pkmn.lycanrocMidday, item: item.sunStone }, 
+            2: { pkmn: pkmn.lycanrocNidnight, item: item.moonStone },
+            3: { pkmn: pkmn.lycanrocDusk, item: item.duskStone },
+        } 
+    },
 }
 
-pkmn.lycanroc_midday = {
+pkmn.lycanrocMidday = {
     type: ["rock"],
     bst: {
         hp: 75,
@@ -11512,7 +11519,7 @@ pkmn.lycanroc_midday = {
     }
 }
 
-pkmn.lycanroc_midnight = {
+pkmn.lycanrocNidnight = {
     type: ["rock"],
     bst: {
         hp: 85,
@@ -11524,7 +11531,7 @@ pkmn.lycanroc_midnight = {
     }
 }
 
-pkmn.lycanroc_dusk = {
+pkmn.lycanrocDusk = {
     type: ["rock"],
     bst: {
         hp: 75,
@@ -11886,9 +11893,9 @@ pkmn.nihilego = {
   bst: {
     hp: 109,
     atk: 53,
-    def: 47,
-    satk: 127,
-    sdef: 131,
+    def: 50,
+    satk: 147,
+    sdef: 141,
     spe: 103,
   },
 }
@@ -11897,9 +11904,9 @@ pkmn.nihilego = {
 pkmn.buzzwole = {
   type: ["bug","fighting"],
   bst: {
-    hp: 107,
-    atk: 139,
-    def: 139,
+    hp: 120,
+    atk: 140,
+    def: 140,
     satk: 53,
     sdef: 53,
     spe: 79,
@@ -11910,12 +11917,12 @@ pkmn.buzzwole = {
 pkmn.pheromosa = {
   type: ["bug","fighting"],
   bst: {
-    hp: 71,
-    atk: 137,
-    def: 37,
-    satk: 137,
-    sdef: 37,
-    spe: 151,
+    hp: 80,
+    atk: 140,
+    def: 40,
+    satk: 140,
+    sdef: 40,
+    spe: 161,
   },
 }
 
@@ -11923,12 +11930,12 @@ pkmn.pheromosa = {
 pkmn.xurkitree = {
   type: ["electric"],
   bst: {
-    hp: 83,
+    hp: 100,
     atk: 89,
-    def: 71,
-    satk: 173,
-    sdef: 71,
-    spe: 83,
+    def: 80,
+    satk: 180,
+    sdef: 80,
+    spe: 100,
   },
 }
 
@@ -11936,9 +11943,9 @@ pkmn.xurkitree = {
 pkmn.celesteela = {
   type: ["steel","flying"],
   bst: {
-    hp: 97,
-    atk: 101,
-    def: 103,
+    hp: 80,
+    atk: 120,
+    def: 120,
     satk: 107,
     sdef: 101,
     spe: 61,
@@ -11951,10 +11958,10 @@ pkmn.kartana = {
   bst: {
     hp: 59,
     atk: 181,
-    def: 131,
-    satk: 59,
-    sdef: 31,
-    spe: 109,
+    def: 140,
+    satk: 60,
+    sdef: 40,
+    spe: 120,
   },
 }
 
@@ -11964,8 +11971,8 @@ pkmn.guzzlord = {
   bst: {
     hp: 223,
     atk: 101,
-    def: 53,
-    satk: 97,
+    def: 80,
+    satk: 100,
     sdef: 53,
     spe: 43,
   },
@@ -12028,11 +12035,11 @@ pkmn.poipole = {
 pkmn.naganadel = {
   type: ["poison","dragon"],
   bst: {
-    hp: 73,
-    atk: 73,
-    def: 73,
+    hp: 80,
+    atk: 80,
+    def: 80,
     satk: 127,
-    sdef: 73,
+    sdef: 80,
     spe: 121,
   },
 }
@@ -12041,8 +12048,8 @@ pkmn.naganadel = {
 pkmn.stakataka = {
   type: ["rock","steel"],
   bst: {
-    hp: 61,
-    atk: 131,
+    hp: 80,
+    atk: 141,
     def: 211,
     satk: 53,
     sdef: 101,
@@ -12778,7 +12785,7 @@ pkmn.impidimp = {
 pkmn.morgrem = {
   type: ["dark","fairy"],
   bst: {
-    hp: 65,
+    hp: 80,
     atk: 60,
     def: 45,
     satk: 75,
@@ -13291,7 +13298,7 @@ pkmn.calyrex = {
 }
 
 // 904 Calyrex + Glastrier
-pkmn.calyrexGlastrier = {
+pkmn.calyrexIce = {
   type: ["psychic","ice"],
   bst: {
     hp: 100,
@@ -13304,7 +13311,7 @@ pkmn.calyrexGlastrier = {
 }
 
 // 905 Calyrex + Spectrier
-pkmn.calyrexSpectrier = {
+pkmn.calyrexShadow = {
   type: ["psychic","ghost"],
   bst: {
     hp: 100,
@@ -13605,44 +13612,6 @@ pkmn.alolanMarowak = {
     }
 }
 
-// Alolan Slowpoke → Alolan Slowbro
-pkmn.alolanSlowpoke = {
-    type: ["water", "psychic"],
-    bst: {
-        hp: 90,
-        atk: 65,
-        def: 65,
-        satk: 40,
-        sdef: 40,
-        spe: 15,
-    },
-    evolve: function() { return { 1: { pkmn: pkmn.alolanSlowbro, level: evolutionLevel2 } } },
-}
-
-pkmn.alolanSlowbro = {
-    type: ["water", "psychic"],
-    bst: {
-        hp: 95,
-        atk: 75,
-        def: 110,
-        satk: 100,
-        sdef: 80,
-        spe: 30,
-    }
-}
-
-// Alolan Slowking
-pkmn.alolanSlowking = {
-    type: ["water", "psychic"],
-    bst: {
-        hp: 95,
-        atk: 75,
-        def: 80,
-        satk: 100,
-        sdef: 110,
-        spe: 30,
-    }
-}
 
 //Hisuian Forms
 
@@ -13829,7 +13798,7 @@ pkmn.roaringMoon = {
 
 
 
-
+/*
 const gmaxFactor = 1.2
 
 pkmn.singleStrikeUrshifuGmax = {
@@ -13842,7 +13811,7 @@ pkmn.singleStrikeUrshifuGmax = {
     sdef: 60*gmaxFactor,
     spe: 97*gmaxFactor,
     }
-}
+}*/
 
 
 

@@ -769,25 +769,6 @@ areas.evilSummit = {
 
 
 
-areas.frozenPlains = {
-    type: `wild`,
-    background : `snow`,
-    tier : 2,
-    icon: pkmn.swinub,
-    spawns: {
-        common : [pkmn.swinub,pkmn.snorunt, pkmn.cubchoo],
-        uncommon : [pkmn.sneasel],
-        rare : [pkmn.alolanVulpix]
-    },
-    drops: {
-        common : [item.mysteryEgg],
-    }
-}
-
-
-
-
-
 
 
 
@@ -810,7 +791,7 @@ areas.sinnohUndergroundI = {
     type: `dungeon`,
     background : `cave`,
     level : wildAreaLevel2,
-    unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Brock in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     icon: item.waterStone,
     spawns: {
@@ -827,7 +808,7 @@ areas.beginnerTrainingI = {
     type: `dungeon`,
     background : `gym`,
     level : wildAreaLevel2,
-    unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Brock in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     icon: item.tmDummy,
     spawns: {
@@ -843,7 +824,7 @@ areas.advancedTrainingI = {
     rotation : 1,
     type: `dungeon`,
     background : `gym`,
-    unlockDescription : `🔒 Defeat Gym Leader Misty in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Misty in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderMisty.defeated },
     level : wildAreaLevel3,
     icon: item.tmDummy,
@@ -860,7 +841,7 @@ areas.expertTrainingI = {
     rotation : 1,
     type: `dungeon`,
     background : `gym`,
-    unlockDescription : `🔒 Defeat Gym Leader Phoebe in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Phoebe in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderPhoebe.defeated },
     level : wildAreaLevel4,
     icon: item.tmDummy,
@@ -878,7 +859,7 @@ areas.victoryRoadI = {
     type: `dungeon`,
     background : `town`,
     level : wildAreaLevel5,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     icon: item.lightClay,
     spawns: {
@@ -898,7 +879,7 @@ areas.sinnohUndergroundII = {
     type: `dungeon`,
     background : `cave`,
     level : wildAreaLevel2,
-    unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Brock in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     icon: item.leafStone,
     spawns: {
@@ -914,7 +895,7 @@ areas.beginnerTrainingII = {
     rotation : 2,
     type: `dungeon`,
     background : `gym`,
-    unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Brock in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     level : wildAreaLevel2,
     icon: item.tmDummy,
@@ -932,7 +913,7 @@ areas.advancedTrainingII = {
     type: `dungeon`,
     background : `gym`,
     level : wildAreaLevel3,
-    unlockDescription : `🔒 Defeat Gym Leader Misty in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Misty in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderMisty.defeated },
     icon: item.tmDummy,
     spawns: {
@@ -948,7 +929,7 @@ areas.expertTrainingII = {
     rotation : 2,
     type: `dungeon`,
     background : `gym`,
-    unlockDescription : `🔒 Defeat Gym Leader Phoebe in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Phoebe in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderPhoebe.defeated },
     level : wildAreaLevel4,
     icon: item.tmDummy,
@@ -966,7 +947,7 @@ areas.victoryRoadII = {
     type: `dungeon`,
     background : `town`,
     level : wildAreaLevel5,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     icon: item.mentalHerb,
     spawns: {
@@ -985,7 +966,7 @@ areas.sinnohUndergroundIII = {
     type: `dungeon`,
     background : `cave`,
     level : wildAreaLevel2,
-    unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Brock in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     icon: item.fireStone,
     spawns: {
@@ -1001,7 +982,7 @@ areas.beginnerTrainingIII = {
     rotation : 3,
     type: `dungeon`,
     background : `gym`,
-    unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Brock in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     level : wildAreaLevel2,
     icon: item.tmDummy,
@@ -1018,7 +999,7 @@ areas.advancedTrainingIII = {
     rotation : 3,
     type: `dungeon`,
     background : `gym`,
-    unlockDescription : `🔒 Defeat Gym Leader Misty in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Misty in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderMisty.defeated },
     level : wildAreaLevel3,
     icon: item.tmDummy,
@@ -1036,7 +1017,7 @@ areas.expertTrainingIII = {
     type: `dungeon`,
     background : `gym`,
     level : wildAreaLevel4,
-    unlockDescription : `🔒 Defeat Gym Leader Phoebe in VS to unlock`,
+    unlockDescription : `Defeat Gym Leader Phoebe in VS to unlock`,
     unlockRequirement : function() { return areas.vsGymLeaderPhoebe.defeated },
     icon: item.tmDummy,
     spawns: {
@@ -1054,7 +1035,7 @@ areas.victoryRoadIII = {
     type: `dungeon`,
     background : `town`,
     level : wildAreaLevel5,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     icon: item.eviolite,
     spawns: {
@@ -1083,7 +1064,7 @@ areas.victoryRoadIII = {
 
 const rotationEventMax = 3;
 const tier1difficulty = 25;
-const tier2difficulty = 100;
+const tier2difficulty = 70;
 
 
 areas.alphaRuins = {
@@ -1109,7 +1090,7 @@ areas.thunderSummit = {
     level : 90,
     icon: pkmn.luxray,
     uncatchable: true,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
         common : [pkmn.luxray,pkmn.alolanGolem,pkmn.electivire,pkmn.boltund],
@@ -1125,7 +1106,7 @@ areas.articSummit = {
     type: `event`,
     background : `snow`,
     uncatchable: true,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     level : 90,
     icon: pkmn.beartic,
@@ -1145,7 +1126,7 @@ areas.fierySummit = {
     background : `volcano`,
     level : 90,
     uncatchable: true,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     icon: pkmn.houndoom,
     spawns: {
@@ -1168,7 +1149,7 @@ areas.eventZapdos = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.thunderousRock.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/thunderousRock.png"> Thunderous Rock to enter`,
+    unlockDescription : `Requires a <img src="img/items/thunderousRock.png"> Thunderous Rock to enter`,
     unlockRequirement : function() { return item.thunderousRock.got>0 },
     level : 90,
     team : {
@@ -1188,7 +1169,7 @@ areas.eventArticuno = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.articRock.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/articRock.png"> Artic Rock to enter`,
+    unlockDescription : `Requires a <img src="img/items/articRock.png"> Artic Rock to enter`,
     unlockRequirement : function() { return item.articRock.got>0 },
     level : 90,
     team : {
@@ -1208,7 +1189,7 @@ areas.eventMoltres = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.fieryRock.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/fieryRock.png"> Fiery Rock to enter`,
+    unlockDescription : `Requires a <img src="img/items/fieryRock.png"> Fiery Rock to enter`,
     unlockRequirement : function() { return item.fieryRock.got>0 },
     level : 90,
     team : {
@@ -1228,7 +1209,7 @@ areas.eventMegaCamerupt = {
     encounter: true,
     difficulty: tier2difficulty,
     encounterEffect : function() {item.fieryRock.got-=3},
-    unlockDescription : `🔒 Requires x3 <img src="img/items/fieryRock.png"> Fiery Rocks to enter`,
+    unlockDescription : `Requires x3 <img src="img/items/fieryRock.png"> Fiery Rocks to enter`,
     unlockRequirement : function() { return item.fieryRock.got>2 },
     level : 100,
     team : {
@@ -1248,7 +1229,7 @@ areas.eventMegaManectric = {
     encounter: true,
     difficulty: tier2difficulty,
     encounterEffect : function() {item.thunderousRock.got-=3},
-    unlockDescription : `🔒 Requires x3 <img src="img/items/thunderousRock.png"> Thunderous Rocks to enter`,
+    unlockDescription : `Requires x3 <img src="img/items/thunderousRock.png"> Thunderous Rocks to enter`,
     unlockRequirement : function() { return item.thunderousRock.got>2 },
     level : 100,
     team : {
@@ -1268,7 +1249,7 @@ areas.eventMegaAbomasnow = {
     encounter: true,
     difficulty: tier2difficulty,
     encounterEffect : function() {item.articRock.got-=3},
-    unlockDescription : `🔒 Requires x3 <img src="img/items/articRock.png"> Artic Rocks to enter`,
+    unlockDescription : `Requires x3 <img src="img/items/articRock.png"> Artic Rocks to enter`,
     unlockRequirement : function() { return item.articRock.got>2 },
     level : 100,
     team : {
@@ -1303,7 +1284,7 @@ areas.primitiveGrove = {
     level : 90,
     icon: pkmn.yanmega,
     uncatchable: true,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
         common : [pkmn.haxorus,pkmn.aerodactyl,pkmn.rampardos,pkmn.yanmega],
@@ -1324,7 +1305,7 @@ areas.eventGreatTusk = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1344,7 +1325,7 @@ areas.eventScreamTail = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1364,7 +1345,7 @@ areas.eventBruteBonnet = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1384,7 +1365,7 @@ areas.eventFlutterMane = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1404,7 +1385,7 @@ areas.eventSlitherWing = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1424,7 +1405,7 @@ areas.eventSandyShocks = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1444,7 +1425,7 @@ areas.eventRoaringMoon = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientOrchid.got--},
-    unlockDescription : `🔒 Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
+    unlockDescription : `Requires an <img src="img/items/ancientOrchid.png"> Ancient Orchid to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>0 },
     level : 90,
     team : {
@@ -1457,19 +1438,19 @@ areas.eventRoaringMoon = {
 areas.eventMegaAerodactly = {
     rotation: 2,
     type: `event`,
-    name: `Aerodactly Mega-Showdown`,
+    name: `Aerodactyl Mega-Showdown`,
     background : `gym`,
     icon: pkmn.megaAerodactyl,
     trainer: true,
     encounter: true,
     difficulty: tier2difficulty,
     encounterEffect : function() {item.ancientOrchid.got-=3},
-    unlockDescription : `🔒 Requires x3 <img src="img/items/ancientOrchid.png"> Ancient Orchids to enter`,
+    unlockDescription : `Requires x3 <img src="img/items/ancientOrchid.png"> Ancient Orchids to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>2 },
     level : 100,
     team : {
         slot1 : pkmn.megaAerodactyl,
-        slot1Moves : [move.dragonDance.id,move.stoneEdge.id, move.airShlash.id, move.earthquake.id],
+        slot1Moves : [move.accelerock.id,move.rockSlide.id, move.airShlash.id, move.earthquake.id],
     },
     reward : [item.aerodactylite, pkmn.aerodactyl]
 }
@@ -1484,7 +1465,7 @@ areas.eventMegaBeedrill = {
     encounter: true,
     difficulty: tier2difficulty,
     encounterEffect : function() {item.ancientOrchid.got-=3},
-    unlockDescription : `🔒 Requires x3 <img src="img/items/ancientOrchid.png"> Ancient Orchids to enter`,
+    unlockDescription : `Requires x3 <img src="img/items/ancientOrchid.png"> Ancient Orchids to enter`,
     unlockRequirement : function() { return item.ancientOrchid.got>2 },
     level : 100,
     team : {
@@ -1521,7 +1502,7 @@ areas.ancientTomb = {
     level : 90,
     icon: pkmn.rhyperior,
     uncatchable: true,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
         common : [pkmn.tyranitar,pkmn.rhyperior,pkmn.flygon,pkmn.garchomp],
@@ -1539,7 +1520,7 @@ areas.steelTomb = {
     level : 90,
     icon: pkmn.metagross,
     uncatchable: true,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
         common : [pkmn.metagross,pkmn.bastiodon,pkmn.excadrill,pkmn.aggron],
@@ -1557,7 +1538,7 @@ areas.frozenTomb = {
     level : 90,
     icon: pkmn.mamoswine,
     uncatchable: true,
-    unlockDescription : `🔒 Defeat Elite Trainer Cynthia in VS to unlock`,
+    unlockDescription : `Defeat Elite Trainer Cynthia in VS to unlock`,
     unlockRequirement : function() { return areas.vsEliteTrainerCynthia.defeated },
     spawns: {
         common : [pkmn.mamoswine,pkmn.abomasnow,pkmn.avalugg,pkmn.crabominable],
@@ -1578,7 +1559,7 @@ areas.eventRegirock = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.ancientKeystone.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/ancientKeystone.png"> Ancient Keystone to enter`,
+    unlockDescription : `Requires a <img src="img/items/ancientKeystone.png"> Ancient Keystone to enter`,
     unlockRequirement : function() { return item.ancientKeystone.got>0 },
     level : 90,
     team : {
@@ -1598,7 +1579,7 @@ areas.eventRegisteel = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.steelKeystone.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/steelKeystone.png"> Steel Keystone to enter`,
+    unlockDescription : `Requires a <img src="img/items/steelKeystone.png"> Steel Keystone to enter`,
     unlockRequirement : function() { return item.steelKeystone.got>0 },
     level : 90,
     team : {
@@ -1618,7 +1599,7 @@ areas.eventRegice = {
     encounter: true,
     difficulty: tier1difficulty,
     encounterEffect : function() {item.frozenKeystone.got--},
-    unlockDescription : `🔒 Requires a <img src="img/items/frozenKeystone.png"> Frozen Keystone to enter`,
+    unlockDescription : `Requires a <img src="img/items/frozenKeystone.png"> Frozen Keystone to enter`,
     unlockRequirement : function() { return item.frozenKeystone.got>0 },
     level : 90,
     team : {
@@ -1638,12 +1619,12 @@ areas.eventMegaMawile = {
     encounter: true,
     difficulty: tier2difficulty,
     encounterEffect : function() {item.steelKeystone.got-=3},
-    unlockDescription : `🔒 Requires x3 <img src="img/items/steelKeystone.png"> Steel Keystones to enter`,
+    unlockDescription : `Requires x3 <img src="img/items/steelKeystone.png"> Steel Keystones to enter`,
     unlockRequirement : function() { return item.steelKeystone.got>2 },
     level : 100,
     team : {
         slot1 : pkmn.megaMawile,
-        slot1Moves : [move.swordsDance.id,move.ironHead.id, move.playRough.id, move.shiftGear.id],
+        slot1Moves : [move.charm.id,move.ironHead.id, move.playRough.id, move.ironTail.id],
     },
     reward : [item.mawilite, pkmn.mawile]
 }
@@ -1658,7 +1639,7 @@ areas.eventMegaGlalie = {
     encounter: true,
     difficulty: tier2difficulty,
     encounterEffect : function() {item.frozenKeystone.got-=3},
-    unlockDescription : `🔒 Requires x3 <img src="img/items/frozenKeystone.png"> Frozen Keystones to enter`,
+    unlockDescription : `Requires x3 <img src="img/items/frozenKeystone.png"> Frozen Keystones to enter`,
     unlockRequirement : function() { return item.frozenKeystone.got>2 },
     level : 100,
     team : {
@@ -1678,7 +1659,7 @@ areas.eventMegaSteelix = {
     encounter: true,
     difficulty: tier2difficulty,
     encounterEffect : function() {item.ancientKeystone.got-=3},
-    unlockDescription : `🔒 Requires x3 <img src="img/items/ancientKeystone.png"> Ancient Keystones to enter`,
+    unlockDescription : `Requires x3 <img src="img/items/ancientKeystone.png"> Ancient Keystones to enter`,
     unlockRequirement : function() { return item.ancientKeystone.got>2 },
     level : 100,
     team : {
@@ -2174,6 +2155,728 @@ areas.vsEliteFourLance = {
     reward : [item.luckIncense, item.goldenBottleCap]
 }
 
+areas.vsTeamLeaderColress = {
+    name: `Team Leader Colress`,
+    background : `gym`,
+    sprite : `colress`,
+    difficulty : 9,
+    trainer: true,
+    type: `vs`,
+    level : 105,
+    team : {
+        slot1 : pkmn.magnezone,
+        slot1Moves : [move.thunderWave.id,move.flashCannon.id, move.thunder.id],
+        slot2 : pkmn.empoleon,
+        slot2Moves : [move.hydroPump.id, move.scald.id, move.flashCannon.id],
+        slot3 : pkmn.lucario,
+        slot3Moves : [move.powerupPunch.id, move.ironHead.id, move.closeCombat.id],
+        slot4 : pkmn.cobalion,
+        slot4Moves : [move.agility.id, move.ironHead.id, move.ironTail.id],
+        slot5 : pkmn.metagross,
+        slot5Moves : [move.zenHeadbut.id, move.ironHead.id, move.psychoCut.id],
+        slot6 : pkmn.heatran,
+        slot6Moves : [move.ironDefense.id, move.fireBlast.id, move.flamethrower.id],
+    },
+    reward : [item.abilityPatch, item.bottleCap]
+}
+
+areas.vsTeamLeaderArchie = {
+    name: `Team Leader Archie`,
+    background : `gym`,
+    sprite : `archie`,
+    difficulty : 9,
+    trainer: true,
+    type: `vs`,
+    level : 110,
+    team : {
+        slot1 : pkmn.primarina,
+        slot1Moves : [move.sweetKiss.id,move.scald.id, move.moonblast.id],
+        slot2 : pkmn.greninja,
+        slot2Moves : [move.scald.id, move.darkPulse.id, move.nightSlash.id],
+        slot3 : pkmn.gyarados,
+        slot3Moves : [move.dragonDance.id, move.fly.id, move.bounce.id],
+        slot4 : pkmn.suicune,
+        slot4Moves : [move.nastyPlot.id, move.iceBeam.id, move.chillingWater.id],
+        slot5 : pkmn.swampert,
+        slot5Moves : [move.earthquake.id, move.dig.id, move.icePunch.id],
+        slot6 : pkmn.kyogre,
+        slot6Moves : [move.calmMind.id, move.hydroPump.id, move.iceBeam.id],
+    },
+    reward : [item.abilityPatch, item.bottleCap]
+}
+
+areas.vsTeamLeaderMaxie = {
+    name: `Team Leader Maxie`,
+    background : `gym`,
+    sprite : `maxie`,
+    difficulty : 10,
+    trainer: true,
+    type: `vs`,
+    level : 115,
+    team : {
+        slot1 : pkmn.delphox,
+        slot1Moves : [move.confuseRay.id,move.psychic.id, move.extrasensory.id],
+        slot2 : pkmn.volcarona,
+        slot2Moves : [move.quiverDance.id, move.bugBuzz.id, move.heatWave.id],
+        slot3 : pkmn.hisuianArcanine,
+        slot3Moves : [move.extremeSpeed.id, move.rockSlide.id, move.flamethrower.id],
+        slot4 : pkmn.entei,
+        slot4Moves : [move.swordsDance.id, move.flareBlitz.id, move.earthquake.id],
+        slot5 : pkmn.magmortar,
+        slot5Moves : [move.nastyPlot.id, move.flamethrower.id, move.fireBlast.id],
+        slot6 : pkmn.groudon,
+        slot6Moves : [move.bulkUp.id, move.firePunch.id, move.earthquake.id],
+    },
+    reward : [item.abilityPatch, item.bottleCap]
+}
+
+areas.vsTeamLeaderGiovanni = {
+    name: `Team Leader Giovanni`,
+    background : `gym`,
+    sprite : `giovanni`,
+    difficulty : 10,
+    trainer: true,
+    type: `vs`,
+    level : 120,
+    team : {
+        slot1 : pkmn.slaking,
+        slot1Moves : [move.bulkUp.id,move.gigaImpact.id, move.shadowPunch.id, move.extremeSpeed.id],
+        slot2 : pkmn.krookodile,
+        slot2Moves : [move.honeClaws.id, move.earthquake.id, move.nightSlash.id, move.sandstorm.id],
+        slot3 : pkmn.tyranitar,
+        slot3Moves : [move.earthquake.id, move.rockSlide.id, move.ironDefense.id, move.crunch.id],
+        slot4 : pkmn.megaKangaskhan,
+        slot4Moves : [move.powerupPunch.id, move.gigaImpact.id, move.closeCombat.id, move.thunderPunch.id],
+        slot5 : pkmn.hydreigon,
+        slot5Moves : [move.nastyPlot.id, move.dracoMeteor.id, move.darkPulse.id, move.toxic.id],
+        slot6 : pkmn.mewtwo,
+        slot6Moves : [move.calmMind.id, move.psychic.id, move.shadowBall.id, move.confuseRay.id],
+    },
+    reward : [item.abilityCapsule, item.goldenBottleCap]
+}
+
+
+
+
+
+
+
+//little cup - D-C tiers
+//league 1
+
+
+const exclusiveFrontierPkmn = [pkmn.relicanth, pkmn.heatmor, pkmn.durant, pkmn.comfey, pkmn.morpeko, pkmn.klefki, pkmn.munna, pkmn.finneon,
+pkmn.skorupi, pkmn.stunky, pkmn.zangoose, pkmn.spinda, pkmn.gulpin, pkmn.zigzagoon, pkmn.teddiursa, pkmn.pineco, pkmn.shuckle, pkmn.minccino, pkmn.cursola, pkmn.pincurchin, pkmn.stonjourner,
+
+pkmn.charmander, pkmn.squirtle, pkmn.bulbasaur, pkmn.chikorita, pkmn.cyndaquil, pkmn.totodile, pkmn.mudkip, pkmn.torchic, pkmn.treecko, pkmn.turtwig, pkmn.piplup, pkmn.chimchar, pkmn.tepig, pkmn.snivy, pkmn.oshawott, pkmn.froakie, pkmn.chespin, pkmn.fennekin, pkmn.rowlet, pkmn.litten, pkmn.popplio, pkmn.grookey, pkmn.scorbunny, pkmn.sobble,
+
+pkmn.meltan
+
+]
+
+const rotationFrontierMax = 3;
+areas.frontierMorty = { //rock
+    sprite : `hiker`,
+    league: 1,
+    typing: `rock`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierHamburg = { //water
+    sprite : `sailor`,
+    league: 1,
+    typing: `water`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierLaila = { //electric
+    sprite : `beauty`,
+    league: 1,
+    typing: `electric`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierBianque = { //grass
+    sprite : `aromaLady`,
+    typing: `grass`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierMiguel = { //poison
+    sprite : `janitor`,
+    typing: `poison`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierMistica = { //psychic
+    sprite : `psychic`,
+    league: 1,
+    typing: `psychic`,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierPierro = { //fire
+    sprite : `firebreather`,
+    typing: `fire`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierMauro = { //normal
+    sprite : `artist`,
+    typing: `normal`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierKiro = { //dark
+    sprite : `shadow`,
+    league: 1,
+    typing: `dark`,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierKatarina = { //flying
+    sprite : `birdkeeper`,
+    typing: `flying`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierFausto = { //dragon
+    sprite : `pokemaniac`,
+    league: 1,
+    typing: `dragon`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierMomo = { //fairy
+    sprite : `channeler`,
+    typing: `fairy`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierJairo = { //bug
+    sprite : `bugCatcher`,
+    typing: `bug`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierJunimo = { // ice
+    sprite : `gentleman`,
+    typing: `ice`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierLion = { //steel
+    sprite : `scientist`,
+    typing: `steel`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierGordon = { //ground
+    sprite : `hiker2`,
+    typing: `ground`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierTaria = { //fighting
+    sprite : `battlegirl`,
+    league: 1,
+    typing: `fighting`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierIota = { //ghost
+    sprite : `hexmaniac`,
+    typing: `ghost`,
+    league: 1,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+
+
+
+//great league - B tiers
+//league 2
+areas.frontierRoark = { //rock
+    sprite : `roark`,
+    league: 2,
+    typing: `rock`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierNessa = { //water
+    sprite : `nessa`,
+    league: 2,
+    typing: `water`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierLtSurge = { //electric
+    sprite : `ltsurge`,
+    league: 2,
+    typing: `electric`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierErika = { //grass
+    sprite : `erika`,
+    typing: `grass`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierRoxie = { //poison
+    sprite : `roxie`,
+    typing: `poison`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierSabrina = { //psychic
+    sprite : `sabrina`,
+    league: 2,
+    typing: `psychic`,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierBlaine = { //fire
+    sprite : `blaine`,
+    typing: `fire`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierNorman = { //normal
+    sprite : `norman`,
+    typing: `normal`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierMarnie = { //dark
+    sprite : `marnie`,
+    league: 2,
+    typing: `dark`,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierSkyla = { //flying
+    sprite : `skyla`,
+    typing: `flying`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierIris = { //dragon
+    sprite : `iris`,
+    league: 2,
+    typing: `dragon`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierOpal = { //fairy
+    sprite : `opal`,
+    typing: `fairy`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierBurgh = { //bug
+    sprite : `burgh`,
+    typing: `bug`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierCandice = { // ice
+    sprite : `candice`,
+    typing: `ice`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierJasmine = { //steel
+    sprite : `jasmine`,
+    typing: `steel`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierClay = { //ground
+    sprite : `clay`,
+    typing: `ground`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierKorrina = { //fighting
+    sprite : `korrina`,
+    league: 2,
+    typing: `fighting`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierMorty = { //ghost
+    sprite : `morty`,
+    typing: `ghost`,
+    league: 2,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+//league 3 -A tier
+areas.frontierOlivia = { //rock
+    sprite : `olivia`,
+    league: 3,
+    typing: `rock`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierSiebold = { //water
+    sprite : `siebold`,
+    league: 3,
+    typing: `water`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierDiamant = { //electric
+    sprite : `ingo`,
+    league: 3,
+    typing: `electric`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierMatron = { //grass
+    sprite : `madame`,
+    typing: `grass`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierKoga = { //poison
+    sprite : `koga`,
+    typing: `poison`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierLucian = { //psychic
+    sprite : `lucian`,
+    league: 3,
+    typing: `psychic`,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierCrispin = { //fire
+    sprite : `crispin`,
+    typing: `fire`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierLarry = { //normal
+    sprite : `larry`,
+    typing: `normal`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierSidney = { //dark
+    sprite : `sidney`,
+    league: 3,
+    typing: `dark`,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierKahili = { //flying
+    sprite : `kahili`,
+    typing: `flying`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierDrake = { //dragon
+    sprite : `drake`,
+    league: 3,
+    typing: `dragon`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierLacey = { //fairy
+    sprite : `lacey`,
+    typing: `fairy`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierAaron = { //bug
+    sprite : `aaron`,
+    typing: `bug`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierGlacia = { //ice
+    sprite : `glacia`,
+    typing: `ice`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierWikstrom = { //steel
+    sprite : `wikstrom`,
+    typing: `steel`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierBertha = { //ground
+    sprite : `bertha`,
+    typing: `ground`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierBruno = { //fighting
+    sprite : `bruno`,
+    league: 3,
+    typing: `fighting`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierAcerola = { //ghost
+    sprite : `acerola`,
+    typing: `ghost`,
+    league: 3,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+//league 4 S-SS-20% tier
+areas.frontierPeony = { //rock
+    sprite : `peony`,
+    league: 4,
+    typing: `rock`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierArchie = { //water
+    sprite : `archie`,
+    league: 4,
+    typing: `water`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierColress = { //electric
+    sprite : `colress`,
+    league: 4,
+    typing: `electric`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierNemona = { //grass
+    sprite : `nemona`,
+    typing: `grass`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierGuzma = { //poison
+    sprite : `guzma`,
+    typing: `poison`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierKieran = { //psychic
+    sprite : `kieran`,
+    league: 4,
+    typing: `psychic`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierMaxie = { //fire
+    sprite : `maxie`,
+    typing: `fire`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierPenny = { //normal
+    sprite : `penny`,
+    typing: `normal`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierGiovanni = { //dark
+    sprite : `giovanni`,
+    league: 4,
+    typing: `dark`,
+    trainer: true,
+    type: `frontier`,
+}
+
+
+areas.frontierWallace = { //flying
+    sprite : `wallace`,
+    typing: `flying`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierCyrus = { //dragon
+    sprite : `cyrus`,
+    league: 4,
+    typing: `dragon`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierDiantha = { //fairy
+    sprite : `diantha`,
+    typing: `fairy`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierTrace = { //bug
+    sprite : `trace`,
+    typing: `bug`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierGhetsis = { //ice
+    sprite : `ghetsis`,
+    typing: `ice`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierSteven = { //steel
+    sprite : `steven`,
+    typing: `steel`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierLeon = { //ground
+    sprite : `leon`,
+    typing: `ground`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierAlder = { //fighting
+    sprite : `alder`,
+    league: 4,
+    typing: `fighting`,
+    trainer: true,
+    type: `frontier`,
+}
+
+areas.frontierGeeta = { //ghost
+    sprite : `geeta`,
+    typing: `ghost`,
+    league: 4,
+    trainer: true,
+    type: `frontier`,
+}
 
 
 for (const i in areas){
@@ -2182,17 +2885,17 @@ for (const i in areas){
     if (areas[i].trainer) areas[i].defeated = false
 
     if (areas[i].type == "wild" && areas[i].level == wildAreaLevel2) {
-        areas[i].unlockDescription = `🔒 Defeat Gym Leader Brock in VS to unlock`
+        areas[i].unlockDescription = `Defeat Gym Leader Brock in VS to unlock`
         areas[i].unlockRequirement = function() { return areas.vsGymLeaderBrock.defeated }
     }
 
     if (areas[i].type == "wild" && areas[i].level == wildAreaLevel3) {
-        areas[i].unlockDescription = `🔒 Defeat Gym Leader Misty in VS to unlock`
+        areas[i].unlockDescription = `Defeat Gym Leader Misty in VS to unlock`
         areas[i].unlockRequirement = function() { return areas.vsGymLeaderMisty.defeated }
     }
 
     if (areas[i].type == "wild" && areas[i].level == wildAreaLevel4) {
-        areas[i].unlockDescription = `🔒 Defeat Gym Leader Phoebe in VS to unlock`
+        areas[i].unlockDescription = `Defeat Gym Leader Phoebe in VS to unlock`
         areas[i].unlockRequirement = function() { return areas.vsGymLeaderPhoebe.defeated }
     }
 
