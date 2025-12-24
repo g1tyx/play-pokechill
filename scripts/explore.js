@@ -5498,7 +5498,7 @@ function moveBuff(target,buff,mod){
         if (buff == "paralysis" && pkmn[team[exploreActiveMember].pkmn.id].type.includes("electric")) return
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.sleep>0 )) return
 
-        if (testAbility(`active`, ability.synchronize.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) { wildBuffs[i] = 3; updateWildBuffs()}
+        if (testAbility(`active`, ability.synchronize.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) { wildBuffs[buff] = 3; updateWildBuffs()}
 
         if (testAbility(`active`, ability.wonderSkin.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && rng(0.5)) return
         
@@ -6426,3 +6426,4 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+
