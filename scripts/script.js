@@ -1,3 +1,4 @@
+let saved = {}
 
 //--Workarround for IOS not appreciating the press-hold function. It fires a contextmenu at the pointer location
 const isIOS = (() => {
@@ -67,8 +68,83 @@ function updateGameVersion() {
     openTooltip()
   }
 
+  if (saved.version<1.6){
+  //moved to a new team format
+  saved.previewTeams = {}
+  saved.previewTeams.preview1 = {}
+  saved.previewTeams.preview2 = {}
+  saved.previewTeams.preview3 = {}
+  saved.previewTeams.preview4 = {}
+  saved.previewTeams.preview5 = {}
+  saved.previewTeams.preview6 = {}
+  saved.previewTeams.preview7 = {}
+  saved.previewTeams.preview8 = {}
+  saved.previewTeams.preview9 = {}
+  saved.previewTeams.preview10 = {}
+  saved.previewTeams.preview11 = {}
+  saved.previewTeams.preview12 = {}
+  saved.previewTeams.preview13 = {}
+  saved.previewTeams.preview14 = {}
+  saved.previewTeams.preview15 = {}
+  saved.previewTeams.preview16 = {}
+  saved.previewTeams.preview17 = {}
+  saved.previewTeams.preview18 = {}
+  saved.previewTeams.preview19 = {}
+  saved.previewTeams.preview20 = {}
+  saved.previewTeams.preview21 = {}
+  saved.previewTeams.preview22 = {}
+  saved.previewTeams.preview23 = {}
+  saved.previewTeams.preview24 = {}
+  saved.previewTeams.preview25 = {}
+  saved.previewTeams.preview26 = {}
+  saved.previewTeams.preview27 = {}
+  saved.previewTeams.preview28 = {}
+  saved.previewTeams.preview29 = {}
+  saved.previewTeams.preview30 = {}
 
-  saved.version = 1.5
+  for (const i in saved.previewTeams) {
+    saved.previewTeams[i].slot1 = { } 
+    saved.previewTeams[i].slot2 = { } 
+    saved.previewTeams[i].slot3 = { } 
+    saved.previewTeams[i].slot4 = { } 
+    saved.previewTeams[i].slot5 = { } 
+    saved.previewTeams[i].slot6 = { } 
+
+    saved.previewTeams[i].slot1.item = undefined
+    saved.previewTeams[i].slot2.item = undefined
+    saved.previewTeams[i].slot3.item = undefined
+    saved.previewTeams[i].slot4.item = undefined
+    saved.previewTeams[i].slot5.item = undefined
+    saved.previewTeams[i].slot6.item = undefined
+
+    saved.previewTeams[i].slot1.pkmn = undefined
+    saved.previewTeams[i].slot2.pkmn = undefined
+    saved.previewTeams[i].slot3.pkmn = undefined
+    saved.previewTeams[i].slot4.pkmn = undefined
+    saved.previewTeams[i].slot5.pkmn = undefined
+    saved.previewTeams[i].slot6.pkmn = undefined
+  }
+
+  saved.previewTeams.preview1 = saved.preview1
+  saved.previewTeams.preview2 = saved.preview2
+  saved.previewTeams.preview3 = saved.preview3
+  saved.previewTeams.preview4 = saved.preview4
+  saved.previewTeams.preview5 = saved.preview5
+  saved.previewTeams.preview6 = saved.preview6
+
+  saved.preview1 = undefined
+  saved.preview2 = undefined
+  saved.preview3 = undefined
+  saved.preview4 = undefined
+  saved.preview5 = undefined
+  saved.preview6 = undefined
+
+  saved.currentPreviewTeam = "preview1"
+
+  }
+
+
+  saved.version = 1.6
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
