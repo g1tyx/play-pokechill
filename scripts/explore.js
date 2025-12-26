@@ -192,8 +192,10 @@ function setWildPkmn(){
             const rewards = areas[saved.currentArea].reward;
             for (const i of rewards) {
             if (item[i.id]!=undefined) {
-                item[i.id].got++
-                item[i.id].newItem++
+                let itemId = i.id
+                if (item[i.id].type=="held" && item[i.id].got>= 20) itemId = item.bottleCap.id
+                item[itemId].got++
+                item[itemId].newItem++
             } 
             if (pkmn[i.id]!=undefined) {
                 //pkmn[i.id].caught++
@@ -856,6 +858,11 @@ function closePkmnEditor(){
 
 function closeTooltip(){
 
+    if (document.getElementById("team-name-field") && document.getElementById("team-name-field").value!="") { //rename team
+        saved.previewTeams[saved.currentPreviewTeam].name = document.getElementById("team-name-field").value
+        changeTeamNames()
+    }
+
 
     voidAnimation("tooltipBackground","tooltipBoxAppear 0.2s reverse 1 ease-in")
 
@@ -920,6 +927,8 @@ function openMenu(){
 
     if (!saved.claimedExportReward) {document.getElementById(`menu-export-reward`).style.display = "flex"} else document.getElementById(`menu-export-reward`).style.display = "none"
 
+    saved.currentAreaBuffer = undefined
+    
     if (areas.vsEliteFourLance.defeated == false)  {document.getElementById(`menu-item-genetics`).style.filter = `brightness(0.6)`}
     else {document.getElementById(`menu-item-genetics`).style.filter = `brightness(1)`}
 
@@ -940,524 +949,8 @@ function openMenu(){
 
 }
 
-saved.currentPreviewTeam = saved.preview1
-let dexTeamSelect = undefined
-saved.currentPreviewNumber = 1 //sigh
 
 
-function cyclePreviewTeams(order){
-
-
-    saved.currentPreviewNumber += order
-
-    if (saved.currentPreviewNumber > 6) saved.currentPreviewNumber = 1
-    if (saved.currentPreviewNumber < 1) saved.currentPreviewNumber = 6
-
-    if (saved.currentPreviewNumber == 1) saved.currentPreviewTeam = saved.preview1
-    if (saved.currentPreviewNumber == 2) saved.currentPreviewTeam = saved.preview2
-    if (saved.currentPreviewNumber == 3) saved.currentPreviewTeam = saved.preview3
-    if (saved.currentPreviewNumber == 4) saved.currentPreviewTeam = saved.preview4
-    if (saved.currentPreviewNumber == 5) saved.currentPreviewTeam = saved.preview5
-    if (saved.currentPreviewNumber == 6) saved.currentPreviewTeam = saved.preview6
-
-    updatePreviewTeam()
-
-
-
-}
-
-function injectPreviewTeam(){
-
-    let frontierError = false
-    for (const i in saved.currentPreviewTeam) {
-    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) frontierError = true
-    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) frontierError = true
-    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="A" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) frontierError = true
-    }
-
-    if (frontierError) {
-
-        document.getElementById("tooltipTop").style.display = "none"
-        document.getElementById("tooltipBottom").style.display = "none"
-        document.getElementById("tooltipTitle").innerHTML = `Banned Pokemon`
-        document.getElementById("tooltipMid").innerHTML = `One or more Pokemon in the current team do not met the division restrictions of the current league`
-        openTooltip()
-
-
-        return
-    }
-
-
-
-    saved.currentArea = saved.currentAreaBuffer
-
-    if (saved.tutorial && saved.tutorialStep === "moves") {saved.tutorialStep = "battle"; openTutorial(); item.mysteryEgg.got++; item.mysteryEgg.newItem++ }
-
-    if (pkmn[saved.currentPreviewTeam.slot1.pkmn]===undefined){
-
-    document.getElementById("tooltipTop").style.display = "none"    
-    document.getElementById("tooltipMid").style.display = "none"
-    document.getElementById("tooltipBottom").innerHTML = "First team slot must not be empty!"
-    openTooltip()
-    return
-
-}
-
-
-    team.slot1.pkmn = pkmn[saved.currentPreviewTeam.slot1.pkmn]
-    team.slot2.pkmn = pkmn[saved.currentPreviewTeam.slot2.pkmn]
-    team.slot3.pkmn = pkmn[saved.currentPreviewTeam.slot3.pkmn]
-    team.slot4.pkmn = pkmn[saved.currentPreviewTeam.slot4.pkmn]
-    team.slot5.pkmn = pkmn[saved.currentPreviewTeam.slot5.pkmn]
-    team.slot6.pkmn = pkmn[saved.currentPreviewTeam.slot6.pkmn]
-
-    team.slot1.item = saved.currentPreviewTeam.slot1.item
-    team.slot2.item = saved.currentPreviewTeam.slot2.item
-    team.slot3.item = saved.currentPreviewTeam.slot3.item
-    team.slot4.item = saved.currentPreviewTeam.slot4.item
-    team.slot5.item = saved.currentPreviewTeam.slot5.item
-    team.slot6.item = saved.currentPreviewTeam.slot6.item
-
-    voidAnimation(`explore-transition`, `exploreTransition 1s 1`)
-    document.getElementById(`explore-transition`).style.display = `flex`
-
-
-    
-    setTimeout(() => {
-          document.getElementById(`team-menu`).style.display = `none`;
-          document.getElementById(`vs-menu`).style.display = `none`;
-          document.getElementById("content-explore").style.display = "flex"
-            document.getElementById(`team-menu`).style.zIndex = `30`
-            document.getElementById(`preview-team-exit`).style.display = "none"
-            document.getElementById("menu-button-parent").style.display = "flex"
-          document.getElementById("team-preview").innerHTML = ""
-          initialiseArea()
-    }, 500);
-
-
-
-
-
-
-
-
-}
-
-function updatePreviewTeam(){
-
-    if (saved.tutorial && saved.tutorialStep === "travel") {saved.tutorialStep = "moves"; openTutorial()}
-    saved.firstTimePlaying = false
-
-    if (saved.currentPreviewNumber == 1) saved.currentPreviewTeam = saved.preview1
-    if (saved.currentPreviewNumber == 2) saved.currentPreviewTeam = saved.preview2
-    if (saved.currentPreviewNumber == 3) saved.currentPreviewTeam = saved.preview3
-    if (saved.currentPreviewNumber == 4) saved.currentPreviewTeam = saved.preview4
-    if (saved.currentPreviewNumber == 5) saved.currentPreviewTeam = saved.preview5
-    if (saved.currentPreviewNumber == 6) saved.currentPreviewTeam = saved.preview6
-
-    document.getElementById("team-preview").innerHTML = ""
-
-    document.getElementById("team-preview-slot-1").style.background = "#acacac"
-    document.getElementById("team-preview-slot-2").style.background = "#acacac"
-    document.getElementById("team-preview-slot-3").style.background = "#acacac"
-    document.getElementById("team-preview-slot-4").style.background = "#acacac"
-    document.getElementById("team-preview-slot-5").style.background = "#acacac"
-    document.getElementById("team-preview-slot-6").style.background = "#acacac"
-    if (saved.currentPreviewTeam == saved.preview1) document.getElementById("team-preview-slot-1").style.background = "#7ed0f0ff"
-    if (saved.currentPreviewTeam == saved.preview2) document.getElementById("team-preview-slot-2").style.background = "#7ed0f0ff"
-    if (saved.currentPreviewTeam == saved.preview3) document.getElementById("team-preview-slot-3").style.background = "#7ed0f0ff"
-    if (saved.currentPreviewTeam == saved.preview4) document.getElementById("team-preview-slot-4").style.background = "#7ed0f0ff"
-    if (saved.currentPreviewTeam == saved.preview5) document.getElementById("team-preview-slot-5").style.background = "#7ed0f0ff"
-    if (saved.currentPreviewTeam == saved.preview6) document.getElementById("team-preview-slot-6").style.background = "#7ed0f0ff"
-
-
-for (const i in saved.currentPreviewTeam) {
-
-    //if (saved.currentPreviewTeam[i].pkmn === undefined) continue
-    
-    const div = document.createElement("div")
-    div.className = `explore-team-member`
-
-
-    div.addEventListener("click", e => { //change team member
-
-        document.getElementById(`pokedex-menu`).style.display = "flex"
-        document.getElementById(`pokedex-menu`).style.zIndex = "200"
-
-        dexTeamSelect = i
-
-        updatePokedex()
-
-
-        document.getElementById("pokedex-filters-title").style.display = "flex"
-        document.getElementById("pokedex-filters-title").innerHTML = `Select a Pokemon to add to the team`
-//document.getElementById("menu-button-parent").style.display = "none"
-
-         document.getElementById(`team-menu`).style.display = "none"
-        
-    })
-
-    
-    div.id = `explore-${i}-member`
-
-
-    if (saved.currentPreviewTeam[i].pkmn !== undefined) {
-
-
-    let itemDiv = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><g fill="currentColor"><path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96" opacity="0.2"/><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88m48-88a8 8 0 0 1-8 8h-32v32a8 8 0 0 1-16 0v-32H88a8 8 0 0 1 0-16h32V88a8 8 0 0 1 16 0v32h32a8 8 0 0 1 8 8"/></g></svg>`
-    if (saved.currentPreviewTeam[i].item !== undefined) itemDiv = `<img src="img/items/${ saved.currentPreviewTeam[i].item }.png">`
-
-    let nameTag = ""
-    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) nameTag += ` ⛔`
-    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) nameTag += ` ⛔`
-    if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="A" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[saved.currentPreviewTeam[i].pkmn])!="D")) nameTag += ` ⛔`
-    
-    let pkmnName = `${format(saved.currentPreviewTeam[i].pkmn)} ${nameTag} <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[ saved.currentPreviewTeam[i].pkmn ].level}</span>`
-    if (pkmn[saved.currentPreviewTeam[i].pkmn].shiny) pkmnName = `${format(saved.currentPreviewTeam[i].pkmn)} ${nameTag} <span style="color:#FF4671;">✦</span> <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[ saved.currentPreviewTeam[i].pkmn ].level}</span>`
-
-
-    let pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${saved.currentPreviewTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
-    if (pkmn[saved.currentPreviewTeam[i].pkmn].shiny) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/shiny/${saved.currentPreviewTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
-    if (pkmn[saved.currentPreviewTeam[i].pkmn].shiny && pkmn[saved.currentPreviewTeam[i].pkmn].shinyDisabled == true) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${saved.currentPreviewTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
-
-
-
-    
-
-
-
-
-    div.innerHTML = `
-    <div class="team-held-item" id="team-${i}-held-item" data-item="${saved.currentPreviewTeam[i].item}">${itemDiv}</div>
-    <div class="explore-sprite" id="explore-team-member-${i}-spriteData">
-            ${pkmnSprite}
-            </div>
-
-            <div class="explore-header-infobox">
-
-                <div class="explore-header-hpbox">
-                <span style="color: white;">${pkmnName}</span>
-                </div>
-
-                <div class="explore-header-moves" id="explore-team-member-${i}-moves">
-
-                </div>
-
-
-
-            </div>
-    `
-
-    setTimeout(() => {
-            document.getElementById(`explore-team-member-${i}-spriteData`).dataset.pkmnEditor = saved.currentPreviewTeam[i].pkmn
-    }, 1);
-
-        document.getElementById("team-preview").appendChild(div)
-
-
-   
-
-        document.getElementById(`team-${i}-held-item`).addEventListener("click", e => { //change item
-
-        document.getElementById("item-menu-cancel").style.display = "inline"
-        document.getElementById("item-menu-remove").style.display = "inline"
-        document.getElementById(`item-menu`).style.display = "flex"
-
-        setTimeout(() => { //due to poor implementation, the select pkmn menu opens too. oops!
-                    document.getElementById(`pokedex-menu`).style.display = "none"
-        }, 1);
-            document.getElementById(`item-menu`).style.zIndex = "900"
-
-            dexTeamSelect = i
-
-            updateItemBag()
-
-
-            //document.getElementById("menu-button-parent").style.display = "none"
-
-                document.getElementById(`team-menu`).style.display = "none"
-    })
-
-
-    
-
-
-
-
-        for (const e in pkmn[saved.currentPreviewTeam[i].pkmn].moves) {
-
-    let moveId = pkmn[saved.currentPreviewTeam[i].pkmn].moves[e]
-
-
-    if (moveId == undefined){
-            continue
-    }
-
-
-    
-    const divMove = document.createElement("div") 
-    divMove.className = "pkmn-movebox"
-    divMove.style.borderColor = returnTypeColor(move[moveId].type)
-    divMove.id = `pkmn-movebox-${e}-team-${i}`
-    divMove.innerHTML = 
-    `<div
-    id = "pkmn-movebox-${e}-team-${i}-bar"
-    class="pkmn-movebox-progress" style="background: ${returnTypeColor(move[ moveId ].type)} "></div><span>`
-    + format(moveId) +
-     `</span><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">`
-
-     divMove.dataset.move = moveId
-
-    document.getElementById(`explore-team-member-${i}-moves`).appendChild(divMove)
-    }
-
-
-
-
-    }
-
-    if (saved.currentPreviewTeam[i].pkmn == undefined) {
-
-    div.innerHTML = `
-    <div class="team-held-item" id="team-${i}-held-item"></div>
-    <div class="explore-sprite" id="explore-team-member-${i}-spriteData">
-            
-
-    <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><g fill="currentColor"><path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96" opacity="0.2"/><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88m48-88a8 8 0 0 1-8 8h-32v32a8 8 0 0 1-16 0v-32H88a8 8 0 0 1 0-16h32V88a8 8 0 0 1 16 0v32h32a8 8 0 0 1 8 8"/></g></svg>
-
-
-
-            </div>
-
-            <div class="explore-header-infobox">
-
-                <div class="explore-header-hpbox">
-                <span style="color: white;">Add Pokemon</span>
-                </div>
-
-                <div class="explore-header-moves" id="explore-team-member-${i}-moves">
-
-                </div>
-
-
-
-            </div>
-    `
-
-        document.getElementById("team-preview").appendChild(div)
-
-
-    }
-
-
-
-
-
-
-
-
-
-    
-
-
-   
-
-
-
-    
-
-
-
-}
-
-
-
-
-
-
-}
-
-updatePreviewTeam()
-
-
-function setPkmnTeamHp(){
-
-
-
-
-    for (const i in team) {
-
-    if (team[i].pkmn === undefined) continue
-
-    let hpMultiplier = 10
-    if (areas[saved.currentArea].trainer) hpMultiplier = 4
-
-    pkmn[team[i].pkmn.id].playerHp =
-    (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, pkmn[team[i].pkmn.id].ivs.hp) )
-    * ( 1+(pkmn[team[i].pkmn.id].level * 0.2) )       
-    ) * hpMultiplier;
-
-
-    pkmn[ team[i].pkmn.id ].playerHpMax = pkmn[ team[i].pkmn.id ].playerHp
-
-
-    }
-
-
-   for (const slot in team) {//purge buffs
-
-        if (team[slot].pkmn === undefined ) continue
-        
-        for ( const i in team[slot].buffs) {
-
-            if (team[slot].buffs[i]>0) team[slot].buffs[i] = 0
-        }
-    };
-    
-
-}
-
-
-
-function setPkmnTeam(){
-
-    if (saved.currentArea == undefined) return
-
-
-
-    cancelCurrentPlayerAttack = true
-    document.getElementById(`explore-header`).style.backgroundImage = `url(img/bg/${areas[saved.currentArea].background}.png)`
-    document.getElementById(`explore-team`).innerHTML = ""
-
-    for (const i in team) {
-
-    if (team[i].pkmn === undefined) continue
-
-    const div = document.createElement("div")
-    div.className = `explore-team-member`
-    if (i != exploreActiveMember) div.classList.add('member-inactive')
-
-
-    div.addEventListener("click", e => { //change team member
-
-        if (team[exploreActiveMember].item == item.choiceSpecs.id) return
-        if (team[exploreActiveMember].item == item.choiceBand.id) return
-        if (testAbility(`active`,  ability.gorillaTactics.id )) return
-
-        if (!div.classList.contains("member-inactive")) return;
-        if (pkmn[ team[i].pkmn.id ].playerHp <= 0) return;
-
-        if (testAbility(`active`,  ability.naturalCure.id )) {team[exploreActiveMember].buffs.confused = 0; team[exploreActiveMember].buffs.burn = 0; team[exploreActiveMember].buffs.freeze = 0; team[exploreActiveMember].buffs.paralysis = 0; team[exploreActiveMember].buffs.poisoned = 0; team[exploreActiveMember].buffs.sleep = 0; updateTeamBuffs() }
-
-        barProgressPlayer = 0
-        barPlayer.style.width = 0
-        exploreCombatPlayerTurn = 1
-
-        exploreActiveMember = i
-        
-        //exploreCombatPlayer()
-
-        const members = document.querySelectorAll('.explore-team-member');
-
-    // Agrega la clase inactive a todos
-    members.forEach(member => member.classList.add('member-inactive'));
-
-    // Quita la clase inactive al que se hizo click
-    div.classList.remove('member-inactive');
-        
-    })
-
-    pkmn[ team[i].pkmn.id ].currentTurn = 1;
-
-
-
-
-
-    
-    div.id = `explore-${i}-member`
-
-
-    let pkmnName = `${format(team[i].pkmn.id)} <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${team[i].pkmn.level}</span>`
-    if (pkmn[team[i].pkmn.id].shiny) pkmnName = `${format(team[i].pkmn.id)} <span style="color:#FF4671;">✦</span> <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${team[i].pkmn.level}</span>`
-
-
-    let pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${team[i].pkmn.id}.png" id="explore-team-member-${i}-sprite">`
-    if (pkmn[team[i].pkmn.id].shiny) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/shiny/${team[i].pkmn.id}.png" id="explore-team-member-${i}-sprite">`
-    if (pkmn[team[i].pkmn.id].shiny && pkmn[team[i].pkmn.id].shinyDisabled == true) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${team[i].pkmn.id}.png" id="explore-team-member-${i}-sprite">`
-
-    div.innerHTML = `
-    <div class="team-held-item" id="team-${i}-held-item"></div>
-    <div class="team-buff-list" id="team-member-${i}-buff-list"></div>
-    <div class="explore-sprite" id="explore-team-member-${i}-spriteData">
-            ${pkmnSprite}
-            </div>
-
-            <div class="explore-header-infobox">
-
-                <img class="explore-team-member-flair" src="img/icons/pokeball.svg">
-                <div class="explore-header-hpbox">
-                <span style="color: white;">${pkmnName}</span>
-                <div class="explore-hp" id="explore-${i}-hp"></div>
-                <div class="explore-hp" style="background:#7ed0f0ff;" id="explore-${i}-exp"></div>
-                </div>
-
-                <div class="explore-header-moves" id="explore-team-member-${i}-moves">
-
-                </div>
-
-
-
-            </div>
-    `
-
-    setTimeout(() => {
-            document.getElementById(`explore-team-member-${i}-spriteData`).dataset.pkmnEditor = pkmn[team[i].pkmn.id].id
-    }, 1);
-
-    document.getElementById("explore-team").appendChild(div)
-
-
-    for (const e in pkmn[team[i].pkmn.id].moves) {
-
-    const moveId = pkmn[team[i].pkmn.id].moves[e]
-
-
-
-    if (moveId == undefined){
-            const divMove = document.createElement("div") 
-            divMove.className = "pkmn-movebox"
-            divMove.style.pointerEvents = "none"
-            document.getElementById(`explore-team-member-${i}-moves`).appendChild(divMove)
-            continue
-    }
-
-    
-    const divMove = document.createElement("div") 
-    divMove.className = "pkmn-movebox"
-    divMove.style.borderColor = returnTypeColor(move[moveId].type)
-    divMove.id = `pkmn-movebox-${e}-team-${i}`
-    divMove.innerHTML = 
-    `<div
-    id = "pkmn-movebox-${e}-team-${i}-bar"
-    class="pkmn-movebox-progress" style="background: ${returnTypeColor(move[ moveId ].type)} "></div><span>`
-    + format(moveId) +
-     `</span><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">`
-
-     divMove.dataset.move = moveId
-
-    document.getElementById(`explore-team-member-${i}-moves`).appendChild(divMove)
-    }
-
-
-
-    }
-
-
-    updateTeamItems()
-    updateTeamPkmn()
-
-
-}
 
 
 function updateTeamItems(){
@@ -1494,6 +987,7 @@ for (const i in team) {
     const percent = ((pkmn[ team[i].pkmn.id ].exp + 1) / 100 ) * 100;
     
     document.getElementById(`explore-${i}-exp`).style.width = percent + "%"; 
+    if (pkmn[ team[i].pkmn.id ].level==100) document.getElementById(`explore-${i}-exp`).style.width = "100%"; 
 
 
     if (pkmn[ team[i].pkmn.id ].exp>=100){ // on level up
@@ -1874,9 +1368,10 @@ document.addEventListener("contextmenu", e => {
 
         document.getElementById("tooltipTop").style.display = "none";
         document.getElementById("tooltipTitle").style.display = "none";
-        document.getElementById("tooltipMid").style.display = "none";
         hiddenAbility = `WIP`
         if (pkmn[el.dataset.pkmn].hiddenAbility != undefined) hiddenAbility = format(pkmn[el.dataset.pkmn].hiddenAbility.id)
+
+        document.getElementById("tooltipMid").innerHTML = `${returnTypeMultipliers(pkmn[el.dataset.pkmn])}`;
 
         document.getElementById("tooltipBottom").innerHTML = `
         <div id="tooltip-inspect-pkmn">
@@ -1886,14 +1381,14 @@ document.addEventListener("contextmenu", e => {
             <div class="pkmn-stats-panel-info" style="display:flex; flex-direction:column;"> 
             
             <strong  class="explore-pkmn-level">${format(el.dataset.pkmn)}</strong>
-            <strong  class="explore-pkmn-level" style="background:transparent; color: gray">${returnPkmnTypes(el.dataset.pkmn)}</strong>
+            <strong  class="inspect-pkmn-types" style="background:transparent; color: gray">${returnPkmnTypes(el.dataset.pkmn)}</strong>
             <div class="explore-sprite">
             <img class="sprite-trim" style="animation: pkmn-active 0.5s infinite; z-index: 1;" src="img/pkmn/sprite/${el.dataset.pkmn}.png">
             <img style="scale:1;animation: none; position: absolute; opacity: 0.3; width: 4.5rem; z-index: 0; transform: translateY(2.5rem);" src="img/resources/pkmn-shadow.png">
             </div>
             
             </div>
-             <div class="explore-header-infobox" style="background: transparent;">
+             <div class="explore-header-infobox" style="background: transparent;     padding-left: 2rem;">
                 <div class="pkmn-stats-panel">
                     <div class="pkmn-stats-panel-bst">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0.3" d="M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9c0 0 -7.43 -7.79 -8.24 -9c-0.48 -0.71 -0.76 -1.57 -0.76 -2.5c0 -2.49 2.01 -4.5 4.5 -4.5c1.56 0 2.87 0.84 3.74 2c0.76 1 0.76 1 0.76 1Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c0 0 0 0 -0.76 -1c-0.88 -1.16 -2.18 -2 -3.74 -2c-2.49 0 -4.5 2.01 -4.5 4.5c0 0.93 0.28 1.79 0.76 2.5c0.81 1.21 8.24 9 8.24 9M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9"/></svg>
@@ -1923,18 +1418,18 @@ document.addEventListener("contextmenu", e => {
             </div>
             </div>
             </div>
-             <div class="pkmn-stats-stat-switch" style="background: transparent;">
+             <div class="inspect-info" style="background: transparent;">
                     
-                    <div style="box-shadow: none; outline:none">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
+                    <div style="box-shadow: none; outline:none" id="inpect-pkmn-ability">
+                        <svg style="margin: 0 0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
                         ${hiddenAbility}</div>
 
                     <div style="box-shadow: none; outline:none">
                         ${returnDivisionLetter(returnPkmnDivision(pkmn[el.dataset.pkmn]))}</div>
                 </div>
             
-            
         `
+        if (pkmn[el.dataset.pkmn].hiddenAbility != undefined) document.getElementById("inpect-pkmn-ability").dataset.ability = pkmn[el.dataset.pkmn].hiddenAbility.id
 
         openTooltip()
 
@@ -1967,7 +1462,7 @@ document.addEventListener("contextmenu", e => {
         else document.getElementById("pkmn-editor-sprite").src = `img/pkmn/sprite/${poke.id}.png`
         document.getElementById("pkmn-editor-name").innerHTML = format(poke.id)
         if (pkmn[poke.id].shiny) document.getElementById("pkmn-editor-name").innerHTML = `${format(poke.id)} <span style="color:#FF4671">✦</span>`
-        document.getElementById("pkmn-editor-level").innerHTML = `lvl ${poke.level}`
+        document.getElementById("pkmn-editor-level").innerHTML = `Level ${poke.level}`
         document.getElementById("pkmn-editor-type").innerHTML = returnPkmnTypes(poke.id)
 
 
@@ -1989,8 +1484,9 @@ document.addEventListener("contextmenu", e => {
         document.getElementById("pkmn-editor-extra-info").innerHTML = evolutionTag
 
         document.getElementById("pkmn-editor-stats").innerHTML = `
+        <div style="display:flex; justify-content:start; align-items:start; flex-direction:column">
         <div class="pkmn-stats-panel-bst">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0.3" d="M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9c0 0 -7.43 -7.79 -8.24 -9c-0.48 -0.71 -0.76 -1.57 -0.76 -2.5c0 -2.49 2.01 -4.5 4.5 -4.5c1.56 0 2.87 0.84 3.74 2c0.76 1 0.76 1 0.76 1Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c0 0 0 0 -0.76 -1c-0.88 -1.16 -2.18 -2 -3.74 -2c-2.49 0 -4.5 2.01 -4.5 4.5c0 0.93 0.28 1.79 0.76 2.5c0.81 1.21 8.24 9 8.24 9M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0.3" d="M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9c0 0 -7.43 -7.79 -8.24 -9c-0.48 -0.71 -0.76 -1.57 -0.76 -2.5c0 -2.49 2.01 -4.5 4.5 -4.5c1.56 0 2.87 0.84 3.74 2c0.76 1 0.76 1 0.76 1Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c0 0 0 0 -0.76 -1c-0.88 -1.16 -2.18 -2 -3.74 -2c-2.49 0 -4.5 2.01 -4.5 4.5c0 0.93 0.28 1.79 0.76 2.5c0.81 1.21 8.24 9 8.24 9M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9"/></svg>
                         ${returnStatDots(poke.id, "hp")}
                     </div>
                     <div class="pkmn-stats-panel-bst">
@@ -2013,12 +1509,16 @@ document.addEventListener("contextmenu", e => {
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9 19v-2H5.675q-.5 0-.7-.45t.125-.8l6.15-6.9q.3-.35.75-.35t.75.35l6.15 6.9q.325.35.125.8t-.7.45H15v2q0 .425-.288.713T14 20h-4q-.425 0-.712-.288T9 19m3-13l-5.025 5.675q-.15.15-.35.238t-.4.087q-.65 0-.912-.575t.162-1.075l5.775-6.5q.3-.35.75-.35t.75.35l5.775 6.5q.425.5.163 1.075t-.913.575q-.2 0-.4-.075t-.35-.25z"/></svg>
                         ${returnStatDots(poke.id, "spe")}
                     </div>
-                    <div class="pkmn-edit-division"><span>${returnDivisionLetter(returnPkmnDivision(poke))}</span>division</div>
+                    </div>
                     <svg style="height: 3rem; width:3rem; margin-top:0.3rem; color:rgb(110, 105, 105)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
-        `
+            
+                    `
 
         document.getElementById("pkmn-editor-ivs").innerHTML = `
+                        <div style="display:flex; justify-content:start; align-items:start; flex-direction:column">
+
         <div class="pkmn-stats-panel-bst">
+
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0.3" d="M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9c0 0 -7.43 -7.79 -8.24 -9c-0.48 -0.71 -0.76 -1.57 -0.76 -2.5c0 -2.49 2.01 -4.5 4.5 -4.5c1.56 0 2.87 0.84 3.74 2c0.76 1 0.76 1 0.76 1Z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c0 0 0 0 -0.76 -1c-0.88 -1.16 -2.18 -2 -3.74 -2c-2.49 0 -4.5 2.01 -4.5 4.5c0 0.93 0.28 1.79 0.76 2.5c0.81 1.21 8.24 9 8.24 9M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9"/></svg>
                         ${returnIVDots(poke.id, "hp")}
                     </div>
@@ -2042,8 +1542,31 @@ document.addEventListener("contextmenu", e => {
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9 19v-2H5.675q-.5 0-.7-.45t.125-.8l6.15-6.9q.3-.35.75-.35t.75.35l6.15 6.9q.325.35.125.8t-.7.45H15v2q0 .425-.288.713T14 20h-4q-.425 0-.712-.288T9 19m3-13l-5.025 5.675q-.15.15-.35.238t-.4.087q-.65 0-.912-.575t.162-1.075l5.775-6.5q.3-.35.75-.35t.75.35l5.775 6.5q.425.5.163 1.075t-.913.575q-.2 0-.4-.075t-.35-.25z"/></svg>
                         ${returnIVDots(poke.id, "spe")}
                     </div>
-                    <svg style="height: 3rem; width:3rem; margin-top:1rem; color:rgb(110, 105, 105)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
+                    </div>
+                    <svg style="height: 3rem; width:3rem; margin-top:0.3rem; color:rgb(110, 105, 105)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
         `
+
+                    document.getElementById("pkmn-edit-division").innerHTML =  `<span>${returnDivisionLetter(returnPkmnDivision(poke))}</span>division`
+
+        if (poke.type.includes(`dragon`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/special3.png)`
+        if (poke.type.includes(`steel`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/city.png)`
+        if (poke.type.includes(`electric`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/city2.png)`
+        if (poke.type.includes(`ghost`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/cave.png)`
+        if (poke.type.includes(`normal`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/city2.png)`
+        if (poke.type.includes(`fighting`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/city.png)`
+        if (poke.type.includes(`bug`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/forest.png)`
+        if (poke.type.includes(`dark`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/cavern.png)`
+        if (poke.type.includes(`poison`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/cave.png)`
+        if (poke.type.includes(`fairy`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/pink.png)`
+        if (poke.type.includes(`ground`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/beach.png)`
+        if (poke.type.includes(`flying`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/sky.png)`
+        if (poke.type.includes(`rock`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/desert.png)`
+        if (poke.type.includes(`water`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/ocean.png)`
+        if (poke.type.includes(`ice`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/mountain.png)`
+        if (poke.type.includes(`grass`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/forest.png)`
+        if (poke.type.includes(`fire`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/volcano.png)`
+        if (poke.type.includes(`psychic`)) document.getElementById(`pkmn-editor-side-content`).style.backgroundImage = `url(img/bg/mini/space.png)`
+
 
 
      
@@ -2144,7 +1667,15 @@ document.addEventListener("contextmenu", e => {
     
     function updateMovepool() {
 
-    for (const e of pkmn[el.dataset.pkmnEditor].movepool) {
+const movepool = pkmn[el.dataset.pkmnEditor].movepool
+
+const sortedMovepool = [...movepool].sort((a, b) => {
+    const powerA = move[a].power ?? 0
+    const powerB = move[b].power ?? 0
+    return powerB - powerA
+})
+
+    for (const e of sortedMovepool) {
 
     const moveId = e
 
@@ -2223,8 +1754,8 @@ document.addEventListener("contextmenu", e => {
 
 
 function returnPkmnTypes(id){
-    if (pkmn[id].type[1] != undefined) return `${format(pkmn[id].type[0])} / ${format(pkmn[id].type[1])}`
-    else return `${format(pkmn[id].type[0])}`
+    if (pkmn[id].type[1] != undefined) return `<div style="background:${returnTypeColor(pkmn[id].type[0])}">${format(pkmn[id].type[0])}</div><div style="background:${returnTypeColor(pkmn[id].type[1])}">${format(pkmn[id].type[1])}</div>`
+    else return `<div style="background:${returnTypeColor(pkmn[id].type[0])}">${format(pkmn[id].type[0])}</div>`
 }
 
 function returnStatDots(id, stat){
@@ -2235,9 +1766,9 @@ function returnStatDots(id, stat){
     const filled = Array(val).fill("★ ").join(" ");
     const empty  = Array(max - val).fill("·").join(" ");
 
-    if (val === max) return `<span style="color:#008FE0">${filled}</span>`;
+    if (val === max) return `<span style="color:#29A1E5">${filled}</span>`;
 
-    return `<span style="color:#008FE0">${filled}</span><strong style="margin-left: 0.3rem">${empty}</strong>`;
+    return `<span style="color:#29A1E5">${filled}</span><strong style="margin-left: 0.3rem">${empty}</strong>`;
 }
 
 function returnIVDots(id, stat){
@@ -2248,9 +1779,9 @@ function returnIVDots(id, stat){
     const filled = Array(val).fill("★ ").join(" ");
     const empty  = Array(max - val).fill("·").join(" ");
 
-    if (val === max) return `<span style="color:#E174F6">${filled}</span>`;
+    if (val === max) return `<span style="color:#F4607C">${filled}</span>`;
 
-    return `<span style="color:#E174F6">${filled}</span><strong style="margin-left: 0.3rem">${empty}</strong>`;
+    return `<span style="color:#F4607C">${filled}</span><strong style="margin-left: 0.3rem">${empty}</strong>`;
 }
 
 
@@ -2855,7 +2386,7 @@ function exploreCombatPlayer() {
             let overlordBoost = 1
             for (const member in team) {
                 if (team[member].pkmn==undefined) return
-                if (pkmn[team[member].pkmn.id].playerHp<0) overlordBoost *= 0.1
+                if (pkmn[team[member].pkmn.id].playerHp<0) overlordBoost += 0.1
             }
             totalPower *= overlordBoost
         }
@@ -2977,6 +2508,38 @@ function typeEffectiveness(attacking, defending) {
   };
 
   return defending.reduce((mul, defType) => mul * (chart[attacking]?.[defType] ?? 1), 1);
+}
+
+function returnTypeMultipliers(pkmn) {
+    const types = [
+        "normal","fire","water","electric","grass","ice","fighting","poison",
+        "ground","flying","psychic","bug","rock","ghost","dragon","dark","steel","fairy"
+    ];
+
+    //array for sorting
+    const multipliers = types.map(attackingType => {
+        return {
+            type: attackingType,
+            multiplier: typeEffectiveness(attackingType, pkmn.type)
+        };
+    });
+
+    multipliers.sort((a, b) => b.multiplier - a.multiplier);
+
+    return multipliers.map(({type, multiplier}) => {
+        if(multiplier === 1) return ''; //ignores neutral
+        const color = returnTypeColor(type);
+        return `<div style="
+            background-color:${color};
+            color:#fff;
+            padding:4px 8px;
+            margin:2px;
+            border-radius:4px;
+            display:inline-block;
+        ">
+            ${type} x${multiplier}
+        </div>`;
+    }).join('');
 }
 
 
@@ -3352,7 +2915,7 @@ function exploreCombatWild() {
         if (team[exploreActiveMember].item == item.colburBerry.id && move[nextMoveWild].type == 'dark' && superEffective) {totalPower /= (item.colburBerry.power() /100) +1}
         if (team[exploreActiveMember].item == item.babiriBerry.id && move[nextMoveWild].type == 'steel' && superEffective) {totalPower /= (item.babiriBerry.power() /100) +1}
 
-        if (team[exploreActiveMember].item == item.eviolite.id && pkmn[team[exploreActiveMember].pkmn.id].evolve !== undefined && pkmn[team[exploreActiveMember].pkmn.id].evolve()[1].pkmn.id.slice(0, 4) !== "mega") 
+        if (team[exploreActiveMember].item == item.eviolite.id && pkmn[team[exploreActiveMember].pkmn.id].evolve !== undefined && ( pkmn[team[exploreActiveMember].pkmn.id].evolve()[1].pkmn.id.slice(0, 4) !== "mega" || team[exploreActiveMember].pkmn.id == pkmn.bayleef.id) ) 
         {totalPower /= item.eviolite.power();}
 
         if (team[exploreActiveMember].item == item.mentalHerb.id) {totalPower /= (item.mentalHerb.power() /100) +1}
@@ -3775,7 +3338,7 @@ function setEventAreas() {
        if (areas[i].encounter && areas[i].difficulty===tier2difficulty) eventTag = `<strong style="filter:hue-rotate(200deg)" class="event-tag">Tier II Raid ❖</strong>`
 
        let nameTag = ""
-       if (areas[i].encounter) nameTag = `<svg class="event-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path fill="currentcolor" d="M55.9 38.9c2-3.5 3.1-7.5 3.1-11.8C59 13.3 46.9 2 32 2S5 13.3 5 27.2c0 4.2 1.1 8.2 3.1 11.8A7.16 7.16 0 0 0 5 44.9c0 4.1 3.6 7.5 8 7.5c.4 0 .8 0 1.2-.1c-.5 1.2-1.1 2.6-1.2 3.4c-.6 3.1 2.7 5.7 6.1 5.7c0 0 1.6.1 2-.2c1.3-1.2 0-6.4 0-6.4c0-.9.8-1.6 1.7-1.6s1.7.7 1.7 1.6c0 0-1.2 5.4 0 6.6c1 .9 4.8.9 5.8 0c1.3-1.2 0-6.6 0-6.6c0-.9.8-1.6 1.7-1.6s1.7.7 1.7 1.6c0 0-1.3 5.4 0 6.6c1 .9 4.8.9 5.8 0c1.3-1.2 0-6.6 0-6.6c0-.9.8-1.6 1.7-1.6c1 0 1.7.7 1.7 1.6c0 0-1.3 5.3 0 6.4c.3.3 2 .2 2 .2c3.4 0 6.7-2.6 6.1-5.7c-.1-.7-.7-2.2-1.2-3.4c.4.1.8.1 1.2.1c4.4 0 8-3.4 8-7.5c0-2.4-1.2-4.6-3.1-6m-38.5 1.4c-3-2.1-10.9-10.8-4.4-11.1c4-.2 13.7 3.1 14.3 6.8c.5 2.6-6.8 6.4-9.9 4.3m19.1 7.9c-1.5 1.4-7.2 1.4-8.8 0c-1.4-1.4.9-2.4 1.8-3.8c1-1.7 1.4-3.2 2.6-3.2s1.7 1.5 2.6 3.2c.9 1.4 3.3 2.5 1.8 3.8m10.4-7.9c-3 2.1-10.3-1.8-9.9-4.3c.6-3.7 10.3-7 14.3-6.8c6.5.4-1.4 9.1-4.4 11.1"/></svg>`
+       if (areas[i].encounter) nameTag = `<svg class="event-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m21.838 11.126l-.229 2.436c-.378 4.012-.567 6.019-1.75 7.228C18.678 22 16.906 22 13.36 22h-2.72c-3.545 0-5.317 0-6.5-1.21s-1.371-3.216-1.749-7.228l-.23-2.436c-.18-1.912-.27-2.869.058-3.264a1 1 0 0 1 .675-.367c.476-.042 1.073.638 2.268 1.998c.618.704.927 1.055 1.271 1.11a.92.92 0 0 0 .562-.09c.319-.16.53-.595.955-1.464l2.237-4.584C10.989 2.822 11.39 2 12 2s1.011.822 1.813 2.465l2.237 4.584c.424.87.636 1.304.955 1.464c.176.089.37.12.562.09c.344-.055.653-.406 1.271-1.11c1.195-1.36 1.792-2.04 2.268-1.998a1 1 0 0 1 .675.367c.327.395.237 1.352.057 3.264" opacity="0.5"/><path fill="currentColor" d="m12.952 12.699l-.098-.176c-.38-.682-.57-1.023-.854-1.023s-.474.34-.854 1.023l-.098.176c-.108.194-.162.29-.246.354c-.085.064-.19.088-.4.135l-.19.044c-.738.167-1.107.25-1.195.532s.164.577.667 1.165l.13.152c.143.167.215.25.247.354s.021.215 0 .438l-.02.203c-.076.785-.114 1.178.115 1.352c.23.174.576.015 1.267-.303l.178-.082c.197-.09.295-.136.399-.136s.202.046.399.136l.178.082c.691.319 1.037.477 1.267.303s.191-.567.115-1.352l-.02-.203c-.021-.223-.032-.334 0-.438s.104-.187.247-.354l.13-.152c.503-.588.755-.882.667-1.165c-.088-.282-.457-.365-1.195-.532l-.19-.044c-.21-.047-.315-.07-.4-.135c-.084-.064-.138-.16-.246-.354"/></svg>`
 
        let eventName = format(i)
        if (areas[i].name) eventName = areas[i].name
@@ -3813,7 +3376,7 @@ function setEventAreas() {
                 </span>
 
                         <span style="font-size:1.1rem">${eventName}${nameTag}</span>
-                        <span><strong style="background:#BF72CE">Level: ${levelrange}</strong>${eventTag}<span></span></span>
+                        <span><strong style="background:#D57392">Level: ${levelrange}</strong>${eventTag}<span></span></span>
                     </span>
                 </div>
                 <div style="width: 8rem;" class="explore-ticket-right">
@@ -3976,6 +3539,7 @@ document.getElementById("pokedex-filter-evolution").addEventListener("change", e
 });
 
 function resetPokedexFilters(){
+    document.getElementById("pokedex-search").value = ""
     document.getElementById("pokedex-filter-tag").value = "all";
     document.getElementById("pokedex-filter-type").value = "all";
     document.getElementById("pokedex-filter-type-2").value = "all";
@@ -3986,6 +3550,27 @@ function resetPokedexFilters(){
     document.getElementById("pokedex-filter-shiny").value = "all";
 }
 
+
+document.getElementById("pokedex-sort-filter").addEventListener("change", e => {
+  updatePokedex()
+});
+
+
+
+
+document.getElementById("pokedex-search").addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    console.log(fusePkmn.search(document.getElementById("pokedex-search").value))
+    searchedPkmn = fusePkmn.search(document.getElementById("pokedex-search").value)
+    document.getElementById("pokedex-search").blur()
+    updatePokedex()
+  }
+});
+
+
+
+let fusePkmn;
+let searchedPkmn = []
 
 
 function updatePokedex(){
@@ -4043,13 +3628,17 @@ function updatePokedex(){
 
     let totalPokemon = 0
     let gotPokemon = 0
+    let sortedPokemon = []
 
+
+
+
+
+
+    //create an array, used for sorting
     for (const i in pkmn) {
-
-
+        //filters
         if (pkmn[i].ability == undefined) pkmn[i].ability = learnPkmnAbility(pkmn[i].id)   
-            
-
         if (document.getElementById(`pokedex-filter-type`).value !== "all" && !pkmn[i].type.includes(document.getElementById(`pokedex-filter-type`).value)) continue
         if (document.getElementById(`pokedex-filter-type-2`).value !== "all" && !pkmn[i].type.includes(document.getElementById(`pokedex-filter-type-2`).value)) continue
         if (document.getElementById(`pokedex-filter-level`).value !== "all" && !( pkmn[i].level <= (document.getElementById(`pokedex-filter-level`).value) &&  pkmn[i].level >= (document.getElementById(`pokedex-filter-level`).value-19) )    ) continue
@@ -4057,43 +3646,88 @@ function updatePokedex(){
         if ((v = document.getElementById("pokedex-filter-shiny").value) !== "all" && pkmn[i].shiny != (v === "true" ? true : undefined)) continue;
         if (document.getElementById(`pokedex-filter-division`).value !== "all" && returnPkmnDivision(pkmn[i]) !=  document.getElementById(`pokedex-filter-division`).value   ) continue
         if (document.getElementById(`pokedex-filter-tag`).value !== "all" && pkmn[i].tag!==document.getElementById(`pokedex-filter-tag`).value ) continue
-
         if (document.getElementById(`pokedex-filter-evolution`).value !== "all" && pkmn[i].evolve==undefined ) continue
         if (document.getElementById(`pokedex-filter-evolution`).value !== "all" && pkmn[ pkmn[i].evolve()[1].pkmn.id ].caught>0 ) continue
 
-
-
-        //if (!rng(0.05)) continue
-
         totalPokemon++
 
-
         if (pkmn[i].caught==0) continue
-
 
         if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[i])!="C" &&  returnPkmnDivision(pkmn[i])!="D")) continue
         if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[i])!="B" && returnPkmnDivision(pkmn[i])!="C" &&  returnPkmnDivision(pkmn[i])!="D")) continue
         if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[i])!="A" && returnPkmnDivision(pkmn[i])!="B" && returnPkmnDivision(pkmn[i])!="C" &&  returnPkmnDivision(pkmn[i])!="D")) continue
 
         gotPokemon++
+        sortedPokemon.push(pkmn[i])
+    }
 
-        //if (gotPokemon>50) continue
 
+    const sort = document.getElementById("pokedex-sort-filter").value
+
+if (sort !== "default") {
+    sortedPokemon.sort((b, a) => {
+
+        if (sort === "level")
+            return a.level - b.level
+
+        if (sort.endsWith("Bst")) {
+            const stat = sort.replace("Bst", "")
+            return a.bst[stat] - b.bst[stat]
+        }
+
+        if (sort.endsWith("Iv")) {
+            const stat = sort.replace("Iv", "")
+            return a.ivs[stat] - b.ivs[stat]
+        }
+
+        return 0
+    })
+}
+
+
+fusePkmn = new Fuse(sortedPokemon, {
+    keys: [ { name: 'name', getFn: obj => obj.id }, 'type', `ability`, `hiddenAbility`, `movepool`],
+    threshold: 0.3
+})
+
+
+if (document.getElementById("pokedex-search").value!="") {
+    sortedPokemon = searchedPkmn.map(r => r.item);
+}
+
+
+    for (const p of sortedPokemon) {
         const div = document.createElement(`div`)
+
+        const i = p.id
 
         div.dataset.pkmnEditor = i
 
         let nameMarks = ""
-        if (pkmn[i].shiny) nameMarks += `<strong style="color:#FF4671; margin-left:0.2rem">✦</strong>`
-        if (pkmn[i].tag=="red") nameMarks += `<strong style="color:#FF4942; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="orange") nameMarks += `<strong style="color:#FFAD42; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="yellow") nameMarks += `<strong style="color:#FFFF5E; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="green") nameMarks += `<strong style="color:#4F9E3A; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="lime") nameMarks += `<strong style="color:#A8EA6B; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="blue") nameMarks += `<strong style="color:#5454FF; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="teal") nameMarks += `<strong style="color:#6BEAA4; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="pink") nameMarks += `<strong style="color:pink; margin-left:0.2rem">⬤</strong>`
-        if (pkmn[i].tag=="magenta") nameMarks += `<strong style="color:#CA478F; margin-left:0.2rem">⬤</strong>`
+        let markColor = "#FF4671" //default shiny star color
+        if (pkmn[i].tag=="red") markColor = `#FF4942`
+        if (pkmn[i].tag=="orange") markColor = `#FFAD42`
+        if (pkmn[i].tag=="yellow") markColor = `#FFFF5E`
+        if (pkmn[i].tag=="green") markColor = `#4F9E3A`
+        if (pkmn[i].tag=="lime") markColor = `#A8EA6B`
+        if (pkmn[i].tag=="blue") markColor = `#5454FF`
+        if (pkmn[i].tag=="teal") markColor = `#6BEAA4`
+        if (pkmn[i].tag=="pink") markColor = `pink`
+        if (pkmn[i].tag=="magenta") markColor = `#CA478F`
+
+        if (pkmn[i].shiny) nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">✦</strong>`
+        else{
+        if (pkmn[i].tag=="red") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="orange") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="yellow") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="green") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="lime") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="blue") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="teal") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="pink") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        if (pkmn[i].tag=="magenta") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
+        }
+
 
 
         
@@ -4270,39 +3904,29 @@ function updatePokedex(){
         
         }
 
-        if (dexTeamSelect != undefined) {
+    if (dexTeamSelect != undefined) { //called when switching team member
 
-            if (saved.currentPreviewTeam.slot1.pkmn == pkmn[i].id) continue
-            if (saved.currentPreviewTeam.slot2.pkmn == pkmn[i].id) continue
-            if (saved.currentPreviewTeam.slot3.pkmn == pkmn[i].id) continue
-            if (saved.currentPreviewTeam.slot4.pkmn == pkmn[i].id) continue
-            if (saved.currentPreviewTeam.slot5.pkmn == pkmn[i].id) continue
-            if (saved.currentPreviewTeam.slot6.pkmn == pkmn[i].id) continue
+        //this prevents already equipped pokemon to be equipped again
+        if (saved.previewTeams[saved.currentPreviewTeam].slot1.pkmn == pkmn[i].id) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot2.pkmn == pkmn[i].id) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot3.pkmn == pkmn[i].id) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot4.pkmn == pkmn[i].id) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot5.pkmn == pkmn[i].id) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot6.pkmn == pkmn[i].id) continue
 
-            div.addEventListener("click", e => { 
+        div.addEventListener("click", e => { 
+            saved.previewTeams[saved.currentPreviewTeam][dexTeamSelect].pkmn = pkmn[i].id
+            updatePreviewTeam()
+            document.getElementById(`pokedex-menu`).style.zIndex = "30"
+            document.getElementById(`team-menu`).style.zIndex = "50"
+            document.getElementById(`team-menu`).style.display = "flex"
+            updateItemBag()
+            document.getElementById(`pokedex-menu`).style.display = "none"
+            document.getElementById(`pokedex-menu`).style.zIndex = "30"
+            dexTeamSelect = undefined
+        })
 
-                if (saved.currentPreviewTeam == saved.preview1) saved.preview1[dexTeamSelect].pkmn = pkmn[i].id
-                if (saved.currentPreviewTeam == saved.preview2) saved.preview2[dexTeamSelect].pkmn = pkmn[i].id
-                if (saved.currentPreviewTeam == saved.preview3) saved.preview3[dexTeamSelect].pkmn = pkmn[i].id
-                if (saved.currentPreviewTeam == saved.preview4) saved.preview4[dexTeamSelect].pkmn = pkmn[i].id
-                if (saved.currentPreviewTeam == saved.preview5) saved.preview5[dexTeamSelect].pkmn = pkmn[i].id
-                if (saved.currentPreviewTeam == saved.preview6) saved.preview6[dexTeamSelect].pkmn = pkmn[i].id
-
-                updatePreviewTeam()
-
-                document.getElementById(`pokedex-menu`).style.zIndex = "30"
-                document.getElementById(`team-menu`).style.zIndex = "50"
-                document.getElementById(`team-menu`).style.display = "flex"
-                updateItemBag()
-
-                document.getElementById(`pokedex-menu`).style.display = "none"
-                document.getElementById(`pokedex-menu`).style.zIndex = "30"
-                
-
-                dexTeamSelect = undefined
-            })
-
-        }
+    }
 
 
 
@@ -4363,8 +3987,9 @@ function updatePokedex(){
 
 
     document.getElementById(`pokedex-total`).innerHTML = `Caught: ${gotPokemon}/${totalPokemon}`
-    if (gotPokemon == totalPokemon) document.getElementById(`pokedex-total`).style.background = "rgba(151, 126, 89, 1)"
-    else document.getElementById(`pokedex-total`).style.background = "rgb(90, 133, 113)"
+    if (gotPokemon == totalPokemon) {document.getElementById(`pokedex-total`).style.background = "rgba(187, 146, 85, 1)";     document.getElementById(`pokedex-total`).innerHTML = `Caught: ${gotPokemon}/${totalPokemon} <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGIz3eBe9X"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M8 44h8m-4 0V4"/><path fill="#555555" d="M40 6H12v16h28l-4-8z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGIz3eBe9X)"/></svg>`
+}
+    else document.getElementById(`pokedex-total`).style.background = "rgba(91, 114, 163, 1)"
 
     document.getElementById(`pokedex-total`).style.display = "flex"
     if (document.getElementById(`pokedex-filter-level`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
@@ -4372,6 +3997,7 @@ function updatePokedex(){
     if (document.getElementById(`pokedex-filter-tag`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
     if (document.getElementById(`pokedex-filter-ability`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
     if (document.getElementById(`pokedex-filter-evolution`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
+    if (document.getElementById("pokedex-search").value!="") document.getElementById(`pokedex-total`).style.display = "none"
 
 }
 
@@ -4417,39 +4043,28 @@ function exitTmTeaching(mod){ //what a fucking disgrace of a code i wrote here
     }
 
 
+    //handles removing a team pokemon
+    if (dexTeamSelect !== undefined && mod=="remove") { 
 
-    if (dexTeamSelect !== undefined && mod=="remove") { //handles exit out of team swapping
-
-            document.getElementById(`pokedex-menu`).style.zIndex = "30";
-            document.getElementById(`pokedex-menu`).style.zIndex = "30";
-            document.getElementById(`team-menu`).style.zIndex = "50";
-            document.getElementById(`team-menu`).style.display = "flex" ;
-            setTimeout(() => { document.getElementById(`pokedex-menu`).style.display = "none";
-            document.getElementById(`pokedex-menu`).style.zIndex = "30" }, 500);
-
-                if (saved.currentPreviewTeam == saved.preview1) saved.preview1[dexTeamSelect].pkmn = undefined;
-                if (saved.currentPreviewTeam == saved.preview2) saved.preview2[dexTeamSelect].pkmn = undefined;
-                if (saved.currentPreviewTeam == saved.preview3) saved.preview3[dexTeamSelect].pkmn = undefined; 
-                if (saved.currentPreviewTeam == saved.preview4) saved.preview4[dexTeamSelect].pkmn = undefined;
-                if (saved.currentPreviewTeam == saved.preview5) saved.preview5[dexTeamSelect].pkmn = undefined;
-                if (saved.currentPreviewTeam == saved.preview6) saved.preview6[dexTeamSelect].pkmn = undefined;
-                
-                dexTeamSelect = undefined;
-                updatePreviewTeam()
+        document.getElementById(`team-menu`).style.zIndex = "50";
+        document.getElementById(`team-menu`).style.display = "flex" ;
+        document.getElementById(`pokedex-menu`).style.display = "none";
+        document.getElementById(`pokedex-menu`).style.zIndex = "30"
+        saved.previewTeams[saved.currentPreviewTeam][dexTeamSelect].pkmn = undefined;
+        dexTeamSelect = undefined;
+        updatePreviewTeam()
 
     }
 
-        if (dexTeamSelect !== undefined && mod=="cancel") { //handles exit out of team swapping
+    //handles exit out of team swapping
+    if (dexTeamSelect !== undefined && mod=="cancel") {
 
-            document.getElementById(`pokedex-menu`).style.zIndex = "30";
-            document.getElementById(`pokedex-menu`).style.zIndex = "30";
-            document.getElementById(`team-menu`).style.zIndex = "50";
-            document.getElementById(`team-menu`).style.display = "flex" ;
-            setTimeout(() => { document.getElementById(`pokedex-menu`).style.display = "none";
-            document.getElementById(`pokedex-menu`).style.zIndex = "30" }, 500);
-                
-                dexTeamSelect = undefined;
-                updatePreviewTeam()
+        document.getElementById(`team-menu`).style.zIndex = "50";
+        document.getElementById(`team-menu`).style.display = "flex" ;
+        document.getElementById(`pokedex-menu`).style.display = "none";
+        document.getElementById(`pokedex-menu`).style.zIndex = "30"
+        dexTeamSelect = undefined;
+        updatePreviewTeam()
 
     }
 
@@ -4457,6 +4072,9 @@ function exitTmTeaching(mod){ //what a fucking disgrace of a code i wrote here
 }
 
 function switchMenu(id){
+
+    document.getElementById(`pokedex-menu`).scrollTop = 0
+    saved.currentAreaBuffer = undefined
 
     if (id=="genetics" && areas.vsEliteFourLance.defeated == false) {
         document.getElementById("tooltipTop").style.display = `none`
@@ -4607,8 +4225,8 @@ function updateItemBag(){
         const div = document.createElement(`div`)
 
         div.dataset.item = i
-        if (item[i].type !== "tm") div.innerHTML = `<img src="img/items/${i}.png"> <span>${format(i)}</span> <span>x${item[i].got}</span>`
-        if (item[i].move && move[item[i].move]) div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span>${format(i)} <strong style="opacity:0.6; font-weight:200; white-space:nowrap; font-size:0.9rem">(${move[item[i].move].power} BP, ${format(move[item[i].move].split).slice(0, 3)})</strong> </span>  <span>x${item[i].got}</span>`
+        if (item[i].type !== "tm") div.innerHTML = `<img src="img/items/${i}.png"> <span class="item-list-name">${format(i)}</span> <span>x${item[i].got}</span>`
+        if (item[i].move && move[item[i].move]) div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span class="item-list-name">${format(i)} <strong style="opacity:0.6; font-weight:200; white-space:nowrap; font-size:0.9rem; margin-left:0.2rem"> (${move[item[i].move].power} BP, ${format(move[item[i].move].split).slice(0, 3)})</strong> </span>  <span>x${item[i].got}</span>`
 
 
 
@@ -4689,54 +4307,32 @@ function updateItemBag(){
         }
 
 
+    //called when switching team items
+    if (dexTeamSelect != undefined) { 
+        document.getElementById("item-menu-cancel").style.display = "inline"
+        document.getElementById("item-menu-remove").style.display = "inline"
+        document.getElementById("pokedex-filters-remove").style.display = "flex"
+        bagCategory = 'held'
 
-        if (dexTeamSelect != undefined) { //this is called when clicked on team switch item
+        if (item[i].type !== "held") continue
+        //prevents equipping duplicated items
+        if (saved.previewTeams[saved.currentPreviewTeam].slot1.item == i) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot2.item == i) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot3.item == i) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot4.item == i) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot5.item == i) continue
+        if (saved.previewTeams[saved.currentPreviewTeam].slot6.item == i) continue
 
-                        document.getElementById("item-menu-cancel").style.display = "inline"
-                        document.getElementById("item-menu-remove").style.display = "inline"
-
-
-            document.getElementById("pokedex-filters-remove").style.display = "flex"
-            bagCategory = 'held'
-
-            if (item[i].type !== "held") continue
-
-            if (saved.currentPreviewTeam.slot1.item == i) continue
-            if (saved.currentPreviewTeam.slot2.item == i) continue
-            if (saved.currentPreviewTeam.slot3.item == i) continue
-            if (saved.currentPreviewTeam.slot4.item == i) continue
-            if (saved.currentPreviewTeam.slot5.item == i) continue
-            if (saved.currentPreviewTeam.slot6.item == i) continue
-
-            
-
-            div.addEventListener("click", e => { 
-
-                
-
-                if (saved.currentPreviewTeam == saved.preview1) saved.preview1[dexTeamSelect].item = item[i].id
-                if (saved.currentPreviewTeam == saved.preview2) saved.preview2[dexTeamSelect].item = item[i].id
-                if (saved.currentPreviewTeam == saved.preview3) saved.preview3[dexTeamSelect].item = item[i].id
-                if (saved.currentPreviewTeam == saved.preview4) saved.preview4[dexTeamSelect].item = item[i].id
-                if (saved.currentPreviewTeam == saved.preview5) saved.preview5[dexTeamSelect].item = item[i].id
-                if (saved.currentPreviewTeam == saved.preview6) saved.preview6[dexTeamSelect].item = item[i].id
-
-                updatePreviewTeam()
-
-                document.getElementById(`item-menu`).style.zIndex = "30"
-                document.getElementById(`team-menu`).style.zIndex = "50"
-                document.getElementById(`team-menu`).style.display = "flex"
-                updateItemBag()
-
-                document.getElementById(`item-menu`).style.display = "none"
-                document.getElementById(`item-menu`).style.zIndex = "30"
-                
-                document.getElementById("item-menu-cancel").style.display = "none"
-                document.getElementById("item-menu-remove").style.display = "none"
-                dexTeamSelect = undefined
-            })
-
-        }
+        div.addEventListener("click", e => { 
+            saved.previewTeams[saved.currentPreviewTeam][dexTeamSelect].item = item[i].id
+            updatePreviewTeam()
+            updateItemBag()
+            document.getElementById(`item-menu`).style.display = "none"
+            document.getElementById(`item-menu`).style.zIndex = "30"
+            document.getElementById(`team-menu`).style.display = "flex"
+            dexTeamSelect = undefined
+        })
+    }
 
 
     if (geneticItemSelect == true) {
@@ -6424,6 +6020,7 @@ window.addEventListener('load', function() {
     applyOfflineProgress()
     requestAnimationFrame(loop);
 
+    changeTeamNames()
+
     //updateTeamExp()
 });
-

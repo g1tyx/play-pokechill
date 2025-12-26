@@ -159,7 +159,7 @@ move.zapCannon = {
     type: "electric",
     power: t5Base-20,
     info: function() {return `Inflicts ${tagParalysis}`},
-    hitEffect: function(target) { moveBuff(target,'paralysis') },
+    hitEffect: function(target) { moveBuff(target,'paralysis'); },
 }
 
 move.triAttack = {
@@ -404,7 +404,7 @@ move.facade = { //new
     type: "normal",
     power: 70,
     info: function() {return `Power doubles if the user is Paralyzed, Burned or Poisoned`},
-    powerMod : function() { if (team[exploreActiveMember].buffs?.burn > 0 || team[exploreActiveMember].buffs?.burn > 0 || team[exploreActiveMember].buffs?.paralysis > 0) { return 2} else return 1 },
+    powerMod : function() { if (team[exploreActiveMember].buffs?.burn > 0 || team[exploreActiveMember].buffs?.poisoned > 0 || team[exploreActiveMember].buffs?.paralysis > 0) { return 2} else return 1 },
 }
 
 
@@ -780,6 +780,7 @@ move.bulldoze = {
 move.rototiller = {
     moveset: [`ground`, `grass`],
     split: "special",
+    unavoidable: true,
     rarity: 2,
     type: "ground",
     power: 0,
@@ -790,6 +791,7 @@ move.rototiller = {
 move.sandstorm = {//new
     moveset: [`rock`,`ground`],
     split: "special",
+    unavoidable: true,
     rarity: 2,
     type: "ground",
     power: 0,
@@ -2662,12 +2664,6 @@ ability.waterVeil = {
     info: function() {return `Grants immunity to ${tagBurn}`},
 }
 
-ability.synchronize = {
-    type: [`all`],
-    rarity: 1,
-    info: function() {return `Inflicts active status effects to the attacker aswell`},
-}
-
 ability.marvelScale = {
     type: [`water`, `dragon`],
     rarity: 1,
@@ -2797,6 +2793,12 @@ ability.wonderSkin = {
 
 
 //tier 2
+
+ability.synchronize = {
+    type: [`all`],
+    rarity: 2,
+    info: function() {return `Inflicts active status effects to the attacker aswell`},
+}
 
 ability.solarPower = { //new
     type: [`fire`,`grass`],

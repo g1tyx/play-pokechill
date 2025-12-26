@@ -44,7 +44,10 @@
 
 
         <div class="item-menu-tags"> <!-- da hells this lol -->
+            <span>
             <div id="item-menu-cancel" onClick='
+
+            
 
 
             if (geneticItemSelect==true){
@@ -71,20 +74,20 @@
             document.getElementById(`item-menu`).style.display = "none";
             document.getElementById(`item-menu`).style.zIndex = "30"
             document.getElementById("item-menu-remove").style.display = "none";
-                if (saved.currentPreviewTeam == saved.preview1) saved.preview1[dexTeamSelect].item = undefined;
-                if (saved.currentPreviewTeam == saved.preview2) saved.preview2[dexTeamSelect].item = undefined;
-                if (saved.currentPreviewTeam == saved.preview3) saved.preview3[dexTeamSelect].item = undefined; 
-                if (saved.currentPreviewTeam == saved.preview4) saved.preview4[dexTeamSelect].item = undefined;
-                if (saved.currentPreviewTeam == saved.preview5) saved.preview5[dexTeamSelect].item = undefined;
-                if (saved.currentPreviewTeam == saved.preview6) saved.preview6[dexTeamSelect].item = undefined;
-                dexTeamSelect = undefined; updateItemBag(); 
+            saved.previewTeams[saved.currentPreviewTeam][dexTeamSelect].item = undefined
+            dexTeamSelect = undefined; updateItemBag(); 
                 updatePreviewTeam()'
                  style="display: none; background: rgb(255, 81, 81); color: white; border: none; ">Remove</div>
 
+                 </span>
+
+                 <span>
 
             <div onClick="bagCategory = 'held'; updateItemBag()">Held</div>
             <div onClick="bagCategory = 'tm'; updateItemBag()">TM's</div>
             <div onClick="bagCategory = 'key'; updateItemBag()">Key</div>
+
+            </span>
         </div>
 
 
@@ -99,19 +102,65 @@
     </div>
 
     <div id="team-menu" style="display: none;">
-    <div class="pkmn-editor-exit" id="preview-team-exit"  onclick="afkSeconds = 0 ;injectPreviewTeam(); saveGame()">
-        <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
-        Save and go!
-    </div>
+
 
 
 
     <div class="team-menu-header">
-                <div id="pkmn-team-return" onclick="exitPkmnTeam()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" d="M19 7v6c0 1.103-.896 2-2 2H3v-3h13V8H5v2L1 6.5L5 3v2h12a2 2 0 0 1 2 2"/></svg>
-                    Go back</div>
 
-        <span>
+        <span style="display: flex; justify-content: center; align-items: center; gap: auto; width: 100%;">
+
+        <div style="margin-right:0.5rem; justify-content: start; width:10rem;  padding-right:0rem" class="team-header-button" id="pkmn-team-return" onclick="exitPkmnTeam()">
+        <svg style="margin-right: 1rem;  background:#E46B6F;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M10.928 21a2.98 2.98 0 0 1-2.121-.879L1.686 13l7.121-7.121c1.133-1.134 3.109-1.134 4.242 0c.566.564.879 1.317.879 2.119c0 .746-.27 1.451-.764 2.002H18c1.654 0 3 1.346 3 3s-1.346 3-3 3h-4.836c.493.549.764 1.252.764 1.998a2.98 2.98 0 0 1-.879 2.124a2.98 2.98 0 0 1-2.121.878m-6.414-8l5.707 5.707a1.023 1.023 0 0 0 1.414 0c.189-.189.293-.441.293-.708s-.104-.517-.291-.705L8.342 14H18a1.001 1.001 0 0 0 0-2H8.342l3.293-3.293a.996.996 0 0 0 .001-1.413a1.023 1.023 0 0 0-1.415-.001z"/></svg>
+        Go back
+        </div>
+
+        <div id="preview-team-exit"  onclick="afkSeconds = 0 ;injectPreviewTeam(); saveGame()" style="margin-left:auto; justify-content: end; padding-left: 0rem;" class="team-header-button" onclick="exitPkmnTeam()">
+        Save and Go!
+        <svg  style="margin-left: 1rem;     border: 1px solid rgb(151, 252, 255);" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21c-.801 0-1.555-.312-2.121-.879S8.999 18.8 9 17.998c0-.746.271-.998.764-1.998H4.928c-1.654 0-3-1.347-3-3s1.346-3 3-3h4.836C9.27 9 9 8.745 9 7.999a2.98 2.98 0 0 1 .88-2.121c1.132-1.132 3.108-1.133 4.241.001L21.242 13l-7.121 7.121A2.98 2.98 0 0 1 12 21m-7.072-9a1.001 1.001 0 0 0 0 2h9.658l-3.293 3.293a1 1 0 0 0-.293.706c0 .269.104.519.293.708a1.023 1.023 0 0 0 1.414 0L18.414 13l-5.707-5.707a1.023 1.023 0 0 0-1.414 0a1 1 0 0 0-.293.706c0 .268.104.519.293.708L14.586 12z"/></svg>
+        </div>
+
+        </span>
+
+        <div class="team-menu-selector-new">
+            <select id="team-slot-selector">
+                <option value="preview1">Team 1</option>
+                <option value="preview2">Team 2</option>
+                <option value="preview3">Team 3</option>
+                <option value="preview4">Team 4</option>
+                <option value="preview5">Team 5</option>
+                <option value="preview6">Team 6</option>
+                <option value="preview7">Team 7</option>
+                <option value="preview8">Team 8</option>
+                <option value="preview9">Team 9</option>
+                <option value="preview10">Team 10</option>
+                <option value="preview11">Team 11</option>
+                <option value="preview12">Team 12</option>
+                <option value="preview13">Team 13</option>
+                <option value="preview14">Team 14</option>
+                <option value="preview15">Team 15</option>
+                <option value="preview16">Team 16</option>
+                <option value="preview17">Team 17</option>
+                <option value="preview18">Team 18</option>
+                <option value="preview19">Team 19</option>
+                <option value="preview20">Team 20</option>
+                <option value="preview21">Team 21</option>
+                <option value="preview22">Team 22</option>
+                <option value="preview23">Team 23</option>
+                <option value="preview24">Team 24</option>
+                <option value="preview25">Team 25</option>
+                <option value="preview26">Team 26</option>
+                <option value="preview27">Team 27</option>
+                <option value="preview28">Team 28</option>
+                <option value="preview29">Team 29</option>
+                <option value="preview30">Team 30</option>
+            </select>
+            <svg onclick="editTeamName()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m2.777 19.783l.607-4.162c.037-.272.161-.525.355-.72L15.5 3.124a1.26 1.26 0 0 1 1.19-.341a6.2 6.2 0 0 1 2.832 1.694a6.2 6.2 0 0 1 1.682 2.846a1.26 1.26 0 0 1-.341 1.19L9.089 20.275a1.26 1.26 0 0 1-.721.354l-4.161.607a1.264 1.264 0 0 1-1.43-1.454M13.275 5.364l5.363 5.363"/></svg>
+
+        </div>
+
+
+        <div class="team-menu-selector" style="display: none;">
             <strong onClick="cyclePreviewTeams(-1)">◀</strong>
             <div id="team-preview-slot-1"></div>
             <div id="team-preview-slot-2"></div>
@@ -120,10 +169,9 @@
             <div id="team-preview-slot-5"></div>
             <div id="team-preview-slot-6"></div>
             <strong onClick="cyclePreviewTeams(+1)">▶</strong>
-        </span>
+        </div>
     </div>
 
-    <span class="pkmn-editor-move-title">Change or edit team</span>
 
     <div id="team-preview">
 
@@ -137,13 +185,19 @@
         <img class="pokedex-menu-flair" src="img/icons/pokeball.svg">
         <div id="pokedex-filters">
 
-            <div id="pokedex-filters-title" style="display: none; cursor: default;">Select a pokemon to teach Hydro Pump</div>
+
+            <div class="pokedex-search" id="pokedex-filters-title" style="display: none; cursor: default; text-align: center; justify-content: center;">Select a pokemon to teach Hydro Pump</div>
+            
+            <div class="pokedex-cancel-menu">
             <div id="pokedex-filters-cancel" onClick="exitTmTeaching('cancel')" style="display: none; background: rgb(255, 81, 81); color: white;">Cancel</div>
             <div id="pokedex-filters-remove" onClick="exitTmTeaching('remove')" style="display: none; background: rgb(255, 81, 81); color: white;">Remove</div>
-
-            <div>Filter by :
             </div>
 
+            <div class="pokedex-filters-menu">
+            <div style="color: white; font-size: 1.2rem;">Filters</div>
+            <div class="separator-solid" style="width: 90%; height: 2px; opacity: 0.5; margin: 0;"></div>
+            
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
             <select id="pokedex-filter-type">
                 <option value="all">type</option>
                 <option value="normal">normal</option>
@@ -232,13 +286,40 @@
                 <option value="orange">orange</option>
                 <option value="yellow">yellow</option>
                 <option value="green">green</option>
+                <option value="lime">lime</option>
                 <option value="blue">blue</option>
+                <option value="teal">teal</option>
                 <option value="pink">pink</option>
+                <option value="magenta">magenta</option>
             </select>
+
+              <select id="pokedex-sort-filter">
+                <option value="default">sort</option>
+                <option value="level">level</option>
+                <option value="hpBst">hp BST</option>
+                <option value="atkBst">atk BST</option>
+                <option value="defBst">def BST</option>
+                <option value="satkBst">satk BST</option>
+                <option value="sdefBst">sdef BST</option>
+                <option value="speBst">spe BST</option>
+                <option value="hpIv">hp IV's</option>
+                <option value="atkIv">atk IV's</option>
+                <option value="defIv">def IV's</option>
+                <option value="satkIv">satk IV's</option>
+                <option value="sdefIv">sdef IV's</option>
+                <option value="speIv">spe IV's</option>
+            </select>
+           
+            <div class="clear-filters" onClick="resetPokedexFilters(); updatePokedex()" style="background: rgb(155, 102, 77); cursor: pointer;">Clear Filters</div>
+
+            </div>
+            </div>
+
+            <div class="pokedex-search">
+            <input id="pokedex-search" type="text" placeholder="Search ability, move...">
+            <div style="background: rgb(90, 133, 113); color: white; cursor: default;" id="pokedex-total">caught</div>
+            </div>
             
-            
-            <div onClick="resetPokedexFilters(); updatePokedex()" style="background: rgb(155, 102, 77); color: white; cursor: pointer;">Clear Filters</div>
-            <div style="background: rgb(90, 133, 113); color: white; cursor: default;" id="pokedex-total">Clear Filters</div>
 
 
 
@@ -258,7 +339,8 @@
 
         <div id="settings-menu-header">
 
-            <span>Settings </span>
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"/></svg>
+                Settings </span>
             
             
         </div>
@@ -348,8 +430,10 @@
         <div id="guide-menu" style="display: none;">
 
             <div id="guide-menu-header">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.5 16.039q1.31 0 2.547.3t2.453.98V7.508q-1.083-.773-2.386-1.16q-1.305-.386-2.614-.386q-.9 0-1.576.107t-1.501.4q-.23.077-.327.222Q3 6.835 3 7.008v9.015q0 .27.192.394t.423.03q.548-.185 1.267-.297t1.618-.111m6 1.28q1.216-.678 2.453-.98t2.547-.3q.9 0 1.618.111t1.267.296q.23.096.423-.029t.192-.394V7.008q0-.173-.096-.308q-.096-.134-.327-.23q-.825-.293-1.501-.4T17.5 5.961q-1.31 0-2.613.386q-1.304.387-2.387 1.16zm-.5 1.137q-.235 0-.432-.059t-.376-.15q-1.09-.595-2.27-.902T6.5 17.04q-.78 0-1.534.13q-.753.131-1.466.42q-.544.217-1.022-.131T2 16.496V6.831q0-.371.195-.689t.547-.442q.881-.388 1.833-.563T6.5 4.962q1.47 0 2.866.423q1.398.423 2.634 1.23q1.237-.807 2.634-1.23t2.866-.423q.973 0 1.925.175t1.833.563q.352.125.547.442t.195.689v9.665q0 .614-.516.943q-.517.328-1.1.111q-.693-.27-1.418-.39q-.724-.121-1.466-.121q-1.24 0-2.421.306t-2.271.901q-.18.093-.376.151q-.197.059-.432.059m1.885-9.508q0-.11.076-.222t.18-.168q.763-.346 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.154-1.46.43q-.257.099-.42-.005t-.162-.362m0 5.423q0-.11.076-.231q.076-.123.18-.178q.725-.346 1.613-.52q.888-.173 1.746-.173q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.784 0-1.544.16q-.76.161-1.45.457q-.258.118-.44-.003t-.181-.397m0-2.692q0-.11.076-.222t.18-.168q.763-.347 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.134q.096.104.096.258q0 .252-.15.366t-.402.051q-.37-.075-.757-.102q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.153-1.46.43q-.257.098-.42-.005q-.162-.105-.162-.362"/></svg>
+Game Guide
 
-            <span>Game Guide
             </span>
             
         </div>
@@ -376,15 +460,19 @@
 
 
 
-       <div id="genetics-menu" style="display: none;">
+    <div id="genetics-menu" style="display: none;">
 
         
 
-        <div id="genetics-menu-header">
+    <div id="genetics-menu-header">
 
-            <span data-help="Genetics">Genetics<svg style="pointer-events: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
-            </span>
-
+    <div style="display:flex; gap:0.2rem" >
+    <span >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 21.616q0-3.495 1.412-5.436T11.239 12Q8.804 9.762 7.392 7.82T5.981 2.384v-.25q0-.213.143-.356q.143-.144.357-.144t.357.144t.143.356v.25q0 .506.032.965q.031.459.114.882h9.727q.083-.423.114-.882q.032-.458.032-.965v-.25q0-.213.143-.356q.143-.144.357-.144t.357.144t.143.357v.25q0 3.494-1.412 5.435T12.762 12q2.416 2.22 3.828 4.17T18 21.615v.25q0 .214-.143.357q-.143.144-.357.144t-.357-.144t-.143-.357v-.25q0-.505-.032-.964q-.031-.459-.114-.882H7.146q-.082.423-.114.882T7 21.616v.25q0 .213-.143.356q-.143.144-.357.144t-.357-.144T6 21.865zM8.739 8h6.503q.46-.61.822-1.287t.582-1.482H7.335q.238.8.581 1.47T8.738 8M12 11.335q.673-.618 1.273-1.197q.6-.578 1.121-1.138H9.586q.522.56 1.131 1.138q.61.58 1.283 1.196M9.606 15h4.788q-.521-.56-1.121-1.138q-.6-.58-1.273-1.197q-.673.618-1.273 1.197q-.6.578-1.121 1.138m-2.252 3.77h9.292q-.238-.8-.581-1.471T15.242 16H8.758q-.48.629-.832 1.296q-.353.668-.572 1.473"/></svg>
+    Genetics
+    </span>
+    <span class="header-help" data-help="Genetics"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+    </div>
 
 
             <div class="genetics-header-flex">
@@ -473,11 +561,12 @@
 
         <div id="shop-menu-header">
 
-            <span data-help="Shop">Poke-Mart
-                <svg style="pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
+            <span data-help="Shop">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1m-9-1a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1M18 6H4.27l2.55 6H15c.33 0 .62-.16.8-.4l3-4c.13-.17.2-.38.2-.6a1 1 0 0 0-1-1m-3 7H6.87l-.77 1.56L6 15a1 1 0 0 0 1 1h11v1H7a2 2 0 0 1-2-2a2 2 0 0 1 .25-.97l.72-1.47L2.34 4H1V3h2l.85 2H18a2 2 0 0 1 2 2c0 .5-.17.92-.45 1.26l-2.91 3.89c-.36.51-.96.85-1.64.85"/></svg>Poke-Mart
+
             </span>
 
-            <div style="display: flex; margin-top: 1rem; gap:1rem">
+            <div style="display: flex; margin-top: 0rem; gap:0.5rem">
             <div class="shop-currency" id="shop-currency">
                     <img src="img/items/bottleCap.png"> x12
             </div>
@@ -597,7 +686,7 @@
 
     <div id="area-end" style="display: none;">
 
-    <div class="pkmn-editor-exit" onClick='
+    <div class="pkmn-leave-exit" onClick='
     if (saved.tutorial && saved.tutorialStep === "battleEnd") {saved.tutorialStep = "none"; openTutorial()}
     voidAnimation("area-end","tooltipBoxAppear 0.2s reverse 1 ease-in");
     setTimeout(() => {document.getElementById("area-end").style.display = "none"}, 150);
@@ -637,21 +726,26 @@
 
 
 
-        <div style="display: flex;" >
+        <div style="display: flex; width: 100%; justify-content: center; align-items: center; gap: 0.3rem; position: relative;" >
 
         <div class="pkmn-editor-side" style="display: flex; flex-direction: column;" >
 
-                        <span style="font-weight: 700;"><strong class="explore-pkmn-level" style="font-size: 1.3rem;" id="pkmn-editor-name">Arcanine</strong><br><strong class="explore-pkmn-level" id="pkmn-editor-level">lvl 100</strong><br>
-                        <svg id="pkmn-shiny-switch" onclick="switchShiny()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.685 5.25h.03a.75.75 0 0 1 0 1.5c-1.292 0-2.275 0-3.058.063c-.785.063-1.283.183-1.636.371a3.94 3.94 0 0 0-1.677 1.764c-.19.394-.304.88-.363 1.638c-.06.764-.06 1.738-.06 3.094v.11l1.12-1.12a.75.75 0 0 1 1.06 1.06l-2.4 2.4a.75.75 0 0 1-1.086-.027l-2.171-2.4a.75.75 0 0 1 1.112-1.006l.865.956v-.005c0-1.317 0-2.35.065-3.179c.066-.844.202-1.542.509-2.176a5.44 5.44 0 0 1 2.319-2.431c.625-.335 1.37-.476 2.224-.544c.85-.068 1.891-.068 3.147-.068"/><path fill="currentColor" d="M17.847 7.65a.75.75 0 0 1 .538.247l2.171 2.4a.75.75 0 0 1-1.112 1.006l-.866-.956v.005c0 1.317 0 2.35-.064 3.179c-.066.844-.202 1.542-.509 2.176a5.44 5.44 0 0 1-2.319 2.431c-.625.335-1.37.476-2.224.544c-.85.068-1.891.068-3.147.068h-.03a.75.75 0 0 1 0-1.5c1.292 0 2.275 0 3.058-.063c.784-.063 1.283-.183 1.636-.372a3.94 3.94 0 0 0 1.677-1.763c.19-.394.304-.88.363-1.637c.059-.765.06-1.74.06-3.095v-.11l-1.12 1.12a.75.75 0 0 1-1.06-1.06l2.4-2.4a.75.75 0 0 1 .548-.22" opacity="0.5"/></svg>
-                        </span>
+            <span style="font-weight: 700; padding-left: 0.5rem; margin: 0.3rem 0"><strong class="pkmn-editor-name" id="pkmn-editor-name" style="font-size: 1.5rem; color: white;">Arcanine</strong><br><strong id="pkmn-editor-level" class="pkmn-editor-name">lvl 100</strong><br>
+            <svg id="pkmn-shiny-switch" onclick="switchShiny()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.685 5.25h.03a.75.75 0 0 1 0 1.5c-1.292 0-2.275 0-3.058.063c-.785.063-1.283.183-1.636.371a3.94 3.94 0 0 0-1.677 1.764c-.19.394-.304.88-.363 1.638c-.06.764-.06 1.738-.06 3.094v.11l1.12-1.12a.75.75 0 0 1 1.06 1.06l-2.4 2.4a.75.75 0 0 1-1.086-.027l-2.171-2.4a.75.75 0 0 1 1.112-1.006l.865.956v-.005c0-1.317 0-2.35.065-3.179c.066-.844.202-1.542.509-2.176a5.44 5.44 0 0 1 2.319-2.431c.625-.335 1.37-.476 2.224-.544c.85-.068 1.891-.068 3.147-.068"/><path fill="currentColor" d="M17.847 7.65a.75.75 0 0 1 .538.247l2.171 2.4a.75.75 0 0 1-1.112 1.006l-.866-.956v.005c0 1.317 0 2.35-.064 3.179c-.066.844-.202 1.542-.509 2.176a5.44 5.44 0 0 1-2.319 2.431c-.625.335-1.37.476-2.224.544c-.85.068-1.891.068-3.147.068h-.03a.75.75 0 0 1 0-1.5c1.292 0 2.275 0 3.058-.063c.784-.063 1.283-.183 1.636-.372a3.94 3.94 0 0 0 1.677-1.763c.19-.394.304-.88.363-1.637c.059-.765.06-1.74.06-3.095v-.11l-1.12 1.12a.75.75 0 0 1-1.06-1.06l2.4-2.4a.75.75 0 0 1 .548-.22" opacity="0.5"/></svg>
+            </span>
+
+            <div id="pkmn-editor-side-content">
 
 
             <div class="explore-sprite" style="cursor: default;">
             <img class="sprite-trim" style="animation: pkmn-active 0.5s infinite; z-index: 1;" src="img/pkmn/sprite/mew.png" id="pkmn-editor-sprite">
             </div>
 
-                        <strong class="explore-pkmn-level" style="width: 9rem; z-index: 5;" id="pkmn-editor-type">Fire / Water</strong>
-                        <div class="explore-pkmn-tag">Tag: <select id="explore-pkmn-tag">
+            <div id="pkmn-editor-type">
+            
+            </div>
+
+            <div class="explore-pkmn-tag">Tag: <select id="explore-pkmn-tag">
                 <option value="none">none</option>
                 <option value="red">red</option>
                 <option value="orange">orange</option>
@@ -662,19 +756,19 @@
                 <option value="blue">blue</option>
                 <option value="pink">pink</option>
                 <option value="magenta">magenta</option>
-            </select>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 7A1.5 1.5 0 0 1 4 5.5A1.5 1.5 0 0 1 5.5 4A1.5 1.5 0 0 1 7 5.5A1.5 1.5 0 0 1 5.5 7m15.91 4.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.11 0-2 .89-2 2v7c0 .55.22 1.05.59 1.41l8.99 9c.37.36.87.59 1.42.59s1.05-.23 1.41-.59l7-7c.37-.36.59-.86.59-1.41c0-.56-.23-1.06-.59-1.42"/></svg>
-        
+            </select>            
+        </div>
+
         </div>
 
 
             </div>
 
-            <div class="explore-header-infobox" style="width: auto; box-shadow: rgba(0, 0, 0, 0.5) 5px 5px 2px;">
+            <div class="pkmn-editor-side-2" >
 
                 
 
-                <div class="pkmn-stats-panel" id="pkmn-editor-stats" style="padding-right:0.5rem">
+                <div class="pkmn-stats-panel" id="pkmn-editor-stats">
 
                     
 
@@ -683,12 +777,14 @@
                 </div>
 
 
-                <div class="pkmn-stats-panel" id="pkmn-editor-ivs" style="padding-right:0.5rem; display: none;">
+                <div class="pkmn-stats-panel" id="pkmn-editor-ivs" style="display: none;">
 
                    
 
 
                 </div>
+
+                <div id="pkmn-edit-division"><span>${returnDivisionLetter(returnPkmnDivision(poke))}</span>division</div>
 
 
 
@@ -700,7 +796,7 @@
 
 </div>
 
-        <div class="pkmn-stats-stat-switch" style="margin-bottom: 0.5rem;  margin-top: 1rem;">
+        <div class="pkmn-stats-stat-switch">
                     <div onclick='document.getElementById("pkmn-editor-stats").style.display = "flex"; document.getElementById("pkmn-editor-ivs").style.display = "none"; '>
                         
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
@@ -710,7 +806,7 @@
                         IV's Stats</div>
                 </div>
 
-<div class="pkmn-stats-stat-abilities" style="margin-top: 0.5rem;">
+<div class="pkmn-stats-stat-abilities">
 
                     Abilities
                         <span style="display: flex; gap: 1rem;">
@@ -722,13 +818,13 @@
                 </span>
 
 
+        <span id="pkmn-editor-extra-info"></span>
 
            
 
         </div>
 
 
-        <span id="pkmn-editor-extra-info"></span>
 
         <span class="pkmn-editor-move-title">Select a move below and replace it with one of the list of learnt moves</span>
         <div class="pkmn-editor-move-container" id="pkmn-editor-current-moves">
@@ -958,16 +1054,17 @@
 
 
     <script src="scripts/HackTimer.js"></script>
+    <script src="scripts/fuse.js"></script>
 
 
     <script src="scripts/moveDictionary.js"></script>
     <script src="scripts/itemDictionary.js"></script>
     <script src="scripts/pkmnDictionary.js"></script>
     <script src="scripts/areasDictionary.js"></script>
-    <script src="scripts/teamPreviews.js"></script>
-
 
     <script src="scripts/script.js"></script>
+
+    <script src="scripts/teams.js"></script>
     <script src="scripts/explore.js"></script>
 
     <script src="scripts/save.js"></script>
