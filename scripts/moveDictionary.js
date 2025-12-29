@@ -27,6 +27,7 @@ move.blazeKick = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
 }
 
+
 move.braveBird = {
     split: "physical",
     type: "flying",
@@ -857,7 +858,7 @@ move.metalClaw = {
     type: "steel",
     power: 50,
     info: function() {return `10% chance to increase Attack by 50%`},
-    hitEffect: function(target) { moveBuff(target,'atkup1',"self") },
+    hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'atkup1',"self") },
 }
 
 move.magnetBomb = {
@@ -1559,7 +1560,7 @@ move.liquidation = {
     type: "water",
     power: 85,
     info: function() {return `10% chance to increase Defense by 50%`},
-    hitEffect: function(target) { moveBuff(target,'defup1',"self") },
+    hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'defup1',"self") },
 }
 
 move.aquaTail = {
@@ -1972,6 +1973,7 @@ move.extrasensory = {
 move.amnesia = {
     moveset: [`psychic`],
     split: "special",
+    unavoidable: true,
     rarity: 3,
     type: "psychic",
     power: 0,
@@ -1983,6 +1985,7 @@ move.barrier = {
     moveset: [`psychic`],
     split: "special",
     rarity: 3,
+    unavoidable: true,
     type: "psychic",
     power: 0,
     info: function() {return `Increases Defense by 100%`},
@@ -1993,6 +1996,7 @@ move.agility = {
     moveset: [`psychic`, `normal`],
     split: "special",
     rarity: 3,
+    unavoidable: true,
     type: "psychic",
     power: 0,
     info: function() {return `Increases Speed by 100%`},
@@ -2003,6 +2007,7 @@ move.calmMind = {
     moveset: [`psychic`],
     split: "special",
     rarity: 3,
+    unavoidable: true,
     type: "psychic",
     power: 0,
     info: function() {return `Increases Special Defense and Special Attack by 50%`},
@@ -2950,22 +2955,29 @@ ability.growthAbsorb = {
     info: function() {return `Nullifies received Grass-type moves`},
 }
 
+
 ability.ironFist = {
     type: [`fighting`],
     rarity: 2,
-    info: function() {return `"Punch"-related moves have their power multiplied by x1.3`},
+    info: function() {return `"Punch"-related moves have their power multiplied by x1.5 (Dynamic Punch, Dizzy Punch, Fire Punch, Thunder Punch, Bullet Punch, Ice Punch, Powerup Punch, Hammer Arm, Shadow Punch, Mach Punch, Poison Jab)`},
 }
+
 
 ability.strongJaw = {
     type: [`dark`],
     rarity: 2,
-    info: function() {return `"Fang"-related moves have their power multiplied by x1.3`},
+    info: function() {return `"Fang"-related moves have their power multiplied by x1.5 (Bite, Crunch, Ice Fang, Poison Fang, Thunder Fang, Fire Fang)`},
 }
-
 ability.toughClaws = {
     type: [`dragon`],
     rarity: 2,
-    info: function() {return `"Claw"-related moves have their power multiplied by x1.3`},
+    info: function() {return `"Claw"-related moves have their power multiplied by x1.5 (Shadow Claw, X Scissor, Cross Poison, Metal Claw, Razor Leaf, Dragon Claw)`},
+}
+
+ability.sharpness = {
+    type: [`steel`],
+    rarity: 2,
+    info: function() {return `"Edge"-related moves have their power multiplied by x1.5 (Night Slash, Cut, Fury Cutter, Leaf Blade, Air Slash, Psycho Cut, Solar Blade)`},
 }
 
 ability.rivalry = {

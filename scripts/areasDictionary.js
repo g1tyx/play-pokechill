@@ -853,7 +853,7 @@ areas.berryForest = {
     background : `forest`,
     icon: pkmn.girafarig,
     spawns: {
-        common : [pkmn.whimsicott,pkmn.girafarig, pkmn.petilil],
+        common : [pkmn.cottonee,pkmn.girafarig, pkmn.petilil],
         uncommon : [pkmn.drowzee],
         rare : [pkmn.treecko]
     },
@@ -3550,6 +3550,14 @@ areas.frontierGeeta = { //ghost
     league: 4,
     trainer: true,
     type: `frontier`,
+}
+
+areas.frontierSpiralingTower = {
+    type: `frontier`,
+    level : 100,
+    background : `tower`,
+    floor : 1,
+    icon: pkmn.pikachu,
 }
 
 

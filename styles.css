@@ -1021,10 +1021,29 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 
 .pkmn-leave-exit:hover{
         background: rgb(189, 78, 63);
-
 }
 
+#area-rejoin{
+    width: 95%;
+    background: rgb(119, 171, 192);
+    border: 2px solid rgb(146, 242, 255);
+    color: var(--light2);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 151;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    border-radius: 0.3rem;
+    transition: 0.1s;
+}
 
+#area-rejoin:hover{
+        background: rgb(95, 146, 167);
+}
 
 #pkmn-editor-header{
     background-color: #404555;
@@ -1142,6 +1161,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 #pkmn-editor-extra-info{
     width: 100%;
     max-width: 30.2rem;
+    font-size: 0.9rem;
 }
 
 #pkmn-editor-extra-info span{
@@ -2418,6 +2438,33 @@ color: var(--dark2);
     border-radius: 100%;
     box-shadow: rgba(0, 0, 0, 0.4) 0 0 2px 5px;
     transition: 0.2s;
+}
+
+#spiraling-indicator {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+#spiraling-indicator svg {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+#spiraling-indicator div {
+    padding: 0.6rem;
+    border-radius: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    outline: rgba(255, 255, 255, 0.5) solid 2px ;
+    color: white;
+    height: 2rem;
 }
 
 #wild-buff-list {

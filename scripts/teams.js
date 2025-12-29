@@ -164,7 +164,7 @@ function updatePreviewTeam(){
     }
 
     //create empty pokemon slot
-    if (currentTeam[i].pkmn == undefined) {
+    if (currentTeam[i].pkmn == undefined && i !== "name") {
     div.style.opacity = 0.6
     div.innerHTML = `
         <div class="team-held-item" id="team-${i}-held-item"></div>
@@ -283,7 +283,7 @@ function injectPreviewTeam(){
 
 function setPkmnTeamHp(){
 
-
+    saved.currentSpiralFloor = 1
 
 
     for (const i in team) {
@@ -291,7 +291,7 @@ function setPkmnTeamHp(){
     if (team[i].pkmn === undefined) continue
 
     let hpMultiplier = 10
-    if (areas[saved.currentArea].trainer) hpMultiplier = 4
+    if (areas[saved.currentArea].trainer || saved.currentArea == areas.frontierSpiralingTower.id) hpMultiplier = 4
 
     pkmn[team[i].pkmn.id].playerHp =
     (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, pkmn[team[i].pkmn.id].ivs.hp) )
