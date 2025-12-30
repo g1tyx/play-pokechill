@@ -524,6 +524,22 @@ function leaveCombat(){
     exploreCombatWildTurn = 0
 
 
+    for (const buff in wildBuffs){ if ( wildBuffs[buff]>0) wildBuffs[buff] = 0 }
+    saved.weatherCooldown = 0
+    saved.weatherTimer = 0
+    
+    for (const i in team[exploreActiveMember].buffs){
+    if (team[exploreActiveMember].buffs[i]>0) team[exploreActiveMember].buffs[i] = 0
+    } 
+    
+    updateTeamBuffs()
+    updateWildBuffs()
+
+
+
+
+
+
 
     if (document.getElementById(`menu-button`).classList.contains(`menu-button-open`)) openMenu()
 
@@ -1776,6 +1792,14 @@ document.addEventListener("contextmenu", e => {
     for (const key in pkmn[el.dataset.pkmnEditor].moves) {
 
     let moveId = pkmn[el.dataset.pkmnEditor].moves[key];
+
+
+    //safefails if your slots magically disapear
+    if (pkmn[el.dataset.pkmnEditor].moves.slot1 == undefined) pkmn[el.dataset.pkmnEditor].moves.slot1 = undefined
+    if (pkmn[el.dataset.pkmnEditor].moves.slot2 == undefined) pkmn[el.dataset.pkmnEditor].moves.slot2 = undefined
+    if (pkmn[el.dataset.pkmnEditor].moves.slot3 == undefined) pkmn[el.dataset.pkmnEditor].moves.slot3 = undefined
+    if (pkmn[el.dataset.pkmnEditor].moves.slot4 == undefined) pkmn[el.dataset.pkmnEditor].moves.slot4 = undefined
+
     
     if (moveId == null) {
             const divMove = document.createElement("div") 
@@ -1837,11 +1861,14 @@ document.addEventListener("contextmenu", e => {
 
 const movepool = pkmn[el.dataset.pkmnEditor].movepool
 
-const sortedMovepool = [...movepool].sort((a, b) => {
+const sortedMovepool = movepool
+  //safefail
+  .filter(m => m != null)
+  .sort((a, b) => {
     const powerA = move[a].power ?? 0
     const powerB = move[b].power ?? 0
     return powerB - powerA
-})
+  })
 
     for (const e of sortedMovepool) {
 
@@ -3284,7 +3311,7 @@ function initialiseArea(){
     updateWildBuffs()
 
     exploreCombatPlayerTurn = 1
-    exploreCombatWildTurn = 1
+    exploreCombatWildTurn = 0
     //exploreCombatPlayer()
     //exploreCombatPlayer()
     //exploreCombatWild()
@@ -4220,8 +4247,6 @@ if (document.getElementById("pokedex-search").value!="") {
 
                 saved.geneticHost = pkmn[i].id
 
-                updatePreviewTeam()
-
 
                 document.getElementById(`pokedex-menu`).style.display = "none"
                 document.getElementById(`pokedex-menu`).style.zIndex = "30"
@@ -4244,8 +4269,6 @@ if (document.getElementById("pokedex-search").value!="") {
             div.addEventListener("click", e => { 
 
                 saved.geneticSample = pkmn[i].id
-
-                updatePreviewTeam()
 
 
                 document.getElementById(`pokedex-menu`).style.display = "none"
@@ -5481,7 +5504,7 @@ function moveBuff(target,buff,mod){
 
         if (testAbility(`active`, ability.simple.id) && buff.endsWith("1")) {
             const upgradedBuff = buff.slice(0, -1) + "2";
-            team[exploreActiveMember].buffs[upgradedBuff] = 1;
+            team[exploreActiveMember].buffs[upgradedBuff] = affectedTurns;
             return
         }
 
@@ -6398,3 +6421,4 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+

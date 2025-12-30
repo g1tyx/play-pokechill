@@ -10449,7 +10449,7 @@ pkmn.furfrouDiamond = {
 }
 
 pkmn.furfrouDebutante = {
-  type: ["normal","earth"],
+  type: ["normal","ground"],
   bst: {
     hp: 75,
     atk: 80,

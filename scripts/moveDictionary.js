@@ -1439,7 +1439,7 @@ move.silverWind = {
 
 move.xScissor = {
     moveset: [`bug`],
-    split: "special",
+    split: "physical",
     rarity: 3,
     type: "bug",
     power: 80

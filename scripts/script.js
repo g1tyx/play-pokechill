@@ -326,7 +326,7 @@ function learnPkmnMove(id, level, mod) {
         });
 
         //safefail for when no moves are given
-        if (!allMoves.length) return null;
+        if (!allMoves.length) return undefined;
 
         const typeMatch = [];
         const movesetMatch = [];
@@ -389,7 +389,7 @@ function learnPkmnMoveSeeded(id, level, mod, seed, exclude = []) {
             );
         });
 
-        if (!allMoves.length) return null;
+        if (!allMoves.length) return undefined;
 
         const typeMatch = [];
         const movesetMatch = [];
@@ -407,7 +407,7 @@ function learnPkmnMoveSeeded(id, level, mod, seed, exclude = []) {
         return chosenList[Math.floor(rng() * chosenList.length)];
     }
 
-    return null;
+    return undefined;
 }
 
 
@@ -647,4 +647,5 @@ function infoMisc(){
     console.table([
       {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
       ]);
+
 }
