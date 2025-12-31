@@ -428,6 +428,7 @@ function setPkmnTeam(){
             const divMove = document.createElement("div") 
             divMove.className = "pkmn-movebox"
             divMove.style.pointerEvents = "none"
+            divMove.style.display = "none"
             document.getElementById(`explore-team-member-${i}-moves`).appendChild(divMove)
             continue
     }
@@ -459,5 +460,6 @@ function setPkmnTeam(){
 
 
 }
+
 
 

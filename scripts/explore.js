@@ -964,7 +964,7 @@ if (areas[saved.currentArea].encounter && areas[saved.currentArea].difficulty ==
     updateTeamExp()
 
 
-    if (areas[saved.currentArea].trainer) currentTrainerSlot++
+    if (areas[saved.currentArea]?.trainer) currentTrainerSlot++
 
 
 
@@ -1167,9 +1167,9 @@ for (const i in team) {
 
 
             pkmn[ team[i].pkmn.id ].movepool.push(learntMove)
-            if (pkmn[ team[i].pkmn.id ].moves.slot2 === null) pkmn[ team[i].pkmn.id ].moves.slot2 = learntMove
-            else if (pkmn[ team[i].pkmn.id ].moves.slot3 === null) pkmn[ team[i].pkmn.id ].moves.slot3 = learntMove
-            else if (pkmn[ team[i].pkmn.id ].moves.slot4 === null) pkmn[ team[i].pkmn.id ].moves.slot4 = learntMove
+            if (pkmn[ team[i].pkmn.id ].moves.slot2 === null || pkmn[ team[i].pkmn.id ].moves.slot2 === undefined) pkmn[ team[i].pkmn.id ].moves.slot2 = learntMove
+            else if (pkmn[ team[i].pkmn.id ].moves.slot3 === null || pkmn[ team[i].pkmn.id ].moves.slot3 === undefined) pkmn[ team[i].pkmn.id ].moves.slot3 = learntMove
+            else if (pkmn[ team[i].pkmn.id ].moves.slot4 === null || pkmn[ team[i].pkmn.id ].moves.slot4 === undefined) pkmn[ team[i].pkmn.id ].moves.slot4 = learntMove
 
             pkmn[ team[i].pkmn.id ].newMoves.push(learntMove)
 
@@ -1873,6 +1873,13 @@ const sortedMovepool = movepool
     for (const e of sortedMovepool) {
 
     const moveId = e
+
+        //prevents having moves, but not being equiped (safefail) //fix
+    if (pkmn[el.dataset.pkmnEditor].moves.slot1 == undefined && pkmn[el.dataset.pkmnEditor].moves.slot1!= e && pkmn[el.dataset.pkmnEditor].moves.slot2!= e && pkmn[el.dataset.pkmnEditor].moves.slot3!= e && pkmn[el.dataset.pkmnEditor].moves.slot4!= e) pkmn[el.dataset.pkmnEditor].moves.slot1 = e
+    if (pkmn[el.dataset.pkmnEditor].moves.slot2 == undefined && pkmn[el.dataset.pkmnEditor].moves.slot1!= e && pkmn[el.dataset.pkmnEditor].moves.slot2!= e && pkmn[el.dataset.pkmnEditor].moves.slot3!= e && pkmn[el.dataset.pkmnEditor].moves.slot4!= e) pkmn[el.dataset.pkmnEditor].moves.slot2 = e
+    if (pkmn[el.dataset.pkmnEditor].moves.slot3 == undefined && pkmn[el.dataset.pkmnEditor].moves.slot1!= e && pkmn[el.dataset.pkmnEditor].moves.slot2!= e && pkmn[el.dataset.pkmnEditor].moves.slot3!= e && pkmn[el.dataset.pkmnEditor].moves.slot4!= e) pkmn[el.dataset.pkmnEditor].moves.slot3 = e
+    if (pkmn[el.dataset.pkmnEditor].moves.slot4 == undefined && pkmn[el.dataset.pkmnEditor].moves.slot1!= e && pkmn[el.dataset.pkmnEditor].moves.slot2!= e && pkmn[el.dataset.pkmnEditor].moves.slot3!= e && pkmn[el.dataset.pkmnEditor].moves.slot4!= e) pkmn[el.dataset.pkmnEditor].moves.slot4 = e
+
 
     const divMove = document.createElement("div") 
     divMove.className = "pkmn-movebox"
@@ -6421,4 +6428,7 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+
+
+
 
