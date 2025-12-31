@@ -153,7 +153,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 1.8
+  saved.version = 1.9
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -275,18 +275,32 @@ const observer = new MutationObserver(mutations => {
   for (const m of mutations) {
     if (m.type === "childList") {
       for (const node of m.addedNodes) {
-        if (node.tagName === "IMG" && node.classList.contains("sprite-trim")) {
+        if (node.nodeType !== 1) continue;
+
+        if (
+          node.tagName === "IMG" &&
+          node.classList.contains("sprite-trim") &&
+          !node.closest("#pokedex-list")
+        ) {
           processSprite(node);
         }
+
         if (node.querySelectorAll) {
-          node.querySelectorAll("img.sprite-trim").forEach(processSprite);
+          node
+            .querySelectorAll("img.sprite-trim:not(#pokedex-list img)")
+            .forEach(processSprite);
         }
       }
     }
 
     if (m.type === "attributes" && m.attributeName === "src") {
       const img = m.target;
-      if (img.tagName === "IMG" && img.classList.contains("sprite-trim")) {
+
+      if (
+        img.tagName === "IMG" &&
+        img.classList.contains("sprite-trim") &&
+        !img.closest("#pokedex-list")
+      ) {
         processSprite(img);
       }
     }
@@ -506,7 +520,7 @@ guide.experience = {
 
 guide.moves = {
   name: `Battle: Moves`,
-  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon<br><br>Damaging moves are divided into physical and special moves<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense`}
+  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon<br><br>Damaging moves are divided into physical and special moves<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense<br><br>Some Pokemon might have Signature Moves. Signature Moves are species-dependant moves that a Pokemon learn at level 100. Signature Moves can't be inherited through genetics`}
 }
 
 guide.stab = {
@@ -647,5 +661,4 @@ function infoMisc(){
     console.table([
       {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
       ]);
-
 }

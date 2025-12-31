@@ -147,6 +147,11 @@ function updatePreviewTeam(){
 
     let moveId = pkmn[currentTeam[i].pkmn].moves[e]
     if (moveId == undefined) { continue }
+
+
+    let signatureIcon = ""
+    if (move[moveId].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+
              
     const divMove = document.createElement("div") 
     divMove.className = "pkmn-movebox"
@@ -155,7 +160,7 @@ function updatePreviewTeam(){
     divMove.innerHTML = 
         `<div id = "pkmn-movebox-${e}-team-${i}-bar"
         class="pkmn-movebox-progress" style="background: ${returnTypeColor(move[ moveId ].type)} "></div><span>`
-        + format(moveId) + `</span><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">
+        + format(moveId) + signatureIcon + `</span><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">
     `
     divMove.dataset.move = moveId
     document.getElementById(`explore-team-member-${i}-moves`).appendChild(divMove)
@@ -348,6 +353,9 @@ function setPkmnTeam(){
         if (!div.classList.contains("member-inactive")) return;
         if (pkmn[ team[i].pkmn.id ].playerHp <= 0) return;
 
+        //reset move buildup, ie rollout
+        for (const learntMoveID of pkmn[ team[i].pkmn.id ].movepool) if(move[learntMoveID]?.buildup!==undefined) move[learntMoveID].buildup = 0
+
         if (testAbility(`active`,  ability.naturalCure.id )) {team[exploreActiveMember].buffs.confused = 0; team[exploreActiveMember].buffs.burn = 0; team[exploreActiveMember].buffs.freeze = 0; team[exploreActiveMember].buffs.paralysis = 0; team[exploreActiveMember].buffs.poisoned = 0; team[exploreActiveMember].buffs.sleep = 0; updateTeamBuffs() }
 
         barProgressPlayer = 0
@@ -424,7 +432,7 @@ function setPkmnTeam(){
 
 
 
-    if (moveId == undefined){
+    if (moveId == undefined){ //fix
             const divMove = document.createElement("div") 
             divMove.className = "pkmn-movebox"
             divMove.style.pointerEvents = "none"
@@ -432,6 +440,11 @@ function setPkmnTeam(){
             document.getElementById(`explore-team-member-${i}-moves`).appendChild(divMove)
             continue
     }
+
+
+    let signatureIcon = ""
+    if (move[moveId].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+
 
     
     const divMove = document.createElement("div") 
@@ -442,7 +455,7 @@ function setPkmnTeam(){
     `<div
     id = "pkmn-movebox-${e}-team-${i}-bar"
     class="pkmn-movebox-progress" style="background: ${returnTypeColor(move[ moveId ].type)} "></div><span>`
-    + format(moveId) +
+    + format(moveId) + signatureIcon +
      `</span><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">`
 
      divMove.dataset.move = moveId
@@ -460,6 +473,5 @@ function setPkmnTeam(){
 
 
 }
-
 
 
