@@ -272,12 +272,18 @@
                 <option value=1>common</option>
                 <option value=2>uncommon</option>
                 <option value=3>rare</option>
+                <option value=4>locked HA</option>
             </select>
 
             <select id="pokedex-filter-shiny">
                 <option value="all">shiny</option>
                 <option value=true>is shiny</option>
                 <option value=undefined>not shiny</option>
+            </select>
+
+            <select id="pokedex-filter-signature">
+                <option value="all">signature       </option>
+                <option value=false>has signature   </option>
             </select>
 
               <select id="pokedex-filter-tag">
@@ -372,7 +378,7 @@
             <div style="margin-top: 3rem;background: rgb(206, 83, 83); color: white; " onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Are you sure you want to delete all data forever?`
         document.getElementById("tooltipMid").style.display = `none`
-        document.getElementById("tooltipBottom").innerHTML = `<div onClick = "clearData()" style="cursor:pointer; font-size:2rem">Yeah!</div>`
+        document.getElementById("tooltipBottom").innerHTML = `<div onClick = "clearData()" style="cursor:pointer; font-size:2rem" id="prevent-tooltip-exit">Yeah!</div>`
         openTooltip()'
             
             >Wipe Data</div>
@@ -579,7 +585,34 @@ Game Guide
 
         </div>
 
-            <div id="shop-listing">
+
+
+
+        <div id="shop-categories">
+
+            <div onclick="shopCategory = 'goods'; updateItemShop() ">
+                <img src="img/items/rareCandy.png">Goods
+            </div>
+
+            <div onclick="shopCategory = 'held'; updateItemShop() ">
+                <img src="img/items/choiceBand.png">Held
+            </div>
+
+            <div onclick="shopCategory = 'evolution'; updateItemShop() ">
+                <img src="img/items/waterStone.png">Evolution
+            </div>
+
+            <div onclick="shopCategory = 'tm'; updateItemShop() ">
+                <img src="img/items/tmDummy.png">TM's
+            </div>
+
+            <div onclick="shopCategory = 'genetics'; updateItemShop() ">
+                <img src="img/items/destinyKnot.png">Genetics
+            </div>
+
+        </div>
+
+            <div id="shop-listing" style="display: none;">
 
             <div>
                 <img src="img/items/calcium.png">
@@ -811,7 +844,7 @@ Game Guide
                         IV's Stats</div>
                 </div>
 
-<div class="pkmn-stats-stat-abilities">
+                <div class="pkmn-stats-stat-abilities">
 
                     Abilities
                         <span style="display: flex; gap: 1rem;">
@@ -820,7 +853,19 @@ Game Guide
                     <div id="pkmn-edit-ability-hidden" >
                         [Coming Soon]</div>
                 </div>
-                </span>
+
+                <div class="pkmn-stats-stat-abilities" id="pkmn-stats-stat-signature">
+
+                    Signature Move
+                        <span style="display: flex; gap: 1rem;">
+                    <div id="pkmn-edit-signature">
+                        [Coming Soon]
+                    </div>
+                                    </span>
+
+                </div>
+
+
 
 
         <span id="pkmn-editor-extra-info"></span>
@@ -1076,6 +1121,7 @@ Game Guide
 
     <script src="scripts/teams.js"></script>
     <script src="scripts/explore.js"></script>
+    <script src="scripts/shop.js"></script>
 
     <script src="scripts/save.js"></script>
     <!--客服 开始-->

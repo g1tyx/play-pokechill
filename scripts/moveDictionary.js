@@ -16,8 +16,8 @@ const defaultPlayerMoveTimer = 2000
 //tier 4 - learnt by normal pokemon = 120-140 uncompromised dmg
 //tier 5 - learnt by legendary pokemon = 160-180 uncompromised dmg
 
-const t4Base = 140
-const t5Base = 170
+const t4Base = 120
+const t5Base = 150
 
 move.blazeKick = {
     split: "physical",
@@ -27,6 +27,13 @@ move.blazeKick = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
 }
 
+move.pyroBall = {
+    split: "physical",
+    type: "fire",
+    power: t4Base,
+    info: function() {return `10% chance to inflict ${tagBurn}`},
+    hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
+}
 
 move.braveBird = {
     split: "physical",
@@ -34,13 +41,262 @@ move.braveBird = {
     power: t4Base,
 }
 
+move.snipeShot = {
+    split: "special",
+    type: "water",
+    power: t4Base,
+}
+
+move.rockWrecker = {
+    split: "physical",
+    type: "rock",
+    power: t4Base,
+}
+
+move.aeroblast = {
+    split: "special",
+    type: "flying",
+    power: t5Base,
+}
+
+move.sacredFire = {
+    split: "physical",
+    type: "fire",
+    power: t5Base,
+}
+
+move.crabhammer = {
+    split: "physical",
+    type: "water",
+    power: t4Base,
+}
+
+move.iceHammer = {
+    split: "physical",
+    type: "ice",
+    power: t4Base+20,
+    info: function() {return `Decreases Speed by 50%`},
+    hitEffect: function(target) { moveBuff(target,'spedown1','self') },
+}
+
+move.dragonDarts = {  
+    split: "physical",
+    type: "dragon",
+    power: t4Base/2,
+    info: function() {return `Hits 2 times`},
+    multihit: [2,2],
+}
+
+move.hiJumpKick = {
+    split: "physical",
+    type: "fighting",
+    power: t4Base,
+}
+
+move.headCharge = {
+    split: "physical",
+    type: "normal",
+    power: t4Base,
+}
+
+move.megahorn = {
+    split: "physical",
+    type: "bug",
+    power: t4Base,
+}
+
+move.needleArm = {
+    split: "physical",
+    type: "grass",
+    power: t4Base,
+}
+
+move.anchorShot = {
+    split: "physical",
+    type: "steel",
+    power: t4Base,
+}
+
+move.darkestLariat = {
+    split: "physical",
+    type: "dark",
+    power: t4Base,
+}
+
+move.mindBlown = {
+    split: "special",
+    type: "fire",
+    power: t5Base-20,
+}
+
+move.sparklingAria = {
+    split: "special",
+    type: "water",
+    power: t4Base-10,
+    info: function() {return `Removes ${tagBurn} for the entire party`},
+    hitEffect: function(target) { 
+        for (const slot in team) {
+            team[slot].buffs.burn = 0
+        }
+     },
+}
+
+move.floralHealing = {
+    split: "special",
+    type: "fairy",
+    power: 0,
+    info: function() {return `Removes all status effect for the entire party`},
+    hitEffect: function(target) { 
+        for (const slot in team) {
+            team[slot].buffs.burn = 0
+            team[slot].buffs.freeze = 0
+            team[slot].buffs.paralysis = 0
+            team[slot].buffs.poisoned = 0
+            team[slot].buffs.sleep = 0
+            team[slot].buffs.confused = 0
+        }
+     },
+}
+
+move.revelationDance = {
+    split: "special",
+    type: "normal",
+    power: 100,
+    info: function() {return `Type changes based on the first type of the user`},
+    castEffect: function(target) {
+        this.type = pkmn[ team[exploreActiveMember].pkmn.id ].type[0]
+        
+    },
+}
+
+move.weatherBall = { //añade forecast ability guarro
+    split: "special",
+    type: "normal",
+    power: t5Base/2+10,
+    info: function() {return `Power doubles under a weather condition, and type changes depending on it (${tagSunny} is Fire, ${tagRainy} is Water, ${tagSandstorm} is Ground, ${tagHail} is Ice, ${tagFoggy} is Ghost, ${tagElectricTerrain} is Electric, ${tagGrassyTerrain} is Grass, ${tagMistyTerrain} is Psychic )`},
+    castEffect: function(target) {
+        this.power = t5Base/2+10
+        this.type = "normal"
+        if (saved.weatherTimer>0){
+            this.power = (t5Base/2+10)*2
+            if (saved.weather=="sunny") this.type = "fire"
+            if (saved.weather=="rainy") this.type = "water"
+            if (saved.weather=="sandstorm") this.type = "ground"
+            if (saved.weather=="hail") this.type = "ice"
+            if (saved.weather=="foggy") this.type = "ghost"
+            if (saved.weather=="electricTerrain") this.type = "electric"
+            if (saved.weather=="mistyTerrain") this.type = "psychic"
+            if (saved.weather=="grassyTerrain") this.type = "grass"
+        }
+    },
+}
+
+move.poisonTail = {
+    split: "physical",
+    type: "poison",
+    power: t4Base-10,
+    info: function() {return `20% chance to inflict ${tagPoisoned}`},
+    hitEffect: function(target) { if (rng(0.20)) moveBuff(target,'poisoned') },
+}
+
+move.heatCrash = {
+    split: "physical",
+    type: "fire",
+    power: t4Base-10,
+    info: function() {return `20% chance to inflict ${tagBurn}`},
+    hitEffect: function(target) { if (rng(0.20)) moveBuff(target,'burn') },
+}
+
+move.chatter = {
+    split: "special",
+    type: "normal",
+    power: t4Base-10,
+    info: function() {return `20% chance to inflict ${tagConfused}`},
+    hitEffect: function(target) { if (rng(0.20)) moveBuff(target,'confused') },
+}
+
 move.voltTackle = {
     split: "physical",
-    rarity: 4,
     type: "electric",
     power: t4Base,
     info: function() {return `10% chance to inflict ${tagParalysis}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'paralysis') },
+}
+
+move.zingZap = {
+    split: "physical",
+    type: "electric",
+    power: t4Base,
+}
+
+move.lovelyKiss = {
+    split: "physical",
+    type: "fairy",
+    power: t4Base,
+    info: function() {return `10% chance to inflict ${tagConfused}`},
+    hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'confused') },
+}
+
+move.spacialRend = {
+    split: "special",
+    type: "dragon",
+    power: t5Base,
+}
+
+move.roarOfTime = {
+    split: "special",
+    type: "dragon",
+    power: t5Base*1.2,
+    timer: defaultPlayerMoveTimer*1.2,
+    info: function() {return `Attacks x1.2 slower than usual`} ,
+}
+
+move.doomDesire = {
+    split: "special",
+    type: "steel",
+    power: t5Base*1.5,
+    timer: defaultPlayerMoveTimer*1.5,
+    info: function() {return `Attacks x1.5 slower than usual`} ,
+}
+
+move.beakBlast = {
+    split: "physical",
+    type: "normal",
+    power: t4Base*1.5,
+    timer: defaultPlayerMoveTimer*1.5,
+    info: function() {return `Attacks x1.5 slower than usual`} ,
+}
+
+move.shadowForce = { 
+    split: "physical",
+    type: "ghost",
+    unavoidable: true,
+    power: t5Base-20,
+    info: function() {return `Can hit regardless of the typing`},
+}
+
+move.blueFlare = {
+    split: "special",
+    type: "fire",
+    power: t5Base-20,
+    info: function() {return `30% chance to inflict ${tagBurn}`},
+    hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'burn') },
+}
+
+move.boltStrike = {
+    split: "special",
+    type: "electric",
+    power: t5Base-20,
+    info: function() {return `30% chance to inflict ${tagParalysis}`},
+    hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'paralysis') },
+}
+
+move.glaciate = {
+    split: "special",
+    type: "ice",
+    power: t5Base-30,
+    info: function() {return `20% chance to inflict ${tagFreeze}`},
+    hitEffect: function(target) { if (rng(0.20)) moveBuff(target,'freeze') },
 }
 
 move.howl = {
@@ -51,10 +307,98 @@ move.howl = {
     hitEffect: function(target) { moveBuff(target,'atkup1',"team")},
 }
 
+move.aromaticMist = {
+    split: "special",
+    type: "fairy",
+    power: 0,
+    info: function() {return `Increases Special Defense by 50% to the entire team`},
+    hitEffect: function(target) { moveBuff(target,'sdefup1',"team")},
+}
+
+move.electrify = {
+    split: "special",
+    type: "electric",
+    power: 0,
+    info: function() {return `Temporarily adds Electric to the type of the enemy. Replaces other temporary types`},
+    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`electric`] },
+}
+
+move.forestCurse = {
+    split: "special",
+    type: "grass",
+    power: 0,
+    info: function() {return `Temporarily adds Grass to the type of the enemy. Replaces other temporary types`},
+    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`grass`] },
+}
+
+move.trickOrTreat = {
+    split: "special",
+    type: "ghost",
+    power: 0,
+    info: function() {return `Temporarily adds Ghost to the type of the enemy. Replaces other temporary types`},
+    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`ghost`] },
+}
+
+move.soak = {
+    split: "special",
+    type: "water",
+    power: 0,
+    info: function() {return `Temporarily adds Water to the type of the enemy. Replaces other temporary types`},
+    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`water`] },
+}
+
+move.magicPowder = {
+    split: "special",
+    type: "psychic",
+    power: 0,
+    info: function() {return `Temporarily adds Water to the type of the enemy. Replaces other temporary types`},
+    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`psychic`] },
+}
+
+move.mudSport = {
+    split: "special",
+    type: "ground",
+    power: 0,
+    info: function() {return `Temporarily adds Ground to the type of the enemy. Replaces other temporary types`},
+    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`ground`] },
+}
+
 move.boneRush = {
     split: "physical",
     type: "ground",
-    power: t4Base/4,
+    power: t4Base/3,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
+}
+
+move.clamp = {
+    split: "physical",
+    type: "water",
+    power: t4Base/3,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
+}
+
+move.waterShuriken = {
+    split: "special",
+    type: "water",
+    power: t4Base/3,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
+}
+
+move.barbBarrage = {
+    split: "physical",
+    type: "poison",
+    power: t4Base/3,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
+}
+
+move.barrage = {
+    split: "physical",
+    type: "normal",
+    power: t4Base/3,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -62,9 +406,25 @@ move.boneRush = {
 move.mysticalPower = {
     split: "special",
     type: "psychic",
-    power: t4Base-20,
+    power: t4Base-40,
     info: function() {return `Increases Special Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'satkup1',"self") },
+}
+
+move.psyshieldBash = {
+    split: "special",
+    type: "psychic",
+    power: t4Base-20,
+    info: function() {return `Increases Defense by 50%`},
+    hitEffect: function(target) { moveBuff(target,'defup1',"self") },
+}
+
+move.sketch = {
+    split: "special",
+    type: "normal",
+    power: 0,
+    info: function() {return `Executes the first move slot. Attacks x1.5 slower than usual`},
+    timer: defaultPlayerMoveTimer*1.5,
 }
 
 move.quiverDance = {
@@ -76,17 +436,33 @@ move.quiverDance = {
 }
 
 move.prismaticLaser = {
-    split: "physical",
+    split: "special",
     type: "psychic",
-    power: t5Base+10*1.2,
+    power: t5Base*1.2,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`} ,
+}
+
+move.lusterPurge = {
+    split: "special",
+    type: "psychic",
+    power: t5Base-20,
+    info: function() {return `50% chance to decrease enemy Special Defense by 50%`},
+    hitEffect: function(target) { if (rng(0.50)) moveBuff(target,'sdefdown1') },
+}
+
+move.mistBall = {
+    split: "special",
+    type: "psychic",
+    power: t5Base-10,
+    info: function() {return `50% chance to decrease enemy Special Attack by 50%`},
+    hitEffect: function(target) { if (rng(0.50)) moveBuff(target,'satkdown1') },
 }
 
 move.dynamicPunch = {
     split: "physical",
     type: "fighting",
-    power: t4Base-20,
+    power: t4Base-40,
     info: function() {return `Inflicts ${tagConfused}`},
     hitEffect: function(target) { moveBuff(target,'confused') },
 }
@@ -94,7 +470,7 @@ move.dynamicPunch = {
 move.thunderousKick = {
     split: "physical",
     type: "fighting",
-    power: t5Base-10,
+    power: t5Base-40,
     info: function() {return `Decreases enemy Defense by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1') },
 }
@@ -102,7 +478,7 @@ move.thunderousKick = {
 move.meteorAssault = {
     split: "physical",
     type: "fighting",
-    power: t5Base+20*1.2,
+    power: t5Base+10*1.2,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`} ,
 }
@@ -111,14 +487,23 @@ move.cottonGuard = {
     split: "special",
     type: "grass",
     power: 0,
-    info: function() {return `Increases Defense by 100%`},
-    hitEffect: function(target) { moveBuff(target,'defup2',"self")},
+    info: function() {return `Increases Defense by 100% and Special Defense by 50%`},
+    hitEffect: function(target) { moveBuff(target,'defup2',"self"); moveBuff(target,'sdefup1',"self")},
+}
+
+
+move.kingsShield = {
+    split: "special",
+    type: "steel",
+    power: 0,
+    info: function() {return `Increases Special Defense by 100% and Defense by 50%`},
+    hitEffect: function(target) { moveBuff(target,'defup1',"self"); moveBuff(target,'sdefup2',"self")},
 }
 
 move.drumBeating = {
     split: "physical",
     type: "grass",
-    power: t4Base-20,
+    power: t4Base-40,
     info: function() {return `Decreases enemy Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1') },
 }
@@ -126,39 +511,63 @@ move.drumBeating = {
 move.tropKick = {
     split: "physical",
     type: "grass",
-    power: t4Base-10,
+    power: t4Base-20,
     info: function() {return `Decreases enemy Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'atkdown1') },
+}
+
+move.fireLash = {
+    split: "physical",
+    type: "fire",
+    power: t4Base-50,
+    info: function() {return `Decreases enemy Defense by 50%`},
+    hitEffect: function(target) { moveBuff(target,'defdown1') },
+}
+
+move.clangingScales = {
+    split: "special",
+    type: "dragon",
+    power: t4Base-20,
+    info: function() {return `Decreases enemy Defense by 50%`},
+    hitEffect: function(target) { moveBuff(target,'defdown1') },
 }
 
 move.shiftGear = {
     split: "special",
     type: "steel",
     power: 0,
-    info: function() {return `Increases Attack by 50% and Speed by 100%`},
-    hitEffect: function(target) { moveBuff(target,'atkup1',"self"); moveBuff(target,'speup2',"self") },
+    info: function() {return `Increases Attack by 100% and Speed by 50%`},
+    hitEffect: function(target) { moveBuff(target,'atkup2',"self"); moveBuff(target,'speup1',"self") },
 }
 
-move.gearUp = {
+move.kinesis = {
+    split: "special",
+    type: "psychic",
+    power: 0,
+    info: function() {return `Increases Special Attack by 100% and Special Defense by 50%`},
+    hitEffect: function(target) { moveBuff(target,'satkup2',"self"); moveBuff(target,'sdefup1',"self") },
+}
+
+move.gearUp = { 
     split: "special",
     type: "steel",
     power: 0,
-    info: function() {return `Increases Attack and Special Attack by 50% to the entire team`},
-    hitEffect: function(target) { moveBuff(target,'atkup1',"team"); moveBuff(target,'satkup1',"team");},
+    info: function() {return `Increases Attack and Speed by 50% to the entire team`},
+    hitEffect: function(target) { moveBuff(target,'atkup1',"team"); moveBuff(target,'speup1',"team");},
 }
 
 move.relicSong = {
     split: "special",
     type: "normal",
-    power: t5Base-10,
-    info: function() {return `30% chance to inflict ${tagSleep}`},
-    hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'sleep') },
+    power: t5Base-30,
+    info: function() {return `20% chance to inflict ${tagSleep}`},
+    hitEffect: function(target) { if (rng(0.20)) moveBuff(target,'sleep') },
 }
 
 move.zapCannon = {
     split: "special",
     type: "electric",
-    power: t5Base-20,
+    power: t5Base-50,
     info: function() {return `Inflicts ${tagParalysis}`},
     hitEffect: function(target) { moveBuff(target,'paralysis'); },
 }
@@ -174,15 +583,57 @@ move.triAttack = {
 move.judgment = { 
     split: "special",
     type: "normal",
-    power: t5Base+30
+    power: t5Base+50
+}
+
+move.rageFist = { 
+    split: "physical",
+    type: "ghost",
+    power: t5Base/2,
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    buildup: 0,
+    powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
+    hitEffect: function(target) { if (this.buildup<5) this.buildup++;    },
+}
+
+move.iceBall = {
+    moveset: [`ice`],
+    split: "physical",
+    rarity: 2,
+    type: "ice",
+    power: t5Base/2,
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    buildup: 0,
+    powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
+    hitEffect: function(target) { if (this.buildup<5) this.buildup++; },
+}
+
+move.tripleAxel = { 
+    split: "physical",
+    type: "ice",
+    power: t5Base/2,
+    info: function() {return `Multiplies move power by 1.3x everytime its used, up to 3 times. Depletes all stacks upon switching`},
+    buildup: 0,
+    powerMod : function() { return 1 * Math.pow(1.3,this.buildup) },
+    hitEffect: function(target) { if (this.buildup<3) this.buildup++;   },
+}
+
+move.attackOrder = { 
+    split: "physical",
+    type: "bug",
+    power: t5Base/3,
+    info: function() {return `Multiplies move power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching`},
+    buildup: 0,
+    powerMod : function() { return 1 * Math.pow(1.15,this.buildup) },
+    hitEffect: function(target) { if (this.buildup<10) this.buildup++;  },
 }
 
 move.nobleRoar = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `Decreases enemy Attack and Special Attack by 100%`},
-    hitEffect: function(target) { moveBuff(target,'atkdown2'); moveBuff(target,'satkdown2') },
+    info: function() {return `Decreases enemy Attack by 100% and Special Attack by 50%`},
+    hitEffect: function(target) { moveBuff(target,'atkdown2'); moveBuff(target,'satkdown1') },
 }
 
 move.hyperDrill = { 
@@ -194,7 +645,7 @@ move.hyperDrill = {
 move.fieryDance = {
     split: "special",
     type: "fire",
-    power: t4Base-10,
+    power: t4Base-20,
     info: function() {return `30% chance to increase Special Attack by 50%`},
     hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'satkup1',"self") },
 }
@@ -207,13 +658,6 @@ move.torchSong = {
     hitEffect: function(target) { moveBuff(target,'satkup1',"self") },
 }
 
-move.sacredFire = {
-    split: "physical",
-    type: "fire",
-    power: t5Base,
-    info: function() {return `10% chance to inflict ${tagBurn}`},
-    hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
-}
 
 move.vCreate = {
     split: "physical",
@@ -246,12 +690,28 @@ move.splash = {
     info: function() {return `...`} ,
 }
 
+move.conversion = {
+    split: "special",
+    type: "normal",
+    power: 0,
+    info: function() {return `Changes the type of the user to the type of the first move slot`},
+    hitEffect: function(target) { pkmn[ team[exploreActiveMember].pkmn.id ].type = [ move[ pkmn[ team[exploreActiveMember].pkmn.id] .moves.slot1  ].type  ] },
+}
+
 move.flameBurst = {
     split: "special",
     type: "fire",
-    power: t4Base,
+    power: t4Base+10,
     info: function() {return `Inflicts ${tagBurn} to the entire team`},
     hitEffect: function(target) { moveBuff(target,'burn',"team") },
+}
+
+move.morningSun = { 
+    split: "special",
+    type: "normal",
+    power: 0,
+    info: function() {return `Changes the weather to ${tagSunny} and increases Special Attack by 50%`} ,
+    hitEffect: function(target) { changeWeather("sunny"); moveBuff(target,'satkup1',"self") },
 }
 
 
@@ -276,7 +736,7 @@ move.tackle = {
     power: 40
 }
 
-move.doubleSlap = { //new
+move.doubleSlap = {  
     moveset: [`normal`, `fighting`],
     split: "physical",
     rarity: 1,
@@ -305,7 +765,7 @@ move.leer = {
     hitEffect: function(target) { moveBuff(target,'defdown1') },
 }
 
-move.growl = {//new
+move.growl = { 
     moveset: [`normal`, `all`, `dark`],
     split: "special",
     rarity: 1,
@@ -327,7 +787,7 @@ move.swagger = {
     hitEffect: function(target) { moveBuff(target,'confused'); moveBuff(target,'atkup2') },
 }
 
-move.doubleHit = { //new
+move.doubleHit = {  
     moveset: [`normal`],
     split: "physical",
     rarity: 2,
@@ -388,7 +848,7 @@ move.screech = {
     hitEffect: function(target) { moveBuff(target,'defdown2') },
 }
 
-move.smellingSalts = { //new
+move.smellingSalts = {  
     moveset: [`normal`],
     split: "physical",
     rarity: 3,
@@ -398,7 +858,7 @@ move.smellingSalts = { //new
     powerMod : function() { if (wildBuffs.paralysis>0) { return 2} else return 1 },
 }
 
-move.facade = { //new
+move.facade = {  
     moveset: [`normal`],
     split: "physical",
     rarity: 3,
@@ -454,7 +914,7 @@ move.hyperBeam = {
     info: function() {return `Attacks x1.5 slower than usual`} ,
 }
 
-move.gigaImpact = { //new
+move.gigaImpact = {  
     moveset: [`normal`, `all`],
     split: "physical",
     rarity: 3,
@@ -488,7 +948,7 @@ move.ember = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
 }
 
-move.fireSpin = { //new
+move.fireSpin = {  
     moveset: [`fire`],
     split: "special",
     rarity: 1,
@@ -536,7 +996,7 @@ move.firePunch = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
 }
 
-move.willOWisp = { //new
+move.willOWisp = {  
     moveset: [`fire`, `ghost`],
     split: "special",
     rarity: 2,
@@ -546,7 +1006,7 @@ move.willOWisp = { //new
     hitEffect: function(target) { moveBuff(target,'burn') },
 }
 
-move.sunnyDay = {//new
+move.sunnyDay = { 
     moveset: [`fire`,`ground`],
     split: "special",
     rarity: 2,
@@ -597,7 +1057,7 @@ move.flareBlitz = {
 }
 
 
-move.overheat = { //new
+move.overheat = {  
     moveset: [`fire`],
     split: "special",
     rarity: 3,
@@ -715,7 +1175,7 @@ move.discharge = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'paralysis') },
 }
 
-move.electricTerrain = {//new
+move.electricTerrain = { 
     moveset: [`electric`,`steel`],
     split: "special",
     unavoidable: true,
@@ -731,7 +1191,7 @@ move.thunder = {
     split: "special",
     rarity: 3,
     type: "electric",
-    power: 120,
+    power: 110,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`} ,
 }
@@ -748,7 +1208,7 @@ move.mudSlap = {
     power: 20
 }
 
-move.magnitude = { //new
+move.magnitude = {  
     moveset: [`ground`, `rock`],
     split: "physical",
     rarity: 1,
@@ -789,7 +1249,7 @@ move.rototiller = {
     hitEffect: function(target) { moveBuff(target,'atkup1',"self"); moveBuff(target,'satkup1',"self") },
 }
 
-move.sandstorm = {//new
+move.sandstorm = { 
     moveset: [`rock`,`ground`],
     split: "special",
     unavoidable: true,
@@ -969,7 +1429,7 @@ move.skyDrop = {
     power: 60
 }
 
-move.dualWingbeat = { //new
+move.dualWingbeat = {  
     moveset: [`flying`],
     split: "physical",
     rarity: 2,
@@ -979,7 +1439,7 @@ move.dualWingbeat = { //new
     multihit: [2,2],
 }
 
-move.acrobatics = { //new
+move.acrobatics = {  
     moveset: [`flying`, `bug`],
     split: "physical",
     rarity: 2,
@@ -1224,7 +1684,7 @@ move.powderSnow = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'freeze') },
 }
 
-move.icicleSpear = { //new
+move.icicleSpear = {  
     moveset: [`ice`],
     split: "physical",
     rarity: 2,
@@ -1234,7 +1694,9 @@ move.icicleSpear = { //new
     multihit: [2,5],
 }
 
-move.hail = {//new
+
+
+move.hail = { 
     moveset: [`ice`],
     split: "special",
     rarity: 2,
@@ -1343,15 +1805,19 @@ move.twineedle = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'poisoned') },
 }
 
-move.furyCutter = {
+move.furyCutter = { //new
     moveset: [`bug`],
     split: "physical",
     rarity: 1,
     type: "bug",
-    power: 40
+    power: 25,
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    buildup: 0,
+    powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
+    hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },
 }
 
-move.infestation = { //new
+move.infestation = {  
     moveset: [`bug`],
     split: "physical",
     rarity: 1,
@@ -1361,7 +1827,7 @@ move.infestation = { //new
     multihit: [2,5],
 }
 
-move.pinMissile = { //new
+move.pinMissile = {  
     moveset: [`bug`],
     split: "physical",
     rarity: 2,
@@ -1485,7 +1951,7 @@ move.aquaJet = {
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
-move.whirlpool = { //new
+move.whirlpool = {  
     moveset: [`water`],
     split: "special",
     rarity: 2,
@@ -1515,7 +1981,7 @@ move.chillingWater = {
     hitEffect: function(target) { moveBuff(target,'atkdown1') },
 }
 
-move.rainDance = {//new
+move.rainDance = { 
     moveset: [`water`],
     split: "special",
     rarity: 2,
@@ -1624,7 +2090,7 @@ move.magicalLeaf = {
     power: 60
 }
 
-move.bulletSeed = { //new
+move.bulletSeed = {  
     moveset: [`grass`],
     split: "physical",
     rarity: 2,
@@ -1680,7 +2146,7 @@ move.solarBeam = {
     info: function() {return `Attacks x1.2 slower than usual`} ,
 }
 
-move.solarBlade = { //special
+move.solarBlade = { 
     moveset: [`grass`],
     split: "physical",
     rarity: 3,
@@ -1718,7 +2184,7 @@ move.spore = {
     hitEffect: function(target) { if (rng(0.50)) moveBuff(target,'sleep') },
 }
 
-move.grassyTerrain = {//new
+move.grassyTerrain = { 
     moveset: [`grass`,`bug`],
     split: "special",
     rarity: 3,
@@ -1760,7 +2226,7 @@ move.machPunk = {
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
-move.armThrust = { //new
+move.armThrust = {  
     moveset: [`fighting`],
     split: "physical",
     rarity: 1,
@@ -1797,7 +2263,7 @@ move.stormThrow = {
 }
 
 move.lowSweep = {
-    moveset: [`fighting`],
+    moveset: [`fighting`, `normal`],
     split: "physical",
     rarity: 2,
     type: "fighting",
@@ -1858,7 +2324,7 @@ move.crossChop = {
     power: 100
 }
 
-move.closeCombat = { //new
+move.closeCombat = {  
     moveset: [`fighting`],
     split: "physical",
     rarity: 3,
@@ -1868,7 +2334,7 @@ move.closeCombat = { //new
     hitEffect: function(target) { moveBuff(target,'defdown1','self'); moveBuff(target,'sdefdown1','self') },
 }
 
-move.superpower = { //new
+move.superpower = {  
     moveset: [`fighting`],
     split: "physical",
     rarity: 3,
@@ -1935,14 +2401,14 @@ move.psychoCut = {
 
 move.zenHeadbut = {
     rename: `zenHeadbutt`,
-    moveset: [`psychic`, `fighting`],
+    moveset: [`psychic`, `fighting`, `normal`],
     split: "physical",
     rarity: 3,
     type: "psychic",
     power: 80
 }
 
-move.twinBeam = { //new
+move.twinBeam = {  
     moveset: [`psychic`],
     split: "special",
     rarity: 3,
@@ -2035,7 +2501,7 @@ move.accelerock = {
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
-move.rockBlast = { //new
+move.rockBlast = {  
     moveset: [`rock`],
     split: "physical",
     rarity: 2,
@@ -2043,6 +2509,18 @@ move.rockBlast = { //new
     power: 25,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
+}
+
+move.rollout = { //new
+    moveset: [`rock`],
+    split: "physical",
+    rarity: 2,
+    type: "rock",
+    power: 55,
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    buildup: 0,
+    powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
+    hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },
 }
 
 move.ancientPower = {
@@ -2063,13 +2541,6 @@ move.smackDown = {
     power: 50
 }
 
-move.rollout = {
-    moveset: [`rock`],
-    split: "physical",
-    rarity: 2,
-    type: "rock",
-    power: 60
-}
 
 move.rockTomb = {
     moveset: [`rock`],
@@ -2140,6 +2611,7 @@ move.shadowSneak = {
 move.confuseRay = {
     moveset: [`ghost`, `psychic`, `all`],
     split: "special",
+    unavoidable: true,
     rarity: 2,
     type: "ghost",
     power: 0,
@@ -2155,7 +2627,7 @@ move.shadowPunch = {
     power: 60
 }
 
-move.fog = {//new
+move.fog = { 
     moveset: [`dark`,`ghost`],
     split: "special",
     rarity: 2,
@@ -2176,7 +2648,7 @@ move.ominousWind = {
     hitEffect: function(target) { if (rng(0.05)) {moveBuff(target,'satkup1',"self");moveBuff(target,'atkup1',"self");moveBuff(target,'defup1',"self");moveBuff(target,'sdefup1',"self");moveBuff(target,'speup1',"self");} },
 }
 
-move.hex = { //new
+move.hex = {  
     moveset: [`ghost`],
     split: "special",
     rarity: 2,
@@ -2221,7 +2693,7 @@ move.dragonTail = {
     power: 60
 }
 
-move.dualChop = { //new
+move.dualChop = {  
     moveset: [`dragon`],
     split: "physical",
     rarity: 2,
@@ -2267,7 +2739,7 @@ move.dragonRush = {
     info: function() {return `Attacks x1.2 slower than usual`} ,
 }
 
-move.outrage = { //new
+move.outrage = {  
     moveset: [`dragon`],
     split: "physical",
     rarity: 3,
@@ -2277,7 +2749,7 @@ move.outrage = { //new
     hitEffect: function(target) { moveBuff(target,'confused',"self") },
 }
 
-move.dracoMeteor = { //new
+move.dracoMeteor = {  
     moveset: [`dragon`],
     split: "special",
     rarity: 3,
@@ -2327,7 +2799,7 @@ move.bite = {
 }
 
 move.feintAttack = {
-    moveset: [`dark`],
+    moveset: [`dark`, `normal`],
     split: "physical",
     rarity: 2,
     type: "dark",
@@ -2416,6 +2888,18 @@ move.fairyWind = {
     power: 50
 }
 
+move.echoedVoice = { //new
+    moveset: [`fairy`, `normal`],
+    split: "special",
+    rarity: 2,
+    type: "fairy",
+    power: 50,
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    buildup: 0,
+    powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
+    hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },
+}
+
 move.alluringVoice = {
     moveset: [`fairy`],
     split: "special",
@@ -2450,15 +2934,6 @@ move.moonblast = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'satkdown1') },
 }
 
-move.aromaticMist = {
-    moveset: [`fairy`, `grass`],
-    split: "special",
-    rarity: 3,
-    type: "fairy",
-    power: 0,
-    info: function() {return `Increases Special Defense by 50% to the entire team`},
-    hitEffect: function(target) { moveBuff(target,'sdefup1',"team")},
-}
 
 move.babydollEyes = {
     moveset: [`fairy`, `normal`],
@@ -2490,7 +2965,7 @@ move.sweetKiss = {
     hitEffect: function(target) { moveBuff(target,'confused') },
 }
 
-move.mistyTerrain = {//new
+move.mistyTerrain = { 
     moveset: [`fairy`,`psychic`],
     split: "special",
     rarity: 3,
@@ -2511,19 +2986,19 @@ const ability = {}
 
 //tier 1
 
-ability.hydratation = { //new
+ability.hydratation = {  
     type: [`water`,`grass`],
     rarity: 1,
     info: function() {return `Prevents negative status effects while on ${tagRainy} weather`},
 }
 
-ability.sandVeil = { //new
+ability.sandVeil = {  
     type: [`ground`],
     rarity: 1,
     info: function() {return `Prevents negative status effects while on ${tagSandstorm} weather`},
 }
 
-ability.snowCloak = { //new
+ability.snowCloak = {  
     type: [`ice`],
     rarity: 1,
     info: function() {return `Prevents negative status effects while on ${tagHail} weather`},
@@ -2805,25 +3280,25 @@ ability.synchronize = {
     info: function() {return `Inflicts active status effects to the attacker aswell`},
 }
 
-ability.solarPower = { //new
+ability.solarPower = {  
     type: [`fire`,`grass`],
     rarity: 2,
     info: function() {return `Increases Special Attack by 50% on ${tagSunny} weather`},
 }
 
-ability.iceBody = { //new
+ability.iceBody = {  
     type: [`ice`],
     rarity: 2,
     info: function() {return `Increases Defense by 50% on ${tagHail} weather`},
 }
 
-ability.rainDish = { //new
+ability.rainDish = {  
     type: [`water`, `grass`],
     rarity: 2,
     info: function() {return `Increases Special Attack by 50% on ${tagRainy} weather`},
 }
 
-ability.sandForce = { //new
+ability.sandForce = {  
     type: [`ground`],
     rarity: 2,
     info: function() {return `Increases Attack by 50% on ${tagSandstorm} weather`},
@@ -3004,37 +3479,37 @@ ability.brittleArmor = {
     info: function() {return `Increases Special Attack by 50% if afflicted with a status effect`},
 }
 
-ability.grassyPelt = { //new
+ability.grassyPelt = {  
     type: [`grass`],
     rarity: 2,
     info: function() {return `Prevents negative stat changes and status effects while on ${tagRainy} weather`},
 }
 
-ability.sandyPelt = { //new
+ability.sandyPelt = {  
     type: [`ground`],
     rarity: 2,
     info: function() {return `Prevents negative stat changes and status effects while on ${tagSunny} weather`},
 }
 
-ability.moistPelt = { //new
+ability.moistPelt = {  
     type: [`water`],
     rarity: 2,
     info: function() {return `Prevents negative stat changes and status effects while on ${tagSandstorm} weather`},
 }
 
-ability.fieryPelt = { //new
+ability.fieryPelt = {  
     type: [`fire`],
     rarity: 2,
     info: function() {return `Prevents negative stat changes and status effects while on ${tagHail} weather`},
 }
 
-ability.pixiePelt = { //new
+ability.pixiePelt = {  
     type: [`fairy`],
     rarity: 2,
     info: function() {return `Prevents negative stat changes and status effects while on ${tagFoggy} weather`},
 }
 
-ability.chlorophyll  = { //new
+ability.chlorophyll  = {  
     type: [`grass`],
     rarity: 2,
     info: function() {return `Increases Speed by 50% on ${tagSunny} weather`},
@@ -3294,6 +3769,7 @@ ability.ferrilate = {
 }
 
 ability.glaciate = {
+    rename: `refrigerate`,
     info: function() {return `Normal-type moves become Ice-type moves, and their power is multiplied by x1.3`},
     rarity: 3,
 }

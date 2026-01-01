@@ -305,6 +305,13 @@ item.timeCandyXL = {
     info: function() {return `Fast-forwards battle time by 30 minutes. Must be used while battling`},
 }
 
+item.energyRoot = {
+    type: "key",
+    usable: true,
+    effect: function() {  if(saved.geneticOperation > 1) {afkSecondsGenetics = 30*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
+    info: function() {return `Fast-forwards operation time by 30 minutes. Must be used while an active operation is ongoing`},
+}
+
 item.waterStone = {
     type: "key",
     evo: true,
@@ -1026,6 +1033,26 @@ item.disarmingVoiceTm = {}
 item.dazzlingGleamTm = {}
 item.playRoughTm = {}
 
+//shop
+
+item.bulkUpTm = {}
+item.thunderWaveTm = {}
+item.toxicTm = {}
+item.willOWispTm = {}
+
+item.calmMindTm = {}
+item.sunnyDayTm = {}
+
+item.crunchTm = {}
+item.xScissorTm = {}
+item.moonblastTm = {}
+
+item.fireBlastTm = {}
+item.hydroPumpTm = {}
+item.thunderTm = {}
+item.hyperBeamTm = {}
+
+
 
 for (const i in item){
     item[i].id = i
@@ -1038,7 +1065,6 @@ for (const i in item){
     if (i.endsWith("Tm")) {
         item[i].move = i.slice(0, -2); 
         item[i].type = "tm";
-
         
         item[i].info = function () { return `Teach the move <span data-move="${move[item[i].move].id}" ><span  style="cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor(move[item[i].move].type)}">${format(move[item[i].move].id)}</span></span> to a ${joinWithOr(move[item[i].move].moveset)} Pokemon`}        
 

@@ -153,7 +153,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 1.8
+  saved.version = 1.9
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -275,18 +275,32 @@ const observer = new MutationObserver(mutations => {
   for (const m of mutations) {
     if (m.type === "childList") {
       for (const node of m.addedNodes) {
-        if (node.tagName === "IMG" && node.classList.contains("sprite-trim")) {
+        if (node.nodeType !== 1) continue;
+
+        if (
+          node.tagName === "IMG" &&
+          node.classList.contains("sprite-trim") &&
+          !node.closest("#pokedex-list")
+        ) {
           processSprite(node);
         }
+
         if (node.querySelectorAll) {
-          node.querySelectorAll("img.sprite-trim").forEach(processSprite);
+          node
+            .querySelectorAll("img.sprite-trim:not(#pokedex-list img)")
+            .forEach(processSprite);
         }
       }
     }
 
     if (m.type === "attributes" && m.attributeName === "src") {
       const img = m.target;
-      if (img.tagName === "IMG" && img.classList.contains("sprite-trim")) {
+
+      if (
+        img.tagName === "IMG" &&
+        img.classList.contains("sprite-trim") &&
+        !img.closest("#pokedex-list")
+      ) {
         processSprite(img);
       }
     }
@@ -475,7 +489,7 @@ function openTutorial(){
   if (saved.tutorialStep == "intro") document.getElementById("tutorial-text").innerHTML = `Howdy! I have been assigned to show the ropes, but you can disable me in the settings at any time.<br>Let's start by getting new pokemon shall we? Select "Travel" on the top left menu`
   if (saved.tutorialStep == "travel") document.getElementById("tutorial-text").innerHTML = `You can right click/long tap almost everything on the screen for more info! You can also do this within the info itself too. Try going into the first Wild Area to start catching Pokemon`
   if (saved.tutorialStep == "moves") document.getElementById("tutorial-text").innerHTML = `Right click/long tap a pokemon in your team to set their moves, you can also do this while in battle. If you got any held items, you can also assign them here<br>Once you are ready, press Save and Go! at the top of the screen`
-  if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell`
+  if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell. Once you have more Pokemon in your team, you will be able to switch them arround in a fight`
   if (saved.tutorialStep == "battleEnd") {document.getElementById("tutorial-text").innerHTML = `You can check a more in-depth explanation about stats and battle mechanics in the Guide menu. For now, I will take a break... Enjoy your stay!`}
   document.getElementById("tutorial").style.display = "flex"
   
@@ -491,7 +505,7 @@ guide.inspecting = {
 
 guide.stats = {
   name: `Battle: Stats`,
-  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves). The speed stat determines how fast a Pokemon executes a move<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon`}
+  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves). The speed stat determines how fast a Pokemon executes a move<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon<br><br>Depending on their base stats, a Division will be asigned to them. You might use this Division letter to quickly assess which Pokemon can perform better on the short term`}
 }
 
 guide.abilities = {
@@ -506,7 +520,7 @@ guide.experience = {
 
 guide.moves = {
   name: `Battle: Moves`,
-  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon<br><br>Damaging moves are divided into physical and special moves<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense`}
+  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon<br><br>Damaging moves are divided into physical and special moves<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense<br><br>Some Pokemon might have Signature Moves. Signature Moves are species-dependant moves that a Pokemon learn at level 100. Signature Moves can't be inherited through genetics`}
 }
 
 guide.stab = {
@@ -521,7 +535,7 @@ guide.battleFatigue = {
 
 guide.statusEffects = {
   name: `Battle: Status Effects`,
-  description: function() { return `Certain moves inflict status effects such as ${tagConfused}, ${tagBurn}, ${tagPoisoned}, ${tagFreeze}, ${tagParalysis} or ${tagSleep}.<br><br>You can further check their effects by right click/long press<br><br>Status effects, like temporal stat changes, will count down with turns` }
+  description: function() { return `Certain moves inflict Status Effects such as ${tagConfused}, ${tagBurn}, ${tagPoisoned}, ${tagFreeze}, ${tagParalysis} or ${tagSleep}.<br><br>You can further check their effects by right click/long press<br><br>Status Effects, like temporal stat changes, will count down with turns. You can only apply one Status Effect at a time` }
 }
 
 guide.weather = {
@@ -647,5 +661,4 @@ function infoMisc(){
     console.table([
       {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
       ]);
-
 }

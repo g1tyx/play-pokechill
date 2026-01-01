@@ -368,6 +368,18 @@ flex-direction: column;
 
 .pkmn-movebox span{
     z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    pointer-events: none;
+}
+
+.pkmn-movebox span svg{
+    margin-left: 0.3rem;
+    height: 70%;
+    width: auto;
 }
 
 #explore-team{
@@ -884,10 +896,11 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 
 .inspect-info{
     width: 100%;
-    height: 2.5rem;
+    height: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; 
+    align-content: flex-start;
     gap: 0.3rem;
     padding: 0.5rem;
     border-radius: 0.2rem;
@@ -895,13 +908,23 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     margin-top: 0.3rem;
     position: relative;
     padding: 4px;
-    gap: 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.inspect-info .tier-letter{
+    margin-bottom: -4rem;
+    transform: translateY(-2rem);
+    cursor: default;
 }
 
 .inspect-info div{
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
+    height: 1.5rem;
+    cursor: help;
 }
 
 .pkmn-stats-stat-switch{
@@ -3660,7 +3683,58 @@ background:
 }
 
 
+#shop-categories{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0.5rem;
+}
 
+#shop-categories div{
+    height: 6.5rem;
+    width: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    background: white;
+    color: var(--dark2);
+    outline: #a6a8b1 solid 2px;
+    padding-top: 1.3rem;
+    transition: 0.1s;
+    cursor: pointer;;
+}
+
+#shop-categories img{
+    scale: 2;
+    image-rendering: pixelated;
+    background: #c4c5ca;
+    border-radius: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+#shop-categories div:hover{
+    background: #a6a8b1;
+    color: white;
+}
+
+#shop-categories div:active{
+    scale: 0.95;
+}
+
+#shop-back svg{
+    height: 2rem;
+    width: 2rem;
+    margin: 0 0.2rem;
+}
+
+#shop-back{
+    background: rgb(102, 151, 207) !important;
+}
 
 #shop-menu{
     position: fixed;
@@ -3772,7 +3846,7 @@ background:
     text-align: center;
     font-size: 1.2rem;
     color: var(--dark2);
-    width: 5rem;
+    width: 7rem;
     
 }
 

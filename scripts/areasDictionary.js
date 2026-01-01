@@ -2307,7 +2307,7 @@ areas.eventMegaPidgeot = {
     level : 100,
     team : {
         slot1 : pkmn.megaPidgeot,
-        slot1Moves : [move.agility.id,move.fly.id, move.hyperVoice.id, move.braveBird.id],
+        slot1Moves : [move.featherDance.id,move.fly.id, move.hyperVoice.id, move.heatWave.id],
     },
     reward : [item.pidgeotite, pkmn.pidgey]
 }
@@ -2933,6 +2933,112 @@ areas.vsTeamLeaderGiovanni = {
 
 
 
+/*
+
+areas.vsTeamLeaderCyrus = { //setiv4
+    name: `Team Leader Cyrus`,
+    background : `gym`,
+    sprite : `cyrus`,
+    difficulty : 11,
+    trainer: true,
+    type: `vs`,
+    level : 125,
+    team : {
+        slot1 : pkmn.gyarados,
+        slot1Moves : [move.dragonDance.id,move.fly.id, move.waterfall.id],
+        slot2 : pkmn.crobat,
+        slot2Moves : [move.featherDance.id, move.dualWingbeat.id, move.toxic.id],
+        slot3 : pkmn.weavile,
+        slot3Moves : [move.agility.id, move.icicleCrash.id, move.nightSlash.id],
+        slot4 : pkmn.palkia,
+        slot4Moves : [move.hydroPump.id, move.iceBeam.id, move.spacialRend.id],
+        slot5 : pkmn.dialga,
+        slot5Moves : [move.flashCannon.id, move.earthPower.id, move.roarOfTime.id],
+        slot6 : pkmn.giratina,
+        slot6Moves : [move.dragonDance.id, move.dragonClaw.id, move.shadowForce.id],
+    },
+    reward : [item.abilityPatch, item.bottleCap]
+}
+
+areas.vsTeamLeaderGhetsis = {
+    name: `Team Leader Ghetsis`,
+    background : `gym`,
+    sprite : `ghetsis`,
+    difficulty : 12,
+    trainer: true,
+    type: `vs`,
+    level : 130,
+    team : {
+        slot1 : pkmn.drapion,
+        slot1Moves : [move.swordsDance.id,move.xScissor.id, move.poisonJab.id],
+        slot2 : pkmn.seismitoad,
+        slot2Moves : [move.thunderWave.id, move.scald.id, move.earthquake.id],
+        slot3 : pkmn.hydreigon,
+        slot3Moves : [move.dragonDance.id, move.crunch.id, move.dracoMeteor.id],
+        slot4 : pkmn.reshiram,
+        slot4Moves : [move.calmMind.id, move.iceBeam.id, move.blueFlare.id],
+        slot5 : pkmn.zekrom,
+        slot5Moves : [move.honeClaws.id, move.dragonClaw.id, move.boltStrike.id],
+        slot6 : pkmn.kyurem,
+        slot6Moves : [move.nastyPlot.id, move.darkPulse.id, move.glaciate.id],
+    },
+    reward : [item.abilityPatch, item.bottleCap]
+}
+
+areas.vsMasterTrainerSteven = {
+    name: `Master Trainer Steven`,
+    background : `gym`,
+    sprite : `steven`,
+    difficulty : 13,
+    trainer: true,
+    type: `vs`,
+    level : 135,
+    team : {
+        slot1 : pkmn.blaziken,
+        slot1Moves : [move.agility.id,move.blazeKick.id, move.crossChop.id],
+        slot2 : pkmn.feraligatr,
+        slot2Moves : [move.earthPower.id, move.iceBeam.id, move.scald.id],
+        slot3 : pkmn.arcanine,
+        slot3Moves : [move.extremeSpeed.id, move.flareBlitz.id, move.willOWisp.id],
+        slot4 : pkmn.latios,
+        slot4Moves : [move.swordsDance.id, move.flareBlitz.id, move.earthquake.id],
+        slot5 : pkmn.deoxys,
+        slot5Moves : [move.nastyPlot.id, move.flamethrower.id, move.fireBlast.id],
+        slot6 : pkmn.megaMetagross,
+        slot6Moves : [move.bulkUp.id, move.firePunch.id, move.earthquake.id],
+    },
+    reward : [item.abilityPatch, item.bottleCap]
+}
+
+areas.vsMasterTrainerGeeta = {
+    name: `Master Trainer Geeta`,
+    background : `gym`,
+    sprite : `geeta`,
+    difficulty : 10,
+    trainer: true,
+    type: `vs`,
+    level : 140,
+    team : {
+        slot1 : pkmn.slaking,
+        slot1Moves : [move.bulkUp.id,move.gigaImpact.id, move.shadowPunch.id, move.extremeSpeed.id],
+        slot2 : pkmn.krookodile,
+        slot2Moves : [move.honeClaws.id, move.earthquake.id, move.nightSlash.id, move.sandstorm.id],
+        slot3 : pkmn.tyranitar,
+        slot3Moves : [move.earthquake.id, move.rockSlide.id, move.ironDefense.id, move.crunch.id],
+        slot4 : pkmn.megaKangaskhan,
+        slot4Moves : [move.powerupPunch.id, move.gigaImpact.id, move.closeCombat.id, move.thunderPunch.id],
+        slot5 : pkmn.hydreigon,
+        slot5Moves : [move.nastyPlot.id, move.dracoMeteor.id, move.darkPulse.id, move.toxic.id],
+        slot6 : pkmn.mewtwo,
+        slot6Moves : [move.calmMind.id, move.psychic.id, move.shadowBall.id, move.confuseRay.id],
+    },
+    reward : [item.abilityCapsule, item.goldenBottleCap]
+}
+
+
+*/
+
+
 
 
 //little cup - D-C tiers
@@ -2940,7 +3046,7 @@ areas.vsTeamLeaderGiovanni = {
 
 
 const exclusiveFrontierPkmn = [pkmn.relicanth, pkmn.heatmor, pkmn.durant, pkmn.comfey, pkmn.morpeko, pkmn.klefki, pkmn.munna, pkmn.finneon,
-pkmn.skorupi, pkmn.stunky, pkmn.zangoose, pkmn.spinda, pkmn.gulpin, pkmn.zigzagoon, pkmn.teddiursa, pkmn.pineco, pkmn.shuckle, pkmn.minccino, pkmn.cursola, pkmn.pincurchin, pkmn.stonjourner,
+pkmn.skorupi, pkmn.stunky, pkmn.zangoose, pkmn.spinda, pkmn.gulpin, pkmn.zigzagoon, pkmn.teddiursa, pkmn.pineco, pkmn.shuckle, pkmn.minccino, pkmn.cursola, pkmn.pincurchin, pkmn.stonjourner, pkmn.smeargle, pkmn.stantler, pkmn.thievul,
 
 pkmn.charmander, pkmn.squirtle, pkmn.bulbasaur, pkmn.chikorita, pkmn.cyndaquil, pkmn.totodile, pkmn.mudkip, pkmn.torchic, pkmn.treecko, pkmn.turtwig, pkmn.piplup, pkmn.chimchar, pkmn.tepig, pkmn.snivy, pkmn.oshawott, pkmn.froakie, pkmn.chespin, pkmn.fennekin, pkmn.rowlet, pkmn.litten, pkmn.popplio, pkmn.grookey, pkmn.scorbunny, pkmn.sobble,
 

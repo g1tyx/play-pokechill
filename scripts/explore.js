@@ -64,6 +64,7 @@ function format(input) {
     let str = String(input);
     if (move[input]?.rename) str = String(move[input].rename);
     if (pkmn[input]?.rename) str = String(pkmn[input].rename);
+    if (ability[input]?.rename) str = String(ability[input].rename);
 
     str = str.replace(/hisuian/gi, 'hsn. ');
     str = str.replace(/alolan/gi, 'aln. ');
@@ -150,11 +151,17 @@ function givePkmn(poke, level) {
         }
     }
 
-    // Equipar slot1 con el último movimiento del movepool sólo si no está ya equipado
-    const lastMove = poke.movepool[poke.movepool.length - 1];
-    if (lastMove) {
-    poke.moves.slot1 = lastMove;
-        
+    // equips moves into slots
+    const slots = ["slot1", "slot2", "slot3", "slot4"];
+    const equippedMoves = Object.values(poke.moves).filter(m => m);
+    const availableMoves = poke.movepool.filter(m => !equippedMoves.includes(m));
+
+    let i = 0;
+    for (const slot of slots) {
+    if (!poke.moves[slot] && availableMoves[i]) {
+        poke.moves[slot] = availableMoves[i];
+        i++;
+    }
     }
 
     poke.level = finalLevel;
@@ -368,7 +375,7 @@ for (let t of thresholds) {
 
     wildPkmnHpMax = wildPkmnHp
 
-
+    if (pkmn[saved.currentPkmn].temporalType!=undefined) pkmn[saved.currentPkmn].temporalType = undefined 
     document.getElementById("explore-wild-sprite-data").dataset.pkmn = spawnedPkmn
 
     document.getElementById("explore-header-moves-wild").innerHTML = ""
@@ -395,6 +402,9 @@ while (randomMoves.length < 4) randomMoves.push(undefined);
         continue;
     }
 
+    let signatureIcon = ""
+    if (move[i].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[i].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+
     const divMove = document.createElement("div");
     divMove.className = "pkmn-movebox";
     divMove.style.borderColor = returnTypeColor(move[i].type);
@@ -403,7 +413,7 @@ while (randomMoves.length < 4) randomMoves.push(undefined);
         `<div id="pkmn-movebox-wild-${index+1}-bar"
               class="pkmn-movebox-progress"
               style="background: ${returnTypeColor(move[i].type)}"></div>
-         <span>${format(i)}</span>
+         <span>${format(i)}${signatureIcon}</span>
          <img style="background: ${returnTypeColor(move[i].type)}"
               src="img/icons/${move[i].type}.svg">`;
 
@@ -482,7 +492,6 @@ function dropItem(){
 
     if (item[drop].type=="held" && item[drop].got>= 20) drop = item.bottleCap.id
     if (item[drop].type!=="held" && item[drop].evo && item[drop].got>= 10) drop = item.bottleCap.id
-    if (item[drop].genetics && item[drop].got>= 20) drop = item.bottleCap.id
 
 
 
@@ -1047,6 +1056,10 @@ function openTooltip(){
     document.getElementById("tooltipBackground").style.display = "flex"
 }
 
+document.getElementById("tooltipBackground").addEventListener("click", (e) => {
+          if (!document.getElementById("prevent-tooltip-exit")) closeTooltip()
+});
+
 
 function returnTypeColor(type) {
     switch(type) {
@@ -1167,7 +1180,7 @@ for (const i in team) {
 
 
             pkmn[ team[i].pkmn.id ].movepool.push(learntMove)
-            if (pkmn[ team[i].pkmn.id ].moves.slot2 === null || pkmn[ team[i].pkmn.id ].moves.slot2 === undefined) pkmn[ team[i].pkmn.id ].moves.slot2 = learntMove
+            if (pkmn[ team[i].pkmn.id ].moves.slot2 === null || pkmn[ team[i].pkmn.id ].moves.slot2 === undefined) pkmn[ team[i].pkmn.id ].moves.slot2 = learntMove //fix
             else if (pkmn[ team[i].pkmn.id ].moves.slot3 === null || pkmn[ team[i].pkmn.id ].moves.slot3 === undefined) pkmn[ team[i].pkmn.id ].moves.slot3 = learntMove
             else if (pkmn[ team[i].pkmn.id ].moves.slot4 === null || pkmn[ team[i].pkmn.id ].moves.slot4 === undefined) pkmn[ team[i].pkmn.id ].moves.slot4 = learntMove
 
@@ -1283,6 +1296,14 @@ function updateTeamPkmn(){
 
 
 }
+
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space" || e.code === "Escape") {
+    if (document.getElementById("tooltipTop").style.display !== "none") {
+      closeTooltip();
+    }
+  }
+});
 
 document.addEventListener("contextmenu", (e) => {
   e.preventDefault();
@@ -1502,6 +1523,8 @@ document.addEventListener("contextmenu", e => {
 
     if (el.dataset.move !== undefined) {
 
+        document.getElementById("tooltipTop").style.display = `inline`
+        document.getElementById("tooltipTitle").style.display = `inline`
         document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${format(move[el.dataset.move].type)}.png">`
         document.getElementById("tooltipTitle").innerHTML = format(el.dataset.move)
         document.getElementById("tooltipMid").style.display = "inline"
@@ -1538,7 +1561,9 @@ document.addEventListener("contextmenu", e => {
 
         document.getElementById("tooltipTop").style.display = "none";
         document.getElementById("tooltipTitle").style.display = "none";
-        hiddenAbility = `WIP`
+        let hiddenAbility = `WIP`
+        let signatureMove = ""
+        if (pkmn[el.dataset.pkmn].signature != undefined) signatureMove = `<div id="inpect-pkmn-signature" style="box-shadow: none; outline:none"> <svg style="margin: 0 0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg> Signature Move: ${format(pkmn[el.dataset.pkmn].signature.id)} </div>`
         if (pkmn[el.dataset.pkmn].hiddenAbility != undefined) hiddenAbility = format(pkmn[el.dataset.pkmn].hiddenAbility.id)
 
         document.getElementById("tooltipMid").innerHTML = `${returnTypeMultipliers(pkmn[el.dataset.pkmn])}`;
@@ -1552,8 +1577,8 @@ document.addEventListener("contextmenu", e => {
             
             <strong  class="explore-pkmn-level">${format(el.dataset.pkmn)}</strong>
             <strong  class="inspect-pkmn-types" style="background:transparent; color: gray">${returnPkmnTypes(el.dataset.pkmn)}</strong>
-            <div class="explore-sprite">
-            <img class="sprite-trim" style="animation: pkmn-active 0.5s infinite; z-index: 1;" src="img/pkmn/sprite/${el.dataset.pkmn}.png">
+            <div class="explore-sprite" id="inspect-pkmn-image">
+            <img  class="sprite-trim" style="animation: pkmn-active 0.5s infinite; z-index: 1;" src="img/pkmn/sprite/${el.dataset.pkmn}.png">
             <img style="scale:1;animation: none; position: absolute; opacity: 0.3; width: 4.5rem; z-index: 0; transform: translateY(2.5rem);" src="img/resources/pkmn-shadow.png">
             </div>
             
@@ -1595,17 +1620,31 @@ document.addEventListener("contextmenu", e => {
                         <svg style="margin: 0 0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
                         ${hiddenAbility}</div>
 
+                        ${signatureMove}
+
                     <div style="box-shadow: none; outline:none">
                         ${returnDivisionLetter(returnPkmnDivision(pkmn[el.dataset.pkmn]))}</div>
+
+
+                        
+
+            <div style="box-shadow: none; outline:none; cursor:default">
+                        Caught: ${pkmn[el.dataset.pkmn].caught}
+                </div>
+
                 </div>
 
                 
-                                 <div style="box-shadow: none; outline:none">
-                        Caught: ${pkmn[el.dataset.pkmn].caught}
-                </div>
+
+                
+                
             
         `
         if (pkmn[el.dataset.pkmn].hiddenAbility != undefined) document.getElementById("inpect-pkmn-ability").dataset.ability = pkmn[el.dataset.pkmn].hiddenAbility.id
+        if (pkmn[el.dataset.pkmn].signature != undefined) document.getElementById("inpect-pkmn-signature").dataset.move = pkmn[el.dataset.pkmn].signature.id
+
+        if (pkmn[el.dataset.pkmn].caught>0) {document.getElementById(`inspect-pkmn-image`).dataset.pkmnEditor = pkmn[el.dataset.pkmn].id;}
+
 
         openTooltip()
 
@@ -1621,10 +1660,14 @@ document.addEventListener("contextmenu", e => {
         voidAnimation("pkmn-editor","tooltipBoxAppear 0.2s 1")
         document.getElementById("pkmn-editor").style.display = "flex"
 
+
+
+        if (poke.signature!==undefined && poke.level == 100 && !poke.movepool.includes(poke.signature.id)) poke.movepool.push(poke.signature.id)
+
         
 
         currentEditedPkmn = poke.id
-
+        closeTooltip()
         
     if (pkmn[currentEditedPkmn].tag) document.getElementById("explore-pkmn-tag").value = pkmn[currentEditedPkmn].tag;
     else document.getElementById("explore-pkmn-tag").value = "none";
@@ -1768,6 +1811,17 @@ document.addEventListener("contextmenu", e => {
     document.getElementById("pkmn-edit-ability").innerHTML = `<span>${abilityIcon+format(pkmn[el.dataset.pkmnEditor].ability)}</span>${abilityTier}`
 
 
+    let signatureIcon = ""
+    if (pkmn[el.dataset.pkmnEditor].signature) {
+        signatureIcon = `<svg style="color:${returnTypeColor(move[pkmn[el.dataset.pkmnEditor].signature.id].type)}; margin:0 0.25rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+        document.getElementById("pkmn-stats-stat-signature").style.display = "flex"
+        document.getElementById("pkmn-edit-signature").innerHTML = `${signatureIcon} ${format(pkmn[el.dataset.pkmnEditor].signature.id)}`
+        if (pkmn[el.dataset.pkmnEditor].movepool.includes(pkmn[el.dataset.pkmnEditor].signature.id)) document.getElementById("pkmn-edit-signature").innerHTML = `${signatureIcon} ${format(pkmn[el.dataset.pkmnEditor].signature.id)} ✔️`
+        document.getElementById("pkmn-edit-signature").dataset.move = pkmn[el.dataset.pkmnEditor].signature.id
+
+    } else document.getElementById("pkmn-stats-stat-signature").style.display = "none"
+
+
     let abilityHiddenIcon = `<svg style="margin-right:0.3rem"xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>`
     if (pkmn[el.dataset.pkmnEditor].hiddenAbility){
     let abilityHiddenTier = ``
@@ -1793,7 +1847,6 @@ document.addEventListener("contextmenu", e => {
 
     let moveId = pkmn[el.dataset.pkmnEditor].moves[key];
 
-
     //safefails if your slots magically disapear
     if (pkmn[el.dataset.pkmnEditor].moves.slot1 == undefined) pkmn[el.dataset.pkmnEditor].moves.slot1 = undefined
     if (pkmn[el.dataset.pkmnEditor].moves.slot2 == undefined) pkmn[el.dataset.pkmnEditor].moves.slot2 = undefined
@@ -1802,21 +1855,6 @@ document.addEventListener("contextmenu", e => {
 
     
     if (moveId == null) {
-            const divMove = document.createElement("div") 
-            divMove.className = "pkmn-movebox"
-            divMove.innerHTML = "Empty"
-            document.getElementById(`pkmn-editor-current-moves`).appendChild(divMove)
-
-
-
-    divMove.addEventListener("click", e => {
-    document.querySelectorAll('.highlighted-move').forEach(el => el.classList.remove('highlighted-move'));
-    divMove.classList.add('highlighted-move')
-    moveSlotReplace = key
-    })
-
-
-
             continue
     } else moveId = pkmn[el.dataset.pkmnEditor].moves[key];
 
@@ -1840,10 +1878,15 @@ document.addEventListener("contextmenu", e => {
     })
 
 
+    let signatureIcon = ""
+    if (move[moveId].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+
+
+
     divMove.innerHTML = 
     `<div
     class="pkmn-movebox-progress" style="background: ${returnTypeColor(move[ moveId ].type)} "></div><span>`
-    + format(moveId) +
+    + format(moveId) + signatureIcon +
      `</span></span><strong>(${move[moveId].power} BP, ${format(move[moveId].split)})</strong><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">`
 
      divMove.dataset.move = moveId
@@ -1874,11 +1917,14 @@ const sortedMovepool = movepool
 
     const moveId = e
 
-        //prevents having moves, but not being equiped (safefail) //fix
+
+    //prevents having moves, but not being equiped (safefail) //fix
     if (pkmn[el.dataset.pkmnEditor].moves.slot1 == undefined && pkmn[el.dataset.pkmnEditor].moves.slot1!= e && pkmn[el.dataset.pkmnEditor].moves.slot2!= e && pkmn[el.dataset.pkmnEditor].moves.slot3!= e && pkmn[el.dataset.pkmnEditor].moves.slot4!= e) pkmn[el.dataset.pkmnEditor].moves.slot1 = e
     if (pkmn[el.dataset.pkmnEditor].moves.slot2 == undefined && pkmn[el.dataset.pkmnEditor].moves.slot1!= e && pkmn[el.dataset.pkmnEditor].moves.slot2!= e && pkmn[el.dataset.pkmnEditor].moves.slot3!= e && pkmn[el.dataset.pkmnEditor].moves.slot4!= e) pkmn[el.dataset.pkmnEditor].moves.slot2 = e
     if (pkmn[el.dataset.pkmnEditor].moves.slot3 == undefined && pkmn[el.dataset.pkmnEditor].moves.slot1!= e && pkmn[el.dataset.pkmnEditor].moves.slot2!= e && pkmn[el.dataset.pkmnEditor].moves.slot3!= e && pkmn[el.dataset.pkmnEditor].moves.slot4!= e) pkmn[el.dataset.pkmnEditor].moves.slot3 = e
     if (pkmn[el.dataset.pkmnEditor].moves.slot4 == undefined && pkmn[el.dataset.pkmnEditor].moves.slot1!= e && pkmn[el.dataset.pkmnEditor].moves.slot2!= e && pkmn[el.dataset.pkmnEditor].moves.slot3!= e && pkmn[el.dataset.pkmnEditor].moves.slot4!= e) pkmn[el.dataset.pkmnEditor].moves.slot4 = e
+
+
 
 
     const divMove = document.createElement("div") 
@@ -1926,10 +1972,15 @@ const sortedMovepool = movepool
     })
 
 
+    let signatureIcon = ""
+    if (move[moveId].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+
+
+
     divMove.innerHTML = 
     `<div
     class="pkmn-movebox-progress" style="background: ${returnTypeColor(move[ moveId ].type)} "></div><span>`
-    + format(moveId) +
+    + format(moveId) + signatureIcon +
      `</span><strong>(${move[moveId].power} BP, ${format(move[moveId].split)})</strong><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">`
 
      divMove.dataset.move = moveId
@@ -1975,8 +2026,10 @@ function returnStatDots(id, stat){
 
 function returnIVDots(id, stat){
 
-    const val = pkmn[id].ivs[stat];
+    const val = Math.min(pkmn[id].ivs[stat],6);
     const max = 6;
+
+    
 
     const filled = Array(val).fill("★ ").join(" ");
     const empty  = Array(max - val).fill("·").join(" ");
@@ -2422,32 +2475,43 @@ function exploreCombatPlayer() {
         const defender = pkmn[ saved.currentPkmn ]
 
 
+        
 
 
-        let movePower = move[nextMovePlayer].power
+        let nextMove = move[nextMovePlayer]
+        if (nextMove.id == move.sketch.id) nextMove =  move[ attacker.moves.slot1  ]
 
 
-        if (move[nextMovePlayer].powerMod) movePower *= move[nextMovePlayer].powerMod()
+        if (nextMove.castEffect) nextMove.castEffect()
+
+
+        let movePower = nextMove.power
+
+
+        if (nextMove.powerMod) movePower *= nextMove.powerMod()
+
+
+
 
         //abilities
         if (testAbility(`active`, ability.technician.id) && movePower<60 ) movePower *= 1.5
 
 
         let multihit = 1
-        if (move[nextMovePlayer].multihit) multihit = random(move[nextMovePlayer].multihit[0], move[nextMovePlayer].multihit[1])
-        if (move[nextMovePlayer].multihit && testAbility(`active`, ability.skillLink.id)) multihit = move[nextMovePlayer].multihit[1]
+        if (nextMove.multihit) multihit = random(nextMove.multihit[0], nextMove.multihit[1])
+        if (nextMove.multihit && testAbility(`active`, ability.skillLink.id)) multihit = nextMove.multihit[1]
         movePower *= multihit
         
         
 
-        if (move[nextMovePlayer].split == 'physical') {
+        if (nextMove.split == 'physical') {
             totalPower = 
             ( movePower + Math.max(0, ( (attacker.bst.atk * 30) * Math.pow(1.1, attacker.ivs.atk) ) - (defender.bst.def * 30) )  )
             * ( 1+(attacker.level * 0.1) )        
             * 1;
         }
 
-        if (move[nextMovePlayer].split == 'special') {
+        if (nextMove.split == 'special') {
             totalPower = 
             ( movePower +  Math.max(0, ( (attacker.bst.satk * 30) * Math.pow(1.1, attacker.ivs.satk) ) - (defender.bst.sdef * 30) )  )
             * ( 1+(attacker.level * 0.1) )         
@@ -2456,7 +2520,7 @@ function exploreCombatPlayer() {
 
 
         //buffs
-        if (move[nextMovePlayer].split == 'special') {
+        if (nextMove.split == 'special') {
             if (team[exploreActiveMember].buffs?.satkup1 > 0) totalPower *=1.5
             if (team[exploreActiveMember].buffs?.satkup2 > 0) totalPower *=2
             if (team[exploreActiveMember].buffs?.poisoned > 0 && !testAbility(`active`, ability.guts.id) ) totalPower /=1.5
@@ -2473,7 +2537,7 @@ function exploreCombatPlayer() {
 
         }
 
-        if (move[nextMovePlayer].split == 'physical') {
+        if (nextMove.split == 'physical') {
             if (team[exploreActiveMember].buffs?.atkup1 > 0) totalPower *=1.5
             if (team[exploreActiveMember].buffs?.atkup2 > 0) totalPower *=2
             if (team[exploreActiveMember].buffs?.burn > 0 && !testAbility(`active`, ability.guts.id) ) totalPower /=1.5
@@ -2488,7 +2552,7 @@ function exploreCombatPlayer() {
         }
 
 
-        let moveType = move[nextMovePlayer].type
+        let moveType = nextMove.type
         if (testAbility(`active`, ability.normalize.id)) {moveType = "normal"; totalPower*=1.2}
 
         if (testAbility(`active`, ability.ferrilate.id) && moveType=="normal") {moveType = "steel"; totalPower*=1.3}
@@ -2521,6 +2585,7 @@ function exploreCombatPlayer() {
         if ( testAbility(`active`, ability.tintedLens.id) && (typeMultiplier == 0.5 || typeMultiplier == 0.25) ) typeMultiplier=1
         if ( testAbility(`active`, ability.noGuard.id) && typeMultiplier == 0 ) typeMultiplier=1
 
+        if (defender.temporalType) typeMultiplier *= typeEffectiveness(moveType, defender.temporalType)
 
         totalPower *= typeMultiplier
 
@@ -2548,11 +2613,11 @@ function exploreCombatPlayer() {
                  
         if (team[exploreActiveMember].item == item.lightClay.id) totalPower *= (item.lightClay.power() /100) +1
         
-        if (team[exploreActiveMember].item == item.flameOrb.id && move[nextMovePlayer].split == 'special') totalPower *= item.flameOrb.power()
-        if (team[exploreActiveMember].item == item.toxicOrb.id && move[nextMovePlayer].split == 'physical') totalPower *= item.toxicOrb.power()
+        if (team[exploreActiveMember].item == item.flameOrb.id && nextMove.split == 'special') totalPower *= item.flameOrb.power()
+        if (team[exploreActiveMember].item == item.toxicOrb.id && nextMove.split == 'physical') totalPower *= item.toxicOrb.power()
 
-        if (team[exploreActiveMember].item == item.choiceSpecs.id && move[nextMovePlayer].split == 'special') totalPower *= item.choiceSpecs.power()
-        if (team[exploreActiveMember].item == item.choiceBand.id && move[nextMovePlayer].split == 'physical') totalPower *= item.choiceBand.power()
+        if (team[exploreActiveMember].item == item.choiceSpecs.id && nextMove.split == 'special') totalPower *= item.choiceSpecs.power()
+        if (team[exploreActiveMember].item == item.choiceBand.id && nextMove.split == 'physical') totalPower *= item.choiceBand.power()
         
         if (team[exploreActiveMember].item == item.lifeOrb.id) totalPower *= item.lifeOrb.power()
 
@@ -2603,7 +2668,7 @@ function exploreCombatPlayer() {
         if (team[exploreActiveMember].item == item.tyranitarite.id && team[exploreActiveMember].pkmn.id == pkmn.megaTyranitar.id) totalPower *= item.tyranitarite.power()
         if (team[exploreActiveMember].item == item.venusaurite.id && team[exploreActiveMember].pkmn.id == pkmn.megaVenusaur.id) totalPower *= item.venusaurite.power()
 
-        if (move[nextMovePlayer].power === 0) totalPower = 0
+        if (nextMove.power === 0) totalPower = 0
 
         if (team[exploreActiveMember].buffs?.confused>0 && rng(0.5)) totalPower = 0
         if (team[exploreActiveMember].buffs?.paralysis>0 && rng(0.25)) totalPower = 0
@@ -2638,9 +2703,9 @@ function exploreCombatPlayer() {
 
         if ( testAbility(`active`, ability.rivalry.id) && pkmn[saved.currentPkmn].type.some(t => pkmn[team[exploreActiveMember].pkmn.id].type.includes(t)) ) totalPower *= 1.3
         
-        if (testAbility(`active`, ability.sheerForce.id) &&  move[nextMovePlayer].hitEffect) totalPower *= 1.2
+        if (testAbility(`active`, ability.sheerForce.id) &&  nextMove.hitEffect) totalPower *= 1.2
         
-        if (testAbility(`active`, ability.hugePower.id) && move[nextMovePlayer].split == 'physical') totalPower *= 2
+        if (testAbility(`active`, ability.hugePower.id) && nextMove.split == 'physical') totalPower *= 2
 
         if (testAbility(`active`, ability.toxicBoost.id) && team[exploreActiveMember].buffs?.poisoned>0 ) totalPower *= 1.2
         if (testAbility(`active`, ability.flareBoost.id) && team[exploreActiveMember].buffs?.burn>0 ) totalPower *= 1.2
@@ -2693,7 +2758,6 @@ function exploreCombatPlayer() {
 
 
 
-
         if ( testAbility(`active`,  ability.magicGuard.id ) == false ){
 
 
@@ -2720,16 +2784,16 @@ function exploreCombatPlayer() {
 
         if (!(team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.sleep>0)){
         if (testAbility(`active`,  ability.sheerForce.id ) == false || ( testAbility(`active`, ability.sheerForce.id ) && totalPower==0  )){
-        if (move[nextMovePlayer].hitEffect && (typeEffectiveness(moveType, pkmn[saved.currentPkmn].type)!= 0 || move[nextMovePlayer].unavoidable==true)) {
-            move[nextMovePlayer].hitEffect("wild")
+        if (nextMove.hitEffect && (typeEffectiveness(moveType, pkmn[saved.currentPkmn].type)!= 0 || nextMove.unavoidable==true)) {
+            nextMove.hitEffect("wild")
         }
         }
         }
 
         }
 
-        if (testAbility(`active`, ability.sereneGrace.id) && move[nextMovePlayer].hitEffect) move[nextMovePlayer].hitEffect("wild")
-        if (testAbility(`active`, ability.parentalBond.id) && move[nextMovePlayer].hitEffect) move[nextMovePlayer].hitEffect("wild")
+        if (testAbility(`active`, ability.sereneGrace.id) && nextMove.hitEffect) nextMove.hitEffect("wild")
+        if (testAbility(`active`, ability.parentalBond.id) && nextMove.hitEffect) nextMove.hitEffect("wild")
 
 
         updateTeamBuffs()
@@ -2761,8 +2825,8 @@ function typeEffectiveness(attacking, defending) {
     electric:{ water: effective, electric: resist, grass: resist, ground: 0, flying: effective, dragon: resist },
     grass:   { fire: resist, water: effective, grass: resist, poison: resist, ground: effective, flying: resist, bug: resist, rock: effective, dragon: resist, steel: resist },
     ice:     { fire: resist, water: resist, grass: effective, ice: resist, ground: effective, flying: effective, dragon: effective, steel: resist },
-    fighting:{ normal: effective, ice: effective, rock: effective, dark: effective, steel: effective, poison: resist, flying: resist, psychic: resist, bug: resist, ghost: 0 },
-    poison:  { grass: effective, poison: resist, ground: resist, rock: resist, ghost: resist, steel: 0 },
+    fighting:{ normal: effective, ice: effective, rock: effective, dark: effective, steel: effective, poison: resist, flying: resist, psychic: resist, bug: resist, fairy: resist, ghost: 0 },
+    poison:  { grass: effective, fairy: effective, poison: resist, ground: resist, rock: resist, ghost: resist, steel: 0 },
     ground:  { fire: effective, electric: effective, grass: resist, poison: effective, flying: 0, bug: resist, rock: effective, steel: effective },
     flying:  { electric: resist, grass: effective, fighting: effective, bug: effective, rock: resist, steel: resist },
     psychic: { fighting: effective, poison: effective, psychic: resist, dark: 0, steel: resist },
@@ -3275,7 +3339,7 @@ function exploreCombatWild() {
 
         let dotDamage = 5
         if (areas[saved.currentArea]?.trainer || saved.currentArea == areas.frontierSpiralingTower.id) dotDamage = 12
-        if (areas[saved.currentArea]?.encounter) dotDamage = 50
+        if (areas[saved.currentArea]?.encounter) dotDamage = 100
         
         if (wildBuffs.burn>0 ) {wildPkmnHp -=  wildPkmnHpMax/dotDamage ; updateWildPkmn()}
         if (wildBuffs.poisoned>0 ) {wildPkmnHp -=  wildPkmnHpMax/dotDamage ; updateWildPkmn()}
@@ -3285,7 +3349,7 @@ function exploreCombatWild() {
         }
 
         if (wildBuffs.freeze==0 && wildBuffs.sleep==0 ){
-        if (move[nextMoveWild].hitEffect && typeEffectiveness(move[nextMoveWild].type, pkmn[team[exploreActiveMember].pkmn.id].type)!= 0) move[nextMoveWild].hitEffect("player")
+        if (move[nextMoveWild].hitEffect && ( typeEffectiveness(move[nextMoveWild].type, pkmn[team[exploreActiveMember].pkmn.id].type)!= 0 || move[nextMoveWild].unavoidable==true ) ) move[nextMoveWild].hitEffect("player")
         }
 
         //can be optimised
@@ -3313,6 +3377,9 @@ function initialiseArea(){
     for (const i in team[exploreActiveMember].buffs){
     if (team[exploreActiveMember].buffs[i]>0) team[exploreActiveMember].buffs[i] = 0
     } 
+
+            //reset move buildup, ie rollout
+    for (const moveID in move) if(move[moveID].buildup!==undefined) move[moveID].buildup = 0
     
     updateTeamBuffs()
     updateWildBuffs()
@@ -3819,6 +3886,10 @@ document.getElementById("pokedex-filter-shiny").addEventListener("change", e => 
   updatePokedex()
 });
 
+document.getElementById("pokedex-filter-signature").addEventListener("change", e => {
+  updatePokedex()
+});
+
 document.getElementById("pokedex-filter-division").addEventListener("change", e => {
   updatePokedex()
 });
@@ -3837,6 +3908,7 @@ function resetPokedexFilters(){
     document.getElementById("pokedex-filter-evolution").value = "all";
     document.getElementById("pokedex-filter-ability").value = "all";
     document.getElementById("pokedex-filter-shiny").value = "all";
+    document.getElementById("pokedex-filter-signature").value = "all";
 }
 
 
@@ -3930,10 +4002,13 @@ function updatePokedex(){
         if (document.getElementById(`pokedex-filter-type`).value !== "all" && !pkmn[i].type.includes(document.getElementById(`pokedex-filter-type`).value)) continue
         if (document.getElementById(`pokedex-filter-type-2`).value !== "all" && !pkmn[i].type.includes(document.getElementById(`pokedex-filter-type-2`).value)) continue
         if (document.getElementById(`pokedex-filter-level`).value !== "all" && !( pkmn[i].level <= (document.getElementById(`pokedex-filter-level`).value) &&  pkmn[i].level >= (document.getElementById(`pokedex-filter-level`).value-19) )    ) continue
-        if (document.getElementById(`pokedex-filter-ability`).value !== "all" && ability[pkmn[i].ability].rarity !=  document.getElementById(`pokedex-filter-ability`).value   ) continue
+        if (document.getElementById(`pokedex-filter-ability`).value !== "all" && document.getElementById(`pokedex-filter-ability`).value!=4 && ability[pkmn[i].ability].rarity !=  document.getElementById(`pokedex-filter-ability`).value   ) continue
+        if (document.getElementById(`pokedex-filter-ability`).value == "4" && (pkmn[i].hiddenAbilityUnlocked == true ||  pkmn[i].hiddenAbility==undefined) ) continue        
         if ((v = document.getElementById("pokedex-filter-shiny").value) !== "all" && pkmn[i].shiny != (v === "true" ? true : undefined)) continue;
         if (document.getElementById(`pokedex-filter-division`).value !== "all" && returnPkmnDivision(pkmn[i]) !=  document.getElementById(`pokedex-filter-division`).value   ) continue
         if (document.getElementById(`pokedex-filter-tag`).value !== "all" && pkmn[i].tag!==document.getElementById(`pokedex-filter-tag`).value ) continue
+
+        if (document.getElementById(`pokedex-filter-signature`).value == "false" && pkmn[i].signature==undefined ) continue
         
         let missingEvolution = false;
         if (pkmn[i].evolve !== undefined) {
@@ -3985,7 +4060,7 @@ if (sort !== "default") {
 
 
 fusePkmn = new Fuse(sortedPokemon, {
-    keys: [ { name: 'name', getFn: obj => obj.id }, 'type', `ability`, `hiddenAbility`, `movepool`],
+    keys: [ { name: 'name', getFn: obj => obj.id }, 'type', "level", `ability`, `hiddenAbility`, `movepool`],
     threshold: 0.2
 })
 
@@ -3996,6 +4071,7 @@ if (document.getElementById("pokedex-search").value!="") {
 
 
     for (const p of sortedPokemon) {
+
         const div = document.createElement(`div`)
 
         const i = p.id
@@ -4080,7 +4156,7 @@ if (document.getElementById("pokedex-search").value!="") {
             if (evoItemToUse === "oddRock") levelToEvolve = wildAreaLevel4
             if (pkmn[i].evolve()[evo].pkmn.id.slice(0, 4) === "mega") levelToEvolve = 100
  
-            if (pkmn[i].level<levelToEvolve) continue
+            if (pkmn[i].level<levelToEvolve) hidePkmn = true
 
 
             div.addEventListener("click", e => { 
@@ -4971,6 +5047,7 @@ const spiralingRewards = {
     1 : {item: item.abilityPatch.id, rarity: 1},
     2 : {item: item.abilityCapsule.id, rarity: 2},
     4 : {item: item.timeCandy.id, rarity: 3},
+    6 : {item: item.energyRoot.id, rarity: 3},
     3 : {item: item.destinyKnot.id, rarity: 4},
     5 : {item: item.timeCandyXL.id, rarity: 4},
 }
@@ -5546,14 +5623,16 @@ function claimExportReward(){
         div.innerHTML = `<img style="scale:2; image-rendering: pixelated; cursor:help" src="img/items/${reward}.png">`;
         document.getElementById("tooltipBottom").appendChild(div);
 
-        item[reward].got++
         saved.claimedExportReward = true;
+        saveGame()
+        exportData()
+        item[reward].got++
         openMenu()
 
         
         openTooltip()
 
-        exportData()
+        
 
 }
 
@@ -5601,8 +5680,7 @@ function returnPkmnDivision(id,mod){
     if (totalSum<19) return "A"
     if (totalSum<21) return "S"
     if (totalSum<24) return "SS"
-    if (totalSum<26) return "SSS"
-    else return "SSS+"
+    else return "SSS"
 
 }
 
@@ -5694,7 +5772,7 @@ let geneticItemSelect = false
         closeTooltip()
 
 
-        ' style="cursor:pointer; font-size:2rem; width:40%">Yeah!
+        ' style="cursor:pointer; font-size:2rem; width:40%" id="prevent-tooltip-exit">Yeah!
         </div>
 
         </span>
@@ -5723,7 +5801,7 @@ let geneticItemSelect = false
         setGeneticMenu();
         closeTooltip()
 
-        " style="cursor:pointer; font-size:2rem">Yeah!</div>`
+        " style="cursor:pointer; font-size:2rem" id="prevent-tooltip-exit">Yeah!</div>`
         openTooltip()
 
 
@@ -5831,10 +5909,10 @@ if (pkmn[saved.geneticHost].shiny) shinyChance = 0
 document.getElementById("genetics-data-shiny").innerHTML = `${(  shinyChance*100  ).toFixed(0)}%`
 
 
-let moveChance = 1.5/15
-if ( compability == 2) moveChance = 3/15
-if ( compability == 3) moveChance = 7.5/15
-if ( compability == 4) moveChance = 7.5/15
+let moveChance = 0.05
+if ( compability == 2) moveChance = 0.30
+if ( compability == 3) moveChance = 0.50
+if ( compability == 4) moveChance = 0.50
 if ( compability == 0) moveChance = 0
 
 document.getElementById("genetics-data-moves").innerHTML = `${(  moveChance*100  ).toFixed(0)}%`
@@ -5911,8 +5989,8 @@ if (mod==="end"){
     if (pkmn[saved.geneticHost].moves.slot3 !== undefined )pkmn[saved.geneticHost].movepool.push(pkmn[saved.geneticHost].moves.slot3)
     if (pkmn[saved.geneticHost].moves.slot4 !== undefined )pkmn[saved.geneticHost].movepool.push(pkmn[saved.geneticHost].moves.slot4)
 
-    pkmn[saved.geneticSample].movepool.forEach(move => {
-        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(move)) ) {pkmn[saved.geneticHost].movepool.push(move); summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(move)}!</div>`}
+    pkmn[saved.geneticSample].movepool.forEach(moveID => {
+        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID) && move[moveID].moveset!==undefined) ) {pkmn[saved.geneticHost].movepool.push(moveID); summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(moveID)}!</div>`}
     });
 
     
@@ -5968,7 +6046,7 @@ if (mod==="end"){
     
     document.getElementById("tooltipTitle").innerHTML = `Operation overview`
     document.getElementById("tooltipTop").style.display = "none"    
-    document.getElementById("tooltipMid").innerHTML = `<div class="genetics-overview-tags">${summaryTags}</div>`
+    document.getElementById("tooltipMid").innerHTML = `<div class="genetics-overview-tags" id="prevent-tooltip-exit">${summaryTags}</div>`
     document.getElementById("tooltipBottom").innerHTML = `<div style="display:flex;justify-content:center;align-items:center; width:100%; cursor:help"><div class="area-preview" data-pkmn-editor="${saved.geneticHost}"><img   class="sprite-trim" src="img/pkmn/sprite/${saved.geneticHost}.png"> </div></div>`
 
 
@@ -6036,326 +6114,31 @@ function getEvolutionFamily(base) {
 
 
 
-
-
-const shop = {}
-
-shop.exchange = {
-    icon: item.goldenBottleCap.id,
-    name: `Golden Bottle Cap Exchange`,
-    price: 10,
-    effect: function() {item.goldenBottleCap.got++}
-}
-
-shop.exchange1 = {
-    icon: item.bottleCap.id,
-    name: `Bottle Cap Exchange`,
-    price: 1,
-    currency: `gold`,
-    effect: function() {item.bottleCap.got+=10}
-}
-
-shop.rareCandy = {
-    icon: item.rareCandy.id,
-    price: 1,
-}
-
-shop.abilityPatch = {
-    icon: item.abilityPatch.id,
-    price: 5,
-}
-
-shop.blackBelt = {
-    icon: item.blackBelt.id,
-    price: 5,
-}
-
-shop.blackGlasses = {
-    icon: item.blackGlasses.id,
-    price: 5,
-}
-shop.charcoal = {
-    icon: item.charcoal.id,
-    price: 5,
-}
-shop.dragonFang = {
-    icon: item.dragonFang.id,
-    price: 5,
-}
-shop.fairyFeather = {
-    icon: item.fairyFeather.id,
-    price: 5,
-}
-shop.hardStone = {
-    icon: item.hardStone.id,
-    price: 5,
-}
-shop.magnet = {
-    icon: item.magnet.id,
-    price: 5,
-}
-shop.metalCoat = {
-    icon: item.metalCoat.id,
-    price: 5,
-}
-shop.miracleSeed = {
-    icon: item.miracleSeed.id,
-    price: 5,
-}
-shop.mysticWater = {
-    icon: item.mysticWater.id,
-    price: 5,
-}
-shop.neverMeltIce = {
-    icon: item.neverMeltIce.id,
-    price: 5,
-}
-shop.poisonBarb = {
-    icon: item.poisonBarb.id,
-    price: 5,
-}
-shop.sharpBeak = {
-    icon: item.sharpBeak.id,
-    price: 5,
-}
-shop.silkScarf = {
-    icon: item.silkScarf.id,
-    price: 5,
-}
-shop.silverPowder = {
-    icon: item.silverPowder.id,
-    price: 5,
-}
-shop.softSand = {
-    icon: item.softSand.id,
-    price: 5,
-}
-shop.spellTag = {
-    icon: item.spellTag.id,
-    price: 5,
-}
-
-shop.waterStone = {
-    icon: item.waterStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.thunderStone = {
-    icon: item.thunderStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.sunStone = {
-    icon: item.sunStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.linkStone = {
-    icon: item.linkStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.oddRock = {
-    icon: item.oddRock.id,
-    price: 1,
-    currency: `gold`
-}
-shop.ovalStone = {
-    icon: item.ovalStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.moonStone = {
-    icon: item.moonStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.leafStone = {
-    icon: item.leafStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.iceStone = {
-    icon: item.iceStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.fireStone = {
-    icon: item.fireStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.duskStone = {
-    icon: item.duskStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.dawnStone = {
-    icon: item.dawnStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.shinyStone = {
-    icon: item.shinyStone.id,
-    price: 1,
-    currency: `gold`
-}
-shop.luckyEgg = {
-    icon: item.luckyEgg.id,
-    price: 2,
-    currency: `gold`
-}
-shop.flameOrb = {
-    icon: item.flameOrb.id,
-    price: 2,
-    currency: `gold`
-}
-shop.toxicOrb = {
-    icon: item.toxicOrb.id,
-    price: 2,
-    currency: `gold`
-}
-shop.luckIncense = {
-    icon: item.luckIncense.id,
-    price: 3,
-    currency: `gold`
-}
-shop.pureIncense = {
-    icon: item.pureIncense.id,
-    price: 3,
-    currency: `gold`
-}
-shop.choiceBand = {
-    icon: item.choiceBand.id,
-    price: 5,
-    currency: `gold`
-}
-shop.choiceSpecs = {
-    icon: item.choiceSpecs.id,
-    price: 5,
-    currency: `gold`
-}
-shop.lifeOrb = {
-    icon: item.lifeOrb.id,
-    price: 5,
-    currency: `gold`
-}
-shop.destinyKnot = {
-    icon: item.destinyKnot.id,
-    price: 5,
-    currency: `gold`
-}
-shop.abilityCapsule = {
-    icon: item.abilityCapsule.id,
-    price: 5,
-    currency: `gold`
-}
-shop.shinyCharm = {
-    icon: item.shinyCharm.id,
-    price: 20,
-    currency: `gold`
-}
-
-function updateItemShop(){
-
-
-
-
-    document.getElementById("shop-currency").innerHTML = `<img src="img/items/bottleCap.png"> x${item.bottleCap.got}`
-    document.getElementById("shop-currency-gold").innerHTML = `<img src="img/items/goldenBottleCap.png"> x${item.goldenBottleCap.got}`
-
-    document.getElementById("shop-listing").innerHTML = ""
-
-    for (let i in shop){
-
-    let currency = `bottleCap`
-    if (shop[i].currency == "gold") currency = `goldenBottleCap`
-
-
-    let name = format(shop[i].icon)
-    if (shop[i].name) name = shop[i].name
-
-    const div = document.createElement("div");
-
-
-div.addEventListener("click", () => {
-
-    document.getElementById("tooltipTop").style.display = "none"
-    document.getElementById("tooltipTitle").innerHTML = "How many will you buy?"
-    document.getElementById("tooltipMid").style.display = "none"
-
-    document.getElementById("tooltipBottom").innerHTML = `
-        <span style="display:flex; justify-content:center; width:100%">
-            <div data-amount="1"  style="cursor:pointer; font-size:2rem; width:40%">x1</div>
-            <div data-amount="5"  style="cursor:pointer; font-size:2rem; width:40%">x5</div>
-            <div data-amount="10" style="cursor:pointer; font-size:2rem; width:40%">x10</div>
-        </span>
-    `
-
-    document
-        .querySelectorAll("#tooltipBottom div")
-        .forEach(el => {
-            el.addEventListener("click", () => {
-                buyItem(+el.dataset.amount)
-            })
-        })
-
-    openTooltip()
-})
-
-    function buyItem(amount) {
-        
-        if (item[currency].got>=(shop[i].price*amount)){
-
-            item[currency].got-=shop[i].price*amount
-
-            if (shop[i].effect) {
-            for (let l = 0; l < amount; l++) {
-            shop[i].effect()
-            }
-            }
-            else {item[shop[i].icon].got+=amount}
-
-            updateItemShop()
-            closeTooltip()
-        } else{
-            document.getElementById("tooltipTitle").innerHTML = "Cant afford";
-            document.getElementById("tooltipTop").style.display = "none"    
-            document.getElementById("tooltipTop").style.display = "none"    
-            document.getElementById("tooltipMid").style.display = "none"
-            document.getElementById("tooltipBottom").innerHTML = "You dont have enough Bottle Caps to purchase this"
-        }
-    }
-
-    div.dataset.item = shop[i].icon
-
-    div.innerHTML = `
-    <img src="img/items/${shop[i].icon}.png">
-        <span>${name}</span>
-    <strong>
-        <img src="img/items/${currency}.png">
-        x${shop[i].price}
-    </strong>
-    `
-    document.getElementById("shop-listing").appendChild(div);
-
-    
-
-
-    }
-
-
-
-
-
-
-
-}
-
 function returnHighestStat(pokemon) { //ignores hp bst, used for beast boost etc
     return Object.keys(pokemon.bst)
         .filter(stat => stat !== "hp")
         .reduce((a, b) => pokemon.bst[a] > pokemon.bst[b] ? a : b);
+}
+
+
+
+function debugSetIvs(number){
+    for (const i in pkmn){
+        pkmn[i].ivs.hp = number
+        pkmn[i].ivs.atk = number
+        pkmn[i].ivs.def = number
+        pkmn[i].ivs.sdef = number
+        pkmn[i].ivs.satk = number
+        pkmn[i].ivs.spe = number
+    }
+}
+
+function debugGetPkmn(level,mod){
+    for (const i in pkmn){
+        givePkmn(pkmn[i],level)
+        if (mod === "shiny") pkmn[i].shiny = true
+        if (mod === "ha") pkmn[i].hiddenAbilityUnlocked = true
+    }
 }
 
 
@@ -6428,7 +6211,3 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
-
-
-
-
