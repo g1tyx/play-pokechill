@@ -286,6 +286,11 @@
                 <option value=false>has signature   </option>
             </select>
 
+            <select id="pokedex-filter-ribbon">
+                <option value="all">ribbon</option>
+                <option value=true>has ribbon</option>
+            </select>
+
               <select id="pokedex-filter-tag">
                 <option value="all">tag</option>
                 <option value="red">red</option>
@@ -779,6 +784,11 @@ Game Guide
             <img class="sprite-trim" style="animation: pkmn-active 0.5s infinite; z-index: 1;" src="img/pkmn/sprite/mew.png" id="pkmn-editor-sprite">
             </div>
 
+            <div id="pkmn-editor-ribbons">
+
+            
+            </div>
+
             <div id="pkmn-editor-type">
             
             </div>
@@ -993,6 +1003,11 @@ Game Guide
         <div class="menu-item" id="menu-export-reward" onClick="claimExportReward()">
             <img src="img/items/parcel.png">
             <span>Export Reward</span>
+        </div>
+
+        <div class="menu-item" id="menu-mystery-gift" onClick="claimMysteryGift()">
+            <img src="img/items/gift.png">
+            <span>Mystery Gift</span>
         </div>
 
         <div class="menu-item" id="menu-item-fullscreen" onclick="document.documentElement.requestFullscreen(); openMenu()">

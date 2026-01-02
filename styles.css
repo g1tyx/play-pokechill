@@ -3682,6 +3682,34 @@ background:
     font-size: 0.9rem;
 }
 
+#pkmn-editor-sprite{
+    z-index: 5;
+}
+
+#pkmn-editor-ribbons{
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 0.2rem;
+    margin-top: -2rem;
+    z-index: 10;
+}
+
+#pkmn-editor-ribbons span{
+    margin: 0 -0.2rem;
+}
+
+#pkmn-editor-ribbons img{
+    image-rendering: pixelated;
+    cursor: help;
+}
+
+#pkmn-editor-ribbons img:hover{
+    animation: itemShake 0.3s 1;
+}
+
 
 #shop-categories{
     display: flex;

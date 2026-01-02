@@ -579,6 +579,15 @@ function leaveCombat(){
     const totalRewardsEarned = Math.floor(saved.maxSpiralFloor / 1)
     const rewardsToGive = totalRewardsEarned - saved.spiralRewardsClaimed
 
+    if (saved.currentSpiralFloor>29) {
+        for (const slot in team) {
+            if (team[slot].pkmn == undefined) continue
+            giveRibbon(team[slot].pkmn, "tower1") 
+        }
+
+    } 
+
+
     for (let i = 0; i < rewardsToGive; i++) {
         const rewards = []
 
@@ -597,6 +606,8 @@ function leaveCombat(){
 
     saved.spiralRewardsClaimed += rewardsToGive
     }
+
+
 
 
 
@@ -921,6 +932,9 @@ if (areas[saved.currentArea].encounter && areas[saved.currentArea].difficulty ==
     }
 
 
+    if (rng(1/100000)) giveRibbon(team[exploreActiveMember].pkmn, "smile")
+
+
     for (const buff in wildBuffs){ if ( wildBuffs[buff]>0) wildBuffs[buff] = 0 }
     updateWildBuffs()
 
@@ -998,6 +1012,17 @@ if (areas[saved.currentArea].encounter && areas[saved.currentArea].difficulty ==
     } 
 
 
+
+}
+
+
+function giveRibbon(target, id){
+
+    const poke = pkmn[target.id]
+
+    if (poke.ribbons == undefined) poke.ribbons = []
+    if (poke.ribbons.includes(id)) return
+    poke.ribbons.push(id)
 
 }
 
@@ -1102,6 +1127,10 @@ function openMenu(){
 
     }
 
+
+    if (saved.mysteryGiftClaimed == true) document.getElementById(`menu-mystery-gift`).style.display = "none"
+    const today = new Date();
+    if (today > mysteryGift.duration) document.getElementById(`menu-mystery-gift`).style.display = "none"
 
     if (!saved.claimedExportReward) {document.getElementById(`menu-export-reward`).style.display = "flex"} else document.getElementById(`menu-export-reward`).style.display = "none"
 
@@ -1521,6 +1550,15 @@ document.addEventListener("contextmenu", e => {
     }
 
 
+    if (el.dataset.ribbon !== undefined) {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = ribbon[el.dataset.ribbon].name
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = ribbon[el.dataset.ribbon].description
+        openTooltip()
+    }
+
+
     if (el.dataset.move !== undefined) {
 
         document.getElementById("tooltipTop").style.display = `inline`
@@ -1684,6 +1722,18 @@ document.addEventListener("contextmenu", e => {
         document.getElementById("pkmn-editor-level").innerHTML = `Level ${poke.level}`
         document.getElementById("pkmn-editor-type").innerHTML = returnPkmnTypes(poke.id)
 
+
+        document.getElementById(`pkmn-editor-ribbons`).innerHTML = ""
+        if (poke.ribbons) {
+            for (const e of poke.ribbons){
+
+                const ribbonDiv = document.createElement("span")
+                ribbonDiv.innerHTML = `<img src="img/ribbons/${e}.png">`
+                ribbonDiv.dataset.ribbon = e
+                document.getElementById(`pkmn-editor-ribbons`).appendChild(ribbonDiv)
+
+            }
+        }
 
         // if it has a leveled evolution
         let evolutionTag = ""
@@ -3890,6 +3940,10 @@ document.getElementById("pokedex-filter-signature").addEventListener("change", e
   updatePokedex()
 });
 
+document.getElementById("pokedex-filter-ribbon").addEventListener("change", e => {
+  updatePokedex()
+});
+
 document.getElementById("pokedex-filter-division").addEventListener("change", e => {
   updatePokedex()
 });
@@ -3909,6 +3963,7 @@ function resetPokedexFilters(){
     document.getElementById("pokedex-filter-ability").value = "all";
     document.getElementById("pokedex-filter-shiny").value = "all";
     document.getElementById("pokedex-filter-signature").value = "all";
+    document.getElementById("pokedex-filter-ribbon").value = "all";
 }
 
 
@@ -4007,6 +4062,7 @@ function updatePokedex(){
         if ((v = document.getElementById("pokedex-filter-shiny").value) !== "all" && pkmn[i].shiny != (v === "true" ? true : undefined)) continue;
         if (document.getElementById(`pokedex-filter-division`).value !== "all" && returnPkmnDivision(pkmn[i]) !=  document.getElementById(`pokedex-filter-division`).value   ) continue
         if (document.getElementById(`pokedex-filter-tag`).value !== "all" && pkmn[i].tag!==document.getElementById(`pokedex-filter-tag`).value ) continue
+        if (document.getElementById(`pokedex-filter-ribbon`).value !== "all" && pkmn[i].ribbons==undefined ) continue
 
         if (document.getElementById(`pokedex-filter-signature`).value == "false" && pkmn[i].signature==undefined ) continue
         
@@ -5990,7 +6046,7 @@ if (mod==="end"){
     if (pkmn[saved.geneticHost].moves.slot4 !== undefined )pkmn[saved.geneticHost].movepool.push(pkmn[saved.geneticHost].moves.slot4)
 
     pkmn[saved.geneticSample].movepool.forEach(moveID => {
-        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID) && move[moveID].moveset!==undefined) ) {pkmn[saved.geneticHost].movepool.push(moveID); summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(moveID)}!</div>`}
+        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID)) && move[moveID].moveset!==undefined ) {pkmn[saved.geneticHost].movepool.push(moveID); summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(moveID)}!</div>`}
     });
 
     
@@ -6158,7 +6214,37 @@ function testAbility(target,ability){
 
 
     return false
+}
 
+saved.mysteryGiftClaimed = undefined
+
+const mysteryGift = {
+    effect: function() {  
+        const id = pkmn.spinda.id
+        if (pkmn[id].caught==0) givePkmn(pkmn[id],1)
+        pkmn[id].shiny = true
+        giveRibbon(pkmn[id],"souvenir")
+      },
+    duration: new Date(2026, 1 - 1, 15),
+    info: `Long Press/Right click the present below to receive a gift Spinda!<br>It will be shiny and carrying a Souvenir Ribbon`,
+    icon: pkmn.spinda.id
+}
+
+
+function claimMysteryGift(){
+
+    openMenu()
+    document.getElementById("tooltipTop").innerHTML = `<img src="img/pkmn/shiny/${mysteryGift.icon}.png">`
+    document.getElementById("tooltipTitle").innerHTML = `Mystery Gift`
+    document.getElementById("tooltipMid").innerHTML = `${mysteryGift.info}<br>You have until ${mysteryGift.duration.toLocaleString("en-US", {month: "long",day: "numeric"})} to claim`
+    document.getElementById("tooltipBottom").innerHTML = `<span data-pkmn-editor=${mysteryGift.icon} id="mystery-claim-button"><img src="img/items/gift.png" style="scale:4; image-rendering:pixelated; padding: 3rem 0; cursor:help" 
+    style="cursor:pointer; font-size:2rem" id="prevent-tooltip-exit"></span>`
+    openTooltip()
+
+    document.getElementById("mystery-claim-button").addEventListener("contextmenu", (e) => {
+    mysteryGift.effect();
+    saved.mysteryGiftClaimed = true
+    });
 
 }
 

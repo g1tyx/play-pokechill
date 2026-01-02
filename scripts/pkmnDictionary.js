@@ -11486,6 +11486,7 @@ pkmn.litten = {
     signature : move.darkestLariat
 }
 
+
 pkmn.torracat = {
   type: ["fire"],
   bst: {
@@ -14648,5 +14649,24 @@ for (const name in pkmn) {
 function statToRating(baseStat) {
   const r = 1 + (baseStat - 20) * (5 / 180);
   return Math.min(6, Math.max(1, Math.round(r)));
+}
+
+
+
+const ribbon = {}
+
+ribbon.souvenir ={
+    name: `Souvenir Ribbon`,
+    description: `Awarded in special occasions`
+}
+
+ribbon.tower1 ={
+    name: `Endurance Ribbon I`,
+    description: `Awarded for reaching floor 30 in the Spiraling Tower`
+}
+
+ribbon.smile ={
+    name: `Smile Ribbon`,
+    description: `Awarded very rarely for spending a lot of time together`
 }
 
