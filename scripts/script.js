@@ -153,7 +153,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 2.0
+  saved.version = 2.1
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -659,6 +659,7 @@ function infoRotation(){
 
 function infoMisc(){
     console.table([
+      {command:"saved.overrideBattleTimer=NUMBER", effect:"Alter Battle Speed (Default 2000)"},
       {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
       ]);
 }

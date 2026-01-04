@@ -220,6 +220,8 @@ function changeTeamNames(){
             if (saved.previewTeams[team].name!==undefined) option.text = saved.previewTeams[team].name
         }
     }
+
+    document.getElementById("team-slot-selector").text = saved.previewTeams[saved.currentPreviewTeam].name
 } 
 
 
@@ -474,5 +476,6 @@ function setPkmnTeam(){
 
 
 }
+
 
 

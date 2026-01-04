@@ -309,7 +309,7 @@ item.energyRoot = {
     type: "key",
     usable: true,
     effect: function() {  if(saved.geneticOperation > 1) {afkSecondsGenetics = 30*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
-    info: function() {return `Fast-forwards operation time by 30 minutes. Must be used while an active operation is ongoing`},
+    info: function() {return `Fast-forwards genetic operation time by 30 minutes. Must be used while an active operation is ongoing`},
 }
 
 item.waterStone = {

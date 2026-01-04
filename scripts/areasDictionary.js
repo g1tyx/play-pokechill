@@ -622,7 +622,7 @@ areas.seafoamCurrents = {
     icon: pkmn.spheal,
     spawns: {
         common : [pkmn.pikipek,pkmn.fletchling, pkmn.spheal],
-        uncommon : [pkmn.masquerain],
+        uncommon : [pkmn.surskit],
         rare : [pkmn.tropius]
     },
     drops: {
@@ -2814,17 +2814,17 @@ areas.vsEliteFourLance = {
     level : 100,
     team : {
         slot1 : pkmn.salamence,
-        slot1Moves : [move.dragonDance.id,move.fly.id, move.fireFang.id, move.dragonRush.id],
+        slot1Moves : [move.dragonClaw.id,move.fly.id, move.fireFang.id, move.dragonRush.id],
         slot2 : pkmn.goodra,
-        slot2Moves : [move.dragonDance.id, move.dragonRush.id, move.solarBeam.id, move.acidArmor.id],
+        slot2Moves : [move.solarBeam.id, move.dragonRush.id, move.dragonClaw.id, move.acidArmor.id],
         slot3 : pkmn.haxorus,
-        slot3Moves : [move.dragonDance.id, move.dragonRush.id, move.extremeSpeed.id, move.earthquake.id],
+        slot3Moves : [move.dragonClaw.id, move.dragonRush.id, move.extremeSpeed.id, move.earthquake.id],
         slot4 : pkmn.dragonite,
-        slot4Moves : [move.dragonDance.id, move.fly.id, move.thunderPunch.id, move.dragonTail.id],
+        slot4Moves : [move.thunderWave.id, move.fly.id, move.thunderPunch.id, move.dragonTail.id],
         slot5 : pkmn.garchomp,
-        slot5Moves : [move.dragonDance.id, move.earthquake.id, move.dragonTail.id, move.ironHead.id],
+        slot5Moves : [move.dragonClaw.id, move.earthquake.id, move.dragonTail.id, move.ironHead.id],
         slot6 : pkmn.rayquaza,
-        slot6Moves : [move.dragonDance.id, move.fly.id, move.fireBlast.id, move.dragonPulse.id],
+        slot6Moves : [move.dragonDance.id, move.fly.id, move.dragonClaw.id, move.flamethrower.id],
     },
     reward : [item.luckIncense, item.goldenBottleCap]
 }
@@ -3046,7 +3046,7 @@ areas.vsMasterTrainerGeeta = {
 
 
 const exclusiveFrontierPkmn = [pkmn.relicanth, pkmn.heatmor, pkmn.durant, pkmn.comfey, pkmn.morpeko, pkmn.klefki, pkmn.munna, pkmn.finneon,
-pkmn.skorupi, pkmn.stunky, pkmn.zangoose, pkmn.spinda, pkmn.gulpin, pkmn.zigzagoon, pkmn.teddiursa, pkmn.pineco, pkmn.shuckle, pkmn.minccino, pkmn.cursola, pkmn.pincurchin, pkmn.stonjourner, pkmn.smeargle, pkmn.stantler, pkmn.thievul,
+pkmn.skorupi, pkmn.stunky, pkmn.zangoose, pkmn.spinda, pkmn.gulpin, pkmn.zigzagoon, pkmn.teddiursa, pkmn.pineco, pkmn.shuckle, pkmn.minccino, pkmn.pincurchin, pkmn.stonjourner, pkmn.smeargle, pkmn.stantler, pkmn.thievul,
 
 pkmn.charmander, pkmn.squirtle, pkmn.bulbasaur, pkmn.chikorita, pkmn.cyndaquil, pkmn.totodile, pkmn.mudkip, pkmn.torchic, pkmn.treecko, pkmn.turtwig, pkmn.piplup, pkmn.chimchar, pkmn.tepig, pkmn.snivy, pkmn.oshawott, pkmn.froakie, pkmn.chespin, pkmn.fennekin, pkmn.rowlet, pkmn.litten, pkmn.popplio, pkmn.grookey, pkmn.scorbunny, pkmn.sobble,
 

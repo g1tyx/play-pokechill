@@ -24,6 +24,7 @@ pkmn.bulbasaur = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.ivysaur, level: evolutionLevel1 } } },
     hiddenAbility: ability.thickFat,
+    signature : move.frenzyPlant
 }
 
 pkmn.ivysaur = {
@@ -38,6 +39,7 @@ pkmn.ivysaur = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.venusaur, level: evolutionLevel2 } } },
     hiddenAbility: ability.thickFat,
+    signature : move.frenzyPlant
 }
 
 pkmn.venusaur = {
@@ -52,6 +54,7 @@ pkmn.venusaur = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.megaVenusaur, item: item.venusaurite } } },
     hiddenAbility: ability.thickFat,
+    signature : move.frenzyPlant
 }
 
 pkmn.megaVenusaur = {
@@ -65,6 +68,7 @@ pkmn.megaVenusaur = {
         spe: 80,
     },
     hiddenAbility: ability.thickFat,
+    signature : move.frenzyPlant
 }
 
 // 004 Charmander → Charmeleon → Charizard
@@ -155,6 +159,7 @@ pkmn.squirtle = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.wartortle, level: evolutionLevel1 } } },
     hiddenAbility: ability.rainDish,
+    signature : move.hydroCannon
 }
 
 pkmn.wartortle = {
@@ -169,6 +174,7 @@ pkmn.wartortle = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.blastoise, level: evolutionLevel2 } } },
     hiddenAbility: ability.rainDish,
+    signature : move.hydroCannon
 }
 
 pkmn.blastoise = {
@@ -183,6 +189,7 @@ pkmn.blastoise = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.megaBlastoise, item: item.blastoisinite } } },
     hiddenAbility: ability.rainDish,
+    signature : move.hydroCannon
 }
 
 pkmn.megaBlastoise = {
@@ -881,6 +888,7 @@ pkmn.oddish = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.gloom, level: evolutionLevel1 } } },
     hiddenAbility: ability.chlorophyll,
+    signature : move.trailblaze
 }
 
 pkmn.gloom = {
@@ -900,6 +908,7 @@ pkmn.gloom = {
         } 
     },
     hiddenAbility: ability.chlorophyll,
+    signature : move.trailblaze
 }
 
 pkmn.vileplume = {
@@ -913,6 +922,7 @@ pkmn.vileplume = {
         spe: 50,
     },
     hiddenAbility: ability.chlorophyll,
+    signature : move.trailblaze
 }
 
 pkmn.bellossom = {
@@ -926,6 +936,7 @@ pkmn.bellossom = {
         spe: 50,
     },
     hiddenAbility: ability.solarPower,
+    signature : move.trailblaze
 }
 
 
@@ -972,6 +983,7 @@ pkmn.meowth = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.persian, level: evolutionLevel2 } } },
     hiddenAbility: ability.technician,
+    signature : move.payDay
 }
 
 pkmn.persian = {
@@ -985,6 +997,7 @@ pkmn.persian = {
         spe: 115,
     },
     hiddenAbility: ability.technician,
+    signature : move.payDay
 }
 
 
@@ -1512,6 +1525,7 @@ pkmn.voltorb = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.electrode, level: evolutionLevel2 } } },
     hiddenAbility: ability.voltage,
+    signature : move.electroBall
 }
 
 pkmn.electrode = {
@@ -1525,6 +1539,7 @@ pkmn.electrode = {
         spe: 150,
     },
     hiddenAbility: ability.voltage,
+    signature : move.electroBall
 }
 
 // 083 Exeggcute → Exeggutor
@@ -2434,6 +2449,7 @@ pkmn.eevee = {
         } 
     },
     hiddenAbility: ability.normalize,
+    signature : move.batonPass
 }
 
 pkmn.vaporeon = {
@@ -2813,6 +2829,7 @@ pkmn.cyndaquil = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.quilava, level: evolutionLevel1 } } },
     hiddenAbility: ability.flareBoost,
+    signature : move.inferno
 }
 
 pkmn.quilava = {
@@ -2827,6 +2844,7 @@ pkmn.quilava = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.typhlosion, level: evolutionLevel2 } } },
     hiddenAbility: ability.flareBoost,
+    signature : move.inferno
 }
 
 pkmn.typhlosion = {
@@ -2840,6 +2858,7 @@ pkmn.typhlosion = {
         spe: 100,
     },
     hiddenAbility: ability.flareBoost,
+    signature : move.inferno
 }
 
 // 158 Totodile → Croconaw → Feraligatr
@@ -2896,6 +2915,7 @@ pkmn.sentret = {
         spe: 20,
     },
     evolve: function() { return { 1: { pkmn: pkmn.furret, level: evolutionLevel1 } } },
+    signature : move.meFirst
 }
 
 pkmn.furret = {
@@ -2907,7 +2927,8 @@ pkmn.furret = {
         satk: 45,
         sdef: 55,
         spe: 90,
-    }
+    },
+    signature : move.meFirst
 }
 
 // 163 Hoothoot → Noctowl
@@ -2951,6 +2972,7 @@ pkmn.ledyba = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.ledian, level: evolutionLevel1 } } },
     hiddenAbility: ability.ironFist,
+    signature : move.cometPunch
 }
 
 pkmn.ledian = {
@@ -2964,6 +2986,7 @@ pkmn.ledian = {
         spe: 85,
     },
     hiddenAbility: ability.ironFist,
+    signature : move.cometPunch
 }
 
 // 167 Spinarak → Ariados
@@ -2978,6 +3001,7 @@ pkmn.spinarak = {
         spe: 30,
     },
     evolve: function() { return { 1: { pkmn: pkmn.ariados, level: evolutionLevel1 } } },
+    signature : move.toxicThread
 }
 
 pkmn.ariados = {
@@ -2989,7 +3013,8 @@ pkmn.ariados = {
         satk: 60,
         sdef: 70,
         spe: 40,
-    }
+    },
+    signature : move.toxicThread
 }
 
 // 172 Chinchou → Lanturn
@@ -4331,6 +4356,7 @@ pkmn.happiny = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.chansey, item: item.ovalStone } } },
     hiddenAbility: ability.sereneGrace,
+    signature : move.eggBomb
 }
 
 pkmn.chansey = {
@@ -4345,6 +4371,7 @@ pkmn.chansey = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.blissey, level: evolutionLevel2 } } },
     hiddenAbility: ability.sereneGrace,
+    signature : move.eggBomb
 }
 
 pkmn.blissey = {
@@ -4358,6 +4385,7 @@ pkmn.blissey = {
         spe: 55,
     },
     hiddenAbility: ability.sereneGrace,
+    signature : move.eggBomb
 }
 
 // 245 Raikou
@@ -5208,6 +5236,7 @@ pkmn.whismur = {
         spe: 28,
     },
     evolve: function() { return { 1: { pkmn: pkmn.loudred, level: evolutionLevel1 } } },
+    signature : move.boomburst
 }
 
 pkmn.loudred = {
@@ -5221,6 +5250,7 @@ pkmn.loudred = {
         spe: 48,
     },
     evolve: function() { return { 1: { pkmn: pkmn.exploud, level: evolutionLevel3 } } },
+    signature : move.boomburst
 }
 
 pkmn.exploud = {
@@ -5232,7 +5262,8 @@ pkmn.exploud = {
         satk: 91,
         sdef: 73,
         spe: 68,
-    }
+    },
+    signature : move.boomburst
 }
 
 // 297 Makuhita → Hariyama
@@ -5493,7 +5524,8 @@ pkmn.plusle = {
         satk: 85,
         sdef: 75,
         spe: 95,
-    }
+    },
+    signature : move.ionise
 }
 
 // 310 Minun
@@ -5506,7 +5538,8 @@ pkmn.minun = {
         satk: 75,
         sdef: 85,
         spe: 95,
-    }
+    },
+    signature : move.ionise
 }
 
 // 311 Volbeat
@@ -6207,6 +6240,7 @@ pkmn.snorunt = {
         }
     },
     hiddenAbility: ability.moody,
+    signature : move.snowscape
 }
 
 pkmn.glalie = {
@@ -6221,6 +6255,7 @@ pkmn.glalie = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.megaGlalie, item: item.glalitite } } },
     hiddenAbility: ability.moody,
+    signature : move.snowscape
 }
 
 pkmn.megaGlalie = {
@@ -6234,6 +6269,7 @@ pkmn.megaGlalie = {
         spe: 100,
     },
     hiddenAbility: ability.glaciate,
+    signature : move.snowscape
 }
 
 pkmn.froslass = {
@@ -6245,7 +6281,8 @@ pkmn.froslass = {
         satk: 80,
         sdef: 70,
         spe: 110,
-    }
+    },
+    signature : move.snowscape
 }
 
 
@@ -6894,6 +6931,7 @@ pkmn.shinx = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.luxio, level: evolutionLevel1 } } },
     hiddenAbility: ability.guts,
+    signature : move.charge
 }
 
 pkmn.luxio = {
@@ -6908,6 +6946,7 @@ pkmn.luxio = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.luxray, level: evolutionLevel2 } } },
     hiddenAbility: ability.guts,
+    signature : move.charge
 }
 
 pkmn.luxray = {
@@ -6921,6 +6960,7 @@ pkmn.luxray = {
         spe: 70,
     },
     hiddenAbility: ability.guts,
+    signature : move.charge
 }
 
 // 405 Budew → Roselia → Roserade
@@ -7080,6 +7120,7 @@ pkmn.buizel = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.floatzel, level: evolutionLevel2 } } },
     hiddenAbility: ability.swiftSwim,
+    signature : move.tripleDive
 }
 
 pkmn.floatzel = {
@@ -7093,6 +7134,7 @@ pkmn.floatzel = {
         spe: 115,
     },
     hiddenAbility: ability.swiftSwim,
+    signature : move.tripleDive
 }
 
 // 419 Cherubi → Cherrim
@@ -7379,6 +7421,7 @@ pkmn.mimejr = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.mrmime, level: evolutionLevel1 } } },
     hiddenAbility: ability.technician,
+    signature : move.mimic
 }
 
 pkmn.mrmime = {
@@ -7393,6 +7436,7 @@ pkmn.mrmime = {
         spe: 90,
     },
     hiddenAbility: ability.technician,
+    signature : move.mimic
 }
 
 
@@ -7437,6 +7481,7 @@ pkmn.munchlax = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.snorlax, level: evolutionLevel2 } } },
     hiddenAbility: ability.thickFat,
+    signature : move.bellyDrum
 }
 
 pkmn.snorlax = {
@@ -7450,6 +7495,7 @@ pkmn.snorlax = {
         spe: 30,
     },
     hiddenAbility: ability.thickFat,
+    signature : move.bellyDrum
 }
 
 // 448 Riolu → Lucario
@@ -7560,6 +7606,7 @@ pkmn.croagunk = {
         spe: 50,
     },
     evolve: function() { return { 1: { pkmn: pkmn.toxicroak, level: evolutionLevel2 } } },
+    signature : move.venoshock
 }
 
 pkmn.toxicroak = {
@@ -7571,7 +7618,8 @@ pkmn.toxicroak = {
         satk: 86,
         sdef: 65,
         spe: 85,
-    }
+    },
+    signature : move.venoshock
 }
 
 // 456 Finneon → Lumineon
@@ -7686,6 +7734,7 @@ pkmn.togepi = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.togetic, level: evolutionLevel2 } } },
     hiddenAbility: ability.sereneGrace,
+    signature : move.metronome
 }
 
 pkmn.togetic = {
@@ -7700,6 +7749,7 @@ pkmn.togetic = {
     },
   evolve: function() { return { 1: { pkmn: pkmn.togekiss, item: item.shinyStone /*o equivalente*/ } } },
     hiddenAbility: ability.sereneGrace,
+    signature : move.metronome
 }
 
 pkmn.togekiss = {
@@ -7713,6 +7763,7 @@ pkmn.togekiss = {
         spe: 80,
     },
     hiddenAbility: ability.sereneGrace,
+    signature : move.metronome
 }
 
 pkmn.misdreavus = {
@@ -7997,7 +8048,8 @@ pkmn.heatran = {
         satk: 130,
         sdef: 106,
         spe: 77,
-    }
+    },
+    signature : move.magmaStorm
 }
 
 // 486 Regigigas
@@ -8210,6 +8262,7 @@ pkmn.oshawott = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.dewott, level: evolutionLevel1 } } },
     hiddenAbility: ability.sharpness,
+    signature : move.razorShell
 }
 
 pkmn.dewott = {
@@ -8224,6 +8277,7 @@ pkmn.dewott = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.samurott, level: evolutionLevel2 } } },
     hiddenAbility: ability.sharpness,
+    signature : move.razorShell
 }
 
 pkmn.samurott = {
@@ -8237,6 +8291,7 @@ pkmn.samurott = {
         spe: 70,
     },
     hiddenAbility: ability.sharpness,
+    signature : move.razorShell
 }
 
 // 504 Patrat
@@ -8618,18 +8673,20 @@ pkmn.audino = {
     spe: 50,
   },
     evolve: function() { return { 1: { pkmn: pkmn.megaAudino, item: item.audinite } } },
+    signature : move.acupressure
 }
 
 pkmn.megaAudino = {
     type: ["normal","fairy"],
     bst: {
-        hp: 103,
+        hp: 143,
         atk: 60,
         def: 126,
         satk: 80,
         sdef: 126,
         spe: 50,
-    }
+    },
+    signature : move.acupressure
 }
 
 // 532 Timburr → Gurdurr → Conkeldurr
@@ -9114,9 +9171,9 @@ pkmn.archeops = {
   type: ["rock","flying"],
   bst: {
     hp: 75,
-    atk: 140,
+    atk: 120,
     def: 65,
-    satk: 112,
+    satk: 92,
     sdef: 65,
     spe: 110,
   },
@@ -9773,6 +9830,7 @@ pkmn.cryogonal = {
     spe: 105,
   },
     hiddenAbility: ability.levitate,
+    signature : move.freezeDry
 }
 
 // 614 Shelmet → Accelgor
@@ -11795,6 +11853,7 @@ pkmn.mudbray = {
     spe: 45,
   },
   evolve: function() { return { 1: { pkmn: pkmn.mudsdale, level: evolutionLevel2 } } },
+    signature : move.highHorsepower
 }
 
 pkmn.mudsdale = {
@@ -11807,6 +11866,7 @@ pkmn.mudsdale = {
     sdef: 85,
     spe: 35,
   },
+    signature : move.highHorsepower
 }
 
 // 750 Dewpider → Araquanid
@@ -13125,6 +13185,7 @@ pkmn.applin = {
     } 
   },
     hiddenAbility: ability.thickFat,
+    signature : move.appleAcid
 }
 
 pkmn.flapple = {
@@ -13138,6 +13199,7 @@ pkmn.flapple = {
     spe: 70,
   },
     hiddenAbility: ability.thickFat,
+    signature : move.appleAcid
 }
 
 pkmn.appletun = {
@@ -13151,6 +13213,7 @@ pkmn.appletun = {
     spe: 30,
   },
     hiddenAbility: ability.dragonGuard,
+    signature : move.appleAcid
 }
 
 // 850 Silicobra → Sandaconda
@@ -13260,6 +13323,7 @@ pkmn.sizzlipede = {
     spe: 45,
   },
   evolve: function() { return { 1: { pkmn: pkmn.centiskorch, level: evolutionLevel2 } } },
+    signature : move.burnUp
 }
 
 pkmn.centiskorch = {
@@ -13272,6 +13336,7 @@ pkmn.centiskorch = {
     sdef: 90,
     spe: 65,
   },
+    signature : move.burnUp
 }
 
 // 859 Clobbopus → Grapploct
@@ -13314,6 +13379,7 @@ pkmn.sinistea = {
     spe: 50,
   },
   evolve: function() { return { 1: { pkmn: pkmn.polteageist, item: item.duskStone } } },
+    signature : move.teatime
 }
 
 pkmn.polteageist = {
@@ -13326,6 +13392,7 @@ pkmn.polteageist = {
     sdef: 114,
     spe: 70,
   },
+    signature : move.teatime
 }
 
 // 863 Hatenna → Hattrem → Hatterene
@@ -13440,6 +13507,8 @@ pkmn.perrserker = {
 }
 
 // 869 Cursola
+
+
 pkmn.cursola = {
   type: ["ghost"],
   bst: {
@@ -13476,6 +13545,7 @@ pkmn.mrRime = {
     sdef: 100,
     spe: 70,
   },
+    signature : move.mimic
 }
 
 // 872 Runerigus
@@ -14144,6 +14214,7 @@ pkmn.alolanMeowth = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.alolanPersian, level: evolutionLevel2 } } },
     hiddenAbility: ability.technician,
+    signature : move.payDay
 }
 
 pkmn.alolanPersian = {
@@ -14157,6 +14228,7 @@ pkmn.alolanPersian = {
         spe: 115,
     },
     hiddenAbility: ability.technician,
+    signature : move.payDay
 }
 
 // Alolan Geodude → Alolan Graveler → Alolan Golem
@@ -14294,6 +14366,7 @@ pkmn.hisuianVoltorb = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.hisuianElectrode, level: evolutionLevel2 } } },
     hiddenAbility: ability.electricSurge,
+    signature : move.chloroblast
 }
 
 pkmn.hisuianElectrode = {
@@ -14307,6 +14380,7 @@ pkmn.hisuianElectrode = {
         spe: 150,
     },
     hiddenAbility: ability.electricSurge,
+    signature : move.chloroblast
 }
 
 // Hisuian Qwilfish

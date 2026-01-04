@@ -799,6 +799,12 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     align-items: center;
 }
 
+.editor-stat-number{
+    width: 1.6rem;
+    text-align: end;
+    margin-right: 3px;
+}
+
 .pkmn-stats-panel-bst svg{
     color: var(--dark2);
     height: 1.5rem;
@@ -813,6 +819,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     white-space: nowrap;
     background: transparent;
     color: var(--light1);
+    font-size: 0.9rem;
 }
 
 .inspect-pkmn-types div{
@@ -1050,7 +1057,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     width: 95%;
     background: rgb(119, 171, 192);
     border: 2px solid rgb(146, 242, 255);
-    color: var(--light2);
+    color: white;
     display: none;
     justify-content: center;
     align-items: center;
@@ -1066,6 +1073,40 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 
 #area-rejoin:hover{
         background: rgb(95, 146, 167);
+}
+
+.auto-build-confirm{
+    border-radius: 0.2rem;
+    background: var(--light1);
+    color: white;
+    margin-top: 1rem;
+    transition: 0.1s;
+}
+
+.auto-build-confirm:hover{
+    filter: brightness(1.1);
+}
+
+#area-refight{
+    width: 95%;
+    background: rgb(119, 192, 137);
+    border: 2px solid rgb(146, 255, 152);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 151;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    border-radius: 0.3rem;
+    transition: 0.1s;
+}
+
+#area-refight:hover{
+        background: rgb(103, 167, 95);
 }
 
 #pkmn-editor-header{
