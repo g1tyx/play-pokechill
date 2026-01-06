@@ -477,10 +477,6 @@ function updateItemShop(){
         
 
 
-
-
-
-
         return
     }
 

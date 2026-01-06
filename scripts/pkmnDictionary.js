@@ -203,6 +203,7 @@ pkmn.megaBlastoise = {
         spe: 78,
     },
     hiddenAbility: ability.rainDish,
+    signature : move.hydroCannon
 }
 
 // 010 Caterpie → Metapod → Butterfree

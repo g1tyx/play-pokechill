@@ -151,9 +151,13 @@ function updateGameVersion() {
   saved.spiralRewardsClaimed = 0
   }
 
+  if (saved.version<2.2){
+  saved.tutorialStep = `none`
+  }
 
 
-  saved.version = 2.1
+
+  saved.version = 2.2
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -381,6 +385,8 @@ function learnPkmnMove(id, level, mod) {
 
 //used for the frontier 
 function learnPkmnMoveSeeded(id, level, mod, seed, exclude = []) {
+
+  //console.log(id)
     let attempts = 0;
     const MAX_ATTEMPTS = 100;
 
@@ -438,6 +444,7 @@ function learnPkmnAbility(id) {
         if (ab.rarity !== tier) return false;
         if (ab.type == undefined) return false;
         if (a == pkmn[id].hiddenAbility?.id) return false
+        if (a == pkmn[id].ability) return false
 
         return ab.type.includes("all") || ab.type.some(t => types.includes(t));
     });
@@ -468,25 +475,19 @@ function newGameIntro(){
 saved.tutorial = false
 saved.tutorialStep = "intro"
 
-document.getElementById("settings-tutorial").addEventListener("change", e => {
-  if (document.getElementById(`settings-tutorial`).value === "enabled") {saved.tutorial = true; openTutorial()}
-  if (document.getElementById(`settings-tutorial`).value === "disabled") {saved.tutorial = false; openTutorial()}
-});
+
 
 
 function openTutorial(){
 
-  if (saved.tutorial != true){
-    document.getElementById("tutorial").style.display = "none"
-    return
-  }
+
 
   if (saved.tutorialStep == "none") {
     document.getElementById("tutorial").style.display = "none"
     return
   }
 
-  if (saved.tutorialStep == "intro") document.getElementById("tutorial-text").innerHTML = `Howdy! I have been assigned to show the ropes, but you can disable me in the settings at any time.<br>Let's start by getting new pokemon shall we? Select "Travel" on the top left menu`
+  if (saved.tutorialStep == "intro") document.getElementById("tutorial-text").innerHTML = `Howdy! I have been assigned to show the ropes<br>Let's start by getting new pokemon shall we? Select "Travel" on the top left menu`
   if (saved.tutorialStep == "travel") document.getElementById("tutorial-text").innerHTML = `You can right click/long tap almost everything on the screen for more info! You can also do this within the info itself too. Try going into the first Wild Area to start catching Pokemon`
   if (saved.tutorialStep == "moves") document.getElementById("tutorial-text").innerHTML = `Right click/long tap a pokemon in your team to set their moves, you can also do this while in battle. If you got any held items, you can also assign them here<br>Once you are ready, press Save and Go! at the top of the screen`
   if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell. Once you have more Pokemon in your team, you will be able to switch them arround in a fight`
@@ -636,6 +637,8 @@ function infoPkmn(){
     console.table([
       {command:"givePkmn(pkmn.NAME, LEVEL)", effect:"Give Pokemon"},
       {command:"pkmn.NAME.level=LEVEL", effect:"Modify Pokemon level"},
+      {command:"pkmn.NAME.shiny=true", effect:"Modify Pokemon shiny status"},
+      {command:"pkmn.NAME.ivs.hp=NUMBER", effect:"Modify Pokemon ivs (hp, atk, satk, def, sdef, spe)"},
       {command:"pkmn.NAME.movepool.push(move.NAME.id)", effect:"Add Pokemon Move"},
       {command:"pkmn.NAME.ability=ability.NAME.id", effect:"Modify Pokemon Ability"},
       {command:"pkmn.NAME.hiddenAbilityUnlocked=true", effect:"Unlock Hidden Ability"},
@@ -660,6 +663,8 @@ function infoRotation(){
 function infoMisc(){
     console.table([
       {command:"saved.overrideBattleTimer=NUMBER", effect:"Alter Battle Speed (Default 2000)"},
+      {command:"debugGetPkmn(LEVEL,'shiny')", effect:"Get all Pokemon at certain level. Shiny is optional"},
+      {command:"debugSetIvs(NUMBER)", effect:"Set all Pokemon IV's. Maximum 6"},
       {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
       ]);
 }

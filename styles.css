@@ -616,7 +616,7 @@ flex-direction: column;
 }
 
 .menu-item{
-    background: var(--light2);
+    background: var(--light1);
     height: 6rem;
     width: 6rem;
     border-radius: 0.3rem;
@@ -635,20 +635,22 @@ flex-direction: column;
 }
 
 .menu-item:hover{
-        background: var(--light1);
-
+        filter: brightness(0.8) !important;
 }
+
+
 
 .menu-item span{
     width: 100%;
     height: 2rem;
-    background: var(--light1);
+    background: var(--dark2);
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     border-top: dotted var(--dark2) 3px;
+    border-radius: 0.3rem;
 }
 
 .menu-item img{
@@ -657,7 +659,14 @@ flex-direction: column;
     image-rendering: pixelated;
 }
 
+.menu-item-locked{
+    background: var(--dark1);
+    border-color: var(--dark1);
+}
 
+.menu-item-locked img{
+    filter: brightness(0);
+}
 
 #tooltipBackground {
     position: fixed;
@@ -2531,6 +2540,28 @@ color: var(--dark2);
     height: 2rem;
 }
 
+
+#training-indicator {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+#training-indicator div {
+    padding: 0.6rem;
+    border-radius: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    outline: rgba(255, 255, 255, 0.5) solid 2px ;
+    color: white;
+    height: 2rem;
+}
+
 #wild-buff-list {
     position: absolute;
     left: 0.3rem;
@@ -3606,7 +3637,7 @@ background:
 
 #genetics-host-div svg{
     color: black;
-    scale: 2;
+    scale: 1;
     opacity: 0.6;
 }
 
@@ -4059,4 +4090,275 @@ background:
    background: var(--light2);
    margin-right: 0.5rem;
 }
+
+
+#genetics-warning{
+    background: rgb(207, 93, 93);
+    color: white;
+    border-radius: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+#genetics-warning svg{
+    margin: 0 0.5rem;
+}
+
+
+
+#training-menu{
+    position: fixed;
+    height: 100%;
+    width: 50%;
+    background: var(--dark2);
+    z-index: 150;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    z-index: 30;
+background: 
+   
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='white' fill-opacity='0.03'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E")
+    ,
+    var(--dark1)
+    ;
+}
+
+@media (max-width: 1000px) {
+    #training-menu {
+        width: 100%;
+    }
+}
+
+
+#training-menu-header{
+    height: auto;
+    width: 100%;
+    background-image: url(img/bg/mini/city2.png);
+    background-size: 20rem;
+    background-position:bottom left;
+    image-rendering: pixelated;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    text-align: center;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.7) 15px 0px 5px;
+}
+
+#training-menu-header span {
+    height: 2rem;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--dark1);
+    color: white;
+    border: rgba(255, 255, 255, 0.7) 1px solid;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.3rem 1rem;
+    font-weight: 100;
+    flex-shrink: 0;
+    margin-bottom: -2rem;
+    z-index: 2;
+}
+
+#training-menu-header span svg{
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+}
+
+#training-header-flex{
+    height: 10rem;
+    width: 100%;
+}
+
+.training-flex{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.training-flex-1{
+        width: 11rem;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+}
+
+.training-flex-1 img{
+    scale: -2 2;
+    animation: pkmn-active 0.3s infinite;
+
+}
+
+.training-flex-2{
+        width: 4rem;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+}
+
+.training-flex-2 img{
+        height: 130%;
+        image-rendering:initial;
+        position: absolute;
+        bottom: 0;
+        animation: train-sack 1.5s infinite;
+        transform-origin: top center;
+        z-index: 0;
+}
+
+@keyframes train-sack {
+0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-25deg);
+  }
+  30% {
+    transform: rotate(10deg);
+  }
+  45% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+#training-list{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    align-content: start;
+    position: relative;
+    border-radius: 0.5rem;
+    padding: 5px;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 0.5rem;
+
+}
+
+.training-module{
+    height: 5.5rem;
+    width: 49%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--dark2);
+    border-radius: 0.3rem;
+    border-top: #60A5FA 2px solid;
+    flex-direction: column;
+    position: relative;
+    color: var(--light2);
+    padding: 3px;
+    gap: 5px;
+    cursor: help;
+    transition: 0.1s;
+}
+
+.training-module:hover{
+    filter: brightness(1.2);
+}
+
+.add-training{
+    background: transparent !important;
+    height: 10rem;
+}
+
+.training-module span{
+    height: 100%;
+    width: 100%;
+    background-color: var(--dark1);
+    border-radius: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0 0.5rem;
+}
+
+.training-module strong{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    background: var(--dark1);
+    outline: solid 1px #dfc969;
+    color: #60A5FA;
+    border-radius: 0.3rem;
+    font-weight: 100;
+}
+
+#training-sprite-div svg{
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+#training-sprite-div svg:hover{
+    transform: scale(1.1);
+}
+
+
+#training-sprite-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: help;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

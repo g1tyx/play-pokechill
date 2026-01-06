@@ -403,10 +403,10 @@
                 <option value="onyx">onyx</option>
             </select></div>
 
-            <div>Tutorials: <select id="settings-tutorial">
+            <!--<div>Tutorials: <select id="settings-tutorial">
                 <option value="enabled">enabled</option>
                 <option value="disabled">disabled</option>
-            </select></div>
+            </select></div>-->
 
             <div onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Credits`
@@ -493,10 +493,75 @@ Game Guide
 
 
 
+    <div id="training-menu" style="display: none;">
+
+        
+
+    <div id="training-menu-header">
+    <div style="display:flex; gap:0.2rem" >
+    <span >
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"><path d="M9.102 13.727c.032-1.321.78-2.503 2.092-2.656c.378-.043.812-.071 1.306-.071s.928.028 1.306.072c1.313.152 2.06 1.334 2.092 2.655c.047 1.944.102 5.29.102 10.273s-.055 8.329-.102 10.273c-.032 1.321-.78 2.503-2.092 2.656c-.378.043-.812.071-1.306.071s-.928-.028-1.306-.071c-1.313-.153-2.06-1.335-2.092-2.656C9.055 32.329 9 28.983 9 24s.055-8.329.102-10.273m29.796 0c-.032-1.321-.78-2.503-2.092-2.656c-.378-.043-.812-.071-1.306-.071s-.928.028-1.306.072c-1.313.152-2.06 1.334-2.092 2.655C32.055 15.671 32 19.017 32 24s.055 8.329.102 10.273c.032 1.321.78 2.503 2.092 2.656c.378.043.812.071 1.306.071s.928-.028 1.306-.071c1.313-.153 2.06-1.335 2.092-2.656c.047-1.944.102-5.29.102-10.273s-.055-8.329-.102-10.273"/><path d="M15.993 26.982a1293 1293 0 0 0 16.014-.013m-.001-5.939c-2.414-.017-5.4-.03-9.007-.03c-2.668 0-4.998.007-7.007.018M3.055 18.803c.036-1.49.984-2.748 2.474-2.796a15 15 0 0 1 .942 0c1.49.048 2.438 1.305 2.474 2.796C8.975 20.026 9 21.739 9 24s-.026 3.974-.055 5.197c-.036 1.49-.984 2.748-2.474 2.796a15 15 0 0 1-.942 0c-1.49-.048-2.438-1.305-2.474-2.796C3.025 27.974 3 26.261 3 24s.026-3.974.055-5.197m41.89 0c-.036-1.49-.984-2.748-2.474-2.796a15 15 0 0 0-.942 0c-1.49.048-2.438 1.305-2.474 2.796C39.025 20.026 39 21.739 39 24s.026 3.974.055 5.197c.036 1.49.984 2.748 2.474 2.796a15 15 0 0 0 .942 0c1.49-.048 2.438-1.305 2.474-2.796c.03-1.223.055-2.936.055-5.197s-.026-3.974-.055-5.197"/></g></svg>
+    Training
+    </span>
+    <span class="header-help" data-help="Training"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+    </div>
 
 
+    <div id="training-header-flex">
+
+        <div class="training-flex">
+
+            <div class="training-flex-1">
+            <div id="training-sprite-div" style="z-index: 10;"><img class="sprite-trim"  style="z-index: 1; transform-origin: bottom; margin-top: auto; position: absolute; bottom: 0rem;" src="img/pkmn/sprite/wobbuffet.png"></div>
+            <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 3; transform: translateY(0.5rem); image-rendering: initial;" src="img/resources/pkmn-shadow.png">
+            </div>
+
+            <div class="training-flex-2">
+            <img src="img/resources/training-sack.png" id="training-sack">
+            </div>
 
 
+        </div>
+        
+    </div>
+    </div>
+
+
+    
+    <div id="training-list">
+
+        <div class="training-module">
+            <span>IV Training</span>
+            <strong>Difficulty: ★</strong>
+        </div>
+
+        <div class="training-module">
+            <span>EXP Training</span>
+            <strong>Difficulty: ★★★</strong>
+        </div>
+
+
+        <div class="training-module">
+            <span>Signature Move Training</span>
+            <strong>Difficulty: ★★★★</strong>
+        </div>
+
+        <div class="training-module">
+            <span>Ability Training</span>
+            <strong>Difficulty: ★★</strong>
+        </div>
+
+        <div class="training-module">
+            <span>Hidden Ability Training</span>
+            <strong>Difficulty: ★★★★</strong>
+        </div>
+
+    </div>
+
+
+    
+
+    </div>
 
 
 
@@ -561,13 +626,17 @@ Game Guide
             <!--<div class="genetics-overview-data"><span>% to swap sample's ability</span><div></div><span>12%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's signature move</span><div></div><span>8%</span></div>
             <br> these require special items -->
+
             <div class="genetics-overview-data"><span>% to inherit sample's HP Iv's</span><div></div><span id="genetics-data-hp">5%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's Attack Iv's</span><div></div><span id="genetics-data-atk">5%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's S. Attack Iv's</span><div></div><span id="genetics-data-satk">5%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's Defense Iv's</span><div></div><span id="genetics-data-def">5%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's S. Defense Iv's</span><div></div><span id="genetics-data-sdef">5%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's Speed Iv's</span><div></div><span id="genetics-data-spe">5%</span></div>
-
+            <div id="genetics-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>
+                Warning, power cost too high! Only 5 out of 6 maximum IV's per stat will be inherited!
+            </div>
         </div>
 
         <div id="genetics-progress">
@@ -1025,19 +1094,21 @@ Game Guide
             <span>Poke-Mart</span>
         </div>
 
+        <div class="menu-item" id="menu-item-training" onClick="switchMenu('training')">
+            <img src="img/items/blackBelt.png">
+            <span>Training</span>
+        </div>
+
         <div class="menu-item" id="menu-item-genetics" onClick="switchMenu('genetics')">
             <img src="img/items/dnaSplicer.png">
             <span>Genetics</span>
         </div>
 
-        <div class="menu-item" id="menu-item-settings" onClick="switchMenu('settings')">
-            <img src="img/items/key.png">
-            <span>Settings</span>
-        </div>
 
-        <div class="menu-item" id="menu-item-guide" onClick="switchMenu('guide')">
-            <img src="img/items/tv.png">
-            <span>Guide</span>
+
+        <div class="menu-item" id="menu-mystery-gift" onClick="claimMysteryGift()">
+            <img src="img/items/gift.png">
+            <span>Mystery Gift</span>
         </div>
 
         <div class="menu-item" id="menu-export-reward" onClick="claimExportReward()">
@@ -1045,9 +1116,14 @@ Game Guide
             <span>Export Reward</span>
         </div>
 
-        <div class="menu-item" id="menu-mystery-gift" onClick="claimMysteryGift()">
-            <img src="img/items/gift.png">
-            <span>Mystery Gift</span>
+        <div class="menu-item" id="menu-item-guide" onClick="switchMenu('guide')">
+            <img src="img/items/tv.png">
+            <span>Guide</span>
+        </div>
+
+        <div class="menu-item" id="menu-item-settings" onClick="switchMenu('settings')">
+            <img src="img/items/key.png">
+            <span>Settings</span>
         </div>
 
         <div class="menu-item" id="menu-item-fullscreen" onclick="document.documentElement.requestFullscreen(); openMenu()">
@@ -1080,6 +1156,11 @@ Game Guide
                 <div id="spiraling-current-floor">Floor: 3</div>
                 <div id="spiraling-highest-floor"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGIz3eBe9X"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M8 44h8m-4 0V4"/><path fill="#555555" d="M40 6H12v16h28l-4-8z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGIz3eBe9X)"/></svg> Highest Floor: 3</div>
             </div>
+
+            <div id="training-indicator">
+                <div id="training-indicator-counter">20 Remaining</div>
+            </div>
+
             <div style="display: flex; width: 100%;">
 
             <div class="explore-sprite" id="explore-wild-sprite-data" style="cursor: help;">

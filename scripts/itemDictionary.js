@@ -47,7 +47,7 @@ item.magnet = {
 item.metalCoat = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increase the power of Metal-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Increase the power of Steel-Type moves by ${this.power()}%`},
     power : function() { return 10+(10*returnItemLevel(this.id))}
 }
 
@@ -214,13 +214,13 @@ item.babiriBerry = {
 
 item.luckIncense = {
     type: "held",
-    info: function() {return `When held: Increases the weight of rare item drops by ${this.power()}%`},
+    info: function() {return `When held: Increases the weight of rare item drops by ${this.power()}%. Works always for everyone regardless of the holder`},
     power : function() { return 0.5+(0.5*returnItemLevel(this.id))}
 }
 
 item.pureIncense = {
     type: "held",
-    info: function() {return `When held: Increases the weight of rare pokemon by ${this.power()}%`},
+    info: function() {return `When held: Increases the weight of rare pokemon by ${this.power()}%. Works always for everyone regardless of the holder`},
     power : function() { return 0.5+(0.5*returnItemLevel(this.id))}
 }
 

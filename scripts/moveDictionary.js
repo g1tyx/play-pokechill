@@ -83,7 +83,7 @@ move.payDay = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `Once used,increases the weight of rare item drops by 1% for the current battle. Multiple uses wont stack`},
+    info: function() {return `Once used,increases the weight of rare item drops by 1% for the current battle. Multiple uses wont stack. Works always for everyone regardless of the user`},
     hitEffect: function(target) { 
         saved.hasPayDayBeenUsed = true
     },
@@ -93,7 +93,7 @@ move.teatime = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `Once used,increases the weight of rare Pokemon by 1% for the current battle. Multiple uses wont stack`},
+    info: function() {return `Once used,increases the weight of rare Pokemon by 1% for the current battle. Multiple uses wont stack. Works always for everyone regardless of the user`},
     hitEffect: function(target) { 
         saved.hasTeatimeBeenUsed = true
     },
@@ -235,7 +235,6 @@ move.freezeDry = {
     split: "special",
     type: "ice",
     power: t4Base-20,
-    timer: defaultPlayerMoveTimer*1.5,
     info: function() {return `Super-effective against Water-types`} ,
 }
 
@@ -250,7 +249,7 @@ move.snowscape = {
 move.venoshock = {  
     split: "special",
     type: "poison",
-    power: t4Base+20/2,
+    power: (t4Base+20)/2,
     info: function() {return `Power doubles if the target is ${tagPoisoned}`},
     powerMod : function() { if (wildBuffs.poisoned>0 ) { return 2} else return 1 },
 }
@@ -727,7 +726,7 @@ move.thunderousKick = {
 move.meteorAssault = {
     split: "physical",
     type: "fighting",
-    power: t5Base+10*1.2,
+    power: (t5Base+10)*1.2,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`} ,
 }
@@ -839,7 +838,7 @@ move.rageFist = {
     split: "physical",
     type: "ghost",
     power: t5Base/2,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++;    },
@@ -851,7 +850,7 @@ move.iceBall = {
     rarity: 2,
     type: "ice",
     power: t5Base/2,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++; },
@@ -861,7 +860,7 @@ move.tripleAxel = {
     split: "physical",
     type: "ice",
     power: t5Base/2,
-    info: function() {return `Multiplies move power by 1.3x everytime its used, up to 3 times. Depletes all stacks upon switching`},
+    info: function() {return `Multiplies move power by 1.3x everytime its used, up to 3 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.3,this.buildup) },
     hitEffect: function(target) { if (this.buildup<3) this.buildup++;   },
@@ -871,7 +870,7 @@ move.attackOrder = {
     split: "physical",
     type: "bug",
     power: t5Base/3,
-    info: function() {return `Multiplies move power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching`},
+    info: function() {return `Multiplies move power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.15,this.buildup) },
     hitEffect: function(target) { if (this.buildup<10) this.buildup++;  },
@@ -2050,7 +2049,7 @@ move.furyCutter = {
     rarity: 1,
     type: "bug",
     power: 25,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },
@@ -2752,7 +2751,7 @@ move.rollout = {
     rarity: 2,
     type: "rock",
     power: 55,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },
@@ -3126,7 +3125,7 @@ move.echoedVoice = {
     rarity: 2,
     type: "fairy",
     power: 50,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching`},
+    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },

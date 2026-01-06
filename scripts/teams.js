@@ -122,10 +122,11 @@ function updatePreviewTeam(){
         <div class="explore-header-hpbox">
         <span style="color: white;">${pkmnName}</span>
         </div>
-        <div class="explore-header-moves" id="explore-team-member-${i}-moves">
+        <div class="explore-header-moves" id="explore-team-member-${i}-moves-preview">
         </div>
         </div>
     `
+
     document.getElementById("team-preview").appendChild(div)
     document.getElementById(`explore-team-member-${i}-spriteData`).dataset.pkmnEditor = currentTeam[i].pkmn
 
@@ -156,14 +157,14 @@ function updatePreviewTeam(){
     const divMove = document.createElement("div") 
     divMove.className = "pkmn-movebox"
     divMove.style.borderColor = returnTypeColor(move[moveId].type)
-    divMove.id = `pkmn-movebox-${e}-team-${i}`
+    divMove.id = `pkmn-movebox-${e}-team-${i}-preview`
     divMove.innerHTML = 
-        `<div id = "pkmn-movebox-${e}-team-${i}-bar"
+        `<div id = "pkmn-movebox-${e}-team-${i}-bar-preview"
         class="pkmn-movebox-progress" style="background: ${returnTypeColor(move[ moveId ].type)} "></div><span>`
         + format(moveId) + signatureIcon + `</span><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">
     `
     divMove.dataset.move = moveId
-    document.getElementById(`explore-team-member-${i}-moves`).appendChild(divMove)
+    document.getElementById(`explore-team-member-${i}-moves-preview`).appendChild(divMove)
     }
 
     }
@@ -180,7 +181,7 @@ function updatePreviewTeam(){
         <div class="explore-header-hpbox">
         <span style="color: white;">Add Pokemon</span>
         </div>
-        <div class="explore-header-moves" id="explore-team-member-${i}-moves">
+        <div class="explore-header-moves" id="explore-team-member-${i}-moves-preview">
         </div>
         </div>
     `
@@ -264,7 +265,10 @@ function injectPreviewTeam(){
     for ( const slot in team){
     team[slot].pkmn = pkmn[currentTeam[slot].pkmn]
     team[slot].item = currentTeam[slot].item
+
+
     }
+
 
 
 
@@ -300,6 +304,7 @@ function setPkmnTeamHp(){
 
     let hpMultiplier = 10
     if (areas[saved.currentArea].trainer || saved.currentArea == areas.frontierSpiralingTower.id) hpMultiplier = 4
+    if (saved.currentArea == areas.training.id) hpMultiplier = 80 //100
 
     pkmn[team[i].pkmn.id].playerHp =
     (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, pkmn[team[i].pkmn.id].ivs.hp) )
@@ -435,6 +440,7 @@ function setPkmnTeam(){
 
 
 
+
     if (moveId == undefined){ //fix
             const divMove = document.createElement("div") 
             divMove.className = "pkmn-movebox"
@@ -449,7 +455,7 @@ function setPkmnTeam(){
     if (move[moveId].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
 
 
-    
+
     const divMove = document.createElement("div") 
     divMove.className = "pkmn-movebox"
     divMove.style.borderColor = returnTypeColor(move[moveId].type)
@@ -462,7 +468,6 @@ function setPkmnTeam(){
      `</span><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">`
 
      divMove.dataset.move = moveId
-
     document.getElementById(`explore-team-member-${i}-moves`).appendChild(divMove)
     }
 

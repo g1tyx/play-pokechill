@@ -1263,7 +1263,7 @@ areas.fierySummit = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.fieryRock]
+        uncommon : [item.fieryRock]
     },
 }
 
@@ -1437,7 +1437,7 @@ areas.primitiveGrove = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.ancientOrchid]
+        uncommon : [item.ancientOrchid]
     },
 }
 
@@ -1455,7 +1455,7 @@ areas.protonCity = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.futureDisk]
+        uncommon : [item.futureDisk]
     },
 }
 
@@ -2437,7 +2437,23 @@ areas.vsGymLeaderBrock = {
         slot6 : pkmn.aerodactyl,
         slot6Moves : [move.smackDown.id, move.gust.id],
     },
-    reward : [item.hardStone, item.goldenBottleCap]
+    reward : [item.hardStone, item.goldenBottleCap],
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(100deg)" >New Wild Area unlocked</div>
+        <div style="filter:hue-rotate(0deg)" >New Dungeon: Sinnoh Underground</div>
+        <div style="filter:hue-rotate(0deg)" >New Dungeon: Beginner Training</div>
+        <div style="filter:hue-rotate(50deg)" >Mystery Gift unlocked</div>
+        <div style="filter:hue-rotate(200deg)" >Export Reward unlocked</div>
+        <div style="filter:hue-rotate(300deg)" >Poke-Mart unlocked</div>
+        </div>
+        `
+        openTooltip()
+    }
 }
 
 areas.vsBlackBeltRyan = {
@@ -2533,7 +2549,20 @@ areas.vsGymLeaderMisty = {
         slot6 : pkmn.starmie,
         slot6Moves : [move.psychic.id, move.auroraBeam.id, move.waterPulse.id],
     },
-    reward : [item.mysticWater, item.goldenBottleCap]
+    reward : [item.mysticWater, item.goldenBottleCap],
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(100deg)" >New Wild Area unlocked</div>
+        <div style="filter:hue-rotate(0deg)" >New Dungeon: Advanced Training</div>
+        <div style="filter:hue-rotate(300deg)" >Training unlocked</div>
+        </div>
+        `
+        openTooltip()
+    }
 }
 
 areas.vsSwimmerDan = {
@@ -2629,8 +2658,21 @@ areas.vsGymLeaderPhoebe = {
         slot6 : pkmn.dragapult,
         slot6Moves : [move.dragonClaw.id, move.hex.id, move.shadowBall.id, move.dragonDance.id],
     },
-    reward : [item.spellTag, item.goldenBottleCap]
+    reward : [item.spellTag, item.goldenBottleCap],
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(100deg)" >New Wild Area unlocked</div>
+        <div style="filter:hue-rotate(0deg)" >New Dungeon: Expert Training</div>
+        </div>
+        `
+        openTooltip()
+    }
 }
+
 
 areas.vsTwinTrainersBellisse = {
     name: `Twin Trainers Bellise`,
@@ -2726,7 +2768,20 @@ areas.vsEliteTrainerCynthia = {
         slot6 : pkmn.megaGarchomp,
         slot6Moves : [move.swordsDance.id, move.dragonTail.id, move.dragonRush.id, move.earthquake.id],
     },
-    reward : [item.dragonFang, item.goldenBottleCap]
+    reward : [item.dragonFang, item.goldenBottleCap],
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(100deg)" >Tier I Event Raids unlocked</div>
+        <div style="filter:hue-rotate(0deg)" >New Dungeon: Victory Road</div>
+        <div style="filter:hue-rotate(50deg)" >Level Training unlocked</div>
+        </div>
+        `
+        openTooltip()
+    }
 }
 
 areas.vsEliteFourLorelei = {
@@ -2826,7 +2881,19 @@ areas.vsEliteFourLance = {
         slot6 : pkmn.rayquaza,
         slot6Moves : [move.dragonDance.id, move.fly.id, move.dragonClaw.id, move.flamethrower.id],
     },
-    reward : [item.luckIncense, item.goldenBottleCap]
+    reward : [item.luckIncense, item.goldenBottleCap],
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(100deg)" >Tier II Event Raids unlocked</div>
+        <div style="filter:hue-rotate(0deg)" >Genetics unlocked</div>
+        </div>
+        `
+        openTooltip()
+    }
 }
 
 areas.vsTeamLeaderColress = {
@@ -2926,7 +2993,18 @@ areas.vsTeamLeaderGiovanni = {
         slot6 : pkmn.mewtwo,
         slot6Moves : [move.calmMind.id, move.psychic.id, move.shadowBall.id, move.confuseRay.id],
     },
-    reward : [item.abilityCapsule, item.goldenBottleCap]
+    reward : [item.abilityCapsule, item.goldenBottleCap],
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(0deg)" >Battle Frontier unlocked</div>
+        </div>
+        `
+        openTooltip()
+    }
 }
 
 
@@ -3665,6 +3743,24 @@ areas.frontierSpiralingTower = {
     floor : 1,
     icon: pkmn.pikachu,
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+areas.training = {
+    background: `gym`
+}
+
+
 
 
 for (const i in areas){
