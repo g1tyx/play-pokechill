@@ -3572,6 +3572,7 @@ function initialiseArea(){
     //exploreCombatPlayer()
     //exploreCombatWild()
 
+    saveGame()
 
 
 
@@ -7014,4 +7015,5 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+
 
