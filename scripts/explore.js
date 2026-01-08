@@ -2527,6 +2527,17 @@ function exploreCombatPlayer() {
     if (team[exploreActiveMember].buffs?.speup1 > 0) moveTimerPlayer /= 1.5
     if (team[exploreActiveMember].buffs?.speup2 > 0) moveTimerPlayer /= 2
 
+
+    if (saved.weatherTimer>0 && saved.weather=="sunny" && move[nextMovePlayer].type == 'fire') moveTimerPlayer /= 2
+    if (saved.weatherTimer>0 && saved.weather=="rainy" && move[nextMovePlayer].type == 'water') moveTimerPlayer /= 2
+    if (saved.weatherTimer>0 && saved.weather=="sandstorm" && (move[nextMovePlayer].type == 'rock' || move[nextMovePlayer].type == 'ground') ) moveTimerPlayer /= 2
+    if (saved.weatherTimer>0 && saved.weather=="hail" &&  move[nextMovePlayer].type == 'ice' ) moveTimerPlayer /= 2
+    if (saved.weatherTimer>0 && saved.weather=="foggy" && (move[nextMovePlayer].type == 'ghost' || move[nextMovePlayer].type == 'dark') ) moveTimerPlayer /= 2
+    if (saved.weatherTimer>0 && saved.weather=="electricTerrain" && (move[nextMovePlayer].type == 'electric' || move[nextMovePlayer].type == 'steel') ) moveTimerPlayer /= 2
+    if (saved.weatherTimer>0 && saved.weather=="mistyTerrain" && (move[nextMovePlayer].type == 'fairy' || move[nextMovePlayer].type == 'psychic') ) moveTimerPlayer /= 2
+    if (saved.weatherTimer>0 && saved.weather=="grassyTerrain" && (move[nextMovePlayer].type == 'grass' || move[nextMovePlayer].type == 'bug') ) moveTimerPlayer /= 2
+        
+
     /*if (afkSeconds > 0) { //afk time
         const increment = 100 / (
         (moveTimerPlayer * (Math.pow(0.9, pkmn[team[exploreActiveMember].pkmn.id].bst.spe) * Math.pow(0.95, pkmn[team[exploreActiveMember].pkmn.id].ivs.spe)))
@@ -2853,6 +2864,7 @@ function exploreCombatPlayer() {
 
 
         //weather
+        /*
         if (saved.weatherTimer>0 && saved.weather=="sunny" && moveType == 'fire') totalPower *= 1.5
         if (saved.weatherTimer>0 && saved.weather=="sunny" && moveType == 'water') totalPower /= 1.5
         if (saved.weatherTimer>0 && saved.weather=="rainy" && moveType == 'water') totalPower *= 1.5
@@ -2863,7 +2875,7 @@ function exploreCombatPlayer() {
         if (saved.weatherTimer>0 && saved.weather=="electricTerrain" && (moveType == 'electric' || moveType == 'steel') ) totalPower *= 1.5
         if (saved.weatherTimer>0 && saved.weather=="mistyTerrain" && (moveType == 'fairy' || moveType == 'psychic') ) totalPower *= 1.5
         if (saved.weatherTimer>0 && saved.weather=="grassyTerrain" && (moveType == 'grass' || moveType == 'bug') ) totalPower *= 1.5
-
+        */
 
 
 
@@ -3318,6 +3330,17 @@ function exploreCombatWild() {
     if (wildBuffs.speup1 > 0) moveTimerWild = move[nextMoveWild]?.timer / 1.5
     if (wildBuffs.speup2 > 0) moveTimerWild = move[nextMoveWild]?.timer / 2
 
+
+    if (saved.weatherTimer>0 && saved.weather=="sunny" && move[nextMoveWild].type == 'fire') moveTimerWild /= 2
+    if (saved.weatherTimer>0 && saved.weather=="rainy" && move[nextMoveWild].type == 'water') moveTimerWild /= 2
+    if (saved.weatherTimer>0 && saved.weather=="sandstorm" && (move[nextMoveWild].type == 'rock' || move[nextMoveWild].type == 'ground') ) moveTimerWild /= 2
+    if (saved.weatherTimer>0 && saved.weather=="hail" &&  move[nextMoveWild].type == 'ice' ) moveTimerWild /= 2
+    if (saved.weatherTimer>0 && saved.weather=="foggy" && (move[nextMoveWild].type == 'ghost' || move[nextMoveWild].type == 'dark') ) moveTimerWild /= 2
+    if (saved.weatherTimer>0 && saved.weather=="electricTerrain" && (move[nextMoveWild].type == 'electric' || move[nextMoveWild].type == 'steel') ) moveTimerWild /= 2
+    if (saved.weatherTimer>0 && saved.weather=="mistyTerrain" && (move[nextMoveWild].type == 'fairy' || move[nextMoveWild].type == 'psychic') ) moveTimerWild /= 2
+    if (saved.weatherTimer>0 && saved.weather=="grassyTerrain" && (move[nextMoveWild].type == 'grass' || move[nextMoveWild].type == 'bug') ) moveTimerWild /= 2
+       
+
     //afk time
     /*
     if (afkSeconds > 0) { 
@@ -3486,6 +3509,7 @@ function exploreCombatWild() {
 
 
         //weather
+        /*
         if (saved.weatherTimer>0 && saved.weather=="sunny" && move[nextMoveWild].type == 'fire') totalPower *= 1.5
         if (saved.weatherTimer>0 && saved.weather=="sunny" && move[nextMoveWild].type == 'water') totalPower /= 1.5
         if (saved.weatherTimer>0 && saved.weather=="rainy" && move[nextMoveWild].type == 'water') totalPower *= 1.5
@@ -3496,7 +3520,7 @@ function exploreCombatWild() {
         if (saved.weatherTimer>0 && saved.weather=="electricTerrain" && (move[nextMoveWild].type == 'electric' || move[nextMoveWild].type == 'steel') ) totalPower *= 1.5
         if (saved.weatherTimer>0 && saved.weather=="mistyTerrain" && (move[nextMoveWild].type == 'fairy' || move[nextMoveWild].type == 'psychic') ) totalPower *= 1.5
         if (saved.weatherTimer>0 && saved.weather=="grassyTerrain" && (move[nextMoveWild].type == 'grass' || move[nextMoveWild].type == 'bug') ) totalPower *= 1.5
-
+        */
 
 
 
@@ -7015,5 +7039,7 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+
+
 
 
