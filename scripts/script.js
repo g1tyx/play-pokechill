@@ -157,7 +157,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 2.2
+  saved.version = 2.3
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -169,6 +169,11 @@ saved.theme = "dark"
 document.getElementById("settings-theme").addEventListener("change", e => {
   saved.theme = document.getElementById(`settings-theme`).value
   changeTheme()
+});
+
+saved.hideGotPkmn = "false"
+document.getElementById("settings-hide-got").addEventListener("change", e => {
+  saved.hideGotPkmn = document.getElementById(`settings-hide-got`).value
 });
 
 function changeTheme(){
@@ -201,11 +206,33 @@ function changeTheme(){
     document.documentElement.style.setProperty('--light2', '#F9E7B2');
   }
 
+  if (saved.theme === "coral"){
+    document.documentElement.style.setProperty('--dark1', '#3A4048');
+    document.documentElement.style.setProperty('--dark2', '#42424D');
+    document.documentElement.style.setProperty('--light1', '#E07B6A');
+    document.documentElement.style.setProperty('--light2', '#FFE4DB');
+  }
+
+
   if (saved.theme === "onyx"){
     document.documentElement.style.setProperty('--dark1', '#212324');
     document.documentElement.style.setProperty('--dark2', '#282A2B');
     document.documentElement.style.setProperty('--light1', '#3F4144');
     document.documentElement.style.setProperty('--light2', '#D0D1D4');
+  }
+
+  if (saved.theme === "onyx"){
+    document.documentElement.style.setProperty('--dark1', '#1a1717ff');
+    document.documentElement.style.setProperty('--dark2', '#1f2222ff');
+    document.documentElement.style.setProperty('--light1', '#3c3a49ff');
+    document.documentElement.style.setProperty('--light2', '#707083ff');
+  }
+
+  if (saved.theme === "oled"){
+    document.documentElement.style.setProperty('--dark1', '#000000ff');
+    document.documentElement.style.setProperty('--dark2', '#0f0f0fff');
+    document.documentElement.style.setProperty('--light1', '#222225ff');
+    document.documentElement.style.setProperty('--light2', '#37373dff');
   }
 
 }
@@ -386,7 +413,6 @@ function learnPkmnMove(id, level, mod) {
 //used for the frontier 
 function learnPkmnMoveSeeded(id, level, mod, seed, exclude = []) {
 
-  //console.log(id)
     let attempts = 0;
     const MAX_ATTEMPTS = 100;
 
@@ -549,6 +575,20 @@ guide.shiny = {
   description: function() { return `At a rate of 1/400, Pokemon can be shiny. These odds can be boosted through different means<br><br>Shiny Pokemon deal 15% more damage. The visual distinction can be toggled from their move menu. This wont affect the damage bonus they get<br><br>Shiny Pokemon do not carry over their evolutions. Instead, genetics must be used`}
 }
 
+guide.genetics = {
+  name: `Genetics: Quick Guide`,
+  description: function() { return `
+    Genetics allows you to modify a Pokemon beyond what is considered normal for the species, here is a quick overview of what you can achieve with operations:
+    <br><br>Shiny Mutation: You can inherit the shiny mutation, with a 100% chance, to members of the same family. You can also attempt to spread a new shiny mutation by using a shiny sample
+    <br><br>IV Boosting: Simply by doing any operation, regardless of the compatibility, the IV's of the host will attempt to increase. Useful for Pokemon with little to no IV's
+    <br><br>IV Inheriting: An advanced alternative to the previous. You can inherit IV's from a species to another depending on factors such as compatibility or genetic-aiding items used
+    <br><br>Move Relearn: When completing an operation, all but the four selected moves of the host will be reset, meaning you can attempt to get stronger moves with each operation
+    <br><br>Move Inheriting: An advanced alternative to the previous, you can inherit moves from the sample that would otherwise not be available to you through learning
+    <br><br>Ability Relearn: When completing an operation, your ability will reset, unless you use an Everstone. This can be used to get more useful abilities in the process
+    <br><br>Ability Inheriting: An advanced alternative to the previous. Using a Destiny Knot, you can swap abilities with the sample, getting access to otherwise-impossible combinations
+    `}
+}
+
 guide.compatibility = {
   name: `Genetics: Compatibility`,
   description: function() { return `Compatibility determines how similar the sample is to the host. This influences various parameters such as the chances of inherit, or shiny mutations (only if the sample is shiny)<br><br>Sharing one type with the sample will yield one level of compatibility, whereas sharing two types will increase it by two levels.<br><br>Additionally, if the sample is of the same evolutive line as the host, it will recieve maximum compatibility`}
@@ -576,7 +616,7 @@ function setGuide(){
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `${guide[i].name}`
         document.getElementById("tooltipMid").style.display = `none`
-        document.getElementById("tooltipBottom").innerHTML = `${guide[i].description()}`
+        document.getElementById("tooltipBottom").innerHTML = `<span style="overflow:scroll; max-height:25rem; display:inline-block;">${guide[i].description()}</span>`
 
 
         if (i === "stats") {

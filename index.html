@@ -20,7 +20,9 @@
     <div onclick="changeTheme('verdant')">Verdant Theme</div>
     <div onclick="changeTheme('lilac')">Lilac Theme</div>
     <div onclick="changeTheme('cherry')">Cherry Theme</div>
+    <div onclick="changeTheme('coral')">Coral Theme</div>
     <div onclick="changeTheme('onyx')">Onyx Theme</div>
+    <div onclick="changeTheme('oled')">Oled Theme</div>
 
 
     </div>
@@ -299,7 +301,8 @@
 
             <select id="pokedex-filter-evolution">
                 <option value="all">evolution</option>
-                <option value="true">not evolved</option>
+                <option value="true">not evolved (all)</option>
+                <option value="level-only">not evolved (level)</option>
             </select>
 
             <select id="pokedex-filter-ability">
@@ -328,6 +331,7 @@
 
               <select id="pokedex-filter-tag">
                 <option value="all">tag</option>
+                <option value="none">none</option>
                 <option value="red">red</option>
                 <option value="orange">orange</option>
                 <option value="yellow">yellow</option>
@@ -337,6 +341,7 @@
                 <option value="teal">teal</option>
                 <option value="pink">pink</option>
                 <option value="magenta">magenta</option>
+                <option value="hidden">hidden</option>
             </select>
 
               <select id="pokedex-sort-filter">
@@ -401,6 +406,13 @@
                 <option value="lilac">lilac</option>
                 <option value="cherry">cherry</option>
                 <option value="onyx">onyx</option>
+                <option value="coral">coral</option>
+                <option value="oled">oled</option>
+            </select></div>
+
+            <div>Hide non-new Pokemon got in summary: <select id="settings-hide-got">
+                <option value="false">disabled</option>
+                <option value="true">enabled</option>
             </select></div>
 
             <!--<div>Tutorials: <select id="settings-tutorial">
@@ -828,13 +840,23 @@ Game Guide
 
     <div id="area-end" style="display: none;">
 
-    <div class="pkmn-leave-exit" onClick='
+    <div class="pkmn-leave-exit" onClick=' saved.autoRefight = false;
     if (saved.tutorial && saved.tutorialStep === "battleEnd") {saved.tutorialStep = "none"; openTutorial()}
     voidAnimation("area-end","tooltipBoxAppear 0.2s reverse 1 ease-in");
     setTimeout(() => {document.getElementById("area-end").style.display = "none"}, 150);
     saveGame()'>
         <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
         Save and exit
+    </div>
+
+        <div id="area-rejoin"  onClick='rejoinArea()'>
+        <svg style="margin-right:0.1rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6c0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8m0 14c-3.31 0-6-2.69-6-6c0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4l-4-4z"/></svg>
+        Fight Again
+    </div>
+
+    <div id="area-refight"  onClick='autoRefight();'>
+    <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0" clip-rule="evenodd"/></svg>
+    Auto-Refight <span> (Requires an <img src="img/items/autoRefightTicket.png"> Auto-Refight Ticket)</span>
     </div>
     
     <div class="area-end-category" id="area-end-moves-title" style="display: none;"></div>
@@ -850,15 +872,7 @@ Game Guide
 
     </div>
 
-    <div id="area-rejoin"  onClick='rejoinArea()'>
-        <svg style="margin-right:0.1rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6c0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8m0 14c-3.31 0-6-2.69-6-6c0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4l-4-4z"/></svg>
-        Fight Again
-    </div>
 
-    <!-- <div id="area-refight"  onClick='rejoinArea()'>
-    <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0" clip-rule="evenodd"/></svg>
-    Auto-Refight
-    </div> -->
 
 
     </div>
@@ -909,10 +923,11 @@ Game Guide
                 <option value="yellow">yellow</option>
                 <option value="green">green</option>
                 <option value="lime">lime</option>
-                <option value="teal">teal</option>
                 <option value="blue">blue</option>
+                <option value="teal">teal</option>
                 <option value="pink">pink</option>
                 <option value="magenta">magenta</option>
+                <option value="hidden">hidden</option>
             </select>            
         </div>
 
@@ -987,7 +1002,21 @@ Game Guide
 
 
 
+
+
         <span id="pkmn-editor-extra-info"></span>
+
+
+
+                    <div id="pkmn-stats-lore">
+
+                    <div onclick="if (document.getElementById('pkmn-stats-lore-info').style.maxHeight == '10rem') {document.getElementById('pkmn-stats-lore-info').style.maxHeight = '0rem'; document.getElementById('pkmn-stats-lore-info').style.padding = '0rem'; return} document.getElementById('pkmn-stats-lore-info').style.maxHeight = '10rem'; document.getElementById('pkmn-stats-lore-info').style.padding = '0.5rem';">Expand Lore
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
+                    </div>
+                    <span id="pkmn-stats-lore-info"  >
+                    Shaped by the Original One, when the universe was yet unmeasured, It was brought forth to give form to expanse. By its existence, space became vast; by its will, distance gained meaning. Without It, the world would have no breadth, no separation between sky and land, nor any path for life to walk.
+                    </span>
+                </div>
 
            
 
@@ -1214,10 +1243,16 @@ Game Guide
             <div id="explore-drops">
             </div>
 
-            <div id="explore-leave" onclick="leaveCombat()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1m14.242-.97l-8-2A1 1 0 0 0 10 3v18a.998.998 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97M15 12.188a1.001 1.001 0 0 1-2 0v-.377a1 1 0 1 1 2 .001z"/></svg>
+
+            <div id="auto-refight-info" onclick='saved.autoRefight = false; document.getElementById("auto-refight-info").style.display = "none" '>
+            
+            </div>
+
+            <div id="explore-leave" onclick="saved.autoRefight = false; leaveCombat()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1m14.242-.97l-8-2A1 1 0 0 0 10 3v18a.998.998 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97M15 12.188a1.001 1.001 0 0 1-2 0v-.377a1 1 0 1 1 2 .001z"/></svg>
                 Leave Combat
             </div>
+
 
 
 

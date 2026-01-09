@@ -306,10 +306,30 @@ function setPkmnTeamHp(){
     if (areas[saved.currentArea].trainer || saved.currentArea == areas.frontierSpiralingTower.id) hpMultiplier = 4
     if (saved.currentArea == areas.training.id) hpMultiplier = 80 //100
 
+
+    
+    if (saved.currentArea == areas.training.id) {
+
+    //health ivs count less on training
+    pkmn[team[i].pkmn.id].playerHp =
+    (100 + ( (returnDivisionStars(pkmn[team[i].pkmn.id]) * 30) * Math.pow(1.05, pkmn[team[i].pkmn.id].ivs.hp) )
+    * ( 1+(pkmn[team[i].pkmn.id].level * 0.2) )       
+    ) * hpMultiplier;
+
+
+    } else {
+
+
     pkmn[team[i].pkmn.id].playerHp =
     (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, pkmn[team[i].pkmn.id].ivs.hp) )
     * ( 1+(pkmn[team[i].pkmn.id].level * 0.2) )       
     ) * hpMultiplier;
+
+
+
+    }
+
+
 
 
     pkmn[ team[i].pkmn.id ].playerHpMax = pkmn[ team[i].pkmn.id ].playerHp
@@ -361,16 +381,29 @@ function setPkmnTeam(){
         if (!div.classList.contains("member-inactive")) return;
         if (pkmn[ team[i].pkmn.id ].playerHp <= 0) return;
 
+
+
         //reset move buildup, ie rollout
         for (const learntMoveID of pkmn[ team[i].pkmn.id ].movepool) if(move[learntMoveID]?.buildup!==undefined) move[learntMoveID].buildup = 0
 
-        if (testAbility(`active`,  ability.naturalCure.id )) {team[exploreActiveMember].buffs.confused = 0; team[exploreActiveMember].buffs.burn = 0; team[exploreActiveMember].buffs.freeze = 0; team[exploreActiveMember].buffs.paralysis = 0; team[exploreActiveMember].buffs.poisoned = 0; team[exploreActiveMember].buffs.sleep = 0; updateTeamBuffs() }
 
         barProgressPlayer = 0
         barPlayer.style.width = 0
         exploreCombatPlayerTurn = 1
 
         exploreActiveMember = i
+
+        
+        if (testAbility(`active`,  ability.naturalCure.id )) {team[exploreActiveMember].buffs.confused = 0; team[exploreActiveMember].buffs.burn = 0; team[exploreActiveMember].buffs.freeze = 0; team[exploreActiveMember].buffs.paralysis = 0; team[exploreActiveMember].buffs.poisoned = 0; team[exploreActiveMember].buffs.sleep = 0; updateTeamBuffs() }
+
+        if (testAbility(`active`,  ability.drizzle.id )) changeWeather("rainy")
+        if (testAbility(`active`,  ability.drought.id )) changeWeather("sunny")
+        if (testAbility(`active`,  ability.sandStream.id )) changeWeather("sandstorm")
+        if (testAbility(`active`,  ability.snowWarning.id )) changeWeather("hail")
+        if (testAbility(`active`,  ability.somberField.id )) changeWeather("foggy")
+        if (testAbility(`active`,  ability.electricSurge.id )) changeWeather("electricTerrain")
+        if (testAbility(`active`,  ability.grassySurge.id )) changeWeather("grassySurge")
+        if (testAbility(`active`,  ability.mistySurge.id )) changeWeather("mistySurge")
         
         //exploreCombatPlayer()
 

@@ -480,7 +480,7 @@ pkmn.pikachu = {
 
 
 pkmn.pikachuBelle = {
-    type: ["electric"],
+    type: ["electric","normal"],
     bst: {
         hp: 60,
         atk: 90,
@@ -493,7 +493,7 @@ pkmn.pikachuBelle = {
 }
 
 pkmn.pikachuLibre = {
-    type: ["electric"],
+    type: ["electric","fighting"],
     bst: {
         hp: 60,
         atk: 90,
@@ -506,7 +506,7 @@ pkmn.pikachuLibre = {
 }
 
 pkmn.pikachuPhd = {
-    type: ["electric"],
+    type: ["electric","psychic"],
     bst: {
         hp: 60,
         atk: 90,
@@ -519,7 +519,7 @@ pkmn.pikachuPhd = {
 }
 
 pkmn.pikachuPopstar = {
-    type: ["electric"],
+    type: ["electric","fairy"],
     bst: {
         hp: 60,
         atk: 90,
@@ -532,7 +532,7 @@ pkmn.pikachuPopstar = {
 }
 
 pkmn.pikachuRockstar = {
-    type: ["electric"],
+    type: ["electric","fire"],
     bst: {
         hp: 60,
         atk: 90,
@@ -1029,8 +1029,26 @@ pkmn.primeape = {
         spe: 95,
     },
     hiddenAbility: ability.rivalry,
-    signature : move.rageFist
+    signature : move.rageFist,
+    evolve: function() { return { 1: { pkmn: pkmn.annihilape, item: item.oddRock } } }
 }
+
+// 979 Annihilape
+pkmn.annihilape = {
+  type: ["fighting", "ghost"],
+  bst: {
+    hp: 110,
+    atk: 115,
+    def: 80,
+    satk: 50,
+    sdef: 90,
+    spe: 90,
+  },
+    hiddenAbility: ability.rivalry,
+    signature : move.rageFist,
+}
+
+
 
 // 049 Growlithe → Arcanine
 pkmn.growlithe = {
@@ -2424,6 +2442,7 @@ pkmn.ditto = {
         spe: 48,
     },
     hiddenAbility: ability.protean,
+    lore: `Believed to be the result of an attempt to replicate the ancestor of all Pokémon. The experiment did not achieve its intended goal, and the creature that emerged was deemed a failure.`
 }
 
 // 133 Eevee → Vaporeon / Jolteon / Flareon / Espeon / Umbreon / Leafeon / Glaceon / Sylveon
@@ -2694,6 +2713,7 @@ pkmn.articuno = {
         spe: 85,
     },
     hiddenAbility: ability.glacialBody,
+    lore : `The cold of winter. Air chills and frost gathers in its wake. Snowfall follows as it passes, and mountains are left sealed in ice where it lingers.`
 }
 
 pkmn.zapdos = {
@@ -2707,6 +2727,7 @@ pkmn.zapdos = {
         spe: 100,
     },
     hiddenAbility: ability.dauntingLook,
+    lore: `The storm of summer. Thunder rolls with its cry, and lightning strikes in time with its wings. The skies darken as it passes, and violent storms follow its soar.`
 }
 
 pkmn.moltres = {
@@ -2720,6 +2741,7 @@ pkmn.moltres = {
         spe: 90,
     },
     hiddenAbility: ability.waterGuard,
+    lore : `The warmth of spring. Its fire does not scorch the world, but stirs it awake, melting snow and kindling new life. The cold loosens its hold as it passes, and the land is renewed by heat and light.`
 }
 
 pkmn.mew = {
@@ -2733,6 +2755,7 @@ pkmn.mew = {
         spe: 100,
     },
     hiddenAbility: ability.protean,
+    lore: `The origin from which all Pokemon as we know trace their beginnings. Its form, small and gentle, carries the memory of every creature that would follow.`
 }
 
 pkmn.mewtwo = {
@@ -2746,6 +2769,7 @@ pkmn.mewtwo = {
         spe: 130,
     },
     evolve: function() { return { 1: { pkmn: pkmn.megaMewtwoX, item: item.mewtwoniteX } } },
+    lore: `Shaped by human hands, bears the weight of creation twisted. Though it carries the memory of life that came before, it walks a path apart, questioning the bounds of its own existence.`
 }
 
 
@@ -4197,7 +4221,32 @@ pkmn.megaHoundoom = {
     hiddenAbility: ability.solarPower,
 }
 
-// 229 Kingdra
+pkmn.horsea = {
+    type: ["water"],
+    bst: {
+        hp: 30,
+        atk: 40,
+        def: 70,
+        satk: 70,
+        sdef: 25,
+        spe: 60,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.seadra, level: evolutionLevel2 } } },
+}
+
+pkmn.seadra = {
+    type: ["water"],
+    bst: {
+        hp: 55,
+        atk: 65,
+        def: 95,
+        satk: 95,
+        sdef: 45,
+        spe: 85,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.kingdra, level: evolutionLevel3 } } },
+}
+
 pkmn.kingdra = {
     type: ["water","dragon"],
     bst: {
@@ -4522,6 +4571,7 @@ pkmn.celebi = {
         spe: 100,
     },
     hiddenAbility: ability.grassySurge,
+    lore: `Traveling through time and appearing where the past and future meet, it preserves the natural order, ensuring that the cycles of life, growth, and seasons continue uninterrupted.`
 }
 
 // 252 Treecko → Grovyle → Sceptile
@@ -6568,7 +6618,7 @@ pkmn.latios = {
         spe: 110,
     },
     hiddenAbility: ability.levitate,
-    signature : move.lusterPurge
+    signature : move.lusterPurge,
 }
 
 
@@ -6599,6 +6649,7 @@ pkmn.kyogre = {
         spe: 90,
     },
     hiddenAbility: ability.drizzle,
+    lore: `A reminder of the power that once carved the seas. Its ancient rivalry with Groudon lingers quietly, a balance written into the land and water.`
 }
 
 pkmn.kyogrePrimal = {
@@ -6610,7 +6661,8 @@ pkmn.kyogrePrimal = {
         satk: 180,
         sdef: 160,
         spe: 90,
-    }
+    },
+    lore: `The oceans made visible, and the force that first shaped the seas across the world. Waves rise and storms gather at its will.`
 }
 
 // 383 Groudon
@@ -6625,6 +6677,8 @@ pkmn.groudon = {
         spe: 90,
     },
     hiddenAbility: ability.drought,
+    lore: `A reminder of the power that once carved the lands. Its ancient rivalry with Kyogre lingers quietly, a balance written into the land and water.`
+
 }
 
 pkmn.groudonPrimal = {
@@ -6636,7 +6690,8 @@ pkmn.groudonPrimal = {
         satk: 150,
         sdef: 90,
         spe: 90,
-    }
+    },
+    lore: `The continents made whole, and the force that first shaped the land across the world. Mountains rise and deserts stretch at its will.`
 }
 
 // 384 Rayquaza
@@ -6649,7 +6704,8 @@ pkmn.rayquaza = {
         satk: 150,
         sdef: 90,
         spe: 95,
-    }
+    },
+    lore: `The force that watches over the world from above. It tempers the chaos of the seas and the land, acting as a mediator between Kyogre and Groudon. The winds and currents obey its passage, and it stands as guardian of the skies.`
 }
 
 pkmn.megaRayquaza = {
@@ -6661,7 +6717,8 @@ pkmn.megaRayquaza = {
         satk: 200,
         sdef: 120,
         spe: 115,
-    }
+    },
+    lore: `Ascending the atmosphere, its reach extending into the upper skies. Protecting not only the world below but the space above, guarding against threats from beyond.`
 }
 
 // 385 Jirachi
@@ -6676,7 +6733,8 @@ pkmn.jirachi = {
         spe: 100,
     },
     hiddenAbility: ability.sereneGrace,
-    signature : move.doomDesire
+    signature : move.doomDesire,
+    lore: `The embodiment of wishing, awakening only once in a thousand years. In those brief moments, it listens to the desires carried in the hearts of others, and its power brings those wishes into reality.`
 }
 
 // 386 Deoxys (Normal Form)
@@ -7928,7 +7986,8 @@ pkmn.uxie = {
         spe: 80,
     },
     hiddenAbility: ability.sinisterGuard,
-    signature : move.mysticalPower
+    signature : move.mysticalPower,
+    lore: `Emerged to give shape to knowledge. When the world was still new, it shared understanding with humanity, allowing thought and memory to take root. Its presence quiets turmoil to the gods of time and space.`
 }
 
 // 481 Mesprit
@@ -7943,7 +8002,8 @@ pkmn.mesprit = {
         spe: 120,
     },
     hiddenAbility: ability.levitate,
-    signature : move.mysticalPower
+    signature : move.mysticalPower,
+    lore: `Emerged to give shape to emotion. When the world was still new, it shared feeling with humanity, allowing joy, sorrow, and empathy to take root. Its presence soothes unrest to the gods of time and space.`
 }
 
 // 482 Azelf
@@ -7958,7 +8018,8 @@ pkmn.azelf = {
         spe: 155,
     },
     hiddenAbility: ability.prankster,
-    signature : move.mysticalPower
+    signature : move.mysticalPower,
+    lore: `Emerged to give shape to will. When the world was still new, it granted resolve to humanity, allowing action, choice, and determination to take form. Its presence steels the spirit of the gods of time and space.`
 }
 
 // 483 Dialga
@@ -7972,7 +8033,8 @@ pkmn.dialga = {
         sdef: 100,
         spe: 90,
     },
-    signature : move.roarOfTime
+    signature : move.roarOfTime,
+    lore: `Bound by weight and limit, a shape time itself can endure. Its power yet governs past and future, though restrained, for the world cannot withstand the full measure of eternity given form.`
 }
 
 // 484 Palkia
@@ -7986,7 +8048,8 @@ pkmn.palkia = {
         sdef: 120,
         spe: 100,
     },
-    signature : move.spacialRend
+    signature : move.spacialRend,
+    lore: `Bound by weight and limit, a shape space itself can sustain. Its power yet governs distance and separation, though restrained, for the world cannot bear the weight of infinite breadth given form.`
 }
 
 // 487 Giratina (Altered Form)
@@ -8000,7 +8063,8 @@ pkmn.giratina = {
         sdef: 120,
         spe: 90,
     },
-    signature : move.shadowForce
+    signature : move.shadowForce,
+    lore: `Bound by weight and limit, a shape reality can tolerate. Its power yet governs antimatter and opposition, though restrained, for the world cannot endure the force that unravels all creation made whole.`
 }
 
 pkmn.dialgaOrigin = {
@@ -8012,7 +8076,8 @@ pkmn.dialgaOrigin = {
         satk: 160,
         sdef: 120,
         spe: 90,
-    }
+    },
+    lore: `Shaped by the Original One, when the universe had yet to know its first moment, It was brought forth to give law to duration. By its heartbeat, time began to flow; by its will, past and future were torn apart and given order. Without It, all life trapped by eternal stillness.`
 }
 
 pkmn.palkiaOrigin = {
@@ -8024,7 +8089,8 @@ pkmn.palkiaOrigin = {
         satk: 190,
         sdef: 160,
         spe: 100,
-    }
+    },
+    lore: `Shaped by the Original One, when the universe was yet unmeasured, It was brought forth to give form to expanse. By its existence, space became vast; by its will, distance gained meaning. Without It, the world would have no breadth, no separation between sky and land, nor any path for life to walk.`
 }
 
 pkmn.giratinaOrigin = {
@@ -8036,7 +8102,8 @@ pkmn.giratinaOrigin = {
         satk: 150,
         sdef: 100,
         spe: 160,
-    }
+    },
+    lore: `Shaped by the Original One, when the laws of creation first took form, It was born in defiance of them. Given dominion over antithesis of matter, It was cast away for its violence, bound to a world where logic collapses and direction has no meaning.`
 }
 
 // 485 Heatran
@@ -8050,7 +8117,8 @@ pkmn.heatran = {
         sdef: 106,
         spe: 77,
     },
-    signature : move.magmaStorm
+    signature : move.magmaStorm,
+    lore: `Formed within the depths of the earth, it moves through molten stone and scorched caverns, shaping volcanoes among the land through heat and pressure.`
 }
 
 // 486 Regigigas
@@ -8063,7 +8131,8 @@ pkmn.regigigas = {
         satk: 80,
         sdef: 110,
         spe: 100,
-    }
+    },
+    lore: `Regigigas moved the continents into place, hauling landmasses with ropes of stone and ice, shaping the world through sheer strength. From this labor came the order of the land, after which it fell into long slumber.`
 }
 
 
@@ -8078,7 +8147,8 @@ pkmn.cresselia = {
         satk: 75,
         sdef: 130,
         spe: 85,
-    }
+    },
+    lore: `The embodiment of moon light. From the earliest ages, it has watched over sleep and dreams, bringing peaceful rest where darkness gathers. Its feathers dispel the nightmares born by Darkrai, as they balance the quiet rhythm of night that was set into the world.`
 }
 
 // 489 Phione
@@ -8104,7 +8174,8 @@ pkmn.manaphy = {
         satk: 100,
         sdef: 100,
         spe: 100,
-    }
+    },
+    lore: `The prince of the seas, the chosen of its kind, born with a bond that links all ocean life. It guides the creatures of the waters, preserving harmony beneath the waves.`
 }
 
 // 491 Darkrai
@@ -8119,6 +8190,7 @@ pkmn.darkrai = {
         spe: 155,
     },
     hiddenAbility: ability.lightAbsorb,
+    lore: `The embodiment of night shadow. From the earliest ages, it has been bound to dreams, drawing forth fear and unrest where its presence lingers. Nightmares follow in its wake, not by intent, but as a reflection of its nature.`
 }
 
 // 492 Shaymin (Land Form)
@@ -8133,6 +8205,7 @@ pkmn.shaymin = {
         spe: 100,
     },
     hiddenAbility: ability.verdify,
+    lore: `Shaymin embodies gratitude and the renewal of life. It has moved across barren lands, leaving fields of flowers in its wake and restoring the vitality of nature, bringing growth and bloom to places long abandoned.`
 }
 
 // 493 Arceus
@@ -8146,7 +8219,8 @@ pkmn.arceus = {
     sdef: 160,
     spe: 160,
     },
-    signature : move.judgment
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
 }
 
 // 494 Victini
@@ -9970,6 +10044,21 @@ pkmn.bisharp = {
     spe: 70,
   },
     hiddenAbility: ability.sharpness,
+    evolve: function() { return { 1: { pkmn: pkmn.kingambit, item: item.oddRock } } },
+}
+
+// 983 Kingambit
+pkmn.kingambit = {
+  type: ["dark", "steel"],
+  bst: {
+    hp: 120,
+    atk: 135,
+    def: 120,
+    satk: 60,
+    sdef: 85,
+    spe: 50,
+  },
+    hiddenAbility: ability.supremeOverlord,
 }
 
 // 624 Bouffalant
@@ -14651,7 +14740,1148 @@ pkmn.ironCrown = {
     },
     hiddenAbility: ability.quarkDrive,
 }
+*/
 
+
+
+
+
+
+
+
+// 906 Sprigatito → Floragato → Meowscarada
+pkmn.sprigatito = {
+  type: ["grass"],
+  bst: {
+    hp: 40,
+    atk: 61,
+    def: 54,
+    satk: 45,
+    sdef: 45,
+    spe: 65,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.floragato, level: evolutionLevel1 } } }
+}
+
+pkmn.floragato = {
+  type: ["grass"],
+  bst: {
+    hp: 61,
+    atk: 80,
+    def: 63,
+    satk: 60,
+    sdef: 63,
+    spe: 83,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.meowscarada, level: evolutionLevel2 } } }
+}
+
+pkmn.meowscarada = {
+  type: ["grass", "dark"],
+  bst: {
+    hp: 76,
+    atk: 110,
+    def: 70,
+    satk: 81,
+    sdef: 70,
+    spe: 123,
+  }
+}
+
+// 909 Fuecoco → Crocalor → Skeledirge
+pkmn.fuecoco = {
+  type: ["fire"],
+  bst: {
+    hp: 67,
+    atk: 45,
+    def: 59,
+    satk: 63,
+    sdef: 40,
+    spe: 36,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.crocalor, level: evolutionLevel1 } } }
+}
+
+pkmn.crocalor = {
+  type: ["fire"],
+  bst: {
+    hp: 81,
+    atk: 55,
+    def: 78,
+    satk: 90,
+    sdef: 58,
+    spe: 49,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.skeledirge, level: evolutionLevel2 } } }
+}
+
+pkmn.skeledirge = {
+  type: ["fire", "ghost"],
+  bst: {
+    hp: 104,
+    atk: 75,
+    def: 100,
+    satk: 110,
+    sdef: 75,
+    spe: 66,
+  }
+}
+
+// 912 Quaxly → Quaxwell → Quaquaval
+pkmn.quaxly = {
+  type: ["water"],
+  bst: {
+    hp: 55,
+    atk: 65,
+    def: 45,
+    satk: 50,
+    sdef: 45,
+    spe: 50,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.quaxwell, level: evolutionLevel1 } } }
+}
+
+pkmn.quaxwell = {
+  type: ["water"],
+  bst: {
+    hp: 70,
+    atk: 85,
+    def: 65,
+    satk: 65,
+    sdef: 60,
+    spe: 65,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.quaquaval, level: evolutionLevel2 } } }
+}
+
+pkmn.quaquaval = {
+  type: ["water", "fighting"],
+  bst: {
+    hp: 85,
+    atk: 120,
+    def: 80,
+    satk: 85,
+    sdef: 75,
+    spe: 85,
+  }
+}
+
+// 916 Lechonk → Oinkologne
+pkmn.lechonk = {
+  type: ["normal"],
+  bst: {
+    hp: 54,
+    atk: 45,
+    def: 40,
+    satk: 35,
+    sdef: 45,
+    spe: 35,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.oinkologne, level: evolutionLevel1 } } }
+}
+
+pkmn.oinkologne = {
+  type: ["normal"],
+  bst: {
+    hp: 110,
+    atk: 100,
+    def: 75,
+    satk: 59,
+    sdef: 80,
+    spe: 65,
+  }
+}
+
+// 918 Tarountula → Spidops
+pkmn.tarountula = {
+  type: ["bug"],
+  bst: {
+    hp: 35,
+    atk: 41,
+    def: 45,
+    satk: 29,
+    sdef: 40,
+    spe: 20,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.spidops, level: evolutionLevel1 } } }
+}
+
+pkmn.spidops = {
+  type: ["bug"],
+  bst: {
+    hp: 60,
+    atk: 79,
+    def: 92,
+    satk: 52,
+    sdef: 86,
+    spe: 35,
+  }
+}
+
+// 920 Nymble → Lokix
+pkmn.nymble = {
+  type: ["bug"],
+  bst: {
+    hp: 33,
+    atk: 46,
+    def: 40,
+    satk: 21,
+    sdef: 25,
+    spe: 45,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.lokix, level: evolutionLevel1 } } }
+}
+
+pkmn.lokix = {
+  type: ["bug", "dark"],
+  bst: {
+    hp: 71,
+    atk: 102,
+    def: 78,
+    satk: 52,
+    sdef: 55,
+    spe: 92,
+  }
+}
+
+// 922 Pawmi → Pawmo → Pawmot
+pkmn.pawmi = {
+  type: ["electric"],
+  bst: {
+    hp: 45,
+    atk: 50,
+    def: 20,
+    satk: 40,
+    sdef: 25,
+    spe: 60,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.pawmo, level: evolutionLevel1 } } }
+}
+
+pkmn.pawmo = {
+  type: ["electric", "fighting"],
+  bst: {
+    hp: 60,
+    atk: 75,
+    def: 40,
+    satk: 50,
+    sdef: 40,
+    spe: 85,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.pawmot, level: evolutionLevel2 } } }
+}
+
+pkmn.pawmot = {
+  type: ["electric", "fighting"],
+  bst: {
+    hp: 90,
+    atk: 125,
+    def: 70,
+    satk: 70,
+    sdef: 60,
+    spe: 105,
+  }
+}
+
+// 925 Tandemaus → Maushold
+pkmn.tandemaus = {
+  type: ["normal"],
+  bst: {
+    hp: 50,
+    atk: 50,
+    def: 45,
+    satk: 40,
+    sdef: 45,
+    spe: 75,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.maushold, level: evolutionLevel2 } } }
+}
+
+pkmn.maushold = {
+  type: ["normal"],
+  bst: {
+    hp: 74,
+    atk: 75,
+    def: 70,
+    satk: 65,
+    sdef: 75,
+    spe: 111,
+  }
+}
+
+// 927 Fidough → Dachsbun
+pkmn.fidough = {
+  type: ["fairy"],
+  bst: {
+    hp: 37,
+    atk: 55,
+    def: 70,
+    satk: 30,
+    sdef: 55,
+    spe: 65,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.dachsbun, level: evolutionLevel2 } } }
+}
+
+pkmn.dachsbun = {
+  type: ["fairy"],
+  bst: {
+    hp: 57,
+    atk: 80,
+    def: 115,
+    satk: 50,
+    sdef: 80,
+    spe: 95,
+  }
+}
+
+pkmn.smoliv = {
+  type: ["grass", "normal"],
+  bst: {
+    hp: 41,
+    atk: 35,
+    def: 45,
+    satk: 58,
+    sdef: 51,
+    spe: 30,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.dolliv, item: item.leafStone } } }
+}
+
+pkmn.dolliv = {
+  type: ["grass", "normal"],
+  bst: {
+    hp: 80,
+    atk: 53,
+    def: 60,
+    satk: 78,
+    sdef: 78,
+    spe: 33,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.arboliva, item: evolutionLevel2 } } }
+}
+
+pkmn.arboliva = {
+  type: ["grass", "normal"],
+  bst: {
+    hp: 78,
+    atk: 69,
+    def: 90,
+    satk: 125,
+    sdef: 109,
+    spe: 39,
+  }
+}
+
+// 932 Nacli → Naclstack → Garganacl
+pkmn.nacli = {
+  type: ["rock"],
+  bst: {
+    hp: 55,
+    atk: 55,
+    def: 75,
+    satk: 35,
+    sdef: 35,
+    spe: 25,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.naclstack, level: evolutionLevel1 } } }
+}
+
+pkmn.naclstack = {
+  type: ["rock"],
+  bst: {
+    hp: 80,
+    atk: 60,
+    def: 100,
+    satk: 45,
+    sdef: 85,
+    spe: 35,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.garganacl, level: evolutionLevel2 } } }
+}
+
+pkmn.garganacl = {
+  type: ["rock"],
+  bst: {
+    hp: 100,
+    atk: 100,
+    def: 130,
+    satk: 45,
+    sdef: 90,
+    spe: 35,
+  }
+}
+
+// 935 Charcadet → Armarouge / Ceruledge
+pkmn.charcadet = {
+  type: ["fire"],
+  bst: {
+    hp: 40,
+    atk: 50,
+    def: 40,
+    satk: 50,
+    sdef: 40,
+    spe: 35,
+  },
+  evolve: function() {
+    return {
+      1: { pkmn: pkmn.armarouge, item: item.linkStone },
+      2: { pkmn: pkmn.ceruledge, item: item.oddRock },
+    }
+  }
+}
+
+pkmn.armarouge = {
+  type: ["fire", "psychic"],
+  bst: {
+    hp: 85,
+    atk: 60,
+    def: 100,
+    satk: 125,
+    sdef: 80,
+    spe: 125,
+  }
+}
+
+pkmn.ceruledge = {
+  type: ["fire", "ghost"],
+  bst: {
+    hp: 75,
+    atk: 125,
+    def: 80,
+    satk: 60,
+    sdef: 100,
+    spe: 125,
+  }
+}
+
+// 938 Tadbulb → Bellibolt
+pkmn.tadbulb = {
+  type: ["electric"],
+  bst: {
+    hp: 61,
+    atk: 31,
+    def: 41,
+    satk: 59,
+    sdef: 35,
+    spe: 45,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.bellibolt, level: evolutionLevel1 } } }
+}
+
+pkmn.bellibolt = {
+  type: ["electric"],
+  bst: {
+    hp: 109,
+    atk: 64,
+    def: 91,
+    satk: 103,
+    sdef: 83,
+    spe: 45,
+  }
+}
+
+// 940 Wattrel → Kilowattrel
+pkmn.wattrel = {
+  type: ["electric", "flying"],
+  bst: {
+    hp: 40,
+    atk: 40,
+    def: 35,
+    satk: 55,
+    sdef: 40,
+    spe: 70,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.kilowattrel, level: evolutionLevel1 } } }
+}
+
+pkmn.kilowattrel = {
+  type: ["electric", "flying"],
+  bst: {
+    hp: 70,
+    atk: 70,
+    def: 60,
+    satk: 105,
+    sdef: 60,
+    spe: 125,
+  }
+}
+
+pkmn.maschiff = {
+  type: ["dark"],
+  bst: {
+    hp: 60,
+    atk: 78,
+    def: 60,
+    satk: 40,
+    sdef: 51,
+    spe: 51,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.mabosstiff, level: evolutionLevel1 } } }
+}
+
+pkmn.mabosstiff = {
+  type: ["dark"],
+  bst: {
+    hp: 80,
+    atk: 120,
+    def: 90,
+    satk: 60,
+    sdef: 70,
+    spe: 85,
+  }
+}
+
+// 944 Shroodle → Grafaiai
+pkmn.shroodle = {
+  type: ["poison", "normal"],
+  bst: {
+    hp: 40,
+    atk: 65,
+    def: 35,
+    satk: 40,
+    sdef: 35,
+    spe: 75,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.grafaiai, level: evolutionLevel1 } } }
+}
+
+pkmn.grafaiai = {
+  type: ["poison", "normal"],
+  bst: {
+    hp: 63,
+    atk: 95,
+    def: 65,
+    satk: 80,
+    sdef: 72,
+    spe: 110,
+  }
+}
+
+// 946 Bramblin → Brambleghast
+pkmn.bramblin = {
+  type: ["grass", "ghost"],
+  bst: {
+    hp: 40,
+    atk: 65,
+    def: 30,
+    satk: 45,
+    sdef: 35,
+    spe: 60,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.brambleghast, level: evolutionLevel1 } } }
+}
+
+pkmn.brambleghast = {
+  type: ["grass", "ghost"],
+  bst: {
+    hp: 55,
+    atk: 115,
+    def: 70,
+    satk: 80,
+    sdef: 70,
+    spe: 90,
+  }
+}
+
+// 948 Toedscool → Toedscruel
+pkmn.toedscool = {
+  type: ["ground", "grass"],
+  bst: {
+    hp: 40,
+    atk: 40,
+    def: 35,
+    satk: 50,
+    sdef: 100,
+    spe: 70,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.toedscruel, level: evolutionLevel1 } } }
+}
+
+pkmn.toedscruel = {
+  type: ["ground", "grass"],
+  bst: {
+    hp: 80,
+    atk: 70,
+    def: 65,
+    satk: 80,
+    sdef: 120,
+    spe: 100,
+  }
+}
+
+// 950 Klawf
+pkmn.klawf = {
+  type: ["rock"],
+  bst: {
+    hp: 70,
+    atk: 100,
+    def: 115,
+    satk: 35,
+    sdef: 55,
+    spe: 75,
+  }
+}
+
+// 951 Capsakid → Scovillain
+pkmn.capsakid = {
+  type: ["grass"],
+  bst: {
+    hp: 50,
+    atk: 62,
+    def: 40,
+    satk: 62,
+    sdef: 40,
+    spe: 50,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.scovillain, level: evolutionLevel1 } } }
+}
+
+pkmn.scovillain = {
+  type: ["grass", "fire"],
+  bst: {
+    hp: 65,
+    atk: 108,
+    def: 65,
+    satk: 108,
+    sdef: 65,
+    spe: 75,
+  }
+}
+
+// 953 Rellor → Rabsca
+pkmn.rellor = {
+  type: ["bug"],
+  bst: {
+    hp: 41,
+    atk: 50,
+    def: 60,
+    satk: 31,
+    sdef: 58,
+    spe: 30,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.rabsca, level: evolutionLevel1 } } }
+}
+
+pkmn.rabsca = {
+  type: ["bug", "psychic"],
+  bst: {
+    hp: 75,
+    atk: 50,
+    def: 85,
+    satk: 115,
+    sdef: 100,
+    spe: 45,
+  }
+}
+
+pkmn.flittle = {
+  type: ["psychic"],
+  bst: {
+    hp: 30,
+    atk: 35,
+    def: 30,
+    satk: 55,
+    sdef: 30,
+    spe: 75,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.espathra, level: evolutionLevel1 } } }
+}
+
+pkmn.espathra = {
+  type: ["psychic"],
+  bst: {
+    hp: 95,
+    atk: 60,
+    def: 60,
+    satk: 101,
+    sdef: 60,
+    spe: 105,
+  }
+}
+
+// 958 Tinkatink → Tinkatuff → Tinkaton
+pkmn.tinkatink = {
+  type: ["fairy", "steel"],
+  bst: {
+    hp: 50,
+    atk: 45,
+    def: 45,
+    satk: 35,
+    sdef: 64,
+    spe: 58,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.tinkatuff, level: evolutionLevel1 } } }
+}
+
+pkmn.tinkatuff = {
+  type: ["fairy", "steel"],
+  bst: {
+    hp: 65,
+    atk: 55,
+    def: 55,
+    satk: 45,
+    sdef: 82,
+    spe: 78,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.tinkaton, level: evolutionLevel2 } } }
+}
+
+pkmn.tinkaton = {
+  type: ["fairy", "steel"],
+  bst: {
+    hp: 85,
+    atk: 75,
+    def: 77,
+    satk: 70,
+    sdef: 105,
+    spe: 94,
+  }
+}
+
+// 961 Wiglett → Wugtrio
+pkmn.wiglett = {
+  type: ["water"],
+  bst: {
+    hp: 10,
+    atk: 55,
+    def: 25,
+    satk: 35,
+    sdef: 25,
+    spe: 95,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.wugtrio, level: evolutionLevel1 } } }
+}
+
+pkmn.wugtrio = {
+  type: ["water"],
+  bst: {
+    hp: 35,
+    atk: 100,
+    def: 50,
+    satk: 50,
+    sdef: 70,
+    spe: 120,
+  }
+}
+
+// 963 Bombirdier
+pkmn.bombirdier = {
+  type: ["flying", "dark"],
+  bst: {
+    hp: 70,
+    atk: 103,
+    def: 85,
+    satk: 60,
+    sdef: 85,
+    spe: 82,
+  }
+}
+
+// 964 Finizen → Palafin
+pkmn.finizen = {
+  type: ["water"],
+  bst: {
+    hp: 70,
+    atk: 45,
+    def: 40,
+    satk: 45,
+    sdef: 40,
+    spe: 75,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.palafin, level: evolutionLevel1 } } }
+}
+
+pkmn.palafin = {
+  type: ["water"],
+  bst: {
+    hp: 100,
+    atk: 70,
+    def: 72,
+    satk: 53,
+    sdef: 62,
+    spe: 100,
+  }
+}
+
+// 966 Varoom → Revavroom
+pkmn.varoom = {
+  type: ["steel", "poison"],
+  bst: {
+    hp: 45,
+    atk: 70,
+    def: 63,
+    satk: 30,
+    sdef: 45,
+    spe: 47,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.revavroom, level: evolutionLevel1 } } }
+}
+
+pkmn.revavroom = {
+  type: ["steel", "poison"],
+  bst: {
+    hp: 80,
+    atk: 119,
+    def: 90,
+    satk: 54,
+    sdef: 67,
+    spe: 90,
+  }
+}
+
+// 968 Cyclizar
+pkmn.cyclizar = {
+  type: ["dragon", "normal"],
+  bst: {
+    hp: 70,
+    atk: 95,
+    def: 65,
+    satk: 85,
+    sdef: 65,
+    spe: 121,
+  }
+}
+
+// 969 Orthworm
+pkmn.orthworm = {
+  type: ["steel"],
+  bst: {
+    hp: 70,
+    atk: 85,
+    def: 145,
+    satk: 60,
+    sdef: 55,
+    spe: 65,
+  }
+}
+
+// 970 Glimmet → Glimmora
+pkmn.glimmet = {
+  type: ["rock", "poison"],
+  bst: {
+    hp: 48,
+    atk: 35,
+    def: 42,
+    satk: 105,
+    sdef: 60,
+    spe: 60,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.glimmora, level: evolutionLevel1 } } }
+}
+
+pkmn.glimmora = {
+  type: ["rock", "poison"],
+  bst: {
+    hp: 83,
+    atk: 55,
+    def: 90,
+    satk: 130,
+    sdef: 81,
+    spe: 86,
+  }
+}
+
+// 972 Greavard → Houndstone
+pkmn.greavard = {
+  type: ["ghost"],
+  bst: {
+    hp: 50,
+    atk: 61,
+    def: 60,
+    satk: 30,
+    sdef: 55,
+    spe: 34,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.houndstone, level: evolutionLevel1 } } }
+}
+
+pkmn.houndstone = {
+  type: ["ghost"],
+  bst: {
+    hp: 72,
+    atk: 101,
+    def: 100,
+    satk: 50,
+    sdef: 97,
+    spe: 68,
+  }
+}
+
+// 974 Cetoddle → Cetitan
+pkmn.cetoddle = {
+  type: ["ice"],
+  bst: {
+    hp: 108,
+    atk: 68,
+    def: 45,
+    satk: 30,
+    sdef: 40,
+    spe: 43,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.cetitan, level: evolutionLevel3 } } }
+}
+
+pkmn.cetitan = {
+  type: ["ice"],
+  bst: {
+    hp: 170,
+    atk: 113,
+    def: 65,
+    satk: 45,
+    sdef: 55,
+    spe: 73,
+  }
+}
+
+// 976 Veluza
+pkmn.veluza = {
+  type: ["water", "psychic"],
+  bst: {
+    hp: 90,
+    atk: 102,
+    def: 73,
+    satk: 78,
+    sdef: 65,
+    spe: 70,
+  }
+}
+
+// 977 Dondozo
+pkmn.dondozo = {
+  type: ["water"],
+  bst: {
+    hp: 150,
+    atk: 100,
+    def: 115,
+    satk: 65,
+    sdef: 65,
+    spe: 35,
+  }
+}
+
+// 978 Tatsugiri
+pkmn.tatsugiri = {
+  type: ["dragon", "water"],
+  bst: {
+    hp: 68,
+    atk: 50,
+    def: 60,
+    satk: 120,
+    sdef: 95,
+    spe: 82,
+  }
+}
+
+// 980 Clodsire
+pkmn.clodsire = {
+  type: ["poison", "ground"],
+  bst: {
+    hp: 130,
+    atk: 75,
+    def: 60,
+    satk: 45,
+    sdef: 100,
+    spe: 20,
+  }
+}
+
+// 981 Farigiraf
+pkmn.farigiraf = {
+  type: ["normal", "psychic"],
+  bst: {
+    hp: 120,
+    atk: 90,
+    def: 70,
+    satk: 110,
+    sdef: 70,
+    spe: 60,
+  }
+}
+
+// 982 Dudunsparce
+pkmn.dudunsparce = {
+  type: ["normal"],
+  bst: {
+    hp: 125,
+    atk: 100,
+    def: 80,
+    satk: 85,
+    sdef: 75,
+    spe: 55,
+  }
+}
+
+
+// 996 Frigibax → Arctibax → Baxcalibur
+pkmn.frigibax = {
+  type: ["dragon", "ice"],
+  bst: {
+    hp: 65,
+    atk: 75,
+    def: 45,
+    satk: 35,
+    sdef: 45,
+    spe: 55,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.arctibax, level: evolutionLevel2 } } }
+}
+
+pkmn.arctibax = {
+  type: ["dragon", "ice"],
+  bst: {
+    hp: 90,
+    atk: 95,
+    def: 66,
+    satk: 45,
+    sdef: 65,
+    spe: 62,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.baxcalibur, level: evolutionLevel3 } } }
+}
+
+pkmn.baxcalibur = {
+  type: ["dragon", "ice"],
+  bst: {
+    hp: 115,
+    atk: 145,
+    def: 92,
+    satk: 75,
+    sdef: 86,
+    spe: 87,
+  }
+}
+
+// 1000 Gholdengo
+pkmn.gholdengo = {
+  type: ["steel", "ghost"],
+  bst: {
+    hp: 87,
+    atk: 60,
+    def: 95,
+    satk: 133,
+    sdef: 91,
+    spe: 84,
+  }
+}
+
+// 1001 Wo-Chien
+pkmn.wochien = {
+  type: ["dark", "grass"],
+  bst: {
+    hp: 100,
+    atk: 100,
+    def: 200,
+    satk: 100,
+    sdef: 60,
+    spe: 50,
+  }
+}
+
+// 1002 Chien-Pao
+pkmn.chienpao = {
+  type: ["dark", "ice"],
+  bst: {
+    hp: 80,
+    atk: 120,
+    def: 80,
+    satk: 90,
+    sdef: 70,
+    spe: 110,
+  }
+}
+
+// 1003 Ting-Lu
+pkmn.tinglu = {
+  type: ["dark", "ground"],
+  bst: {
+    hp: 155,
+    atk: 100,
+    def: 122,
+    satk: 40,
+    sdef: 72,
+    spe: 85,
+  }
+}
+
+// 1004 Chi-Yu
+pkmn.chiyu = {
+  type: ["dark", "fire"],
+  bst: {
+    hp: 55,
+    atk: 80,
+    def: 80,
+    satk: 135,
+    sdef: 85,
+    spe: 135,
+  }
+}
+
+
+// 1007 Koraidon
+pkmn.koraidon = {
+  type: ["fighting", "dragon"],
+  bst: {
+    hp: 115,
+    atk: 135,
+    def: 85,
+    satk: 40,
+    sdef: 95,
+    spe: 155,
+  }
+}
+
+// 1008 Miraidon
+pkmn.miraidon = {
+  type: ["electric", "dragon"],
+  bst: {
+    hp: 115,
+    atk: 85,
+    def: 70,
+    satk: 135,
+    sdef: 75,
+    spe: 155,
+  }
+}
+
+// 1009 Walking Wake
+pkmn.walkingWake = {
+  type: ["water", "dragon"],
+  bst: {
+    hp: 95,
+    atk: 180,
+    def: 110,
+    satk: 190,
+    sdef: 80,
+    spe: 100,
+  }
+}
+
+/*
+// 1010 Iron Leaves
+pkmn.ironLeaves = {
+  type: ["grass", "psychic"],
+  bst: {
+    hp: 85,
+    atk: 140,
+    def: 92,
+    satk: 120,
+    sdef: 87,
+    spe: 128,
+  }
+}
+
+pkmn.pecharunt = {
+  type: ["poison", "ghost"],
+  bst: {
+    hp: 45,
+    atk: 50,
+    def: 35,
+    satk: 55,
+    sdef: 40,
+    spe: 70,
+  }
+}
 */
 
 

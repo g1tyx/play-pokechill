@@ -845,9 +845,7 @@ move.rageFist = {
 }
 
 move.iceBall = {
-    moveset: [`ice`],
     split: "physical",
-    rarity: 2,
     type: "ice",
     power: t5Base/2,
     info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
@@ -1167,8 +1165,8 @@ move.gigaImpact = {
     info: function() {return `Attacks x1.5 slower than usual`} ,
 }
 
-move.swordsDance = {
-    moveset: [`normal`, `all`],
+move.swordsDance = { //edit
+    moveset: [`normal`, `steel`],
     split: "special",
     rarity: 3,
     type: "normal",
@@ -1251,7 +1249,7 @@ move.willOWisp = {
 move.sunnyDay = { 
     moveset: [`fire`,`ground`],
     split: "special",
-    rarity: 2,
+    rarity: 3,
     type: "fire",
     power: 0,
     info: function() {return `Changes the weather to ${tagSunny}`} ,
@@ -1780,7 +1778,7 @@ move.poisonSting = {
     split: "physical",
     rarity: 1,
     type: "poison",
-    power: 15,
+    power: 35,
     info: function() {return `10% chance to inflict ${tagPoisoned}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'poisoned') },
 }
@@ -2039,8 +2037,8 @@ move.twineedle = {
     rarity: 1,
     type: "bug",
     power: 25,
-    info: function() {return `10% chance to inflict ${tagPoisoned}`},
-    hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'poisoned') },
+    info: function() {return `Hits 2 times`},
+    multihit: [2,2],
 }
 
 move.furyCutter = { 
@@ -2155,7 +2153,7 @@ move.stringShot = {
     rarity: 3,
     type: "bug",
     power: 0,
-    info: function() {return `Decreases enemy Speed by 100%`},
+    info: function() {return `Decreases enemy Speed by 75%`},
     hitEffect: function(target) { moveBuff(target,'spedown2') },
 }
 
@@ -2219,15 +2217,7 @@ move.chillingWater = {
     hitEffect: function(target) { moveBuff(target,'atkdown1') },
 }
 
-move.rainDance = { 
-    moveset: [`water`],
-    split: "special",
-    rarity: 2,
-    type: "water",
-    power: 0,
-    info: function() {return `Changes the weather to ${tagRainy}`} ,
-    hitEffect: function(target) { changeWeather("rainy") },
-}
+
 
 move.bubbleBeam = {
     moveset: [`water`],
@@ -2237,6 +2227,16 @@ move.bubbleBeam = {
     power: 65,
     info: function() {return `10% chance to decrease enemy Speed by 50%`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'spedown1') },
+}
+
+move.rainDance = { 
+    moveset: [`water`],
+    split: "special",
+    rarity: 3,
+    type: "water",
+    power: 0,
+    info: function() {return `Changes the weather to ${tagRainy}`} ,
+    hitEffect: function(target) { changeWeather("rainy") },
 }
 
 move.waterfall = {
@@ -2408,7 +2408,7 @@ move.cottonSpore = {
     rarity: 3,
     type: "grass",
     power: 0,
-    info: function() {return `Decreases enemy Speed by 100%`},
+    info: function() {return `Decreases enemy Speed by 75%`},
     hitEffect: function(target) { moveBuff(target,'spedown2') },
 }
 
@@ -2694,13 +2694,13 @@ move.barrier = {
     hitEffect: function(target) { moveBuff(target,'defup2',"self")},
 }
 
-move.agility = {
-    moveset: [`psychic`, `normal`],
+move.agility = { //edit
+    moveset: [`psychic`, `flying`, `bug`],
     split: "special",
     rarity: 3,
     type: "psychic",
     power: 0,
-    info: function() {return `Increases Speed by 100%`},
+    info: function() {return `Increases Speed by 75%`},
     hitEffect: function(target) { moveBuff(target,'speup2',"self")},
 }
 
@@ -2816,7 +2816,7 @@ move.rockPolish = {
     rarity: 3,
     type: "rock",
     power: 0,
-    info: function() {return `Increases Speed by 100%`},
+    info: function() {return `Increases Speed by 75%`},
     hitEffect: function(target) { moveBuff(target,'speup2',"self")},
 }
 
