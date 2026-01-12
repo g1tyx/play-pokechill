@@ -376,6 +376,8 @@ function switchMemberNext() { //used for stuff like u turn
 
 function switchMember(member){
 
+    if (areas[saved.currentArea].id == "training") return
+
 
     //conitions for not switching (will be ignored if the player is dead)
     if (pkmn[ team[exploreActiveMember].pkmn.id ].playerHp > 0) {
@@ -551,6 +553,7 @@ function setPkmnTeam(){
 
 
 }
+
 
 
 
