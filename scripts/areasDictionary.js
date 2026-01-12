@@ -3761,7 +3761,7 @@ const wildlifePoolCommon = [
     pkmn.horsea.id, pkmn.phanpy.id, pkmn.wurmple.id, pkmn.lotad.id, pkmn.shroomish.id,  pkmn.minun.id, pkmn.budew.id, pkmn.barboach.id, pkmn.corphish.id, 
     pkmn.duskull.id, pkmn.bidoof.id, pkmn.shinx.id, pkmn.burmy.id, pkmn.buizel.id, pkmn.cherubi.id,  pkmn.tympole.id, pkmn.sewaddle.id, 
     pkmn.purrloin.id, pkmn.blitzle.id, pkmn.drilbur.id, pkmn.karrablast.id, pkmn.tynamo.id, pkmn.shelmet.id, pkmn.bunnelby.id, pkmn.flabebe.id, pkmn.skiddo.id, 
-    pkmn.dwebble.id, pkmn.tirtouga.id, pkmn.solosis.id, pkmn.pancham.id, pkmn.spritzee.id, pkmn.clauncher.id, pkmn.bergmite.id, pkmn.yungoos.id, pkmn.gumshoos.id, 
+    pkmn.dwebble.id, pkmn.tirtouga.id, pkmn.solosis.id, pkmn.pancham.id, pkmn.spritzee.id, pkmn.clauncher.id, pkmn.bergmite.id, pkmn.yungoos.id, 
     pkmn.wishiwashi.id, pkmn.dewpider.id, pkmn.cutiefly.id, pkmn.fomantis.id, pkmn.morelull.id, pkmn.stufful.id, pkmn.bounsweet.id, pkmn.sandygast.id, pkmn.skwovet.id, pkmn.gossifleur.id, 
     pkmn.yamper.id, pkmn.toxel.id, pkmn.indeedee.id, pkmn.cufant.id,
 
@@ -3790,7 +3790,7 @@ const wildlifePoolUncommon = [
     pkmn.basculin.id, pkmn.emolga.id, pkmn.alomomola.id, pkmn.stunfisk.id, pkmn.komala.id, pkmn.clobbopus.id, pkmn.gligar.id, pkmn.inkay.id, pkmn.nacli.id, pkmn.glameow.id, 
 
     //fodder
-    pkmn.ducklett.id, pkmn.chansey.id, pkmn.tauros.id, pkmn.kabuto.id, pkmn.ditto.id, pkmn.dunsparce.id, pkmn.girafarig.id,
+    pkmn.ducklett.id, pkmn.tauros.id, pkmn.kabuto.id, pkmn.ditto.id, pkmn.dunsparce.id, pkmn.girafarig.id,
     pkmn.miltank.id, pkmn.illumise.id, pkmn.castform.id, pkmn.tropius.id, pkmn.croagunk.id,
     pkmn.throh.id, pkmn.maractus.id, pkmn.sigilyph.id, pkmn.druddigon.id,
     pkmn.binacle.id, pkmn.helioptile.id, pkmn.carbink.id,pkmn.mudbray.id, pkmn.salandit.id,pkmn.togedemaru.id,

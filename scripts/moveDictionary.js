@@ -143,6 +143,7 @@ move.burnUp = {
     power: t4Base+60,
     info: function() {return `Decreases Defense and Special Defense by 100%`},
     hitEffect: function(target) { moveBuff(target,'defdown2',"self"); moveBuff(target,'sdefdown2',"self"); },
+    unaffectedBySheerForce : true,
 }
 
 move.aquaStep = {
@@ -326,6 +327,7 @@ move.iceHammer = {
     power: t4Base+20,
     info: function() {return `Decreases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1','self') },
+    unaffectedBySheerForce : true,
 }
 
 move.dragonDarts = {  
@@ -911,6 +913,7 @@ move.vCreate = {
     power: t5Base+30,
     info: function() {return `Decreases Defense, Special Defense and Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1',`self`); moveBuff(target,'sdefdown1',`self`); moveBuff(target,'spedown1',`self`); },
+    unaffectedBySheerForce : true,
 }
 
 move.headlongRush = {
@@ -919,6 +922,7 @@ move.headlongRush = {
     power: t4Base+20,
     info: function() {return `Decreases Defense by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1',`self`) },
+    unaffectedBySheerForce : true,
 }
 
 move.sandsearStorm = {
@@ -1305,6 +1309,7 @@ move.overheat = {
     power: 130,
     info: function() {return `Decreases Special Attack by 100%`},
     hitEffect: function(target) { moveBuff(target,'satkdown2','self') },
+    unaffectedBySheerForce : true,
 }
 
 
@@ -2534,6 +2539,7 @@ move.hammerArm = {
     power: 90,
     info: function() {return `Decreases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1','self') },
+    unaffectedBySheerForce : true,
 }
 
 move.auraSphere = {
@@ -2570,6 +2576,7 @@ move.closeCombat = {
     power: 120,
     info: function() {return `Decreases Defense and Special Defense by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1','self'); moveBuff(target,'sdefdown1','self') },
+    unaffectedBySheerForce : true,
 }
 
 move.superpower = {  
@@ -2580,6 +2587,7 @@ move.superpower = {
     power: 120,
     info: function() {return `Decreases Defense and Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1','self'); moveBuff(target,'atkdown1','self') },
+    unaffectedBySheerForce : true,
 }
 
 move.focusBlast = {
@@ -2989,6 +2997,7 @@ move.dracoMeteor = {
     power: 130,
     info: function() {return `Decreases Special Attack by 100%`},
     hitEffect: function(target) { moveBuff(target,'satkdown2','self') },
+    unaffectedBySheerForce : true,
 }
 
 move.dragonDance = {
@@ -3830,7 +3839,7 @@ ability.strategist = {
 ability.sheerForce = {
     type: [`ground`, `steel`, `fighting`, `rock`],
     rarity: 3,
-    info: function() {return `Secondary effect of harmful moves are removed, and their power is multiplied by x1.2`},
+    info: function() {return `Positive secondary effect of damaging moves are removed, and their power is multiplied by x1.2`},
 }
 
 ability.levitate = {

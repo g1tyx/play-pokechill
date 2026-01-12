@@ -15058,7 +15058,7 @@ pkmn.dolliv = {
     sdef: 78,
     spe: 33,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.arboliva, item: evolutionLevel2 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.arboliva, level: evolutionLevel2 } } }
 }
 
 pkmn.arboliva = {

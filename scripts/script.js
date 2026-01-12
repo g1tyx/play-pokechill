@@ -616,7 +616,7 @@ function setGuide(){
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `${guide[i].name}`
         document.getElementById("tooltipMid").style.display = `none`
-        document.getElementById("tooltipBottom").innerHTML = `<span style="overflow:scroll; max-height:25rem; display:inline-block;">${guide[i].description()}</span>`
+        document.getElementById("tooltipBottom").innerHTML = `<span style="overflow-y:scroll; max-height:25rem; display:inline-block;">${guide[i].description()}</span>`
 
 
         if (i === "stats") {
