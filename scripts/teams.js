@@ -295,6 +295,7 @@ function injectPreviewTeam(){
 
 function setPkmnTeamHp(){
 
+
     saved.currentSpiralFloor = 1
 
 
@@ -352,6 +353,81 @@ function setPkmnTeamHp(){
 }
 
 
+function switchMemberNext() { //used for stuff like u turn
+    let current = Number(exploreActiveMember.replace("slot", ""));
+    let checked = 0;
+
+    while (checked < 6) {
+        current++;
+        if (current > 6) current = 1;
+        checked++;
+
+        let nextSlot = "slot" + current;
+
+        if (
+            team[nextSlot]?.pkmn !== undefined &&
+            pkmn[ team[nextSlot].pkmn.id ].playerHp > 0
+        ) {
+            switchMember(nextSlot);
+            return;
+        }
+    }
+}
+
+
+function switchMember(member){
+
+
+    if (areas[saved.currentArea].id == "training") return
+
+
+    //conitions for not switching (will be ignored if the player is dead)
+    if (pkmn[ team[exploreActiveMember].pkmn.id ].playerHp > 0) {
+
+        if (team[exploreActiveMember].item == item.choiceSpecs.id) return
+        if (team[exploreActiveMember].item == item.choiceBand.id) return
+        if (testAbility(`active`,  ability.gorillaTactics.id )) return
+
+        if (document.getElementById(`explore-${exploreActiveMember}-member`).classList.contains("member-inactive")) return;
+        
+    }
+
+
+    if (pkmn[ team[member].pkmn.id ].playerHp <= 0) return;
+
+
+
+
+    //reset move buildup, ie rollout
+    for (const learntMoveID of pkmn[ team[exploreActiveMember].pkmn.id ].movepool) if(move[learntMoveID]?.buildup!==undefined) move[learntMoveID].buildup = 0
+
+
+    barProgressPlayer = 0
+    if (barPlayer) barPlayer.style.width = 0
+    exploreCombatPlayerTurn = 1
+    exploreActiveMember = member
+
+
+
+    if (testAbility(`active`,  ability.naturalCure.id )) {team[exploreActiveMember].buffs.confused = 0; team[exploreActiveMember].buffs.burn = 0; team[exploreActiveMember].buffs.freeze = 0; team[exploreActiveMember].buffs.paralysis = 0; team[exploreActiveMember].buffs.poisoned = 0; team[exploreActiveMember].buffs.sleep = 0; updateTeamBuffs() }
+    if (testAbility(`active`,  ability.drizzle.id )) changeWeather("rainy")
+    if (testAbility(`active`,  ability.drought.id )) changeWeather("sunny")
+    if (testAbility(`active`,  ability.sandStream.id )) changeWeather("sandstorm")
+    if (testAbility(`active`,  ability.snowWarning.id )) changeWeather("hail")
+    if (testAbility(`active`,  ability.somberField.id )) changeWeather("foggy")
+    if (testAbility(`active`,  ability.electricSurge.id )) changeWeather("electricTerrain")
+    if (testAbility(`active`,  ability.grassySurge.id )) changeWeather("grassySurge")
+    if (testAbility(`active`,  ability.mistySurge.id )) changeWeather("mistySurge")
+        
+
+    //manage styles
+    const members = document.querySelectorAll('.explore-team-member');
+    members.forEach(member => member.classList.add('member-inactive'));
+    document.getElementById(`explore-${exploreActiveMember}-member`).classList.remove('member-inactive');
+
+}
+
+
 
 function setPkmnTeam(){
 
@@ -374,46 +450,11 @@ function setPkmnTeam(){
 
     div.addEventListener("click", e => { //change team member
 
-        if (team[exploreActiveMember].item == item.choiceSpecs.id) return
-        if (team[exploreActiveMember].item == item.choiceBand.id) return
-        if (testAbility(`active`,  ability.gorillaTactics.id )) return
-
-        if (!div.classList.contains("member-inactive")) return;
-        if (pkmn[ team[i].pkmn.id ].playerHp <= 0) return;
-
-
-
-        //reset move buildup, ie rollout
-        for (const learntMoveID of pkmn[ team[i].pkmn.id ].movepool) if(move[learntMoveID]?.buildup!==undefined) move[learntMoveID].buildup = 0
-
-
-        barProgressPlayer = 0
-        barPlayer.style.width = 0
-        exploreCombatPlayerTurn = 1
-
-        exploreActiveMember = i
-
         
-        if (testAbility(`active`,  ability.naturalCure.id )) {team[exploreActiveMember].buffs.confused = 0; team[exploreActiveMember].buffs.burn = 0; team[exploreActiveMember].buffs.freeze = 0; team[exploreActiveMember].buffs.paralysis = 0; team[exploreActiveMember].buffs.poisoned = 0; team[exploreActiveMember].buffs.sleep = 0; updateTeamBuffs() }
 
-        if (testAbility(`active`,  ability.drizzle.id )) changeWeather("rainy")
-        if (testAbility(`active`,  ability.drought.id )) changeWeather("sunny")
-        if (testAbility(`active`,  ability.sandStream.id )) changeWeather("sandstorm")
-        if (testAbility(`active`,  ability.snowWarning.id )) changeWeather("hail")
-        if (testAbility(`active`,  ability.somberField.id )) changeWeather("foggy")
-        if (testAbility(`active`,  ability.electricSurge.id )) changeWeather("electricTerrain")
-        if (testAbility(`active`,  ability.grassySurge.id )) changeWeather("grassySurge")
-        if (testAbility(`active`,  ability.mistySurge.id )) changeWeather("mistySurge")
+        switchMember(i)
         
-        //exploreCombatPlayer()
-
-        const members = document.querySelectorAll('.explore-team-member');
-
-    // Agrega la clase inactive a todos
-    members.forEach(member => member.classList.add('member-inactive'));
-
-    // Quita la clase inactive al que se hizo click
-    div.classList.remove('member-inactive');
+        
         
     })
 

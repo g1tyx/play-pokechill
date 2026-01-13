@@ -1,3 +1,8 @@
+
+
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -19,6 +24,11 @@
   font-family: 'Winky Sans'; 
   src: url('font/WinkySans.ttf');
   font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Megrim'; 
+  src: url('font/Megrim.ttf');
 }
 
 * {
@@ -1815,6 +1825,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     border: var(--light1) solid 2px;
     color: var(--light1);
     border-radius: 0.3rem;
+    z-index: 2;
 }
 
 .rotation-timer strong{
@@ -1856,8 +1867,13 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 0.4rem 2%;
     border-radius: 0 0 0.5rem 0.5rem ;
     box-shadow: rgba(0, 0, 0, 0.3) 0 4px 4px 0;
-    
+
+
 }
+
+
+
+
 
 #explore-menu-header span {
     height: 2rem;
@@ -1875,6 +1891,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 1.3rem 1rem;
     font-weight: 100;
     flex-shrink: 0;
+    z-index: 2;
 }
 
 #explore-menu-header span svg{
@@ -4218,6 +4235,63 @@ background:
 
 
 
+
+#event-banner{
+
+
+
+
+
+
+
+    background-image: url(img/bg/event/kanto.png);
+    height: 8rem;
+    width: 95%;
+    border-radius: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position-y: 10%;
+    position: relative;
+    overflow: hidden;
+    border: rgba(255, 255, 255, 0.7) double 4px;
+    margin-top: 0.5rem;
+}
+
+
+
+
+
+
+#event-banner span{
+
+  font-family: "Megrim", system-ui;
+      font-weight: 100;
+    font-style: normal;
+
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 3rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    -webkit-text-stroke: 5px rgba(255, 255, 255, 0.2);
+    paint-order: stroke fill;
+    backdrop-filter: blur(1px);
+    white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+    #event-banner span {
+        font-size: 2rem;
+    }
+}
+
+
+
 #training-menu{
     position: fixed;
     height: 100%;
@@ -4448,6 +4522,64 @@ background:
     justify-content: center;
     align-items: center;
     cursor: help;
+}
+
+
+#afk-overlay{
+    position: fixed;
+    height: 100%;
+    width: 50%;
+    background: 
+   
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='white' fill-opacity='0.03'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E")
+    ,
+    var(--dark1)
+    ;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    z-index: 1000000;
+    animation: bg-diagonal infinite 1500s linear;
+    padding-top: 2rem;
+    gap: 1rem;
+    color: white;
+    font-size: 1.1rem;
+    opacity: 0.96;
+
+}
+
+#afk-overlay div{
+    height: auto;
+    width: auto;
+    display: flex;
+    border-radius: 0.5rem;
+    flex-direction: column;
+    color: white;
+}
+
+#afk-overlay img{
+    image-rendering: pixelated;
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+#afk-overlay div svg{
+    color: white;
+    height: 5rem;
+    width: 5rem;
+}
+
+@media (max-width: 1000px) {
+    #afk-overlay {
+        width: 100%;
+        font-size: 0.9rem;
+    }
 }
 
 

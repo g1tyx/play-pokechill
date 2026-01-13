@@ -881,7 +881,11 @@ item.venusaurite = {
 
 
 
-
+item.primalEarth = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
 
 
 item.thunderousRock = {
@@ -890,11 +894,8 @@ item.thunderousRock = {
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
-item.fieryRock = {
-    type: "key",
-    rotation: 1,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
+
+
 
 item.articRock = {
     type: "key",
@@ -944,6 +945,12 @@ item.wormholeResidue = {
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
+item.futureContraption = {
+    type: "key",
+    rotation: 5,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
 
 item.redChain = {
     type: "key",
@@ -957,12 +964,17 @@ item.wisdomPetal = {
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
-item.willpowerFeather = {
+item.epochFeather = {
     type: "key",
-    rotation: 6,
+    rotation: 1,
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
+item.pokeflute = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
 
 
 item.mysteryEgg = {
@@ -1104,7 +1116,7 @@ for (const i in item){
 function joinWithOr(list) {
     if (list.includes("all")) return "all";
 
-    const formatted = list.map(w => w[0].toUpperCase() + w.slice(1));
+    const formatted = list.map(x => format(x));
     const len = formatted.length;
 
     if (len === 0) return "";
@@ -1117,17 +1129,7 @@ function joinWithOr(list) {
 function joinWithAnd(list) {
     if (list.includes("all")) return "all";
 
-    const splitCamel = w =>
-        typeof w === "string"
-            ? w.replace(/([a-z])([A-Z])/g, "$1 $2")
-            : "";
-
-    const cap = w =>
-        typeof w === "string" && w.length > 0
-            ? w.charAt(0).toUpperCase() + w.slice(1)
-            : "";
-
-    const formatted = list.map(w => cap(splitCamel(w)));
+    const formatted = list.map(x => format(x));
     const len = formatted.length;
 
     if (len === 0) return "";

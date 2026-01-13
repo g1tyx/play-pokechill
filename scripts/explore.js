@@ -238,7 +238,7 @@ function setWildPkmn(){
     
 
     hpMultiplier = 3;
-    if (areas.training.tier==2) hpMultiplier = 7;
+    if (areas.training.tier==2) hpMultiplier = 8;
     if (areas.training.tier==3) hpMultiplier = 17;
 
     areaDivision = numericDivision(areaDivision, "inverse")
@@ -259,6 +259,17 @@ function setWildPkmn(){
     if (pkmn[saved.trainingPokemon].type[1] != undefined && rng(0.5)) spawnedPkmn = randomDivisionPkmn(areaDivision, typeWeak(pkmn[saved.trainingPokemon].type[0],pkmn[saved.trainingPokemon].type[1],2), undefined, undefined, "training")
     }
 
+
+    //if still cant, try to make it safe in one of the types
+    if (!pkmn[spawnedPkmn]) {
+    areaDivision = numericDivision(returnPkmnDivision(pkmn[saved.trainingPokemon]))
+    areaDivision = numericDivision(areaDivision, "inverse")
+
+    spawnedPkmn = randomDivisionPkmn(areaDivision, typeWeak(pkmn[saved.trainingPokemon].type[0],1), undefined, undefined, "training")
+    if (pkmn[saved.trainingPokemon].type[1] != undefined && rng(0.5)) spawnedPkmn = randomDivisionPkmn(areaDivision, typeWeak(pkmn[saved.trainingPokemon].type[0],2), undefined, undefined, "training")
+    }
+
+
     //if still cant, unsafe of same division, out of luck
     if (!pkmn[spawnedPkmn]) {
     areaDivision = numericDivision(returnPkmnDivision(pkmn[saved.trainingPokemon]))
@@ -266,6 +277,7 @@ function setWildPkmn(){
 
     spawnedPkmn = randomDivisionPkmn(areaDivision, typeWeak(pkmn[saved.trainingPokemon].type[0],pkmn[saved.trainingPokemon].type[1],1))
     if (pkmn[saved.trainingPokemon].type[1] != undefined && rng(0.5)) spawnedPkmn = randomDivisionPkmn(areaDivision, typeWeak(pkmn[saved.trainingPokemon].type[0],pkmn[saved.trainingPokemon].type[1],2))
+    console.log(spawnedPkmn)
     }
 
 
@@ -383,6 +395,7 @@ for (let i = 0; i < 4; i++) {
             if (areas[saved.currentArea].encounterEffect) areas[saved.currentArea].encounterEffect()
 
             if (areas[saved.currentArea].encounter && areas[saved.currentArea].unlockRequirement && !areas[saved.currentArea].unlockRequirement() ) saved.autoRefight = false
+
             areas[saved.currentArea].defeated = true;
             leaveCombat(); 
             wildPkmnHp = 100000000
@@ -464,7 +477,8 @@ for (let t of thresholds) {
 
     let hpStars = pkmn[spawnedPkmn].bst.hp
     if (saved.currentArea == areas.training.id) hpStars = returnDivisionStars(pkmn[spawnedPkmn])
-    if (saved.currentArea == areas.training.id && pkmn[saved.trainingPokemon].type.includes("normal")) hpStars /= 2
+    if (saved.currentArea == areas.training.id && pkmn[saved.trainingPokemon].type.includes("normal")) hpStars /= 1.5
+    if (saved.currentArea == areas.training.id && pkmn[saved.trainingPokemon].type.includes("dragon")) hpStars /= 1.5
 
 
     wildPkmnHp =
@@ -637,7 +651,6 @@ function leaveCombat(){
     saved.lastAreaJoined = saved.currentArea
     saved.currentAreaBuffer = undefined
     currentTrainerSlot = 1
-    afkSeconds = 0
     transition()
     exploreCombatWildTurn = 0
 
@@ -806,7 +819,7 @@ function leaveCombat(){
     } 
 
 
-    if (rng(shinyPkmnChance)){ //shiny
+    if (rng(shinyPkmnChance) && pkmn[hatchedPkmn].shiny!=true){ //shiny
         pkmn[hatchedPkmn].shiny = true
         divTag = `<span>✦Shiny✦!</span>`
     }
@@ -816,13 +829,14 @@ function leaveCombat(){
     const divPkmn = document.createElement("div");
     divPkmn.dataset.pkmnEditor = hatchedPkmn
 
+    pkmn[hatchedPkmn].caught++
+
     if (saved.hideGotPkmn == "true" && divTag=="") continue
 
     divPkmn.innerHTML = `<img class="sprite-trim" src="img/pkmn/sprite/${hatchedPkmn}.png">`+divTag;
     if (divTag == `<span>✦Shiny✦!</span>`) divPkmn.innerHTML = `<img class="sprite-trim" src="img/pkmn/shiny/${hatchedPkmn}.png">`+divTag;
     document.getElementById("area-end-pkmn-list").appendChild(divPkmn);
 
-    pkmn[hatchedPkmn].caught++
     noPkmn = false
     }
 
@@ -934,7 +948,7 @@ function leaveCombat(){
 
 
     document.getElementById("area-refight").style.display = "none"
-    if ( item.autoRefightTicket.got>0 && areas[saved.currentArea].type!="vs" && areas[saved.currentArea].type!="frontier" && areas[saved.currentArea].id != "training" ) {
+    if ( item.autoRefightTicket.got>0 && areas[saved.currentArea].type!="vs" && areas[saved.currentArea].type!="frontier" && areas[saved.currentArea].id != "training" && areas[saved.currentArea].encounter != true ) {
         document.getElementById("area-refight").style.display = "flex"
         document.getElementById("area-refight").innerHTML = `
         <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0" clip-rule="evenodd"/></svg>
@@ -948,7 +962,6 @@ function leaveCombat(){
         <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0" clip-rule="evenodd"/></svg>
         Auto-Refight <span> (Free)</span>
         `
-
     } 
 
 
@@ -960,6 +973,14 @@ function leaveCombat(){
 
     item.mysteryEgg.got = 0
     item.mysteryEgg.newItem = 0
+
+
+    if (areas[saved.currentArea].encounter && areas[saved.currentArea].unlockRequirement && !areas[saved.currentArea].unlockRequirement() ) {
+        afkSeconds = 0
+        saved.autoRefight = false
+    } 
+
+    afkSeconds = 0
 
     saved.currentArea = undefined
 
@@ -1000,7 +1021,6 @@ function rejoinArea(){
     if (saved.currentArea == saved.lastAreaJoined) return
 
     
-    afkSeconds = 0
     saved.currentArea = saved.lastAreaJoined
 
     voidAnimation(`explore-transition`, `exploreTransition 1s 1`)
@@ -1047,37 +1067,69 @@ function updateWildPkmn(){
 
 
 
+
+
+
+
+
     const percent = (wildPkmnHp / wildPkmnHpMax) * 100;
 
-const hp1 = document.getElementById("exploe-wild-hp");
-const hp2 = document.getElementById("exploe-wild-hp-2");
 
-if (areas[saved.currentArea].encounter && areas[saved.currentArea].difficulty == tier2difficulty) {
-    hp2.style.display = "flex";
-    hp2.style.background = "rgb(134, 141, 238)";
 
-    if (percent > 50) {
-        hp2.style.width = ((percent - 50) * 2) + "%";
-        hp1.style.width = "100%";
-        hp1.style.background = "rgb(130, 211, 130)";
 
-    } else {
-        hp2.style.width = "0%";
-        hp1.style.width = (percent * 2) + "%";
 
-    if (percent > 30) hp1.style.background = "rgb(130, 211, 130)";
-    else if (percent > 15) hp1.style.background = "rgba(221, 168, 99, 1)";
-    else hp1.style.background = "rgba(219, 112, 112, 1)";
-    }
 
-} else {
-    hp2.style.display = "none";
-    hp1.style.width = percent + "%";
 
-    if (percent > 60) hp1.style.background = "rgb(130, 211, 130)";
-    else if (percent > 30) hp1.style.background = "rgba(221, 168, 99, 1)";
-    else hp1.style.background = "rgba(219, 112, 112, 1)";
+
+
+const hpBars = [
+  { el: document.getElementById("exploe-wild-hp"), color: null }, // dynamic
+  { el: document.getElementById("exploe-wild-hp-2"), color: "rgb(134, 141, 238)" },
+  { el: document.getElementById("exploe-wild-hp-3"), color: "rgb(238, 236, 134)" },
+];
+
+let activeBars = 1;
+
+if (areas[saved.currentArea].encounter) {
+  if (areas[saved.currentArea].difficulty == tier2difficulty) activeBars = 2;
+  if (areas[saved.currentArea].difficulty == tier3difficulty) activeBars = 3;
 }
+
+const segment = 100 / activeBars;
+
+// loop from top bar → base bar
+for (let i = activeBars - 1; i >= 0; i--) {
+  const bar = hpBars[i].el;
+
+  bar.style.display = "flex";
+
+  const start = segment * i;
+  const end = start + segment;
+
+  if (percent > start) {
+    bar.style.width =
+      percent >= end ? "100%" : ((percent - start) / segment) * 100 + "%";
+  } else {
+    bar.style.width = "0%";
+  }
+
+  // fixed colors for hp2, hp3...
+  if (hpBars[i].color) {
+    bar.style.background = hpBars[i].color;
+  }
+}
+
+// hide unused bars
+for (let i = activeBars; i < hpBars.length; i++) {
+  hpBars[i].el.style.display = "none";
+}
+
+
+
+
+
+
+
 
 
 
@@ -1171,7 +1223,7 @@ if (areas[saved.currentArea].encounter && areas[saved.currentArea].difficulty ==
     }
     
 
-
+    updateTeamBuffs()
     updateTeamExp()
 
 
@@ -1530,19 +1582,19 @@ function updateTeamPkmn(){
         exploreCombatPlayerTurn = 1
 
 
-        if (team?.slot6?.pkmn?.id !== undefined) if (pkmn[ team?.slot6?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot6`
-        if (team?.slot5?.pkmn?.id !== undefined) if (pkmn[ team?.slot5?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot5`
-        if (team?.slot4?.pkmn?.id !== undefined) if (pkmn[ team?.slot4?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot4`
-        if (team?.slot3?.pkmn?.id !== undefined) if (pkmn[ team?.slot3?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot3`
-        if (team?.slot2?.pkmn?.id !== undefined) if (pkmn[ team?.slot2?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot2`
-        if (team?.slot1?.pkmn?.id !== undefined) if (pkmn[ team?.slot1?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot1`
-        
+        //if (team?.slot6?.pkmn?.id !== undefined) if (pkmn[ team?.slot6?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot6`
+        //if (team?.slot5?.pkmn?.id !== undefined) if (pkmn[ team?.slot5?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot5`
+        //if (team?.slot4?.pkmn?.id !== undefined) if (pkmn[ team?.slot4?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot4`
+        //if (team?.slot3?.pkmn?.id !== undefined) if (pkmn[ team?.slot3?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot3`
+        //if (team?.slot2?.pkmn?.id !== undefined) if (pkmn[ team?.slot2?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot2`
+        //if (team?.slot1?.pkmn?.id !== undefined) if (pkmn[ team?.slot1?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot1`
         
             
         
 
         document.getElementById(`explore-${exploreActiveMember}-member`).classList.remove('member-inactive')
 
+        switchMemberNext()
 
 
         //exploreCombatPlayer()
@@ -1776,7 +1828,7 @@ document.addEventListener("contextmenu", e => {
         if (el.dataset.help === `Dungeons`) document.getElementById("tooltipBottom").innerHTML = `Pokemon in Dungeons can't be caught, but they can drop useful items and EXP. Dungeons rotate every day aswell`
 
         if (el.dataset.help === `Training`) document.getElementById("tooltipTitle").innerHTML = `Training`
-        if (el.dataset.help === `Training`) document.getElementById("tooltipBottom").innerHTML = `Challenge your Pokemon against waves of foes in order to get stronger. You will naturally have typing advantage against Pokemon fought against, and their level will scale to yours. Type Immunities inside training will be instead converted to resistances<br><br>Failing a training will result in no gains`
+        if (el.dataset.help === `Training`) document.getElementById("tooltipBottom").innerHTML = `Challenge your Pokemon against waves of foes in order to get stronger. You will naturally have typing advantage against Pokemon fought against, and their level will scale to yours. Type Immunities inside training will be instead converted to resistances.<br><br>Failing a training will result in no gains`
 
         if (el.dataset.help === `Events`) document.getElementById("tooltipTitle").innerHTML = `Events`
         if (el.dataset.help === `Events`) document.getElementById("tooltipBottom").innerHTML = `Events might house both items and Pokemon to get. Events marked with a skull signify powerful foes that usually require an item to catch (The item wont be consumed if failed to defeat). All Events rotate every three days.`
@@ -1829,7 +1881,20 @@ document.addEventListener("contextmenu", e => {
         document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${format(move[el.dataset.move].type)}.png">`
         document.getElementById("tooltipTitle").innerHTML = format(el.dataset.move)
         document.getElementById("tooltipMid").style.display = "inline"
-        document.getElementById("tooltipMid").innerHTML = `${move[el.dataset.move].power} Power, ${format(move[el.dataset.move].split)}`
+
+
+        const affectedAbilities = []
+        if (move[el.dataset.move].affectedBy!==undefined) affectedAbilities.push(move[el.dataset.move].affectedBy)
+        if (move[el.dataset.move].hitEffect) affectedAbilities.push(ability.sereneGrace.id)
+        if (move[el.dataset.move].hitEffect && (move[el.dataset.move].power>0 || move[el.dataset.move].unaffectedBySheerForce!=true) ) affectedAbilities.push(ability.sheerForce.id)
+        if (move[el.dataset.move].multihit && move[el.dataset.move].multihit[1] > move[el.dataset.move].multihit[0]) affectedAbilities.push(ability.skillLink.id)
+        if (move[el.dataset.move].power <= 60 && move[el.dataset.move].power!=0) affectedAbilities.push(ability.technician.id)
+            
+        let affectedText = ""
+        if (affectedAbilities.length>0) affectedText =`<br>Affected by ${joinWithAnd(affectedAbilities)}`
+
+
+        document.getElementById("tooltipMid").innerHTML = `${move[el.dataset.move].power} Power, ${format(move[el.dataset.move].split)}${affectedText}`
         if (move[el.dataset.move].info == undefined) document.getElementById("tooltipBottom").innerHTML = `No additional effects`
         else document.getElementById("tooltipBottom").innerHTML = move[el.dataset.move].info()
         openTooltip()
@@ -2591,6 +2656,11 @@ function exploreCombatPlayer() {
     //abilities
     if (testAbility(`active`, ability.prankster.id) && (move[nextMovePlayer].type == "dark" || move[nextMovePlayer].type == "ghost")) moveTimerPlayer /= 1.5
 
+    if (testAbility(`active`, ability.prankster.id) && testAbility(`active`, ability.gloomilate.id) && move[nextMovePlayer].type == "normal" ) moveTimerPlayer /= 1.5
+
+    if (testAbility(`active`, ability.cacophony.id) && move[nextMovePlayer].affectedBy?.includes(ability.cacophony.id) ) moveTimerPlayer /= 2
+    if (testAbility(`active`, ability.dancer.id) && move[nextMovePlayer].affectedBy?.includes(ability.dancer.id) ) moveTimerPlayer /= 2
+
 
     //buff modifiers
     if (team[exploreActiveMember].buffs?.paralysis > 0) moveTimerPlayer *=  1.75
@@ -2598,6 +2668,8 @@ function exploreCombatPlayer() {
     if (team[exploreActiveMember].buffs?.spedown2 > 0) moveTimerPlayer *= 1.75
     if (team[exploreActiveMember].buffs?.speup1 > 0) moveTimerPlayer /= 1.5
     if (team[exploreActiveMember].buffs?.speup2 > 0) moveTimerPlayer /= 1.75
+
+
 
 
 
@@ -2700,6 +2772,15 @@ function exploreCombatPlayer() {
             nextMove =  move[ document?.getElementById(`pkmn-movebox-wild-1`).dataset.move  ]
             movePower*=2
         }
+
+
+
+        if (testAbility(`active`, ability.ironFist.id) && move.affectedBy?.includes(ability.ironFist.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.strongJaw.id) && move.affectedBy?.includes(ability.strongJaw.id) ) movePower *= 2
+        if (testAbility(`active`, ability.toughClaws.id) && move.affectedBy?.includes(ability.toughClaws.id) ) movePower *= 2
+        if (testAbility(`active`, ability.sharpness.id) && move.affectedBy?.includes(ability.sharpness.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.megaLauncher.id) && move.affectedBy?.includes(ability.megaLauncher.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.metalhead.id) && move.affectedBy?.includes(ability.metalhead.id) ) movePower *= 1.5
         
         
 
@@ -2803,6 +2884,7 @@ function exploreCombatPlayer() {
         if (testAbility(`active`, ability.espilate.id) && moveType=="normal") {moveType = "psychic"; totalPower*=1.3}
         if (testAbility(`active`, ability.aerilate.id) && moveType=="normal") {moveType = "flying"; totalPower*=1.3}
         if (testAbility(`active`, ability.pixilate.id) && moveType=="normal") {moveType = "fairy"; totalPower*=1.3}
+        if (testAbility(`active`, ability.verdify.id) && moveType=="normal") {moveType = "grass"; totalPower*=1.3}
 
 
 
@@ -2938,11 +3020,6 @@ function exploreCombatPlayer() {
         if (below50hp && testAbility(`active`, ability.rime.id) && moveType == 'ice' ) totalPower *= 1.3
         if (below50hp && testAbility(`active`, ability.voltage.id) && moveType == 'electric' ) totalPower *= 1.3
 
-        if (testAbility(`active`, ability.ironFist.id) && /dynamicPunch|dizzyPunch|firePunch|thunderPunch|bulletPunch|icePunch|powerupPunch|hammerArm|shadowPunch|machPunk|poisonJab/.test(nextMovePlayer) ) totalPower *= 1.5
-        if (testAbility(`active`, ability.strongJaw.id) && /fireFang|thunderFang|poisonFang|iceFang|bugBite|bite|crunch/.test(nextMovePlayer) ) totalPower *= 1.5
-        if (testAbility(`active`, ability.toughClaws.id) && /shadowClaw|metalClaw|dragonClaw|xScissor|crossPoison|razorLeaf/.test(nextMovePlayer) ) totalPower *= 1.5
-        if (testAbility(`active`, ability.sharpness.id) && /nightSlash|cut|furyCutter|leafBlade|airSlash|psychoCut|solarBlade/.test(nextMovePlayer) ) totalPower *= 1.5
-
         if ( testAbility(`active`, ability.rivalry.id) && pkmn[saved.currentPkmn].type.some(t => pkmn[team[exploreActiveMember].pkmn.id].type.includes(t)) ) totalPower *= 1.3
         
         if (testAbility(`active`, ability.sheerForce.id) &&  nextMove.hitEffect) totalPower *= 1.2
@@ -2952,11 +3029,14 @@ function exploreCombatPlayer() {
         if (testAbility(`active`, ability.toxicBoost.id) && team[exploreActiveMember].buffs?.poisoned>0 ) totalPower *= 1.2
         if (testAbility(`active`, ability.flareBoost.id) && team[exploreActiveMember].buffs?.burn>0 ) totalPower *= 1.2
 
+        if (team[exploreActiveMember].item == undefined && testAbility(`active`,  ability.unburden.id )) team[exploreActiveMember].buffs.speup1 = 10
+
+
         if (testAbility(`active`, ability.supremeOverlord.id)) {
             let overlordBoost = 1
             for (const member in team) {
-                if (team[member].pkmn==undefined) return
-                if (pkmn[team[member].pkmn.id].playerHp<0) overlordBoost += 0.1
+                if (team[member].pkmn==undefined) continue
+                if (pkmn[team[member].pkmn.id].playerHp<=0) overlordBoost += 0.1
             }
             totalPower *= overlordBoost
         }
@@ -3034,7 +3114,7 @@ function exploreCombatPlayer() {
         for (let i = 0; i < multihit; i++) {
 
         if (!(team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.sleep>0)){
-        if (testAbility(`active`,  ability.sheerForce.id ) == false || ( testAbility(`active`, ability.sheerForce.id ) && totalPower==0 && ability.unaffectedBySheerForce!=true  )){
+        if (testAbility(`active`,  ability.sheerForce.id ) == false || ( testAbility(`active`, ability.sheerForce.id ) && (totalPower==0 || ability.unaffectedBySheerForce!=true)  )){
         if (nextMove.hitEffect && (typeEffectiveness(moveType, pkmn[saved.currentPkmn].type)!= 0 || totalPower==0 || testAbility(`active`,  ability.noGuard.id ))) {
             nextMove.hitEffect("wild")
         }
@@ -3062,6 +3142,8 @@ function exploreCombatPlayer() {
 
         attacker.playerHp -= fatigueDamage
         updateTeamPkmn()
+
+
 
     }
 
@@ -3600,6 +3682,8 @@ function exploreCombatWild() {
         }
 
 
+
+
         let superEffective = false
         if (typeEffectiveness(move[nextMoveWild].type, pkmn[team[exploreActiveMember].pkmn.id].type) == 1.5) superEffective = true
 
@@ -3668,8 +3752,6 @@ function exploreCombatWild() {
         if (testAbility(`active`,  ability.psychicAbsorb.id  )&& move[nextMoveWild].type == 'psychic') totalPower = 0
         if (testAbility(`active`,  ability.lightAbsorb.id  )&& move[nextMoveWild].type == 'fairy') totalPower = 0
         if (testAbility(`active`,  ability.growthAbsorb.id  )&& move[nextMoveWild].type == 'grass') totalPower = 0
-
-        if (team[exploreActiveMember].item == undefined && testAbility(`active`,  ability.unburden.id )) team[exploreActiveMember].buffs.speup1 = 10
 
         if (testAbility(`active`,  ability.static.id ) && rng(0.1)) wildBuffs.paralysis = 3
         if (testAbility(`active`,  ability.flameBody.id ) && rng(0.1)) wildBuffs.burn = 3
@@ -3803,6 +3885,20 @@ function initialiseArea(){
 
 
 
+    if (testAbility(`active`,  ability.drizzle.id )) changeWeather("rainy")
+    if (testAbility(`active`,  ability.drought.id )) changeWeather("sunny")
+    if (testAbility(`active`,  ability.sandStream.id )) changeWeather("sandstorm")
+    if (testAbility(`active`,  ability.snowWarning.id )) changeWeather("hail")
+    if (testAbility(`active`,  ability.somberField.id )) changeWeather("foggy")
+    if (testAbility(`active`,  ability.electricSurge.id )) changeWeather("electricTerrain")
+    if (testAbility(`active`,  ability.grassySurge.id )) changeWeather("grassySurge")
+    if (testAbility(`active`,  ability.mistySurge.id )) changeWeather("mistySurge")
+
+
+
+
+
+
 
 }
 
@@ -3810,7 +3906,8 @@ saved.lastWildlifeRotation = undefined
 
 function setWildAreas() {
 
-
+    document.getElementById("event-banner").style.display = "none"
+    document.getElementById("event-banner-category").style.display = "none"
 
 
     document.getElementById("explore-selector").innerHTML = `
@@ -3985,6 +4082,11 @@ function setWildAreas() {
 function setDungeonAreas() {
 
 
+
+        document.getElementById("event-banner").style.display = "none"
+    document.getElementById("event-banner-category").style.display = "none"
+
+
     document.getElementById("explore-selector").innerHTML = `
             <div onclick="setWildAreas()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m17.861 3.163l.16.054l1.202.4c.463.155.87.29 1.191.44c.348.162.667.37.911.709s.341.707.385 1.088c.04.353.04.781.04 1.27v8.212c0 .698 0 1.287-.054 1.753c-.056.484-.182.962-.535 1.348a2.25 2.25 0 0 1-.746.538c-.478.212-.971.18-1.448.081c-.46-.096-1.018-.282-1.68-.503l-.043-.014c-1.12-.374-1.505-.49-1.877-.477a2.3 2.3 0 0 0-.441.059c-.363.085-.703.299-1.686.954l-1.382.922l-.14.093c-1.062.709-1.8 1.201-2.664 1.317c-.863.116-1.705-.165-2.915-.57l-.16-.053l-1.202-.4c-.463-.155-.87-.29-1.191-.44c-.348-.162-.667-.37-.911-.71c-.244-.338-.341-.706-.385-1.088c-.04-.353-.04-.78-.04-1.269V8.665c0-.699 0-1.288.054-1.753c.056-.484.182-.962.535-1.348a2.25 2.25 0 0 1 .746-.538c.478-.213.972-.181 1.448-.081c.46.095 1.018.282 1.68.503l.043.014c1.12.373 1.505.49 1.878.477a2.3 2.3 0 0 0 .44-.059c.363-.086.703-.3 1.686-.954l1.382-.922l.14-.094c1.062-.708 1.8-1.2 2.663-1.316c.864-.116 1.706.165 2.916.57m-2.111.943V16.58c.536.058 1.1.246 1.843.494l.125.042c.717.239 1.192.396 1.555.472c.356.074.477.04.532.016a.75.75 0 0 0 .249-.179c.04-.044.11-.149.152-.51c.043-.368.044-.869.044-1.624V7.163c0-.54-.001-.88-.03-1.138c-.028-.239-.072-.328-.112-.382c-.039-.054-.109-.125-.326-.226c-.236-.11-.56-.218-1.07-.389l-1.165-.388c-.887-.296-1.413-.464-1.797-.534m-1.5 12.654V4.434c-.311.18-.71.441-1.276.818l-1.382.922l-.11.073c-.688.46-1.201.802-1.732.994v12.326c.311-.18.71-.442 1.276-.819l1.382-.921l.11-.073c.688-.46 1.201-.802 1.732-.994m-6 3.135V7.42c-.536-.058-1.1-.246-1.843-.494l-.125-.042c-.717-.239-1.192-.396-1.556-.472c-.355-.074-.476-.041-.53-.017a.75.75 0 0 0-.25.18c-.04.043-.11.148-.152.509c-.043.368-.044.87-.044 1.625v8.128c0 .54.001.88.03 1.138c.028.239.072.327.112.382c.039.054.109.125.326.226c.236.11.56.218 1.07.389l1.165.388c.887.295 1.412.463 1.797.534" clip-rule="evenodd"/></svg>                Wild Areas</div>
@@ -4089,6 +4191,8 @@ function setDungeonAreas() {
 
 
 
+let eventCategory = 1
+
 function setEventAreas() {
 
 
@@ -4100,6 +4204,57 @@ function setEventAreas() {
         openTooltip()
         return
     }
+
+
+
+    if (eventCategory==2 && areas.vsTeamLeaderGiovanni.defeated!=true){
+        eventCategory=1
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `Defeat Team Leader Giovanni in VS mode to unlock`
+        openTooltip()
+        return
+    }
+
+    if (eventCategory==3){
+        eventCategory=1
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `Not yet implemented`
+        openTooltip()
+        return
+    }
+
+
+
+    document.getElementById("event-banner").style.display = "flex"
+    document.getElementById("event-banner-category").style.display = "flex"
+    let eventTitle = ""
+
+    if (rotationEventCurrent==1) eventTitle = `Return To Kanto`
+    if (rotationEventCurrent==2) eventTitle = `Primeval Wilds`
+    if (rotationEventCurrent==3) eventTitle = `Ancients Awoken`
+    if (rotationEventCurrent==4) eventTitle = `Aether Takeover`
+    if (rotationEventCurrent==5) eventTitle = `Science Future`
+    if (rotationEventCurrent==6) eventTitle = `Sinnoh Expedition`
+
+    if (rotationEventCurrent==1) document.getElementById("event-banner").style.backgroundImage = "url(img/bg/event/kanto.png)"
+    if (rotationEventCurrent==2) document.getElementById("event-banner").style.backgroundImage = "url(img/bg/event/past.png)"
+    if (rotationEventCurrent==3) document.getElementById("event-banner").style.backgroundImage = "url(img/bg/event/ancient.png)"
+    if (rotationEventCurrent==4) document.getElementById("event-banner").style.backgroundImage = "url(img/bg/event/aether.jpg)"
+    if (rotationEventCurrent==5) document.getElementById("event-banner").style.backgroundImage = "url(img/bg/event/future.jpg)"
+    if (rotationEventCurrent==6) document.getElementById("event-banner").style.backgroundImage = "url(img/bg/event/sinnoh.jpg)"
+
+    document.getElementById("event-banner").innerHTML = `<span>- ${eventTitle} -</span>`
+
+    document.getElementById("event-selector-1").style = `initial`
+    document.getElementById("event-selector-2").style = `initial`
+    //document.getElementById("event-selector-3").style = `initial`
+    document.getElementById("event-selector-"+eventCategory).style = `background: #91718B; outline: solid 1px #F97DFF; color: white`
+
+
 
 
     document.getElementById("explore-selector").innerHTML = `
@@ -4138,6 +4293,8 @@ function setEventAreas() {
 
   for (const i in areas) {
         if (areas[i].type !== "event") continue;
+        if (areas[i].category !== eventCategory) continue;
+        
         if (!Array.isArray(areas[i].rotation) && areas[i].rotation !== rotationEventCurrent) continue;    
         if (Array.isArray(areas[i].rotation) && !areas[i].rotation.includes(rotationEventCurrent)) continue;    
 
@@ -4177,10 +4334,11 @@ function setEventAreas() {
 
 
        let eventTag ;
-       if (areas[i].level < 50) eventTag = `<strong class="event-tag">Wild Zone ✦</strong>`
-       if (areas[i].level > 50) eventTag = `<strong style="filter:hue-rotate(140deg)" class="event-tag">Collection ◈</strong>`
+       eventTag = `<strong class="event-tag">Wild Zone ✦</strong>`
+       if (areas[i].uncatchable) eventTag = `<strong style="filter:hue-rotate(140deg)" class="event-tag">Collection ◈</strong>`
        if (areas[i].encounter && areas[i].difficulty===tier1difficulty) eventTag = `<strong style="filter:hue-rotate(50deg)" class="event-tag">Tier I Raid ❖</strong>`
        if (areas[i].encounter && areas[i].difficulty===tier2difficulty) eventTag = `<strong style="filter:hue-rotate(200deg)" class="event-tag">Tier II Raid ❖</strong>`
+       if (areas[i].encounter && areas[i].difficulty===tier3difficulty) eventTag = `<strong style="filter:hue-rotate(300deg)" class="event-tag">Tier III Raid ❖</strong>`
 
        let nameTag = ""
        if (areas[i].encounter) nameTag = `<svg class="event-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m21.838 11.126l-.229 2.436c-.378 4.012-.567 6.019-1.75 7.228C18.678 22 16.906 22 13.36 22h-2.72c-3.545 0-5.317 0-6.5-1.21s-1.371-3.216-1.749-7.228l-.23-2.436c-.18-1.912-.27-2.869.058-3.264a1 1 0 0 1 .675-.367c.476-.042 1.073.638 2.268 1.998c.618.704.927 1.055 1.271 1.11a.92.92 0 0 0 .562-.09c.319-.16.53-.595.955-1.464l2.237-4.584C10.989 2.822 11.39 2 12 2s1.011.822 1.813 2.465l2.237 4.584c.424.87.636 1.304.955 1.464c.176.089.37.12.562.09c.344-.055.653-.406 1.271-1.11c1.195-1.36 1.792-2.04 2.268-1.998a1 1 0 0 1 .675.367c.327.395.237 1.352.057 3.264" opacity="0.5"/><path fill="currentColor" d="m12.952 12.699l-.098-.176c-.38-.682-.57-1.023-.854-1.023s-.474.34-.854 1.023l-.098.176c-.108.194-.162.29-.246.354c-.085.064-.19.088-.4.135l-.19.044c-.738.167-1.107.25-1.195.532s.164.577.667 1.165l.13.152c.143.167.215.25.247.354s.021.215 0 .438l-.02.203c-.076.785-.114 1.178.115 1.352c.23.174.576.015 1.267-.303l.178-.082c.197-.09.295-.136.399-.136s.202.046.399.136l.178.082c.691.319 1.037.477 1.267.303s.191-.567.115-1.352l-.02-.203c-.021-.223-.032-.334 0-.438s.104-.187.247-.354l.13-.152c.503-.588.755-.882.667-1.165c-.088-.282-.457-.365-1.195-.532l-.19-.044c-.21-.047-.315-.07-.4-.135c-.084-.064-.138-.16-.246-.354"/></svg>`
@@ -5890,6 +6048,9 @@ function loop() {
     
     afkSecondsGenetics += elapsed;
 
+    //if (afkSeconds>0 && document.getElementById("content-explore").style.display == "flex" && document.getElementById(`tooltipBackground`).style.display !== "flex") document.getElementById("afk-overlay").style.display = "flex"
+    //else document.getElementById("afk-overlay").style.display = "none"
+
     
     if (elapsed > 0.1) {
         afkSeconds += elapsed;
@@ -6087,6 +6248,10 @@ const wildBuffs = {
   speup2: 0,
   spedown1: 0,
   spedown2: 0,
+
+
+
+
 };
 
 function formatBuffs(buff,mod) {
@@ -6178,6 +6343,10 @@ function moveBuff(target,buff,mod){
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (wildBuffs.burn>0 || wildBuffs.freeze>0 || wildBuffs.confused>0 || wildBuffs.paralysis>0 || wildBuffs.poisoned>0 || wildBuffs.sleep>0 )) return
 
         wildBuffs[buff] = affectedTurns
+
+        if (testAbility(`active`, ability.imposter.id ) &&  /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff)) team[exploreActiveMember].buffs[buff] = affectedTurns;
+
+
         return
     } 
 
@@ -6617,6 +6786,7 @@ if (mod==="end"){
     let summaryTags = ""
 
     pkmn[saved.geneticHost].level = 1
+    pkmn[saved.geneticHost].exp = 1
 
     if (rng(shinyChance)) {pkmn[saved.geneticHost].shiny = true; summaryTags += `<div style="filter:hue-rotate(100deg)">✦ Shiny Mutation!</div>` }
 
@@ -6758,15 +6928,15 @@ const training = {}
 
 training.level = {
     name: `Level Training`,
-    info: `Gain 5-10 Pokemon Levels. Can only be done with less than Level 100`,
-    tier: 1,
+    info: `Fully max a Pokemon's level. Can only be done with less than Level 100`,
+    tier: 2,
     color: `#dfc969`,
     condition: function() { if (pkmn[saved.trainingPokemon].level<100 && areas.vsEliteTrainerCynthia.defeated == true) return true },
     effect: function() {
 
         
 
-        for (let i = 0; i < random(5,10); i++) {
+        for (let i = 0; i < 101; i++) {
         if (pkmn[saved.trainingPokemon].level >= 100) continue
         pkmn[saved.trainingPokemon].level++
         let learntMove = learnPkmnMove(pkmn[saved.trainingPokemon].id, pkmn[saved.trainingPokemon].level)
@@ -7319,6 +7489,9 @@ window.addEventListener('load', function() {
     loadGame();
     getSeed()
 
+    //this safefail prevents loading into unexistiing areas
+    if (!areas[saved.currentArea]) saved.currentArea = undefined
+
     if (saved.currentArea !== undefined) {
         document.getElementById("team-preview").innerHTML = ""
         document.getElementById("content-explore").style.display = "flex"
@@ -7361,5 +7534,4 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
-
 
