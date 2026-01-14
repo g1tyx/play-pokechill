@@ -11,6 +11,19 @@ const evolutionLevel1 = 30
 const evolutionLevel2 = 50
 const evolutionLevel3 = 70
 
+pkmn.missingno = {
+    type: ["bird","normal"],
+    bst: {
+        hp: 33,
+        atk: 137,
+        def: 0,
+        satk: 6,
+        sdef: 29,
+        spe: 0,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.kangaskhan, level: 128 } } },
+}
+
 // 001 Bulbasaur → Ivysaur → Venusaur
 pkmn.bulbasaur = {
     type: ["grass","poison"],
@@ -16513,7 +16526,7 @@ pkmn.gholdengo = {
 }
 
 // 1001 Wo-Chien
-pkmn.wochien = {
+pkmn.woChien = {
   type: ["dark", "grass"],
   bst: {
     hp: 100,
@@ -16526,7 +16539,7 @@ pkmn.wochien = {
 }
 
 // 1002 Chien-Pao
-pkmn.chienpao = {
+pkmn.chienPao = {
   type: ["dark", "ice"],
   bst: {
     hp: 80,
@@ -16539,7 +16552,7 @@ pkmn.chienpao = {
 }
 
 // 1003 Ting-Lu
-pkmn.tinglu = {
+pkmn.tingLu = {
   type: ["dark", "ground"],
   bst: {
     hp: 155,
@@ -16552,7 +16565,7 @@ pkmn.tinglu = {
 }
 
 // 1004 Chi-Yu
-pkmn.chiyu = {
+pkmn.chiYu = {
   type: ["dark", "fire"],
   bst: {
     hp: 55,

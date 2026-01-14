@@ -2041,6 +2041,16 @@ color: var(--dark2);
 
 }
 
+.wild-shiny-tag{
+    color: #FF4671;
+    position: absolute;
+    z-index: 3;
+    right: 0.5rem;
+    bottom: 0;
+    -webkit-text-stroke: white 2px;
+    paint-order: stroke fill;
+}
+
 .area-preview{
     height: 4rem;
     width: 4rem;

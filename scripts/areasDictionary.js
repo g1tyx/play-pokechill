@@ -4559,6 +4559,34 @@ areas.frontierSpiralingTower = {
 
 
 
+//you can access this ingame through other means
+
+function fightMissing(){
+     saved.currentAreaBuffer = areas.missingArea.id;
+     document.getElementById("preview-team-exit").style.display = "flex";
+     document.getElementById("team-menu").style.zIndex = "50";
+     document.getElementById("team-menu").style.display = "flex";
+     document.getElementById("menu-button-parent").style.display = "none";
+     updatePreviewTeam(); afkSeconds = 0;
+     document.getElementById("explore-menu").style.display = "none"
+     document.getElementById("settings-menu").style.display = "none"
+}
+
+areas.missingArea = {
+    background : `missing`,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.missingno,
+        slot1Moves : [move.agility.id,move.triAttack.id, move.thunderWave.id, move.fly.id],
+    },
+    reward : [pkmn.missingno],
+}
+
+
+
 
 const wildlifePoolCommon = [
     
@@ -4603,7 +4631,7 @@ const wildlifePoolUncommon = [
     pkmn.ducklett.id, pkmn.tauros.id, pkmn.kabuto.id, pkmn.ditto.id, pkmn.dunsparce.id, pkmn.girafarig.id,
     pkmn.miltank.id, pkmn.illumise.id, pkmn.castform.id, pkmn.tropius.id, pkmn.croagunk.id,
     pkmn.throh.id, pkmn.maractus.id, pkmn.sigilyph.id, pkmn.druddigon.id,
-    pkmn.binacle.id, pkmn.helioptile.id, pkmn.carbink.id,pkmn.mudbray.id, pkmn.salandit.id,pkmn.togedemaru.id,
+    pkmn.binacle.id, pkmn.helioptile.id, pkmn.carbink.id,pkmn.mudbray.id, pkmn.salandit.id,pkmn.togedemaru.id
     
 
 
@@ -4612,7 +4640,7 @@ const wildlifePoolUncommon = [
 
 const wildlifePoolRare = [
     
-    pkmn.charcadet.id, pkmn.bombirdier.id, pkmn.cyclizar.id, pkmn.dondozo.id, pkmn.tatsugiri.id, pkmn.frigibax.id, pkmn.tinkatink.id, pkmn.vivillonFancy,
+    pkmn.charcadet.id, pkmn.bombirdier.id, pkmn.cyclizar.id, pkmn.dondozo.id, pkmn.tatsugiri.id, pkmn.frigibax.id, pkmn.tinkatink.id, pkmn.vivillonFancy.id,
     
     
     pkmn.heracross.id, pkmn.skarmory.id, pkmn.absol.id, pkmn.feebas.id, pkmn.munchlax.id, pkmn.phione.id, pkmn.axew.id, pkmn.druddigon.id, pkmn.oranguru.id, pkmn.turtonator.id, 
@@ -4621,7 +4649,7 @@ const wildlifePoolRare = [
     //fodder
     pkmn.aerodactyl.id, pkmn.dratini.id, pkmn.larvitar.id, pkmn.ralts.id, pkmn.mawile.id, pkmn.sableye.id, pkmn.bagon.id, pkmn.beldum.id,
     pkmn.riolu.id, pkmn.gible.id, pkmn.spiritomb.id, pkmn.rotom.id, pkmn.zorua.id, pkmn.deino.id, pkmn.goomy.id, pkmn.noibat.id,
-    pkmn.jangmoo.id, pkmn.dhelmise.id, pkmn.passimian.id, pkmn.drampa.id, pkmn.dreepy.id, pkmn.eiscue.id,
+    pkmn.jangmoo.id, pkmn.dhelmise.id, pkmn.passimian.id, pkmn.drampa.id, pkmn.dreepy.id, pkmn.eiscue.id
 
 
 

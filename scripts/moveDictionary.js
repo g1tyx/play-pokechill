@@ -370,7 +370,7 @@ ability.naturalCure = {
 ability.technician = {
     type: [`all`],
     rarity: 2,
-    info: function() {return `Multiplies by 1.5x the base damage of moves with less than 60 power`},
+    info: function() {return `Multiplies by 1.5x the base damage of moves with equal or less than 60 power`},
 }
 
 ability.skillLink = {
@@ -2887,7 +2887,7 @@ move.acidSpray = {
     rarity: 3,
     type: "poison",
     power: 40,
-    info: function() {return `Decreases enemy Special Defense by 100%`},
+    info: function() {return `10% chance to decrease enemy Special Defense by 100%`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'sdefdown2') },
 }
 
@@ -4146,7 +4146,7 @@ move.memento = {
     rarity: 3,
     type: "dark",
     power: 0,
-    info: function() {return `Decreases enemy Attack and Special Attack by 100% and switches to the next party member`},
+    info: function() {return `Faints the user and decreases enemy Attack and Special Attack by 100%`},
     hitEffect: function(target) { if (target=="wild") {
         moveBuff(target,'satkdown2');
         moveBuff(target,'atkdown2');

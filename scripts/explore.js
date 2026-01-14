@@ -1086,6 +1086,7 @@ const hpBars = [
   { el: document.getElementById("exploe-wild-hp"), color: null }, // dynamic
   { el: document.getElementById("exploe-wild-hp-2"), color: "rgb(134, 141, 238)" },
   { el: document.getElementById("exploe-wild-hp-3"), color: "rgb(238, 236, 134)" },
+  { el: document.getElementById("exploe-wild-hp-4"), color: "rgb(238, 134, 134)" },
 ];
 
 let activeBars = 1;
@@ -1093,6 +1094,7 @@ let activeBars = 1;
 if (areas[saved.currentArea].encounter) {
   if (areas[saved.currentArea].difficulty == tier2difficulty) activeBars = 2;
   if (areas[saved.currentArea].difficulty == tier3difficulty) activeBars = 3;
+  if (areas[saved.currentArea].difficulty == tier4difficulty) activeBars = 4;
 }
 
 const segment = 100 / activeBars;
@@ -1681,11 +1683,17 @@ document.addEventListener("contextmenu", e => {
         if (listName === "uncommon") { tag = `<span>Uncommon</span>`; }
         if (listName === "rare") { tag = `<span>Rare!</span>`; }
 
+        if (pkmn[item.id].shiny && areas[el.dataset.area].uncatchable!=true && areas[el.dataset.area].type != "dungeon") tag += `<div class="wild-shiny-tag">✦</div>`
+
+
 
         div.className = "area-preview";
         if (pkmn[item.id].caught===0 && areas[el.dataset.area].type !== "dungeon" && areas[el.dataset.area].uncatchable!=true) div.classList.add('hidden-pkmn')
         if (pkmn[item.id].caught>0 || areas[el.dataset.area].type == "dungeon" || areas[el.dataset.area].uncatchable) div.dataset.pkmn = item.id
+
+
         div.innerHTML = `<img class="sprite-trim" src="img/pkmn/sprite/${item.id}.png">` + tag;
+        if (pkmn[item.id].shiny && areas[el.dataset.area].uncatchable!=true && areas[el.dataset.area].type != "dungeon") div.innerHTML = `<img class="sprite-trim" src="img/pkmn/shiny/${item.id}.png">` + tag;
         document.getElementById("area-preview-spawns").appendChild(div);
         }}
 
@@ -1886,7 +1894,7 @@ document.addEventListener("contextmenu", e => {
         const affectedAbilities = []
         if (move[el.dataset.move].affectedBy!==undefined) affectedAbilities.push(move[el.dataset.move].affectedBy)
         if (move[el.dataset.move].hitEffect) affectedAbilities.push(ability.sereneGrace.id)
-        if (move[el.dataset.move].hitEffect && (move[el.dataset.move].power>0 || move[el.dataset.move].unaffectedBySheerForce!=true) ) affectedAbilities.push(ability.sheerForce.id)
+        if (move[el.dataset.move].hitEffect && (move[el.dataset.move].power>0 && move[el.dataset.move].unaffectedBySheerForce!=true) ) affectedAbilities.push(ability.sheerForce.id)
         if (move[el.dataset.move].multihit && move[el.dataset.move].multihit[1] > move[el.dataset.move].multihit[0]) affectedAbilities.push(ability.skillLink.id)
         if (move[el.dataset.move].power <= 60 && move[el.dataset.move].power!=0) affectedAbilities.push(ability.technician.id)
             
@@ -7534,4 +7542,3 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
-
