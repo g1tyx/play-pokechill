@@ -8,6 +8,7 @@ const ability = {}
 //tier 1
 
 ability.hydratation = {  
+    rename: `hydration`,
     type: [`water`,`grass`],
     rarity: 1,
     info: function() {return `Prevents negative status effects while on ${tagRainy} weather`},
@@ -482,7 +483,7 @@ ability.sharpness = {
 ability.rivalry = {
     type: [`dragon`, `dark`],
     rarity: 2,
-    info: function() {return `Multiplies the power of moves by x1.3 when the opposite Pokemon shares a type`},
+    info: function() {return `Multiplies the damage by x1.5 when the opposite Pokemon shares a type`},
 }
 
 ability.pickPocket = {
@@ -623,7 +624,7 @@ ability.strategist = {
 ability.sheerForce = {
     type: [`ground`, `steel`, `fighting`, `rock`],
     rarity: 3,
-    info: function() {return `Positive secondary effect of damaging moves are removed, and their power is multiplied by x1.2`},
+    info: function() {return `Positive secondary effect of damaging moves are removed, and their damage is multiplied by x1.2`},
 }
 
 ability.levitate = {
@@ -1775,7 +1776,7 @@ move.triAttack = {
     type: "normal",
     power: t4Base,
     info: function() {return `10% chance to inflict ${tagBurn},${tagParalysis} or ${tagFreeze}`},
-    hitEffect: function(target) { if (rng(0.10)){ if (rng(0.33)) {moveBuff(target,'burn')} else if (rng(0.33)) { moveBuff(target,'paralysis')} else moveBuff(target,'freeze') }},
+    hitEffect: function(target) { if (rng(0.10)){ if (rng(0.33)) {moveBuff(target,'burn')} else if (rng(0.50)) { moveBuff(target,'paralysis')} else moveBuff(target,'freeze') }},
 }
 
 move.judgment = { 
@@ -2419,7 +2420,7 @@ move.voltSwitch = {
     type: "electric",
     power: 70,
     info: function() {return `Switches to the next party member`},
-    hitEffect: function(target) { if (target=="wild") switchMemberNext() },
+    hitEffect: function(target) { if (target=="wild" || saved.currentArea != "training") switchMemberNext() },
 }
 
 

@@ -2408,7 +2408,26 @@ areas.eventPheromosa = {
     category: 1,
 }
 
-
+areas.eventBlacephalon = {
+    rotation: 4,
+    type: `event`,
+    name: `Chamber-04`,
+    background : `lab`,
+    icon: pkmn.blacephalon,
+    trainer: true,
+    encounter: true,
+    difficulty: tier2difficulty,
+    encounterEffect : function() {item.aetherKeycard.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/aetherKeycard.png"> Aether Keycard to enter`,
+    unlockRequirement : function() { return item.aetherKeycard.got>2 },
+    level : 100,
+    team : {
+        slot1 : pkmn.blacephalon,
+        slot1Moves : [move.calmMind.id,move.mindBlown.id, move.shadowBall.id, move.confuseRay.id],
+    },
+    reward : [pkmn.blacephalon],
+    category: 1,
+}
 
 
 
@@ -4630,7 +4649,7 @@ const wildlifePoolUncommon = [
     //fodder
     pkmn.ducklett.id, pkmn.tauros.id, pkmn.kabuto.id, pkmn.ditto.id, pkmn.dunsparce.id, pkmn.girafarig.id,
     pkmn.miltank.id, pkmn.illumise.id, pkmn.castform.id, pkmn.tropius.id, pkmn.croagunk.id,
-    pkmn.throh.id, pkmn.maractus.id, pkmn.sigilyph.id, pkmn.druddigon.id,
+    pkmn.throh.id, pkmn.maractus.id, pkmn.sigilyph.id,
     pkmn.binacle.id, pkmn.helioptile.id, pkmn.carbink.id,pkmn.mudbray.id, pkmn.salandit.id,pkmn.togedemaru.id
     
 

@@ -156,7 +156,6 @@ body {
     display: none;
     justify-content: start;
     align-items: center;
-    animation: tooltipBoxAppear 0.2s 1;
     flex-direction: column;
     padding-bottom: 3rem;
     z-index: 20;
@@ -1181,7 +1180,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 #area-refight span img{
     margin: 0 -0.3rem;
     margin-top: -1rem;
-    transform: translateY(0.5rem);
+    transform: translateY(30%);
     
 }
 
@@ -1446,6 +1445,11 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 
 #auto-refight-info span{
     color: rgb(167, 167, 167);
+}
+
+#auto-refight-info span img{
+    margin: -1rem -0.2rem;
+    transform: translateY(-20%);
 }
 
 #auto-refight-info:hover{

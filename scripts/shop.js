@@ -503,6 +503,8 @@ function updateItemShop(){
     for (let i in shop){
 
     if (shop[i].category !== shopCategory && shop[i].category !== "all") continue
+
+    if (item[shop[i].icon].type == "held" && item[shop[i].icon].got>= 20) continue
     
 
     let currency = `bottleCap`

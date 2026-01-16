@@ -277,7 +277,6 @@ function setWildPkmn(){
 
     spawnedPkmn = randomDivisionPkmn(areaDivision, typeWeak(pkmn[saved.trainingPokemon].type[0],pkmn[saved.trainingPokemon].type[1],1))
     if (pkmn[saved.trainingPokemon].type[1] != undefined && rng(0.5)) spawnedPkmn = randomDivisionPkmn(areaDivision, typeWeak(pkmn[saved.trainingPokemon].type[0],pkmn[saved.trainingPokemon].type[1],2))
-    console.log(spawnedPkmn)
     }
 
 
@@ -398,7 +397,7 @@ for (let i = 0; i < 4; i++) {
 
             areas[saved.currentArea].defeated = true;
             leaveCombat(); 
-            wildPkmnHp = 100000000
+            wildPkmnHp = wildPkmnHpMax
             return
         }
 
@@ -651,7 +650,7 @@ function leaveCombat(){
     saved.lastAreaJoined = saved.currentArea
     saved.currentAreaBuffer = undefined
     currentTrainerSlot = 1
-    transition()
+    if (storedAfkSeconds<30) transition()
     exploreCombatWildTurn = 0
 
 
@@ -696,8 +695,8 @@ function leaveCombat(){
     let noItems = true
     let noPkmn = true
 
-    document.getElementById("area-end-item-list").innerHTML = ""
-    document.getElementById("area-end-pkmn-list").innerHTML = ""
+    if (storedAfkSeconds==0) document.getElementById("area-end-item-list").innerHTML = ""
+    if (storedAfkSeconds==0) document.getElementById("area-end-pkmn-list").innerHTML = "";
     document.getElementById("area-end-item-title").innerHTML = "New Items!"
 
     //spiraling tower rewards
@@ -960,7 +959,7 @@ function leaveCombat(){
         document.getElementById("area-refight").style.display = "flex"
         document.getElementById("area-refight").innerHTML = `
         <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0" clip-rule="evenodd"/></svg>
-        Auto-Refight <span> (Free)</span>
+        Auto-Refight <span> (Wont use <img src="img/items/autoRefightTicket.png"> Auto-Refight Tickets)</span>
         `
     } 
 
@@ -980,6 +979,7 @@ function leaveCombat(){
         saved.autoRefight = false
     } 
 
+    if (saved.autoRefight == true) storedAfkSeconds = afkSeconds
     afkSeconds = 0
 
     saved.currentArea = undefined
@@ -1004,6 +1004,8 @@ function leaveCombat(){
 
 }
 
+storedAfkSeconds = 0 //this is used above
+
 saved.autoRefight = false
 
 function autoRefight(){
@@ -1023,12 +1025,44 @@ function rejoinArea(){
     
     saved.currentArea = saved.lastAreaJoined
 
+
+
+
+
+    if (storedAfkSeconds>30){ //if the player is auto-refighting
+
+
+        afkSeconds = storedAfkSeconds
+
+
+        if (saved.tutorial && saved.tutorialStep === "battleEnd") {saved.tutorialStep = "none"; openTutorial()}
+
+        saved.currentArea = saved.lastAreaJoined
+
+        document.getElementById(`explore-menu`).style.display = `none`
+        document.getElementById(`vs-menu`).style.display = `none`
+        document.getElementById(`training-menu`).style.display = `none`
+
+        document.getElementById(`area-end`).style.display = `none`;
+        document.getElementById("content-explore").style.display = "flex"
+        document.getElementById("menu-button-parent").style.display = "flex"
+        initialiseArea()
+        saveGame()
+
+
+        return
+
+    }
+
+
+
     voidAnimation(`explore-transition`, `exploreTransition 1s 1`)
     document.getElementById(`explore-transition`).style.display = `flex`
 
-
-    
     setTimeout(() => {
+
+                afkSeconds = storedAfkSeconds
+
             if (saved.tutorial && saved.tutorialStep === "battleEnd") {saved.tutorialStep = "none"; openTutorial()}
 
             saved.currentArea = saved.lastAreaJoined
@@ -1750,10 +1784,16 @@ document.addEventListener("contextmenu", e => {
         if (areas[el.dataset.trainer].team.slot6) spawns.push(areas[el.dataset.trainer].team.slot6.id)
         
         for (const item of spawns) {
+
+        let tag = ""
+        if (pkmn[item].shiny && areas[el.dataset.trainer].type != "vs" && areas[el.dataset.trainer].type != "frontier") tag += `<div class="wild-shiny-tag">✦</div>`
+
+
         const div = document.createElement("div");
         div.className = "area-preview";
         div.dataset.pkmn = item
         div.innerHTML = `<img class="sprite-trim" src="img/pkmn/sprite/${item}.png">`;
+        if (pkmn[item].shiny && areas[el.dataset.trainer].type != "vs" && areas[el.dataset.trainer].type != "frontier") div.innerHTML = `<img class="sprite-trim" src="img/pkmn/shiny/${item}.png"> ${tag}`;
         document.getElementById("area-preview-spawns").appendChild(div);
         }
 
@@ -1839,7 +1879,7 @@ document.addEventListener("contextmenu", e => {
         if (el.dataset.help === `Training`) document.getElementById("tooltipBottom").innerHTML = `Challenge your Pokemon against waves of foes in order to get stronger. You will naturally have typing advantage against Pokemon fought against, and their level will scale to yours. Type Immunities inside training will be instead converted to resistances.<br><br>Failing a training will result in no gains`
 
         if (el.dataset.help === `Events`) document.getElementById("tooltipTitle").innerHTML = `Events`
-        if (el.dataset.help === `Events`) document.getElementById("tooltipBottom").innerHTML = `Events might house both items and Pokemon to get. Events marked with a skull signify powerful foes that usually require an item to catch (The item wont be consumed if failed to defeat). All Events rotate every three days.`
+        if (el.dataset.help === `Events`) document.getElementById("tooltipBottom").innerHTML = `Events might house both items and Pokemon to get. Events marked with a skull signify powerful foes that usually require an item to catch (The item wont be consumed if failed to defeat) that can be adquired in the collection events. All Events rotate every three days.`
 
         if (el.dataset.help === `Genetics`) document.getElementById("tooltipTitle").innerHTML = `Genetics`
         if (el.dataset.help === `Genetics`) document.getElementById("tooltipBottom").innerHTML = `With genetics, you can modify the parameters of a level 100 Pokemon (the host) and influence them based on another Pokemon (the sample)<br><br>Doing so, the level of the host will reset back to 1 while keeping all 4 of its currently selected moves, aswell as re-rolling its ability and a chance to increase its IV's<br><br>Genetics can also be influenced by using genetic-aiding items, which you can use at the end of the operation<br><br>You can find more information about the specifics of genetics in the guide section`
@@ -2242,6 +2282,7 @@ document.addEventListener("contextmenu", e => {
     } else{
     document.getElementById("pkmn-edit-ability-hidden").className = ""
     document.getElementById("pkmn-edit-ability-hidden").innerHTML = `<span>${abilityHiddenIcon}WIP</span>`
+    if (document.getElementById("pkmn-edit-ability-hidden").dataset.ability) delete document.getElementById("pkmn-edit-ability-hidden").dataset.ability;
     }
 
 
@@ -2783,12 +2824,12 @@ function exploreCombatPlayer() {
 
 
 
-        if (testAbility(`active`, ability.ironFist.id) && move.affectedBy?.includes(ability.ironFist.id) ) movePower *= 1.5
-        if (testAbility(`active`, ability.strongJaw.id) && move.affectedBy?.includes(ability.strongJaw.id) ) movePower *= 2
-        if (testAbility(`active`, ability.toughClaws.id) && move.affectedBy?.includes(ability.toughClaws.id) ) movePower *= 2
-        if (testAbility(`active`, ability.sharpness.id) && move.affectedBy?.includes(ability.sharpness.id) ) movePower *= 1.5
-        if (testAbility(`active`, ability.megaLauncher.id) && move.affectedBy?.includes(ability.megaLauncher.id) ) movePower *= 1.5
-        if (testAbility(`active`, ability.metalhead.id) && move.affectedBy?.includes(ability.metalhead.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.ironFist.id) && nextMove.affectedBy?.includes(ability.ironFist.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.strongJaw.id) && nextMove.affectedBy?.includes(ability.strongJaw.id) ) movePower *= 2
+        if (testAbility(`active`, ability.toughClaws.id) && nextMove.affectedBy?.includes(ability.toughClaws.id) ) movePower *= 2
+        if (testAbility(`active`, ability.sharpness.id) && nextMove.affectedBy?.includes(ability.sharpness.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.megaLauncher.id) && nextMove.affectedBy?.includes(ability.megaLauncher.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.metalhead.id) && nextMove.affectedBy?.includes(ability.metalhead.id) ) movePower *= 1.5
         
         
 
@@ -3028,7 +3069,7 @@ function exploreCombatPlayer() {
         if (below50hp && testAbility(`active`, ability.rime.id) && moveType == 'ice' ) totalPower *= 1.3
         if (below50hp && testAbility(`active`, ability.voltage.id) && moveType == 'electric' ) totalPower *= 1.3
 
-        if ( testAbility(`active`, ability.rivalry.id) && pkmn[saved.currentPkmn].type.some(t => pkmn[team[exploreActiveMember].pkmn.id].type.includes(t)) ) totalPower *= 1.3
+        if ( testAbility(`active`, ability.rivalry.id) && pkmn[saved.currentPkmn].type.some(t => pkmn[team[exploreActiveMember].pkmn.id].type.includes(t)) ) totalPower *= 1.5
         
         if (testAbility(`active`, ability.sheerForce.id) &&  nextMove.hitEffect) totalPower *= 1.2
         
@@ -3054,11 +3095,11 @@ function exploreCombatPlayer() {
 
         if ( ( testAbility(`active`,  ability.quarkDrive.id) && saved.weatherTimer>0 && saved.weather=="electricTerrain" )
         || ( testAbility(`active`,  ability.protosynthesis.id) && saved.weatherTimer>0 && saved.weather=="sunny" ) ){
-            if (returnHighestStat(team[exploreActiveMember].pkmn)=="spe") team[exploreActiveMember].buffs.speup1 = 3
-            if (returnHighestStat(team[exploreActiveMember].pkmn)=="atk") team[exploreActiveMember].buffs.atkup1 = 3
-            if (returnHighestStat(team[exploreActiveMember].pkmn)=="def") team[exploreActiveMember].buffs.defup1 = 3
-            if (returnHighestStat(team[exploreActiveMember].pkmn)=="satk") team[exploreActiveMember].buffs.satkup1 = 3
-            if (returnHighestStat(team[exploreActiveMember].pkmn)=="sdef") team[exploreActiveMember].buffs.sdefup1 = 3
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="spe") moveBuff("wild",'speup1',"self")
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="atk") moveBuff("wild",'atkup1',"self")
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="def") moveBuff("wild",'defup1',"self")
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="satk") moveBuff("wild",'satkup1',"self")
+            if (returnHighestStat(team[exploreActiveMember].pkmn)=="sdef") moveBuff("wild",'sdefup1',"self")
         }
 
 
@@ -3076,6 +3117,36 @@ function exploreCombatPlayer() {
         if (saved.weatherTimer>0 && saved.weather=="mistyTerrain" && (moveType == 'fairy' || moveType == 'psychic') ) totalPower *= 1.75
         if (saved.weatherTimer>0 && saved.weather=="grassyTerrain" && (moveType == 'grass' || moveType == 'bug') ) totalPower *= 1.75
         
+
+
+        if (saved.weatherTimer>0){
+        if (testAbility("active", ability.chlorophyll.id)  && saved.weather == "sunny") {moveBuff("wild",'speup1',"self")}
+        if (testAbility("active", ability.slushRush.id ) && saved.weather == "hail") {moveBuff("wild",'speup1',"self")}
+        if (testAbility("active", ability.swiftSwim.id ) && saved.weather == "rainy") {moveBuff("wild",'speup1',"self")}
+        if (testAbility("active", ability.sandRush.id)  && saved.weather == "sandstorm") {moveBuff("wild",'speup1',"self")}
+
+        if (testAbility("active", ability.solarPower.id ) && saved.weather == "sunny") {moveBuff("wild",'satkup1',"self")}
+        if (testAbility("active", ability.iceBody.id ) && saved.weather == "hail") {moveBuff("wild",'defup1',"self")}
+        if (testAbility("active", ability.rainDish.id ) && saved.weather == "rainy") {moveBuff("wild",'satkup1',"self")}
+        if (testAbility("active", ability.sandForce.id ) && saved.weather == "sandstorm") {moveBuff("wild",'atkup1',"self")}
+        }
+
+ 
+        const statusBuffs = ['burn', 'freeze', 'confused', 'paralysis', 'poisoned', 'sleep'];
+
+        const hasAnyStatus = statusBuffs.some(
+        buff => team[exploreActiveMember].buffs[buff] > 0
+        );
+
+        if (hasAnyStatus) {
+        if (testAbility("active",  ability.marvelScale.id) ) moveBuff("wild",'defup1',"self")
+        if (testAbility("active",  ability.livingShield.id) ) moveBuff("wild",'sdefup1',"self")
+        if (testAbility("active",  ability.guts.id) ) moveBuff("wild",'atkup1',"self")
+        if (testAbility("active",  ability.brittleArmor.id) ) moveBuff("wild",'satkup1',"self")
+        }
+
+
+
 
 
 
@@ -3122,7 +3193,7 @@ function exploreCombatPlayer() {
         for (let i = 0; i < multihit; i++) {
 
         if (!(team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.sleep>0)){
-        if (testAbility(`active`,  ability.sheerForce.id ) == false || ( testAbility(`active`, ability.sheerForce.id ) && (totalPower==0 || ability.unaffectedBySheerForce!=true)  )){
+        if (testAbility(`active`,  ability.sheerForce.id ) == false || ( testAbility(`active`, ability.sheerForce.id ) && (totalPower==0 || move.unaffectedBySheerForce==true)  )){
         if (nextMove.hitEffect && (typeEffectiveness(moveType, pkmn[saved.currentPkmn].type)!= 0 || totalPower==0 || testAbility(`active`,  ability.noGuard.id ))) {
             nextMove.hitEffect("wild")
         }
@@ -3875,7 +3946,7 @@ function initialiseArea(){
     document.getElementById("auto-refight-info").innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3c4.97 0 9 4.03 9 9"><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
         
-           <div> Auto-Refight is active! <span>(x${item.autoRefightTicket.got} tickets remaining)</span> Click to disable it</div>
+           <div> Auto-Refight is active! <span>(x${item.autoRefightTicket.got} <img src="img/items/autoRefightTicket.png"> Auto-Refight Tickets remaining)</span> Click to disable it</div>
     `
     }
 
@@ -3884,7 +3955,7 @@ function initialiseArea(){
     document.getElementById("auto-refight-info").innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3c4.97 0 9 4.03 9 9"><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
         
-           <div> Auto-Refight is active! <span>(Wont consume tickets)</span> Click to disable it</div>
+           <div> Auto-Refight is active! <span>(Wont consume an <img src="img/items/autoRefightTicket.png"> Auto-Refight Ticket)</span> Click to disable it</div>
     `
     }
 
@@ -3899,8 +3970,8 @@ function initialiseArea(){
     if (testAbility(`active`,  ability.snowWarning.id )) changeWeather("hail")
     if (testAbility(`active`,  ability.somberField.id )) changeWeather("foggy")
     if (testAbility(`active`,  ability.electricSurge.id )) changeWeather("electricTerrain")
-    if (testAbility(`active`,  ability.grassySurge.id )) changeWeather("grassySurge")
-    if (testAbility(`active`,  ability.mistySurge.id )) changeWeather("mistySurge")
+    if (testAbility(`active`,  ability.grassySurge.id )) changeWeather("grassyTerrain")
+    if (testAbility(`active`,  ability.mistySurge.id )) changeWeather("mistyTerrain")
 
 
 
@@ -5124,7 +5195,7 @@ function exitTmTeaching(mod){ //what a fucking disgrace of a code i wrote here
     if (dexTrainSelect==true){
         document.getElementById(`pokedex-menu`).style.zIndex = "30"
         document.getElementById(`pokedex-menu`).style.display = "none"
-        dexHostSelect = undefined
+        dexTrainSelect = undefined
     }
 
     if (dexSampleSelect==true){
@@ -6172,11 +6243,7 @@ function updateTeamBuffs(){
 
 
 
-        //abilities
-        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(i) && testAbility(slot,  ability.marvelScale.id) ) team[slot].buffs.defup1 = 1
-        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(i) && testAbility(slot,  ability.livingShield.id) ) team[slot].buffs.sdefup1 = 1
-        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(i) && testAbility(slot,  ability.guts.id) ) team[slot].buffs.atkup1 = 1
-        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(i) && testAbility(slot,  ability.brittleArmor.id) ) team[slot].buffs.satkup1 = 1
+
 
 
         if (testAbility(slot, ability.insomnia.id) && i == "sleep") team[slot].buffs.sleep = 0
@@ -6189,15 +6256,7 @@ function updateTeamBuffs(){
         if (testAbility(slot, ability.hyperCutter.id ) && (i == "atkdown1" || i == "atkdown2")) {team[slot].buffs.atkdown1 = 0; team[slot].buffs.atkdown2 = 0; continue}
         if (testAbility(slot, ability.bigPecks.id ) && (i == "defdown1" || i == "defdown2")) {team[slot].buffs.defdown1 = 0; team[slot].buffs.defdown2 = 0; continue}
 
-        if (testAbility(slot, ability.chlorophyll.id)  && saved.weather == "sunny" && saved.weatherTimer>0) {team[slot].buffs.speup1 = 2;}
-        if (testAbility(slot, ability.slushRush.id ) && saved.weather == "hail" && saved.weatherTimer>0) {team[slot].buffs.speup1 = 2;}
-        if (testAbility(slot, ability.swiftSwim.id ) && saved.weather == "rainy" && saved.weatherTimer>0) {team[slot].buffs.speup1 = 2;}
-        if (testAbility(slot, ability.sandRush.id)  && saved.weather == "sandstorm" && saved.weatherTimer>0) {team[slot].buffs.speup1 = 2;}
 
-        if (testAbility(slot, ability.solarPower.id ) && saved.weather == "sunny" && saved.weatherTimer>0) {team[slot].buffs.satkup1 = 2;}
-        if (testAbility(slot, ability.iceBody.id ) && saved.weather == "hail" && saved.weatherTimer>0) {team[slot].buffs.defup1 = 2;}
-        if (testAbility(slot, ability.rainDish.id ) && saved.weather == "rainy" && saved.weatherTimer>0) {team[slot].buffs.satkup1 = 2;}
-        if (testAbility(slot, ability.sandForce.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0) {team[slot].buffs.atkup1 = 2;}
 
         if (testAbility(slot, ability.fullMetalBody.id) && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2/.test(i) ) team[slot].buffs[i] = 0
 
@@ -6839,12 +6898,12 @@ if (mod==="end"){
     if (powerCost==12) ivCap = 3
 
 
-    if (rng(ivChanceHp) && pkmn[saved.geneticHost].ivs.hp<pkmn[saved.geneticSample].ivs.hp) {pkmn[saved.geneticHost].ivs.hp = Math.min(ivCap, pkmn[saved.geneticSample].ivs.hp) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ HP Iv's inherited!</div>`}
-    if (rng(ivChanceAtk) && pkmn[saved.geneticHost].ivs.atk<pkmn[saved.geneticSample].ivs.atk) {pkmn[saved.geneticHost].ivs.atk = Math.min(ivCap, pkmn[saved.geneticSample].ivs.atk) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Attack Iv's inherited!</div>`}
-    if (rng(ivChanceDef) && pkmn[saved.geneticHost].ivs.def<pkmn[saved.geneticSample].ivs.def) {pkmn[saved.geneticHost].ivs.def = Math.min(ivCap, pkmn[saved.geneticSample].ivs.def) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Defense Iv's inherited!</div>`}
-    if (rng(ivChanceSatk) && pkmn[saved.geneticHost].ivs.satk<pkmn[saved.geneticSample].ivs.satk) {pkmn[saved.geneticHost].ivs.satk = Math.min(ivCap, pkmn[saved.geneticSample].ivs.satk) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Special Attack Iv's inherited!</div>`}
-    if (rng(ivChanceSdef) && pkmn[saved.geneticHost].ivs.sdef<pkmn[saved.geneticSample].ivs.sdef) {pkmn[saved.geneticHost].ivs.sdef = Math.min(ivCap, pkmn[saved.geneticSample].ivs.sdef) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Special Defense Iv's inherited!</div>`}
-    if (rng(ivChanceSpe) && pkmn[saved.geneticHost].ivs.spe<pkmn[saved.geneticSample].ivs.spe) {pkmn[saved.geneticHost].ivs.spe = Math.min(ivCap, pkmn[saved.geneticSample].ivs.spe) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Speed Iv's inherited!</div>`}
+    if (rng(ivChanceHp) && pkmn[saved.geneticHost].ivs.hp<Math.min(ivCap, pkmn[saved.geneticSample].ivs.hp)) {pkmn[saved.geneticHost].ivs.hp = Math.min(ivCap, pkmn[saved.geneticSample].ivs.hp) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ HP Iv's inherited!</div>`}
+    if (rng(ivChanceAtk) && pkmn[saved.geneticHost].ivs.atk<Math.min(ivCap, pkmn[saved.geneticSample].ivs.atk)) {pkmn[saved.geneticHost].ivs.atk = Math.min(ivCap, pkmn[saved.geneticSample].ivs.atk) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Attack Iv's inherited!</div>`}
+    if (rng(ivChanceDef) && pkmn[saved.geneticHost].ivs.def<Math.min(ivCap, pkmn[saved.geneticSample].ivs.def)) {pkmn[saved.geneticHost].ivs.def = Math.min(ivCap, pkmn[saved.geneticSample].ivs.def) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Defense Iv's inherited!</div>`}
+    if (rng(ivChanceSatk) && pkmn[saved.geneticHost].ivs.satk<Math.min(ivCap, pkmn[saved.geneticSample].ivs.satk)) {pkmn[saved.geneticHost].ivs.satk = Math.min(ivCap, pkmn[saved.geneticSample].ivs.satk) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Special Attack Iv's inherited!</div>`}
+    if (rng(ivChanceSdef) && pkmn[saved.geneticHost].ivs.sdef<Math.min(ivCap, pkmn[saved.geneticSample].ivs.sdef)) {pkmn[saved.geneticHost].ivs.sdef = Math.min(ivCap, pkmn[saved.geneticSample].ivs.sdef) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Special Defense Iv's inherited!</div>`}
+    if (rng(ivChanceSpe) && pkmn[saved.geneticHost].ivs.spe<Math.min(ivCap, pkmn[saved.geneticSample].ivs.spe)) {pkmn[saved.geneticHost].ivs.spe = Math.min(ivCap, pkmn[saved.geneticSample].ivs.spe) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Speed Iv's inherited!</div>`}
 
 
     for (const iv in pkmn[saved.geneticHost].ivs){
@@ -7542,3 +7601,6 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+
+
+

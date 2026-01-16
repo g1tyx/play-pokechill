@@ -13428,6 +13428,63 @@ pkmn.guzzlord = {
     hiddenAbility: ability.beastBoost,
 }
 
+// 803 Poipole → Naganadel
+pkmn.poipole = {
+  type: ["poison"],
+  bst: {
+    hp: 67,
+    atk: 73,
+    def: 67,
+    satk: 73,
+    sdef: 67,
+    spe: 73,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.naganadel, level: evolutionLevel3 } } },
+    hiddenAbility: ability.beastBoost,
+}
+
+pkmn.naganadel = {
+  type: ["poison","dragon"],
+  bst: {
+    hp: 80,
+    atk: 80,
+    def: 80,
+    satk: 127,
+    sdef: 80,
+    spe: 121,
+  },
+    hiddenAbility: ability.beastBoost,
+}
+
+// 805 Stakataka
+pkmn.stakataka = {
+  type: ["rock","steel"],
+  bst: {
+    hp: 80,
+    atk: 141,
+    def: 211,
+    satk: 53,
+    sdef: 101,
+    spe: 13,
+  },
+    hiddenAbility: ability.beastBoost,
+}
+
+// 806 Blacephalon
+pkmn.blacephalon = {
+  type: ["fire","ghost"],
+  bst: {
+    hp: 53,
+    atk: 127,
+    def: 53,
+    satk: 151,
+    sdef: 79,
+    spe: 107,
+  },
+    signature : move.mindBlown,
+    hiddenAbility: ability.beastBoost,
+}
+
 // 800 Necrozma
 pkmn.necrozma = {
   type: ["psychic"],
@@ -13505,58 +13562,7 @@ pkmn.marshadow = {
   },
 }
 
-// 803 Poipole → Naganadel
-pkmn.poipole = {
-  type: ["poison"],
-  bst: {
-    hp: 67,
-    atk: 73,
-    def: 67,
-    satk: 73,
-    sdef: 67,
-    spe: 73,
-  },
-  evolve: function() { return { 1: { pkmn: pkmn.naganadel, level: evolutionLevel3 } } },
-}
 
-pkmn.naganadel = {
-  type: ["poison","dragon"],
-  bst: {
-    hp: 80,
-    atk: 80,
-    def: 80,
-    satk: 127,
-    sdef: 80,
-    spe: 121,
-  },
-}
-
-// 805 Stakataka
-pkmn.stakataka = {
-  type: ["rock","steel"],
-  bst: {
-    hp: 80,
-    atk: 141,
-    def: 211,
-    satk: 53,
-    sdef: 101,
-    spe: 13,
-  },
-}
-
-// 806 Blacephalon
-pkmn.blacephalon = {
-  type: ["fire","ghost"],
-  bst: {
-    hp: 53,
-    atk: 127,
-    def: 53,
-    satk: 151,
-    sdef: 79,
-    spe: 107,
-  },
-    signature : move.mindBlown
-}
 
 // 807 Zeraora
 pkmn.zeraora = {

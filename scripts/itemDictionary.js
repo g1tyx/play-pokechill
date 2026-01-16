@@ -114,7 +114,7 @@ item.twistedSpoon = {
 
 item.eviolite = {
     type: "held",
-    info: function() {return `When held: If a Pokemon has not fully evolved, increase overall defense by x${this.power()}`},
+    info: function() {return `When held: If a Pokemon has not fully evolved, increase overall defense by x${this.power()}. This does not apply to final-stage Pokemon with a Mega-Evolution`},
     power : function() { return 1+(returnItemLevel(this.id)/5)}
 }
 
