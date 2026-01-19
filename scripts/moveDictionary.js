@@ -671,55 +671,55 @@ ability.libero = {
 
 ability.flashElectro = {
     type: [`electric`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Electric-type moves and increases Speed by 50% after being hit with one`},
 }
 
 ability.flashAqua = {
     type: [`water`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Water-type moves and increases Speed by 50% after being hit with one`},
 }
 
 ability.flashPyro = {
     type: [`fire`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Fire-type moves and increases Speed by 50% after being hit with one`},
 }
 
 ability.flashUmbra = {
     type: [`dark`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Ghost-type moves and increases Speed by 50% after being hit with one`},
 }
 
 ability.flashVenum = {
     type: [`poison`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Poison-type moves and increases Speed by 50% after being hit with one`},
 }
 
 ability.flashCryo = {
     type: [`ice`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Ice-type moves and increases Speed by 50% after being hit with one`},
 }
 
 ability.flashPsycha = {
     type: [`psychic`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Psychic-type moves and increases Speed by 50% after being hit with one`},
 }
 
 ability.flashFae = {
     type: [`fairy`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Fairy-type moves and increases Speed by 50% after being hit with one`},
 }
 
 ability.flashHerba = {
     type: [`grass`],
-    rarity: 2,
+    rarity: 3,
     info: function() {return `Nullifies received Grass-type moves and increases Speed by 50% after being hit with one`},
 }
 
