@@ -7212,4 +7212,3 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
-

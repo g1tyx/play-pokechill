@@ -168,136 +168,81 @@ function importData() {
 
 
 
-// Convert current localStorage data to base64
-function exportToBase64() {
+function exportToText() {
   const raw = localStorage.getItem("gameData");
   if (!raw) {
     console.log("No save data found");
     return null;
   }
-
-  // Convert the JSON string to base64
-  const base64 = btoa(raw);
-  return base64;
+  
+  return raw;
 }
 
-
-
-function loadFromBase64() {
+function loadFromText() {
   const input = document.getElementById("text-data-raw");
   if (!input) {
     alert("Element with id 'text-data-raw' not found");
     return;
   }
 
-  const base64Data = input.value.trim();
-  if (!base64Data) {
+  const jsonData = input.value.trim();
+  if (!jsonData) {
     alert("No data found in the input");
     return;
   }
 
   try {
-    // Decode base64 to JSON string
-    const jsonString = atob(base64Data);
-    
-    // Parse to verify it's valid JSON
-    const data = JSON.parse(jsonString);
-    
-    // Save to localStorage
+    const data = JSON.parse(jsonData);
     localStorage.setItem("gameData", JSON.stringify(data));
-    
-    // Load the game data
     loadGame();
-    
-    // Reload the page
     window.location.reload();
   } catch (err) {
     alert("Error loading data: " + err.message);
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function textData() {
+  saveGame();
+  document.getElementById("tooltipTop").style.display = `none`;
+  document.getElementById("tooltipTitle").style.display = `none`;
 
-  saveGame()
-  document.getElementById("tooltipTop").style.display = `none`
-  document.getElementById("tooltipTitle").style.display = `none`
+  const savedData = exportToText();
 
-
-
-  document.getElementById("tooltipMid").innerHTML = `
-  This is your savefile code<br>You can copy or paste savefile codes here to export or import saves<br>
-  <input type="text" id="text-data-raw" value="${exportToBase64()}">
-  `
-
+  if (savedData) {
+    document.getElementById("tooltipMid").innerHTML = `
+      This is your savefile code<br>You can copy or paste savefile codes here to export or import saves<br>
+      <textarea id="text-data-raw" rows="10" style="width:95%; resize:vertical; font-family:monospace; font-size:0.9rem;"></textarea>
+    `;
+    
+    document.getElementById("text-data-raw").value = savedData;
 
     document.getElementById("tooltipBottom").innerHTML = `
-  
-    <div style="display:flex;width:100; align-items:center;justify-content:center">
-    <div onClick = '
-        navigator.clipboard.writeText(document.getElementById("text-data-raw").value)
-
-        ' style="cursor:pointer; font-size:2rem; width:50%" id="prevent-tooltip-exit">Copy to Clipboard
+      <div style="display:flex;width:100%; align-items:center;justify-content:center">
+        <div onClick='navigator.clipboard.writeText(document.getElementById("text-data-raw").value)' 
+             style="cursor:pointer; font-size:2rem; width:50%" id="prevent-tooltip-exit">
+          Copy to Clipboard
         </div>
-
-
-    <div onClick = '
-        loadFromBase64()
-
-        ' style="cursor:pointer; font-size:2rem; width:50%" id="prevent-tooltip-exit">Load Code
+        <div onClick='loadFromText()' 
+             style="cursor:pointer; font-size:2rem; width:50%" id="prevent-tooltip-exit">
+          Load Code
         </div>
-    </div>
+      </div>
+    `;
+  } else {
+    document.getElementById("tooltipMid").innerHTML = `
+      You can copy or paste savefile codes here to export or import saves<br>
+      <textarea id="text-data-raw" rows="10" style="width:95%; resize:vertical; font-family:monospace; font-size:0.9rem;"></textarea>
+    `;
 
-
-  `
-  
-
-
-    if (exportToBase64()==null){
-
-      document.getElementById("tooltipMid").innerHTML = `
-  You can copy or paste savefile codes here to export or import saves<br>
-  <input type="text" id="text-data-raw" value="">
-  `
-
-      document.getElementById("tooltipBottom").innerHTML = `
-
-
-
-    <div onClick = '
-        loadFromBase64()
-
-        ' style="cursor:pointer; font-size:2rem; width:100%" id="prevent-tooltip-exit">Load Code
-        </div>
-    </div>
-
-
-  `
-  
+    document.getElementById("tooltipBottom").innerHTML = `
+      <div onClick='loadFromText()' 
+           style="cursor:pointer; font-size:2rem; width:100%" id="prevent-tooltip-exit">
+        Load Code
+      </div>
+    `;
   }
 
-  openTooltip()
-
-
-
-
-
+  openTooltip();
 }
 
 

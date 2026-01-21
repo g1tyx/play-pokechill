@@ -4285,9 +4285,7 @@ background:
     background: white;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
+    white-space: nowrap;
     overflow: hidden;
 }
 
