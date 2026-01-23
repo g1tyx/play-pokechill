@@ -402,7 +402,7 @@ var cnItems = {
     "Weather": "天气",
     "Calcium Bottle": "钙瓶",
     "Charcoal": "木炭",
-    "Compatibility": "并存性",
+    "Compatibility": "兼容性",
     "division": "划分",
     "Filter by :": "排序方式:",
     "Fire Stone": "火之石",
@@ -2962,5 +2962,6 @@ var cnRegReplace = new Map([
     [/^Req: (.+) \/ (.+) elves$/, '要求：$1 \/ $2 妖精'],
     [/^Usages: (\d+)\/$/, '用途：$1\/'],
     [/^workers: (\d+)\/$/, '工人：$1\/'],
+
 
 ]);
