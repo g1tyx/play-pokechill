@@ -386,6 +386,12 @@
               <select id="pokedex-sort-filter">
                 <option value="default">sort</option>
                 <option value="level">level</option>
+                <option value="hpTotal">hp Total</option>
+                <option value="atkTotal">atk Total</option>
+                <option value="defTotal">def Total</option>
+                <option value="satkTotal">satk Total</option>
+                <option value="sdefTotal">sdef Total</option>
+                <option value="speTotal">spe Total</option>
                 <option value="hpBst">hp BST</option>
                 <option value="atkBst">atk BST</option>
                 <option value="defBst">def BST</option>
@@ -438,6 +444,7 @@
         <div class="settings-list">
             <div onclick="exportData()">Export Data</div>
             <div onclick="importData()">Import Data</div>
+            <div onclick="textData()">Data to Text</div>
 
             <div>Theme: <select id="settings-theme">
                 <option value="dark">dark</option>
@@ -449,7 +456,12 @@
                 <option value="oled">oled</option>
             </select></div>
 
-            <div>Hide non-new Pokemon got in summary: <select id="settings-hide-got">
+            <div data-help="settingsNewPkmn" style="cursor: help;">Hide non-new Pokemon got in summary: <select id="settings-hide-got">
+                <option value="false">disabled</option>
+                <option value="true">enabled</option>
+            </select></div>
+
+            <div data-help="settingsAlternateWild" style="cursor: help;">Substract 1 to current Wild Area rotation: <select id="settings-alternate-rotation">
                 <option value="false">disabled</option>
                 <option value="true">enabled</option>
             </select></div>
@@ -462,7 +474,7 @@
             <div onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Credits`
         document.getElementById("tooltipMid").style.display = `none`
-        document.getElementById("tooltipBottom").innerHTML = `Made by <span onclick="fightMissing()">Duck</span><br><br>Pokemon and trainer sprites by Pokemon Showdown (Including artists: Beliot419, kyledove, Gnomowladny, Brumirage and ZacWeavile. Go check their work. Now.)<br><br>Gen 9 sprites by KingOfThe-X-Roads<br><br>All characters and related assets featured in this game are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company, and are used here strictly for non-commercial purposes.`
+        document.getElementById("tooltipBottom").innerHTML = `Made by <span onclick="secretFight(areas.missingArea.id)">Duck</span><br><br>Pokemon and trainer sprites by Pokemon Showdown (Including artists: Beliot419, kyledove, Gnomowladny, Brumirage and ZacWeavile. Go check their work. Now.)<br><br>Gen 9 sprites by KingOfThe-X-Roads<br><br>All characters and related assets featured in this game are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company, and are used here strictly for non-commercial purposes.`
         openTooltip()' >Credits</div>
             <div onclick="window.open('https://discord.gg/VnukKfSs3S', '_blank')">Discord</div>
 
@@ -684,10 +696,17 @@ Game Guide
             <div class="genetics-overview-data"><span>% to inherit sample's Defense Iv's</span><div></div><span id="genetics-data-def">5%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's S. Defense Iv's</span><div></div><span id="genetics-data-sdef">5%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's Speed Iv's</span><div></div><span id="genetics-data-spe">5%</span></div>
-            <div id="genetics-warning">
+
+            <div id="genetics-warning" class="genetics-warning" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>
                 Warning, power cost too high! Only 5 out of 6 maximum IV's per stat will be inherited!
             </div>
+
+            <div id="pokerus-warning" class="genetics-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 506 512"><path fill="currentColor" d="M336.742.004c-5.732-.12-12.481 2.453-19.86 9.18c-46.533 64.308-24.742 112.637.669 195.094c27.589 89.525 3.311 151.023-96.922 122.124l13.974 45.02C356.01 389.67 380.316 301.64 363.98 225.555c-22.331-104.015-54.152-129.427-9.84-196.19c5.233-11.154-2.753-29.053-17.4-29.36M377.2 45.64c-8.08 4.781-10.91 11.338-11.192 25.867c32.625 27.345 60.36 65.991 82.18 93.208c-8.074 4.809-18.18 9.25-29.263 7.892c-10.334-14.493-37.847-47.05-58.236-66.709c1.662 17.845 6.535 31.115 8.014 46.572c31.968 35.89 33.665 54.176 33.665 54.176c41.241 2.092 76.028-15.901 99.24-36.808c12.519-10.748-4.996-39.884-27.34-19.885c-30.184-37.486-61.414-73.664-97.068-104.313m-135.397 90.39c-64.648-.737-110.817 48.596-107.626 112.728c5.05 56.142 30.399 92.912 34.463 138.263l-27.758-31.354c-10.855-1.19-20.37-2.676-32.085 3.792l58.532 61.95c-1.583 9.517-4.242 19.559-8.264 30.318c-22.906-22.013-49.869-55.033-79.44-87.009c-17.09 3.793-26.497 13.47-26.672 13.76l93.326 100.594c-24.194 26.779 17.503 44.953 36.45 23.433c65.193-75.952 14.961-165.88-6.389-252.319l47.519 51.681c16.752 9.187 39.172 8.919 47.482 3.836l-91.225-94.87c4.713-10.523 9.684-13.146 21.044-18.759l88.982 92.74c5.634-10.584 14.017-20.687 3.397-43.3l-57.92-64.106c9.893-3.314 31.811 3.576 48.981 8.943l-14.05-46.836c-9.899-2.252-19.512-3.379-28.747-3.484M98.745 300.054c-45.42-.472-70.368 18.213-91.777 37.05c-19.17 16.978 5.015 47.966 26.71 32.057c27.197-24.263 50.117-37.07 93.589-33.961l-7.754-33.715c-7.374-.905-14.28-1.363-20.768-1.43"/></svg>
+                Pokerus detected on the host! Genetic compatibility is increased by one level!
+            </div>
+
         </div>
 
         <div id="genetics-progress">
@@ -849,6 +868,79 @@ Game Guide
 
 
        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+       <!--
+
+    <div id="custom-challenges-menu" style="display: none;">
+
+        <div id="custom-challenges-header">
+            <div style="display:flex; gap:0.2rem">
+                <span id="custom-challenges-title">Challenges</span>
+                <span id="custom-challenges-help" class="header-help" data-help="Main Challenges"><svg style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+            </div>
+
+        </div>
+
+        <div class="explore-menu-selector" id="custom-challenges-selector">
+            <div id="custom-challenges-tab-main-button" onclick="setChallengesTab('main')">Challenges</div>
+            <div id="custom-challenges-tab-custom-button" onclick="setChallengesTab('custom')">Custom Challenges</div>
+        </div>
+
+        <div id="custom-challenges-tab-main" class="custom-challenges-tab">
+            <div id="main-challenges-list" class="challenges-list"></div>
+        </div>
+
+        <div id="custom-challenges-tab-custom" class="custom-challenges-tab">
+            <div id="custom-challenges-controls">
+                <div id="custom-challenge-new" class="custom-challenge-button custom-challenge-primary">New Challenge</div>
+                <div id="custom-challenge-import" class="custom-challenge-button custom-challenge-secondary">Import</div>
+            </div>
+
+            <div id="custom-challenges-list" class="challenges-list"></div>
+
+            <div id="custom-challenge-editor" style="display: none;">
+                <div class="custom-challenge-field">
+                    <label for="custom-challenge-title">Title</label>
+                    <input id="custom-challenge-title" type="text" maxlength="30" placeholder="Custom Challenge">
+                </div>
+                <div class="custom-challenge-field">
+                    <label for="custom-challenge-notes">Notes</label>
+                    <input id="custom-challenge-notes" type="text" maxlength="60" placeholder="Optional description">
+                </div>
+                <div class="custom-challenge-field">
+                    <label for="custom-challenge-text">Challenge Text</label>
+                    <textarea id="custom-challenge-text"></textarea>
+                </div>
+                <div id="custom-challenge-preview"></div>
+                <div id="custom-challenge-error"></div>
+                <div class="custom-challenge-actions">
+                    <div id="custom-challenge-save" class="custom-challenge-button custom-challenge-primary">Save Challenge</div>
+                    <div id="custom-challenge-cancel" class="custom-challenge-button custom-challenge-secondary">Cancel</div>
+                </div>
+            </div>
+        </div>
+
+       </div>
+
+       -->
+
+
+
+
+
+
+
 
 
     <div id="explore-menu" style="display: none;">
@@ -1146,6 +1238,7 @@ Game Guide
             </div>
 
 
+
         </div>
     </div>
 
@@ -1196,12 +1289,19 @@ Game Guide
             <span>Training</span>
         </div>
 
+        <!--
+
+        <div class="menu-item" id="menu-item-custom-challenges" onClick="switchMenu('custom-challenges')">
+            <img src="img/items/endorsement.png">
+            <span>Challenges</span>
+        </div>
+
+        -->
+
         <div class="menu-item" id="menu-item-genetics" onClick="switchMenu('genetics')">
             <img src="img/items/dnaSplicer.png">
             <span>Genetics</span>
         </div>
-
-
 
         <div class="menu-item" id="menu-mystery-gift" onClick="claimMysteryGift()">
             <img src="img/items/gift.png">
@@ -1363,13 +1463,16 @@ Game Guide
     <script src="scripts/pkmnDictionary.js"></script>
     <script src="scripts/areasDictionary.js"></script>
 
-
-
-    
     <script src="scripts/PR/autoTeamBuilding.js"></script>
     <script src="scripts/PR/movesetGenerator.js"></script>
+    <script src="scripts/PR/teamDuplicate.js"></script>
+    <script src="scripts/PR/updateCheck.js"></script>
+    
 
-
+    <!--
+    <script src="scripts/PR/challengesDictionary.js"></script>
+    <script src="scripts/PR/challenges.js"></script>
+    -->
 
 
 
@@ -1378,6 +1481,7 @@ Game Guide
     <script src="scripts/explore.js"></script>
     <script src="scripts/shop.js"></script>
     <script src="scripts/dictionarySearch.js"></script>
+    <script src="scripts/tooltip.js"></script>
 
     <script src="scripts/save.js"></script>
     <!--客服 开始-->
