@@ -133,7 +133,7 @@
      * @returns {Promise<string>} The HTML string.
      */
     async function loadSVGIcon(name, color = "#fff", size = 18) {
-        const path = `/img/icons/${name}.svg`;
+        const path = `img/icons/${name}.svg`;
         if (ICON_CACHE[path]) {
             return wrapSVG(ICON_CACHE[path], color, size);
         }
