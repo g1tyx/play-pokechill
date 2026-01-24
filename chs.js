@@ -2461,8 +2461,8 @@ var cnPrefix = {
     "": "",
     "": "",
     // 特性描述
-        "Prevents negative status effects while on": "免疫负面状态效果 处于"
-        "weather": "天气下时"
+        "Prevents negative status effects while on": "免疫负面状态效果 处于",
+        "weather": "天气下时",
         "Grants immunity to": "免疫",
         "Halves the damage received of Fighting-type moves": "将格斗属性招式的伤害减半",
         "Halves the damage received of Water-type moves": "将水属性招式的伤害减半",
