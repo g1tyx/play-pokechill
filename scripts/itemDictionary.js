@@ -938,7 +938,7 @@ item.venusaurite = {
 
 item.primalEarth = {
     type: "key",
-    rotation: 1,
+    rotation: 2,
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
@@ -1204,4 +1204,5 @@ function joinWithAnd(list) {
 
     return `${formatted.slice(0, -1).join(", ")}, and ${formatted[len - 1]}`;
 }
+
 
