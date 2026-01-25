@@ -505,9 +505,12 @@
 
         const css = `
         .move-popup-wrapper {
-            position: fixed; inset: 0; width: 100vw; height: 100vh;
+            position: fixed; inset: 0; width: 100vw;
+            height: 100%;
+            height: 100dvh;
             background: rgba(0,0,0,0.75); z-index: 99999;
             overflow-y: auto; box-sizing: border-box; padding: 20px;
+            padding-bottom: calc(100px + env(safe-area-inset-bottom));
         }
         .move-popup-box {
             background: var(--dark1, #1e1e1e); color: var(--light2, #e0e0e0);

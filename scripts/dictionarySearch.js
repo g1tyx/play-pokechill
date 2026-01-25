@@ -236,9 +236,6 @@ document.addEventListener("click", e => {
 
 
 
-
-
-
 function setSearchTags() {
     for (const e in pkmn){
         if (pkmn[e].caught>0) pkmn[e].tagCaught = "caught"
@@ -266,25 +263,28 @@ function setSearchTags() {
         if ( exclusiveFrontierPkmn.includes(pkmn[e]) ) pkmn[e].tagObtainedIn = "frontier"
         if (pkmn[e].pokerus) pkmn[e].tagPokerus = "pokerus"
     }
-
     
     
-
     //only required for unobtainable pokes
     for (const e in pkmn){
         if (pkmn[e].tagObtainedIn == undefined) {
             const family = getEvolutionFamily(pkmn[e]);
-            const familyIsObtainable = Array.from(family).some(member => member.tagObtainedIn !== undefined);
+            // Solo verificar si hay miembros DIRECTAMENTE obtenibles (no contar los que heredan de la familia)
+            const familyHasDirectObtainable = Array.from(family).some(member => {
+                return member.tagObtainedIn !== undefined && member.tagObtainedIn !== "unobtainable";
+            });
             
-            if (!familyIsObtainable) {
-                pkmn[e].tagObtainedIn = "unobtainable";
+            if (!familyHasDirectObtainable) {
+                // Marcar toda la familia como unobtainable
+                for (const member of family) {
+                    if (member.tagObtainedIn === undefined) {
+                        member.tagObtainedIn = "unobtainable";
+                    }
+                }
             }
         }
     }
 }
-
-
-
 
 
 

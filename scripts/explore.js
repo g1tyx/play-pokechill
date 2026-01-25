@@ -2037,6 +2037,7 @@ function exploreCombatPlayer() {
 
         if (nextMove.id == move.mimic.id) {
             nextMove =  move[ document?.getElementById(`pkmn-movebox-wild-1`).dataset.move  ]
+            movePower = move[ document?.getElementById(`pkmn-movebox-wild-1`).dataset.move  ].power
             movePower*=2
         }
 
@@ -5732,7 +5733,7 @@ if (id=="sandstorm" && team[exploreActiveMember].item == item.smoothRock.id) wea
 if (testAbility(`active`, ability.climaTact.id)) weatherTurns += 15
 
 saved.weatherTimer = weatherTurns
-saved.weatherCooldown = 30
+saved.weatherCooldown = 29 //changed from 30 to maintain constant uptime
 updateWildBuffs()
 
 }
@@ -6146,7 +6147,7 @@ let geneticItemSelect = false
 
 
         document.getElementById("tooltipTop").style.display = `none`
-        document.getElementById("tooltipTitle").innerHTML = `Opration finished!<br>Do you want to use a genetic-aiding item?`
+        document.getElementById("tooltipTitle").innerHTML = `Operation finished!<br>Do you want to use a genetic-aiding item?`
         document.getElementById("tooltipMid").innerHTML = `The item will be consumed on use`
         document.getElementById("tooltipBottom").innerHTML = `
         
@@ -7279,6 +7280,106 @@ function claimMysteryGift(){
 }
 
 
+
+
+
+
+setInterval(() => {
+    pkmnWalk()
+}, 500);
+
+let walkingPkmn = []
+function pkmnWalkCandidates(){
+for (const i in pkmn) if (pkmn[i].caught>0) walkingPkmn.push(i)
+}
+
+
+
+function pkmnWalk(){
+
+
+
+
+    if (saved.currentArea!==undefined) return
+
+
+
+
+
+
+
+
+
+
+    if (walkingPkmn.length<5 && rng(0.9)) return
+    if (walkingPkmn.length<20 && rng(0.8)) return
+    if (walkingPkmn.length<100 && rng(0.5)) return
+    if (walkingPkmn.length<200 && rng(0.3)) return
+    if (walkingPkmn.length<300 && rng(0.2)) return
+    if (walkingPkmn.length<400 && rng(0.1)) return
+
+    const div = document.createElement(`div`)
+    div.className = `pkmn-walk`
+
+
+    const duration = random(5,25)
+
+    if (rng(0.5)) div.style.scale = `-1 1`
+
+
+    
+    pickedPkmn = arrayPick(walkingPkmn)
+
+    let shiny = `sprite`
+    if (pkmn[pickedPkmn].shiny) shiny = `shiny`
+
+    if (pkmn[pickedPkmn].type.includes("flying")){
+
+    let position = random(5,50)
+    div.style.top = `${position}%`
+    div.style.zIndex = position-100
+    const scale = random(0.5,1.5)
+
+
+
+    div.innerHTML = `
+    <img src="img/pkmn/${shiny}/${pickedPkmn}.png"
+    style="
+    animation: pkmn-active 0.5s infinite, pkmn-walk ${duration}s 1 linear; scale: -${scale} ${scale};
+    "
+    >
+    `
+
+    } else {
+    if (rng(0.7)) return
+    let position = random(70,90)
+    div.style.top = `${position}%`
+    div.style.zIndex = position-100
+
+    div.innerHTML = `
+    <img src="img/pkmn/${shiny}/${pickedPkmn}.png"
+    style="
+    animation: pkmn-active 0.5s infinite, pkmn-walk ${duration}s 1 linear;
+    "
+    >
+    `
+
+    }
+
+
+
+    document.getElementById(`main-content`).appendChild(div)
+
+    setTimeout(() => {
+    div.remove()
+    }, duration*1000);
+
+
+
+
+}
+
+
 window.addEventListener('load', function() {
 
 
@@ -7331,6 +7432,8 @@ window.addEventListener('load', function() {
     setSearchTags()
 
     assignPokerus()
+
+    pkmnWalkCandidates()
 
     //updateTeamExp()
 });

@@ -5274,4 +5274,25 @@ transform: translateY(-1rem);
 
 
 
+.pkmn-walk{
+    width: 100%;
+    background: rgba(0, 0, 0, 0);
+    position: absolute;
+}
+
+.pkmn-walk img{
+    scale: -2 2;
+    animation: pkmn-active 0.5s infinite, pkmn-walk 30s 1 linear;
+    image-rendering: pixelated;
+    z-index: 0;
+}
+
+@keyframes pkmn-walk{
+    0%{margin-left: -30%;}
+    100%{margin-left: 130%;}
+
+}
+
+
+
 

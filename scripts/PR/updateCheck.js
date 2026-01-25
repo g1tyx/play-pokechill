@@ -58,7 +58,7 @@ window.addEventListener("app-update-available", () => {
   // Prevent duplicate banners
   if (updateShown) return;
   updateShown = true;
-
+  saveGame();
   const banner = document.createElement("div");
   banner.textContent = "A new update is available. Refresh to update.";
   banner.style.position = "fixed";  
@@ -71,6 +71,6 @@ window.addEventListener("app-update-available", () => {
   banner.style.textAlign = "center";  
   banner.style.cursor = "pointer";  
   banner.style.zIndex = "9999";
-  banner.onclick = () => location.reload();
+  banner.onclick = () => {location.reload()};
   document.body.appendChild(banner);
 });

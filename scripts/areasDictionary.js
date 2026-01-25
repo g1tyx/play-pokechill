@@ -4581,16 +4581,17 @@ areas.frontierSpiralingTower = {
 
 
 function secretFight(area){
+    if (saved.currentArea!==undefined) return
     closeTooltip()
-     saved.currentAreaBuffer = area;
-     document.getElementById("preview-team-exit").style.display = "flex";
-     document.getElementById("team-menu").style.zIndex = "50";
-     document.getElementById("team-menu").style.display = "flex";
-     document.getElementById("menu-button-parent").style.display = "none";
-     updatePreviewTeam(); afkSeconds = 0;
-     document.getElementById("explore-menu").style.display = "none"
-     document.getElementById("settings-menu").style.display = "none"
-     document.getElementById("dictionary-menu").style.display = "none"
+    saved.currentAreaBuffer = area;
+    document.getElementById("preview-team-exit").style.display = "flex";
+    document.getElementById("team-menu").style.zIndex = "50";
+    document.getElementById("team-menu").style.display = "flex";
+    document.getElementById("menu-button-parent").style.display = "none";
+    updatePreviewTeam(); afkSeconds = 0;
+    document.getElementById("explore-menu").style.display = "none"
+    document.getElementById("settings-menu").style.display = "none"
+    document.getElementById("dictionary-menu").style.display = "none"
 }
 
 areas.missingArea = {

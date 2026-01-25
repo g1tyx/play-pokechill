@@ -1092,7 +1092,7 @@ move.doubleSlap = {
     split: "physical",
     rarity: 1,
     type: "normal",
-    power: 15,
+    power: 20,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -1315,7 +1315,7 @@ move.fireSpin = {
     split: "special",
     rarity: 1,
     type: "fire",
-    power: 15,
+    power: 20,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -1563,7 +1563,7 @@ move.voltSwitch = {
     hitEffect: function(target) { if (target=="wild" && saved.currentArea != "training") switchMemberNext() },
 }
 
-move.wildCharge = { //new
+move.wildCharge = {  
     moveset: [`electric`],
     split: "physical",
     rarity: 3,
@@ -1737,7 +1737,7 @@ move.ironHead = {
     affectedBy: [ability.metalhead.id]
 }
 
-move.sharkJaws = { //new
+move.sharkJaws = {  
     moveset: [`water`],
     split: "physical",
     rarity: 2,
@@ -1746,6 +1746,16 @@ move.sharkJaws = { //new
     info: function() {return `10% chance to decrease enemy Defense by 50%`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'defdown1') },
     affectedBy: [ability.strongJaw.id]
+}
+
+move.ironSlug = {  //new
+    moveset: [`rock`],
+    split: "physical",
+    rarity: 2,
+    type: "steel",
+    power: 20,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
 }
 
 move.flashCannon = {
@@ -1771,7 +1781,7 @@ move.ironTail = {
     powerMod : function() { if (team[exploreActiveMember].buffs?.defup2 > 0 || team[exploreActiveMember].buffs?.sdefup2 > 0) { return 1.5} else if (team[exploreActiveMember].buffs?.defup1 > 0 || team[exploreActiveMember].buffs?.sdefup1 > 0) {return 1.2} else return 1 },
 }
 
-move.smartStrike = { //new
+move.smartStrike = {  
     moveset: [`electric`],
     split: "physical",
     rarity: 3,
@@ -1925,7 +1935,7 @@ move.hurricane = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'confused') },
 }
 
-move.razorTalons = { //new
+move.razorTalons = {  
     moveset: [`dragon`],
     split: "physical",
     rarity: 3,
@@ -2020,7 +2030,7 @@ move.crossPoison = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'poisoned') },
 }
 
-move.poisonClaw = { //new
+move.poisonClaw = {  
     moveset: [`dragon`],
     split: "physical",
     rarity: 2,
@@ -2126,7 +2136,7 @@ move.icicleSpear = {
     split: "physical",
     rarity: 2,
     type: "ice",
-    power: 25,
+    power: 20,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -2360,7 +2370,7 @@ move.xScissor = {
     affectedBy: [ability.sharpness.id]
 }
 
-move.firstImpression = { //new
+move.firstImpression = {  
     moveset: [`bug`],
     split: "physical",
     rarity: 3,
@@ -2418,7 +2428,7 @@ move.whirlpool = {
     split: "special",
     rarity: 2,
     type: "water",
-    power: 25,
+    power: 20,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -2453,6 +2463,16 @@ move.bubbleBeam = {
     power: 65,
     info: function() {return `30% chance to decrease enemy Speed by 50%`},
     hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'spedown1') },
+}
+
+move.foamShot = { //new
+    moveset: [`ice`],
+    split: "physical",
+    rarity: 2,
+    type: "water",
+    power: 20,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
 }
 
 move.rainDance = { 
@@ -2510,7 +2530,7 @@ move.surf = {
     power: 90
 }
 
-move.muddyWater = { //new
+move.muddyWater = {  
     moveset: [`ground`],
     split: "special",
     rarity: 3,
@@ -2562,7 +2582,7 @@ move.bulletSeed = {
     split: "physical",
     rarity: 2,
     type: "grass",
-    power: 25,
+    power: 20,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -2705,9 +2725,9 @@ move.machPunk = {
 move.armThrust = {  
     moveset: [`fighting`],
     split: "physical",
-    rarity: 1,
+    rarity: 2,
     type: "fighting",
-    power: 15,
+    power: 20,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -2889,7 +2909,7 @@ move.psychoCut = {
     affectedBy: [ability.sharpness.id]
 }
 
-move.psychicFangs = { //new
+move.psychicFangs = {  
     moveset: [`dark`],
     split: "physical",
     rarity: 2,
@@ -2898,7 +2918,7 @@ move.psychicFangs = { //new
     affectedBy: [ability.strongJaw.id]
 }
 
-move.zenHeadbut = { //new
+move.zenHeadbut = {  
     rename: `zenHeadbutt`,
     moveset: [`fighting`, `normal`],
     split: "physical",
@@ -2928,7 +2948,7 @@ move.psychic = {
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'sdefdown1') },
 }
 
-move.extrasensory = { //new
+move.extrasensory = {  
     moveset: [`ghost`],
     split: "special",
     rarity: 3,
@@ -2956,7 +2976,7 @@ move.barrier = {
     hitEffect: function(target) { moveBuff(target,'defup2',"self")},
 }
 
-move.agility = {  //new
+move.agility = {   
     moveset: [`flying`, `bug`],
     split: "special",
     rarity: 3,
@@ -3005,7 +3025,7 @@ move.rockBlast = {
     split: "physical",
     rarity: 2,
     type: "rock",
-    power: 25,
+    power: 20,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
     affectedBy: [ability.megaLauncher.id]
@@ -3043,6 +3063,15 @@ move.smackDown = {
     powerMod : function() { if (pkmn[saved.currentPkmn].type.includes("flying")) { return 2} else return 1 },
 }
 
+move.gemstoneCrush = { //new
+    moveset: [`fairy`],
+    split: "special",
+    rarity: 2,
+    type: "rock",
+    power: 20,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
+}
 
 move.rockTomb = {
     moveset: [`rock`],
@@ -3053,6 +3082,8 @@ move.rockTomb = {
     info: function() {return `Decreases enemy Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1') },
 }
+
+
 
 move.rockSlide = {
     moveset: [`rock`],
@@ -3080,7 +3111,7 @@ move.stoneEdge = {
     power: 100
 }
 
-move.meteorBeam = { //new
+move.meteorBeam = {  
     moveset: [`psychic`],
     split: "special",
     rarity: 3,
@@ -3176,7 +3207,7 @@ move.hex = {
     powerMod : function() { if (wildBuffs.paralysis>0 || wildBuffs.burn>0 || wildBuffs.freeze>0  || wildBuffs.confused>0  || wildBuffs.poisoned>0  ) { return 2} else return 1 },
 }
 
-move.shadowClaw = { //new
+move.shadowClaw = {  
     moveset: [`ghost`],
     split: "physical",
     rarity: 2,
@@ -3205,7 +3236,7 @@ move.shadowBall = {
     affectedBy: [ability.megaLauncher.id]
 }
 
-move.phantomForce = { //new
+move.phantomForce = {  
     moveset: [`ghost`],
     split: "physical",
     rarity: 3,
@@ -3261,6 +3292,16 @@ move.dragonClaw = {
     type: "dragon",
     power: 65,
     affectedBy: [ability.toughClaws.id]
+}
+
+move.scaleShot = { //new
+    moveset: [`water`],
+    split: "physical",
+    rarity: 2,
+    type: "dragon",
+    power: 20,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
 }
 
 move.dragonPulse = {
@@ -3401,7 +3442,7 @@ move.darkPulse = {
     affectedBy: [ability.megaLauncher.id]
 }
 
-move.nightDaze = { //new
+move.nightDaze = {  
     moveset: [`dark`],
     split: "special",
     rarity: 3,
@@ -3471,7 +3512,7 @@ move.disarmingVoice = {
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
-move.drainingKiss = { //new
+move.drainingKiss = {  
     moveset: [`fairy`],
     split: "physical",
     rarity: 2,
@@ -3513,7 +3554,17 @@ move.alluringVoice = {
     affectedBy: [ability.cacophony.id]
 }
 
-move.spiritBreak = { //new
+move.mirrorShrapnel = {  //new
+    moveset: [`steel`],
+    split: "physical",
+    rarity: 2,
+    type: "fairy",
+    power: 20,
+    info: function() {return `Hits 2-5 times`},
+    multihit: [2,5],
+}
+
+move.spiritBreak = {  
     moveset: [`fairy`],
     split: "physical",
     rarity: 3,
@@ -3522,6 +3573,8 @@ move.spiritBreak = { //new
     info: function() {return `50% chance to decrease enemy Attack by 50%`},
     hitEffect: function(target) { if (rng(0.50)) moveBuff(target,'atkdown1') },
 }
+
+
 
 move.dazzlingGleam = {
     moveset: [`fairy`],
@@ -3539,7 +3592,7 @@ move.playRough = {
     power: 90
 }
 
-move.auroraPunch = { //new
+move.auroraPunch = {  
     moveset: [`ice`],
     split: "physical",
     rarity: 3,
@@ -4594,7 +4647,7 @@ move.conversion = {
 move.flameBurst = {
     split: "special",
     type: "fire",
-    power: t4Base+10,
+    power: t4Base+30,
     info: function() {return `Inflicts ${tagBurn} to the entire team`},
     hitEffect: function(target) { moveBuff(target,'burn',"team") },
 }

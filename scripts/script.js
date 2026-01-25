@@ -161,7 +161,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 2.8
+  saved.version = 2.9
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -483,6 +483,7 @@ function learnPkmnMove(id, level, mod, exclude = []) {
         const chosenMove = chosenList[Math.floor(Math.random() * chosenList.length)];
 
         if (exclude.includes(move[chosenMove].id)) continue; // prevents dupes for trainers
+        if (move[chosenMove].restricted && pkmn[id].movepool.length<3) continue //prevents restricted moveset locks
 
         return move[chosenMove].id;
     }
