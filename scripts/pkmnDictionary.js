@@ -2470,7 +2470,7 @@ pkmn.voltorb = {
         spe: 100,
     },
     evolve: function() { return { 1: { pkmn: pkmn.electrode, level: evolutionLevel2 } } },
-    hiddenAbility: ability.voltage,
+    hiddenAbility: ability.hyperconductor,
     signature : move.electroBall
 }
 
@@ -2485,7 +2485,7 @@ pkmn.hisuianVoltorb = {
         spe: 100,
     },
     evolve: function() { return { 1: { pkmn: pkmn.hisuianElectrode, level: evolutionLevel2 } } },
-    hiddenAbility: ability.electricSurge,
+    hiddenAbility: ability.grassySurge,
     signature : move.chloroblast
 }
 
@@ -2499,7 +2499,7 @@ pkmn.electrode = {
         sdef: 80,
         spe: 150,
     },
-    hiddenAbility: ability.voltage,
+    hiddenAbility: ability.hyperconductor,
     signature : move.electroBall
 }
 
@@ -7533,7 +7533,8 @@ pkmn.castform = {
         sdef: 70,
         spe: 70,
     },
-    signature : move.weatherBall
+    signature : move.weatherBall,
+    hiddenAbility: ability.climaTact,
 }
 
 pkmn.castformSunny = {
@@ -7643,7 +7644,7 @@ pkmn.duskull = {
         spe: 25,
     },
     evolve: function() { return { 1: { pkmn: pkmn.dusclops, level: evolutionLevel2 } } },
-    hiddenAbility: ability.levitate,
+    hiddenAbility: ability.intangible,
 }
 
 pkmn.dusclops = {
@@ -7657,7 +7658,7 @@ pkmn.dusclops = {
         spe: 25,
     },
     evolve: function() { return { 1: { pkmn: pkmn.dusknoir, item: item.oddRock } } },
-    hiddenAbility: ability.levitate,
+    hiddenAbility: ability.intangible,
 }
 
 pkmn.dusknoir = {
@@ -7670,7 +7671,7 @@ pkmn.dusknoir = {
         sdef: 135,
         spe: 45,
     },
-    hiddenAbility: ability.levitate,
+    hiddenAbility: ability.intangible,
 }
 
 // 357 Tropius
@@ -10858,17 +10859,6 @@ pkmn.scolipede = {
     hiddenAbility: ability.speedBoost,
 }
 
-pkmn.scolipede = {
-  type: ["bug","poison"],
-  bst: {
-    hp: 60,
-    atk: 140,
-    def: 149,
-    satk: 75,
-    sdef: 99,
-    spe: 62,
-  }
-}
 
 // 546 Cottonee → Whimsicott
 pkmn.cottonee = {
@@ -11168,18 +11158,6 @@ pkmn.scrafty = {
     spe: 58,
   },
     hiddenAbility: ability.moxie,
-}
-
-pkmn.scrafty = {
-  type: ["dark","fighting"],
-  bst: {
-    hp: 65,
-    atk: 130,
-    def: 135,
-    satk: 55,
-    sdef: 135,
-    spe: 68,
-  }
 }
 
 // 561 Sigilyph
@@ -12565,7 +12543,7 @@ pkmn.landorus = {
     sdef: 80,
     spe: 101,
   },
-    hiddenAbility: ability.levitate,
+    hiddenAbility: ability.climaTact,
     signature : move.sandsearStorm
 }
 
@@ -14964,7 +14942,8 @@ pkmn.lycanrocMidnight = {
         satk: 55,
         sdef: 75,
         spe: 82,
-    }
+    },
+    hiddenAbility: ability.moody,
 }
 
 pkmn.lycanrocDusk = {
@@ -18144,7 +18123,8 @@ pkmn.shroodle = {
     sdef: 35,
     spe: 75,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.grafaiai, level: evolutionLevel1 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.grafaiai, level: evolutionLevel1 } } },
+    hiddenAbility: ability.corrosion,
 }
 
 pkmn.grafaiai = {
@@ -18156,7 +18136,8 @@ pkmn.grafaiai = {
     satk: 80,
     sdef: 72,
     spe: 110,
-  }
+  },
+    hiddenAbility: ability.corrosion,
 }
 
 // 946 Bramblin → Brambleghast
@@ -18302,7 +18283,8 @@ pkmn.flittle = {
     sdef: 30,
     spe: 75,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.espathra, level: evolutionLevel1 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.espathra, level: evolutionLevel1 } } },
+    hiddenAbility: ability.speedBoost,
 }
 
 pkmn.espathra = {
@@ -18314,7 +18296,8 @@ pkmn.espathra = {
     satk: 101,
     sdef: 60,
     spe: 105,
-  }
+  },
+    hiddenAbility: ability.speedBoost,
 }
 
 // 957 Tinkatink → Tinkatuff → Tinkaton
@@ -18454,7 +18437,8 @@ pkmn.varoom = {
     sdef: 45,
     spe: 47,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.revavroom, level: evolutionLevel1 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.revavroom, level: evolutionLevel1 } } },
+    hiddenAbility: ability.hyperconductor,
 }
 
 pkmn.revavroom = {
@@ -18466,7 +18450,8 @@ pkmn.revavroom = {
     satk: 54,
     sdef: 67,
     spe: 90,
-  }
+  },
+    hiddenAbility: ability.hyperconductor,
 }
 
 // 967 Cyclizar
@@ -19434,7 +19419,7 @@ ribbon.souvenir ={
 
 ribbon.tower1 ={
     name: `Endurance Ribbon`,
-    description: `Awarded for reaching floor 30 in the Spiraling Tower`
+    description: `Awarded for reaching floor 30 in the Battle Tower`
 }
 
 ribbon.smile ={
