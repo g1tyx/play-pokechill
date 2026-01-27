@@ -4,7 +4,7 @@
 
 const shop = {}
 
-//1 unit == 10 gold caps a day
+//1 unit == 10-50 gold caps a day
 
 shop.exchange1 = {
     icon: item.bottleCap.id,
@@ -192,35 +192,35 @@ shop.shinyCharm = {
 
 shop.electricSeed = {
     icon: item.electricSeed.id,
-    price: 10,
+    price: 5,
     currency: `gold`,
     category: `held`,
 }
 
 shop.grassySeed = {
     icon: item.grassySeed.id,
-    price: 10,
+    price: 5,
     currency: `gold`,
     category: `held`,
 }
 
 shop.mistySeed = {
     icon: item.mistySeed.id,
-    price: 10,
+    price: 5,
     currency: `gold`,
     category: `held`,
 }
 
 shop.foggySeed = {
     icon: item.foggySeed.id,
-    price: 10,
+    price: 5,
     currency: `gold`,
     category: `held`,
 }
 
 shop.clearAmulet = {
     icon: item.clearAmulet.id,
-    price: 10,
+    price: 5,
     currency: `gold`,
     category: `held`,
 }
@@ -241,63 +241,56 @@ shop.ejectButton = {
 
 shop.loadedDice = {
     icon: item.loadedDice.id,
-    price: 20,
+    price: 10,
     currency: `gold`,
     category: `held`,
 }
 
 shop.metronome = {
     icon: item.metronome.id,
-    price: 20,
+    price: 10,
     currency: `gold`,
     category: `held`,
 }
 
 shop.laggingTail = {
     icon: item.laggingTail.id,
-    price: 20,
+    price: 10,
     currency: `gold`,
     category: `held`,
 }
 
 shop.weaknessPolicy = {
     icon: item.weaknessPolicy.id,
-    price: 20,
+    price: 10,
     currency: `gold`,
     category: `held`,
 }
 
 shop.luckyPunch = {
     icon: item.luckyPunch.id,
-    price: 20,
+    price: 10,
     currency: `gold`,
     category: `held`,
 }
 
 shop.powerHerb = {
     icon: item.powerHerb.id,
-    price: 20,
-    currency: `gold`,
-    category: `held`,
-}
-
-shop.powerHerb = {
-    icon: item.powerHerb.id,
-    price: 20,
+    price: 10,
     currency: `gold`,
     category: `held`,
 }
 
 shop.assaultVest = {
     icon: item.assaultVest.id,
-    price: 20,
+    price: 10,
     currency: `gold`,
     category: `held`,
 }
 
 shop.leftovers = {
     icon: item.leftovers.id,
-    price: 50,
+    price: 20,
     currency: `gold`,
     category: `held`,
 }
@@ -778,7 +771,6 @@ shop.alolanDiglett = {
     category: `pokemon`,
     effect: function() {givePkmn(pkmn.alolanDiglett,1)}
 }
-
 
 shop.galarianZigzagoon = {
     pkmn: pkmn.galarianZigzagoon.id,
