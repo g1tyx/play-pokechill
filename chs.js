@@ -2630,7 +2630,7 @@ var cnItems = {
     "% to inherit sample's S. Attack Iv's": "继承样本的 特攻 个体值(IV) 的概率",
     "% to inherit sample's HP Iv's": "继承样本的 生命值 个体值(IV) 的概率",
     "% to inherit sample's Attack Iv's": "继承样本的 攻击 个体值(IV) 的概率",
-    "% to inherit sample's Defense Iv's": "承样本的 防御 个体值(IV) 的概率",
+    "% to inherit sample's Defense Iv's": "继承样本的 防御 个体值(IV) 的概率",
     "% for shiny mutation": "闪光突变概率",
     "% to inherit a move from the sample": "继承一个样本招式概率",
     "evolution": "进化",
@@ -3285,6 +3285,7 @@ var cnPrefix = {
 var cnPostfix = {
     "Revival": "活跃点",
     "Mega-Showdown": "Mega激斗",
+    "Ancient Tomb": "古代坟墓",
     "Tomb": "坟墓",
     "                   ": "                   ",
     "                  ": "                  ",
