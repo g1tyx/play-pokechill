@@ -159,9 +159,28 @@ function updateGameVersion() {
   saved.mysteryGiftClaimed = false
   }
 
+  if (saved.version<3.0){
+  saved.factoryRewardsClaimed = 0
+  saved.maxFactoryScore = 0
+  if (item.goldenBottleCap.got>0){
+    document.getElementById("tooltipTitle").innerHTML = `Version Notice`
+    document.getElementById("tooltipTop").style.display = "none"    
+    document.getElementById("tooltipMid").innerHTML = `Your golden bottlecaps have been exchanged into bottlecaps due to frontier changes`
+    document.getElementById("tooltipBottom").style.display = "none"    
+    openTooltip()
+  }
+
+  item.bottleCap.got += (item.goldenBottleCap.got*10)
+  item.goldenBottleCap.got = 0
 
 
-  saved.version = 2.9
+
+  
+  }
+
+
+
+  saved.version = 3.0
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -484,6 +503,8 @@ function learnPkmnMove(id, level, mod, exclude = []) {
 
         if (exclude.includes(move[chosenMove].id)) continue; // prevents dupes for trainers
         if (move[chosenMove].restricted && pkmn[id].movepool.length<3) continue //prevents restricted moveset locks
+        if (saved.currentArea == areas.training.id && mod == "wild" && move[chosenMove].power==0) continue //no setup moves in training
+
 
         return move[chosenMove].id;
     }
@@ -632,7 +653,12 @@ guide.moves = {
 
 guide.stab = {
   name: `Battle: STAB`,
-  description: function() { return `If a Pokemon uses a damaging move that has the same type as one of that Pokemon's types, the move's damage is increased by x1.5<br>This is known as same-type attack bonus, or STAB` }
+  description: function() { return `If a Pokemon uses a damaging move that has the same type as one of that Pokemon's types, the move's damage is increased by x1.5<br>This is known as same-type attack bonus, or STAB<br><br>Furthermore, Pokemon with a single typing will receive +0.2 extra STAB damage` }
+}
+
+guide.crossStab = {
+  name: `Battle: Cross Power`,
+  description: function() { return `If a Pokemon uses a damaging move that is preceded (immediately or not) by a damaging move of a different type of the executed move, it will receive a 1.2x damage multiplier. This is indicated with a cross pattern on the move bar of the affected move` }
 }
 
 guide.battleFatigue = {

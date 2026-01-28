@@ -263,19 +263,22 @@ function setSearchTags() {
         if ( exclusiveFrontierPkmn.includes(pkmn[e]) ) pkmn[e].tagObtainedIn = "frontier"
         if (pkmn[e].pokerus) pkmn[e].tagPokerus = "pokerus"
     }
+
+    for (const i in shop){
+        if (shop[i].pkmn == undefined) continue
+        pkmn[shop[i].pkmn].tagObtainedIn = "mart";
+    }
     
     
     //only required for unobtainable pokes
     for (const e in pkmn){
         if (pkmn[e].tagObtainedIn == undefined) {
             const family = getEvolutionFamily(pkmn[e]);
-            // Solo verificar si hay miembros DIRECTAMENTE obtenibles (no contar los que heredan de la familia)
             const familyHasDirectObtainable = Array.from(family).some(member => {
                 return member.tagObtainedIn !== undefined && member.tagObtainedIn !== "unobtainable";
             });
             
             if (!familyHasDirectObtainable) {
-                // Marcar toda la familia como unobtainable
                 for (const member of family) {
                     if (member.tagObtainedIn === undefined) {
                         member.tagObtainedIn = "unobtainable";
@@ -283,6 +286,8 @@ function setSearchTags() {
                 }
             }
         }
+
+        if (e == pkmn.arceus.id) pkmn[e].tagObtainedIn = "arceus";
     }
 }
 

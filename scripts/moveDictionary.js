@@ -483,6 +483,7 @@ ability.pickPocket = {
     info: function() {return `Increases the weight of rare item drops by 1% (Can stack). Works always for everyone regardless of the user`},
 }
 
+
 ability.brittleArmor = {
     type: [`ice`,`rock`],
     rarity: 2,
@@ -532,6 +533,16 @@ ability.chlorophyll  = {
 //tier 3
 
 //tier 3 names based on gemini, pisces, o luna, mars, etc
+
+ability.thousandArms = {
+    rarity: 3,
+    info: function() {return `All hits become super-effective regardless of the typing`},
+}
+
+ability.goodAsGold = {
+    rarity: 3,
+    info: function() {return `Increases the chance of encountering a wild shiny pokemon by 15%. Works always for everyone regardless of the user`},
+}
 
 ability.climaTact  = {  
     type: [`fairy`],
@@ -905,7 +916,7 @@ ability.sereneGrace = {
 }
 
 ability.hugePower = {
-    info: function() {return `Attack stat is multiplied by x2`},
+    info: function() {return `Physical damage dealt is multiplied by x2`},
     rarity: 3,
 }
 
@@ -1748,7 +1759,7 @@ move.sharkJaws = {
     affectedBy: [ability.strongJaw.id]
 }
 
-move.ironSlug = {  //new
+move.ironSlug = {  
     moveset: [`rock`],
     split: "physical",
     rarity: 2,
@@ -2465,7 +2476,7 @@ move.bubbleBeam = {
     hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'spedown1') },
 }
 
-move.foamShot = { //new
+move.foamShot = { 
     moveset: [`ice`],
     split: "physical",
     rarity: 2,
@@ -2798,7 +2809,7 @@ move.hammerArm = {
     split: "physical",
     rarity: 3,
     type: "fighting",
-    power: 120,
+    power: 150,
     info: function() {return `Decreases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1','self') },
     unaffectedBy: [ability.sheerForce.id],
@@ -2920,7 +2931,7 @@ move.psychicFangs = {
 
 move.zenHeadbut = {  
     rename: `zenHeadbutt`,
-    moveset: [`fighting`, `normal`],
+    moveset: [`fighting`, `psychic`],
     split: "physical",
     rarity: 3,
     type: "psychic",
@@ -3063,7 +3074,7 @@ move.smackDown = {
     powerMod : function() { if (pkmn[saved.currentPkmn].type.includes("flying")) { return 2} else return 1 },
 }
 
-move.gemstoneCrush = { //new
+move.gemstoneCrush = { 
     moveset: [`fairy`],
     split: "special",
     rarity: 2,
@@ -3294,7 +3305,7 @@ move.dragonClaw = {
     affectedBy: [ability.toughClaws.id]
 }
 
-move.scaleShot = { //new
+move.scaleShot = { 
     moveset: [`water`],
     split: "physical",
     rarity: 2,
@@ -3341,9 +3352,9 @@ move.dracoMeteor = {
     split: "special",
     rarity: 3,
     type: "dragon",
-    power: 130,
-    info: function() {return `Decreases Special Attack by 100%`},
-    hitEffect: function(target) { moveBuff(target,'satkdown2','self') },
+    power: 150,
+    info: function() {return `Decreases Special Attack by 50%`},
+    hitEffect: function(target) { moveBuff(target,'satkdown1','self') },
     unaffectedBy: [ability.sheerForce.id],
 }
 
@@ -3410,17 +3421,6 @@ move.knockOff = {
     hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'defdown1') },
 }
 
-move.honeClaws = {
-    moveset: [`dark`, `steel`],
-    split: "physical",
-    rarity: 2,
-    type: "dark",
-    power : 0,
-    info: function() {return `Increases Attack by 50%. Attacks x2 faster than usual`},
-    hitEffect: function(target) { moveBuff(target,'atkup1',"self") },
-    restricted: true,
-    timer: defaultPlayerMoveTimer*0.5,
-}
 
 move.crunch = {
     moveset: [`dark`],
@@ -3441,6 +3441,20 @@ move.darkPulse = {
     power: 80,
     affectedBy: [ability.megaLauncher.id]
 }
+
+
+move.honeClaws = { //new
+    moveset: [`dark`, `steel`],
+    split: "special",
+    rarity: 3,
+    type: "dark",
+    power: 0,
+    timer: defaultPlayerMoveTimer*1.4,
+    info: function() {return `Increases Attack and Speed by 50%. Attacks x1.4 slower than usual`},
+    hitEffect: function(target) { moveBuff(target,'atkup1',"self"); moveBuff(target,'speup1',"self") },
+    restricted: true,
+}
+
 
 move.nightDaze = {  
     moveset: [`dark`],
@@ -3554,7 +3568,7 @@ move.alluringVoice = {
     affectedBy: [ability.cacophony.id]
 }
 
-move.mirrorShrapnel = {  //new
+move.mirrorShrapnel = {  
     moveset: [`steel`],
     split: "physical",
     rarity: 2,

@@ -752,13 +752,13 @@ Game Guide
 
             </span>
 
-            <div style="display: flex; margin-top: 0rem; gap:0.5rem">
-            <div class="shop-currency" id="shop-currency">
+            <div style="display: flex; margin-top: 0rem; gap:0.5rem" >
+            <div class="shop-currency" id="shop-currency" data-item="bottleCap">
                     <img src="img/items/bottleCap.png"> x12
             </div>
           
             
-            <div class="shop-currency" id="shop-currency-gold">
+            <div class="shop-currency" id="shop-currency-gold" data-item="goldenBottleCap">
                     <img src="img/items/goldenBottleCap.png"> x123
             </div>
             </div>
@@ -788,6 +788,10 @@ Game Guide
 
             <div onclick="shopCategory = 'genetics'; updateItemShop() ">
                 <img src="img/items/destinyKnot.png">Genetics
+            </div>
+
+            <div onclick="shopCategory = 'pokemon'; updateItemShop() ">
+                <img src="img/items/pokeball.png">Pokemon
             </div>
 
         </div>
@@ -1057,8 +1061,9 @@ Game Guide
 
         <div class="pkmn-editor-side" style="display: flex; flex-direction: column;" >
 
-            <span style="font-weight: 700; padding-left: 0.5rem; margin: 0.3rem 0"><strong class="pkmn-editor-name" id="pkmn-editor-name" style="font-size: 1.5rem; color: white;">Arcanine</strong><br><strong id="pkmn-editor-level" class="pkmn-editor-name">lvl 100</strong><br>
+            <span style="font-weight: 700; padding-left: 0.5rem; margin: 0.3rem 0; position: relative;"><strong class="pkmn-editor-name" id="pkmn-editor-name" style="font-size: 1.5rem; color: white;">Arcanine</strong><br><strong id="pkmn-editor-level" class="pkmn-editor-name">lvl 100</strong><br>
             <svg id="pkmn-shiny-switch" onclick="switchShiny()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.685 5.25h.03a.75.75 0 0 1 0 1.5c-1.292 0-2.275 0-3.058.063c-.785.063-1.283.183-1.636.371a3.94 3.94 0 0 0-1.677 1.764c-.19.394-.304.88-.363 1.638c-.06.764-.06 1.738-.06 3.094v.11l1.12-1.12a.75.75 0 0 1 1.06 1.06l-2.4 2.4a.75.75 0 0 1-1.086-.027l-2.171-2.4a.75.75 0 0 1 1.112-1.006l.865.956v-.005c0-1.317 0-2.35.065-3.179c.066-.844.202-1.542.509-2.176a5.44 5.44 0 0 1 2.319-2.431c.625-.335 1.37-.476 2.224-.544c.85-.068 1.891-.068 3.147-.068"/><path fill="currentColor" d="M17.847 7.65a.75.75 0 0 1 .538.247l2.171 2.4a.75.75 0 0 1-1.112 1.006l-.866-.956v.005c0 1.317 0 2.35-.064 3.179c-.066.844-.202 1.542-.509 2.176a5.44 5.44 0 0 1-2.319 2.431c-.625.335-1.37.476-2.224.544c-.85.068-1.891.068-3.147.068h-.03a.75.75 0 0 1 0-1.5c1.292 0 2.275 0 3.058-.063c.784-.063 1.283-.183 1.636-.372a3.94 3.94 0 0 0 1.677-1.763c.19-.394.304-.88.363-1.637c.059-.765.06-1.74.06-3.095v-.11l-1.12 1.12a.75.75 0 0 1-1.06-1.06l2.4-2.4a.75.75 0 0 1 .548-.22" opacity="0.5"/></svg>
+            <svg id="pkmn-edit-dictionary" onclick="tooltipData('dictionaryPkmn', currentEditedPkmn)" <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m6.006 11.823l1.123-3.06h.05l1.123 3.06zm6.494 5.496q1.216-.678 2.453-.98t2.547-.3q.9 0 1.618.111t1.267.296q.23.096.423-.029t.192-.394V7.008q0-.173-.096-.308q-.096-.134-.327-.23q-.825-.293-1.501-.4T17.5 5.961q-1.31 0-2.613.386q-1.304.387-2.387 1.16zm-6.78-4.763h2.869l.474 1.306q.05.111.137.17t.204.059q.198 0 .303-.158t.043-.35L7.739 8.24q-.05-.131-.169-.212t-.255-.081h-.323q-.136 0-.254.08t-.169.213l-2.011 5.361q-.062.173.043.33t.303.159q.117 0 .206-.06q.09-.058.14-.175zm6.28 5.9q-.235 0-.432-.059t-.376-.15q-1.09-.595-2.27-.902T6.5 17.04q-.78 0-1.534.13q-.753.131-1.466.42q-.544.217-1.022-.131T2 16.496V6.831q0-.371.195-.689t.547-.442q.887-.383 1.836-.56T6.5 4.962q1.47 0 2.866.423q1.398.423 2.634 1.23q1.237-.807 2.634-1.23t2.866-.423q.973 0 1.922.178q.95.177 1.836.56q.352.125.547.442t.195.689v9.665q0 .614-.516.943q-.517.328-1.1.111q-.693-.27-1.418-.39q-.724-.121-1.466-.121q-1.24 0-2.421.306t-2.271.901q-.18.093-.376.151q-.197.059-.432.059m1.885-9.508q0-.11.076-.222t.18-.168q.763-.346 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.154-1.46.43q-.257.099-.42-.005t-.162-.362m0 5.423q0-.11.076-.231q.076-.123.18-.178q.725-.346 1.613-.52q.888-.173 1.746-.173q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.784 0-1.544.16q-.76.161-1.45.457q-.258.118-.44-.003t-.181-.397m0-2.692q0-.11.076-.222t.18-.168q.763-.347 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.134q.096.104.096.258q0 .252-.15.366t-.402.051q-.37-.075-.757-.102q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.153-1.46.43q-.257.098-.42-.005q-.162-.105-.162-.362"/></svg>
             </span>
 
             <div id="pkmn-editor-side-content">
@@ -1355,9 +1360,14 @@ Game Guide
 
             </div>
 
-            <div id="spiraling-indicator">
+            <div id="spiraling-indicator" class="spiraling-indicator">
                 <div id="spiraling-current-floor">Floor: 3</div>
                 <div id="spiraling-highest-floor"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGIz3eBe9X"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M8 44h8m-4 0V4"/><path fill="#555555" d="M40 6H12v16h28l-4-8z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGIz3eBe9X)"/></svg> Highest Floor: 3</div>
+            </div>
+
+            <div id="factory-indicator" class="spiraling-indicator">
+                <div id="factory-current-score">Score: 0</div>
+                <div id="factory-highest-score"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGIz3eBe9X"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M8 44h8m-4 0V4"/><path fill="#555555" d="M40 6H12v16h28l-4-8z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGIz3eBe9X)"/></svg> Highest Score: 0</div>
             </div>
 
             <div id="training-indicator">

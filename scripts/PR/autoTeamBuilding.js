@@ -174,8 +174,16 @@ function buildEnemyPool(area) {
     const id = map[saved.currentSpiralingType]
     if (id) unique[id] = pkmn[id]
   }
+
+  if (area.id == areas.frontierBattleFactory.id){
+    const id = areas.frontierBattleFactory.icon.id
+    if (id) unique[id] = pkmn[id]
+    }
+
+
   //-------------------------
 
+  console.log(unique)
   return Object.values(unique)
 }
 

@@ -71,6 +71,6 @@ window.addEventListener("app-update-available", () => {
   banner.style.textAlign = "center";  
   banner.style.cursor = "pointer";  
   banner.style.zIndex = "9999";
-  banner.onclick = () => {location.reload()};
+  banner.onclick = () => {saveGame(); location.reload()};
   document.body.appendChild(banner);
 });

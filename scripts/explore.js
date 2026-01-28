@@ -182,6 +182,7 @@ function setWildPkmn(){
 
     document.getElementById(`team-indicator`).style.display = `none`
     document.getElementById(`spiraling-indicator`).style.display = `none`
+    document.getElementById(`factory-indicator`).style.display = `none`
     document.getElementById(`training-indicator`).style.display = `none`
 
 
@@ -221,7 +222,7 @@ function setWildPkmn(){
 
     hpMultiplier = 3;
     if (areas.training.tier==2) hpMultiplier = 8;
-    if (areas.training.tier==3) hpMultiplier = 17;
+    if (areas.training.tier==3) hpMultiplier = 18;
 
     areaDivision = numericDivision(areaDivision, "inverse")
 
@@ -268,20 +269,17 @@ function setWildPkmn(){
 
 
 
-    for (let i = 0; i < 4; i++) {
-    if (100 > i * 10) {
-        const moveKey = learnPkmnMoveSeeded(
-            spawnedPkmn,
-            100,
-            "wild",
-            currentTrainingWave + i,
-            randomMoves
-        );
-
-        if (moveKey != null)
-            randomMoves.push(moveKey);
+    const thresholds = [0, 10, 20, 30];
+    for (let t of thresholds) {
+        if (100 > t) {
+            const moveId = learnPkmnMove(spawnedPkmn, 100, "wild");
+            if (moveId && !randomMoves.includes(moveId)) {
+                randomMoves.push(moveId);
+            } else {
+                randomMoves.push(undefined);
+            }
+        }
     }
-}
 
 
 
@@ -295,7 +293,7 @@ function setWildPkmn(){
 
     } else if (saved.currentArea == areas.frontierSpiralingTower.id) {
     document.getElementById(`spiraling-indicator`).style.display = `flex`
-    document.getElementById(`spiraling-highest-floor`).textContent = `Highest Floor: ${saved.maxSpiralFloor}`
+    document.getElementById(`spiraling-highest-floor`).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGIz3eBe9X"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M8 44h8m-4 0V4"/><path fill="#555555" d="M40 6H12v16h28l-4-8z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGIz3eBe9X)"/></svg>Highest Floor: ${saved.maxSpiralFloor}`
     document.getElementById(`spiraling-current-floor`).textContent = `Floor: ${saved.currentSpiralFloor}`
     wildLevel = 98 + (2*saved.currentSpiralFloor)
 
@@ -323,8 +321,23 @@ for (let i = 0; i < 4; i++) {
 
     hpMultiplier = 5 + Math.floor(saved.currentSpiralFloor / 3);
 
-    }
-    else if (areas[saved.currentArea].trainer) {
+    } else if (saved.currentArea == areas.frontierBattleFactory.id) {
+    document.getElementById(`factory-indicator`).style.display = `flex`
+    document.getElementById(`factory-highest-score`).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.25 4.593v8.903q.162-.053.34-.108c.761-.231 1.788-.488 2.66-.488c1.418 0 2.74.432 3.934.821l.049.016c1.245.406 2.358.763 3.517.763c.936 0 2.256-.36 3-.593V5.073c-.806.232-2.015.527-3 .527c-1.418 0-2.74-.432-3.934-.821l-.049-.016C10.522 4.357 9.41 4 8.25 4c-.652 0-1.51.178-2.248.375c-.287.076-.545.153-.752.218m0 10.488c.21-.075.479-.167.777-.258c.737-.224 1.586-.423 2.223-.423c1.16 0 2.272.357 3.517.763l.049.016c1.193.39 2.516.821 3.934.821c1.289 0 2.977-.507 3.648-.725c.522-.168.852-.653.852-1.177V4.759c0-.87-.85-1.448-1.642-1.208c-.781.237-1.99.549-2.858.549c-1.16 0-2.272-.357-3.517-.763l-.049-.016C10.991 2.931 9.668 2.5 8.25 2.5c-.858 0-1.874.222-2.635.425a21 21 0 0 0-1.337.408l-.021.008l-.006.002h-.002l.251.707l-.252-.706a.75.75 0 0 0-.498.706v16.7a.75.75 0 0 0 1.5 0z" clip-rule="evenodd"/><path fill="currentColor" d="M4.5 4.05s2.24-.8 3.75-.8c2.597 0 4.903 1.6 7.5 1.6c.99 0 2.295-.344 3.075-.581c.331-.1.675.145.675.49v9.339c0 .21-.132.399-.333.464c-.68.22-2.262.688-3.417.688c-2.597 0-4.903-1.6-7.5-1.6c-1.51 0-3.75.912-3.75.912z" opacity="0.5"/></svg>Highest Score: ${saved.maxFactoryScore}</div>`
+    wildLevel = 100
+
+    let divisionToUse = "C"
+    if (rotationFrontierCurrent == 2) divisionToUse = "B"
+    if (rotationFrontierCurrent == 3) divisionToUse = "A"
+    if (rotationFrontierCurrent == 4) divisionToUse = "S"
+    
+    spawnedPkmn = areas.frontierBattleFactory.icon.id
+
+    randomMoves = [move.splash.id]
+
+    hpMultiplier = 1000000;
+
+    } else if (areas[saved.currentArea].trainer) {
         document.getElementById(`team-indicator-slot-1`).style.display = `none`;
         document.getElementById(`team-indicator-slot-2`).style.display = `none`;
         document.getElementById(`team-indicator-slot-3`).style.display = `none`;
@@ -375,6 +388,41 @@ for (let i = 0; i < 4; i++) {
             } 
             }
             }
+
+            
+
+
+            if (areas[saved.currentArea].itemReward) { //new function
+                const rewards = areas[saved.currentArea].itemReward;
+                
+                for (const key in rewards) {
+                    const reward = rewards[key];
+                    const rewardId = reward.item;
+                    const amount = reward.amount || 1;
+                    
+                    if (item[rewardId] !== undefined) {
+                        for (let i = 0; i < amount; i++) {
+                            let itemId = rewardId;
+                            
+                            if ((item[rewardId].type === "held" && item[rewardId].got >= 20 && item[rewardId].heldBonusPkmn === undefined)
+                                || (item[rewardId].heldBonusPkmn && pkmn[item[rewardId].heldBonusPkmn()].caught === 0 && item[rewardId].got >= 21)
+                                || (item[rewardId].heldBonusPkmn && pkmn[item[rewardId].heldBonusPkmn()].caught > 0 && item[rewardId].got >= 20)
+                            ) {
+                                itemId = item.bottleCap.id;
+                            }
+                            
+                            item[itemId].got++;
+                            item[itemId].newItem++;
+                        }
+                    }
+                    
+                    if (pkmn[rewardId] !== undefined) {
+                        pkmn[rewardId].newPokemon = true;
+                    }
+                }
+            }
+
+
 
             if (areas[saved.currentArea].encounterEffect) areas[saved.currentArea].encounterEffect()
 
@@ -722,6 +770,10 @@ function leaveCombat(){
     if (storedAfkSeconds==0) document.getElementById("area-end-pkmn-list").innerHTML = "";
     document.getElementById("area-end-item-title").innerHTML = "New Items!"
 
+
+
+
+
     //spiraling tower rewards
     if (saved.currentSpiralFloor!==1 && (saved.currentSpiralFloor == saved.maxSpiralFloor)) {
     const totalRewardsEarned = Math.floor(saved.maxSpiralFloor / 1)
@@ -732,11 +784,8 @@ function leaveCombat(){
             if (team[slot].pkmn == undefined) continue
             giveRibbon(team[slot].pkmn, "tower1") 
             pkmn[team[slot].pkmn.id].recordSpiraling = Math.max(saved.currentSpiralFloor, pkmn[team[slot].pkmn.id].recordSpiraling || 0)
-            console.log(Math.max(saved.currentSpiralFloor, pkmn[team[slot].pkmn.id].recordSpiraling || 0))
         }
-
     } 
-
 
     for (let i = 0; i < rewardsToGive; i++) {
         const rewards = []
@@ -751,11 +800,88 @@ function leaveCombat(){
         const rewardId = arrayPick(rewards)
         item[rewardId].newItem++
         item[rewardId].got++
+
+        item.goldenBottleCap.newItem+=2
+        item.goldenBottleCap.got+=2
+
+
+
         
     }
 
     saved.spiralRewardsClaimed += rewardsToGive
     }
+
+
+
+//battle factory rewards
+const minimumScore = 1000 - (50 * (4 - rotationFrontierCurrent)) // 850, 900, 950, or 1000
+if (battleFactoryScore !== 0 && (battleFactoryScore == saved.maxFactoryScore)) {
+    const baseThreshold = 150
+    const thresholdIncrease = (rotationFrontierCurrent - 1) * 50
+    const scoreThreshold = baseThreshold + thresholdIncrease // 100, 150, 200, or 250
+    
+    if (saved.maxFactoryScore >= minimumScore) {
+        const totalRewardsEarned = Math.floor((saved.maxFactoryScore - minimumScore) / scoreThreshold)
+        const rewardsToGive = totalRewardsEarned - (saved.factoryRewardsClaimed || 0)
+        
+        for (let i = 0; i < rewardsToGive; i++) {
+            const currentRewardCount = (saved.factoryRewardsClaimed || 0) + i
+            
+            const rewards = []
+            for (const i in spiralingRewards) {
+                if (spiralingRewards[i].rarity === 2 && rng(0.3)) continue
+                if (spiralingRewards[i].rarity === 3 && rng(0.6)) continue
+                if (spiralingRewards[i].rarity === 4 && rng(0.8)) continue
+                rewards.push(spiralingRewards[i].item)
+            }
+            const rewardId = arrayPick(rewards)
+            if (currentRewardCount < 30){
+                item[rewardId].newItem++
+                item[rewardId].got++
+            }
+            if (currentRewardCount < 100){
+                item.goldenBottleCap.newItem++
+                item.goldenBottleCap.got++
+            }
+        }
+        
+        saved.factoryRewardsClaimed = (saved.factoryRewardsClaimed || 0) + rewardsToGive
+    }
+}
+if (saved.currentArea == areas.frontierBattleFactory.id){
+    const baseThreshold = 100
+    const thresholdIncrease = (rotationFrontierCurrent - 1) * 50
+    const scoreThreshold = baseThreshold + thresholdIncrease
+    const minimumScore = 1000 - (50 * (4 - rotationFrontierCurrent))
+    
+    const div = document.createElement("span");
+    if (battleFactoryScore < minimumScore){
+        setTimeout(() => {
+            div.innerHTML = `Reach a minimum score of ${minimumScore} in order to get rewards`
+            document.getElementById("area-end-moves-title").appendChild(div);
+            document.getElementById("area-end-moves-title").style.display = "flex"          
+        }, 1);
+    } else if (saved.factoryRewardsClaimed >= 100) {
+        setTimeout(() => {
+            div.innerHTML = `No more rewards available. Maybe try getting a hi-score?`
+            document.getElementById("area-end-moves-title").appendChild(div);
+            document.getElementById("area-end-moves-title").style.display = "flex"          
+        }, 1);
+    } else {
+        const totalRewardsEarned = Math.floor((saved.maxFactoryScore - minimumScore) / scoreThreshold)
+        const nextRewardThreshold = minimumScore + (scoreThreshold * (totalRewardsEarned + 1))
+        const div2 = document.createElement("span");
+        setTimeout(() => {
+            div2.innerHTML = `Next reward at ${nextRewardThreshold} score`
+            document.getElementById("area-end-moves-title").appendChild(div2);
+            document.getElementById("area-end-moves-title").style.display = "flex"          
+        }, 1);
+    }
+}
+
+
+
 
 
 
@@ -790,12 +916,14 @@ function leaveCombat(){
         if (team[slot].item == item.pureIncense.id) rarePkmnChance += item.pureIncense.power()/100
         if (team[slot].item == item.shinyCharm.id) shinyPkmnChance *= (item.shinyCharm.power() /100) +1
         if (team[slot].item == item.shinyCharm.id) shinyPkmnChanceEncounter *= (item.shinyCharm.power() /100) +1
-        
+        if (testAbility(slot, ability.goodAsGold.id) ) shinyPkmnChance *= 1.15
+        if (testAbility(slot, ability.goodAsGold.id) ) shinyPkmnChanceEncounter *= 1.15
     }
 
     if (saved.hasTeatimeBeenUsed == true){
         rarePkmnChance += 0.01
      }
+
 
 
     if (item.mysteryEgg.got>0 && areas[saved.currentArea].spawns!=undefined) {//wild
@@ -1220,7 +1348,7 @@ for (let i = activeBars; i < hpBars.length; i++) {
     saved.currentSpiralFloor++
     saved.maxSpiralFloor = Math.max(saved.maxSpiralFloor,saved.currentSpiralFloor)
     document.getElementById(`spiraling-current-floor`).textContent = `Floor: ${saved.currentSpiralFloor}`
-    document.getElementById(`spiraling-highest-floor`).textContent = `Highest Floor: ${saved.maxSpiralFloor}`
+    document.getElementById(`spiraling-highest-floor`).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGIz3eBe9X"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M8 44h8m-4 0V4"/><path fill="#555555" d="M40 6H12v16h28l-4-8z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGIz3eBe9X)"/></svg>Highest Floor: ${saved.maxSpiralFloor}`
     }
 
     //abilities
@@ -1883,6 +2011,10 @@ let moveTimerPlayer;
 let barPlayer;
 
 
+let lastCrossStab = undefined
+const crossPattern = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='white' fill-opacity='1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+
+
 function exploreCombatPlayer() {
 
     if (shouldCombatStop()) {
@@ -1899,14 +2031,17 @@ function exploreCombatPlayer() {
     //rotation reset
     if (exploreCombatPlayerTurn >= 5){
         exploreCombatPlayerTurn = 1;
-        //requestAnimationFrame(exploreCombatPlayer)
+
+        if (team[exploreActiveMember].item == item.ejectButton.id) {switchMemberNext(); return}
+        if (team[exploreActiveMember].item == item.ejectPack.id) {switchMemberNext(-1); return}
+
         return;
     }
 
     // if it finds an undefined move
     if (!nextMovePlayer) {
         exploreCombatPlayerTurn++;
-        //requestAnimationFrame(exploreCombatPlayer)
+        lastCrossStab = undefined
         return;
     }
 
@@ -1928,6 +2063,9 @@ function exploreCombatPlayer() {
     if (testAbility(`active`, ability.cacophony.id) && move[nextMovePlayer].affectedBy?.includes(ability.cacophony.id) ) moveTimerPlayer /= 2
     if (testAbility(`active`, ability.dancer.id) && move[nextMovePlayer].affectedBy?.includes(ability.dancer.id) ) moveTimerPlayer /= 2
 
+    if (team[exploreActiveMember].item == item.quickClaw.id && move[nextMovePlayer].affectedBy?.includes(ability.libero.id)) moveTimerPlayer /= item.quickClaw.power()
+    if (team[exploreActiveMember].item == item.powerHerb.id && move[nextMovePlayer].power == 0) moveTimerPlayer /= item.powerHerb.power()
+
 
     //buff modifiers
     if (team[exploreActiveMember].buffs?.paralysis > 0) moveTimerPlayer *=  1.75
@@ -1938,7 +2076,7 @@ function exploreCombatPlayer() {
 
 
 
-
+    if (afkSeconds <= 0 && lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && barPlayer.style.backgroundImage != crossPattern && !testAbility(`active`, "ate")) barPlayer.style.backgroundImage = crossPattern
 
 
 
@@ -1978,7 +2116,6 @@ function exploreCombatPlayer() {
     if (areas[saved.currentArea].id == areas.training.id) speedStars = returnDivisionStars(pkmn[team[exploreActiveMember].pkmn.id])
 
         barProgressPlayer += 100 / ( (moveTimerPlayer * (Math.pow(0.9, speedStars) * Math.pow(0.95, pkmn[team[exploreActiveMember].pkmn.id].ivs.spe) )     ) / (1000 / 60));
-
 
     if (barProgressPlayer < 99) {
         //requestAnimationFrame(exploreCombatPlayer)
@@ -2032,6 +2169,7 @@ function exploreCombatPlayer() {
         let multihit = 1
         if (nextMove.multihit) multihit = random(nextMove.multihit[0], nextMove.multihit[1])
         if (nextMove.multihit && testAbility(`active`, ability.skillLink.id)) multihit = nextMove.multihit[1]
+        if (nextMove.multihit && team[exploreActiveMember].item == item.loadedDice.id) multihit = Math.min(multihit+item.loadedDice.power(), nextMove.multihit[1])
         movePower *= multihit
 
 
@@ -2040,6 +2178,11 @@ function exploreCombatPlayer() {
             movePower = move[ document?.getElementById(`pkmn-movebox-wild-1`).dataset.move  ].power
             movePower*=2
         }
+
+        if (team[exploreActiveMember].item == item.assaultVest.id && nextMove.power==0) nextMove = move.splash
+
+
+        if (nextMove.power>0) lastCrossStab = nextMove.type
 
 
 
@@ -2166,7 +2309,8 @@ function exploreCombatPlayer() {
 
         //stab
         let stabBonus = 1.5
-        if (attacker.type.includes(moveType) && testAbility(`active`,  ability.adaptability.id ) ) stabBonus = 1.7
+        if (attacker.type.includes(moveType) && testAbility(`active`,  ability.adaptability.id ) ) stabBonus += 0.2
+        if (attacker.type.length==1 ) stabBonus += 0.2
 
         if (attacker.type.includes(moveType)) totalPower *=stabBonus
         //type effectiveness
@@ -2175,6 +2319,8 @@ function exploreCombatPlayer() {
         if ( testAbility(`active`, ability.scrappy.id) && pkmn[saved.currentPkmn].type.includes("ghost") && (moveType == 'fighting' || moveType == 'normal')  ) typeMultiplier=1
         if ( testAbility(`active`, ability.tintedLens.id) && (typeMultiplier == 0.5 || typeMultiplier == 0.25) ) typeMultiplier=1
         if ( testAbility(`active`, ability.noGuard.id) && typeMultiplier == 0 ) typeMultiplier=1
+
+        if ( testAbility(`active`, ability.thousandArms.id)) typeMultiplier=1.5
 
         if (defender.temporalType) typeMultiplier *= typeEffectiveness(moveType, defender.temporalType)
 
@@ -2186,28 +2332,32 @@ function exploreCombatPlayer() {
         totalPower *= typeMultiplier
 
 
+        if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && !testAbility(`active`, "ate")) totalPower *= 1.2
+
+
 
         //items
-        if (team[exploreActiveMember].item == item.blackBelt.id && moveType == 'fighting') totalPower *= (item.blackBelt.power() /100) +1
-        if (team[exploreActiveMember].item == item.blackGlasses.id && moveType == 'dark') totalPower *= (item.blackGlasses.power() /100) +1
-        if (team[exploreActiveMember].item == item.charcoal.id && moveType == 'fire') totalPower *= (item.charcoal.power() /100) +1
-        if (team[exploreActiveMember].item == item.dragonFang.id && moveType == 'dragon') totalPower *= (item.dragonFang.power() /100) +1
-        if (team[exploreActiveMember].item == item.fairyFeather.id && moveType == 'fairy') totalPower *= (item.fairyFeather.power() /100) +1
-        if (team[exploreActiveMember].item == item.hardStone.id && moveType == 'rock') totalPower *= (item.hardStone.power() /100) +1
-        if (team[exploreActiveMember].item == item.magnet.id && moveType == 'electric') totalPower *= (item.magnet.power() /100) +1
-        if (team[exploreActiveMember].item == item.metalCoat.id && moveType == 'steel') totalPower *= (item.metalCoat.power() /100) +1
-        if (team[exploreActiveMember].item == item.miracleSeed.id && moveType == 'grass') totalPower *= (item.miracleSeed.power() /100) +1
-        if (team[exploreActiveMember].item == item.mysticWater.id && moveType == 'water') totalPower *= (item.mysticWater.power() /100) +1
-        if (team[exploreActiveMember].item == item.neverMeltIce.id && moveType == 'ice') totalPower *= (item.neverMeltIce.power() /100) +1
-        if (team[exploreActiveMember].item == item.poisonBarb.id && moveType == 'poison') totalPower *= (item.poisonBarb.power() /100) +1
-        if (team[exploreActiveMember].item == item.sharpBeak.id && moveType == 'flying') totalPower *= (item.sharpBeak.power() /100) +1
-        if (team[exploreActiveMember].item == item.silkScarf.id && moveType == 'normal') totalPower *= (item.silkScarf.power() /100) +1
-        if (team[exploreActiveMember].item == item.silverPowder.id && moveType == 'bug') totalPower *= (item.silverPowder.power() /100) +1
-        if (team[exploreActiveMember].item == item.softSand.id && moveType == 'ground') totalPower *= (item.softSand.power() /100) +1
-        if (team[exploreActiveMember].item == item.spellTag.id && moveType == 'ghost') totalPower *= (item.spellTag.power() /100) +1
-        if (team[exploreActiveMember].item == item.twistedSpoon.id && moveType == 'psychic') totalPower *= (item.twistedSpoon.power() /100) +1
+        if (team[exploreActiveMember].item == item.blackBelt.id && moveType == 'fighting') totalPower *= item.blackBelt.power()
+        if (team[exploreActiveMember].item == item.blackGlasses.id && moveType == 'dark') totalPower *= item.blackGlasses.power()
+        if (team[exploreActiveMember].item == item.charcoal.id && moveType == 'fire') totalPower *= item.charcoal.power()
+        if (team[exploreActiveMember].item == item.dragonFang.id && moveType == 'dragon') totalPower *= item.dragonFang.power()
+        if (team[exploreActiveMember].item == item.fairyFeather.id && moveType == 'fairy') totalPower *= item.fairyFeather.power()
+        if (team[exploreActiveMember].item == item.hardStone.id && moveType == 'rock') totalPower *= item.hardStone.power()
+        if (team[exploreActiveMember].item == item.magnet.id && moveType == 'electric') totalPower *= item.magnet.power()
+        if (team[exploreActiveMember].item == item.metalCoat.id && moveType == 'steel') totalPower *= item.metalCoat.power()
+        if (team[exploreActiveMember].item == item.miracleSeed.id && moveType == 'grass') totalPower *= item.miracleSeed.power()
+        if (team[exploreActiveMember].item == item.mysticWater.id && moveType == 'water') totalPower *= item.mysticWater.power()
+        if (team[exploreActiveMember].item == item.neverMeltIce.id && moveType == 'ice') totalPower *= item.neverMeltIce.power()
+        if (team[exploreActiveMember].item == item.poisonBarb.id && moveType == 'poison') totalPower *= item.poisonBarb.power()
+        if (team[exploreActiveMember].item == item.sharpBeak.id && moveType == 'flying') totalPower *= item.sharpBeak.power()
+        if (team[exploreActiveMember].item == item.silkScarf.id && moveType == 'normal') totalPower *= item.silkScarf.power()
+        if (team[exploreActiveMember].item == item.silverPowder.id && moveType == 'bug') totalPower *= item.silverPowder.power()
+        if (team[exploreActiveMember].item == item.softSand.id && moveType == 'ground') totalPower *= item.softSand.power()
+        if (team[exploreActiveMember].item == item.spellTag.id && moveType == 'ghost') totalPower *= item.spellTag.power()
+        if (team[exploreActiveMember].item == item.twistedSpoon.id && moveType == 'psychic') totalPower *= item.twistedSpoon.power()
                  
-        if (team[exploreActiveMember].item == item.lightClay.id) totalPower *= (item.lightClay.power() /100) +1
+        if (team[exploreActiveMember].item == item.lightClay.id) totalPower *= item.lightClay.power()
+        if (team[exploreActiveMember].item == item.weaknessPolicy.id) totalPower *= item.weaknessPolicy.power()
         
         if (team[exploreActiveMember].item == item.flameOrb.id) {totalPower *= item.flameOrb.power(); team[exploreActiveMember].buffs.burn = 3 }
         if (team[exploreActiveMember].item == item.toxicOrb.id) {totalPower *= item.toxicOrb.power(); team[exploreActiveMember].buffs.poisoned = 3}
@@ -2216,6 +2366,16 @@ function exploreCombatPlayer() {
         if (team[exploreActiveMember].item == item.choiceBand.id && nextMove.split == 'physical') totalPower *= item.choiceBand.power()
         
         if (team[exploreActiveMember].item == item.lifeOrb.id) totalPower *= item.lifeOrb.power()
+        if (team[exploreActiveMember].item == item.ejectButton.id) totalPower *= item.ejectButton.power()
+        if (team[exploreActiveMember].item == item.ejectPack.id) totalPower *= item.ejectPack.power()
+
+        if (team[exploreActiveMember].item == item.loadedDice.id && nextMove.affectedBy?.includes(ability.skillLink.id)) totalPower *= 1.2
+        if (team[exploreActiveMember].item == item.luckyPunch.id && nextMove.affectedBy?.includes(ability.ironFist.id)) movePower *= item.luckyPunch.power()
+        if (team[exploreActiveMember].item == item.metronome.id && nextMove.buildup !== undefined) movePower *= item.metronome.power()
+
+
+
+
 
         //held items w specific damage bonus
         if (item[team[exploreActiveMember].item]?.heldBonusPkmn && item[team[exploreActiveMember].item].heldBonusPkmn() == team[exploreActiveMember].pkmn.id) totalPower *= item[team[exploreActiveMember].item].heldBonusPower()
@@ -2295,7 +2455,7 @@ function exploreCombatPlayer() {
         if (saved.weatherTimer>0 && saved.weather=="sunny" && moveType == 'fire') totalPower *= 1.75
         if (saved.weatherTimer>0 && saved.weather=="sunny" && moveType == 'water') totalPower /= 1.5
         if (saved.weatherTimer>0 && saved.weather=="rainy" && moveType == 'water') totalPower *= 1.75
-        if (saved.weatherTimer>0 && saved.weather=="rainy" && moveType == 'fairy') totalPower /= 1.5
+        if (saved.weatherTimer>0 && saved.weather=="rainy" && moveType == 'fire') totalPower /= 1.5
         if (saved.weatherTimer>0 && saved.weather=="sandstorm" && (moveType == 'rock' || moveType == 'ground') ) totalPower *= 1.75
         if (saved.weatherTimer>0 && saved.weather=="hail" &&  moveType == 'ice' ) totalPower *= 1.75
         if (saved.weatherTimer>0 && saved.weather=="foggy" && (moveType == 'ghost' || moveType == 'dark') ) totalPower *= 1.75
@@ -2345,7 +2505,16 @@ function exploreCombatPlayer() {
 
 
         if (team[exploreActiveMember].damageDealt==undefined||team[exploreActiveMember].damageDealt==NaN) team[exploreActiveMember].damageDealt = 0
-        team[exploreActiveMember].damageDealt += Math.min(totalPower, wildPkmnHp) 
+        team[exploreActiveMember].damageDealt += Math.min(totalPower, wildPkmnHp)
+        
+        if (saved.currentArea == areas.frontierBattleFactory.id) {
+            battleFactoryScore += Math.ceil(totalPower/100)
+            if (battleFactoryScore>saved.maxFactoryScore) {
+            saved.maxFactoryScore = battleFactoryScore
+            document.getElementById(`factory-highest-score`).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.25 4.593v8.903q.162-.053.34-.108c.761-.231 1.788-.488 2.66-.488c1.418 0 2.74.432 3.934.821l.049.016c1.245.406 2.358.763 3.517.763c.936 0 2.256-.36 3-.593V5.073c-.806.232-2.015.527-3 .527c-1.418 0-2.74-.432-3.934-.821l-.049-.016C10.522 4.357 9.41 4 8.25 4c-.652 0-1.51.178-2.248.375c-.287.076-.545.153-.752.218m0 10.488c.21-.075.479-.167.777-.258c.737-.224 1.586-.423 2.223-.423c1.16 0 2.272.357 3.517.763l.049.016c1.193.39 2.516.821 3.934.821c1.289 0 2.977-.507 3.648-.725c.522-.168.852-.653.852-1.177V4.759c0-.87-.85-1.448-1.642-1.208c-.781.237-1.99.549-2.858.549c-1.16 0-2.272-.357-3.517-.763l-.049-.016C10.991 2.931 9.668 2.5 8.25 2.5c-.858 0-1.874.222-2.635.425a21 21 0 0 0-1.337.408l-.021.008l-.006.002h-.002l.251.707l-.252-.706a.75.75 0 0 0-.498.706v16.7a.75.75 0 0 0 1.5 0z" clip-rule="evenodd"/><path fill="currentColor" d="M4.5 4.05s2.24-.8 3.75-.8c2.597 0 4.903 1.6 7.5 1.6c.99 0 2.295-.344 3.075-.581c.331-.1.675.145.675.49v9.339c0 .21-.132.399-.333.464c-.68.22-2.262.688-3.417.688c-2.597 0-4.903-1.6-7.5-1.6c-1.51 0-3.75.912-3.75.912z" opacity="0.5"/></svg>Highest Score: ${saved.maxFactoryScore}</div>`
+            }
+            document.getElementById(`factory-current-score`).innerHTML = `Score: ${battleFactoryScore}`
+        }
 
         wildPkmnHp -= totalPower;
        
@@ -2357,6 +2526,7 @@ function exploreCombatPlayer() {
 
         let dotDamage = 50
         if (areas[saved.currentArea]?.trainer || saved.currentArea == areas.frontierSpiralingTower.id) dotDamage = 12
+
 
 
         if (areas[saved.currentArea].id != areas.training.id) {
@@ -2399,6 +2569,14 @@ function exploreCombatPlayer() {
         if (testAbility(`active`,  ability.sheerForce.id ) == false || ( testAbility(`active`, ability.sheerForce.id ) && (totalPower==0 || nextMove.unaffectedBy?.includes(ability.sheerForce.id) )  )){
         if (nextMove.hitEffect && (typeEffectiveness(moveType, pkmn[saved.currentPkmn].type)!= 0 || totalPower==0 || testAbility(`active`,  ability.noGuard.id ))) {
             nextMove.hitEffect("wild")
+
+
+            if (team[exploreActiveMember].item == item.luckyPunch.id && nextMove.affectedBy?.includes(ability.ironFist.id)) nextMove.hitEffect("wild")
+
+            if (testAbility(`active`, ability.sereneGrace.id && !nextMove.unaffectedBy?.includes(ability.sereneGrace.id) ) && nextMove.hitEffect) nextMove.hitEffect("wild")
+            if (testAbility(`active`, ability.parentalBond.id && !nextMove.unaffectedBy?.includes(ability.parentalBond.id) ) && nextMove.hitEffect) nextMove.hitEffect("wild")
+
+
         }
         }
         }
@@ -2406,8 +2584,7 @@ function exploreCombatPlayer() {
 
         }
 
-        if (testAbility(`active`, ability.sereneGrace.id && !nextMove.unaffectedBy?.includes(ability.sereneGrace.id) ) && nextMove.hitEffect) nextMove.hitEffect("wild")
-        if (testAbility(`active`, ability.parentalBond.id && !nextMove.unaffectedBy?.includes(ability.parentalBond.id) ) && nextMove.hitEffect) nextMove.hitEffect("wild")
+
 
 
         updateTeamBuffs()
@@ -2418,9 +2595,15 @@ function exploreCombatPlayer() {
         const fractionDamage = ( 100 + ((attacker.bst.hp * 30) * Math.pow(1.15, attacker.ivs.hp)) + ((attacker.bst.def * 15) * Math.pow(1.15, attacker.ivs.def)) + ((attacker.bst.sdef * 15) * Math.pow(1.15, attacker.ivs.sdef)) )
         let fatigueDamage = attacker.playerHpMax/fractionDamage
 
+        if (team[exploreActiveMember].item == item.leftovers.id) fatigueDamage /= item.leftovers.power();
+
+
         if (areas[saved.currentArea]?.trainer || areas[saved.currentArea]?.type == "frontier") fatigueDamage = 0
         if (saved.currentArea == areas.training.id) fatigueDamage = 0
 
+
+
+        if (saved.currentArea == areas.frontierBattleFactory.id) fatigueDamage = attacker.playerHpMax/15
 
         attacker.playerHp -= fatigueDamage
         updateTeamPkmn()
@@ -2981,6 +3164,7 @@ function exploreCombatWild() {
         
         if (typeMultiplier>1 && testAbility(`active`,  ability.angerPoint.id ) ) moveBuff("wild",'atkup2',"self")
         if (typeMultiplier>1 && testAbility(`active`,  ability.justified.id ) ) moveBuff("wild",'satkup2',"self")
+        if (typeMultiplier>1 && team[exploreActiveMember].item == item.weaknessPolicy.id ) moveBuff("wild",'speup1',"self")
 
         totalPower *= typeMultiplier
 
@@ -3005,6 +3189,8 @@ function exploreCombatWild() {
 
         if (team[exploreActiveMember].item == item.eviolite.id && pkmn[team[exploreActiveMember].pkmn.id].evolve !== undefined && ( pkmn[team[exploreActiveMember].pkmn.id].evolve()[1].pkmn.id.slice(0, 4) !== "mega" || team[exploreActiveMember].pkmn.id == pkmn.bayleef.id) ) 
         {totalPower /= item.eviolite.power();}
+
+        if (team[exploreActiveMember].item == item.assaultVest.id) totalPower /= item.assaultVest.power();
 
         if (team[exploreActiveMember].item == item.mentalHerb.id) {totalPower /= (item.mentalHerb.power() /100) +1}
 
@@ -3074,7 +3260,7 @@ function exploreCombatWild() {
         if (saved.weatherTimer>0 && saved.weather=="sunny" && move[nextMoveWild].type == 'fire') totalPower *= 1.75
         if (saved.weatherTimer>0 && saved.weather=="sunny" && move[nextMoveWild].type == 'water') totalPower /= 1.5
         if (saved.weatherTimer>0 && saved.weather=="rainy" && move[nextMoveWild].type == 'water') totalPower *= 1.75
-        if (saved.weatherTimer>0 && saved.weather=="rainy" && move[nextMoveWild].type == 'fairy') totalPower /= 1.5
+        if (saved.weatherTimer>0 && saved.weather=="rainy" && move[nextMoveWild].type == 'fire') totalPower /= 1.5
         if (saved.weatherTimer>0 && saved.weather=="sandstorm" && (move[nextMoveWild].type == 'rock' || move[nextMoveWild].type == 'ground') ) totalPower *= 1.75
         if (saved.weatherTimer>0 && saved.weather=="hail" &&  move[nextMoveWild].type == 'ice' ) totalPower *= 1.75
         if (saved.weatherTimer>0 && saved.weather=="foggy" && (move[nextMoveWild].type == 'ghost' || move[nextMoveWild].type == 'dark') ) totalPower *= 1.75
@@ -3104,8 +3290,13 @@ function exploreCombatWild() {
         if (areas[saved.currentArea]?.encounter) dotDamage = 100
 
 
+
+
         if (wildBuffs.burn>0 && testAbility("active",  ability.scorch.id) ) dotDamage /= 2
         if (wildBuffs.poisoned>0 && testAbility("active",  ability.corrosion.id) ) dotDamage /= 2
+
+        if (saved.currentArea == areas.frontierBattleFactory.id){ wildBuffs.poisoned = 0; wildBuffs.burn = 0; }
+
 
         if (wildBuffs.burn>0 ) team[exploreActiveMember].damageDealt +=  Math.min(wildPkmnHpMax/dotDamage)
         if (wildBuffs.poisoned>0 ) team[exploreActiveMember].damageDealt +=  Math.min(wildPkmnHpMax/dotDamage)
@@ -3161,6 +3352,8 @@ function initialiseArea(){
 
     exploreCombatPlayerTurn = 1
     exploreCombatWildTurn = 0
+    battleFactoryScore = 0
+    lastCrossStab = undefined
     //exploreCombatPlayer()
     //exploreCombatPlayer()
     //exploreCombatWild()
@@ -3926,7 +4119,6 @@ document.getElementById("pokedex-sort-filter").addEventListener("change", e => {
 });
 
 
-
 document.getElementById("pokedex-search").addEventListener("keydown", e => {
   if (e.key === "Enter") {
     let searchValue = document.getElementById("pokedex-search").value.trim()
@@ -3938,7 +4130,6 @@ document.getElementById("pokedex-search").addEventListener("keydown", e => {
       return
     }
     
-    // Reemplazar " or " con "|" (case insensitive)
     searchValue = searchValue.replace(/\s+or\s+/gi, ' | ')
     
     let allTerms = searchValue.split(/\s+/).filter(t => t !== '')
@@ -3955,9 +4146,7 @@ document.getElementById("pokedex-search").addEventListener("keydown", e => {
     
     let results = []
     
-    // Si solo hay exclusiones, empezar con todos los pokemon filtrados
     if (includeTerms.length === 0 && excludeTerms.length > 0) {
-      // Obtener todos los items del índice de Fuse (que ya están filtrados)
       results = fusePkmn.getIndex().docs.map(item => ({ item }))
     } else if (includeTerms.length > 0) {
       let includeQuery = includeTerms.join(' ')
@@ -3981,8 +4170,76 @@ document.getElementById("pokedex-search").addEventListener("keydown", e => {
         results = items.map(item => ({ item }))
       }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //this dumbaah code expands the search to families during x conditions
+        let shouldExpandFamilies = true;
+        if (results.length > 0 && includeTerms.length > 0) {
+        let hasAbilityMatch = false;
+        let hasMoveMatch = false;
+                const sampleSize = Math.min(3, results.length);
+        for (let i = 0; i < sampleSize; i++) {
+            const item = results[i].item;
+            includeTerms.forEach(term => {
+            const lowerTerm = term.toLowerCase();
+            if (item.ability && item.ability.toLowerCase().includes(lowerTerm)) hasAbilityMatch = true;
+            if (item.hiddenAbility && item.hiddenAbility.id && item.hiddenAbility.id.toLowerCase().includes(lowerTerm)) hasAbilityMatch = true;
+            if (item.movepool && item.movepool.some(move => move.toLowerCase().includes(lowerTerm))) hasMoveMatch = true;
+            });
+        }
+        
+        if (hasAbilityMatch || hasMoveMatch) {
+            shouldExpandFamilies = false;
+        }
+        }
+
+        let expandedResults = new Set();
+
+        if (shouldExpandFamilies) {
+        results.forEach(result => {
+            const family = getEvolutionFamily(result.item);
+            family.forEach(member => {
+            // only add if the member exists in the current fusePkmn index
+            const memberInIndex = fusePkmn.getIndex().docs.find(doc => doc === member);
+            if (memberInIndex) {
+                expandedResults.add(member);
+            }
+            });
+        });
+        results = Array.from(expandedResults).map(item => ({ item }));
+        } else {
+        //dont expand family
+        expandedResults = new Set(results.map(r => r.item));
+        results = Array.from(expandedResults).map(item => ({ item }));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
     
-    // Aplicar exclusiones
+    results = Array.from(expandedResults).map(item => ({ item }))
+    
+    // exclusions
     if (excludeTerms.length > 0) {
       let excludeSets = excludeTerms.map(term => {
         return new Set(fusePkmn.search(term).map(r => r.item))
@@ -3999,7 +4256,6 @@ document.getElementById("pokedex-search").addEventListener("keydown", e => {
     updatePokedex()
   }
 });
-
 
 
 let fusePkmn;
@@ -4112,7 +4368,7 @@ function updatePokedex(){
         if (document.getElementById(`pokedex-filter-evolution`).value == "level-only" && !missingLevelEvolution  ) continue
 
 
-        if (pkmn[i].tagObtainedIn == "unobtainable") continue
+        if (pkmn[i].caught==0 && pkmn[i].tagObtainedIn == "unobtainable") continue
 
         totalPokemon++
 
@@ -4350,6 +4606,16 @@ if (document.getElementById("pokedex-search").value!="") {
                 let learntMove = learnPkmnMove(pkmn[i].id, pkmn[i].level)
                 if (learntMove != undefined) {
                 if (pkmn[ i ].level % 7 === 0) pkmn[ i ].movepool.push(learntMove)
+
+
+        //this really should be a function huh
+        if (pkmn[ i ].evolve && pkmn[i].evolve()[1].level>0){ // if it evolves by level up
+        if (pkmn[ i ].level >= pkmn[i].evolve()[1].level && pkmn[ pkmn[i].evolve()[1].pkmn.id ].caught===0) {
+        givePkmn(pkmn[ pkmn[i].evolve()[1].pkmn.id ],1)
+        } 
+        }
+
+
                 }
 
 
@@ -4361,6 +4627,81 @@ if (document.getElementById("pokedex-search").value!="") {
                 updateItemBag()
                 exitTmTeaching()
                 }
+                })
+                
+            }
+
+            if (itemToUse == item.heartScale.id){
+                if (pkmn[i].movepoolMemory == undefined || pkmn[i].movepoolMemory.length==0) continue
+
+                div.addEventListener("click", e => {
+                    
+                    
+                document.getElementById("tooltipBottom").style.display = "none" 
+                document.getElementById("tooltipTitle").innerHTML = `Select move to remember`
+                document.getElementById("tooltipTop").style.display = "none"    
+                document.getElementById("tooltipMid").innerHTML = `
+                <div id="remember-movelist"></div>
+                `
+                openTooltip()
+                
+                let noMoves = true
+
+                for (const e of pkmn[i].movepoolMemory){
+
+                if (pkmn[i].movepool.includes(e)) continue
+
+                const movediv = document.createElement(`div`)
+                movediv.innerHTML = format(e)
+                movediv.className = `remember-move`
+                movediv.style.borderColor = returnTypeColor(move[e].type)
+                document.getElementById(`remember-movelist`).appendChild(movediv)
+
+
+                movediv.addEventListener("click", event => { 
+
+
+                pkmn[i].movepool.push(e)
+
+
+                closeTooltip()
+                item.heartScale.got--
+                updateItemBag()
+                exitTmTeaching()
+
+
+                })
+
+                noMoves = false
+
+
+                }
+
+                if (noMoves) document.getElementById("tooltipMid").innerHTML = `
+                No new moves to remember
+                `
+
+
+
+        
+                /*
+                pkmn[i].level++
+                let learntMove = learnPkmnMove(pkmn[i].id, pkmn[i].level)
+                if (learntMove != undefined) {
+                if (pkmn[ i ].level % 7 === 0) pkmn[ i ].movepool.push(learntMove)
+                }
+
+
+                item.rareCandy.got--
+                updatePokedex()  
+
+
+                if (item.rareCandy.got<=0){
+                updateItemBag()
+                exitTmTeaching()
+                
+                }
+                */
                 })
                 
             }
@@ -5065,7 +5406,7 @@ function updateVS() {
 
 
            let nameTag = "";
-       if (areas[i].reward.includes(item.goldenBottleCap)) nameTag = `<svg class="event-icon" style="color:#465f96" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.795 2h-2c-1.886 0-2.829 0-3.414.586c-.586.586-.586 1.528-.586 3.414v3.5h10V6c0-1.886 0-2.828-.586-3.414S14.681 2 12.795 2" opacity="0.5"/><path fill="currentColor" fill-rule="evenodd" d="M13.23 5.783a3 3 0 0 0-2.872 0L5.564 8.397A3 3 0 0 0 4 11.031v4.938a3 3 0 0 0 1.564 2.634l4.794 2.614a3 3 0 0 0 2.872 0l4.795-2.614a3 3 0 0 0 1.564-2.634V11.03a3 3 0 0 0-1.564-2.634zM11.794 10.5c-.284 0-.474.34-.854 1.023l-.098.176c-.108.194-.162.29-.246.354s-.19.088-.399.135l-.19.044c-.739.167-1.108.25-1.195.532c-.088.283.163.577.666 1.165l.13.152c.144.167.215.25.247.354s.022.215 0 .438l-.02.203c-.076.785-.114 1.178.116 1.352s.575.015 1.266-.303l.179-.082c.196-.09.294-.135.398-.135s.203.045.399.135l.179.082c.69.319 1.036.477 1.266.303s.192-.567.116-1.352l-.02-.203c-.022-.223-.033-.334 0-.438c.032-.103.103-.187.246-.354l.13-.152c.504-.588.755-.882.667-1.165c-.088-.282-.457-.365-1.194-.532l-.191-.044c-.21-.047-.315-.07-.399-.135c-.084-.064-.138-.16-.246-.354l-.098-.176c-.38-.682-.57-1.023-.855-1.023" clip-rule="evenodd"/></svg>`
+       if (areas[i].reward?.includes(item.goldenBottleCap)) nameTag = `<svg class="event-icon" style="color:#465f96" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.795 2h-2c-1.886 0-2.829 0-3.414.586c-.586.586-.586 1.528-.586 3.414v3.5h10V6c0-1.886 0-2.828-.586-3.414S14.681 2 12.795 2" opacity="0.5"/><path fill="currentColor" fill-rule="evenodd" d="M13.23 5.783a3 3 0 0 0-2.872 0L5.564 8.397A3 3 0 0 0 4 11.031v4.938a3 3 0 0 0 1.564 2.634l4.794 2.614a3 3 0 0 0 2.872 0l4.795-2.614a3 3 0 0 0 1.564-2.634V11.03a3 3 0 0 0-1.564-2.634zM11.794 10.5c-.284 0-.474.34-.854 1.023l-.098.176c-.108.194-.162.29-.246.354s-.19.088-.399.135l-.19.044c-.739.167-1.108.25-1.195.532c-.088.283.163.577.666 1.165l.13.152c.144.167.215.25.247.354s.022.215 0 .438l-.02.203c-.076.785-.114 1.178.116 1.352s.575.015 1.266-.303l.179-.082c.196-.09.294-.135.398-.135s.203.045.399.135l.179.082c.69.319 1.036.477 1.266.303s.192-.567.116-1.352l-.02-.203c-.022-.223-.033-.334 0-.438c.032-.103.103-.187.246-.354l.13-.152c.504-.588.755-.882.667-1.165c-.088-.282-.457-.365-1.194-.532l-.191-.044c-.21-.047-.315-.07-.399-.135c-.084-.064-.138-.16-.246-.354l-.098-.176c-.38-.682-.57-1.023-.855-1.023" clip-rule="evenodd"/></svg>`
 
 
 
@@ -5113,8 +5454,9 @@ saved.lastFrontierRotation = undefined
 saved.lastTowerRotation = undefined
 saved.currentSpiralFloor = 1
 saved.maxSpiralFloor = 1
+saved.maxFactoryScore = 0
 saved.spiralRewardsClaimed = 0
-
+saved.factoryRewardsClaimed = 0
 saved.currentSpiralingType = `normal`
 
 
@@ -5124,9 +5466,47 @@ function resetSpiralingTower(){
     if (saved.lastTowerRotation != rotationEventCurrent) { saved.lastTowerRotation = rotationEventCurrent }
 
     saved.spiralRewardsClaimed = 0
+    saved.factoryRewardsClaimed = 0
     saved.maxSpiralFloor = 1    
     saved.currentSpiralingType = arrayPick([`normal`,`fire`,`water`,`grass`,`bug`,`poison`,`dark`,`ghost`,`psychic`,`fighting`,`flying`,`dragon`,`fairy`,`steel`,`ground`,`rock`,`electric`,`ice`])
-   
+    saved.maxFactoryScore = 0 
+
+
+
+
+
+
+
+    
+
+    let divisionToUse = "C"
+    if (rotationFrontierCurrent == 2) divisionToUse = "B"
+    if (rotationFrontierCurrent == 3) divisionToUse = "A"
+    if (rotationFrontierCurrent == 4) divisionToUse = "S"
+
+
+    //factory
+    //prevents double weaknesses
+    let selectedPokemon;
+    let hasDoubleWeakness = true;
+    const allTypes = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 
+                      'fighting', 'poison', 'ground', 'flying', 'psychic', 
+                      'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
+    
+    while (hasDoubleWeakness) {
+        selectedPokemon = randomDivisionPkmn(divisionToUse, saved.currentSpiralingType);
+        hasDoubleWeakness = false;
+        
+        for (const attackType of allTypes) {
+            if (typeEffectiveness(attackType, pkmn[selectedPokemon].type) >= 2.25) {
+                hasDoubleWeakness = true;
+                break;
+            }
+        }
+    }
+    
+    areas.frontierBattleFactory.icon = pkmn[selectedPokemon];
+
 }
 
 /*
@@ -5262,6 +5642,7 @@ for (const i in areas) {
   areas[i].defeated = undefined
   areas[i].difficulty = undefined
   areas[i].reward = undefined
+  areas[i].itemReward = undefined
   areas[i].level = undefined
 }
 
@@ -5297,10 +5678,10 @@ for (const i in areas) {
   if (areas[i].tier==3) areas[i].difficulty = 15
   if (areas[i].tier==4) areas[i].difficulty = 20
 
-  if (areas[i].tier==1) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
-  if (areas[i].tier==2) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
-  if (areas[i].tier==3) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
-  if (areas[i].tier==4) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+  if (areas[i].tier==1) areas[i].itemReward = { 1 : { item: item.goldenBottleCap.id, amount: 3 }, 2 : { item: arrayPick(exclusiveFrontierPkmn).id, amount: 1 } };
+  if (areas[i].tier==2) areas[i].itemReward = { 1 : { item: item.goldenBottleCap.id, amount: 3 }, 2 : { item: arrayPick(exclusiveFrontierPkmn).id, amount: 1 } };
+  if (areas[i].tier==3) areas[i].itemReward = { 1 : { item: item.goldenBottleCap.id, amount: 4 }, 2 : { item: arrayPick(exclusiveFrontierPkmn).id, amount: 1 } };
+  if (areas[i].tier==4) areas[i].itemReward = { 1 : { item: item.goldenBottleCap.id, amount: 6 }, 2 : { item: arrayPick(exclusiveFrontierPkmn).id, amount: 1 } };
 
   let divisionToUse = "C"
   if (rotationFrontierCurrent == 2) divisionToUse = "B"
@@ -5502,24 +5883,34 @@ function updateFrontier() {
     document.getElementById("vs-menu-header").style.backgroundImage = "url(img/bg/tower.png)"
 
 
-    //spiraling tower
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //battle tower
     const spiral = document.createElement("div");
     divisionText = `C`
     if (rotationFrontierCurrent==2) divisionText = `B`
     if (rotationFrontierCurrent==3) divisionText = `A`
     if (rotationFrontierCurrent==4) divisionText = `S`
     
-    spiral.className = "explore-ticket";
+    spiral.className = "explore-ticket frontier-ticket";
     spiral.innerHTML = `
         <span class="hitbox"></span>
         <div style="width: 100%;">
-        <svg class="barcode-flair" xmlns="http://www.w3.org/2000/svg" width="236" height="144"><svg id="barcodeSVG" role="img" aria-label="Barcode preview" width="234px" height="142px" x="0px" y="0px" viewBox="0 0 234 142" xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform: translate(0,0)"><rect x="0" y="0" width="234" height="142" style="fill:none;"/><g transform="translate(10, 10)" style="fill:#000000;"><text style="font: 20px Roboto" text-anchor="start" x="0" y="122">5</text></g><g transform="translate(34, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g><g transform="translate(40, 10)" style="fill:#000000;"><rect x="6" y="0" width="2" height="100"/><rect x="10" y="0" width="4" height="100"/><rect x="16" y="0" width="2" height="100"/><rect x="22" y="0" width="6" height="100"/><rect x="30" y="0" width="4" height="100"/><rect x="38" y="0" width="4" height="100"/><rect x="46" y="0" width="2" height="100"/><rect x="52" y="0" width="4" height="100"/><rect x="58" y="0" width="8" height="100"/><rect x="68" y="0" width="2" height="100"/><rect x="74" y="0" width="6" height="100"/><rect x="82" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">901234</text></g><g transform="translate(124, 10)" style="fill:#000000;"><rect x="2" y="0" width="2" height="112"/><rect x="6" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="5" y="134"></text></g><g transform="translate(134, 10)" style="fill:#000000;"><rect x="0" y="0" width="4" height="100"/><rect x="8" y="0" width="4" height="100"/><rect x="14" y="0" width="4" height="100"/><rect x="20" y="0" width="4" height="100"/><rect x="28" y="0" width="2" height="100"/><rect x="38" y="0" width="2" height="100"/><rect x="42" y="0" width="2" height="100"/><rect x="46" y="0" width="6" height="100"/><rect x="56" y="0" width="2" height="100"/><rect x="62" y="0" width="6" height="100"/><rect x="70" y="0" width="2" height="100"/><rect x="78" y="0" width="2" height="100"/><text style="font: 20px Roboto" text-anchor="middle" x="42" y="122">123457</text></g><g transform="translate(218, 10)" style="fill:#000000;"><rect x="0" y="0" width="2" height="112"/><rect x="4" y="0" width="2" height="112"/><text style="font: 20px Roboto" text-anchor="middle" x="3" y="134"></text></g></svg></svg>
+        <svg class="frontier-flair" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M19.025 13.988A84 84 0 0 1 17.937 10h-3.844a88 88 0 0 1-1.182 3.978h-.236c-.262 0-.472.193-.472.434v1.76l-.076.236l-.03.092a618 618 0 0 0-.77 2.381A58 58 0 0 1 7 29h-.49c-.28 0-.51.226-.51.5s.23.5.51.5h5.98c.28 0 .51-.226.51-.5s-.23-.5-.51-.5h-.413a4.004 4.004 0 0 1 3.928-3.188A4.004 4.004 0 0 1 19.933 29h-.424c-.28 0-.509.226-.509.5s.23.5.51.5h5.98c.28 0 .51-.226.51-.5s-.23-.5-.51-.5H25a57 57 0 0 1-2.13-4.395q-.275-.634-.544-1.28a92 92 0 0 1-1.813-4.753l-.019-.054A115 115 0 0 1 20 17.074l-.01-2.652c.01-.24-.2-.434-.462-.434zm-2.275-.004v-2.535a86 86 0 0 0 .702 2.536zm-2.271-.004c.274-.864.535-1.713.771-2.541v2.543zm4.52 2.52h-5.796v-1.521l5.789.008zM13.632 18h1.617v.99zm-1.189 5.5l2.806-1.714V23.5zm4.306-1.72l2.808 1.72H16.75zM10.614 25h2.734a5.5 5.5 0 0 0-2.35 2.51h-1.55q.613-1.244 1.166-2.51m11.927 2.51h-1.549A5.52 5.52 0 0 0 18.636 25h2.76c.373.86.755 1.701 1.145 2.51m-3.344-8.135c.311.878.637 1.758.975 2.63l-2.637-1.615zm-6.45-.047l1.719 1.053l-2.636 1.61q.494-1.325.917-2.663M16.75 18h1.613l-1.613.985zm.733-10a32 32 0 0 1-.355-2h-2.222a22 22 0 0 1-.333 2zm-2.484-4H17l.003-1.007A1.02 1.02 0 0 0 16.005 2h-.01a1 1 0 0 0-1 .993z"/></svg>
         <span class="explore-ticket-left">
-        <span class="ticket-flair">
-        #INF
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M25.719 4.781a2.9 2.9 0 0 0-1.125.344l-4.719 2.5L13.5 6.062l-.375-.093l-.375.187l-2.156 1.25l-1.281.75l1.187.906l2.719 2.063l-3.406 1.813l-3.657-1.657l-.437-.187l-.438.219l-1.75.937l-1.156.625l.875.938l5.406 5.812l.5.594l.688-.375L15 17.094l-1.031 5.687l-.344 1.813l1.719-.719l2.562-1.094l.375-.156l.157-.375l3.718-9.031l5.25-2.813c1.446-.777 2.028-2.617 1.25-4.062a3 3 0 0 0-1.781-1.438a3.1 3.1 0 0 0-1.156-.125m.187 2c.125-.008.254-.004.375.032a.979.979 0 0 1 .188 1.812l-5.594 3.031l-.313.156l-.125.344l-3.718 8.938l-.438.187l1.063-5.906l.375-2.031l-1.813.969l-6.312 3.406l-3.969-4.313l.156-.094l3.657 1.626l.468.218l.406-.25l15.22-8.031a.9.9 0 0 1 .374-.094M13.375 8.094l3.844.937l-2.063 1.063l-2.25-1.719zM3 26v2h26v-2z"/></svg>
-        </span>
-        <span style="font-size:1.2rem">Spiraling Tower</span>
+        <span style="font-size:1.2rem">Battle Tower</span>
         <span><strong style="background:#964646ff">Highest Reached Floor: ${saved.maxSpiralFloor}</strong><span></span></span>
         </span>
         </div>
@@ -5544,6 +5935,60 @@ function updateFrontier() {
 
 
 
+
+    //battle factory
+    const factory = document.createElement("div");
+    factory.className = "explore-ticket frontier-ticket";
+    factory.style.filter = "hue-rotate(200deg)"
+    factory.innerHTML = `
+        <span class="hitbox"></span>
+        <div style="width: 100%;">
+        <svg class="frontier-flair" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"><path fill="currentColor" d="M4.253 5.397a1.492 1.492 0 0 0 2.23-1.288h1.5a1.492 1.492 0 0 0 2.231 1.288l.75 1.298c.417-.233.916-.387 1.424-.478q-.046-.135-.12-.264l-.759-1.313a1.49 1.49 0 0 0-2.025-.553A1.49 1.49 0 0 0 7.992 2.61H6.476c-.82 0-1.485.66-1.492 1.478a1.49 1.49 0 0 0-2.026.553L2.2 5.953c-.41.71-.17 1.616.534 2.031a1.49 1.49 0 0 0-.534 2.031l.758 1.313c.41.71 1.314.955 2.026.553c.006.618.388 1.147.928 1.368c-.003-.571.14-1.15.447-1.68l.068-.118a1.494 1.494 0 0 0-2.174-.88l-.75-1.299c.985-.576.985-2 0-2.576z"/><path fill="currentColor" d="M7.234 9.484a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"/><path fill="currentColor" fill-rule="evenodd" d="M11.64 15.11a3.065 3.065 0 1 1 6.13 0a3.065 3.065 0 0 1-6.13 0m3.066-1.564a1.565 1.565 0 1 0 0 3.13a1.565 1.565 0 0 0 0-3.13" clip-rule="evenodd"/><path fill="currentColor" fill-rule="evenodd" d="M7.658 17.903a1.833 1.833 0 0 1 .671-2.505a.333.333 0 0 0 0-.576a1.833 1.833 0 0 1-.67-2.504l1.106-1.916a1.833 1.833 0 0 1 2.503-.67a.332.332 0 0 0 .499-.288c0-1.012.82-1.833 1.832-1.833h2.213c1.013 0 1.833.821 1.833 1.833c0 .256.277.416.498.288a1.83 1.83 0 0 1 2.503.67l1.107 1.918a1.83 1.83 0 0 1-.67 2.502a.332.332 0 0 0 0 .576a1.833 1.833 0 0 1 .67 2.503l-1.105 1.916a1.833 1.833 0 0 1-2.504.671a.333.333 0 0 0-.5.288c0 1.013-.82 1.833-1.832 1.833H13.6a1.833 1.833 0 0 1-1.833-1.832a.333.333 0 0 0-.5-.288a1.833 1.833 0 0 1-2.503-.671zm1.421-1.206a.333.333 0 0 0-.122.456l1.106 1.915c.092.16.295.214.455.122c1.221-.705 2.749.176 2.749 1.587c0 .183.149.332.333.332h2.212a.333.333 0 0 0 .333-.333c0-1.41 1.527-2.292 2.749-1.587c.16.092.363.037.455-.122l1.106-1.916a.333.333 0 0 0-.122-.454c-1.221-.705-1.222-2.468 0-3.174a.33.33 0 0 0 .121-.453l-1.107-1.917a.33.33 0 0 0-.454-.122c-1.221.706-2.748-.177-2.748-1.587a.333.333 0 0 0-.333-.333H13.6a.33.33 0 0 0-.332.333c0 1.41-1.527 2.292-2.749 1.586a.333.333 0 0 0-.454.122l-1.106 1.916a.333.333 0 0 0 .122.455c1.222.705 1.22 2.47 0 3.174" clip-rule="evenodd"/></svg>
+        <span class="explore-ticket-left">
+        <span style="font-size:1.2rem">Battle Factory</span>
+        <span><strong style="background:#964646ff">Highest Score: ${saved.maxFactoryScore}</strong><span></span></span>
+        </span>
+        </div>
+        <div style="width: 8rem;" class="explore-ticket-right">
+        <span class="explore-ticket-bg" style=filter:hue-rotate(-200deg); "background-image: url(img/bg/${areas.frontierBattleFactory.background}.png);"></span>
+        <img class="explore-ticket-sprite sprite-trim" style="z-index: 10;  filter:hue-rotate(-200deg)" src="img/pkmn/sprite/${areas.frontierBattleFactory.icon.id}.png">
+        </div>
+    `;
+    document.getElementById("frontier-listing").appendChild(factory);
+    factory.dataset.help = "BattleFactory"
+    factory.addEventListener("click", e => { 
+        saved.currentAreaBuffer = areas.frontierBattleFactory.id
+        battleFactoryScore = 0
+        document.getElementById(`preview-team-exit`).style.display = "flex"
+        document.getElementById(`team-menu`).style.zIndex = `50`
+        document.getElementById(`team-menu`).style.display = `flex`
+        document.getElementById("menu-button-parent").style.display = "none"
+        updatePreviewTeam()
+        afkSeconds = 0
+        document.getElementById(`explore-menu`).style.display = `none`
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
@@ -5729,11 +6174,15 @@ if (id=="rainy" && team[exploreActiveMember].item == item.dampRock.id) weatherTu
 if (id=="sunny" && team[exploreActiveMember].item == item.heatRock.id) weatherTurns += item.heatRock.power()
 if (id=="hail" && team[exploreActiveMember].item == item.icyRock.id) weatherTurns += item.icyRock.power()
 if (id=="sandstorm" && team[exploreActiveMember].item == item.smoothRock.id) weatherTurns += item.smoothRock.power()
+if (id=="foggy" && team[exploreActiveMember].item == item.foggySeed.id) weatherTurns += item.foggySeed.power()
+if (id=="electricTerrain" && team[exploreActiveMember].item == item.electricSeed.id) weatherTurns += item.electricSeed.power()
+if (id=="grassyTerrain" && team[exploreActiveMember].item == item.grassySeed.id) weatherTurns += item.grassySeed.power()
+if (id=="mistyTerrain" && team[exploreActiveMember].item == item.mistySeed.id) weatherTurns += item.mistySeed.power()
 
 if (testAbility(`active`, ability.climaTact.id)) weatherTurns += 15
 
 saved.weatherTimer = weatherTurns
-saved.weatherCooldown = 29 //changed from 30 to maintain constant uptime
+saved.weatherCooldown = Math.max(weatherTurns, 29) //changed from 30 to maintain constant uptime
 updateWildBuffs()
 
 }
@@ -5917,6 +6366,20 @@ function moveBuff(target,buff,mod){
 
         if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
         if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
+        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.floor(item.clearAmulet.power())
+
+
+        if (testAbility(`active`, ability.hydratation.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
+        if (testAbility(`active`, ability.sandVeil.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
+        if (testAbility(`active`, ability.snowCloak.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
+
+        if (testAbility(`active`, ability.grassyPelt.id)  && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.sandyPelt.id ) && saved.weather == "sunny" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.moistPelt.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.fieryPelt.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.pixiePelt.id ) && saved.weather == "foggy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+
+
 
         for (const slot in team) {
             team[slot].buffs[buff] = affectedTurns
@@ -5949,6 +6412,7 @@ function moveBuff(target,buff,mod){
         
         if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
         if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
+        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.floor(item.clearAmulet.power())
 
         //if (pkmn[team[exploreActiveMember].pkmn.id].ability == ability.hydratation.id && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
         if (testAbility(`active`, ability.hydratation.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
@@ -6290,10 +6754,10 @@ else {
 if (returnPkmnDivision(hostPkmn) === "D")  powerCost = 1
 if (returnPkmnDivision(hostPkmn) === "C")  powerCost = 3
 if (returnPkmnDivision(hostPkmn) === "B")  powerCost = 4
-if (returnPkmnDivision(hostPkmn) === "A")  powerCost = 6
-if (returnPkmnDivision(hostPkmn) === "S")  powerCost = 8
-if (returnPkmnDivision(hostPkmn) === "SS")  powerCost = 10
-if (returnPkmnDivision(hostPkmn) === "SSS")  powerCost = 12
+if (returnPkmnDivision(hostPkmn) === "A")  powerCost = 5
+if (returnPkmnDivision(hostPkmn) === "S")  powerCost = 6
+if (returnPkmnDivision(hostPkmn) === "SS")  powerCost = 7
+if (returnPkmnDivision(hostPkmn) === "SSS")  powerCost = 8
 }
 
 let compability = 1;
@@ -6329,9 +6793,9 @@ currentGeneticsCompatibility = compability
 document.getElementById("genetics-bar-compatibility").style.width = `${((compability-1) / 3) * 100}%`
 
 
-document.getElementById("genetics-bar-power").style.width = `${(powerCost / 12) * 100}%`
+document.getElementById("genetics-bar-power").style.width = `${(powerCost / 8) * 100}%`
 
-if (powerCost >= 8) document.getElementById("genetics-bar-power").style.backgroundColor = `coral`
+if (powerCost >= 6) document.getElementById("genetics-bar-power").style.backgroundColor = `coral`
 else {document.getElementById("genetics-bar-power").style.backgroundColor = `rgb(229, 143, 255)`}
 
 const timeNeeded = ( 10 * powerCost ) *60
@@ -6344,10 +6808,10 @@ const [h, m, x] = [
 document.getElementById("genetics-data-time").innerHTML = `${h}h ${m}m ${x}s`
 
 document.getElementById("genetics-warning").style.display = "none"
-if (powerCost>=8) document.getElementById("genetics-warning").style.display = "flex"
-if (powerCost==8) document.getElementById("genetics-warning").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>Warning, high Power Cost! Only 5 out of 6 maximum IV's per stat will be inherited!`
-if (powerCost==10) document.getElementById("genetics-warning").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>Warning, very high Power Cost! Only 4 out of 6 maximum IV's per stat will be inherited!`
-if (powerCost==12) document.getElementById("genetics-warning").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>Warning, extreme Power Cost! Only 3 out of 6 maximum IV's per stat will be inherited!`
+if (powerCost>=6) document.getElementById("genetics-warning").style.display = "flex"
+if (powerCost==6) document.getElementById("genetics-warning").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>Warning, high Power Cost! Only 5 out of 6 maximum IV's per stat will be inherited!`
+if (powerCost==7) document.getElementById("genetics-warning").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>Warning, very high Power Cost! Only 4 out of 6 maximum IV's per stat will be inherited!`
+if (powerCost==8) document.getElementById("genetics-warning").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>Warning, extreme Power Cost! Only 3 out of 6 maximum IV's per stat will be inherited!`
 
 let shinyChance = 1/100
 if (saved.geneticHost== undefined || saved.geneticSample == undefined) shinyChance = 0
@@ -6447,7 +6911,13 @@ if (mod==="end"){
 
     //pass moves
     pkmn[saved.geneticSample].movepool.forEach(moveID => {
-        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID)) && move[moveID].moveset!==undefined ) {pkmn[saved.geneticHost].movepool.push(moveID); summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(moveID)}!</div>`}
+        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID)) && move[moveID].moveset!==undefined ) {
+            pkmn[saved.geneticHost].movepool.push(moveID);
+            if (pkmn[saved.geneticHost].movepoolMemory == undefined) pkmn[saved.geneticHost].movepoolMemory = []
+            pkmn[saved.geneticHost].movepoolMemory.push(moveID);
+            
+            summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(moveID)}!</div>`
+        }
     });
 
 
@@ -6495,9 +6965,9 @@ if (mod==="end"){
     if (item == "powerAnklet") ivChanceSpe *= 20
 
     let ivCap = 6
-    if (powerCost==8) ivCap = 5
-    if (powerCost==10) ivCap = 4
-    if (powerCost==12) ivCap = 3
+    if (powerCost==6) ivCap = 5
+    if (powerCost==7) ivCap = 4
+    if (powerCost==8) ivCap = 3
 
 
     if (rng(ivChanceHp) && pkmn[saved.geneticHost].ivs.hp<Math.min(ivCap, pkmn[saved.geneticSample].ivs.hp)) {pkmn[saved.geneticHost].ivs.hp = Math.min(ivCap, pkmn[saved.geneticSample].ivs.hp) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ HP Iv's inherited!</div>`}
@@ -7063,7 +7533,7 @@ function returnHMS(seconds) {
   return `${h}h ${m}m ${s}s`;
 }
 
-function getEvolutionFamily(base) {
+/*function getEvolutionFamily(base) {
     const family = new Set();
     const stack = [base];
 
@@ -7084,7 +7554,7 @@ function getEvolutionFamily(base) {
     }
 
     return family;
-}
+}*/
 
 
 
@@ -7092,7 +7562,6 @@ function getEvolutionFamily(base) {
     const family = new Set();
     const stack = [base];
     
-    // Función auxiliar para encontrar pre-evoluciones
     function findPreEvolutions(target) {
         const preEvos = [];
         for (const key in pkmn) {
@@ -7114,7 +7583,7 @@ function getEvolutionFamily(base) {
         if (family.has(current)) continue;
         family.add(current);
         
-        // Buscar evoluciones (hacia adelante)
+        // search evos (forward)
         if (typeof current.evolve === "function") {
             const evoObj = current.evolve();
             for (const key in evoObj) {
@@ -7124,7 +7593,7 @@ function getEvolutionFamily(base) {
             }
         }
         
-        // Buscar pre-evoluciones (hacia atrás)
+        // search evos (backwards)
         const preEvos = findPreEvolutions(current);
         for (const preEvo of preEvos) {
             stack.push(preEvo);
@@ -7169,17 +7638,33 @@ function debugGetPkmn(level,mod){
 
 
 
-function testAbility(target,ability){
+function testAbility(target,id){
 
 
     if (target == "active"){
-        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == ability) return true
-        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.hiddenAbility?.id == ability && pkmn[ team[exploreActiveMember].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
+        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == id) return true
+        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.hiddenAbility?.id == id && pkmn[ team[exploreActiveMember].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
     }
 
     if (/slot1|slot2|slot3|slot4|slot5|slot6/.test(target)){
-        if (pkmn[ team[target].pkmn.id ]?.ability == ability) return true
-        if (pkmn[ team[target].pkmn.id ]?.hiddenAbility?.id == ability && pkmn[ team[target].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
+        if (pkmn[ team[target].pkmn.id ]?.ability == id) return true
+        if (pkmn[ team[target].pkmn.id ]?.hiddenAbility?.id == id && pkmn[ team[target].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
+    }
+
+    if (id == "ate"){ //used for cross bonus
+        if (testAbility(target, ability.ferrilate.id)) return true
+        if (testAbility(target, ability.glaciate.id)) return true
+        if (testAbility(target, ability.terralate.id)) return true
+        if (testAbility(target, ability.toxilate.id)) return true
+        if (testAbility(target, ability.hydrolate.id)) return true
+        if (testAbility(target, ability.pyrolate.id)) return true
+        if (testAbility(target, ability.chrysilate.id)) return true
+        if (testAbility(target, ability.galvanize.id)) return true
+        if (testAbility(target, ability.gloomilate.id)) return true
+        if (testAbility(target, ability.espilate.id)) return true
+        if (testAbility(target, ability.aerilate.id)) return true
+        if (testAbility(target, ability.pixilate.id)) return true
+        if (testAbility(target, ability.verdify.id)) return true
     }
 
 
@@ -7380,6 +7865,43 @@ function pkmnWalk(){
 }
 
 
+let statPkmnTotal = 0
+let statPkmnGot = 0
+let statPkmnShinyGot = 0
+
+function arceusCheck(){
+
+    if (pkmn.arceus.movepool.length==0) pkmn.arceus.movepool.push(move.judgment.id)
+
+    for (const i in pkmn) {
+        if (pkmn[i].hidden) continue
+        if (pkmn[i].tagObtainedIn == "unobtainable") continue
+        statPkmnTotal++
+        if (pkmn[i].caught==0) continue
+        statPkmnGot++
+        if (pkmn[i].shiny != true) continue
+        statPkmnShinyGot++
+    }
+
+    if (statPkmnGot == statPkmnTotal) {
+        pkmn.arceus.caught = 1
+    } else {
+        pkmn.arceus.caught = 0
+        for (const i in saved.previewTeams) { //goodbye g
+            for (const st in saved.previewTeams[i]){
+            if (saved.previewTeams[i][st].pkmn == pkmn.arceus.id) saved.previewTeams[i][st].pkmn = undefined
+            }
+        }
+    }
+
+    if (statPkmnShinyGot == statPkmnTotal) {
+        pkmn.arceus.shiny = true
+    } else pkmn.arceus.shiny = undefined
+
+
+}
+
+
 window.addEventListener('load', function() {
 
 
@@ -7434,6 +7956,6 @@ window.addEventListener('load', function() {
     assignPokerus()
 
     pkmnWalkCandidates()
-
+    arceusCheck()
     //updateTeamExp()
 });

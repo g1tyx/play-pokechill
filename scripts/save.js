@@ -26,11 +26,13 @@ function saveGame() {
     if (areas[i].type=="frontier") data[i].difficulty = areas[i].difficulty;
     if (areas[i].type=="frontier") data[i].tier = areas[i].tier;
     if (areas[i].type=="frontier") data[i].reward = areas[i].reward;
+    if (areas[i].type=="frontier") data[i].itemReward = areas[i].itemReward;
     if (areas[i].type=="frontier") data[i].background = areas[i].background;
     if (areas[i].id=="training") data[i].tier = areas[i].tier;
     if (areas[i].id=="training") data[i].currentTraining = areas[i].currentTraining;
     if (areas[i].id=="wildlifePark") data[i].spawns = areas[i].spawns;
     if (areas[i].id=="wildlifePark") data[i].icon = areas[i].icon;
+    if (areas[i].id==areas.frontierBattleFactory.id) data[i].icon = areas[i].icon;
   }
 
   // Pokémon
@@ -52,6 +54,7 @@ function saveGame() {
     data[i].ribbons = pkmn[i].ribbons;
     data[i].pokerus = pkmn[i].pokerus;
     data[i].recordSpiraling = pkmn[i].recordSpiraling;
+    data[i].movepoolMemory = pkmn[i].movepoolMemory;
   }
 
   localStorage.setItem("gameData", JSON.stringify(data));
@@ -85,11 +88,13 @@ function loadGame() {
     if (areas[i].type=="frontier") areas[i].difficulty = data[i].difficulty;
     if (areas[i].type=="frontier") areas[i].tier = data[i].tier;
     if (areas[i].type=="frontier") areas[i].reward = data[i].reward;
+    if (areas[i].type=="frontier") areas[i].itemReward = data[i].itemReward;
     if (areas[i].type=="frontier") areas[i].background = data[i].background;
     if (areas[i].id=="training") areas[i].tier = data[i].tier;
     if (areas[i].id=="training") areas[i].currentTraining = data[i].currentTraining;
     if (areas[i].id=="wildlifePark") areas[i].spawns = data[i].spawns;
     if (areas[i].id=="wildlifePark") areas[i].icon = data[i].icon;
+    if (areas[i].id==areas.frontierBattleFactory.id) areas[i].icon = data[i].icon;
 
   }
   }
@@ -112,6 +117,7 @@ function loadGame() {
       pkmn[i].ribbons = data[i].ribbons;
       pkmn[i].pokerus = data[i].pokerus;
       pkmn[i].recordSpiraling = data[i].recordSpiraling;
+      pkmn[i].movepoolMemory = data[i].movepoolMemory;
     }
   }
 

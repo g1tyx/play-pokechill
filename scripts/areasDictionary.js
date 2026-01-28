@@ -3252,7 +3252,8 @@ areas.vsGymLeaderBrock = {
         slot6 : pkmn.aerodactyl,
         slot6Moves : [move.smackDown.id, move.gust.id],
     },
-    reward : [item.hardStone, item.goldenBottleCap],
+    //reward : [item.hardStone, item.goldenBottleCap],
+    itemReward: { 1 : { item: item.hardStone.id, amount: 1 }, 2 : { item: item.bottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -3364,7 +3365,8 @@ areas.vsGymLeaderMisty = {
         slot6 : pkmn.starmie,
         slot6Moves : [move.psychic.id, move.auroraBeam.id, move.waterPulse.id],
     },
-    reward : [item.mysticWater, item.goldenBottleCap],
+    //reward : [item.mysticWater, item.goldenBottleCap],
+    itemReward: { 1 : { item: item.mysticWater.id, amount: 1 }, 2 : { item: item.bottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -3473,7 +3475,8 @@ areas.vsGymLeaderPhoebe = {
         slot6 : pkmn.dragapult,
         slot6Moves : [move.dragonClaw.id, move.hex.id, move.shadowBall.id, move.dragonDance.id],
     },
-    reward : [item.spellTag, item.goldenBottleCap],
+    //reward : [item.spellTag, item.goldenBottleCap],
+    itemReward: { 1 : { item: item.spellTag.id, amount: 1 }, 2 : { item: item.bottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -3583,7 +3586,8 @@ areas.vsEliteTrainerCynthia = {
         slot6 : pkmn.megaGarchomp,
         slot6Moves : [move.swordsDance.id, move.dragonTail.id, move.dragonRush.id, move.earthquake.id],
     },
-    reward : [item.dragonFang, item.goldenBottleCap],
+    //reward : [item.dragonFang, item.goldenBottleCap],
+    itemReward: { 1 : { item: item.dragonFang.id, amount: 1 }, 2 : { item: item.bottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -3696,7 +3700,8 @@ areas.vsEliteFourLance = {
         slot6 : pkmn.rayquaza,
         slot6Moves : [move.dragonDance.id, move.fly.id, move.dragonClaw.id, move.flamethrower.id],
     },
-    reward : [item.luckIncense, item.goldenBottleCap],
+    //reward : [item.luckIncense, item.goldenBottleCap],
+    itemReward: { 1 : { item: item.luckIncense.id, amount: 1 }, 2 : { item: item.bottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -3808,7 +3813,8 @@ areas.vsTeamLeaderGiovanni = {
         slot6 : pkmn.mewtwo,
         slot6Moves : [move.calmMind.id, move.psychic.id, move.shadowBall.id, move.confuseRay.id],
     },
-    reward : [item.abilityCapsule, item.goldenBottleCap],
+    //reward : [item.abilityCapsule, item.goldenBottleCap],
+    itemReward: { 1 : { item: item.abilityCapsule.id, amount: 3 }, 2 : { item: item.bottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -3926,7 +3932,9 @@ areas.vsMasterTrainerGeeta = {
         slot6 : pkmn.miraidon,
         slot6Moves : [move.electricTerrain.id, move.voltTackle.id, move.flashCannon.id, move.dragonPulse.id],
     },
-    reward : [item.autoRefightTicket, item.goldenBottleCap],
+    //reward : [item.autoRefightTicket, item.goldenBottleCap],
+    itemReward: { 1 : { item: item.autoRefightTicket.id, amount: 3 }, 2 : { item: item.bottleCap.id, amount: 10 }},
+
         encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -4577,6 +4585,15 @@ areas.frontierSpiralingTower = {
 }
 
 
+let battleFactoryScore = 0
+
+areas.frontierBattleFactory = {
+    type: `frontier`,
+    level : 100,
+    background : `lab`,
+    record : 1,
+    icon: pkmn.pikachu,
+}
 
 
 

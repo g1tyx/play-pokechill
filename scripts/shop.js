@@ -4,22 +4,17 @@
 
 const shop = {}
 
-shop.exchange = {
-    icon: item.goldenBottleCap.id,
-    name: `Golden Bottle Cap Exchange`,
-    price: 10,
-    category: `all`,
-    effect: function() {item.goldenBottleCap.got++}
-}
+//1 unit == 10-50 gold caps a day
 
 shop.exchange1 = {
     icon: item.bottleCap.id,
-    name: `Bottle Cap Exchange`,
+    name: `Bottle Cap x2`,
     price: 1,
     currency: `gold`,
     category: `all`,
-    effect: function() {item.bottleCap.got+=10}
+    effect: function() {item.bottleCap.got+=2}
 }
+
 
 shop.rareCandy = {
     icon: item.rareCandy.id,
@@ -35,12 +30,16 @@ shop.abilityPatch = {
 
 shop.abilityCapsule = {
     icon: item.abilityCapsule.id,
+    price: 50,
+    category: `goods`,
+}
+
+shop.heartScale = {
+    icon: item.heartScale.id,
     price: 5,
     currency: `gold`,
     category: `goods`,
 }
-
-
 
 
 
@@ -146,231 +145,314 @@ shop.spellTag = {
 
 shop.luckyEgg = {
     icon: item.luckyEgg.id,
-    price: 2,
-    currency: `gold`,
+    price: 20,
     category: `held`,
 }
 shop.flameOrb = {
     icon: item.flameOrb.id,
-    price: 2,
-    currency: `gold`,
+    price: 20,
     category: `held`,
 }
 shop.toxicOrb = {
     icon: item.toxicOrb.id,
-    price: 2,
-    currency: `gold`,
+    price: 20,
     category: `held`,
 }
 shop.luckIncense = {
     icon: item.luckIncense.id,
-    price: 3,
-    currency: `gold`,
+    price: 30,
     category: `held`,
 }
 shop.pureIncense = {
     icon: item.pureIncense.id,
-    price: 3,
-    currency: `gold`,
+    price: 30,
     category: `held`,
 }
 shop.choiceBand = {
     icon: item.choiceBand.id,
-    price: 5,
-    currency: `gold`,
+    price: 50,
     category: `held`,
 }
 shop.choiceSpecs = {
     icon: item.choiceSpecs.id,
-    price: 5,
-    currency: `gold`,
+    price: 50,
     category: `held`,
 }
 shop.lifeOrb = {
     icon: item.lifeOrb.id,
-    price: 5,
-    currency: `gold`,
+    price: 50,
     category: `held`,
 }
 
 shop.shinyCharm = {
     icon: item.shinyCharm.id,
+    price: 200,
+    category: `held`,
+}
+
+shop.electricSeed = {
+    icon: item.electricSeed.id,
+    price: 5,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.grassySeed = {
+    icon: item.grassySeed.id,
+    price: 5,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.mistySeed = {
+    icon: item.mistySeed.id,
+    price: 5,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.foggySeed = {
+    icon: item.foggySeed.id,
+    price: 5,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.clearAmulet = {
+    icon: item.clearAmulet.id,
+    price: 5,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.ejectPack = {
+    icon: item.ejectPack.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.ejectButton = {
+    icon: item.ejectButton.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.loadedDice = {
+    icon: item.loadedDice.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.metronome = {
+    icon: item.metronome.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.laggingTail = {
+    icon: item.laggingTail.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.weaknessPolicy = {
+    icon: item.weaknessPolicy.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.luckyPunch = {
+    icon: item.luckyPunch.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.powerHerb = {
+    icon: item.powerHerb.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.assaultVest = {
+    icon: item.assaultVest.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
+shop.leftovers = {
+    icon: item.leftovers.id,
     price: 20,
     currency: `gold`,
     category: `held`,
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 shop.waterStone = {
     icon: item.waterStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.thunderStone = {
     icon: item.thunderStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.sunStone = {
     icon: item.sunStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.ovalStone = {
     icon: item.ovalStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.moonStone = {
     icon: item.moonStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.leafStone = {
     icon: item.leafStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.iceStone = {
     icon: item.iceStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.fireStone = {
     icon: item.fireStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.duskStone = {
     icon: item.duskStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 shop.dawnStone = {
     icon: item.dawnStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 
 shop.shinyStone = {
     icon: item.shinyStone.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `evolution`,
 }
 
 shop.oddRock = {
     icon: item.oddRock.id,
-    price: 2,
-    currency: `gold`,
+    price: 20,
     category: `evolution`,
 }
 
 shop.linkStone = {
     icon: item.linkStone.id,
-    price: 2,
+    price: 20,
+    category: `evolution`,
+}
+
+
+shop.barbaracite = {
+    icon: item.barbaracite.id,
+    price: 50,
+    currency: `gold`,
+    category: `evolution`,
+}
+
+shop.hawluchanite = {
+    icon: item.hawluchanite.id,
+    price: 50,
+    currency: `gold`,
+    category: `evolution`,
+}
+
+shop.pyroarite = {
+    icon: item.pyroarite.id,
+    price: 50,
+    currency: `gold`,
+    category: `evolution`,
+}
+
+shop.falinksite = {
+    icon: item.falinksite.id,
+    price: 50,
     currency: `gold`,
     category: `evolution`,
 }
 
 
 
-
-
-
 shop.powerAnklet = {
     icon: item.powerAnklet.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `genetics`,
 }
 
 shop.powerBand = {
     icon: item.powerBand.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `genetics`,
 }
 
 shop.powerBelt = {
     icon: item.powerBelt.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `genetics`,
 }
 
 shop.powerBracer = {
     icon: item.powerBracer.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `genetics`,
 }
 
 shop.powerLens = {
     icon: item.powerLens.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `genetics`,
 }
 
 shop.powerWeight = {
     icon: item.powerWeight.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `genetics`,
 }
 
 shop.everstone = {
     icon: item.everstone.id,
-    price: 2,
-    currency: `gold`,
+    price: 20,
     category: `genetics`,
 }
 
 shop.energyRoot = {
     icon: item.energyRoot.id,
-    price: 2,
-    currency: `gold`,
+    price: 20,
     category: `genetics`,
 }
 
 shop.lockCapsule = {
     icon: item.lockCapsule.id,
-    price: 3,
-    currency: `gold`,
+    price: 30,
     category: `genetics`,
 }
 
 shop.destinyKnot = {
     icon: item.destinyKnot.id,
-    price: 5,
-    currency: `gold`,
+    price: 50,
     category: `genetics`,
 }
 
@@ -419,88 +501,364 @@ shop.willOWispTm = {
 
 shop.calmMindTm = {
     icon: item.calmMindTm.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
     category: `tm`,
 }
 
 shop.sunnyDayTm = {
     icon: item.sunnyDayTm.id,
-    price: 1,
-    currency: `gold`,
+    price: 10,
+    //currency: `gold`,
+    category: `tm`,
+}
+
+shop.rainDanceTm = {
+    icon: item.rainDanceTm.id,
+    price: 10,
+    //currency: `gold`,
     category: `tm`,
 }
 
 shop.crunchTm = {
     icon: item.crunchTm.id,
-    price: 2,
-    currency: `gold`,
+    price: 20,
     category: `tm`,
 }
 
 shop.xScissorTm = {
     icon: item.xScissorTm.id,
-    price: 2,
-    currency: `gold`,
+    price: 20,
     category: `tm`,
 }
 
 shop.moonblastTm = {
     icon: item.moonblastTm.id,
-    price: 2,
+    price: 20,
+    category: `tm`,
+}
+
+
+
+
+shop.fireBlastTm = {
+    icon: item.fireBlastTm.id,
+    price: 50,
+    category: `tm`,
+}
+
+shop.hydroPumpTm = {
+    icon: item.hydroPumpTm.id,
+    price: 50,
+    category: `tm`,
+}
+
+shop.thunderTm = {
+    icon: item.thunderTm.id,
+    price: 50,
+    category: `tm`,
+}
+
+shop.hyperBeamTm = {
+    icon: item.hyperBeamTm.id,
+    price: 50,
+    category: `tm`,
+}
+
+shop.swaggerTm = {
+    icon: item.swaggerTm.id,
+    price: 5,
     currency: `gold`,
     category: `tm`,
 }
 
-//temp
+shop.ironDefenseTm = {
+    icon: item.ironDefenseTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.feintAttackTm = {
+    icon: item.feintAttackTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.chillingWaterTm = {
+    icon: item.chillingWaterTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.silverWindTm = {
+    icon: item.silverWindTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.avalancheTm = {
+    icon: item.avalancheTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.knockOffTm = {
+    icon: item.knockOffTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.ominousWindTm = {
+    icon: item.ominousWindTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.flameChargeTm = {
+    icon: item.flameChargeTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.acidSprayTm = {
+    icon: item.acidSprayTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.hailTm = {
+    icon: item.hailTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.fogTm = {
+    icon: item.fogTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.sandstormTm = {
+    icon: item.sandstormTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.electricTerrainTm = {
+    icon: item.electricTerrainTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.mistyTerrainTm = {
+    icon: item.mistyTerrainTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.grassyTerrainTm = {
+    icon: item.grassyTerrainTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
 
 shop.nastyPlotTm = {
     icon: item.nastyPlotTm.id,
-    price: 3,
+    price: 10,
     currency: `gold`,
     category: `tm`,
 }
 
 shop.swordsDanceTm = {
     icon: item.swordsDanceTm.id,
-    price: 3,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.swordsDanceTm = {
+    icon: item.swordsDanceTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.voltSwitchTm = {
+    icon: item.voltSwitchTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.uTurnTm = {
+    icon: item.uTurnTm.id,
+    price: 10,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.chargeBeamTm = {
+    icon: item.chargeBeamTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.dischargeTm = {
+    icon: item.dischargeTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.scorchingSandsTm = {
+    icon: item.scorchingSandsTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.airShlashTm = {
+    icon: item.airShlashTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.poisonJabTm = {
+    icon: item.poisonJabTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.liquidationTm = {
+    icon: item.liquidationTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.energyBallTm = {
+    icon: item.energyBallTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.skyUppercutTm = {
+    icon: item.skyUppercutTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.dracoMeteorTm = {
+    icon: item.dracoMeteorTm.id,
+    price: 15,
+    currency: `gold`,
+    category: `tm`,
+}
+shop.spiritBreakTm = {
+    icon: item.spiritBreakTm.id,
+    price: 15,
     currency: `gold`,
     category: `tm`,
 }
 
 
 
-shop.fireBlastTm = {
-    icon: item.fireBlastTm.id,
-    price: 5,
+shop.alolanDiglett = {
+    pkmn: pkmn.alolanDiglett.id,
+    price: 30,
     currency: `gold`,
-    category: `tm`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.alolanDiglett,1)}
 }
 
-shop.hydroPumpTm = {
-    icon: item.hydroPumpTm.id,
-    price: 5,
+shop.galarianZigzagoon = {
+    pkmn: pkmn.galarianZigzagoon.id,
+    price: 30,
     currency: `gold`,
-    category: `tm`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.galarianZigzagoon,1)}
 }
 
-shop.thunderTm = {
-    icon: item.thunderTm.id,
-    price: 5,
+shop.galarianPonyta = {
+    pkmn: pkmn.galarianPonyta.id,
+    price: 30,
     currency: `gold`,
-    category: `tm`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.galarianPonyta,1)}
 }
 
-shop.hyperBeamTm = {
-    icon: item.hyperBeamTm.id,
-    price: 5,
+shop.alolanSandshrew = {
+    pkmn: pkmn.alolanSandshrew.id,
+    price: 50,
     currency: `gold`,
-    category: `tm`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.alolanSandshrew,1)}
 }
 
-//1,2,5 gold
+shop.hisuianVoltorb = {
+    pkmn: pkmn.hisuianVoltorb.id,
+    price: 50,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.hisuianVoltorb,1)}
+}
 
+shop.paldeanWooper = {
+    pkmn: pkmn.paldeanWooper.id,
+    price: 50,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.paldeanWooper,1)}
+}
 
+shop.hisuianQwilfish = {
+    pkmn: pkmn.hisuianQwilfish.id,
+    price: 50,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.hisuianQwilfish,1)}
+}
+
+shop.alolanRaichu = {
+    pkmn: pkmn.alolanRaichu.id,
+    price: 100,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.alolanRaichu,1)}
+}
+
+shop.hisuianBraviary = {
+    pkmn: pkmn.hisuianBraviary.id,
+    price: 100,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.hisuianBraviary,1)}
+}
+
+shop.hisuianSamurott = {
+    pkmn: pkmn.hisuianSamurott.id,
+    price: 100,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.hisuianSamurott,1)}
+}
+
+shop.hisuianLilligant = {
+    pkmn: pkmn.hisuianLilligant.id,
+    price: 100,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.hisuianLilligant,1)}
+}
+
+shop.gimmighoul = {
+    pkmn: pkmn.gimmighoul.id,
+    price: 999,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.gimmighoul,1)}
+}
 
 let shopCategory = undefined
 
@@ -545,17 +903,94 @@ function updateItemShop(){
 
     if (shop[i].category !== shopCategory && shop[i].category !== "all") continue
 
-    if (item[shop[i].icon].type == "held" && item[shop[i].icon].got>= 20) continue
-    
+    //if (item[shop[i].icon].type == "held" && item[shop[i].icon].got>= 20) continue
+
+    let name = ``
+
+
+    const div = document.createElement("div");
+
 
     let currency = `bottleCap`
     if (shop[i].currency == "gold") currency = `goldenBottleCap`
 
 
-    let name = format(shop[i].icon)
+
+
+    if (shop[i].icon){ //for shop items
+
+    if ((item[shop[i].icon].type=="held" && item[shop[i].icon].got>= 20 && item[shop[i].icon].heldBonusPkmn==undefined)
+        || (item[shop[i].icon].heldBonusPkmn && pkmn[item[shop[i].icon].heldBonusPkmn()].caught==0 && item[shop[i].icon].got>= 21)
+        || (item[shop[i].icon].heldBonusPkmn && pkmn[item[shop[i].icon].heldBonusPkmn()].caught>0 && item[shop[i].icon].got>= 20)
+    ) continue
+
+
+
+
+    name = format(shop[i].icon)
     if (shop[i].name) name = shop[i].name
 
-    const div = document.createElement("div");
+    div.dataset.item = shop[i].icon
+
+    if (item[i] && item[i].type=="tm"){ div.innerHTML = `
+    <img src="img/items/tm${format(move[item[i].move].type)}.png">
+        <span>${name}</span>
+    <strong>
+        <img src="img/items/${currency}.png">
+        x${shop[i].price}
+    </strong>
+    `;} else {div.innerHTML = `
+    <img src="img/items/${shop[i].icon}.png">
+        <span>${name}</span>
+    <strong>
+        <img src="img/items/${currency}.png">
+        x${shop[i].price}
+    </strong>
+    `}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    if (shop[i].pkmn) {
+
+
+    name = format(shop[i].pkmn)
+    div.dataset.pkmn = shop[i].pkmn
+
+
+    div.innerHTML = `
+        <img src="img/items/pokeball.png">
+        <span>${name}</span>
+    <strong>
+        <img src="img/items/${currency}.png">
+        x${shop[i].price}
+    </strong>
+    `
+
+
+
+
+
+
+
+    }
+
+    
+
+
 
 
 div.addEventListener("click", () => {
@@ -607,24 +1042,7 @@ div.addEventListener("click", () => {
         }
     }
 
-    div.dataset.item = shop[i].icon
 
-
-    if (item[i] && item[i].type=="tm"){ div.innerHTML = `
-    <img src="img/items/tm${format(move[item[i].move].type)}.png">
-        <span>${name}</span>
-    <strong>
-        <img src="img/items/${currency}.png">
-        x${shop[i].price}
-    </strong>
-    `;} else {div.innerHTML = `
-    <img src="img/items/${shop[i].icon}.png">
-        <span>${name}</span>
-    <strong>
-        <img src="img/items/${currency}.png">
-        x${shop[i].price}
-    </strong>
-    `}
 
 
     document.getElementById("shop-listing").appendChild(div);
