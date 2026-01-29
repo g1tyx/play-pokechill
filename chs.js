@@ -3750,5 +3750,5 @@ var cnRegReplace = new Map([
     [/^Req: (.+) \/ (.+) elves$/, '要求：$1 \/ $2 妖精'],
     [/^Usages: (\d+)\/$/, '用途：$1\/'],
     [/^workers: (\d+)\/$/, '工人：$1\/'],
-    [/Prevents negative status effects while on ${tagRainy} weather/, "处于${tagRainy}天气时，免疫负面异常状态",],
+    [/Prevents negative status effects while on ${tagRainy} weather/, "处于 ${tagRainy} 天气时，免疫负面异常状态"],
 ]);
