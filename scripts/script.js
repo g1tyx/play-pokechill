@@ -172,15 +172,23 @@ function updateGameVersion() {
 
   item.bottleCap.got += (item.goldenBottleCap.got*10)
   item.goldenBottleCap.got = 0
+  }
 
-
-
-  
+  if (saved.version<3.1){
+    team.slot1.turn = 1
+    team.slot2.turn = 1
+    team.slot3.turn = 1
+    team.slot4.turn = 1
+    team.slot5.turn = 1
+    team.slot6.turn = 1
   }
 
 
 
-  saved.version = 3.0
+
+
+
+  saved.version = 3.1
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 

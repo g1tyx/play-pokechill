@@ -841,6 +841,20 @@ Game Guide
 
 
 
+        <div id="wonder-menu">
+
+
+            <div class="wonder-content">
+                <img id="wonder-ball" src="img/items/beastball.png">
+                <img id="wonder-pkmn" class="sprite-trim" src="img/pkmn/sprite/dialga.png">
+                <img src="img/resources/pkmn-shadow.png" style="opacity: 0.5; margin-bottom:7rem; margin-top: -5rem;">
+                <div id="wonder-text" onclick="document.getElementById('wonder-menu').style.display = 'none'">Thanks for the Dialga!</div>
+            </div>
+
+
+        </div>
+
+
 
 
 
@@ -1318,6 +1332,12 @@ Game Guide
             <img src="img/items/parcel.png">
             <span>Export Reward</span>
         </div>
+
+        <div class="menu-item" id="menu-wonder-trade" onClick="claimWonderTrade()">
+            <img src="img/items/beastball.png">
+            <span>Wonder Trade</span>
+        </div>
+
 
         <div class="menu-item" id="menu-item-dictionary" onClick="switchMenu('dictionary')">
             <img src="img/items/journal.png">

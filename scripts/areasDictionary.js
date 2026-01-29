@@ -3942,6 +3942,7 @@ areas.vsMasterTrainerGeeta = {
         document.getElementById("tooltipMid").innerHTML = `
         <div class="genetics-overview-tags" >
         <div style="filter:hue-rotate(100deg)" >Tier III Event Raids unlocked</div>
+        <div style="filter:hue-rotate(200deg)" >Wonder trade unlocked</div>
         </div>
         `
         openTooltip()

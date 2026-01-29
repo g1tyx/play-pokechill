@@ -4369,9 +4369,10 @@ move.quiverDance = {
     split: "special",
     type: "bug",
     power: 0,
-    info: function() {return `Increases Speed, Special Defense and Special Attack by 50%`},
-    hitEffect: function(target) { moveBuff(target,'speup1',"self"); moveBuff(target,'sdefup1',"self"); moveBuff(target,'satkup1',"self") },
-    affectedBy: [ability.dancer.id]
+    info: function() {return `Increases Special Defense and Special Attack by 50%, and Speed by 100%`},
+    hitEffect: function(target) { moveBuff(target,'speup2',"self"); moveBuff(target,'sdefup1',"self"); moveBuff(target,'satkup1',"self") },
+    affectedBy: [ability.dancer.id],
+    restricted: true,
 }
 
 move.prismaticLaser = {

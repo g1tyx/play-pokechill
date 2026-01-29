@@ -12,6 +12,13 @@ team.slot4 = { }
 team.slot5 = { } 
 team.slot6 = { } 
 
+team.slot1.turn = 1
+team.slot2.turn = 1
+team.slot3.turn = 1
+team.slot4.turn = 1
+team.slot5.turn = 1
+team.slot6.turn = 1
+
 team.slot1.pkmn = undefined
 team.slot2.pkmn = undefined
 team.slot3.pkmn = undefined
@@ -776,57 +783,17 @@ function leaveCombat(){
 
     //spiraling tower rewards
     if (saved.currentSpiralFloor!==1 && (saved.currentSpiralFloor == saved.maxSpiralFloor)) {
-    const totalRewardsEarned = Math.floor(saved.maxSpiralFloor / 1)
-    const rewardsToGive = totalRewardsEarned - saved.spiralRewardsClaimed
-
-    if (saved.currentSpiralFloor>29) {
-        for (const slot in team) {
-            if (team[slot].pkmn == undefined) continue
-            giveRibbon(team[slot].pkmn, "tower1") 
-            pkmn[team[slot].pkmn.id].recordSpiraling = Math.max(saved.currentSpiralFloor, pkmn[team[slot].pkmn.id].recordSpiraling || 0)
-        }
-    } 
-
-    for (let i = 0; i < rewardsToGive; i++) {
-        const rewards = []
-
-        for (const i in spiralingRewards) {
-            if (spiralingRewards[i].rarity === 2 && rng(0.3)) continue
-            if (spiralingRewards[i].rarity === 3 && rng(0.6)) continue
-            if (spiralingRewards[i].rarity === 4 && rng(0.8)) continue
-            rewards.push(spiralingRewards[i].item)
-        }
-
-        const rewardId = arrayPick(rewards)
-        item[rewardId].newItem++
-        item[rewardId].got++
-
-        item.goldenBottleCap.newItem+=2
-        item.goldenBottleCap.got+=2
-
-
-
-        
-    }
-
-    saved.spiralRewardsClaimed += rewardsToGive
-    }
-
-
-
-//battle factory rewards
-const minimumScore = 1000 - (50 * (4 - rotationFrontierCurrent)) // 850, 900, 950, or 1000
-if (battleFactoryScore !== 0 && (battleFactoryScore == saved.maxFactoryScore)) {
-    const baseThreshold = 150
-    const thresholdIncrease = (rotationFrontierCurrent - 1) * 50
-    const scoreThreshold = baseThreshold + thresholdIncrease // 100, 150, 200, or 250
-    
-    if (saved.maxFactoryScore >= minimumScore) {
-        const totalRewardsEarned = Math.floor((saved.maxFactoryScore - minimumScore) / scoreThreshold)
-        const rewardsToGive = totalRewardsEarned - (saved.factoryRewardsClaimed || 0)
-        
+        const totalRewardsEarned = Math.floor(saved.maxSpiralFloor / 1)
+        const rewardsToGive = totalRewardsEarned - saved.spiralRewardsClaimed
+        if (saved.currentSpiralFloor>29) {
+            for (const slot in team) {
+                if (team[slot].pkmn == undefined) continue
+                giveRibbon(team[slot].pkmn, "tower1") 
+                pkmn[team[slot].pkmn.id].recordSpiraling = Math.max(saved.currentSpiralFloor, pkmn[team[slot].pkmn.id].recordSpiraling || 0)
+            }
+        } 
         for (let i = 0; i < rewardsToGive; i++) {
-            const currentRewardCount = (saved.factoryRewardsClaimed || 0) + i
+            const currentRewardCount = saved.spiralRewardsClaimed + i
             
             const rewards = []
             for (const i in spiralingRewards) {
@@ -836,49 +803,92 @@ if (battleFactoryScore !== 0 && (battleFactoryScore == saved.maxFactoryScore)) {
                 rewards.push(spiralingRewards[i].item)
             }
             const rewardId = arrayPick(rewards)
-            if (currentRewardCount < 30){
-                item[rewardId].newItem++
-                item[rewardId].got++
-            }
-            if (currentRewardCount < 100){
-                item.goldenBottleCap.newItem++
-                item.goldenBottleCap.got++
+
+            
+            if (currentRewardCount < 50){
+                item.goldenBottleCap.newItem+=2
+                item.goldenBottleCap.got+=2
+
+            item[rewardId].newItem++
+            item[rewardId].got++
             }
         }
+        saved.spiralRewardsClaimed += rewardsToGive
+    }
+
+    if (saved.currentArea == areas.frontierSpiralingTower.id){ //text
+        const div = document.createElement("span");
+        if (saved.spiralRewardsClaimed >= 50) {
+            setTimeout(() => {
+                div.innerHTML = `No more rewards available. Maybe try getting a hi-score?`
+                document.getElementById("area-end-moves-title").appendChild(div);
+                document.getElementById("area-end-moves-title").style.display = "flex"          
+            }, 1);
+        }
+    }
+
+
+    //battle factory rewards
+    const minimumScore = 1000
+    if (battleFactoryScore !== 0 && (battleFactoryScore == saved.maxFactoryScore)) {
+        const scoreThreshold = 200
         
-        saved.factoryRewardsClaimed = (saved.factoryRewardsClaimed || 0) + rewardsToGive
+        if (saved.maxFactoryScore >= minimumScore) {
+            const totalRewardsEarned = Math.floor((saved.maxFactoryScore - minimumScore) / scoreThreshold)
+            const rewardsToGive = totalRewardsEarned - (saved.factoryRewardsClaimed || 0)
+            
+            for (let i = 0; i < rewardsToGive; i++) {
+                const currentRewardCount = (saved.factoryRewardsClaimed || 0) + i
+                
+                const rewards = []
+                for (const i in spiralingRewards) {
+                    if (spiralingRewards[i].rarity === 2 && rng(0.3)) continue
+                    if (spiralingRewards[i].rarity === 3 && rng(0.6)) continue
+                    if (spiralingRewards[i].rarity === 4 && rng(0.8)) continue
+                    rewards.push(spiralingRewards[i].item)
+                }
+                const rewardId = arrayPick(rewards)
+                if (currentRewardCount < 30){
+                    item[rewardId].newItem++
+                    item[rewardId].got++
+                }
+                if (currentRewardCount < 100){
+                    item.goldenBottleCap.newItem++
+                    item.goldenBottleCap.got++
+                }
+            }
+            
+            saved.factoryRewardsClaimed = (saved.factoryRewardsClaimed || 0) + rewardsToGive
+        }
     }
-}
-if (saved.currentArea == areas.frontierBattleFactory.id){
-    const baseThreshold = 100
-    const thresholdIncrease = (rotationFrontierCurrent - 1) * 50
-    const scoreThreshold = baseThreshold + thresholdIncrease
-    const minimumScore = 1000 - (50 * (4 - rotationFrontierCurrent))
-    
-    const div = document.createElement("span");
-    if (battleFactoryScore < minimumScore){
-        setTimeout(() => {
-            div.innerHTML = `Reach a minimum score of ${minimumScore} in order to get rewards`
-            document.getElementById("area-end-moves-title").appendChild(div);
-            document.getElementById("area-end-moves-title").style.display = "flex"          
-        }, 1);
-    } else if (saved.factoryRewardsClaimed >= 100) {
-        setTimeout(() => {
-            div.innerHTML = `No more rewards available. Maybe try getting a hi-score?`
-            document.getElementById("area-end-moves-title").appendChild(div);
-            document.getElementById("area-end-moves-title").style.display = "flex"          
-        }, 1);
-    } else {
-        const totalRewardsEarned = Math.floor((saved.maxFactoryScore - minimumScore) / scoreThreshold)
-        const nextRewardThreshold = minimumScore + (scoreThreshold * (totalRewardsEarned + 1))
-        const div2 = document.createElement("span");
-        setTimeout(() => {
-            div2.innerHTML = `Next reward at ${nextRewardThreshold} score`
-            document.getElementById("area-end-moves-title").appendChild(div2);
-            document.getElementById("area-end-moves-title").style.display = "flex"          
-        }, 1);
+    if (saved.currentArea == areas.frontierBattleFactory.id){
+        const scoreThreshold = 200
+        const minimumScore = 1000
+        
+        const div = document.createElement("span");
+        if (battleFactoryScore < minimumScore){
+            setTimeout(() => {
+                div.innerHTML = `Reach a minimum score of ${minimumScore} in order to get rewards`
+                document.getElementById("area-end-moves-title").appendChild(div);
+                document.getElementById("area-end-moves-title").style.display = "flex"          
+            }, 1);
+        } else if (saved.factoryRewardsClaimed >= 100) {
+            setTimeout(() => {
+                div.innerHTML = `No more rewards available. Maybe try getting a hi-score?`
+                document.getElementById("area-end-moves-title").appendChild(div);
+                document.getElementById("area-end-moves-title").style.display = "flex"          
+            }, 1);
+        } else {
+            const totalRewardsEarned = Math.floor((saved.maxFactoryScore - minimumScore) / scoreThreshold)
+            const nextRewardThreshold = minimumScore + (scoreThreshold * (totalRewardsEarned + 1))
+            const div2 = document.createElement("span");
+            setTimeout(() => {
+                div2.innerHTML = `Next reward at ${nextRewardThreshold} score`
+                document.getElementById("area-end-moves-title").appendChild(div2);
+                document.getElementById("area-end-moves-title").style.display = "flex"          
+            }, 1);
+        }
     }
-}
 
 
 
@@ -1507,7 +1517,7 @@ function openMenu(){
 
 
 
-
+    if (saved.wonderTradeClaimed == true) document.getElementById(`menu-wonder-trade`).style.display = "none"
     if (saved.mysteryGiftClaimed == true) document.getElementById(`menu-mystery-gift`).style.display = "none"
     const today = new Date();
     if (today > mysteryGift.duration) document.getElementById(`menu-mystery-gift`).style.display = "none"
@@ -1518,6 +1528,9 @@ function openMenu(){
     
     if (areas.vsEliteFourLance.defeated == false)  {document.getElementById(`menu-item-genetics`).className = `menu-item menu-item-locked`}
     else {document.getElementById(`menu-item-genetics`).className = `menu-item`}
+
+    if (areas.vsMasterTrainerGeeta.defeated == false)  {document.getElementById(`menu-wonder-trade`).className = `menu-item menu-item-locked`}
+    else {document.getElementById(`menu-wonder-trade`).className = `menu-item`}
 
 
     if (areas.vsGymLeaderMisty.defeated == false)  {document.getElementById(`menu-item-training`).className = `menu-item menu-item-locked`}
@@ -1719,7 +1732,7 @@ function updateTeamPkmn(){
         } updateTeamBuffs()
 
         cancelCurrentPlayerAttack = true
-        exploreCombatPlayerTurn = 1
+        team[exploreActiveMember].turn = 1
 
 
         //if (team?.slot6?.pkmn?.id !== undefined) if (pkmn[ team?.slot6?.pkmn?.id ].playerHp > 0) exploreActiveMember = `slot6`
@@ -2022,25 +2035,24 @@ function exploreCombatPlayer() {
         return;
     }
 
+    let currentTurn = team[exploreActiveMember].turn
+
     //set parameters once
-    if (nextMoveBoxPlayer != document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}`)) nextMoveBoxPlayer = document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}`);
+    if (nextMoveBoxPlayer != document.getElementById(`pkmn-movebox-slot${currentTurn}-team-${exploreActiveMember}`)) nextMoveBoxPlayer = document.getElementById(`pkmn-movebox-slot${currentTurn}-team-${exploreActiveMember}`);
     if (nextMovePlayer != nextMoveBoxPlayer?.dataset?.move) nextMovePlayer = nextMoveBoxPlayer?.dataset?.move;
     if (moveTimerPlayer != move[nextMovePlayer]?.timer) moveTimerPlayer = move[nextMovePlayer]?.timer; 
-    if (barPlayer != document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}-bar`)) barPlayer = document.getElementById(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}-bar`);
+    if (barPlayer != document.getElementById(`pkmn-movebox-slot${currentTurn}-team-${exploreActiveMember}-bar`)) barPlayer = document.getElementById(`pkmn-movebox-slot${currentTurn}-team-${exploreActiveMember}-bar`);
 
     //rotation reset
-    if (exploreCombatPlayerTurn >= 5){
-        exploreCombatPlayerTurn = 1;
-
-        if (team[exploreActiveMember].item == item.ejectButton.id) {switchMemberNext(); return}
-        if (team[exploreActiveMember].item == item.ejectPack.id) {switchMemberNext(-1); return}
+    if (currentTurn >= 5){
+        team[exploreActiveMember].turn = 1;
 
         return;
     }
 
     // if it finds an undefined move
     if (!nextMovePlayer) {
-        exploreCombatPlayerTurn++;
+        team[exploreActiveMember].turn++;
         lastCrossStab = undefined
         return;
     }
@@ -2076,7 +2088,7 @@ function exploreCombatPlayer() {
 
 
 
-    if (afkSeconds <= 0 && lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && barPlayer.style.backgroundImage != crossPattern && !testAbility(`active`, "ate")) barPlayer.style.backgroundImage = crossPattern
+    if (afkSeconds <= 0 && lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && barPlayer.style.backgroundImage != crossPattern && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) &&  !testAbility(`active`, ability.protean.id) ) barPlayer.style.backgroundImage = crossPattern
 
 
 
@@ -2123,8 +2135,12 @@ function exploreCombatPlayer() {
     } else {
 
         barProgressPlayer = 0
-        if (afkSeconds <= 0) voidAnimation(`pkmn-movebox-slot${exploreCombatPlayerTurn}-team-${exploreActiveMember}`, "moveboxFire 1 0.3s");
-        exploreCombatPlayerTurn++;
+        if (afkSeconds <= 0) voidAnimation(`pkmn-movebox-slot${currentTurn}-team-${exploreActiveMember}`, "moveboxFire 1 0.3s");
+        
+        team[exploreActiveMember].turn++;
+
+
+
         barPlayer.style.width = `0%`;
 
         //on move execution
@@ -2165,6 +2181,23 @@ function exploreCombatPlayer() {
         //abilities
         if (testAbility(`active`, ability.technician.id) && movePower<=60 ) movePower *= 1.5
 
+        if (testAbility(`active`, ability.ironFist.id) && nextMove.affectedBy?.includes(ability.ironFist.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.strongJaw.id) && nextMove.affectedBy?.includes(ability.strongJaw.id) ) movePower *= 2
+        if (testAbility(`active`, ability.toughClaws.id) && nextMove.affectedBy?.includes(ability.toughClaws.id) ) movePower *= 2
+        if (testAbility(`active`, ability.sharpness.id) && nextMove.affectedBy?.includes(ability.sharpness.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.megaLauncher.id) && nextMove.affectedBy?.includes(ability.megaLauncher.id) ) movePower *= 1.5
+        if (testAbility(`active`, ability.metalhead.id) && nextMove.affectedBy?.includes(ability.metalhead.id) ) movePower *= 1.5
+
+
+        if (testAbility(`active`, ability.reckless.id) && nextMove.timer>defaultPlayerMoveTimer ) movePower *= 1.5
+        if (testAbility(`active`, ability.libero.id) && nextMove.timer<defaultPlayerMoveTimer ) movePower *= 2
+
+
+
+
+
+
+
 
         let multihit = 1
         if (nextMove.multihit) multihit = random(nextMove.multihit[0], nextMove.multihit[1])
@@ -2186,16 +2219,7 @@ function exploreCombatPlayer() {
 
 
 
-        if (testAbility(`active`, ability.ironFist.id) && nextMove.affectedBy?.includes(ability.ironFist.id) ) movePower *= 1.5
-        if (testAbility(`active`, ability.strongJaw.id) && nextMove.affectedBy?.includes(ability.strongJaw.id) ) movePower *= 2
-        if (testAbility(`active`, ability.toughClaws.id) && nextMove.affectedBy?.includes(ability.toughClaws.id) ) movePower *= 2
-        if (testAbility(`active`, ability.sharpness.id) && nextMove.affectedBy?.includes(ability.sharpness.id) ) movePower *= 1.5
-        if (testAbility(`active`, ability.megaLauncher.id) && nextMove.affectedBy?.includes(ability.megaLauncher.id) ) movePower *= 1.5
-        if (testAbility(`active`, ability.metalhead.id) && nextMove.affectedBy?.includes(ability.metalhead.id) ) movePower *= 1.5
 
-
-        if (testAbility(`active`, ability.reckless.id) && nextMove.timer>defaultPlayerMoveTimer ) movePower *= 1.5
-        if (testAbility(`active`, ability.libero.id) && nextMove.timer<defaultPlayerMoveTimer ) movePower *= 2
 
 
         
@@ -2332,7 +2356,7 @@ function exploreCombatPlayer() {
         totalPower *= typeMultiplier
 
 
-        if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && !testAbility(`active`, "ate")) totalPower *= 1.2
+        if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) &&  !testAbility(`active`, ability.protean.id) ) totalPower *= 1.2
 
 
 
@@ -2372,6 +2396,7 @@ function exploreCombatPlayer() {
         if (team[exploreActiveMember].item == item.loadedDice.id && nextMove.affectedBy?.includes(ability.skillLink.id)) totalPower *= 1.2
         if (team[exploreActiveMember].item == item.luckyPunch.id && nextMove.affectedBy?.includes(ability.ironFist.id)) movePower *= item.luckyPunch.power()
         if (team[exploreActiveMember].item == item.metronome.id && nextMove.buildup !== undefined) movePower *= item.metronome.power()
+        if (team[exploreActiveMember].item == item.laggingTail.id && nextMove.affectedBy?.includes(ability.reckless.id)) movePower *= item.laggingTail.power()
 
 
 
@@ -2508,13 +2533,26 @@ function exploreCombatPlayer() {
         team[exploreActiveMember].damageDealt += Math.min(totalPower, wildPkmnHp)
         
         if (saved.currentArea == areas.frontierBattleFactory.id) {
-            battleFactoryScore += Math.ceil(totalPower/100)
+
+            let divisionMult = 1
+
+            //was .25, but too low i believe, at least for div 3
+            if (rotationFrontierCurrent == 1)  divisionMult = 1.5
+            if (rotationFrontierCurrent == 3)  divisionMult = 0.5
+            if (rotationFrontierCurrent == 4)  divisionMult = 0.25
+
+            battleFactoryScore += Math.ceil(  (totalPower*divisionMult)  /100)
+
+
+
             if (battleFactoryScore>saved.maxFactoryScore) {
             saved.maxFactoryScore = battleFactoryScore
             document.getElementById(`factory-highest-score`).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.25 4.593v8.903q.162-.053.34-.108c.761-.231 1.788-.488 2.66-.488c1.418 0 2.74.432 3.934.821l.049.016c1.245.406 2.358.763 3.517.763c.936 0 2.256-.36 3-.593V5.073c-.806.232-2.015.527-3 .527c-1.418 0-2.74-.432-3.934-.821l-.049-.016C10.522 4.357 9.41 4 8.25 4c-.652 0-1.51.178-2.248.375c-.287.076-.545.153-.752.218m0 10.488c.21-.075.479-.167.777-.258c.737-.224 1.586-.423 2.223-.423c1.16 0 2.272.357 3.517.763l.049.016c1.193.39 2.516.821 3.934.821c1.289 0 2.977-.507 3.648-.725c.522-.168.852-.653.852-1.177V4.759c0-.87-.85-1.448-1.642-1.208c-.781.237-1.99.549-2.858.549c-1.16 0-2.272-.357-3.517-.763l-.049-.016C10.991 2.931 9.668 2.5 8.25 2.5c-.858 0-1.874.222-2.635.425a21 21 0 0 0-1.337.408l-.021.008l-.006.002h-.002l.251.707l-.252-.706a.75.75 0 0 0-.498.706v16.7a.75.75 0 0 0 1.5 0z" clip-rule="evenodd"/><path fill="currentColor" d="M4.5 4.05s2.24-.8 3.75-.8c2.597 0 4.903 1.6 7.5 1.6c.99 0 2.295-.344 3.075-.581c.331-.1.675.145.675.49v9.339c0 .21-.132.399-.333.464c-.68.22-2.262.688-3.417.688c-2.597 0-4.903-1.6-7.5-1.6c-1.51 0-3.75.912-3.75.912z" opacity="0.5"/></svg>Highest Score: ${saved.maxFactoryScore}</div>`
             }
             document.getElementById(`factory-current-score`).innerHTML = `Score: ${battleFactoryScore}`
         }
+
+        //console.log(totalPower, defender.id, nextMove.id)
 
         wildPkmnHp -= totalPower;
        
@@ -2604,9 +2642,14 @@ function exploreCombatPlayer() {
 
 
         if (saved.currentArea == areas.frontierBattleFactory.id) fatigueDamage = attacker.playerHpMax/15
-
         attacker.playerHp -= fatigueDamage
         updateTeamPkmn()
+
+
+        if (team[exploreActiveMember].turn>=5){
+        if (team[exploreActiveMember].item == item.ejectButton.id) {switchMemberNext(); return}
+        if (team[exploreActiveMember].item == item.ejectPack.id) {switchMemberNext(-1); return}
+        }
 
 
 
@@ -3350,10 +3393,18 @@ function initialiseArea(){
     updateTeamBuffs()
     updateWildBuffs()
 
-    exploreCombatPlayerTurn = 1
     exploreCombatWildTurn = 0
     battleFactoryScore = 0
     lastCrossStab = undefined
+
+
+    team.slot1.turn = 1
+    team.slot2.turn = 1
+    team.slot3.turn = 1
+    team.slot4.turn = 1
+    team.slot5.turn = 1
+    team.slot6.turn = 1
+    
     //exploreCombatPlayer()
     //exploreCombatPlayer()
     //exploreCombatWild()
@@ -6105,6 +6156,7 @@ function loop() {
 
         if (elapsedDifference >= 43200) {
             saved.claimedExportReward = false;
+            saved.wonderTradeClaimed = false;
             saved.lastExportReset = timeNow;
         }
 
@@ -7672,6 +7724,7 @@ function testAbility(target,id){
 }
 
 saved.mysteryGiftClaimed = undefined
+saved.wonderTradeClaimed = undefined
 
 const mysteryGift = {
     effect: function() {  
@@ -7732,6 +7785,85 @@ function returnDivisionStars(target, stat){
     if (division == "S") return 5 + bonus
     if (division == "SS" || division == "SSS") return 6 + bonus*/
 
+
+
+}
+
+
+
+function claimWonderTrade(){
+
+
+    if (areas.vsMasterTrainerGeeta.defeated == false) {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `Defeat Master Trainer Geeta in VS mode to unlock`
+        openTooltip()
+        return
+    }
+
+
+    document.getElementById("tooltipTop").style.display = "none"
+    document.getElementById("tooltipTitle").innerHTML = `Wonder Trade`
+    document.getElementById("tooltipMid").innerHTML = `Every 12h you might receive a random pokemon`
+    document.getElementById("tooltipBottom").innerHTML = `
+
+        <div onclick="wonderTrade()" class="custom-challenge-button" style="margin-top:0.5rem">Let's do it!</div>
+    
+    `
+    openTooltip()
+
+}
+
+function wonderTrade(){
+
+    closeTooltip()
+    openMenu()
+
+    document.getElementById("wonder-menu").style.display = "flex"
+
+    let chosenPokemon = `magikarp`
+    let chosenShiny = false
+    let unobtainedPokemon = []
+    let obtainedPokemon = []
+
+    for (const i in pkmn){
+        if (pkmn[i].caught>0) continue
+        if (pkmn[i].tagObtainedIn == "frontier" || pkmn[i].tagObtainedIn == "wild" || pkmn[i].tagObtainedIn == "park") unobtainedPokemon.push(i)
+    }
+
+    if (rng(0.5) && unobtainedPokemon.length>0){ //new pokemon
+        if (rng(0.15)) chosenShiny = true
+
+        chosenPokemon = arrayPick(unobtainedPokemon)
+        givePkmn(pkmn[chosenPokemon],1)
+
+    } else { //not so new
+        if (rng(0.50)) chosenShiny = true
+
+        for (const i in pkmn){
+            if (pkmn[i].caught==0) continue
+            if (pkmn[i].shiny==true) continue
+            obtainedPokemon.push(i)
+        }
+
+        chosenPokemon = arrayPick(obtainedPokemon)
+    }
+
+    if (chosenShiny) pkmn[chosenPokemon].shiny = true
+    document.getElementById("wonder-text").innerHTML = `Thanks for the ${format(chosenPokemon)}!`
+    document.getElementById("wonder-pkmn").src = `img/pkmn/sprite/${chosenPokemon}.png`
+    if (chosenShiny) document.getElementById("wonder-pkmn").src = `img/pkmn/shiny/${chosenPokemon}.png`
+
+    document.getElementById("wonder-pkmn").oncontextmenu = null;
+    document.getElementById("wonder-pkmn").oncontextmenu = (e) => {
+    tooltipData('pkmnEditor', chosenPokemon)
+    document.getElementById("wonder-menu").style.display = "none"
+    }
+
+
+    saved.wonderTradeClaimed = true
 
 
 }
