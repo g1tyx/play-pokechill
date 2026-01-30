@@ -3735,6 +3735,10 @@ var cnExcludePostfix = [
 //换行加空格：\n(.+)
 //&nbsp;空格：\xA0
 var cnRegReplace = new Map([
+    [/^(\d+)% chance to inflict Burn$/, '有$1%的概率造成烧伤'],
+    [/^(\d+)% chance to inflict Poisoned$/, '有$1%的概率造成中毒'],
+    [/^ $/, ''],
+    [/^ $/, ''],
     [/^Highest Reached Floor: (\d+)$/, '最高抵达层数：$1'],
     [/^Highest Score: (\d+)$/, '最高分数：$1'],
     [/^Score: (\d+)$/, '分数：$1'],
