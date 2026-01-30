@@ -125,6 +125,8 @@ var cnItems = {
     "VS Trainers": "与训练家对战",
     "Defeat increasingly difficult trainers and carve yourself a path of fame! You may unlock additional areas to explore as your progress": "击败越来越强的训练家，闯出自己的成名之路！随着不断进步，你还将解锁更多可供探索的区域",
     "Battle Frontier": "对战开拓区",
+    "Wonder Trade": "奇迹交换",
+    "Defeat Master Trainer Geeta in VS mode to unlock": "在对战模式中击败 大师训练家 也慈 即可解锁",
         // 训练家信息
         "Youngster Billy": "短裤少年 比利",
         "Aroma Lady Jana": "香氛姐姐 亚娜",
