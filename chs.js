@@ -3576,6 +3576,7 @@ var cnPostfix = {
     "Ancient Tomb": "古代坟墓",
     "Tomb": "坟墓",
     "the Pokemon Hidden Ability": "宝可梦的隐藏特性",
+    " ✔️": " ✔️",
     "                   ": "                   ",
     "                  ": "                  ",
     "                 ": "                 ",
