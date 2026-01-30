@@ -3729,7 +3729,7 @@ move.boomburst = {
 
 move.eggBomb = {
     split: "physical",
-    type: "grass",
+    type: "normal",
     power: t4Base,
 }
 
@@ -4335,7 +4335,7 @@ move.barbBarrage = {
 
 move.barrage = {
     split: "physical",
-    type: "normal",
+    type: "grass",
     power: t4Base/3,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
