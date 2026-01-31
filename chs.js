@@ -130,6 +130,11 @@ var cnItems = {
     "Defeat Master Trainer Geeta in VS mode to unlock": "在对战模式中击败 大师训练家 也慈 即可解锁",
     "Warning, high Power Cost! Only 5 out of 6 maximum IV's per stat will be inherited!": "警告，能量消耗较高！单项能力值的6项满个体值中，仅可遗传5项！",
     "You can find more information about the specifics of genetics in the guide section": "你可在指南板块中查看宝可梦遗传机制的详细说明",
+    "Abort": "取消",
+    "Operation finished!": "操作完成！",
+    "Do you want to use a genetic-aiding item?": "你想使用一个遗传辅助物品吗？",
+    "The item will be consumed on use": "物品将在使用时消耗",
+    "Nope": "否",
     "All trainers defeated!": "已击败所有训练家！",
     "How about the Battle Frontier?": "要不要去对战开拓区试试？",
     // 训练家信息
@@ -273,7 +278,6 @@ var cnItems = {
     "- Aether Takeover -": "- 以太掌控 -",
     "Paupau Festival": "花舞节",
     "Aether Headquarters": "以太总部",
-    "Aether Keycard ": "以太门禁卡",
     "Chamber-00": "密室-00",
     "Chamber-01": "密室-01",
     "Chamber-02": "密室-02",
@@ -288,6 +292,7 @@ var cnItems = {
     "Defeat Master Trainer Geeta in VS to unlock": "在对战模式中击败 大师训练家 也慈 即可解锁",
     "Wormhole Residue ": "虫洞残屑",
     "Wormhole Space": "虫洞空间",
+    "Tempest Trench": "风暴海沟",
     // 对战开拓区
     "Ultra League": "究极联盟",
     "Trainer Reset": "训练家轮换",
@@ -3312,6 +3317,7 @@ var cnItems = {
     "Ancient Orchid": "古兰花",
     "Ancient Keystones": "古代钥石",
     "Ancient Keystone": "古代钥石",
+    "Aether Keycard": "以太门禁卡",
     "Future Disk": "未来磁盘",
     "Proton City": "质子城",
     "Requires a": "需要",
@@ -3639,6 +3645,7 @@ var cnItems = {
 //例如：Coin: 13、Coin: 14、Coin: 15... 这种有相同开头的语句
 //可以在这里汉化开头："Coin: ":"金币: "
 var cnPrefix = {
+    "This move is restricted (": "这个招式是受限的（",
     "Power doubles if the target is": "威力翻倍，当目标处于",
     "Increases Attack and Speed by 50%": "物攻和速度提高 50%",
     "Removes": "移除",
@@ -3720,6 +3727,7 @@ var cnPrefix = {
 //例如：13 Coin、14 Coin、15 Coin... 这种有相同结尾的语句
 //可以在这里汉化结尾：" Coin":" 金币"
 var cnPostfix = {
+    ") and only one of them can be present in the active moves at a time": "）在活跃招式中只能同时存在一个",
     "Attacks x1.4 slower than usual": "攻击速度比通常慢 1.4 倍",
     "to the entire team": "给整个队伍",
     "and decreases enemy Speed by 50%": "并降低对手速度 50%",
