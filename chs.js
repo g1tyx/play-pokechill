@@ -272,6 +272,14 @@ var cnItems = {
     "Paupau Festival": "花舞节",
     "Aether Headquarters": "以太总部",
     "Aether Keycard ": "以太门禁卡",
+    "Chamber-00": "密室-00",
+    "Chamber-01": "密室-01",
+    "Chamber-02": "密室-02",
+    "Chamber-03": "密室-03",
+    "Chamber-04": "密室-04",
+    "Empty Reality": "空寂领域",
+    "Glowing Reality": "辉光领域",
+    "Tropical Reality": "热带领域",
     "Flower Meadow": "花之草原",
     "Defeat Master Trainer Geeta in VS to unlock": "在对战模式中击败 大师训练家 也慈 即可解锁",
     "Wormhole Residue ": "虫洞残屑",
@@ -3747,6 +3755,7 @@ var cnExcludePostfix = [
 //换行加空格：\n(.+)
 //&nbsp;空格：\xA0
 var cnRegReplace = new Map([
+    [/^Caught: (\d+)$/, '捕获数：$1'],
     [/^(\d+)% chance to inflict Burn$/, '有$1%的概率造成烧伤'],
     [/^(\d+)% chance to inflict Poisoned$/, '有$1%的概率造成中毒'],
     [/^ $/, ''],
