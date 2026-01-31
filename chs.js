@@ -129,6 +129,8 @@ var cnItems = {
     "Defeat Master Trainer Geeta in VS mode to unlock": "在对战模式中击败 大师训练家 也慈 即可解锁",
     "Warning, high Power Cost! Only 5 out of 6 maximum IV's per stat will be inherited!": "警告，能量消耗较高！单项能力值的6项满个体值中，仅可遗传5项！",
     "You can find more information about the specifics of genetics in the guide section": "你可在指南板块中查看宝可梦遗传机制的详细说明",
+    "All trainers defeated!": "已击败所有训练家！",
+    "How about the Battle Frontier?": "要不要去对战开拓区试试？",
     // 训练家信息
     "Youngster Billy": "短裤少年 比利",
     "Aroma Lady Jana": "香氛姐姐 亚娜",
@@ -285,6 +287,7 @@ var cnItems = {
     "Flower Meadow": "花之草原",
     "Defeat Master Trainer Geeta in VS to unlock": "在对战模式中击败 大师训练家 也慈 即可解锁",
     "Wormhole Residue ": "虫洞残屑",
+    "Wormhole Space": "虫洞空间",
     // 对战开拓区
     "Ultra League": "究极联盟",
     "Trainer Reset": "训练家轮换",
@@ -2299,9 +2302,6 @@ var cnItems = {
     "": "",
     "": "",
     // 特性描述
-    "Prevents negative status effects while on ${tagRainy} weather": "处于${tagRainy}天气时，免疫负面异常状态",
-    "Prevents negative status effects while on ${tagSandstorm} weather": "处于${tagSandstorm}天气时，免疫负面异常状态",
-    "Prevents negative status effects while on ${tagHail} weather": "处于${tagHail}天气时，免疫负面异常状态",
     "Grants immunity to": "免疫",
     "Halves the damage received of Fighting-type moves": "受到格斗属性招式的伤害减半",
     "Halves the damage received of Water-type moves": "受到水属性招式的伤害减半",
@@ -3586,7 +3586,7 @@ var cnPrefix = {
     "Animations: ": "动画: ",
     "Current Endgame: ": "当前终局: ",
     "Space Background: ": "太空背景: ",
-    "Select a pokemon to teach ": "选择一个宝可梦教授 ",
+    "Select a pokemon to teach ": "选择一个宝可梦传授 ",
 }
 
 //需处理的后缀，此处可以截取语句结尾部分的内容进行汉化
@@ -3757,6 +3757,10 @@ var cnExcludePostfix = [
 //换行加空格：\n(.+)
 //&nbsp;空格：\xA0
 var cnRegReplace = new Map([
+    //"Prevents negative status effects while on ${tagRainy} weather": "",
+    //"Prevents negative status effects while on ${tagSandstorm} weather": "处于${tagSandstorm}天气时，免疫负面异常状态",
+    //"Prevents negative status effects while on ${tagHail} weather": "处于${tagHail}天气时，免疫负面异常状态",
+    [/^Prevents negative status effects while on (.+) weather$/, '处于 $1 天气时，免疫负面异常状态'],
     [/^Caught: (\d+)$/, '捕获数：$1'],
     [/^(\d+)% chance to inflict Burn$/, '有$1%的概率造成烧伤'],
     [/^(\d+)% chance to inflict Poisoned$/, '有$1%的概率造成中毒'],
