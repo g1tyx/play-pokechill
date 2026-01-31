@@ -277,6 +277,8 @@ var cnItems = {
     "Chamber-02": "密室-02",
     "Chamber-03": "密室-03",
     "Chamber-04": "密室-04",
+    "Distant Nebula": "遥远星云",
+    "Experimental Lab": "研究所",
     "Empty Reality": "空寂领域",
     "Glowing Reality": "辉光领域",
     "Tropical Reality": "热带领域",
