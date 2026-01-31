@@ -2548,6 +2548,13 @@ var cnItems = {
     "Changes the type of the user to the type of the first move slot": "将使用者的属性改变为第一个招式槽的属性",
     "Type changes based on the first type of the user": "招式属性根据使用者的第一个属性改变",
     "Executes the first move slot. Attacks x1.5 slower than usual": "执行第一个招式槽的招式。攻击速度比通常慢 1.5 倍",
+    "Temporarily adds Ground to the type of the enemy. Replaces other temporary types": "暂时给对手添加地面属性，会替换其他临时属性",
+    "Temporarily adds Electric to the type of the enemy. Replaces other temporary types": "暂时给对手添加电属性，会替换其他临时属性",
+    "Temporarily adds Ghost to the type of the enemy. Replaces other temporary types": "暂时给对手添加幽灵属性，会替换其他临时属性",
+    "Temporarily adds Grass to the type of the enemy. Replaces other temporary types": "暂时给对手添加草属性，会替换其他临时属性",
+    "Temporarily adds Ground to the type of the enemy. Replaces other temporary types": "暂时给对手添加地面属性，会替换其他临时属性",
+    "Temporarily adds Psychic to the type of the enemy. Replaces other temporary types": "暂时给对手添加超能力属性，会替换其他临时属性",
+    "Temporarily adds Water to the type of the enemy. Replaces other temporary types": "暂时给对手添加水属性，会替换其他临时属性",
     // 招式
     // 技能
     "Paralysis": "麻痹",
@@ -3671,6 +3678,7 @@ var cnItems = {
 //例如：Coin: 13、Coin: 14、Coin: 15... 这种有相同开头的语句
 //可以在这里汉化开头："Coin: ":"金币: "
 var cnPrefix = {
+    "Increases Attack and Speed by 50%": "全队的物攻和速度提高50%",
     "Removes": "移除",
     "Increases Speed by 50% on": "速度提升50%，当处于",
     "Increases Attack by 50% on": "物理攻击提升50%，当处于",
@@ -3750,7 +3758,7 @@ var cnPrefix = {
 //例如：13 Coin、14 Coin、15 Coin... 这种有相同结尾的语句
 //可以在这里汉化结尾：" Coin":" 金币"
 var cnPostfix = {
-    "to the entire team": "给敌方整个队伍",
+    "to the entire team": "给整个队伍",
     "and decreases enemy Speed by 50%": "并降低对手速度50%",
     "and increases Special Attack by 50%": "并提升特攻50%",
     "for the entire party": "为整个队伍",
@@ -3940,6 +3948,7 @@ var cnRegReplace = new Map([
     [/^(\d+)% chance to inflict Poisoned$/, '有$1%的概率造成中毒'],
     [/^Multiplies move power by ([\d\.]+)x everytime its used, up to (\d+) times. Depletes all stacks upon switching Pokemon$/, '每次使用招式威力提高 $1 倍，最多 $2 次。交换宝可梦时叠加效果消失'],
     [/^ $/, ''],
+    [/^ $/, ''],
     // 提高
     [/^Increases Defense by (\d+)%$/, '防御提高 $1%'],
     [/^Increases Special Defense by (\d+)%$/, '特防提高 $1%'],
@@ -3955,7 +3964,6 @@ var cnRegReplace = new Map([
     [/^Increases Attack and Special Attack by (\d+)%$/, '物攻和特攻提高 $1%'],
     [/^Increases Attack and Defense by (\d+)%$/, '物攻和防御 $1%'],
     [/^Increases Attack by (\d+)% to the entire team$/, '全队攻击提升 $1%'],
-    [/^Increases Attack and Speed by (\d+)% to the entire team$/, '全队的物攻和速度提高 $1%'],
     [/^Increases Attack by (\d+)% and Speed by (\d+)%$/, '物攻提高 $1%，速度提高 $2%'],
     [/^Increases Special Defense and Special Attack by (\d+)%$/, '特防和特攻提高 $1%'],
     [/^Increases Special Defense by (\d+)% and Defense by (\d+)%$/, '特防提高 $1%，防御提高 $2%'],
