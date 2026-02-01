@@ -298,15 +298,7 @@ var cnItems = {
     "Trainer Reset": "训练家轮换",
     "Battle Factory": "对战工厂",
     "Battle Tower": "对战塔",
-    "Rookie Trainer Olivia": "新人训练家 奥利维亚",
-    "Veteran Trainer Bertha": "资深训练家 伯莎",
-    "Ace Trainer Larry": "王牌训练家 拉里",
-    "Master Trainer Crispin": "大师训练家 克里斯平",
     "Little Cup": "小小杯",
-    "Rookie Trainer Gordon": "新人训练家 戈登",
-    "Master Trainer Miguel": "大师训练家 米格尔",
-    "Ace Trainer Junimo": "王牌训练家 朱尼莫",
-    "Veteran Trainer Jairo": "资深训练家 哈伊罗",
     "division and below only": "仅限该组别及以下",
     "VS Frontier": "对战开拓区",
     "Every time you enter the factory, your score will reset, but you can try as many times as you'd like": "每次进入对战工厂，你的分数都会重置，且你可不限次数挑战",
@@ -3884,6 +3876,10 @@ var cnExcludePostfix = [
 //换行加空格：\n(.+)
 //&nbsp;空格：\xA0
 var cnRegReplace = new Map([
+    [/^Rookie Trainer ([A-Z]\w*)$/, '新人训练家 $1'],
+    [/^Veteran Trainer ([A-Z]\w*)$/, '资深训练家 $1'],
+    [/^Ace Trainer ([A-Z]\w*)$/, '王牌训练家 $1'],
+    [/^Master Trainer ([A-Z]\w*)$/, '大师训练家 $1'],
     [/^Increases the damage of Dark and Ghost-Type moves by (\d+)%$/, '恶、幽灵属性招式的伤害提升$1%'],
     [/^Increases the damage of Electric and Steel-Type moves by (\d+)%$/, '电、钢属性招式的伤害提升$1%'],
     [/^Increases the damage of Fairy and Psychic-Type moves by (\d+)%$/, '妖精、超能力属性招式的伤害提升$1%'],
