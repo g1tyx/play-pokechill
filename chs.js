@@ -46,6 +46,14 @@ var cnItems = {
     "cherry": "樱桃",
     "coral": "珊瑚",
     "oled": "纯黑",
+    "Cherry Theme": "樱桃主题",
+    "Coral Theme": "珊瑚主题",
+    "Dark Theme": "暗黑主题",
+    "Light Theme": "明亮主题",
+    "Lilac Theme": "淡紫主题",
+    "Oled Theme": "OLED主题",
+    "Onyx Theme": "玛瑙主题",
+    "Verdant Theme": "翠绿主题",
     "Hide non-new Pokemon got in summary:": "隐藏摘要中出现的非新宝可梦：",
     "Substract 1 to current Wild Area rotation:": "当前旷野地带的轮换周期减1",
     "ENABLED": "启用",
@@ -163,9 +171,10 @@ var cnItems = {
     "Operation finished!": "操作完成！",
     "Do you want to use a genetic-aiding item?": "你想使用一个遗传辅助物品吗？",
     "The item will be consumed on use": "物品将在使用时消耗",
-    "Nope": "否",
+    "Nope": "不要",
     "All trainers defeated!": "已击败所有训练家！",
     "How about the Battle Frontier?": "要不要去对战开拓区试试？",
+    "+ Field Effect": "场地效果",
     // 训练家信息
     "Youngster Billy": "短裤少年 比利",
     "Aroma Lady Jana": "香氛姐姐 亚娜",
@@ -2574,7 +2583,7 @@ var cnItems = {
     "": "",
     // 技能描述
     "Permanent": "永久的",
-    "grassy field": "青草场地",
+    "Grassy field": "青草场地",
     "Switches to the next party member": "切换到队伍中的下一只宝可梦",
     "Power randomly varies from x1 to x8": "威力随机在1倍到8倍之间变化",
     "Power increases by x1.2-1.5 if Defense/Special Defense is risen": "如果防御或特防提升, 威力会上升1.2~1.5倍",
@@ -3894,7 +3903,7 @@ var cnExcludePostfix = [
 //换行加空格：\n(.+)
 //&nbsp;空格：\xA0
 var cnRegReplace = new Map([
-    [/^Reward: (\d+)$/, '奖励: $1个'],
+    [/^Reward: x(\d+)$/, '奖励: $1个'],
     [/^Trainer (\d+)\/5$/, '训练家: $1/5'],
     [/^Defeated: (\d+)\/5$/, '已击败: $1/5'],
     [/^Rookie Trainer ([A-Z]\w*)$/, '新人训练家 $1'],
