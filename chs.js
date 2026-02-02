@@ -320,7 +320,6 @@ var cnItems = {
     "Tropical Reality": "热带领域",
     "Flower Meadow": "花之草原",
     "Defeat Master Trainer Geeta in VS to unlock": "在对战模式中击败 大师训练家 也慈 即可解锁",
-    "Wormhole Residue ": "虫洞残屑",
     "Wormhole Space": "虫洞空间",
     "Tempest Trench": "风暴海沟",
     // 对战开拓区
@@ -3331,12 +3330,6 @@ var cnItems = {
     "Left = Defensive, Right = Offensive": "左 = 防守, 右 = 进攻",
     "Team Auto-Build": "队伍自动构建",
     "Select your preference for the team (Your current team will be replaced by it)": "选择您偏好的队伍（您当前的队伍将被替换）",
-    "Ancient Orchids": "古兰花",
-    "Ancient Orchid": "古兰花",
-    "Ancient Keystones": "古代钥石",
-    "Ancient Keystone": "古代钥石",
-    "Aether Keycard": "以太门禁卡",
-    "Future Disk": "未来磁盘",
     "Proton City": "质子城",
     "Requires a": "需要",
     "Requires an": "需要",
@@ -3650,6 +3643,11 @@ var cnItems = {
 //例如：Coin: 13、Coin: 14、Coin: 15... 这种有相同开头的语句
 //可以在这里汉化开头："Coin: ":"金币: "
 var cnPrefix = {
+    "Ancient Orchid": "古兰花",
+    "Ancient Keystone": "古代钥石",
+    "Aether Keycard": "以太门禁卡",
+    "Future Disk": "未来磁盘",
+    "Wormhole Residue ": "虫洞残屑",
     "Rookie Trainer": "新人训练家",
     "Veteran Trainer": "资深训练家",
     "Gym Leader": "道馆馆主",
