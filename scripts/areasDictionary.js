@@ -37,7 +37,7 @@ field.thickFog = {
 }
 
 field.fierceHail = {
-    info : function() { return `Permanent <strong data-buff="foggy" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("ghost")}">Foggy</strong></strong> weather`},
+    info : function() { return `Permanent <strong data-buff="hail" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("ice")}">Hail</strong></strong> weather`},
     tier: 1
 }
 
@@ -77,7 +77,8 @@ field.trickRoom = {
  
 field.weirdRoom = {
     info : function() { return `Type weaknesses and strenghts are reversed`},
-    tier: 2
+    tier: 2,
+    chance: 0.5
 }
 
 field.averageTime = {
