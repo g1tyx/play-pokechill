@@ -4154,12 +4154,6 @@ var cnRegReplace = new Map([
     [/^Increases the damage dealt by M. Venusaur by x([\d\.]+)$/, 'Mega 妙蛙花 造成的伤害提高 $1 倍'],
     [/^$/, ''],
     [/^$/, ''],
-    [/^$/, ''],
-    [/^$/, ''],
-    [/^$/, ''],
-    [/^$/, ''],
-    [/^$/, ''],
-    [/^$/, ''],
     // 提高
     [/^Increases Defense by (\d+)%$/, '防御提高 $1%'],
     [/^Increases Special Defense by (\d+)%$/, '特防提高 $1%'],
@@ -4202,8 +4196,6 @@ var cnRegReplace = new Map([
     [/^(\d+)% chance to decrease enemy Defense by (\d+)%$/, '$1% 的概率使敌方防御降低 $2%'],
     [/^(\d+)% chance to decrease enemy Special Defense by (\d+)%$/, '$1% 的概率使敌方特防降低 $2%'],
     [/^([\d\.]+)\% chance to inflict$/, '$1% 概率施加'],
-    [/^ $/, ''],
-    [/^ $/, ''],
     [/^Highest Reached Floor: (\d+)$/, '最高抵达层数：$1'],
     [/^Highest Score: (\d+)$/, '最高分数：$1'],
     [/^Score: (\d+)$/, '分数：$1'],
@@ -4294,4 +4286,6 @@ var cnRegReplace = new Map([
     [/^Req: (.+) \/ (.+) elves$/, '要求：$1 \/ $2 妖精'],
     [/^Usages: (\d+)\/$/, '用途：$1\/'],
     [/^workers: (\d+)\/$/, '工人：$1\/'],
+    // 技能正则
+    [/^\s*Toxic\s*$/, '剧毒'],
 ]);
