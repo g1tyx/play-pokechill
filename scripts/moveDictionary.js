@@ -454,19 +454,19 @@ ability.growthAbsorb = {
 ability.strongJaw = {
     type: [`dark`],
     rarity: 2,
-    info: function() {return `"Fang"-related moves have their base damage multiplied by x2 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByStrongJaw)})</span>`},
+    info: function() {return `"Fang"-related moves have their base power multiplied by x2 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByStrongJaw)})</span>`},
 }
 
 ability.toughClaws = {
     type: [`dragon`],
     rarity: 2,
-    info: function() {return `"Claw"-related moves have their base damage multiplied by x2 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByToughClaws)})</span>`},
+    info: function() {return `"Claw"-related moves have their base power multiplied by x2 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByToughClaws)})</span>`},
 }
 
 ability.ironFist = {
     type: [`fighting`],
     rarity: 2,
-    info: function() {return `"Punch"-related moves have their base damage multiplied by x1.5 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByIronFist)})</span>`},
+    info: function() {return `"Punch"-related moves have their base power multiplied by x1.5 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByIronFist)})</span>`},
 }
 
 
@@ -534,15 +534,7 @@ ability.chlorophyll  = {
 
 //tier 3 names based on gemini, pisces, o luna, mars, etc
 
-ability.thousandArms = {
-    rarity: 3,
-    info: function() {return `All hits become super-effective regardless of the typing`},
-}
 
-ability.goodAsGold = {
-    rarity: 3,
-    info: function() {return `Increases the chance of encountering a wild shiny pokemon by 15%. Works always for everyone regardless of the user`},
-}
 
 ability.climaTact  = {  
     type: [`fairy`],
@@ -646,7 +638,13 @@ ability.thickFat = {
 ability.adaptability = {
     type: [`all`],
     rarity: 3,
-    info: function() {return `Multiplies Same-Type-Attack-Bonus by x1.2`},
+    info: function() {return `Increases Same-Type-Attack-Bonus by +0.2`},
+}
+
+ability.ambidextrous = {
+    type: [`all`],
+    rarity: 3,
+    info: function() {return `Increases Cross-Power by +0.3`},
 }
 
 ability.noGuard = {
@@ -676,7 +674,7 @@ ability.skillLink = {
 ability.sharpness = {
     type: [`steel`],
     rarity: 3,
-    info: function() {return `"Sharp"-related moves have their base damage multiplied by x1.5 <span style="opacity:0.7">(${joinWithAnd(movesAffectedBySharpness)})</span>`},
+    info: function() {return `"Sharp"-related moves have their base power multiplied by x1.5 <span style="opacity:0.7">(${joinWithAnd(movesAffectedBySharpness)})</span>`},
 }
 
 ability.angerPoint = {
@@ -700,13 +698,13 @@ ability.filter = {
 ability.reckless = {
     type: [`flying`],
     rarity: 3,
-    info: function() {return `Moves that execute slower than usual have their move power multiplied by x1.5`},
+    info: function() {return `Moves that execute slower than usual have their base power multiplied by x1.5`},
 }
 
 ability.libero = {
     type: [`fairy`,`psychic`],
     rarity: 3,
-    info: function() {return `Moves that execute faster than usual have their move power multiplied by x2`},
+    info: function() {return `Moves that execute faster than usual have their base power multiplied by x2`},
 }
 
 
@@ -770,6 +768,17 @@ ability.flashHerba = {
 
 //hidden
 
+
+ability.thousandArms = {
+    rarity: 3,
+    info: function() {return `All hits become super-effective regardless of the typing`},
+}
+
+ability.goodAsGold = {
+    rarity: 3,
+    info: function() {return `Increases the chance of encountering a wild shiny pokemon by 15%. Works always for everyone regardless of the user`},
+}
+
 ability.wonderGuard = {
     rarity: 3,
     info: function() {return `Received damage from non-Super-Effective moves are reduced by 80%`},
@@ -817,12 +826,12 @@ ability.cacophony = {
 
 ability.megaLauncher = {
     rarity: 3,
-    info: function() {return `"Pulse"-related moves have their base damage multiplied by x1.5 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByMegaLauncher)})<span>`},
+    info: function() {return `"Pulse"-related moves have their base power multiplied by x1.5 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByMegaLauncher)})<span>`},
 }
 
 ability.metalhead = {
     rarity: 3,
-    info: function() {return `"Head"-related moves have their base damage multiplied by x1.5 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByMetalhead)})<span>`},
+    info: function() {return `"Head"-related moves have their base power multiplied by x1.5 <span style="opacity:0.7">(${joinWithAnd(movesAffectedByMetalhead)})<span>`},
 }
 
 ability.imposter = {
@@ -1627,16 +1636,6 @@ move.bulldoze = {
     hitEffect: function(target) { moveBuff(target,'spedown1') },
 }
 
-move.rototiller = {
-    moveset: [`ground`, `grass`],
-    split: "special",
-    rarity: 2,
-    type: "ground",
-    power: 0,
-    info: function() {return `Increases Attack and Special Attack by 50%`},
-    hitEffect: function(target) { moveBuff(target,'atkup1',"self"); moveBuff(target,'satkup1',"self") },
-    restricted: true,
-}
 
 move.sandstorm = { 
     moveset: [`rock`,`ground`],
@@ -1656,6 +1655,17 @@ move.scorchingSands = {
     power: 70,
     info: function() {return `30% chance to inflict ${tagBurn}`},
     hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'burn') },
+}
+
+move.rototiller = {
+    moveset: [`ground`, `grass`],
+    split: "special",
+    rarity: 3,
+    type: "ground",
+    power: 0,
+    info: function() {return `Increases Attack and Special Attack by 100%`},
+    hitEffect: function(target) { moveBuff(target,'atkup2',"self"); moveBuff(target,'satkup2',"self") },
+    restricted: true,
 }
 
 move.earthquake = {
@@ -1753,7 +1763,7 @@ move.sharkJaws = {
     split: "physical",
     rarity: 2,
     type: "steel",
-    power: 65,
+    power: 70,
     info: function() {return `10% chance to decrease enemy Defense by 50%`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'defdown1') },
     affectedBy: [ability.strongJaw.id]
@@ -1951,7 +1961,7 @@ move.razorTalons = {
     split: "physical",
     rarity: 3,
     type: "flying",
-    power: 30,
+    power: 40,
     info: function() {return `Hits 2 times`},
     multihit: [2,2],
     affectedBy: [ability.toughClaws.id]
@@ -2046,7 +2056,7 @@ move.poisonClaw = {
     split: "physical",
     rarity: 2,
     type: "poison",
-    power: 65,
+    power: 75,
     info: function() {return `10% chance to inflict ${tagPoisoned}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'poisoned') },
     affectedBy: [ability.toughClaws.id]
@@ -2273,8 +2283,8 @@ move.furyCutter = {
     split: "physical",
     rarity: 1,
     type: "bug",
-    power: 25,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
+    power: 20,
+    info: function() {return `Multiplies base power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },
@@ -2925,7 +2935,7 @@ move.psychicFangs = {
     split: "physical",
     rarity: 2,
     type: "psychic",
-    power: 65,
+    power: 75,
     affectedBy: [ability.strongJaw.id]
 }
 
@@ -3048,7 +3058,7 @@ move.rollout = {
     rarity: 2,
     type: "rock",
     power: 55,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
+    info: function() {return `Multiplies base power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },
@@ -3552,7 +3562,7 @@ move.echoedVoice = {
     rarity: 2,
     type: "fairy",
     power: 50,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
+    info: function() {return `Multiplies base power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++;   },
@@ -3735,7 +3745,7 @@ move.eggBomb = {
 
 move.cometPunch = {
     split: "physical",
-    type: "normal",
+    type: "flying",
     power: t4Base/3,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
@@ -4012,9 +4022,10 @@ move.iceHammer = {
 move.dragonDarts = {  
     split: "physical",
     type: "dragon",
-    power: t4Base/2,
+    power: 50,
     info: function() {return `Hits 2 times`},
     multihit: [2,2],
+    affectedBy: [ability.megaLauncher.id]
 }
 
 move.hiJumpKick = {
@@ -4334,7 +4345,7 @@ move.barbBarrage = {
 
 move.barrage = {
     split: "physical",
-    type: "normal",
+    type: "grass",
     power: t4Base/3,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
@@ -4537,7 +4548,7 @@ move.rageFist = {
     split: "physical",
     type: "ghost",
     power: t4Base/2,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
+    info: function() {return `Multiplies base power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++;    },
@@ -4548,7 +4559,7 @@ move.iceBall = {
     split: "physical",
     type: "ice",
     power: t4Base/2,
-    info: function() {return `Multiplies move power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
+    info: function() {return `Multiplies base power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
     hitEffect: function(target) { if (this.buildup<5) this.buildup++; },
@@ -4558,7 +4569,7 @@ move.tripleAxel = {
     split: "physical",
     type: "ice",
     power: t4Base/2,
-    info: function() {return `Multiplies move power by 1.3x everytime its used, up to 3 times. Depletes all stacks upon switching Pokemon`},
+    info: function() {return `Multiplies base power by 1.3x everytime its used, up to 3 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.3,this.buildup) },
     hitEffect: function(target) { if (this.buildup<3) this.buildup++;   },
@@ -4568,7 +4579,7 @@ move.attackOrder = {
     split: "physical",
     type: "bug",
     power: t4Base/3,
-    info: function() {return `Multiplies move power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching Pokemon`},
+    info: function() {return `Multiplies base power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.15,this.buildup) },
     hitEffect: function(target) { if (this.buildup<10) this.buildup++;  },
@@ -4578,7 +4589,7 @@ move.populationBomb = {
     split: "physical",
     type: "normal",
     power: t4Base/3,
-    info: function() {return `Multiplies move power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching Pokemon`},
+    info: function() {return `Multiplies base power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.15,this.buildup) },
     hitEffect: function(target) { if (this.buildup<10) this.buildup++;  },
@@ -4695,7 +4706,7 @@ for (const i in move){
 
 
     //sheer force
-    if (move[i].power>0 && move[i].hitEffect && !move[i].unaffectedBy?.includes(ability.sheerForce.id) ) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.sheerForce.id)} else move[i].affectedBy = [ability.sheerForce.id] }
+    if (move[i].power>0 && move[i].hitEffect && !move[i].unaffectedBy?.includes(ability.sheerForce.id) && move[i].buildup==undefined) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.sheerForce.id)} else move[i].affectedBy = [ability.sheerForce.id] }
     //serene grace/pbond
     if (move[i].hitEffect && move[i].hitEffect?.toString().includes('rng(')) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.sereneGrace.id)} else move[i].affectedBy = [ability.sereneGrace.id] }
     if (move[i].hitEffect && move[i].hitEffect?.toString().includes('rng(')) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.parentalBond.id)} else move[i].affectedBy = [ability.parentalBond.id] }

@@ -184,11 +184,17 @@ function updateGameVersion() {
   }
 
 
+  if (saved.version<3.2){
+    saved.arenaCurrentTrainer = 1
+    createArenaCards()
+    saved.arenaActiveCard = 1
+  }
 
 
 
 
-  saved.version = 3.1
+
+  saved.version = 3.2
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -665,8 +671,8 @@ guide.stab = {
 }
 
 guide.crossStab = {
-  name: `Battle: Cross Power`,
-  description: function() { return `If a Pokemon uses a damaging move that is preceded (immediately or not) by a damaging move of a different type of the executed move, it will receive a 1.2x damage multiplier. This is indicated with a cross pattern on the move bar of the affected move` }
+  name: `Battle: Cross-Power`,
+  description: function() { return `If a Pokemon uses a damaging move that is preceded (immediately or not) by a damaging move of a different type of the executed move, it will receive a 1.3x damage multiplier. This is indicated with a cross pattern on the move bar of the affected move` }
 }
 
 guide.battleFatigue = {

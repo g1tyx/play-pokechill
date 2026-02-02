@@ -6704,7 +6704,7 @@ pkmn.nosepass = {
         def: 135,
         satk: 45,
         sdef: 90,
-        spe: 300,
+        spe: 30,
     },
     evolve: function() { return { 1: { pkmn: pkmn.probopass, item: item.thunderStone } } }
 }
@@ -11365,7 +11365,7 @@ pkmn.zoroark = {
 }
 
 pkmn.hisuianZoroark = {
-  type: ["normal", "dark"],
+  type: ["normal", "ghost"],
   bst: {
     hp: 55,
     atk: 100,
@@ -12693,7 +12693,7 @@ pkmn.meloetta = {
     spe: 90,
   },
     hiddenAbility: ability.cacophony,
-    signature : move.meloetta
+    signature : move.relicSong
 }
 
 pkmn.meloettaPirouette = {
@@ -12707,7 +12707,7 @@ pkmn.meloettaPirouette = {
     spe: 128,
   },
     hiddenAbility: ability.cacophony,
-    signature : move.meloetta
+    signature : move.relicSong
 }
 
 // 649 Genesect
@@ -17665,7 +17665,8 @@ pkmn.fuecoco = {
     sdef: 40,
     spe: 36,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.crocalor, level: evolutionLevel1 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.crocalor, level: evolutionLevel1 } } },
+    signature : move.torchSong
 }
 
 pkmn.crocalor = {
@@ -17678,7 +17679,8 @@ pkmn.crocalor = {
     sdef: 58,
     spe: 49,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.skeledirge, level: evolutionLevel2 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.skeledirge, level: evolutionLevel2 } } },
+    signature : move.torchSong
 }
 
 pkmn.skeledirge = {
@@ -17690,7 +17692,8 @@ pkmn.skeledirge = {
     satk: 110,
     sdef: 75,
     spe: 66,
-  }
+  },
+    signature : move.torchSong
 }
 
 // 912 Quaxly → Quaxwell → Quaquaval

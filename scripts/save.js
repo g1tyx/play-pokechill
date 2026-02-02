@@ -28,6 +28,7 @@ function saveGame() {
     if (areas[i].type=="frontier") data[i].reward = areas[i].reward;
     if (areas[i].type=="frontier") data[i].itemReward = areas[i].itemReward;
     if (areas[i].type=="frontier") data[i].background = areas[i].background;
+    if (areas[i].type=="frontier") data[i].fieldEffect = areas[i].fieldEffect;
     if (areas[i].id=="training") data[i].tier = areas[i].tier;
     if (areas[i].id=="training") data[i].currentTraining = areas[i].currentTraining;
     if (areas[i].id=="wildlifePark") data[i].spawns = areas[i].spawns;
@@ -90,6 +91,7 @@ function loadGame() {
     if (areas[i].type=="frontier") areas[i].reward = data[i].reward;
     if (areas[i].type=="frontier") areas[i].itemReward = data[i].itemReward;
     if (areas[i].type=="frontier") areas[i].background = data[i].background;
+    if (areas[i].type=="frontier") areas[i].fieldEffect = data[i].fieldEffect;
     if (areas[i].id=="training") areas[i].tier = data[i].tier;
     if (areas[i].id=="training") areas[i].currentTraining = data[i].currentTraining;
     if (areas[i].id=="wildlifePark") areas[i].spawns = data[i].spawns;

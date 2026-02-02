@@ -166,7 +166,7 @@ function tooltipData(category, ttdata){
         document.getElementById("tooltipTop").style.display = "none";
         document.getElementById("tooltipTitle").style.display = "Area Information";
         document.getElementById("tooltipMid").style.display = "none";
-        document.getElementById("tooltipBottom").innerHTML = `<div id="area-preview-spawns"><strong>Team Preview</strong></div>`;
+        document.getElementById("tooltipBottom").innerHTML = `<div id="area-preview-spawns"><strong>Team Preview</strong></div><div id="preview-field-effects"></div>`;
 
 
         const spawns = [];
@@ -245,6 +245,20 @@ function tooltipData(category, ttdata){
             });
         }
 
+
+
+        if (areas[ttdata].fieldEffect && areas[ttdata].type != "frontier") { 
+            document.getElementById("preview-field-effects").innerHTML = `Field Effects`
+            document.getElementById("preview-field-effects").className = "preview-field-list"
+        for (const i of areas[ttdata].fieldEffect) {
+            const div = document.createElement("div")
+            div.className = `arena-card-info`
+            div.style.background = "transparent"
+            div.innerHTML = `<span style="filter:hue-rotate(${returnFieldHue(i)}deg)">${format(i)}</span><div>${field[i].info()}</div>`
+            document.getElementById("preview-field-effects").appendChild(div)
+        }
+        }
+
         
         
 
@@ -257,6 +271,8 @@ function tooltipData(category, ttdata){
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `${format(ttdata)}`
         document.getElementById("tooltipMid").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `inline`
+        document.getElementById("tooltipTitle").style.display = `inline`
         if (ttdata==="burn") document.getElementById("tooltipBottom").innerHTML = `Decreases Physical Attack by 50% and deals damage every turn`
         if (ttdata==="poisoned") document.getElementById("tooltipBottom").innerHTML = `Decreases Special Attack by 50% and deals damage every turn`
         if (ttdata==="sleep") document.getElementById("tooltipBottom").innerHTML = `Moves fail to deal damage`
@@ -264,20 +280,276 @@ function tooltipData(category, ttdata){
         if (ttdata==="confused") document.getElementById("tooltipBottom").innerHTML = `50% chance for moves to fail to deal damage`
         if (ttdata==="paralysis") document.getElementById("tooltipBottom").innerHTML = `25% chance for moves to fail to deal damage and Speed is reduced by 75%`
         
-        if (ttdata==="sunny") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Fire-Type moves by 75% and decreases the damage of Water-Type moves by 50%`
-        if (ttdata==="rainy") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Water-Type moves by 75% and decreases the damage of Fire-Type moves by 50%`
-        if (ttdata==="sandstorm") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Rock and Ground-Type moves by 75%`
-        if (ttdata==="hail") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Ice-Type moves by 75%`
-        if (ttdata==="foggy") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Dark and Ghost-Type moves by 75%`
-        if (ttdata==="electricTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Electric and Steel-Type moves by 75%`
-        if (ttdata==="grassyTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Grass and Bug-Type moves by 75%`
-        if (ttdata==="mistyTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Fairy and Psychic-Type moves by 75%`
+        if (ttdata==="sunny") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Fire-Type moves by 50% and decreases the damage of Water-Type moves by 50%`
+        if (ttdata==="rainy") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Water-Type moves by 50% and decreases the damage of Fire-Type moves by 50%`
+        if (ttdata==="sandstorm") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Rock and Ground-Type moves by 50%`
+        if (ttdata==="hail") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Ice-Type moves by 50%`
+        if (ttdata==="foggy") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Dark and Ghost-Type moves by 50%`
+        if (ttdata==="electricTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Electric and Steel-Type moves by 50%`
+        if (ttdata==="grassyTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Grass and Bug-Type moves by 50%`
+        if (ttdata==="mistyTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Fairy and Psychic-Type moves by 50%`
 
         
         
         
         openTooltip()
     }
+
+
+
+
+
+
+
+
+
+    if (category == "arenaPreview") {
+
+
+    if (saved.arenaCurrentTrainer==6){
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `All trainers defeated for now`
+        openTooltip()
+        return
+    }
+
+
+
+
+    document.getElementById("tooltipTop").style.display = `none`
+    document.getElementById("tooltipTitle").style.display = `none`
+    document.getElementById("tooltipBottom").style.display = `flex`
+    document.getElementById("tooltipMid").innerHTML = `
+
+
+    <div class="arena-tooltip">
+    Pick a difficulty for the next trainer
+    <span>(Right click/long tap to see the field effect details)</span>
+    </div>
+
+
+    <div id="arena-card-list">
+
+    <div class="arena-card active-arena-card" id="arena-card-1" onclick="pickArenaCard(1)" data-arena-card="1">
+    <div class="arena-card-title">
+    Level 100
+    <span>
+    Reward: x2<img  src="img/items/goldenBottleCap.png">
+    </span>
+    </div>
+
+    <div id="arena-card-1-info" class="arena-card-info">
+    </div>
+    </div>
+    
+    <div class="arena-card" id="arena-card-2" onclick="pickArenaCard(2)" data-arena-card="2">
+    <div class="arena-card-title">
+    Level 125
+    <span>
+    Reward: x3<img  src="img/items/goldenBottleCap.png">
+    </span>
+    </div>
+    <div id="arena-card-2-info" class="arena-card-info">
+    </div>
+    </div>
+
+    <div class="arena-card" id="arena-card-3" onclick="pickArenaCard(3)" data-arena-card="3">
+    <div class="arena-card-title">
+    Level 150
+    <span>
+    Reward: x4<img  src="img/items/goldenBottleCap.png">
+    </span>
+    </div>
+    <div id="arena-card-3-info" class="arena-card-info">
+    </div>
+    </div>
+
+    </div>
+    
+    
+    
+    `
+
+
+
+    for (const i of saved.arenaCard1) {
+        const div = document.createElement("span")
+        div.style.filter = `hue-rotate(${returnFieldHue(i)}deg)`
+        div.innerHTML = ` ${format(i)} `
+        document.getElementById("arena-card-1-info").appendChild(div)
+    }
+
+    for (const i of saved.arenaCard2) {
+        const div = document.createElement("span")
+        div.style.filter = `hue-rotate(${returnFieldHue(i)}deg)`
+        div.innerHTML = ` ${format(i)} `
+        document.getElementById("arena-card-2-info").appendChild(div)
+    }
+
+
+    for (const i of saved.arenaCard3) {
+        const div = document.createElement("span")
+        div.style.filter = `hue-rotate(${returnFieldHue(i)}deg)`
+        div.innerHTML = ` ${format(i)} `
+        document.getElementById("arena-card-3-info").appendChild(div)
+    }
+
+
+
+
+    document.getElementById("tooltipBottom").innerHTML = `
+
+    `
+
+
+
+
+    pickArenaCard(saved.arenaActiveCard)
+
+
+
+    //code for rotating trainers ahead
+const frontierArray = [];
+
+for (const i in areas) {
+    if (areas[i].type !== "frontier") continue;
+    if (areas[i].team == undefined) continue;
+    if (areas[i].defeated) continue;
+
+    frontierArray.push({ key: i, data: areas[i] });
+}
+
+frontierArray.sort((a, b) => a.data.tier - b.data.tier);
+
+    for (const obj of frontierArray) {
+
+    const i = obj.key;
+
+        if (areas[i].tier!=saved.arenaCurrentTrainer) continue
+
+        const divAreas = document.createElement("div");
+        divAreas.className = "explore-ticket ticket-event";
+
+        divAreas.dataset.trainer = i
+
+        let nameTag = "";
+       //if (areas[i].reward.includes(item.goldenBottleCap)) nameTag = `<svg class="event-icon" style="color:#465f96" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.795 2h-2c-1.886 0-2.829 0-3.414.586c-.586.586-.586 1.528-.586 3.414v3.5h10V6c0-1.886 0-2.828-.586-3.414S14.681 2 12.795 2" opacity="0.5"/><path fill="currentColor" fill-rule="evenodd" d="M13.23 5.783a3 3 0 0 0-2.872 0L5.564 8.397A3 3 0 0 0 4 11.031v4.938a3 3 0 0 0 1.564 2.634l4.794 2.614a3 3 0 0 0 2.872 0l4.795-2.614a3 3 0 0 0 1.564-2.634V11.03a3 3 0 0 0-1.564-2.634zM11.794 10.5c-.284 0-.474.34-.854 1.023l-.098.176c-.108.194-.162.29-.246.354s-.19.088-.399.135l-.19.044c-.739.167-1.108.25-1.195.532c-.088.283.163.577.666 1.165l.13.152c.144.167.215.25.247.354s.022.215 0 .438l-.02.203c-.076.785-.114 1.178.116 1.352s.575.015 1.266-.303l.179-.082c.196-.09.294-.135.398-.135s.203.045.399.135l.179.082c.69.319 1.036.477 1.266.303s.192-.567.116-1.352l-.02-.203c-.022-.223-.033-.334 0-.438c.032-.103.103-.187.246-.354l.13-.152c.504-.588.755-.882.667-1.165c-.088-.282-.457-.365-1.194-.532l-.191-.044c-.21-.047-.315-.07-.399-.135c-.084-.064-.138-.16-.246-.354l-.098-.176c-.38-.682-.57-1.023-.855-1.023" clip-rule="evenodd"/></svg>`
+        let prefix = "Rookie Trainer "
+        if (areas[i].tier==2) prefix = "Veteran Trainer "
+        if (areas[i].tier==3) prefix = "Ace Trainer "
+        if (areas[i].tier==4) prefix = "Expert Trainer "
+        if (areas[i].tier==5) prefix = "Master Trainer "
+
+        divAreas.addEventListener("click", e => { 
+
+            closeTooltip()
+
+            if (saved.arenaActiveCard==1) areas[i].fieldEffect = saved.arenaCard1
+            if (saved.arenaActiveCard==2) areas[i].fieldEffect = saved.arenaCard2
+            if (saved.arenaActiveCard==3) areas[i].fieldEffect = saved.arenaCard3
+
+            if (saved.arenaActiveCard==1) areas[i].level = 100
+            if (saved.arenaActiveCard==2) areas[i].level = 125
+            if (saved.arenaActiveCard==3) areas[i].level = 150
+
+            if (saved.arenaActiveCard==1) areas[i].difficulty = 8
+            if (saved.arenaActiveCard==2) areas[i].difficulty = 12
+            if (saved.arenaActiveCard==3) areas[i].difficulty = 20
+
+            saved.currentAreaBuffer = i
+            document.getElementById(`preview-team-exit`).style.display = "flex"
+            document.getElementById(`team-menu`).style.zIndex = `50`
+            document.getElementById(`team-menu`).style.display = `flex`
+            document.getElementById("menu-button-parent").style.display = "none"
+            updatePreviewTeam()
+            afkSeconds = 0
+            document.getElementById(`explore-menu`).style.display = `none`
+
+        })
+
+    
+        divAreas.className = `vs-card`
+        divAreas.innerHTML = `
+                        <span class="hitbox"></span>
+
+                <img class="vs-card-flair" src="img/icons/pokeball.svg">
+                <div class="vs-card-bg"></div>
+                    <span class="explore-ticket-left" style="z-index: 2;">
+                        <span style="font-size:1.3rem">${prefix}${i.replace(/frontier/gi, "")}${nameTag}</span>
+                        <span><strong style="font-size:1rem; background:#964646ff">Trainer ${saved.arenaCurrentTrainer}/5</strong></span>
+                    </span>
+                <div>
+                </div>
+                <div class="vs-card-left">
+                    <img id="trainer-image-${areas[i].name}" class="sprite-trim" src="img/trainers/${areas[i].sprite}.png">
+                </div>
+        `;
+
+
+        document.getElementById(`tooltipBottom`).appendChild(divAreas)
+
+ }
+
+
+
+
+
+
+
+    openTooltip()
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if (category == "arenaCard") {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipMid").style.display = `inline`
+        document.getElementById("tooltipMid").innerHTML = `<div id="arena-card-effect-list"></div>`
+        document.getElementById("tooltipBottom").style.display = `none`
+
+
+        let cardEffects = saved.arenaCard1
+        if (ttdata == 2) cardEffects = saved.arenaCard2
+        if (ttdata == 3) cardEffects = saved.arenaCard3
+ 
+    for (const i of cardEffects) {
+        const div = document.createElement("div")
+        div.className = `arena-card-info`
+        div.innerHTML = `<span style="filter:hue-rotate(${returnFieldHue(i)}deg)">${format(i)}</span><div>${field[i].info()}</div>`
+        document.getElementById("arena-card-effect-list").appendChild(div)
+    }
+
+    openTooltip()
+       
+
+        
+        
+        
+    }
+
+
 
     if (category == "help") {
         document.getElementById("tooltipTop").style.display = `none`
@@ -290,15 +562,18 @@ function tooltipData(category, ttdata){
         if (ttdata === `Frontier`) document.getElementById("tooltipBottom").innerHTML = `The Battle Frontier houses different types of challenges under a specific division restriction that rotates every three days. Trainers fought here will reset every day`
 
         if (ttdata === `Spiral`) document.getElementById("tooltipTitle").innerHTML = `Battle Tower`
-        if (ttdata === `Spiral`) document.getElementById("tooltipBottom").innerHTML = `The Battle Tower is an infinitely-scaling challenge in which every Pokemon defeated will increase the difficulty. Type Immunities inside this challenge will be instead converted to resistances<br><br>Every time you enter the tower, you will start from floor 1, but you can try as many times as you'd like<br><br>Your highest reached floor will be saved, and reset when the league rotation changes. You will be rewarded for every new highest floor reached at the end of the battle`
+        if (ttdata === `Spiral`) document.getElementById("tooltipBottom").innerHTML = `The Battle Tower is an infinitely-scaling challenge in which every Pokemon defeated will increase the difficulty. Type Immunities inside this challenge will be instead converted to resistances<br><br>Every time you enter the tower, you will start from floor 1, but you can try as many times as you'd like<br><br>Your highest reached floor will be saved, and reset when the league rotation changes. You will be rewarded for every new highest floor reached at the end of the battle<br><br>There is a maximum of 100 Golden Bottlecaps achievable`
         if (ttdata === `Spiral`) document.getElementById("tooltipMid").style.display = `inline`
         if (ttdata === `Spiral`) document.getElementById("tooltipMid").innerHTML = `Current Type Rotation: ${format(saved.currentSpiralingType)}`
 
 
         if (ttdata === `BattleFactory`) document.getElementById("tooltipTitle").innerHTML = `Battle Factory`
-        if (ttdata === `BattleFactory`) document.getElementById("tooltipBottom").innerHTML = `The Battle Factory is a challenge in which your goal is to deal the maximum amount of damage. Every turn you will take a fixed amount of damage, and damage from status effects is disabled.<br><br>Every time you enter the factory, your score will reset, but you can try as many times as you'd like<br><br>Your highest reached score will be saved, and reset when the league rotation changes. You will be rewarded for your highest score reached at the end of the battle`
+        if (ttdata === `BattleFactory`) document.getElementById("tooltipBottom").innerHTML = `The Battle Factory is a challenge in which your goal is to deal the maximum amount of damage. Every turn you will take a fixed amount of damage, and damage from status effects is disabled.<br><br>Every time you enter the factory, your score will reset, but you can try as many times as you'd like<br><br>Your highest reached score will be saved, and reset when the league rotation changes. You will be rewarded for your highest score reached at the end of the battle<br><br>There is a maximum of 100 Golden Bottlecaps achievable`
         if (ttdata === `BattleFactory`) document.getElementById("tooltipMid").innerHTML = `<div id="area-preview-spawns" data-pkmn="${areas.frontierBattleFactory.icon.id}"><strong>Factory Pokemon</strong><img class="sprite-trim" src="img/pkmn/sprite/${areas.frontierBattleFactory.icon.id}.png"></div>`;
         if (ttdata === `BattleFactory`) document.getElementById("tooltipMid").style.display = `inline`
+
+        if (ttdata === `BattleArena`) document.getElementById("tooltipTitle").innerHTML = `Battle Arena`
+        if (ttdata === `BattleArena`) document.getElementById("tooltipBottom").innerHTML = `The Battle Arena features five trainers in which you can select their difficulty for higher rewards. Field effects, battle modifiers, will also be randomised alongside the trainers. Trainers fought here will reset every day`
 
         if (ttdata === `Wild Areas`) document.getElementById("tooltipTitle").innerHTML = `Wild Areas`
         if (ttdata === `Wild Areas`) document.getElementById("tooltipBottom").innerHTML = `All Pokemon in Wild Areas might be caught by defeating them. Wild Areas rotate every day, so be sure to check out what can be caught today!`
@@ -353,6 +628,7 @@ function tooltipData(category, ttdata){
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = format(ttdata)
         document.getElementById("tooltipTitle").style.display = `inline`
+        document.getElementById("tooltipBottom").style.display = `inline`
         document.getElementById("tooltipMid").innerHTML = `Common Ability`
         if (ability[ttdata].rarity===2) document.getElementById("tooltipMid").innerHTML = `Uncommon Ability`
         if (ability[ttdata].rarity===3) document.getElementById("tooltipMid").innerHTML = `Rare Ability`
@@ -439,7 +715,7 @@ function tooltipData(category, ttdata){
         if (pkmn[ttdata].signature != undefined) signatureMove = `<div id="inpect-pkmn-signature" style="box-shadow: none; outline:none"> <svg style="margin: 0 0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg> Signature Move: ${format(pkmn[ttdata].signature.id)} </div>`
         if (pkmn[ttdata].hiddenAbility != undefined) hiddenAbility = format(pkmn[ttdata].hiddenAbility.id)
 
-        document.getElementById("tooltipMid").innerHTML = `${returnTypeMultipliers(pkmn[ttdata])}`;
+        document.getElementById("tooltipMid").innerHTML = `<div style="display:flex; flex-wrap:wrap; justify-content:center;align-items:center; overflow-y:scroll; max-height:15rem">${returnTypeMultipliers(pkmn[ttdata])}</div>`;
 
         document.getElementById("tooltipBottom").innerHTML = `
         <div id="tooltip-inspect-pkmn">
@@ -1103,7 +1379,7 @@ const sortedMovepool = movepool
         document.getElementById("tooltipTitle").style.display = `none`
         document.getElementById("tooltipTop").innerHTML = `<div style="cursor:help" data-pkmn="${ttdata}"><img src="img/pkmn/sprite/${ttdata}.png"></div>`
         if (pkmn[ttdata].shiny) document.getElementById("tooltipTop").innerHTML = `<div style="cursor:help" data-pkmn="${ttdata}"><img src="img/pkmn/shiny/${ttdata}.png"></div>`
-        if (pkmn[ttdata].caught == 0) document.getElementById("tooltipTop").innerHTML = `<div><img style="filter:brightness(0)" src="img/pkmn/sprite/${ttdata}.png"></div>`
+        //if (pkmn[ttdata].caught == 0) document.getElementById("tooltipTop").innerHTML = `<div><img style="filter:brightness(0)" src="img/pkmn/sprite/${ttdata}.png"></div>`
         document.getElementById("tooltipTitle").innerHTML = format(ttdata)
         document.getElementById("tooltipMid").style.display = "inline"
 
@@ -1336,6 +1612,13 @@ document.addEventListener("contextmenu", e => {
         tooltipData("dictionaryItem", el.dataset.dictionaryItem)
     }
 
+    if (el.dataset.arenaPreview !== undefined) {
+        tooltipData("arenaPreview", el.dataset.arenaPreview)
+    }
+
+    if (el.dataset.arenaCard !== undefined) {
+        tooltipData("arenaCard", el.dataset.arenaCard)
+    }
 
 
 

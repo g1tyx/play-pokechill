@@ -321,6 +321,9 @@ function injectPreviewTeam(){
     team[slot].pkmn = pkmn[currentTeam[slot].pkmn]
     team[slot].item = currentTeam[slot].item
 
+    if (areas[saved.currentArea].fieldEffect?.includes(field.unnerve.id)) team[slot].item = undefined
+
+
 
     }
 
@@ -528,10 +531,15 @@ function setPkmnTeam(){
         switchMember(i)
 
             if (saved.currentArea == areas.frontierBattleFactory.id) {
-            fatigueDamage = pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/15
-            pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -= fatigueDamage
-            updateTeamPkmn()
+                pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -= pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/15
+                updateTeamPkmn()
             }
+
+            if (areas[saved.currentArea].fieldEffect?.includes(field.stealthRocks.id)) {
+                pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -= pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/5
+                updateTeamPkmn()
+            }
+
         
         
         

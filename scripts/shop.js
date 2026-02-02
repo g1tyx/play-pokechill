@@ -260,6 +260,13 @@ shop.laggingTail = {
     category: `held`,
 }
 
+shop.quickClaw = {
+    icon: item.quickClaw.id,
+    price: 10,
+    currency: `gold`,
+    category: `held`,
+}
+
 shop.weaknessPolicy = {
     icon: item.weaknessPolicy.id,
     price: 10,
@@ -620,8 +627,23 @@ shop.flameChargeTm = {
     currency: `gold`,
     category: `tm`,
 }
+
 shop.acidSprayTm = {
     icon: item.acidSprayTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.nastyPlotTm = {
+    icon: item.nastyPlotTm.id,
+    price: 5,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.swordsDanceTm = {
+    icon: item.swordsDanceTm.id,
     price: 5,
     currency: `gold`,
     category: `tm`,
@@ -669,26 +691,7 @@ shop.grassyTerrainTm = {
     category: `tm`,
 }
 
-shop.nastyPlotTm = {
-    icon: item.nastyPlotTm.id,
-    price: 10,
-    currency: `gold`,
-    category: `tm`,
-}
 
-shop.swordsDanceTm = {
-    icon: item.swordsDanceTm.id,
-    price: 10,
-    currency: `gold`,
-    category: `tm`,
-}
-
-shop.swordsDanceTm = {
-    icon: item.swordsDanceTm.id,
-    price: 10,
-    currency: `gold`,
-    category: `tm`,
-}
 shop.voltSwitchTm = {
     icon: item.voltSwitchTm.id,
     price: 10,
@@ -850,6 +853,14 @@ shop.hisuianLilligant = {
     currency: `gold`,
     category: `pokemon`,
     effect: function() {givePkmn(pkmn.hisuianLilligant,1)}
+}
+
+shop.vivillonElegant = {
+    pkmn: pkmn.vivillonElegant.id,
+    price: 200,
+    currency: `gold`,
+    category: `pokemon`,
+    effect: function() {givePkmn(pkmn.vivillonElegant,1)}
 }
 
 shop.gimmighoul = {

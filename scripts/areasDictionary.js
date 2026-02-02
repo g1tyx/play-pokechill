@@ -1,3 +1,178 @@
+
+
+
+
+
+
+const field = {}
+
+
+
+
+
+//positive
+field.simpleAura = {
+    info : function() { return `All of your Pokemon gain <strong data-ability="${ability.simple.id}" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("normal")}">${format(ability.simple.id)}</strong></strong>`},
+    tier: 1
+}
+
+field.moodyAura = {
+    info : function() { return `All of your Pokemon gain <strong data-ability="${ability.moody.id}" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("normal")}">${format(ability.simple.id)}</strong></strong>`},
+    tier: 1
+}
+
+field.serendipity = {
+    info : function() { return `Your hit effects are twice as likely to happen`},
+    tier: 1
+}
+
+field.harshSun = {
+    info : function() { return `Permanent <strong data-buff="sunny" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("fire")}">Sunny</strong></strong> weather`},
+    tier: 1
+}
+
+field.thickFog = {
+    info : function() { return `Permanent <strong data-buff="foggy" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("ghost")}">Foggy</strong></strong> weather`},
+    tier: 1
+}
+
+field.fierceHail = {
+    info : function() { return `Permanent <strong data-buff="foggy" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("ghost")}">Foggy</strong></strong> weather`},
+    tier: 1
+}
+
+field.coarseSandstorm = {
+    info : function() { return `Permanent <strong data-buff="sandstorm" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("ground")}">Sandstorm</strong></strong> weather`},
+    tier: 1
+}
+
+field.heavyRain = {
+    info : function() { return `Permanent <strong data-buff="rainy" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("water")}">Rainy</strong></strong> weather`},
+    tier: 1
+}
+
+field.mistyField = {
+    info : function() { return `Permanent <strong data-buff="mistyTerrain" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("psychic")}">Misty Terrain</strong></strong> weather`},
+    tier: 1
+}
+
+field.grassyField = {
+    info : function() { return `Permanent <strong data-buff="grassyTerrain" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("grass")}">Grassy Terrain</strong></strong> weather`},
+    tier: 1
+}
+
+field.electricField = {
+    info : function() { return `Permanent <strong data-buff="electricTerrain" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("electric")}">Electric Terrain</strong></strong> weather`},
+    tier: 1
+}
+
+
+
+
+//neutral, can be both negative, or positive depending on the user
+field.trickRoom = {
+    info : function() { return `Slower Pokemon become faster, faster Pokemon become slower`},
+    tier: 2
+}
+ 
+field.weirdRoom = {
+    info : function() { return `Type weaknesses and strenghts are reversed`},
+    tier: 2
+}
+
+field.averageTime = {
+    info : function() { return `All moves execute at the default speed (2s)`},
+    tier: 2
+}
+
+field.noMercy = {
+    info : function() { return `Type-immune damage is now resisted instead of ignored`},
+    tier: 2
+}
+
+
+
+
+
+//negative, but not maiming enough to consider using other pokemon
+
+field.deltaStream = {
+    info : function() { return `Weather changes are disabled`},
+    tier: 3
+}
+
+field.stealthRocks = {
+    info : function() { return `Switching Pokemon deal damage`},
+    tier: 3
+}
+
+field.heavyWeather = {
+    info : function() { return `If an active team Pokemon typing does not match the current Weather, deal periodic damage`},
+    tier: 3
+}
+
+field.ironBody = {
+    info : function() { return `Super-effective damage on the enemy Pokemon is reduced to neutral`},
+    tier: 3
+}
+
+
+
+
+//negative, maiming enough to considering using other pokemon
+field.wonderWard = {
+    info : function() { return `Non super-effective damage dealt to the enemy is reduced by 80%`},
+    tier: 4
+}
+
+field.neutralisingGas = {
+    info : function() { return `Abilities are disabled`},
+    tier: 4
+}
+
+
+field.weakeningCurse = {
+    info : function() { return `Physical damage dealt to the enemy is halved`},
+    tier: 4
+}
+
+field.fatiguingCurse = {
+    info : function() { return `Special damage dealt to the enemy is halved`},
+    tier: 4
+}
+
+field.unnerve = {
+    info : function() { return `Items are disabled`},
+    tier: 4
+}
+
+
+
+
+
+for (const i in field){
+    field[i].id = i
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const areas = {}
 
 
@@ -1000,6 +1175,24 @@ areas.victoryRoadI = {
     },
 }
 
+areas.glisteringCaveI = {
+    rotation : 1,
+    type: `dungeon`,
+    background : `iceCave`,
+    level : 95,
+    difficulty: 5,
+    unlockDescription : `Defeat Ultra Entity Lusamine in VS to unlock`,
+    unlockRequirement : function() { return areas.vsUltraEntityLusamine.defeated },
+    icon: item.bugGem,
+    spawns: {
+        common : [pkmn.kingdra,pkmn.lapras, pkmn.chesnaught, pkmn.probopass],
+    },
+    drops: {
+        common : [item.nothing],
+        rare : [item.bugGem, item.darkGem, item.dragonGem, item.electricGem, item.fairyGem, item.fightingGem]
+    },
+}
+
 
 //rotation 2
 
@@ -1088,6 +1281,24 @@ areas.victoryRoadII = {
     },
 }
 
+areas.glisteringCaveII = {
+    rotation : 2,
+    type: `dungeon`,
+    background : `iceCave`,
+    level : 95,
+    difficulty: 5,
+    unlockDescription : `Defeat Ultra Entity Lusamine in VS to unlock`,
+    unlockRequirement : function() { return areas.vsUltraEntityLusamine.defeated },
+    icon: item.fireGem,
+    spawns: {
+        common : [pkmn.emboar,pkmn.haxorus, pkmn.aerodactyl, pkmn.gliscor],
+    },
+    drops: {
+        common : [item.nothing],
+        rare : [item.fireGem, item.flyingGem, item.ghostGem, item.grassGem, item.groundGem, item.iceGem]
+    },
+}
+
 //rotation 3
 
 areas.sinnohUndergroundIII = {
@@ -1173,6 +1384,24 @@ areas.victoryRoadIII = {
     drops: {
         common : [item.nothing],
         rare : [item.eviolite, item.powerLens, item.powerWeight]
+    },
+}
+
+areas.glisteringCaveIII = {
+    rotation : 3,
+    type: `dungeon`,
+    background : `iceCave`,
+    level : 95,
+    difficulty: 5,
+    unlockDescription : `Defeat Ultra Entity Lusamine in VS to unlock`,
+    unlockRequirement : function() { return areas.vsUltraEntityLusamine.defeated },
+    icon: item.normalGem,
+    spawns: {
+        common : [pkmn.steelix,pkmn.eelektross, pkmn.conkeldurr, pkmn.dusknoir],
+    },
+    drops: {
+        common : [item.nothing],
+        rare : [item.normalGem, item.poisonGem, item.psychicGem, item.rockGem, item.steelGem, item.waterGem]
     },
 }
 
@@ -3950,6 +4179,124 @@ areas.vsMasterTrainerGeeta = {
 }
 
 
+areas.vsMasterTrainerNemona = {
+    name: `Master Trainer Nemona`,
+    background : `gym`,
+    sprite : `nemona`,
+    difficulty : 15,
+    trainer: true,
+    type: `vs`,
+    level : 142,
+    team : {
+        slot1 : pkmn.hisuianElectrode,
+        slot1Moves : [move.chloroblast.id,move.thunderWave.id, move.thunder.id],
+        slot2 : pkmn.torterra,
+        slot2Moves : [move.rototiller.id, move.earthquake.id, move.dig.id],
+        slot3 : pkmn.centiskorch,
+        slot3Moves : [move.flameCharge.id, move.flareBlitz.id, move.bugBuzz.id],
+        slot4 : pkmn.megaHeracross,
+        slot4Moves : [move.closeCombat.id, move.bugBuzz.id, move.megahorn.id],
+        slot5 : pkmn.megaSceptile,
+        slot5Moves : [move.dragonDance.id, move.dragonClaw.id, move.leafBlade.id],
+        slot6 : pkmn.venusaurGmax,
+        slot6Moves : [move.amnesia.id, move.frenzyPlant.id, move.sludgeWave.id],
+    },
+    fieldEffect : [field.grassyField.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsMasterTrainerAlder = {
+    name: `Master Trainer Alder`,
+    background : `gym`,
+    sprite : `alder`,
+    difficulty : 16,
+    trainer: true,
+    type: `vs`,
+    level : 144,
+    team : {
+        slot1 : pkmn.skeledirge,
+        slot1Moves : [move.torchSong.id,move.flamethrower.id, move.shadowBall.id],
+        slot2 : pkmn.armarouge,
+        slot2Moves : [move.calmMind.id, move.fireBlast.id, move.psychic.id],
+        slot3 : pkmn.megaScovillain,
+        slot3Moves : [move.flameCharge.id, move.flareBlitz.id, move.energyBall.id],
+        slot4 : pkmn.talonflame,
+        slot4Moves : [move.willOWisp.id, move.flareBlitz.id, move.braveBird.id],
+        slot5 : pkmn.heatran,
+        slot5Moves : [move.ironHead.id, move.flamethrower.id, move.earthquake.id],
+        slot6 : pkmn.charizardGmax,
+        slot6Moves : [move.bulkUp.id, move.firePunch.id, move.razorTalons.id],
+    },
+    fieldEffect : [field.harshSun.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsMasterTrainerWallace = {
+    name: `Master Trainer Wallace`,
+    background : `gym`,
+    sprite : `wallace`,
+    difficulty : 17,
+    trainer: true,
+    type: `vs`,
+    level : 146,
+    team : {
+        slot1 : pkmn.basculegionF,
+        slot1Moves : [move.agility.id,move.scald.id, move.shadowBall.id],
+        slot2 : pkmn.taurosAqua,
+        slot2Moves : [move.honeClaws.id, move.aquaTail.id, move.headCharge.id],
+        slot3 : pkmn.lapras,
+        slot3Moves : [move.nastyPlot.id, move.iceBeam.id, move.surf.id],
+        slot4 : pkmn.megaBarbaracle,
+        slot4Moves : [move.honeClaws.id, move.stoneEdge.id, move.brickBreak.id],
+        slot5 : pkmn.megaSwampert,
+        slot5Moves : [move.bulkUp.id, move.icePunch.id, move.earthquake.id],
+        slot6 : pkmn.blastoiseGmax,
+        slot6Moves : [move.calmMind.id, move.hydroCannon.id, move.focusBlast.id],
+    },
+    fieldEffect : [field.heavyRain.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsUltraEntityLusamine = {
+    name: `Ultra Entity Lusamine`,
+    background : `space`,
+    sprite : `lusamine2`,
+    difficulty : 18,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.kartana,
+        slot1Moves : [move.swordsDance.id,move.smartStrike.id, move.leafBlade.id, move.psychoCut.id],
+        slot2 : pkmn.xurkitree,
+        slot2Moves : [move.thunderWave.id, move.thunder.id, move.chargeBeam.id, move.iceBeam.id],
+        slot3 : pkmn.pheromosa,
+        slot3Moves : [move.honeClaws.id, move.bugBuzz.id, move.closeCombat.id, move.auraSphere.id],
+        slot4 : pkmn.celesteela,
+        slot4Moves : [move.ironDefense.id, move.ironHead.id, move.hurricane.id, move.confuseRay.id],
+        slot5 : pkmn.nihilego,
+        slot5Moves : [move.toxic.id, move.calmMind.id, move.sludgeWave.id, move.stoneEdge.id],
+        slot6 : pkmn.necrozma,
+        slot6Moves : [move.calmMind.id, move.prismaticLaser.id, move.darkPulse.id, move.shadowBall.id],
+    },
+    fieldEffect : [field.weirdRoom.id],
+    itemReward: { 1 : { item: item.autoRefightTicket.id, amount: 1 }, 2 : { item: item.goldenBottleCap.id, amount: 10 }},
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(0deg)" >New Dungeon: Glistering Cave</div>
+        </div>
+        `
+        openTooltip()
+    }
+}
+
+
+
+
 
 
 
@@ -3964,7 +4311,8 @@ const exclusiveFrontierPkmn = [
 pkmn.vivillonModern,
 
 pkmn.relicanth, pkmn.heatmor, pkmn.durant, pkmn.comfey, pkmn.morpeko, pkmn.klefki, pkmn.munna, pkmn.finneon, pkmn.skorupi, pkmn.stunky, pkmn.zangoose, pkmn.gulpin,
-pkmn.teddiursa, pkmn.pineco, pkmn.shuckle, pkmn.minccino, pkmn.pincurchin, pkmn.stonjourner, pkmn.smeargle, pkmn.stantler, pkmn.nickit, pkmn.porygon,
+pkmn.teddiursa, pkmn.pineco, pkmn.shuckle, pkmn.minccino, pkmn.pincurchin, pkmn.stonjourner, pkmn.smeargle, pkmn.stantler, pkmn.nickit, pkmn.porygon, pkmn.lickitung,
+pkmn.pinsir, pkmn.natu, pkmn.nosepass, pkmn.spoink, pkmn.anorith, pkmn.clamperl, pkmn.falinks, pkmn.grubbin, pkmn.wattrel, pkmn.rellor,
 
 pkmn.charmander, pkmn.squirtle, pkmn.bulbasaur, pkmn.chikorita, pkmn.cyndaquil, pkmn.totodile, pkmn.mudkip, pkmn.torchic, pkmn.treecko, pkmn.turtwig, pkmn.piplup, pkmn.chimchar,
 pkmn.tepig, pkmn.snivy, pkmn.oshawott, pkmn.froakie, pkmn.chespin, pkmn.fennekin, pkmn.rowlet, pkmn.litten, pkmn.popplio, pkmn.grookey, pkmn.scorbunny, pkmn.sobble, pkmn.sprigatito, pkmn.fuecoco, pkmn.quaxly,
@@ -4598,6 +4946,8 @@ areas.frontierBattleFactory = {
 
 
 
+
+
 function secretFight(area){
     if (saved.currentArea!==undefined) return
     closeTooltip()
@@ -4757,3 +5107,6 @@ for (const i in areas){
     }
 
 }
+
+
+
