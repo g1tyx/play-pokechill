@@ -2358,6 +2358,7 @@ function exploreCombatPlayer() {
 
 
 
+        if (areas[saved.currentArea].fieldEffect?.includes(field.wonderWard.id) && typeEffectiveness(moveType, pkmn[saved.currentPkmn].type) <= 1) totalPower *= 0.2
 
 
         //type effectiveness
@@ -2556,18 +2557,17 @@ function exploreCombatPlayer() {
         if (areas[saved.currentArea].fieldEffect?.includes(field.serendipity.id) && nextMove.hitEffect) {nextMove.hitEffect("wild")}
 
         if (areas[saved.currentArea].fieldEffect?.includes(field.heavyWeather.id) && saved.weatherTimer>0) {
-        if (saved.weather=="sunny" && !pkmn[saved.currentPkmn].type.includes("fire") ) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="rainy" && !pkmn[saved.currentPkmn].type.includes("water") ) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="sandstorm" && (!pkmn[saved.currentPkmn].type.includes("rock") || !pkmn[saved.currentPkmn].type.includes("ground"))) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="hail" && !pkmn[saved.currentPkmn].type.includes("ice") ) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="foggy" && (!pkmn[saved.currentPkmn].type.includes("ghost") || !pkmn[saved.currentPkmn].type.includes("dark"))) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="electricTerrain" && (!pkmn[saved.currentPkmn].type.includes("electric") || !pkmn[saved.currentPkmn].type.includes("steel"))) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="mistyTerrain" && (!pkmn[saved.currentPkmn].type.includes("electric") || !pkmn[saved.currentPkmn].type.includes("steel"))) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="electricTerrain" && (!pkmn[saved.currentPkmn].type.includes("fairy") || !pkmn[saved.currentPkmn].type.includes("psychic"))) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="grassyTerrain" && (!pkmn[saved.currentPkmn].type.includes("grass") || !pkmn[saved.currentPkmn].type.includes("bug"))) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="sunny" && !attacker.type.includes("fire") ) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="rainy" && !attacker.type.includes("water") ) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="sandstorm" && (!attacker.type.includes("rock") || !attacker.type.includes("ground"))) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="hail" && !attacker.type.includes("ice") ) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="foggy" && (!attacker.type.includes("ghost") || !attacker.type.includes("dark"))) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="electricTerrain" && (!attacker.type.includes("electric") || !attacker.type.includes("steel"))) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="mistyTerrain" && (!attacker.type.includes("electric") || !attacker.type.includes("steel"))) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="electricTerrain" && (!attacker.type.includes("fairy") || !attacker.type.includes("psychic"))) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="grassyTerrain" && (!attacker.type.includes("grass") || !attacker.type.includes("bug"))) attacker.playerHp -= attacker.playerHpMax/15
         }
 
-        if (areas[saved.currentArea].fieldEffect?.includes(field.wonderWard.id) && typeEffectiveness(moveType, pkmn[saved.currentPkmn].type) <= 1) totalPower *= 0.2
 
         if (areas[saved.currentArea].fieldEffect?.includes(field.weakeningCurse.id) && nextMove.split == 'physical') totalPower *= 0.5
         if (areas[saved.currentArea].fieldEffect?.includes(field.fatiguingCurse.id) && nextMove.split == 'special') totalPower *= 0.5
@@ -3267,9 +3267,9 @@ function exploreCombatWild() {
         if (typeMultiplier==1.5 && testAbility(`active`,  ability.filter.id ) ) typeMultiplier = 1.25
         if (typeMultiplier==2.25 && testAbility(`active`,  ability.filter.id ) ) typeMultiplier = 1.65
         
-        if (typeMultiplier>1 && testAbility(`active`,  ability.angerPoint.id ) ) moveBuff("wild",'atkup2',"self")
-        if (typeMultiplier>1 && testAbility(`active`,  ability.justified.id ) ) moveBuff("wild",'satkup2',"self")
-        if (typeMultiplier>1 && team[exploreActiveMember].item == item.weaknessPolicy.id ) moveBuff("wild",'speup1',"self")
+        if (typeMultiplier>1 && move[nextMoveWild].power>0 && testAbility(`active`,  ability.angerPoint.id ) ) moveBuff("wild",'atkup2',"self")
+        if (typeMultiplier>1 && move[nextMoveWild].power>0 && testAbility(`active`,  ability.justified.id ) ) moveBuff("wild",'satkup2',"self")
+        if (typeMultiplier>1 && move[nextMoveWild].power>0 && team[exploreActiveMember].item == item.weaknessPolicy.id ) moveBuff("wild",'speup1',"self")
 
         totalPower *= typeMultiplier
 
@@ -6235,10 +6235,13 @@ function createArenaCards() {
 
 
     for (const i in field) {
+        if (field[i].chance==undefined || ( field[i].chance && rng(field[i].chance) )) {
         if (field[i].tier==1) fieldt1.push(i)
         if (field[i].tier==2) fieldt2.push(i)
         if (field[i].tier==3) fieldt3.push(i)
         if (field[i].tier==4) fieldt4.push(i)
+        }
+
     }
 
     saved.arenaCard1 = [arrayPick(fieldt2,1)]

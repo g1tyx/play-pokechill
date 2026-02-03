@@ -249,7 +249,7 @@ function changeTeamNames(){
         }
     }
 
-    document.getElementById("team-slot-selector").text = saved.previewTeams[saved.currentPreviewTeam].name
+    select.value = saved.currentPreviewTeam;
 } 
 
 
