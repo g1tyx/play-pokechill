@@ -360,6 +360,7 @@ var cnItems = {
     "Battle Factory": "对战工厂",
     "Battle Tower": "对战塔",
     "Battle Arena": "对战竞技场",
+    "All trainers defeated for now": "目前所有训练家已击败",
     "Pick a difficulty for the next trainer": "为下一位训练家选择难度",
     "(Right click/long tap to see the field effect details)": "（右键单击/长按查看场地效果详情）",
     "division and below only": "仅限该组别及以下",
@@ -381,6 +382,9 @@ var cnItems = {
     "Iron Body": "钢铁之躯",
     "Super-effective damage on the enemy Pokemon is reduced to neutral": "对敌方宝可梦效果绝佳的伤害变为一般伤害",
     "Heavy Rain": "大雨",
+    "Coarse Sandstorm": "猛烈沙暴",
+    "Harsh Sun": "大日照",
+    "All of your Pokemon gain": "你的所有宝可梦获得",
     "Fatiguing Curse": "疲劳诅咒",
     "Special damage dealt to the enemy is halved": "对敌方造成的特殊伤害减半",
     "Weird Room": "怪异房间",
@@ -389,6 +393,14 @@ var cnItems = {
     "Weather changes are disabled": "天气不会改变",
     "Unnerve": "紧张感",
     "Items are disabled": "道具被禁用",
+    "No Mercy": "毫不留情",
+    "Type-immune damage is now resisted instead of ignored": "原本属性免疫的伤害现在变为抵抗而非无效",
+    "Wonder Ward": "神奇护盾",
+    "Non super-effective damage dealt to the enemy is reduced by 80%": "对敌人造成的非效果绝佳伤害降低 80%",
+    "Stealth Rocks": "隐形岩",
+    "Switching Pokemon deal damage": "切换宝可梦时造成伤害",
+    "Neutralising Gas": "化学气体",
+    "Abilities are disabled": "特性被禁用",
     // 道具
     "Held": "携带物",
     "TM's": "技能机",
@@ -1337,6 +1349,7 @@ var cnItems = {
 //可以在这里汉化开头："Coin: ":"金币: "
 var cnPrefix = {
     "Moves for ": "可学习的招式-",
+    "Expert Trainer": "专家训练家",
     "Rookie Trainer": "新人训练家",
     "Veteran Trainer": "资深训练家",
     "Gym Leader": "道馆馆主",
@@ -1426,13 +1439,18 @@ var cnPrefix = {
 //例如：13 Coin、14 Coin、15 Coin... 这种有相同结尾的语句
 //可以在这里汉化结尾：" Coin":" 金币"
 var cnPostfix = {
+    "Time": "时间",
+    "Aura": "气场",
     "at level 30 ✔️": "在等级 30 ✔️",
     "at level 30 ❌": "在等级 30 ❌",
     "at level 50 ✔️": "在等级 50 ✔️",
     "at level 50 ❌": "在等级 50 ❌",
     "at level 70 ✔️": "在等级 70 ✔️",
     "at level 70 ❌": "在等级 70 ❌",
+    "at level 100+ ✔️": "在等级 100+ ✔️",
+    "at level 100+ ❌": "在等级 100+ ❌",
     //人名
+    "Clay": "菊老大",
     "Brock": "小刚",
     "Misty": "小霞",
     "Phoebe": "芙蓉",
