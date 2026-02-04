@@ -1408,7 +1408,6 @@ var cnPrefix = {
     "Animations: ": "动画: ",
     "Current Endgame: ": "当前终局: ",
     "Space Background: ": "太空背景: ",
-    "Select a pokemon to teach ": "选择一个宝可梦传授 ",
 }
 
 //需处理的后缀, 此处可以截取语句结尾部分的内容进行汉化
