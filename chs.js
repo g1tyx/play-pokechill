@@ -68,16 +68,17 @@ var cnItems = {
     "Inspecting": "检查",
     "Some elements that can be inspected include areas, trainers, moves, status effects, wild pokemon, team pokemon and items": "可以检查的元素包括区域、训练师、招式、异常状态、野生宝可梦、队伍宝可梦和道具",
     "Right click/long press on most elements can give further information. You can further right click/long press on information within information.": "对大部分功能项右键点击/长按, 可查看详细说明。你还可对说明内的次级信息再次右键点击/长按, 查看更多内容。",
-    // 战斗: 属性
-    "Stats": "属性",
-    "Health": "生命值",
+    // 战斗: 能力值
+    "Stats": "能力值",
+    "Health": "生命",
     "Attack": "攻击",
     "Defense": "防御",
     "Speed": "速度",
     "Special Attack": "特攻",
-    "Special Defense": "特防","Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level": "每个种类的宝可梦共享相同的种族值, 这些数值决定了宝可梦在特定等级时的实际能力值",
+    "Special Defense": "特防",
+    "Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level": "每个种类的宝可梦共享相同的种族值(蓝色星星), 这些数值决定了宝可梦在特定等级时的实际能力值(数字)",
     "Stats determine how much damage they deal and receive (see Battle: Moves). The speed stat determines how fast a Pokemon executes a move": "各项能力值决定了宝可梦造成和承受伤害的多少(详见战斗: 招式)。速度决定了宝可梦执行招式的速度",
-    "Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon": "个体值(IV)会增强属性, 并且可以通过获得多个相同的宝可梦个体来提升",
+    "Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon": "个体值(IV)(红色星星)会增强能力值, 并且可以通过获得多个相同的宝可梦个体来提升",
     "Depending on their base stats, a Division will be asigned to them. You might use this Division letter to quickly assess which Pokemon can perform better on the short term": "根据它们的种族值, 会为其分配一个评级。你可以利用这个评级来快速判断哪些宝可梦在短期内表现更佳",
     // 战斗: 特性
     "Abilities": "特性",
