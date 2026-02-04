@@ -2563,8 +2563,7 @@ function exploreCombatPlayer() {
         if (saved.weather=="hail" && !attacker.type.includes("ice") ) attacker.playerHp -= attacker.playerHpMax/15
         if (saved.weather=="foggy" && (!attacker.type.includes("ghost") || !attacker.type.includes("dark"))) attacker.playerHp -= attacker.playerHpMax/15
         if (saved.weather=="electricTerrain" && (!attacker.type.includes("electric") || !attacker.type.includes("steel"))) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="mistyTerrain" && (!attacker.type.includes("electric") || !attacker.type.includes("steel"))) attacker.playerHp -= attacker.playerHpMax/15
-        if (saved.weather=="electricTerrain" && (!attacker.type.includes("fairy") || !attacker.type.includes("psychic"))) attacker.playerHp -= attacker.playerHpMax/15
+        if (saved.weather=="mistyTerrain" && (!attacker.type.includes("fairy") || !attacker.type.includes("psychic"))) attacker.playerHp -= attacker.playerHpMax/15
         if (saved.weather=="grassyTerrain" && (!attacker.type.includes("grass") || !attacker.type.includes("bug"))) attacker.playerHp -= attacker.playerHpMax/15
         }
 
@@ -8230,3 +8229,4 @@ window.addEventListener('load', function() {
     arceusCheck()
     //updateTeamExp()
 });
+

@@ -2752,7 +2752,22 @@ areas.eventTapuLele = {
 
 //rotation 5
 
-
+areas.zoologyLab = {
+    rotation: 5,
+    type: `event`,
+    background : `lab`,
+    level : wildAreaLevel1,
+    icon: pkmn.tauros,
+    spawns: {
+        common : [pkmn.tauros],
+        rare : [pkmn.taurosAqua, pkmn.taurosBlaze, pkmn.taurosCombat]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        rare : [item.silkScarf],
+    },
+    category: 1,
+}
 
 
 areas.protonCity = {
@@ -5108,6 +5123,7 @@ for (const i in areas){
     }
 
 }
+
 
 
 
