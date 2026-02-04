@@ -1771,7 +1771,7 @@ var cnRegReplace = new Map([
     [/^Increases damage dealt by x([\d\.]+), but once all the moves of the user are executed, switch to the previous team member$/, '造成的伤害增加 $1 倍, 但一旦携带者的所有招式执行完毕, 则切换到队伍中的上一只宝可梦'],
     [/^Increases damage dealt by x([\d\.]+), but once all the moves of the user are executed, switch to the next team member$/, '造成的伤害增加 $1 倍, 但一旦携带者的所有招式执行完毕, 则切换到队伍中的下一只宝可梦'],
     [/^Moves that attack faster than usual are executed x([\d\.]+) faster$/, '攻击速度比通常更快的招式执行速度再加快 $1 倍'],
-    [/^Multi-hit moves are guaranteed to hit \+1 times and deal x([\d\.]+) more damage. Multi-hit moves cannot exceed their maximum hit count$/, '多次攻击招式保证额外多攻击 1 次, 并且造成 $1 倍伤害。多次攻击招式无法超过其最大攻击次数'],
+    [/^Multi-hit moves are guaranteed to hit \+(\d+) times and deal x1.2 more damage. Multi-hit moves cannot exceed their maximum hit count$/, '多次攻击招式保证额外多攻击 $1 次, 并且造成 1.2 倍伤害。多次攻击招式无法超过其最大攻击次数'],
     [/^Moves that get more powerful the more stacks they have deal x([\d\.]+) more damage$/, '叠加次数越多威力越强的招式造成 $1 倍伤害'],
     [/^Moves that have 0 power execute x([\d\.]+) faster$/, '威力为0的招式执行速度加快 $1 倍'],
     [/^Moves affected by Iron Fist deal x([\d\.]+) more damage, and their secondary effects are twice$/, '受铁拳影响的招式造成 $1 倍伤害，且其次要效果的发生概率翻倍'],
