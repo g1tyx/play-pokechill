@@ -4356,7 +4356,7 @@ function updateRaidTimer(){
         }
 
 
-
+        raidTimer = 60
 
 
 
