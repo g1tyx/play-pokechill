@@ -507,13 +507,13 @@ var cnItems = {
     "There is a maximum of 100 Golden Bottlecaps achievable": "最多可获得100个金色王冠",
     "Trick Room": "戏法空间",
     "Slower Pokemon become faster, faster Pokemon become slower": "速度较慢的宝可梦变得更快, 速度较快的宝可梦变得更慢",
-    "Average Time": "平均时间",
     "All moves execute at the default speed (2s)": "所有招式以默认速度(2秒)执行",
     "Iron Body": "钢铁之躯",
     "Super-effective damage on the enemy Pokemon is reduced to neutral": "对敌方宝可梦效果绝佳的伤害变为一般伤害",
     "Heavy Rain": "大雨",
     "Coarse Sandstorm": "猛烈沙暴",
     "Harsh Sun": "大日照",
+    "Fierce Hail": "猛烈冰雹",
     "All of your Pokemon gain": "你的所有宝可梦获得",
     "Fatiguing Curse": "疲劳诅咒",
     "Special damage dealt to the enemy is halved": "对敌方造成的特殊伤害减半",
@@ -1420,7 +1420,6 @@ var cnPrefix = {
 //可以在这里汉化结尾：" Coin":" 金币"
 var cnPostfix = {
     "Time": "时间",
-    "Aura": "气场",
     "at level 30 ✔️": "在等级 30 ✔️",
     "at level 30 ❌": "在等级 30 ❌",
     "at level 50 ✔️": "在等级 50 ✔️",
@@ -1684,6 +1683,8 @@ var cnExcludePostfix = [
 //换行加空格：\n(.+)
 //&nbsp;空格：\xA0
 var cnRegReplace = new Map([
+    [/^Average Time$/, '平均时间'],
+    [/^Simple Aura$/, '朴素气场'],
     [/^Reward: x(\d+)$/, '奖励: $1个'],
     [/^Trainer (\d+)\/5$/, '训练家: $1/5'],
     [/^Defeated: (\d+)\/5$/, '已击败: $1/5'],
