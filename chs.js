@@ -624,7 +624,7 @@ var cnItems = {
     "Wormhole Space": "虫洞空间",
     "Tempest Trench": "风暴海沟",
     "- Science Future -": "-| 科学未来 |-",
-    "zoology lab": "动物学研究所",
+    "Zoology Lab": "动物学研究所",
     "Proton City": "质子城",
     "Climatology Lab": "气象实验室",
     "Fusion Plant": "融合工厂",
