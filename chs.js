@@ -194,7 +194,6 @@ var cnItems = {
     // 携带物
     "Twisted Spoon": "弯曲的汤匙",
     "Toxic Orb": "剧毒宝珠",
-    "Light Clay": "光之黏土",
     "Black Belt": "黑带",
     "Metal Coat": "金属膜",
     "Fairy Feather": "妖精之羽",
@@ -514,6 +513,9 @@ var cnItems = {
     "Coarse Sandstorm": "猛烈沙暴",
     "Harsh Sun": "大日照",
     "Fierce Hail": "猛烈冰雹",
+    "Grassy Field": "青草场地",
+    "Electric Field": "电气场地",
+    "Permanent": "永久的",
     "All of your Pokemon gain": "你的所有宝可梦获得",
     "Fatiguing Curse": "疲劳诅咒",
     "Special damage dealt to the enemy is halved": "对敌方造成的特殊伤害减半",
@@ -1277,8 +1279,6 @@ var cnItems = {
     "Learnable by Dragon types": "龙属性宝可梦可学会",
     "Learnable by Fire and Grass types": "火属性和草属性宝可梦可学会",
     // 技能描述
-    "Permanent": "永久的",
-    "Grassy Field": "青草场地",
     "Switches to the next party member": "切换到队伍中的下一只宝可梦",
     "Power randomly varies from x1 to x8": "威力随机在1倍到8倍之间变化",
     "Power increases by x1.2-1.5 if Defense/Special Defense is risen": "如果防御或特防提升, 威力会上升1.2~1.5倍",
@@ -3998,4 +3998,7 @@ var cnRegReplace = new Map([
     [/^\s*Future Disk\s*$/, "未来磁盘"],
     [/^\s*Future Contraption\s*$/, "未来机械装置"],
     [/^\s*Wormhole Residue\s*$/, "虫洞残屑"],
+    // 特殊
+    [/\bLight Clay\b/gi, '光之黏土'],
+    [/\bClay\b/gi, '菊老大'],
 ]);
