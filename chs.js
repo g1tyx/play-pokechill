@@ -95,12 +95,12 @@ var cnItems = {
     "Some Pokemon might have Signature Moves. Signature Moves are species-dependant moves that a Pokemon learn at level 100. Signature Moves can't be inherited through genetics": "有些宝可梦可能有标志性的招式。标志性招式是宝可梦在100级时学习的与物种相关的招式。标志性招式不能通过基因遗传",
     "Some moves might be restricted. Only one restricted move might be equipped at a time on the active Pokemon": "部分招式为限定招式, 出战宝可梦同一时间仅可装备一个限定招式",
     // 战斗：本系加成
-    "If a Pokemon uses a damaging move that has the same type as one of that Pokemon's types, the move's damage is increased by x1.5": "如果宝可梦使用了与自己类型相同的伤害招式, 该招式的伤害将提升 1.5 倍",
+    "If a Pokemon uses a damaging move that has the same type as one of that Pokemon's types, the move's damage is increased by x1.5": "如果宝可梦使用了与自己属性相同的伤害招式, 该招式的伤害将提升 1.5 倍",
     "This is known as same-type attack bonus, or STAB": "这就是所谓的本系加成(STAB)",
     "Furthermore, Pokemon with a single typing will receive +0.2 extra STAB damage": "此外, 单一属性的宝可梦将额外获得 0.2 倍本系招式伤害加成",
     // 战斗：交叉之力
     "Cross-Power": "交叉之力",
-    "If a Pokemon uses a damaging move that is preceded (immediately or not) by a damaging move of a different type of the executed move, it will receive a 1.3x damage multiplier. This is indicated with a cross pattern on the move bar of the affected move": "如果宝可梦使用的伤害性招式之前(无论是否紧接着)有一个与它类型不同的伤害性招式, 该招式会获得 1.3 倍伤害乘数。这会在受影响招式的招式条上以交叉图案显示",
+    "If a Pokemon uses a damaging move that is preceded (immediately or not) by a damaging move of a different type of the executed move, it will receive a 1.3x damage multiplier. This is indicated with a cross pattern on the move bar of the affected move": "如果宝可梦使用的伤害型招式之前(无论是否紧接着)有一个与它属性不同的伤害型招式, 该招式会获得 1.3 倍伤害加成。这会在受影响招式的招式条上以交叉图案显示",
     // 战斗：战斗疲劳
     "Battle Fatigue": "战斗疲劳",
     "Pokemon lose a very small fraction of their maximum health when attacking. This damage can be mitigated by a sum of the HP, Defense and Special Defense of the Pokemon, meaning bulkier Pokemon can battle for longer": "宝可梦攻击时会损失一小部分最大生命值。这个伤害可以通过宝可梦的HP、防御和特防的总和来减轻, 这意味着耐久更高的宝可梦可以战斗更长时间",
@@ -126,8 +126,8 @@ var cnItems = {
     "Ability Inheriting: Using a Destiny Knot, you can swap abilities with the sample, getting access to otherwise-impossible combinations": "特性遗传：使用 红线 可与样本宝可梦互换特性, 从而获得常规方式无法实现的特性组合",
     // 遗传学：兼容性
     "Compatibility determines how similar the sample is to the host. This influences various parameters such as the chances of inherit, or shiny mutations (only if the sample is shiny)": "兼容性决定了样本与宿主的相似程度。这会影响各种参数, 如遗传的机会, 或闪光的突变（仅当样本是闪光的）",
-    "Sharing one type with the sample will yield one level of compatibility, whereas sharing two types will increase it by two levels.": "与样本共享一个类型将产生一个级别的兼容性, 而共享两个类型将使兼容性提升两个级别。",
-    "Additionally, if the sample is of the same evolutive line as the host, it will recieve maximum compatibility": "此外, 如果样本与宿主具有相同的进化系, 它将获得最大的兼容性",
+    "Sharing one type with the sample will yield one level of compatibility, whereas sharing two types will increase it by two levels.": "宿主与样本同一个属性将获得 1级 兼容性, 而2个属性相同将获得 2级 兼容性",
+    "Additionally, if the sample is of the same evolutive line as the host, it will recieve maximum compatibility": "此外, 如果样本与宿主具有相同的进化系, 它将获得最大的兼容性(3级)",
     // 遗传学：能量消耗
     "Power cost determines how taxing it is to modify the host. This influences the time to complete the operation": "能量消耗决定了修改宿主的成本。这会影响完成操作的时间",
     "This is determined by the division of the host. A higher division will exponentially increase the time required to modify the Pokemon": "这是由宿主的分级决定的。更高的分级将增加修改宝可梦所需的时间",
@@ -810,7 +810,7 @@ var cnItems = {
     "Same-Type: Fairy": "同属性：妖精",
     "Same-Type: Dark": "同属性：恶",
     "not evolved": "未进化",
-    "type": "类型",
+    "type": "属性",
     "level": "等级",
     "division": "分级",
     "is shiny": "闪光",
