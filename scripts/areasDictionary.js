@@ -4317,7 +4317,7 @@ areas.vsUltraEntityLusamine = {
         slot6 : pkmn.necrozma,
         slot6Moves : [move.calmMind.id, move.prismaticLaser.id, move.darkPulse.id, move.shadowBall.id],
     },
-    fieldEffect : [field.weirdRoom.id],
+    fieldEffect : [field.weirdRoom.id, field.ironBody.id],
     itemReward: { 1 : { item: item.autoRefightTicket.id, amount: 1 }, 2 : { item: item.goldenBottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
