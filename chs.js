@@ -242,6 +242,10 @@ var cnItems = {
     "Held": "携带物",
     "TM's": "技能机",
     "Key": "贵重物",
+    "Evo": "进化",
+    "Memo": "记忆",
+    "Memory": "记忆",
+    "Limited": "限量物品",
     // 携带物
     "Black Belt": "黑带",
     "Metal Coat": "金属膜",
@@ -686,6 +690,11 @@ var cnItems = {
     "Fusion Plant": "融合工厂",
     "Far Cloudscape": "遥远云景",
     "Capacitor Tower": "电容器高塔",
+    "Hallowed Gala": "神圣庆典",
+    "Limited Area until 2/14": "限时区域，截止至2月14日",
+    "Spooky Encounter": "幽灵遭遇战",
+    "This is a timed encounter. Your damage will be carried on between fights.": "这是一场限时遭遇战。你的伤害将在多次战斗之间保留。",
+    "Additionally, items needed to enter will be consumed regardless if you defeat the Pokemon or not": "此外，进入地图所需的道具, 无论你是否击败宝可梦都会被消耗",
     // 轮换1
     "Suspicious Manor": "可疑庄园",
     // 轮换3
@@ -960,7 +969,8 @@ var cnItems = {
     "Requires a": "需要",
     "Requires an": "需要",
     "Fast-forwards battle time by 10 minutes. Must be used while battling": "战斗时间快进10分钟。必须在战斗时使用",
-    "Can be used to catch event Pokemon. Expires after event finishes": "可用于捕捉活动宝可梦。活动结束后失效",
+    "Can be used to catch event Pokemon. Expires after event finishes": "可用于捕捉活动宝可梦。活动结束后消失",
+    "Seasonal item, dropped randomly from defeating wild Pokemon. Expires on 2/14": "季节性道具，击败野生宝可梦随机掉落。有效期至2月14日",
     "(Requires an": "(需要一个",
     "Auto-Refight": "自动再次战斗",
     "(Wont use": "(不会消耗",
@@ -1430,6 +1440,7 @@ var cnItems = {
     "Additionally, appears as the Hidden ability of Unown L, Scorbunny, Raboot, Cinderace, and Cinderace Gmax": "也是以下宝可梦的隐藏特性: 未知图腾L、炎兔儿、腾蹴小将、闪焰王牌、超级巨化闪焰王牌",
     "Additionally, appears as the Hidden ability of Unown R, Starly, Staravia, Staraptor, and M. Hawlucha": "也是以下宝可梦的隐藏特性: 未知图腾R、姆克儿、姆克鸟、姆克鹰、Mega摔角鹰人",
     // 技能描述
+    "Steals the stats changes of the enemy": "窃取对手的能力变化",
     "Switches to the next party member": "切换到队伍中的下一只宝可梦",
     "Power randomly varies from x1 to x8": "威力随机在 1-8 倍之间变化",
     "Power increases by x1.2-1.5 if Defense/Special Defense is risen": "如果防御或特防提升, 威力会上升 1.2~1.5 倍",
@@ -2833,6 +2844,9 @@ var cnRegReplace = new Map([
     [/\bLearnable by Water and Psychic types\b/, '水属性和超能力属性宝可梦可学习'],
     [/^Average Time$/, '平均时间'],
     [/^Simple Aura$/, '朴素气场'],
+    [/^Limited Area until (\d+)\/(\d+)$/, '限时区域，截止至$1月$2日'],
+    [/^HP remaining: (\d+)%$/, 'HP剩余: $1%'],
+    [/^(Stock: (\d+))$/, '(库存: $1 )'],
     [/^Reward: x(\d+)$/, '奖励: $1个'],
     [/^Trainer (\d+)\/5$/, '训练家: $1/5'],
     [/^Defeated: (\d+)\/5$/, '已击败: $1/5'],
@@ -3545,6 +3559,7 @@ var cnRegReplace = new Map([
     [/^\s*Shadow Punch\s*$/, "暗影拳"],
     [/^\s*String Shot\s*$/, "吐丝"],
     [/^\s*X Scissor\s*$/, "十字剪"],
+    [/^\s*Spectral Thief\s*$/, "暗影偷盗"],
     // 图鉴
     // 地区形态
     [/^Paldean Wooper$/gi, '帕底亚 乌波'],
@@ -5222,6 +5237,7 @@ var cnRegReplace = new Map([
     [/^\s*Future Disk\s*$/, "未来磁盘"],
     [/^\s*Future Contraption\s*$/, "未来机械装置"],
     [/^\s*Wormhole Residue\s*$/, "虫洞残屑"],
+    [/^\s*Old Gateau\s*$/, "陈旧糕点"],
     // 特殊
     [/\bLight Clay\b/gi, '光之黏土'],
     [/\bClay\b/gi, '菊老大'],
