@@ -281,70 +281,70 @@ shop.shopclearAmulet = {
 
 shop.shopejectPack = {
     icon: item.ejectPack.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shopejectButton = {
     icon: item.ejectButton.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shoploadedDice = {
     icon: item.loadedDice.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shopmetronome = {
     icon: item.metronome.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shoplaggingTail = {
     icon: item.laggingTail.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shopquickClaw = {
     icon: item.quickClaw.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shopweaknessPolicy = {
     icon: item.weaknessPolicy.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shopluckyPunch = {
     icon: item.luckyPunch.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shoppowerHerb = {
     icon: item.powerHerb.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
 shop.shopassaultVest = {
     icon: item.assaultVest.id,
-    price: 10,
+    price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
 }

@@ -10609,7 +10609,7 @@ pkmn.roggenrola = {
 pkmn.boldore = {
   type: ["rock"],
   bst: {
-    hp: 70,
+    hp: 80,
     atk: 105,
     def: 105,
     satk: 50,

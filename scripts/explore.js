@@ -649,6 +649,7 @@ function dropItem(){
 
     if (saved.currentArea == undefined) return
 
+
     let drop;
     drop = arrayPick(areas[saved.currentArea].drops?.common).id
 
@@ -675,13 +676,6 @@ function dropItem(){
 
 
 
-    if (drop == undefined) return
-    if (drop == "nothing") return
-
-    item[drop].newItem ++
-    item[drop].got ++
-
-
 
 
     //seasonal drops
@@ -693,6 +687,28 @@ function dropItem(){
             item[itemToDrop].got ++
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if (drop == undefined) return
+    if (drop == "nothing") return
+
+    item[drop].newItem ++
+    item[drop].got ++
+
+
+
+
 
 
 
@@ -6852,11 +6868,7 @@ function moveBuff(target,buff,mod){
         if (testAbility(`active`, ability.fieryPelt.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
         if (testAbility(`active`, ability.pixiePelt.id ) && saved.weather == "foggy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
-        if (testAbility(`active`, ability.simple.id) && buff.endsWith("1")) {
-            const upgradedBuff = buff.slice(0, -1) + "2";
-            team[exploreActiveMember].buffs[upgradedBuff] = affectedTurns;
-            return
-        }
+
 
         if (testAbility(`active`, ability.contrary.id) && typeof buff === "string" && (buff.includes("down") || buff.includes("up")) ) {
         const inverse = buff.includes("down")
@@ -6864,6 +6876,12 @@ function moveBuff(target,buff,mod){
         : buff.replace("up", "down");
         team[exploreActiveMember].buffs[inverse] = affectedTurns;  
         return
+        }
+
+        if (testAbility(`active`, ability.simple.id) && buff.endsWith("1")) {
+            const upgradedBuff = buff.slice(0, -1) + "2";
+            team[exploreActiveMember].buffs[upgradedBuff] = affectedTurns;
+            return
         }
 
         team[exploreActiveMember].buffs[buff] = affectedTurns
@@ -8251,6 +8269,7 @@ function wonderTrade(){
         for (const i in pkmn){
             if (pkmn[i].caught==0) continue
             if (pkmn[i].shiny==true) continue
+            if (pkmn[i].hidden==true) continue
             obtainedPokemon.push(i)
         }
 
