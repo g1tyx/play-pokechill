@@ -16,10 +16,18 @@ function saveGame() {
     data[i].newItem = item[i].newItem;
   }
 
+
+  // Shop
+  for (const i in shop) {
+    data[i] = {};
+    data[i].stock = shop[i].stock;
+  }
+
   // Areas
   for (const i in areas) {
     data[i] = {};
     data[i].defeated = areas[i].defeated;
+    data[i].hpPercentage = areas[i].hpPercentage;
 
     if (areas[i].type=="frontier") data[i].level = areas[i].level;
     if (areas[i].type=="frontier") data[i].team = areas[i].team;
@@ -80,9 +88,17 @@ function loadGame() {
     }
   }
 
+
+  for (const i in shop) {
+    if (data[i]) {
+      shop[i].stock = data[i].stock;
+    }
+  }
+
   for (const i in areas) {
     if (data[i]) {
-      areas[i].defeated = data[i].defeated;
+    areas[i].defeated = data[i].defeated;
+    if (data[i].hpPercentage!==undefined) areas[i].hpPercentage = data[i].hpPercentage;
 
     if (areas[i].type=="frontier") areas[i].level = data[i].level;
     if (areas[i].type=="frontier") areas[i].team = data[i].team;

@@ -192,6 +192,7 @@ const wildAreaLevel3 = 50
 const wildAreaLevel4 = 70
 const wildAreaLevel5 = 90
 
+
 const wildRareItemsFire = [item.charcoal, item.occaBerry]
 const wildRareItemsWater = [item.mysticWater, item.passhoBerry]
 const wildRareItemsElectric = [item.magnet, item.wacanBerry]
@@ -210,6 +211,27 @@ const wildRareItemsDark = [item.blackGlasses, item.colburBerry]
 const wildRareItemsSteel = [item.metalCoat, item.babiriBerry]
 const wildRareItemsNormal = [item.silkScarf]
 const wildRareItemsFairy = [item.fairyFeather, item.roseliBerry]
+
+const wildRareItems = [
+  wildRareItemsFire, 
+  wildRareItemsWater, 
+  wildRareItemsElectric, 
+  wildRareItemsGrass,
+  wildRareItemsIce,
+  wildRareItemsFighting,
+  wildRareItemsPoison,
+  wildRareItemsGround,
+  wildRareItemsFlying,
+  wildRareItemsPsychic,
+  wildRareItemsBug,
+  wildRareItemsRock,
+  wildRareItemsGhost,
+  wildRareItemsDragon,
+  wildRareItemsDark,
+  wildRareItemsSteel,
+  wildRareItemsNormal,
+  wildRareItemsFairy
+]
 //rotation 1
 areas.verdantForest = {
     rotation : 1,
@@ -2752,6 +2774,7 @@ areas.eventTapuLele = {
 
 //rotation 5
 
+
 areas.zoologyLab = {
     rotation: 5,
     type: `event`,
@@ -2768,7 +2791,6 @@ areas.zoologyLab = {
     },
     category: 1,
 }
-
 
 areas.protonCity = {
     rotation: 5,
@@ -4982,6 +5004,7 @@ areas.missingArea = {
     background : `missing`,
     trainer: true,
     encounter: true,
+    unlockRequirement : function() { return true },
     difficulty: tier4difficulty,
     level : 100,
     team : {
@@ -4995,6 +5018,7 @@ areas.studioA = {
     background : `mall`,
     trainer: true,
     encounter: true,
+    unlockRequirement : function() { return true },
     difficulty: tier4difficulty,
     level : 100,
     team : {
@@ -5004,7 +5028,19 @@ areas.studioA = {
     reward : [pkmn.f00],
 }
 
-
+areas.secretGhost = {
+    background : `night`,
+    trainer: true,
+    encounter: true,
+    unlockRequirement : function() { return true },
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.ghost,
+        slot1Moves : [move.fog.id,move.shadowBall.id, move.nightDaze.id, move.confuseRay.id],
+    },
+    reward : [pkmn.ghost],
+}
 
 
 const wildlifePoolCommon = [
@@ -5084,7 +5120,8 @@ areas.wildlifePark = {
         rare : [pkmn.dreepy]
     },
     drops: {
-        common : [item.mysteryEgg]
+        common : [item.mysteryEgg],
+        rare : wildRareItemsNormal
     }
 }
 
@@ -5098,6 +5135,92 @@ areas.wildlifePark = {
 areas.training = {
     background: `gym`
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const season = {}
+
+season.halloween = {
+    background: `night`,
+    icon: pkmn.marshadow,
+    hue: 140,
+    svg: `<svg class="frontier-flair" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m13.894 7.994l4.997-6.835l1.345 2.611l2.896.49l-3.973 5.434"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 8.9a3.27 3.27 0 0 1-.077-3.59c1.035-1.49 3.322-1.69 5.109-.448A3.756 3.756 0 0 1 13.59 9.48M5.293.75C7.08 1.992 7.81 4.033 6.923 5.31s-3.055 1.3-4.842.063l2.068-1.99z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.63 8.8a4.2 4.2 0 0 0-2.63.976a4.2 4.2 0 0 0-2.624-.976a4.2 4.2 0 0 0-2.627.974A4.2 4.2 0 0 0 6.122 8.8C3.22 8.8.868 12.036.868 16.026S3.22 23.25 6.122 23.25a4.2 4.2 0 0 0 2.627-.974c.763.572 1.676.91 2.627.974A4.2 4.2 0 0 0 14 22.276c.738.616 1.666.96 2.627.974c2.9 0 5.253-3.234 5.253-7.224S19.531 8.8 16.63 8.8"/><path stroke-linecap="round" stroke-linejoin="round" d="m7.435 17.339l1.971 1.314l1.97-1.314l1.97 1.314l1.97-1.314"/><path d="M8.457 14.151a.5.5 0 0 1 0-1m0 1a.5.5 0 0 0 0-1m5.893 1a.5.5 0 0 1 0-1m0 1a.5.5 0 0 0 0-1"/></g></svg>`,
+    start: { month: 2, day: 4 }, 
+    end: { month: 2, day: 14 },
+}
+
+for (const i in season){
+    season[i].id = i
+}
+
+
+
+
+areas.trickyForest = {
+    season : season.halloween.id,
+    level : wildAreaLevel1,
+    type: `season`,
+    background : `night`,
+    icon: pkmn.pumpkaboo,
+    spawns: {
+        common : [pkmn.litwick,pkmn.pumpkaboo, pkmn.phantump],
+        rare : [pkmn.emolgaEvent, pkmn.tangelaEvent, pkmn.snoruntEvent,]
+    },
+    drops: {
+        common : [item.mysteryEgg],
+        uncommon : [item.oldGateau],
+    }
+}
+
+
+areas.seasonMarshadow = {
+    season : season.halloween.id,
+    type: `season`,
+    timed: 60,
+    hpPercentage:100,
+    name: `Spooky Encounter`,
+    background : `night`,
+    icon: pkmn.marshadow,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.oldGateau.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/oldGateau.png"> Old Gateau to enter`,
+    unlockRequirement : function() { return item.oldGateau.got>2 },
+    level : 90,
+    team : {
+        slot1 : pkmn.marshadow,
+        slot1Moves : [move.powerupPunch.id,move.shadowPunch.id, move.machPunk.id, move.bulletPunch.id],
+    },  
+    reward : [pkmn.marshadow],
+}
+
+
+
+
+
+
 
 
 
@@ -5123,6 +5246,9 @@ for (const i in areas){
     }
 
 }
+
+
+
 
 
 

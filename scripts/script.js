@@ -191,17 +191,24 @@ function updateGameVersion() {
   }
 
 
+  if (saved.version<3.3){
+  saved.mysteryGiftClaimed = false
+  saved.theme = `default`
+  changeTheme()
+  }
 
 
 
-  saved.version = 3.2
+
+
+  saved.version = 3.3
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
 
 
 //--Theme settings
-saved.theme = "dark"
+saved.theme = "default"
 
 document.getElementById("settings-theme").addEventListener("change", e => {
   saved.theme = document.getElementById(`settings-theme`).value
@@ -220,35 +227,45 @@ document.getElementById("settings-alternate-rotation").addEventListener("change"
 
 function changeTheme(){
 
-  if (saved.theme === "dark"){
+  let theme = saved.theme
+  if (saved.theme == "default" && saved.currentSeason == season.halloween.id) theme = `spooky`
+  if (saved.theme == "default" && saved.currentSeason == undefined) theme = `dark`
+
+
+  document.querySelectorAll('.season-background').forEach(el => {
+    el.classList.remove('season-background-halloween');
+  });
+
+
+  if (theme === "dark"){
     document.documentElement.style.setProperty('--dark1', '#36342F');
     document.documentElement.style.setProperty('--dark2', '#444138');
     document.documentElement.style.setProperty('--light1', '#94886B');
     document.documentElement.style.setProperty('--light2', '#ECDEB7');
   }
 
-  if (saved.theme === "verdant"){
+  if (theme === "verdant"){
     document.documentElement.style.setProperty('--dark1', '#32493dff');
     document.documentElement.style.setProperty('--dark2', '#475243ff');
     document.documentElement.style.setProperty('--light1', '#94886B');
     document.documentElement.style.setProperty('--light2', '#ECDEB7');
   }
 
-  if (saved.theme === "lilac"){
+  if (theme === "lilac"){
     document.documentElement.style.setProperty('--dark1', '#454152ff');
     document.documentElement.style.setProperty('--dark2', '#4d5163ff');
     document.documentElement.style.setProperty('--light1', '#6b9486ff');
     document.documentElement.style.setProperty('--light2', '#b7ddecff');
   }
 
-  if (saved.theme === "cherry"){
+  if (theme === "cherry"){
     document.documentElement.style.setProperty('--dark1', '#523a3eff');
     document.documentElement.style.setProperty('--dark2', '#6b4c4dff');
     document.documentElement.style.setProperty('--light1', '#a78b66ff');
     document.documentElement.style.setProperty('--light2', '#F9E7B2');
   }
 
-  if (saved.theme === "coral"){
+  if (theme === "coral"){
     document.documentElement.style.setProperty('--dark1', '#3A4048');
     document.documentElement.style.setProperty('--dark2', '#42424D');
     document.documentElement.style.setProperty('--light1', '#E07B6A');
@@ -256,26 +273,45 @@ function changeTheme(){
   }
 
 
-  if (saved.theme === "onyx"){
-    document.documentElement.style.setProperty('--dark1', '#212324');
-    document.documentElement.style.setProperty('--dark2', '#282A2B');
-    document.documentElement.style.setProperty('--light1', '#3F4144');
-    document.documentElement.style.setProperty('--light2', '#D0D1D4');
+  if (theme === "spooky"){
+    document.documentElement.style.setProperty('--dark1', '#292825');
+    document.documentElement.style.setProperty('--dark2', '#332f2b');
+    document.documentElement.style.setProperty('--light1', '#b46c42');
+    document.documentElement.style.setProperty('--light2', '#d3c49d');
+
+
+  document.querySelectorAll('.season-background').forEach(el => {
+    el.classList.add('season-background-halloween');
+  });
+
+
   }
 
-  if (saved.theme === "onyx"){
+
+
+  if (theme === "onyx"){
     document.documentElement.style.setProperty('--dark1', '#1a1717ff');
     document.documentElement.style.setProperty('--dark2', '#1f2222ff');
     document.documentElement.style.setProperty('--light1', '#3c3a49ff');
     document.documentElement.style.setProperty('--light2', '#707083ff');
   }
 
-  if (saved.theme === "oled"){
+  if (theme === "oled"){
     document.documentElement.style.setProperty('--dark1', '#000000ff');
     document.documentElement.style.setProperty('--dark2', '#0f0f0fff');
     document.documentElement.style.setProperty('--light1', '#222225ff');
     document.documentElement.style.setProperty('--light2', '#37373dff');
   }
+
+
+
+  
+
+
+
+
+
+
 
 }
 

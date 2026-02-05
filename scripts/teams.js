@@ -258,6 +258,27 @@ let dexTeamSelect = undefined
 //--Swaps the preset team into the real team, executed when entering battle 
 function injectPreviewTeam(){
 
+
+    if (saved.previewTeams[saved.currentPreviewTeam].slot1.pkmn == pkmn.unownG.id
+        && saved.previewTeams[saved.currentPreviewTeam].slot2.pkmn == pkmn.unownH.id
+        && saved.previewTeams[saved.currentPreviewTeam].slot3.pkmn == pkmn.unownO.id
+        && saved.previewTeams[saved.currentPreviewTeam].slot4.pkmn == pkmn.unownS.id
+        && saved.previewTeams[saved.currentPreviewTeam].slot5.pkmn == pkmn.unownT.id
+    ) {
+
+        saved.previewTeams[saved.currentPreviewTeam].slot1.pkmn = undefined
+        saved.previewTeams[saved.currentPreviewTeam].slot2.pkmn = undefined
+        saved.previewTeams[saved.currentPreviewTeam].slot3.pkmn = undefined
+        saved.previewTeams[saved.currentPreviewTeam].slot4.pkmn = undefined
+        saved.previewTeams[saved.currentPreviewTeam].slot5.pkmn = undefined
+        saved.previewTeams[saved.currentPreviewTeam].slot6.pkmn = undefined
+        updatePreviewTeam()
+
+        secretFight(areas.secretGhost.id);
+        return
+    }
+
+
     const currentTeam = saved.previewTeams[saved.currentPreviewTeam]
 
     let frontierError = false

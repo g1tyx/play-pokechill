@@ -183,7 +183,6 @@ function buildEnemyPool(area) {
 
   //-------------------------
 
-  console.log(unique)
   return Object.values(unique)
 }
 

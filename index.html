@@ -46,7 +46,7 @@
 
 
 
-    <div id="item-menu" style="display: none;">
+    <div id="item-menu" style="display: none;" class="season-background">
 
 
         <div class="item-menu-tags"> <!-- da hells this lol -->
@@ -87,15 +87,18 @@
 
                  </span>
 
-                 <span>
 
-            <div onClick="bagCategory = 'held'; updateItemBag()">Held</div>
-            <div onClick="bagCategory = 'tm'; updateItemBag()">TM's</div>
-            <div onClick="bagCategory = 'key'; updateItemBag()">Key</div>
-
-            </span>
         </div>
 
+            <span class="bag-sort">
+
+            <div onClick="bagCategory = 'held'; updateItemBag()">Held</div>
+            <div onClick="bagCategory = 'evo'; updateItemBag()">Evo</div>
+            <div onClick="bagCategory = 'tm'; updateItemBag()">TM's</div>
+            <div onClick="bagCategory = 'memory'; updateItemBag()">Memo</div>
+            <div onClick="bagCategory = 'key'; updateItemBag()">Key</div>
+
+        </span>
 
         <div id="item-menu-list">
 
@@ -107,7 +110,7 @@
 
     </div>
 
-    <div id="team-menu" style="display: none;">
+    <div id="team-menu" style="display: none;" class="season-background">
 
 
 
@@ -225,7 +228,7 @@
 
 
 
-    <div id="dictionary-menu">
+    <div id="dictionary-menu" class="season-background">
 
         <div id="dictionary-header">
 
@@ -432,7 +435,7 @@
     </div>
 
 
-        <div id="settings-menu" style="display: none;">
+        <div id="settings-menu" style="display: none;" class="season-background">
 
         <div id="settings-menu-header">
 
@@ -448,6 +451,7 @@
             <div onclick="textData()">Data to Text</div>
 
             <div>Theme: <select id="settings-theme">
+                <option value="default">default</option>
                 <option value="dark">dark</option>
                 <option value="verdant">verdant</option>
                 <option value="lilac">lilac</option>
@@ -557,7 +561,7 @@ Game Guide
 
 
 
-    <div id="training-menu" style="display: none;">
+    <div id="training-menu" style="display: none;" class="season-background">
 
         
 
@@ -708,6 +712,11 @@ Game Guide
                 Pokerus detected on the host! Genetic compatibility is increased by one level!
             </div>
 
+            <div id="special-warning" class="genetics-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M10.277 16.515c.005-.11.186-.154.24-.058c.254.45.686 1.111 1.176 1.412s1.276.386 1.792.408c.11.005.153.186.057.24c-.45.254-1.11.686-1.411 1.176s-.386 1.276-.408 1.792c-.005.11-.187.153-.24.057c-.254-.45-.686-1.11-1.177-1.411c-.49-.301-1.276-.386-1.791-.408c-.11-.005-.154-.187-.058-.24c.45-.254 1.111-.686 1.412-1.177c.3-.49.386-1.276.408-1.791"/><path fill="currentColor" d="M18.492 15.515c-.009-.11-.2-.156-.258-.062c-.172.283-.42.623-.697.793s-.692.236-1.022.262c-.11.008-.156.2-.062.257c.282.172.623.42.793.697s.236.693.262 1.023c.008.11.2.155.257.061c.172-.282.42-.623.697-.792s.693-.237 1.023-.262c.11-.009.155-.2.061-.258c-.282-.172-.623-.42-.792-.697s-.237-.692-.262-1.022" opacity="0.5"/><path fill="currentColor" d="m14.703 4.002l-.242-.306c-.937-1.183-1.405-1.775-1.95-1.688c-.544.088-.805.796-1.326 2.213l-.135.366c-.148.403-.222.604-.364.752s-.336.225-.724.38l-.353.141l-.247.1c-1.2.48-1.804.753-1.882 1.283c-.082.565.49 1.049 1.634 2.016l.296.25c.326.275.488.413.581.6c.094.187.107.403.133.835l.024.393c.094 1.52.14 2.28.635 2.542c.494.262 1.108-.147 2.336-.966l.318-.212c.349-.233.523-.35.723-.381s.401.024.806.136l.367.102c1.423.394 2.134.591 2.521.188c.388-.403.195-1.14-.19-2.613l-.1-.381c-.109-.419-.164-.628-.134-.835s.142-.389.366-.752l.203-.33c.785-1.276 1.178-1.914.924-2.426c-.255-.51-.988-.557-2.454-.648l-.38-.024c-.416-.026-.624-.039-.805-.135s-.314-.264-.58-.6"/><path fill="currentColor" d="M8.835 13.326C6.698 14.37 4.919 16.024 4.248 18c-.752-4.707.292-7.747 1.965-9.637c.144.295.332.539.5.73c.35.396.852.82 1.362 1.251l.367.31l.17.145c.005.064.01.14.015.237l.03.485c.04.655.08 1.294.178 1.805" opacity="0.5"/></svg>
+                This Pokemon is marked as Special, and cannot receive shiny mutations through genetics!
+            </div>
+
         </div>
 
         <div id="genetics-progress">
@@ -794,6 +803,12 @@ Game Guide
                 <img src="img/items/pokeball.png">Pokemon
             </div>
 
+            <div onclick="shopCategory = 'memory'; updateItemShop() ">
+                <img src="img/items/darkMemory.png">Memory
+            </div>
+
+
+
         </div>
 
             <div id="shop-listing" style="display: none;">
@@ -858,7 +873,7 @@ Game Guide
 
 
 
-       <div id="vs-menu" style="display: none;">
+       <div id="vs-menu" style="display: none;" class="season-background">
 
         
 
@@ -901,7 +916,7 @@ Game Guide
 
        <!--
 
-    <div id="custom-challenges-menu" style="display: none;">
+    <div id="custom-challenges-menu" style="display: none;" class="season-background">
 
         <div id="custom-challenges-header">
             <div style="display:flex; gap:0.2rem">
@@ -962,7 +977,7 @@ Game Guide
 
 
 
-    <div id="explore-menu" style="display: none;">
+    <div id="explore-menu" style="display: none;" class="season-background">
 
         
 
@@ -1366,7 +1381,7 @@ Game Guide
     </div></div>
 
 
-    <div id="content-explore">
+    <div id="content-explore" class="season-background">
 
         <div id="explore-header">
             <div id="team-indicator">
@@ -1378,6 +1393,11 @@ Game Guide
                 <img id="team-indicator-slot-5"src="img/icons/pokeball.svg">
                 <img id="team-indicator-slot-6"src="img/icons/pokeball.svg">
 
+            </div>
+
+
+            <div id="raid-timer-indicator" class="spiraling-indicator">
+                <div id="raid-timer-indicator-current">Time left: 1:00</div>
             </div>
 
             <div id="spiraling-indicator" class="spiraling-indicator">

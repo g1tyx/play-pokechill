@@ -3,6 +3,8 @@
 saved.overrideBattleTimer = defaultPlayerMoveTimer
 //let saved.overrideBattleTimer = defaultPlayerMoveTimer
 
+saved.currentSeason = undefined
+
 let team = {}
 
 team.slot1 = { } 
@@ -191,6 +193,7 @@ function setWildPkmn(){
     document.getElementById(`spiraling-indicator`).style.display = `none`
     document.getElementById(`factory-indicator`).style.display = `none`
     document.getElementById(`training-indicator`).style.display = `none`
+    document.getElementById(`raid-timer-indicator`).style.display = `none`
 
 
     wildPkmnHp = 0
@@ -359,7 +362,8 @@ for (let i = 0; i < 4; i++) {
         document.getElementById(`team-indicator-slot-5`).style.filter = `brightness(1)`
         document.getElementById(`team-indicator-slot-6`).style.filter = `brightness(1)`
 
-        document.getElementById(`team-indicator`).style.display = `flex`
+        if (!areas[saved.currentArea].timed) document.getElementById(`team-indicator`).style.display = `flex`
+        if (areas[saved.currentArea].timed) document.getElementById(`raid-timer-indicator`).style.display = `flex`
         document.getElementById(`team-indicator-slot-1`).style.display = `flex`
         if (areas[saved.currentArea].team.slot2) {document.getElementById(`team-indicator-slot-2`).style.display = `flex`; maxTrainerSlot = 2}
         if (areas[saved.currentArea].team.slot3) {document.getElementById(`team-indicator-slot-3`).style.display = `flex`; maxTrainerSlot = 3}
@@ -661,6 +665,7 @@ function dropItem(){
      if (saved.hasPayDayBeenUsed == true){
         rareDropChance += 0.01
      }
+     
 
     if (areas[saved.currentArea].drops?.uncommon && rng(0.15)) drop = arrayPick(areas[saved.currentArea].drops?.uncommon).id
     if (areas[saved.currentArea].drops?.rare && rng(rareDropChance)) drop = arrayPick(areas[saved.currentArea].drops?.rare).id
@@ -675,6 +680,22 @@ function dropItem(){
 
     item[drop].newItem ++
     item[drop].got ++
+
+
+
+
+    //seasonal drops
+    if (saved.currentSeason !== undefined) {
+        if (rng(0.15)){
+            let itemToDrop = item.oldGateau.id
+            if (drop == itemToDrop) return
+            item[itemToDrop].newItem ++
+            item[itemToDrop].got ++
+        }
+    }
+
+
+
 
     updateItemsGot()
 
@@ -730,6 +751,18 @@ function exitCombat(){
 
 
 function leaveCombat(){
+
+
+    if (areas[saved.currentArea].hpPercentage) {
+        const percent = (wildPkmnHp / wildPkmnHpMax) * 100;
+        areas[saved.currentArea].hpPercentage = percent
+
+        //if wasnt killed, consume entry item
+        if (areas[saved.currentArea].hpPercentage>0 && areas[saved.currentArea].encounterEffect) areas[saved.currentArea].encounterEffect()
+
+        //if killed, reset
+        if (areas[saved.currentArea].hpPercentage<=0) areas[saved.currentArea].hpPercentage = 100
+    }
 
 
     document.getElementById("area-rejoin").style.display = "flex"
@@ -1954,6 +1987,8 @@ let lastDeltaTime = performance.now();
 let accumulator = 0;
 const MAX_STEPS_PER_FRAME = 5000; 
 
+
+
 function gameLoop(now) {
     let delta = now - lastDeltaTime;
     lastDeltaTime = now;
@@ -1965,7 +2000,7 @@ function gameLoop(now) {
     let stepsExecuted = 0;
 
     
-    // 🔥 FAST FORWARD AFK
+    // FAST FORWARD AFK
     while (
         (accumulator >= STEP || afkSeconds > 0) &&
         stepsExecuted < MAX_STEPS_PER_FRAME
@@ -1974,7 +2009,15 @@ function gameLoop(now) {
         exploreCombatPlayer();
         exploreCombatWild();
 
-        // consumir tiempo lógico
+
+        // Execute once per second (every 60 steps = 1000ms)
+        if (afkSeconds > 0 && stepsExecuted % 60 === 0 && areas[saved.currentArea]?.timed) {
+            updateRaidTimer();
+        }
+
+
+
+        // use logic time
         if (afkSeconds > 0) {
         if (shouldCombatStop()==false) afkSeconds -= STEP / 1000;
         if (afkSeconds < 0) afkSeconds = 0;
@@ -2268,7 +2311,7 @@ function exploreCombatPlayer() {
             if (areas[saved.currentArea].id == areas.training.id){
 
             totalPower = 
-            ( movePower + Math.max(0, ( (returnDivisionStars(attacker, "satk") * 30) * Math.pow(1.1, attacker.ivs.atk) ) - ( returnDivisionStars(defender) * 30) )  )
+            ( movePower + Math.max(0, ( (returnDivisionStars(attacker, "satk") * 30) * Math.pow(1.1, attacker.ivs.satk) ) - ( returnDivisionStars(defender) * 30) )  )
             * ( 1+(attacker.level * 0.1) )        
             * 1;
 
@@ -2389,7 +2432,6 @@ function exploreCombatPlayer() {
         if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) &&  !testAbility(`active`, ability.protean.id) ) totalPower *= crossPowerBonus
 
 
-
         //items
         if (team[exploreActiveMember].item == item.blackBelt.id && moveType == 'fighting') totalPower *= item.blackBelt.power()
         if (team[exploreActiveMember].item == item.blackGlasses.id && moveType == 'dark') totalPower *= item.blackGlasses.power()
@@ -2502,6 +2544,14 @@ function exploreCombatPlayer() {
 
 
 
+
+
+        for (const member in team) {
+            if (team[member].pkmn==undefined) continue
+            if (testAbility(member, ability.soulAsterism.id) && moveType == 'ghost') totalPower *= 1.1
+        }
+
+
         //weather
         
         if (saved.weatherTimer>0 && saved.weather=="sunny" && moveType == 'fire') totalPower *= 1.5
@@ -2599,7 +2649,7 @@ function exploreCombatPlayer() {
             document.getElementById(`factory-current-score`).innerHTML = `Score: ${battleFactoryScore}`
         }
 
-        //console.log(totalPower, defender.id, nextMove.id)
+
 
         wildPkmnHp -= totalPower;
        
@@ -2626,7 +2676,7 @@ function exploreCombatPlayer() {
 
         }
 
-        if (team[exploreActiveMember].item == item.lifeOrb.id) {attacker.playerHp -=  attacker.playerHpMax/10;}
+        if (team[exploreActiveMember].item == item.lifeOrb.id) {attacker.playerHp -=  attacker.playerHpMax/12;}
 
 
 
@@ -3392,6 +3442,7 @@ function exploreCombatWild() {
         let dotDamage = 5
         if (areas[saved.currentArea]?.trainer || saved.currentArea == areas.frontierSpiralingTower.id || saved.currentArea == areas.training.id) dotDamage = 12
         if (areas[saved.currentArea]?.encounter) dotDamage = 100
+        if (areas[saved.currentArea]?.difficulty >= tier4difficulty) dotDamage = 150
 
 
 
@@ -3514,6 +3565,19 @@ function initialiseArea(){
 
 
 
+    if (areas[saved.currentArea].hpPercentage) {
+        wildPkmnHp = wildPkmnHpMax * (areas[saved.currentArea].hpPercentage / 100)
+        updateWildPkmn()
+    }
+
+
+    if (areas[saved.currentArea].timed) raidTimer = areas[saved.currentArea].timed
+
+
+
+
+
+
 
 
 
@@ -3573,6 +3637,79 @@ function setWildAreas() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    //seasonal events
+    for (const i in season) {
+
+    if (saved.currentSeason !== i) continue
+
+    const div = document.createElement("div");
+    div.className = "explore-ticket frontier-ticket";
+    div.style.filter = `hue-rotate(${season[i].hue}deg)`
+    div.innerHTML = `
+        <span class="hitbox"></span>
+        <div style="width: 100%;">
+        ${season[i].svg}
+        <span class="explore-ticket-left">
+        <span style="font-size:1.2rem">Hallowed Gala</span>
+        <span><strong style="background:#964646ff">Limited Area until ${season[saved.currentSeason].end.month}/${season[saved.currentSeason].end.day}</strong><span></span></span>
+        </span>
+        </div>
+        <div style="width: 8rem;" class="explore-ticket-right">
+        <span class="explore-ticket-bg" style="filter:hue-rotate(-${season[i].hue}deg); background-image: url(img/bg/${season[i].background}.png);"></span>
+        <img class="explore-ticket-sprite sprite-trim" style="z-index: 10;  filter:hue-rotate(-${season[i].hue}deg)" src="img/pkmn/sprite/${season[i].icon.id}.png">
+        </div>
+    `;
+
+    document.getElementById("explore-listing").appendChild(div);
+
+    div.addEventListener("click", e => { 
+        tooltipData('seasonPreview', i)
+    })
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //generate the wildlife park pokemon
     if (saved.lastWildlifeRotation != rotationWildCurrent && document.getElementById("explore-menu").style.display == "flex" ) {
         
@@ -3586,6 +3723,7 @@ function setWildAreas() {
         areas.wildlifePark.icon = arrayPick(uncommonPick)
         
     }
+
 
     let completionMark = true
     let shinyMark = true
@@ -3636,6 +3774,36 @@ function setWildAreas() {
             afkSeconds = 0
             document.getElementById(`explore-menu`).style.display = `none`
         })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4164,8 +4332,47 @@ function updateEventCounters() {
 }
 
 
+
+
+let raidTimer = 60
+function updateRaidTimer(){
+
+    if (areas[saved.currentArea]?.timed == undefined) return
+    if (shouldCombatStop()) return
+    raidTimer--
+    
+    const minutes = Math.floor(raidTimer / 60)
+    const seconds = raidTimer % 60
+    const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`
+    
+    document.getElementById("raid-timer-indicator-current").innerHTML = `Time left: ${formattedTime}`
+
+
+    if (raidTimer<=0) {
+
+
+        leaveCombat();
+        
+        if (saved.autoRefight == true) {
+            if (areas[saved.currentArea].encounter!=true) item.autoRefightTicket.got--
+            if (areas[saved.currentArea].encounter!=true && item.autoRefightTicket.got<1) saved.autoRefight = false
+        }
+
+
+        raidTimer = 60
+
+
+
+
+    }
+
+
+}
+
+
 setInterval(updateDailyCounters, 1000);
 setInterval(updateEventCounters, 1000);
+setInterval(updateRaidTimer, 1000);
 
 
 document.getElementById("explore-pkmn-tag").addEventListener("change", e => {
@@ -4400,6 +4607,12 @@ function updatePokedex(){
         document.getElementById("pokedex-filters-title").innerHTML = `Select a Pokemon to teach ${format(tmToTeach)}`
     }
 
+    if (memoryToTeach != undefined) {
+        document.getElementById("pokedex-filters-title").style.display = "flex"
+        document.getElementById("pokedex-filters-cancel").style.display = "flex"
+        document.getElementById("pokedex-filters-title").innerHTML = `Select a Pokemon to teach ${format(memoryToTeach)}`
+    }
+
     if (evoItemToUse != undefined) {
         document.getElementById("pokedex-filters-title").style.display = "flex"
         document.getElementById("pokedex-filters-cancel").style.display = "flex"
@@ -4612,8 +4825,6 @@ if (document.getElementById("pokedex-search").value!="") {
 
         if (tmToTeach != undefined) {
 
-
-
         //filter pokemon by being able to learn
         if (!move[tmToTeach].moveset.includes("all") &&  !move[tmToTeach].moveset.some(t => pkmn[i].type.includes(t))) continue;
 
@@ -4622,6 +4833,22 @@ if (document.getElementById("pokedex-search").value!="") {
             div.addEventListener("click", e => { 
                 pkmn[i].movepool.push(move[tmToTeach].id)
                 item[tmToTeach+"Tm"].got--
+                updateItemBag()
+                exitTmTeaching()
+            })
+        }
+
+
+        if (memoryToTeach != undefined) {
+
+        //filter pokemon by being able to learn
+        if (!ability[memoryToTeach].type.includes("all") &&  !ability[memoryToTeach].type.some(t => pkmn[i].type.includes(t))) continue;
+
+        //filter pokemon out that already have the move
+        if (pkmn[i].ability == memoryToTeach) continue;
+            div.addEventListener("click", e => { 
+                pkmn[i].ability = memoryToTeach
+                item[memoryToTeach+"Memory"].got--
                 updateItemBag()
                 exitTmTeaching()
             })
@@ -4989,9 +5216,10 @@ if (document.getElementById("pokedex-search").value!="") {
 
 function exitTmTeaching(mod){ //what a fucking disgrace of a code i wrote here
 
-                if (evoItemToUse || tmToTeach || vitaminToUse || itemToUse){
+                if (evoItemToUse || tmToTeach || vitaminToUse || itemToUse ||memoryToTeach){
                 evoItemToUse = undefined
                 tmToTeach = undefined
+                memoryToTeach = undefined
                 vitaminToUse = undefined
                 itemToUse = undefined
                 document.getElementById("menu-button-parent").style.display = "flex"
@@ -5275,6 +5503,7 @@ function switchMenu(id){
 
 let bagCategory = 'held'
 let tmToTeach = undefined
+let memoryToTeach = undefined
 let evoItemToUse = undefined
 let vitaminToUse = undefined
 let itemToUse = undefined
@@ -5286,9 +5515,15 @@ function updateItemBag(){
     document.getElementById("item-menu-cancel").style.display = "none"
     document.getElementById("item-menu-remove").style.display = "none"
 
+
+    if (dexTeamSelect!==undefined) {
+        document.getElementById("item-menu-cancel").style.display = "inline"
+        document.getElementById("item-menu-remove").style.display = "inline"
+    }
+
     for (const i in item) {
 
-        if (!item[i].type?.includes(bagCategory)) continue
+        if (!item[i].type?.includes(bagCategory) && ( bagCategory!="evo" || !item[i].evo )) continue
         //if (item[i].evo && bagCategory!== "key" && !item[i].type?.includes(bagCategory)) continue
         
         if (item[i].rotation && !Array.isArray(item[i].rotation) && item[i].rotation!== rotationEventCurrent) item[i].got=0
@@ -5301,8 +5536,9 @@ function updateItemBag(){
         const div = document.createElement(`div`)
 
         div.dataset.item = i
-        if (item[i].type !== "tm") div.innerHTML = `<img src="img/items/${i}.png"> <span class="item-list-name">${format(i)}</span> <span>x${item[i].got}</span>`
-        if (item[i].move && move[item[i].move]) div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span class="item-list-name">${format(i)} <strong style="opacity:0.6; font-weight:200; white-space:nowrap; font-size:0.9rem; margin-left:0.2rem"> (${move[item[i].move].power} BP, ${format(move[item[i].move].split).slice(0, 3)})</strong> </span>  <span>x${item[i].got}</span>`
+        if (item[i].type == "tm") div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span class="item-list-name">${format(i)} <strong style="opacity:0.6; font-weight:200; white-space:nowrap; font-size:0.9rem; margin-left:0.2rem"> (${move[item[i].move].power} BP, ${format(move[item[i].move].split).slice(0, 3)})</strong> </span>  <span>x${item[i].got}</span>`
+        else if (item[i].type == "memory") div.innerHTML = `<img src="img/items/${ability[item[i].ability].type[0]}Memory.png"> <span class="item-list-name">${format(i)}</span> <span>x${item[i].got}</span>`
+        else div.innerHTML = `<img src="img/items/${i}.png"> <span class="item-list-name">${format(i)}</span> <span>x${item[i].got}</span>`
 
 
 
@@ -5324,6 +5560,35 @@ function updateItemBag(){
 
             })
         }
+
+
+        if (item[i].type == "memory" && dexTeamSelect==undefined) {
+
+            div.addEventListener("click", e => { 
+            document.getElementById(`pokedex-menu`).style.display = "flex"
+            document.getElementById(`pokedex-menu`).style.zIndex = "40"
+
+            memoryToTeach = item[i].ability
+
+            updatePokedex()
+
+            document.getElementById("pokedex-filters-title").style.display = "flex"
+            document.getElementById("pokedex-filters-cancel").style.display = "flex"
+            document.getElementById("pokedex-filters-title").innerHTML = `Select a Pokemon to teach ${format(item[i].ability)}`
+            document.getElementById("menu-button-parent").style.display = "none"
+            document.getElementById(`item-menu`).style.display = "none"
+
+            })
+        }
+
+
+
+
+
+
+
+
+
 
 
         if (item[i].usable) { 
@@ -5395,9 +5660,8 @@ function updateItemBag(){
         document.getElementById("item-menu-cancel").style.display = "inline"
         document.getElementById("item-menu-remove").style.display = "inline"
         document.getElementById("pokedex-filters-remove").style.display = "flex"
-        bagCategory = 'held'
 
-        if (item[i].type !== "held") continue
+        if (item[i].type !== "held" && item[i].heldBonusPower===undefined ) continue
         //prevents equipping duplicated items
         if (saved.previewTeams[saved.currentPreviewTeam].slot1.item == i) continue
         if (saved.previewTeams[saved.currentPreviewTeam].slot2.item == i) continue
@@ -6120,7 +6384,7 @@ function updateFrontier() {
     document.getElementById("frontier-listing").appendChild(arena);
     arena.dataset.help = "BattleArena"
     arena.addEventListener("click", e => { 
-        tooltipData('arenaPreview', undefined)
+    tooltipData('arenaPreview', undefined)
     })
 
 
@@ -6993,12 +7257,19 @@ if (powerCost==6) document.getElementById("genetics-warning").innerHTML = `<svg 
 if (powerCost==7) document.getElementById("genetics-warning").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>Warning, very high Power Cost! Only 4 out of 6 maximum IV's per stat will be inherited!`
 if (powerCost==8) document.getElementById("genetics-warning").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>Warning, extreme Power Cost! Only 3 out of 6 maximum IV's per stat will be inherited!`
 
+
+
+document.getElementById("special-warning").style.display = "none"
+if (pkmn[saved.geneticHost]?.hidden) document.getElementById("special-warning").style.display = "flex"
+
+
 let shinyChance = 1/100
 if (saved.geneticHost== undefined || saved.geneticSample == undefined) shinyChance = 0
 else {
 if (samplePkmn.shiny && compability == 2) shinyChance = 1/25
 if (samplePkmn.shiny && compability == 3) shinyChance = 1/5
 if (samplePkmn.shiny && compability == 4) shinyChance = 1/1
+if (pkmn[saved.geneticHost].hidden) shinyChance = 0
 if (pkmn[saved.geneticHost].shiny) shinyChance = 0
 }
 
@@ -7860,14 +8131,14 @@ saved.wonderTradeClaimed = undefined
 
 const mysteryGift = {
     effect: function() {  
-        const id = pkmn.smeargle.id
+        const id = pkmn.porygon.id
         if (pkmn[id].caught==0) givePkmn(pkmn[id],1)
         pkmn[id].shiny = true
         giveRibbon(pkmn[id],"souvenir")
       },
-    duration: new Date(2026, 1 - 1, 31),
-    info: `Long Press/Right click the present below to receive a gift Smeargle!<br>It will be shiny and carrying a Souvenir Ribbon`,
-    icon: pkmn.smeargle.id
+    duration: new Date(2026, 2 - 1, 20),
+    info: `Long Press/Right click the present below to receive a gift Porygon!<br>It will be shiny and carrying a Souvenir Ribbon`,
+    icon: pkmn.porygon.id
 }
 
 function numericDivision(letter,mod){
@@ -7984,6 +8255,8 @@ function wonderTrade(){
         }
 
         chosenPokemon = arrayPick(obtainedPokemon)
+        if (obtainedPokemon.length==0) chosenPokemon = pkmn.magikarp.id
+
     }
 
     if (chosenShiny) pkmn[chosenPokemon].shiny = true
@@ -8169,11 +8442,82 @@ function arceusCheck(){
 }
 
 
+
+
+
+
+
+function seasonCheck() {
+
+    let newSeason = false
+    const now = new Date();
+    const month = now.getMonth() + 1;  // to 1-indexed
+    const day = now.getDate();
+    const current = month * 100 + day; 
+    
+    let matchedSeason = undefined;
+    
+    for (const [key, seasonData] of Object.entries(season)) {
+        const start = seasonData.start.month * 100 + seasonData.start.day;
+        const end = seasonData.end.month * 100 + seasonData.end.day;
+        
+        // year wraparound
+        const inRange = end < start 
+            ? current >= start || current <= end
+            : current >= start && current <= end;
+        
+        if (inRange) {
+            matchedSeason = key;
+            break;  // Stop after finding a match
+        }
+    }
+    
+    // Check if season changed from undefined to something
+    if (saved.currentSeason === undefined && matchedSeason !== undefined) {
+        newSeason = true;
+    }
+    
+    saved.currentSeason = matchedSeason;
+    
+    if (newSeason) { //executes once per season, resets shop
+        console.info(`${format(saved.currentSeason)} season started, shops restocked!`)
+        shop.event1.stock = 20
+        shop.event2.stock = 20
+        shop.event3.stock = 100
+        shop.event4.stock = 20
+        shop.event5.stock = 10
+        shop.event6.stock = 50
+    }
+
+
+    if (saved.currentSeason == undefined){
+        item.oldGateau.got = 0
+    }
+
+    if (saved.halloweenThemeUnlocked == true) document.getElementById('settings-theme').innerHTML += '<option value="spooky">spooky</option>';
+
+
+    if (saved.currentSeason !== undefined) {
+    document.getElementById('shop-categories').innerHTML += `<div onclick="shopCategory = 'limited'; updateItemShop() "><img src="img/items/cherishball.png">Limited</div>`;
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
 window.addEventListener('load', function() {
 
 
     loadGame();
-    getSeed()
+    getSeed();
+    seasonCheck();
 
     //this safefail prevents loading into unexistiing areas
     if (!areas[saved.currentArea]) saved.currentArea = undefined
@@ -8229,4 +8573,3 @@ window.addEventListener('load', function() {
     arceusCheck()
     //updateTeamExp()
 });
-
