@@ -774,8 +774,17 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         if (ttdata === `Custom Challenges`) document.getElementById("tooltipTitle").innerHTML = `Custom Challenges`
         if (ttdata === `Custom Challenges`) document.getElementById("tooltipBottom").innerHTML = `Create custom battles from your own pools and enemy teams. Import and export challenge codes to share them.`
 
+        if (ttdata === `ModHard`) document.getElementById("tooltipTitle").innerHTML = `Hard Mode`
+        if (ttdata === `ModHard`) document.getElementById("tooltipBottom").innerHTML = `Trainers have twice the health. Only applies to VS Trainers`
 
+        if (ttdata === `ModNuzloke`) document.getElementById("tooltipTitle").innerHTML = `Nuzloke Mode`
+        if (ttdata === `ModNuzloke`) document.getElementById("tooltipBottom").innerHTML = `If any of your Pokemon get defeated while battling a trainer of VS Trainers, it will permanently be unusuable until you turn this mode off`
 
+        if (ttdata === `ModNoIvs`) document.getElementById("tooltipTitle").innerHTML = `No IVs`
+        if (ttdata === `ModNoIvs`) document.getElementById("tooltipBottom").innerHTML = `All of your Pokemon have functionally max IVs regardless of their actual IVs. This can be toggled off without any permanent changes<br><br>There are no side-effects to this modifier`
+
+        if (ttdata === `ModAfk`) document.getElementById("tooltipTitle").innerHTML = `Longer AFK`
+        if (ttdata === `ModAfk`) document.getElementById("tooltipBottom").innerHTML = `Fatigue damage is reduced by x3<br><br>There are no side-effects to this modifier`
 
         openTooltip()
     }

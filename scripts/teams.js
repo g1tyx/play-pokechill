@@ -282,11 +282,13 @@ function injectPreviewTeam(){
     const currentTeam = saved.previewTeams[saved.currentPreviewTeam]
 
     let frontierError = false
+    let nuzlockeError = false
     for (const i in currentTeam) {
         if (currentTeam[i].pkmn == undefined) continue
         if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) frontierError = true
         if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) frontierError = true
         if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="A" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) frontierError = true
+        if (saved.gamemodNuzlocke == true && pkmn[currentTeam[i].pkmn].nuzlocked == true) nuzlockeError = true
     }
 
     if (frontierError) {
@@ -294,6 +296,15 @@ function injectPreviewTeam(){
         document.getElementById("tooltipBottom").style.display = "none"
         document.getElementById("tooltipTitle").innerHTML = `Banned Pokemon`
         document.getElementById("tooltipMid").innerHTML = `One or more Pokemon in the current team do not met the division restrictions of the current league`
+        openTooltip()
+        return
+    }
+
+    if (nuzlockeError) {
+        document.getElementById("tooltipTop").style.display = "none"
+        document.getElementById("tooltipBottom").style.display = "none"
+        document.getElementById("tooltipTitle").innerHTML = `Restricted Pokemon`
+        document.getElementById("tooltipMid").innerHTML = `One or more Pokemon in the current team cannot be used as per Nuzlocke restrictions`
         openTooltip()
         return
     }
@@ -761,6 +772,10 @@ function updatePreviewTeam(){
             if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) nameTag += ` ⛔`
             if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) nameTag += ` ⛔`
             if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="A" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) nameTag += ` ⛔`
+
+            if (saved.gamemodNuzlocke == true && pkmn[currentTeam[i].pkmn].nuzlocked == true) {nameTag += ` ☠️`;}
+
+
 
             let restrictedError = false
             if (currentTeam[i].pkmn == undefined) continue

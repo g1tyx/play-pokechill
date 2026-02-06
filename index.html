@@ -466,7 +466,7 @@
                 <option value="true">enabled</option>
             </select></div>
 
-            <div data-help="settingsAlternateWild" style="cursor: help;">Substract 1 to current Wild Area rotation: <select id="settings-alternate-rotation">
+            <div data-help="settingsAlternateWild" style="cursor: help;">Sustract 1 to current Wild Area rotation: <select id="settings-alternate-rotation">
                 <option value="false">disabled</option>
                 <option value="true">enabled</option>
             </select></div>
@@ -475,6 +475,16 @@
                 <option value="enabled">enabled</option>
                 <option value="disabled">disabled</option>
             </select></div>-->
+
+            <div 
+            onclick='document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `Game Modifiers`
+        document.getElementById("tooltipMid").style.display = `none`
+        document.getElementById("tooltipBottom").innerHTML = `<div id="tooltip-modifiers-list"><div style="pointer-events:none; background:#AD5957; color:white">Challenges</div> <div data-help="ModNuzloke"><span>Nuzloke Mode</span> <input type="checkbox" id="checkbox-mode-nuzloke" onclick="updateSettings(true)"></div>  <div data-help="ModHard"><span>Hard Mode</span> <input type="checkbox" id="checkbox-mode-hard" onclick="updateSettings(true)"></div> <div style="pointer-events:none; background:#57AD5D; color:white">Cheats</div>  <div data-help="ModNoIvs"><span>No IVs</span><input type="checkbox" id="checkbox-mode-ivs" onclick="updateSettings(true)"></div>  <div data-help="ModAfk"><span>Longer AFK</span><input type="checkbox" id="checkbox-mode-afk" onclick="updateSettings(true)"></div> </div>`
+        openTooltip(); updateSettings()'
+        
+        >Game modifiers</div>
+
 
             <div onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Credits`
