@@ -1893,7 +1893,6 @@ var cnPrefix = {
     "Life Orb": "生命宝珠",
     "Lucky Egg": "幸运蛋",
     "Luck Incense": "幸运薰香",
-    "Magnet": "磁铁",
     "Never Melt Ice": "不融冰",
     "Poison Barb": "毒针",
     "Soft Sand": "柔软沙子",
