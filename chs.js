@@ -3009,7 +3009,7 @@ var cnRegReplace = new Map([
     [/\bLearnable by Water and Psychic types\b/, '水属性和超能力属性宝可梦可学习'],
     [/^Average Time$/, '平均时间'],
     [/^Simple Aura$/, '朴素气场'],
-    [/^Limited Area until (\d+)\/(\d+)$/, '限时区域，截止至$1月$2日'],
+    [/^Limited Area Until (\d+)\/(\d+)$/, '限时区域，截止至$1月$2日'],
     [/^HP Remaining: (\d+)%$/, 'HP剩余: $1%'],
     [/^Reward: x(\d+)$/, '奖励: $1个'],
     [/^Trainer (\d+)\/5$/, '训练家: $1/5'],
