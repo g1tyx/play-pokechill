@@ -201,7 +201,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 3.3
+  saved.version = 3.4
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -863,4 +863,43 @@ function infoMisc(){
       {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
       {command:"getMoveset(pkmn.NAME,LEVEL)", effect:"Generates a table of possible Pokemon moves"},
       ]);
+}
+
+
+
+  saved.gamemodNuzlocke = false
+  saved.gamemodHard = false
+  saved.gamemodAfk = false
+  saved.gamemodIvs = false
+
+
+//fixes visual bugs of settings, thanks html very cool
+function updateSettings(alt){
+
+
+
+  document.getElementById("settings-theme").value = saved.theme
+
+  if (saved.hideGotPkmn) {document.getElementById("settings-hide-got").value = "true"} else document.getElementById("settings-hide-got").value = "false"
+  if (saved.alternateWildRotation == "true") {document.getElementById("settings-alternate-rotation").value = "true"} else document.getElementById("settings-alternate-rotation").value = "false"
+
+
+  if (document.getElementById("tooltip-modifiers-list")) {
+
+  if (alt != true) if (saved.gamemodAfk == true) {document.getElementById("checkbox-mode-afk").checked = true} else document.getElementById("checkbox-mode-afk").checked = false
+  if (alt == true) if (document.getElementById("checkbox-mode-afk").checked) {  saved.gamemodAfk = true; } else saved.gamemodAfk = false
+
+  if (alt != true) if (saved.gamemodHard == true) {document.getElementById("checkbox-mode-hard").checked = true} else document.getElementById("checkbox-mode-hard").checked = false
+  if (alt == true) if (document.getElementById("checkbox-mode-hard").checked) {  saved.gamemodHard = true; } else saved.gamemodHard = false
+
+  if (alt != true) if (saved.gamemodNuzlocke == true) {document.getElementById("checkbox-mode-nuzloke").checked = true} else document.getElementById("checkbox-mode-nuzloke").checked = false
+  if (alt == true) if (document.getElementById("checkbox-mode-nuzloke").checked) {  saved.gamemodNuzlocke = true; } else saved.gamemodNuzlocke = false
+
+  if (alt != true) if (saved.gamemodIvs == true) {document.getElementById("checkbox-mode-ivs").checked = true} else document.getElementById("checkbox-mode-ivs").checked = false
+  if (alt == true) if (document.getElementById("checkbox-mode-ivs").checked) {  saved.gamemodIvs = true; } else saved.gamemodIvs = false
+
+  }
+
+
+
 }

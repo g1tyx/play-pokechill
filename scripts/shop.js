@@ -1093,7 +1093,9 @@ shop.event3 = {
 
 shop.eventhalloweenCaps = {
     icon: item.bottleCap.id,
-    price: 10,
+    name: `Bottle Cap x5`,
+    effect: function() {item.bottleCap.got+=5},
+    price: 50,
     currency: item.oldGateau.id,
     category: `limited`,
     condition: function() {if (saved.currentSeason == season.halloween.id) return true},

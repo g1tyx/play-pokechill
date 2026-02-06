@@ -4011,6 +4011,7 @@ move.spectralThief = {
     hitEffect: function(target) { 
 
     for (const buff in wildBuffs){
+    if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) continue
     if (wildBuffs[buff]) moveBuff("wild",buff,"self");
     wildBuffs[buff] = 0
     }

@@ -64,6 +64,7 @@ function saveGame() {
     data[i].pokerus = pkmn[i].pokerus;
     data[i].recordSpiraling = pkmn[i].recordSpiraling;
     data[i].movepoolMemory = pkmn[i].movepoolMemory;
+    data[i].nuzlocked = pkmn[i].nuzlocked;
   }
 
   localStorage.setItem("gameData", JSON.stringify(data));
@@ -136,6 +137,7 @@ function loadGame() {
       pkmn[i].pokerus = data[i].pokerus;
       pkmn[i].recordSpiraling = data[i].recordSpiraling;
       pkmn[i].movepoolMemory = data[i].movepoolMemory;
+      pkmn[i].nuzlocked = data[i].nuzlocked;
     }
   }
 

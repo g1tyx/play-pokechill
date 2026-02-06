@@ -538,6 +538,10 @@ for (let t of thresholds) {
     if (saved.currentArea == areas.training.id && pkmn[saved.trainingPokemon].type.includes("dragon")) hpStars /= 1.5
 
 
+    if (  saved.gamemodHard == true && areas[saved.currentArea].type == "vs") hpMultiplier *= 2
+
+
+
     wildPkmnHp =
     (100 + (hpStars * 30)
     * ( 1+(wildLevel * 0.2) )       
@@ -1810,6 +1814,8 @@ function updateTeamPkmn(){
 
         document.getElementById(`explore-${exploreActiveMember}-member`).classList.remove('member-inactive')
 
+        if ( saved.gamemodNuzlocke == true && areas[saved.currentArea]?.type == "vs") pkmn[ team[exploreActiveMember].pkmn.id ].nuzlocked = true
+
         switchMemberNext()
 
 
@@ -2201,6 +2207,8 @@ function exploreCombatPlayer() {
 
     let speedStars = pkmn[team[exploreActiveMember].pkmn.id].bst.spe
     if (areas[saved.currentArea].id == areas.training.id) speedStars = returnDivisionStars(pkmn[team[exploreActiveMember].pkmn.id])
+    if ( saved.gamemodIvs == true) speedStars = 6
+
     if (areas[saved.currentArea].fieldEffect?.includes(field.trickRoom.id)) {speedStars = 7 - speedStars}
 
         barProgressPlayer += 100 / ( (moveTimerPlayer * (Math.pow(0.9, speedStars) * Math.pow(0.95, pkmn[team[exploreActiveMember].pkmn.id].ivs.spe) )     ) / (1000 / 60));
@@ -2307,13 +2315,19 @@ function exploreCombatPlayer() {
             * 1;
             
             if (areas[saved.currentArea].id == areas.training.id){
-
             totalPower = 
             ( movePower + Math.max(0, ( (returnDivisionStars(attacker, "atk") * 30) * Math.pow(1.1, attacker.ivs.atk) ) - ( returnDivisionStars(defender) * 30) )  )
             * ( 1+(attacker.level * 0.1) )        
             * 1;
-
             }
+
+            if ( saved.gamemodIvs == true) {
+            totalPower = 
+            ( movePower + Math.max(0, ( (attacker.bst.atk * 30) * Math.pow(1.1, 6) ) - (defender.bst.def * 30) )  )
+            * ( 1+(attacker.level * 0.1) )        
+            * 1;
+            }
+
 
         }
 
@@ -2325,12 +2339,17 @@ function exploreCombatPlayer() {
             * 1;
             
             if (areas[saved.currentArea].id == areas.training.id){
-
             totalPower = 
             ( movePower + Math.max(0, ( (returnDivisionStars(attacker, "satk") * 30) * Math.pow(1.1, attacker.ivs.satk) ) - ( returnDivisionStars(defender) * 30) )  )
             * ( 1+(attacker.level * 0.1) )        
             * 1;
+            }
 
+            if ( saved.gamemodIvs == true) {
+            totalPower = 
+            ( movePower + Math.max(0, ( (attacker.bst.satk * 30) * Math.pow(1.1, 6) ) - (defender.bst.sdef * 30) )  )
+            * ( 1+(attacker.level * 0.1) )        
+            * 1;
             }
             
         }
@@ -2747,6 +2766,8 @@ function exploreCombatPlayer() {
         let fatigueDamage = attacker.playerHpMax/fractionDamage
 
         if (team[exploreActiveMember].item == item.leftovers.id) fatigueDamage /= item.leftovers.power();
+
+        if (  saved.gamemodAfk == true) fatigueDamage /= 3
 
 
         if (areas[saved.currentArea]?.trainer || areas[saved.currentArea]?.type == "frontier") fatigueDamage = 0
@@ -3258,6 +3279,13 @@ function exploreCombatWild() {
             * ( 1+(wildLevel * 0.1) )         
             * 1;
             }
+
+            if ( saved.gamemodIvs == true) {
+            totalPower = 
+            ( move[nextMoveWild].power + Math.max(0, (pkmn[ saved.currentPkmn ].bst.atk * 30) - (  (pkmn[ team[exploreActiveMember].pkmn.id ].bst.def * 30) * Math.pow(1.1, 6)  ) )  )
+            * ( 1+(wildLevel * 0.1) )        
+            * 1;
+            }
             
         }
 
@@ -3271,6 +3299,13 @@ function exploreCombatWild() {
             totalPower = 
             ( move[nextMoveWild].power + Math.max(0, (returnDivisionStars(pkmn[ saved.currentPkmn ]) * 30) - (  (returnDivisionStars(pkmn[ saved.currentPkmn ]) * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.sdef)  ) )  )
             * ( 1+(wildLevel * 0.1) )         
+            * 1;
+            }
+
+            if ( saved.gamemodIvs == true) {
+            totalPower = 
+            ( move[nextMoveWild].power + Math.max(0, (pkmn[ saved.currentPkmn ].bst.satk * 30) - (  (pkmn[ team[exploreActiveMember].pkmn.id ].bst.sdef * 30) * Math.pow(1.1, 6)  ) )  )
+            * ( 1+(wildLevel * 0.1) )        
             * 1;
             }
             
@@ -3678,7 +3713,7 @@ function setWildAreas() {
         ${season[i].svg}
         <span class="explore-ticket-left">
         <span style="font-size:1.2rem">Hallowed Gala</span>
-        <span><strong style="background:#964646ff">Limited Area until ${season[saved.currentSeason].end.month}/${season[saved.currentSeason].end.day}</strong><span></span></span>
+        <span><strong style="background:#964646ff">Limited Area Until ${season[saved.currentSeason].end.month}/${season[saved.currentSeason].end.day}</strong><span></span></span>
         </span>
         </div>
         <div style="width: 8rem;" class="explore-ticket-right">
@@ -4353,6 +4388,8 @@ function updateEventCounters() {
 let raidTimer = 60
 function updateRaidTimer(){
 
+    if (document.hidden) return
+
     if (areas[saved.currentArea]?.timed == undefined) return
     if (shouldCombatStop()) return
     raidTimer--
@@ -4798,6 +4835,7 @@ if (document.getElementById("pokedex-search").value!="") {
         const i = p.id
 
         div.dataset.pkmnEditor = i
+        if (saved.gamemodNuzlocke == true && pkmn[i].nuzlocked == true) continue
 
         let nameMarks = ""
         let markColor = "#FF4671" //default shiny star color
@@ -4826,7 +4864,6 @@ if (document.getElementById("pokedex-search").value!="") {
 
 
         if (pkmn[i].pokerus==true) nameMarks += `<strong style="color:${returnTypeColor("poison")}; margin-left:0.2rem; transform:translateY(8%)"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M8.793.365a.75.75 0 0 1 .806.69c.042.55.225 1.33.645 2.429c1.29.492 2.132.657 2.681.656a.75.75 0 0 1 .003 1.5c-.567 0-1.245-.113-2.068-.36c.21.825.274 1.549.199 2.198c-.121 1.045-.592 1.816-1.218 2.442c-.732.731-1.647 1.236-2.933 1.248a.75.75 0 1 1-.015-1.5c.524-.005.937-.126 1.296-.339L4.4 5.539a2.4 2.4 0 0 0-.318.963c-.078.67.055 1.603.6 2.964c.61 1.526.882 2.667.88 3.54a.75.75 0 0 1-1.5-.002c.001-.549-.163-1.392-.656-2.68c-1.059-.405-1.82-.59-2.368-.641a.75.75 0 1 1 .14-1.494a8.4 8.4 0 0 1 1.613.338c-.21-.825-.274-1.548-.199-2.198c.121-1.045.592-1.815 1.218-2.441c.769-.77 1.735-1.281 3.11-1.247a.75.75 0 0 1-.037 1.5c-.586-.015-1.036.108-1.422.338l3.79 3.79a2.4 2.4 0 0 0 .319-.963c.077-.671-.055-1.604-.6-2.964c-.53-1.327-.803-2.356-.866-3.17a.75.75 0 0 1 .69-.807" clip-rule="evenodd"/></svg></strong>`
-
 
 
 
@@ -5448,6 +5485,7 @@ function switchMenu(id){
     } 
 
     if (id==="settings") {
+        updateSettings()
         document.getElementById(`settings-menu`).style.display = "flex"
         document.getElementById(`settings-menu`).style.zIndex = "40"
     } 
@@ -7155,7 +7193,7 @@ function assignPokerus(){
 
     const eligiblePokemon = []
     for (const i in pkmn){
-        if (pkmn[i].caught>0) eligiblePokemon.push(i)
+        if (pkmn[i].caught>0 && pkmn[i].hidden != true) eligiblePokemon.push(i)
         if (pkmn[i].pokerus) {pkmn[i].pokerus = undefined; pkmn[i].tagPokerus = undefined}
 
     }
@@ -7548,11 +7586,23 @@ training.level = {
         for (let i = 0; i < 101; i++) {
         if (pkmn[saved.trainingPokemon].level >= 100) continue
         pkmn[saved.trainingPokemon].level++
+
         let learntMove = learnPkmnMove(pkmn[saved.trainingPokemon].id, pkmn[saved.trainingPokemon].level)
         if (learntMove != undefined) {
         if (pkmn[ saved.trainingPokemon ].level % 7 === 0) pkmn[ saved.trainingPokemon ].movepool.push(learntMove)
+
         }
         }
+
+
+        //this really should be a function huh 2.0
+        if (pkmn[ saved.trainingPokemon ].evolve && pkmn[saved.trainingPokemon].evolve()[1].level>0){ // if it evolves by level up
+        if (pkmn[ saved.trainingPokemon ].level >= pkmn[saved.trainingPokemon].evolve()[1].level && pkmn[ pkmn[saved.trainingPokemon].evolve()[1].pkmn.id ].caught===0) {
+        givePkmn(pkmn[ pkmn[saved.trainingPokemon].evolve()[1].pkmn.id ],1)
+        } 
+        }
+
+
 
         setTimeout(() => {
         const div = document.createElement("span");
@@ -8109,7 +8159,7 @@ function debugGetPkmn(level,mod){
 
 function testAbility(target,id){
 
-    if (areas[saved.currentArea].fieldEffect?.includes(field.neutralisingGas.id)) return false
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.neutralisingGas.id)) return false
 
     if (target == "active"){
         if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == id) return true
@@ -8137,8 +8187,8 @@ function testAbility(target,id){
         if (testAbility(target, ability.verdify.id)) return true
     }
 
-    if (areas[saved.currentArea].fieldEffect?.includes(field.simpleAura.id) && id == ability.simple.id) return true
-    if (areas[saved.currentArea].fieldEffect?.includes(field.moodyAura.id) && id == ability.moody.id) return true
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.simpleAura.id) && id == ability.simple.id) return true
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.moodyAura.id) && id == ability.moody.id) return true
 
 
     return false

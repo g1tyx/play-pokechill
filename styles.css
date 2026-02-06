@@ -5674,7 +5674,7 @@ transform: translateY(-1rem);
 
 .preview-field-list div{
     color: white;
-    margin-bottom: -1.5rem;
+    margin-bottom: -0.9rem;
 
 }
 
@@ -5711,8 +5711,29 @@ transform: translateY(-1rem);
 
 
 
+#tooltip-modifiers-list div{
+    width: 100%;
+    border-radius: 3px;
+    height: 2rem;
+    cursor: help;
+    background: var(--light1);
+    margin-top: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+    padding-right: 0.4rem;
+    font-size: 1.2rem;
+}
 
 
+#tooltip-modifiers-list div input{
+    margin-left: auto;
+    border: none;
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+}
 
 
 
