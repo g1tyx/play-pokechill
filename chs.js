@@ -436,13 +436,13 @@ var cnItems = {
     "Are you sure you want to abort the operation?": "你确定要中止操作吗？",
     "Nothing but time will be lost": "除了时间之外不会有任何损失",
     "Operation overview": "遗传结果总览",
+    "✦ Shiny Mutation!": "✦ 闪光突变!",
     "◆ Attack Iv's increased!": "◆ 攻击个体值提升!",
     "◆ Speed Iv's increased!": "◆ 速度个体值提升!",
     "◆ Defense Iv's increased!": "◆ 防御个体值提升!",
     "◆ HP Iv's increased!": "◆ HP个体值提升!",
     "◆ Special Attack Iv's increased!": "◆ 特攻个体值提升!",
     "◆ Special Defense Iv's increased!": "◆ 特防个体值提升!",
-    "◇ Move inherited:": "◇ 招式遗传:",
     "❖ Attack Iv's inherited!": "❖ 攻击个体值遗传!",
     "❖ Speed Iv's inherited!": "❖ 速度个体值遗传!",
     "❖ Defense Iv's inherited!": "❖ 防御个体值遗传!",
@@ -1617,6 +1617,7 @@ var cnItems = {
 //例如: Coin: 13、Coin: 14、Coin: 15... 这种有相同开头的语句
 //可以在这里汉化开头: "Coin: ":"金币: "
 var cnPrefix = {
+    "◇ Move inherited:": "◇ 招式遗传: ",
     "Time left:":"剩余时间: ",
     "Thanks for the": "感谢送来的",
     "Long Press/Right click the present below to receive a gift": "长按/右击下方礼物, 即可获得礼物: ",
