@@ -2087,7 +2087,6 @@ var cnPrefix = {
 var cnPostfix = {
     "the Pokemon Hidden Ability": "宝可梦的隐藏特性",
     "to enter": " 进入",
-    " Tm": " Tm",
     "Signature Move": "招牌招式",
     "AFK time is being calculated, please wait...\n": "AFK 时间正在计算中, 请稍等...\n",
     "has been unlocked!": "已解锁!",
@@ -3223,6 +3222,8 @@ var cnPostfix = {
     " ▲": " ▲",
     " ▲▲": " ▲▲",
     " ▼▼": " ▼▼",
+    "✔️": "✔️",
+    " Tm": " Tm",
 }
 
 //需排除的, 正则匹配
