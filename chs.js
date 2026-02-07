@@ -1165,9 +1165,9 @@ var cnItems = {
     //神兽介绍
     "The embodiment of moon light. From the earliest ages, it has watched over sleep and dreams, bringing peaceful rest where darkness gathers. Its feathers dispel the nightmares born by Darkrai, as they balance the quiet rhythm of night that was set into the world.": "月光的化身。自太初之时, 它便守望睡眠与梦境, 在黑暗聚集处带来安眠。其羽翼可驱散由达克莱伊所生的噩梦, 以此平衡着世间既定的夜晚宁静韵律。",
     "Formed within the depths of the earth, it moves through molten stone and scorched caverns, shaping volcanoes among the land through heat and pressure.": "它形成于地壳深处, 穿行于熔融岩石与灼烧的洞窟之中, 以热量与压力之力在大地之上塑造火山。",
-    "Emerged to give shape to emotion. When the world was still new, it shared feeling with humanity, allowing joy, sorrow, and empathy to take root. Its presence soothes unrest to the gods of time and space.": "它是为了让情感能够具体存在而出现的。那时候世界还很年轻，它把感受分享给人类，让快乐、悲伤和同情心这些情绪慢慢出现。有它在，连掌管时间和空间的神明都能平静下来。",
-    "Emerged to give shape to knowledge. When the world was still new, it shared understanding with humanity, allowing thought and memory to take root. Its presence quiets turmoil to the gods of time and space.": "它是为了让知识能够具体存在而出现的。那时候世界还很年轻，它把理解力分享给人类，让思考和记忆这些能力慢慢出现。有它在，连掌管时间和空间的神明都能安定下来。",
-    "Emerged to give shape to will. When the world was still new, it granted resolve to humanity, allowing action, choice, and determination to take form. Its presence steels the spirit of the gods of time and space.": "它是为了让意志能够具体存在而出现的。那时候世界还很年轻，它把决心赋予人类，让行动、选择和坚持这些力量慢慢成形。有它在，连掌管时间和空间的神明都会变得更坚定。",
+    "Emerged to give shape to emotion. When the world was still new, it shared feeling with humanity, allowing joy, sorrow, and empathy to take root. Its presence soothes unrest to the gods of time and space.": "它显现以赋予情感以形态。当世界尚处新生, 它将感受与人类共享, 让喜悦、悲伤与共情扎根。它的存在为时间之神于空间之神平复躁动。",
+    "Emerged to give shape to knowledge. When the world was still new, it shared understanding with humanity, allowing thought and memory to take root. Its presence quiets turmoil to the gods of time and space.": "它显现以赋予知识以形态。当世界尚处新生, 它将理解与人类共享, 让思想与记忆扎根。它的存在为时间之神于空间之神平息纷乱。",
+    "Emerged to give shape to will. When the world was still new, it granted resolve to humanity, allowing action, choice, and determination to take form. Its presence steels the spirit of the gods of time and space.": "它显现以赋予意志以形态。当世界尚处新生, 它向人类赋予决心, 让行动、抉择与决心成形。它的存在为时间之神于空间之神铸就魂魄。",
     //特性描述
     "Multiplies by x1.1 the damage of Ghost-type moves of all team members": "全队幽灵属性招式威力提升 1.1 倍",
     "Increases Cross-Power by +0.3": "使 交叉之力 加成 +0.3",
