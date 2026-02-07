@@ -302,7 +302,7 @@ var cnItems = {
     "Hard Mode": "困难模式",
     "Trainers have twice the health. Only applies to VS Trainers": "训练家的宝可梦生命值变为两倍(仅适用于对战训练家)",
     "Cheats": "作弊",
-    "No IVs": "无个体值(IV)",
+    "No IVs": "满个体值(IV)",
     "All of your Pokemon have functionally max IVs regardless of their actual IVs. This can be toggled off without any permanent changes": "所有宝可梦的个体值(IVs)均视为满值, 与实际个体值无关。此效果可随时关闭, 且不会造成永久性改动",
     "Longer AFK": "更长的挂机时间",
     "Fatigue damage is reduced by x3": "疲劳伤害降低至原本的1/3",
@@ -330,9 +330,9 @@ var cnItems = {
     "SDEF": "特防",
     "SATK": "特攻",
     "SPE": "速度",
-    "Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level": "每个种类的宝可梦共享相同的种族值(蓝色星星), 这些数值决定了宝可梦在特定等级时的实际能力值(数字)",
+    "Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level": "每个种类的宝可梦共享相同的种族值, 这些数值决定了宝可梦在特定等级时的实际能力值",
     "Stats determine how much damage they deal and receive (see Battle: Moves). The speed stat determines how fast a Pokemon executes a move": "各项能力值决定了宝可梦造成和承受伤害的多少(详见战斗: 招式)。速度决定了宝可梦执行招式的速度",
-    "Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon": "个体值(IV)(红色星星)会增强能力值, 并且可以通过获得多个相同的宝可梦个体来提升",
+    "Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon": "个体值(IV)会增强能力值, 并且可以通过获得多个相同的宝可梦个体来提升",
     "Depending on their base stats, a Division will be asigned to them. You might use this Division letter to quickly assess which Pokemon can perform better on the short term": "根据它们的种族值, 会为其分配一个评级。你可以利用这个评级来快速判断哪些宝可梦在短期内表现更佳",
     //战斗: 特性
     "Abilities": "特性",
@@ -747,8 +747,8 @@ var cnItems = {
     "not shiny": "非闪光",
     "ribbon": "缎带",
     "has ribbon": "有缎带",
-    "signature": "专属",
-    "has signature": "有专属",
+    "signature": "招牌技",
+    "has signature": "有招牌技",
     "tag": "标签",
     "Tag:": "标签:",
     "none": "无",
@@ -856,6 +856,7 @@ var cnItems = {
     "Battle Factory": "对战工厂",
     "Battle Tower": "对战塔",
     "Battle Arena": "对战竞技场",
+    "Reach a minimum score of 1000 in order to get rewards": "达到最低分数 1000 以获得奖励",
     "All trainers defeated for now": "目前所有训练家已击败",
     "Pick a difficulty for the next trainer": "为下一位训练家选择难度",
     "(Right click/long tap to see the field effect details)": "（右键单击/长按查看场地效果详情）",
@@ -1131,6 +1132,8 @@ var cnItems = {
     "Awarded very rarely for spending a lot of time together": "因共度漫长时光而极其罕见地获得",
     "Souvenir Ribbon": "纪念缎带",
     "Awarded in special occasions": "在特殊情况下授予",
+    "Endurance Ribbon": "耐力缎带",
+    "Awarded for reaching floor 30 in the Battle Tower": "在对战塔达到 30 层时获得",
     //百科
     "Inflicts Burn": "造成灼伤",
     "Inflicts Confused": "造成混乱",
@@ -1653,7 +1656,6 @@ var cnPrefix = {
     "Requires a": "需要",
     "Requires an": "需要",
     "Requires x3": "需要 3个",
-    "Increases the duration of": "提升持续时间对于",
     "Grants immunity to": "免疫",
     "Prevents negative status effects while on": "免疫负面异常状态, 当处于",
     "Increases the Damage dealt by x1.2 when afflicted with": "造成的伤害提升 1.2 倍, 且免疫该状态带来的持续伤害, 当陷入",
@@ -3224,6 +3226,7 @@ var cnPostfix = {
     " ▼▼": " ▼▼",
     "✔️": "✔️",
     " Tm": " Tm",
+    "⛔": "⛔",
 }
 
 //需排除的, 正则匹配
@@ -3325,6 +3328,9 @@ var cnExcludePostfix = [
 //换行加空格: \n(.+)
 //&nbsp;空格: \xA0
 var cnRegReplace = new Map([
+    [/\b\(Highest Spiraling Tower floor reached\: (\d+)\)\b/, '(达到的对战塔最高层数: $1 )'],
+    [/\bNext reward at (\d+) score\b/, '下一个奖励在 $1 分'],
+    [/\bLearnable by Bug and Ground types\b/, '虫属性和地面属性宝可梦可学习'],
     [/\bStock: (\d+)\b/, '库存: $1 '],
     [/\bSignature Move\b/, '招牌招式'],
     [/\bLearnable by Bug and Ground types\b/, '虫属性和地面属性宝可梦可学习'],
