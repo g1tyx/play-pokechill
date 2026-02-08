@@ -1660,8 +1660,10 @@ const sortedMovepool = movepool
         document.getElementById("tooltipTitle").innerHTML = format(ttdata)
         document.getElementById("tooltipMid").style.display = "inline"
 
-        if (item[ttdata].type !== "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ttdata}.png">`
         if (item[ttdata].type == "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${format(move[item[ttdata].move].type)}.png">`
+        else if (item[ttdata].type == "memory") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ability[item[ttdata].ability].type[0]}Memory.png">`
+        else if (item[ttdata].type == "decor") document.getElementById("tooltipTop").innerHTML = `<img src="img/decor/${ttdata}.png" style="scale:2">`
+        else  document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ttdata}.png">`
 
 
 
@@ -1710,6 +1712,9 @@ const sortedMovepool = movepool
         for (const i in shop) {
             if (shop[i].icon == ttdata) obtainText += `<span>Can be bought in the Poke-Mart</span>`
         }
+
+        if (item[ttdata].type=="decor" && item[ttdata].rarity) obtainText += `<span>Can be bought in the Poke-Mart</span>`
+
 
 
 
