@@ -65,12 +65,13 @@ window.addEventListener("app-update-available", () => {
   banner.style.top = "0";  
   banner.style.left = "0";  
   banner.style.width = "100%";  
-  banner.style.background = "rgb(104, 158, 60)";  
+  banner.style.background = "rgb(150, 226, 87)";  
   banner.style.color = "white";  
   banner.style.padding = "10px";  
   banner.style.textAlign = "center";  
   banner.style.cursor = "pointer";  
   banner.style.zIndex = "9999";
+  banner.classList = "update-banner"
   banner.onclick = () => {saveGame(); location.reload()};
   document.body.appendChild(banner);
 });
