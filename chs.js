@@ -744,6 +744,8 @@ var cnItems = {
     "Can be used to automatically refight battles. Cannot refight while the browser is closed. Consumed once a battle is won": "可用于自动重新挑战战斗。浏览器关闭时无法重新挑战。战斗胜利后消耗",
     "Use: Re-learn a previously learned move acquired through genetics inheriting (excluding Lock Capsules and signature moves)": "使用时: 重新学会一个通过遗传获得, 且曾经学会的招式 (不包括上锁的容器和招牌技)",
     //图鉴
+    "Give it a nickname!": "取个名字吧!",
+    "Remove decor": "移除装饰物",
     "Filters": "过滤器",
     "normal": "一般",
     "Normal": "一般",
