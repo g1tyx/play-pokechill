@@ -1031,6 +1031,8 @@ shop.shoppickPocketMemory = {
 
 //assume 25 currency per battle
 
+
+
 saved.halloweenThemeUnlocked = false
 shop.eventhalloweenTheme = {
     icon: item.oldGateau.id,
@@ -1040,6 +1042,14 @@ shop.eventhalloweenTheme = {
     currency: item.oldGateau.id,
     category: `limited`,
     effect: function() {saved.halloweenThemeUnlocked = true},
+    condition: function() {if (saved.currentSeason == season.halloween.id) return true},
+}
+
+shop.eventhalloweenDecor = {
+    icon: item.witchyHat.id,
+    price: 30,
+    currency: item.oldGateau.id,
+    category: `limited`,
     condition: function() {if (saved.currentSeason == season.halloween.id) return true},
 }
 
@@ -1103,6 +1113,91 @@ shop.eventhalloweenCaps = {
 
 
 
+//decor
+
+shop.shopDecor1 = {
+    icon: item.googlySpecs.id,
+    price: 10,
+    category: `decor`
+}
+
+shop.shopDecor2 = {
+    icon: item.googlySpecs.id,
+    price: 10,
+    category: `decor`
+}
+
+shop.shopDecor3 = {
+    icon: item.googlySpecs.id,
+    price: 10,
+    category: `decor`
+}
+
+shop.shopDecor4 = {
+    icon: item.googlySpecs.id,
+    price: 10,
+    category: `decor`
+}
+
+shop.shopDecor5 = {
+    icon: item.googlySpecs.id,
+    price: 10,
+    category: `decor`
+}
+
+shop.shopDecor6 = {
+    icon: item.googlySpecs.id,
+    price: 50,
+    currency: item.goldenBottleCap.id,
+    category: `decor`
+}
+
+shop.shopwealthyCoins = {
+    icon: item.wealthyCoins.id,
+    price: 999,
+    currency: item.goldenBottleCap.id,
+    category: `decor`
+}
+
+
+
+
+saved.lastShopDecorReset = undefined
+saved.shopDecorRotation = undefined
+function assignShopDecor(){
+
+    if (saved.lastShopDecorReset!=rotationEventCurrent){
+    saved.lastShopDecorReset =rotationEventCurrent
+
+
+    const commonDecor = []
+    const rareDecor = []
+
+    for (const i in item){
+        if (item[i].type !== "decor") continue
+        if (item[i].rarity == undefined) continue
+        if (item[i].rarity == "rare") rareDecor.push(i)
+        if (item[i].rarity == "common") commonDecor.push(i)
+    }
+
+
+    saved.shopDecorRotation = [...arrayPick(commonDecor,5), arrayPick(rareDecor,1)]
+
+    }
+
+
+    shop.shopDecor1.icon = saved.shopDecorRotation[0]
+    shop.shopDecor2.icon = saved.shopDecorRotation[1]
+    shop.shopDecor3.icon = saved.shopDecorRotation[2]
+    shop.shopDecor4.icon = saved.shopDecorRotation[3]
+    shop.shopDecor5.icon = saved.shopDecorRotation[4]
+    shop.shopDecor6.icon = saved.shopDecorRotation[5]
+
+
+}
+
+
+
 let shopCategory = undefined
 
 function updateItemShop(){
@@ -1134,6 +1229,19 @@ function updateItemShop(){
     shopCategory = undefined
     updateItemShop()
     })
+
+
+    if (shopCategory == "decor") {
+    const decorTimer = document.createElement("div")
+    decorTimer.id = "shop-back"
+    decorTimer.style.outline = "none"
+    decorTimer.style.border = "none"
+    decorTimer.innerHTML =`
+    <svg style="scale:0.7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z"/><rect width="2" height="7" x="11" y="6" fill="currentColor" rx="1"><animateTransform attributeName="transform" dur="450s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></rect><rect width="2" height="9" x="11" y="11" fill="currentColor" rx="1"><animateTransform attributeName="transform" dur="37.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></rect></svg>
+    Available decor will rotate in <font style="margin-left:0.3rem" class="time-counter-event">...</font>`
+    document.getElementById("shop-listing").appendChild(decorTimer);
+
+    }
 
 
     document.getElementById("shop-categories").style.display = "none"
@@ -1195,6 +1303,13 @@ function updateItemShop(){
     `;} else if (item[shopItem] && item[shopItem].type=="memory"){ div.innerHTML = `
     <img src="img/items/${ability[item[shopItem].ability].type[0]}Memory.png">
         <span>${name}${stockTag}</span>
+    <strong id="shop-currency-${i}">
+        <img src="img/items/${currency}.png">
+        x${shop[i].price}
+    </strong>
+    `;} else if (item[shopItem] && item[shopItem].type=="decor"){ div.innerHTML = `
+    <img src="img/decor/${shop[i].icon}.png" style="scale:1; margin: 0 -2rem;">
+        <span style="padding-left:0.5rem">${name}${stockTag}</span>
     <strong id="shop-currency-${i}">
         <img src="img/items/${currency}.png">
         x${shop[i].price}

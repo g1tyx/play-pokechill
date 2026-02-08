@@ -22,12 +22,7 @@ function closePkmnEditor(){
 
 
 function closeTooltip() {
-    if (document.getElementById("team-name-field") && 
-        document.getElementById("team-name-field").value != "") {
-        saved.previewTeams[saved.currentPreviewTeam].name = 
-            document.getElementById("team-name-field").value;
-        changeTeamNames();
-    }
+
     
     //remove current stack
     tooltipStack.pop();
@@ -857,6 +852,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         document.getElementById("tooltipTop").style.display = "flex"
         if (item[ttdata].type == "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${format(move[item[ttdata].move].type)}.png">`
         else if (item[ttdata].type == "memory") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ability[item[ttdata].ability].type[0]}Memory.png">`
+        else if (item[ttdata].type == "decor") document.getElementById("tooltipTop").innerHTML = `<img src="img/decor/${ttdata}.png" style="scale:2">`
         else  document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ttdata}.png">`
 
         document.getElementById("tooltipTitle").innerHTML = format(ttdata)
@@ -1005,14 +1001,26 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         currentEditedPkmn = poke.id
         tooltipStack.length = 0;
         closeTooltip()
+
+
+        document.getElementById("pkmn-edit-buttons").innerHTML = `
+        
+        
+        <svg id="pkmn-edit-dictionary" onclick="tooltipData('dictionaryPkmn', currentEditedPkmn)" <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m6.006 11.823l1.123-3.06h.05l1.123 3.06zm6.494 5.496q1.216-.678 2.453-.98t2.547-.3q.9 0 1.618.111t1.267.296q.23.096.423-.029t.192-.394V7.008q0-.173-.096-.308q-.096-.134-.327-.23q-.825-.293-1.501-.4T17.5 5.961q-1.31 0-2.613.386q-1.304.387-2.387 1.16zm-6.78-4.763h2.869l.474 1.306q.05.111.137.17t.204.059q.198 0 .303-.158t.043-.35L7.739 8.24q-.05-.131-.169-.212t-.255-.081h-.323q-.136 0-.254.08t-.169.213l-2.011 5.361q-.062.173.043.33t.303.159q.117 0 .206-.06q.09-.058.14-.175zm6.28 5.9q-.235 0-.432-.059t-.376-.15q-1.09-.595-2.27-.902T6.5 17.04q-.78 0-1.534.13q-.753.131-1.466.42q-.544.217-1.022-.131T2 16.496V6.831q0-.371.195-.689t.547-.442q.887-.383 1.836-.56T6.5 4.962q1.47 0 2.866.423q1.398.423 2.634 1.23q1.237-.807 2.634-1.23t2.866-.423q.973 0 1.922.178q.95.177 1.836.56q.352.125.547.442t.195.689v9.665q0 .614-.516.943q-.517.328-1.1.111q-.693-.27-1.418-.39q-.724-.121-1.466-.121q-1.24 0-2.421.306t-2.271.901q-.18.093-.376.151q-.197.059-.432.059m1.885-9.508q0-.11.076-.222t.18-.168q.763-.346 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.154-1.46.43q-.257.099-.42-.005t-.162-.362m0 5.423q0-.11.076-.231q.076-.123.18-.178q.725-.346 1.613-.52q.888-.173 1.746-.173q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.784 0-1.544.16q-.76.161-1.45.457q-.258.118-.44-.003t-.181-.397m0-2.692q0-.11.076-.222t.18-.168q.763-.347 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.134q.096.104.096.258q0 .252-.15.366t-.402.051q-.37-.075-.757-.102q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.153-1.46.43q-.257.098-.42-.005q-.162-.105-.162-.362"/></svg>
+        <svg onclick="renamePokemon()" style="padding:7px" <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15.287 3.152l-.927.927l-8.521 8.52c-.577.578-.866.867-1.114 1.185a6.6 6.6 0 0 0-.749 1.211c-.173.364-.302.752-.56 1.526l-1.094 3.281l-.268.802a1.06 1.06 0 0 0 1.342 1.342l.802-.268l3.281-1.094c.775-.258 1.162-.387 1.526-.56q.647-.308 1.211-.749c.318-.248.607-.537 1.184-1.114l8.521-8.521l.927-.927a3.932 3.932 0 0 0-5.561-5.561Z"/><path d="M14.36 4.078s.116 1.97 1.854 3.708s3.707 1.853 3.707 1.853M4.198 21.678l-1.876-1.876" opacity="0.5"/></g></svg>`
+
+
         
     if (pkmn[currentEditedPkmn].tag) document.getElementById("explore-pkmn-tag").value = pkmn[currentEditedPkmn].tag;
     else document.getElementById("explore-pkmn-tag").value = "none";
 
-        document.getElementById("pkmn-shiny-switch").style.display = "none"
-        if (pkmn[poke.id].shiny){
-        document.getElementById("pkmn-shiny-switch").style.display = "flex"
-        }
+        if (pkmn[poke.id].shiny) document.getElementById("pkmn-edit-buttons").innerHTML += `<svg id="pkmn-shiny-switch" onclick="switchShiny()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.685 5.25h.03a.75.75 0 0 1 0 1.5c-1.292 0-2.275 0-3.058.063c-.785.063-1.283.183-1.636.371a3.94 3.94 0 0 0-1.677 1.764c-.19.394-.304.88-.363 1.638c-.06.764-.06 1.738-.06 3.094v.11l1.12-1.12a.75.75 0 0 1 1.06 1.06l-2.4 2.4a.75.75 0 0 1-1.086-.027l-2.171-2.4a.75.75 0 0 1 1.112-1.006l.865.956v-.005c0-1.317 0-2.35.065-3.179c.066-.844.202-1.542.509-2.176a5.44 5.44 0 0 1 2.319-2.431c.625-.335 1.37-.476 2.224-.544c.85-.068 1.891-.068 3.147-.068"/><path fill="currentColor" d="M17.847 7.65a.75.75 0 0 1 .538.247l2.171 2.4a.75.75 0 0 1-1.112 1.006l-.866-.956v.005c0 1.317 0 2.35-.064 3.179c-.066.844-.202 1.542-.509 2.176a5.44 5.44 0 0 1-2.319 2.431c-.625.335-1.37.476-2.224.544c-.85.068-1.891.068-3.147.068h-.03a.75.75 0 0 1 0-1.5c1.292 0 2.275 0 3.058-.063c.784-.063 1.283-.183 1.636-.372a3.94 3.94 0 0 0 1.677-1.763c.19-.394.304-.88.363-1.637c.059-.765.06-1.74.06-3.095v-.11l-1.12 1.12a.75.75 0 0 1-1.06-1.06l2.4-2.4a.75.75 0 0 1 .548-.22" opacity="0.5"/></svg>`
+
+
+
+
+
+
 
 
         let nameTag =""
@@ -1020,10 +1028,27 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
 
         if (pkmn[poke.id].shiny && pkmn[poke.id].shinyDisabled!=true) document.getElementById("pkmn-editor-sprite").src = `img/pkmn/shiny/${poke.id}.png` 
         else document.getElementById("pkmn-editor-sprite").src = `img/pkmn/sprite/${poke.id}.png`
-        document.getElementById("pkmn-editor-name").innerHTML = `${format(poke.id)}${nameTag}`
-        if (pkmn[poke.id].shiny) document.getElementById("pkmn-editor-name").innerHTML = `${format(poke.id)} <span style="color:#FF4671">✦</span>${nameTag}`
+        document.getElementById("pkmn-editor-name").innerHTML = `<span id="pkmn-editor-nickname">${format(poke.id)}</span>${nameTag}`
+        if (pkmn[poke.id].shiny) document.getElementById("pkmn-editor-name").innerHTML = `<span id="pkmn-editor-nickname">${format(poke.id)}</span> <span style="color:#FF4671">✦</span>${nameTag}`
         document.getElementById("pkmn-editor-level").innerHTML = `Level ${poke.level}`
         document.getElementById("pkmn-editor-type").innerHTML = returnPkmnTypes(poke.id)
+
+
+        if ( pkmn[currentEditedPkmn].nickname) document.getElementById("pkmn-editor-nickname").textContent = pkmn[currentEditedPkmn].nickname
+
+
+
+
+        if (pkmn[currentEditedPkmn].decor) {
+            const decorData = pkmn[currentEditedPkmn].decor
+
+            document.getElementById("pkmn-edit-decor").style.visibility = "visible"
+            document.getElementById("pkmn-edit-decor").src = `img/decor/${decorData.decor}.png`
+            document.getElementById("pkmn-edit-decor").style = `position: absolute; left: ${decorData.x}px; top: ${decorData.y}px; pointer-events: none;`
+
+        } else document.getElementById("pkmn-edit-decor").style.visibility = "hidden"
+
+        if (pkmn[currentEditedPkmn].decorOwned) document.getElementById("pkmn-edit-buttons").innerHTML += `<svg onclick="openDecor()" style="padding:5px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M10 9.502c-1-1-3.979-3.723-5.34-3.488c-3.547.613-3.547 11.363 0 11.976c1.361.235 4.34-2.487 5.34-3.488m4-5c1-1 3.979-3.723 5.34-3.488c3.547.613 3.547 11.363 0 11.976c-1.361.235-4.34-2.487-5.34-3.488"/><path d="M9.5 12.002c0-2.099.622-3 2.5-3c1.749 0 2.5.746 2.5 3c0 2.099-.622 3-2.5 3s-2.5-.901-2.5-3m-.5 0H8m8 0h-1"/></g></svg>`
 
 
         document.getElementById(`pkmn-editor-ribbons`).innerHTML = ""
@@ -1635,8 +1660,10 @@ const sortedMovepool = movepool
         document.getElementById("tooltipTitle").innerHTML = format(ttdata)
         document.getElementById("tooltipMid").style.display = "inline"
 
-        if (item[ttdata].type !== "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ttdata}.png">`
         if (item[ttdata].type == "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${format(move[item[ttdata].move].type)}.png">`
+        else if (item[ttdata].type == "memory") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ability[item[ttdata].ability].type[0]}Memory.png">`
+        else if (item[ttdata].type == "decor") document.getElementById("tooltipTop").innerHTML = `<img src="img/decor/${ttdata}.png" style="scale:2">`
+        else  document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ttdata}.png">`
 
 
 
@@ -1685,6 +1712,9 @@ const sortedMovepool = movepool
         for (const i in shop) {
             if (shop[i].icon == ttdata) obtainText += `<span>Can be bought in the Poke-Mart</span>`
         }
+
+        if (item[ttdata].type=="decor" && item[ttdata].rarity) obtainText += `<span>Can be bought in the Poke-Mart</span>`
+
 
 
 

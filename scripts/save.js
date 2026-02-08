@@ -65,6 +65,9 @@ function saveGame() {
     data[i].recordSpiraling = pkmn[i].recordSpiraling;
     data[i].movepoolMemory = pkmn[i].movepoolMemory;
     data[i].nuzlocked = pkmn[i].nuzlocked;
+    data[i].nickname = pkmn[i].nickname;
+    data[i].decor = pkmn[i].decor;
+    data[i].decorOwned = pkmn[i].decorOwned;
   }
 
   localStorage.setItem("gameData", JSON.stringify(data));
@@ -138,6 +141,9 @@ function loadGame() {
       pkmn[i].recordSpiraling = data[i].recordSpiraling;
       pkmn[i].movepoolMemory = data[i].movepoolMemory;
       pkmn[i].nuzlocked = data[i].nuzlocked;
+      pkmn[i].nickname = data[i].nickname;
+      pkmn[i].decor = data[i].decor;
+      pkmn[i].decorOwned = data[i].decorOwned;
     }
   }
 

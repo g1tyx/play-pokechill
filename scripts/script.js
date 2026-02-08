@@ -201,7 +201,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 3.4
+  saved.version = 3.5
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -860,6 +860,7 @@ function infoMisc(){
       {command:"saved.overrideBattleTimer=NUMBER", effect:"Alter Battle Speed (Default 2000)"},
       {command:"debugGetPkmn(LEVEL,'shiny')", effect:"Get all Pokemon at certain level. Shiny is optional"},
       {command:"debugSetIvs(NUMBER)", effect:"Set all Pokemon IV's. Maximum 6"},
+      {command:"debugGetItems()", effect:"Get 999 of all items"},
       {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
       {command:"getMoveset(pkmn.NAME,LEVEL)", effect:"Generates a table of possible Pokemon moves"},
       ]);

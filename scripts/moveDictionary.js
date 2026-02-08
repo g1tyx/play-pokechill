@@ -4330,7 +4330,7 @@ move.tailGlow = { //new
 }
 
 move.luminaCrash = { //new
-    split: "physical",
+    split: "special",
     type: "psychic",
     power: t4Base/1.2,
     timer: defaultPlayerMoveTimer*1.2,
