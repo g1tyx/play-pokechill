@@ -644,7 +644,7 @@ var cnItems = {
     "Fast-forwards battle time by 10 minutes. Must be used while battling": "战斗时间快进10分钟。必须在战斗时使用",
     "Can be used to catch event Pokemon. Expires after event finishes": "可用于捕捉活动宝可梦。活动结束后消失",
     "Seasonal item, dropped randomly from defeating wild Pokemon. Expires on 2/14": "季节性道具, 击败野生宝可梦随机掉落。有效期至2月14日",
-    "Evolve certain kinds of Pokemon (Must be level 30+)": "进化某些种类的宝可梦 (必须是30级以上)",
+    "Evolve certain kinds of Pokemon (Must be level 30+)": "进化特定种类的宝可梦 (必须是30级以上)",
     "Evolve certain kinds of Pokemon (Must be level 70+)": "进化特定种类的宝可梦 (必须是70级以上)",
     "Select a Pokemon to use the Dawn Stone": "选择一只宝可梦来使用 觉醒之石",
     "Select a Pokemon to use the Fire Stone": "选择一只宝可梦来使用 火之石",
@@ -668,7 +668,7 @@ var cnItems = {
     "Obtained in the Battle Frontier": "在对战开拓区获得",
     "Obtained via Export Reward": "通过导出奖励获得",
     "Can be used to automatically refight battles. Cannot refight while the browser is closed. Consumed once a battle is won": "可用于自动重新挑战战斗。浏览器关闭时无法重新挑战。战斗胜利后消耗",
-    "Re-learns a previously learned move acquired through genetics inheriting (excluding Lock Capsules)": "重新学会一个通过遗传继承获得且曾经学会的招式(不包括上锁的容器)",
+    "Re-learns a previously learned move acquired through genetics inheriting (excluding Lock Capsules and signature moves)": "重新学会一个通过遗传获得, 且曾经学会的招式 (不包括上锁的容器和招牌技)",
     //图鉴
     "Filters": "过滤器",
     "normal": "一般",
@@ -818,7 +818,6 @@ var cnItems = {
     "Aroma Lady Jana": "香氛姐姐 亚娜",
     "Bug Catcher Milo": "捕虫少年 亚洛",
     "Black Belt Ryan": "空手道王 莱恩",
-    "School Kid Aaron": "补习班学生 阿柳",
     "Rocket Grunt": "火箭队手下",
     "Swimmer Dan": "泳裤小伙子 丹",
     "Veteran Toshiro": "资深训练家 敏郎",
@@ -1233,24 +1232,24 @@ var cnItems = {
     "Increases the highest stat of the user by 50% when defeating a Pokemon": "击败宝可梦后, 自身能力值最高的一项提升50%",
     "Inverts stat changes. Positive changes become negative, and negative become positive": "反转自身的能力值变化效果",
     "Moves are executed a second time, at half power": "招式将额外触发一次, 次发招式威力为原威力的一半",
-    "Physical damage dealt is multiplied by x2": "造成的物理伤害提升至2倍",
-    "Secondary effect of moves are executed twice": "招式的附加效果必定触发2次",
-    "Stat changes on the user are boosted by a stage": "自身的能力值变化额外提升1级",
+    "Physical damage dealt is multiplied by x2": "造成的物理伤害提升 2 倍",
+    "Secondary effect of moves are executed twice": "招式的附加效果触发 2 次",
+    "Stat changes on the user are boosted by a stage": "自身的能力值变化额外提升 1 级",
     "Moves that are resisted by typing do instead normal damage": "被属性抵抗的招式, 改为造成正常伤害",
-    "Received damage from non-Super-Effective moves are reduced by 80%": "所受的非克制招式的伤害降低80%",
-    "Ghost and Dark-type moves are x1.5 faster than usual": "幽灵、恶属性招式的出招速度提升1.5倍",
-    "Flying and Bug moves are x1.5 faster than usual": "飞行、虫属性招式的出招速度提升1.5倍",
-    "Increases Speed by 50% when defeating a Pokemon": "击败宝可梦后, 自身速度提升50%",
-    "\"Dance\"-related moves are executed twice as fast": "“舞蹈类” 招式的出招速度提升2倍",
-    "\"Head\"-related moves have their base power multiplied by x1.5": "“头类” 招式的基础伤害提升1.5倍",
-    "\"Pulse\"-related moves have their base power multiplied by x1.5": "“波动类” 招式的基础伤害提升1.5倍",
-    "\"Sharp\"-related moves have their base power multiplied by x1.5": "“利刃类” 招式的基础伤害提升1.5倍",
-    "\"Sound\"-related moves are executed twice as fast": "“声音类” 招式的出招速度提升至2倍",
-    "(Cut, Slash, Smart Strike, Air Slash, Ice Shard, Fury Cutter, X Scissor, Razor Leaf, Leaf Blade, Psycho Cut, Night Slash, Razor Shell, Spacial Rend, and Bitter Blade)": "(居合斩、劈开、空气之刃、冰砾、连斩、十字剪、飞叶快刀、叶刃、精神利刃、暗袭要害、贝壳刃、亚空裂斩、悔念剑)",
-    "(Fire Blast, Flash Cannon, Aurora Beam, Water Pulse, Energy Ball, Aura Sphere, Focus Blast, Rock Blast, Shadow Ball, Dragon Pulse, Dark Pulse, Moonblast, Hydro Cannon, Chloroblast, Dragon Darts, Armor Cannon, and Zap Cannon)": "(大字爆炎、加农光炮、极光束、水之波动、能量球、波导弹、真气弹、岩石爆破、暗影球、龙之波动、恶之波动、月亮之力、加农水炮、叶绿爆破、龙箭、铠农炮、电磁炮)",
-    "(Growl, Screech, Hyper Voice, Metal Sound, Bug Buzz, Snarl, Disarming Voice, Echoed Voice, Alluring Voice, Boomburst, Sparkling Aria, Chatter, Roar Of Time, Howl, Clanging Scales, Relic Song, and Torch Song)": "（叫声、刺耳声、巨声、金属音、虫鸣、大声咆哮、魅诱之声、回声、诱惑之声、爆音波、泡影的咏叹调、喋喋不休、时光咆哮、长嚎、鳞片噪音、古老之歌、闪焰高歌）",
-    "(Iron Head, Rock Smash, Zen Headbutt, Head Charge, Megahorn, Psyshield Bash, and Headlong Rush)": "（铁头、碎岩、意念头锤、爆炸头突击、超级角击、屏障猛攻、突飞猛扑）",
-    "(Swords Dance, Feather Dance, Rain Dance, Agility, Dragon Dance, Belly Drum, Aqua Step, Revelation Dance, Tail Glow, Quiver Dance, Drum Beating, and Fiery Dance)": "(剑舞、羽毛舞、求雨、高速移动、龙之舞、腹鼓、水流连打、觉醒之舞、萤火、蝶舞、鼓击、火焰舞)",
+    "Received damage from non-Super-Effective moves are reduced by 80%": "所受的非克制招式的伤害降低 80%",
+    "Ghost and Dark-type moves are x1.5 faster than usual": "幽灵、恶属性招式的出招速度提升 1.5 倍",
+    "Flying and Bug moves are x1.5 faster than usual": "飞行、虫属性招式的出招速度提升 1.5 倍",
+    "Increases Speed by 50% when defeating a Pokemon": "击败宝可梦后, 自身速度提升 50%",
+    "\"Dance\"-related moves are executed twice as fast": "“舞蹈类” 招式的出招速度提升 2 倍",
+    "\"Head\"-related moves have their base power multiplied by x1.5": "“头类” 招式的基础伤害提升 1.5 倍",
+    "\"Pulse\"-related moves have their base power multiplied by x1.5": "“波动类” 招式的基础伤害提升 1.5 倍",
+    "\"Sharp\"-related moves have their base power multiplied by x1.5": "“利刃类” 招式的基础伤害提升 1.5 倍",
+    "\"Sound\"-related moves are executed twice as fast": "“声音类” 招式的出招速度提升 2 倍",
+    "(Cut, Slash, Smart Strike, Air Slash, Ice Shard, Fury Cutter, X Scissor, Razor Leaf, Leaf Blade, Psycho Cut, Night Slash, Razor Shell, Spacial Rend, and Bitter Blade)": "(居合斩、劈开、空气之刃、冰砾、连斩、十字剪、飞叶快刀、叶刃、精神利刃、暗袭要害、贝壳刃、亚空裂斩、悔念剑)", //锋锐
+    "(Fire Blast, Flash Cannon, Aurora Beam, Water Pulse, Energy Ball, Aura Sphere, Focus Blast, Rock Blast, Shadow Ball, Dragon Pulse, Dark Pulse, Moonblast, Hydro Cannon, Chloroblast, Dragon Darts, Armor Cannon, and Zap Cannon)": "(大字爆炎、加农光炮、极光束、水之波动、能量球、波导弹、真气弹、岩石爆破、暗影球、龙之波动、恶之波动、月亮之力、加农水炮、叶绿爆破、龙箭、铠农炮、电磁炮)", //波动增幅
+    "(Growl, Screech, Hyper Voice, Metal Sound, Bug Buzz, Snarl, Disarming Voice, Echoed Voice, Alluring Voice, Boomburst, Sparkling Aria, Chatter, Roar Of Time, Howl, Clanging Scales, Relic Song, and Torch Song)": "（叫声、刺耳声、巨声、金属音、虫鸣、大声咆哮、魅诱之声、回声、诱惑之声、爆音波、泡影的咏叹调、喋喋不休、时光咆哮、长嚎、鳞片噪音、古老之歌、闪焰高歌）", //杂音
+    "(Iron Head, Rock Smash, Zen Headbutt, Head Charge, Megahorn, Psyshield Bash, and Headlong Rush)": "（铁头、碎岩、意念头锤、爆炸头突击、超级角击、屏障猛攻、突飞猛扑）", //铁头
+    "(Swords Dance, Feather Dance, Rain Dance, Agility, Dragon Dance, Belly Drum, Aqua Step, Revelation Dance, Tail Glow, Quiver Dance, Drum Beating, and Fiery Dance)": "(剑舞、羽毛舞、求雨、高速移动、龙之舞、腹鼓、水流连打、觉醒之舞、萤火、蝶舞、鼓击、火焰舞)", //舞者
     "Copies the positive stat increases of the enemy": "复制对手的能力值正面提升效果",
     "Prevents all stat decreases": "能力值不会降低",
     "Increases the Damage dealt by x1.15 for every team member defeated": "每有一名队友被击败, 自身造成的伤害提升 15%",
@@ -1285,7 +1284,7 @@ var cnItems = {
     "\"Fang\"-related moves have their base power multiplied by x2": "“牙类” 招式的基础伤害提升 2 倍",
     "\"Punch\"-related moves have their base power multiplied by x1.5": "“拳类” 招式的基础伤害提升 1.5 倍",
     "(Dizzy Punch, Fire Punch, Thunder Punch, Bullet Punch, Poison Jab, Ice Punch, Mach Punch, Powerup Punch, Force Palm, Shadow Punch, Aurora Punch, Comet Punch, Dynamic Punch, and Rage Fist)": "（迷昏拳、火焰拳、雷电拳、子弹拳、毒击、冰冻拳、音速拳、增强拳、发劲、暗影拳、极光拳、连续拳、爆裂拳、愤怒之拳）",
-    "(Fire Fang, Thunder Fang, Shark Jaws, Poison Fang, Ice Fang, Bug Bite, Psychic Fangs, Bite, and Crunch)": "（火焰牙、雷电牙、鲨鱼咬、剧毒牙、冰冻牙、虫咬、精神之牙、咬住、咬碎）",
+    "(Fire Fang, Thunder Fang, Shark Jaws, Poison Fang, Ice Fang, Bug Bite, Psychic Fangs, Bite, Crunch, and Fishious Rend)": "(火焰牙、雷电牙、鲨鱼咬、剧毒牙、冰冻牙、虫咬、精神之牙、咬住、咬碎、鳃咬)", //强壮之颚
     "(Metal Claw, Razor Talons, Poison Claw, Shadow Claw, and Dragon Claw)": "（金属爪、锐爪、毒爪、暗影爪、龙爪）",
     "Multiplies the damage by x1.5 when the opposite Pokemon shares a type": "当对手宝可梦与自身拥有相同属性时, 自身造成的伤害提升 1.5 倍",
     "Prevents negative stat changes and status effects while on": "免疫能力值负面变化与异常状态, 当处于",
@@ -1299,12 +1298,12 @@ var cnItems = {
     "Increases Speed by 50% if no item is being held": "未携带道具时, 速度提升 50%",
     "Increases Attack by 50% when defeating a Pokemon": "击败宝可梦后, 自身攻击提升 50%",
     "Increases Special Attack by 50% when defeating a Pokemon": "击败宝可梦后, 自身特攻提升 50%",
-    "Positive secondary effect of damaging moves are removed, and their damage is multiplied by x1.2": "攻击招式移除正面附加效果, 基础伤害提升1.2倍",
+    "Positive secondary effect of damaging moves are removed, and their damage is multiplied by x1.2": "攻击招式移除正面附加效果, 基础伤害提升 1.2 倍",
     "Grants immunity to Ground-type moves": "免疫地面属性招式",
     "Halves damage received from Fire and Ice-type moves": "所受火、冰属性招式伤害减半",
     "Multiplies Same-Type-Attack-Bonus by x1.2": "本系招式加成再提升 1.2 倍",
     "Moves always hit regardless of the type": "招式无视属性相性, 必定命中",
-    "Damage received is halved when over 50% HP": "自身生命高于50%时, 所受伤害减半",
+    "Damage received is halved when over 50% HP": "自身生命高于 50% 时, 所受伤害减半",
     "Increases Special Attack by 50% if afflicted with a status effect": "陷入异常状态时, 特攻提升 50%",
     "Halves the damage received of Fighting-type moves": "受到格斗属性招式的伤害减半",
     "Halves the damage received of Water-type moves": "受到水属性招式的伤害减半",
@@ -1321,7 +1320,6 @@ var cnItems = {
     "Halves the damage received of Dragon-type moves": "受到龙属性招式的伤害减半",
     "Halves the damage received of Bug-type moves": "受到虫属性招式的伤害减半",
     "Halves the damage received of Rock-type moves": "受到岩石属性招式的伤害减半",
-    "Halves the damage received of Ground-type moves": "受到地面属性招式的伤害减半",
     "Halves the damage received of Flying-type moves": "受到飞行属性招式的伤害减半",
     "Increases Defense by 50% if afflicted with a status effect": "陷入异常状态时, 防御提升 50%",
     "Increases Special Defense by 50% if afflicted with a status effect": "陷入异常状态时, 特防提升 50%",
@@ -1346,115 +1344,125 @@ var cnItems = {
     "50% chance for received Status Effects to miss": "受到的异常状态有50%的概率无效",
     "Inflicts active status effects to the attacker aswell": "会将自身当前的异常状态施加给攻击者",
     "Status effects are cleared when switching Pokemon": "替换宝可梦时, 自身的异常状态将被清除",
-    "Multiplies by 1.5x the base damage of moves with equal or less than 60 power": "威力小于60的招式, 其基础伤害提升1.5倍",
+    "Multiplies by 1.5x the base damage of moves with equal or less than 60 power": "威力小于 60 的招式, 其基础伤害提升 1.5 倍",
     "This ability is currently unobtainable :(": "该特性目前无法获取 :(",
     //特性提示
-    "Additionally, appears as the Hidden ability of Appletun and Appletun Gmax": "也是以下宝可梦的隐藏特性: 丰蜜龙、超级巨化丰蜜龙",
-    "Additionally, appears as the Hidden ability of Drowzee, Hypno, and Uxie": "也是以下宝可梦的隐藏特性: 催眠貘、引梦貘人、由克希",
-    "Additionally, appears as the Hidden ability of Geodude, Graveler, and Golem": "也是以下宝可梦的隐藏特性: 小拳石、隆隆石、隆隆岩",
-    "Additionally, appears as the Hidden ability of Magikarp and Moltres": "也是以下宝可梦的隐藏特性: 鲤鱼王、火焰鸟",
-    "Additionally, appears as the Hidden ability of Ponyta and Rapidash": "也是以下宝可梦的隐藏特性: 小火马、烈焰马",
-    "Additionally, appears as the Hidden ability of Regirock": "也是以下宝可梦的隐藏特性: 雷吉洛克",
-    "Additionally, appears as the Hidden ability of Registeel": "也是以下宝可梦的隐藏特性: 雷吉斯奇鲁",
-    "Additionally, appears as the Hidden ability of Spearow and Fearow": "也是以下宝可梦的隐藏特性: 烈雀、大嘴雀",
-    "Additionally, appears as the Hidden ability of Staryu and Starmie": "也是以下宝可梦的隐藏特性: 海星星、宝石海星",
-    "Additionally, appears as the Hidden ability of Unown O": "也是以下宝可梦的隐藏特性: 未知图腾O",
-    "Additionally, appears as the Hidden ability of Venonat and Venomoth": "也是以下宝可梦的隐藏特性: 毛球、摩鲁蛾",
-    "Additionally, appears as the Hidden ability of Aln. Sandshrew, Aln. Sandslash, Cubchoo, Beartic, Arctozolt, and Arctovish": "也是以下宝可梦的隐藏特性: 阿罗拉穿山鼠、阿罗拉穿山王、喷嚏熊、冻原熊、雷鸟海兽、鳃鱼海兽",
-    "Additionally, appears as the Hidden ability of Articuno": "也是以下宝可梦的隐藏特性: 急冻鸟",
-    "Additionally, appears as the Hidden ability of Bulbasaur, Ivysaur, Venusaur, M. Venusaur, Venusaur Gmax, Aln. Rattata, Aln. Raticate, Seel, Dewgong, Lickitung, Lickilicky, Munchlax, Snorlax, Snorlax Gmax, Swinub, Piloswine, Mamoswine, Miltank, Spheal, Sealeo, Walrein, Glameow, Purugly, Tepig, Pignite, Emboar, Applin, and Flapple": "也是以下宝可梦的隐藏特性: 妙蛙种子、妙蛙草、妙蛙花、Mega妙蛙花、超级巨化妙蛙花、阿罗拉小拉达、阿罗拉拉达、小海狮、白海狮、大舌头、大舌舔、小卡比兽、卡比兽、超级巨化卡比兽、小山猪、长毛猪、象牙猪、大奶罐、海豹球、海魔狮、帝牙海狮、魅力喵、东施喵、暖暖猪、炒炒猪、炎武王、啃果虫、苹裹龙",
-    "Additionally, appears as the Hidden ability of Charmander, Charmeleon, Charizard, M. Charizard X, Krabby, Kingler, Kingler Gmax, Aerodactyl, M. Aerodactyl, M. Metagross, Binacle, Barbaracle, and M. Barbaracle": "也是以下宝可梦的隐藏特性: 小火龙、火恐龙、喷火龙、Mega喷火龙X、大钳蟹、巨钳蟹、超级巨化巨钳蟹、化石翼龙、Mega化石翼龙、Mega巨金怪、龟脚脚、龟足巨铠、Mega龟足巨铠",
-    "Additionally, appears as the Hidden ability of Cleffa, Clefairy, Clefable, Abra, Kadabra, Alakazam, M. Alakazam, Unown M, Cresselia, Sigilyph, Solosis, Duosion, and Reuniclus": "也是以下宝可梦的隐藏特性: 皮宝宝、皮皮、皮可西、凯西、勇基拉、胡地、Mega胡地、未知图腾M、克雷色利亚、象征鸟、单卵细胞球、双卵细胞球、人造细胞卵",
-    "Additionally, appears as the Hidden ability of Darkrai and Necrozma": "也是以下宝可梦的隐藏特性: 达克莱伊、奈克洛兹玛",
-    "Additionally, appears as the Hidden ability of Diglett, Dugtrio, Shellos West, Shellos East, Gastrodon, Gastrodon East, Gible, Gabite, Garchomp, M. Garchomp, Roggenrola, Boldore, Gigalith, Drilbur, and Excadrill": "也是以下宝可梦的隐藏特性: 地鼠、三地鼠、海兔兽、圆陆鲨、尖牙陆鲨、烈咬陆鲨、Mega烈咬陆鲨、石丸子、地幔岩、庞岩怪、螺钉地鼠、龙头地鼠",
-    "Additionally, appears as the Hidden ability of Duskull, Dusclops, and Dusknoir": "也是以下宝可梦的隐藏特性: 夜巡灵、彷徨夜灵、黑夜魔灵",
-    "Additionally, appears as the Hidden ability of Ekans, Arbok, Growlithe, Hsn. Growlithe, Arcanine, Hsn. Arcanine, Gyarados, M. Gyarados, Snubbull, Granbull, Qwilfish, Electrike, Manectric, M. Manectric, Lillipup, Herdier, Stoutland, Litten, Torracat, and Incineroar": "也是以下宝可梦的隐藏特性: 阿柏蛇、阿柏怪、卡蒂狗、洗翠卡蒂狗、风速狗、洗翠风速狗、暴鲤龙、Mega暴鲤龙、布鲁、布鲁皇、千针鱼、落雷兽、雷电兽、Mega雷电兽、小约克、哈约克、长毛狗、火斑喵、炎热喵、炽焰咆哮虎",
-    "Additionally, appears as the Hidden ability of Elekid, Electabuzz, Electivire, Chinchou, Lanturn, and Unown": "也是以下宝可梦的隐藏特性: 电击怪、电击兽、电击魔兽、灯笼鱼、电灯怪、未知图腾",
-    "Additionally, appears as the Hidden ability of Flabebe, Flabebe Blue, Flabebe Orange, Flabebe White, Flabebe Yellow, Floette, Floette Blue, Floette Orange, Floette White, Floette Yellow, Floette Eternal, Florges, Florges Blue, Florges Orange, Florges White, and Florges Yellow": "也是以下宝可梦的隐藏特性: 花蓓蓓、花叶蒂、花洁夫人",
-    "Additionally, appears as the Hidden ability of Hitmonchan, Ledyba, Ledian, Chimchar, Monferno, Infernape, Timburr, Gurdurr, Conkeldurr, Golett, Pancham, Pangoro, Crabrawler, Crabominable, Meltan, Melmetal, and Melmetal Gmax": "也是以下宝可梦的隐藏特性: 快拳郎、芭瓢虫、安瓢虫、小火焰猴、猛火猴、烈焰猴、搬运小匠、铁骨土人、修建老匠、泥偶小人、顽皮熊猫、流氓熊猫、好胜蟹、好胜毛蟹、美录坦、美录梅塔、超级巨化美录梅塔",
-    "Additionally, appears as the Hidden ability of Houndour, Houndoom, and M. Houndoom": "也是以下宝可梦的隐藏特性: 戴鲁比、黑鲁加、Mega黑鲁加",
-    "Additionally, appears as the Hidden ability of Kangaskhan, Buneary, Lopunny, and M. Lopunny": "也是以下宝可梦的隐藏特性: 袋兽、卷卷耳、长耳兔、Mega长耳兔",
-    "Additionally, appears as the Hidden ability of Lapras, Lapras Gmax, Mantyke, Mantine, Cacnea, Cacturne, and Maractus": "也是以下宝可梦的隐藏特性: 拉普拉斯、超级巨化拉普拉斯、小球飞鱼、巨翅飞鱼、刺球仙人掌、梦歌仙人掌、沙铃仙人掌",
-    "Additionally, appears as the Hidden ability of M. Mawile, Carvanha, Sharpedo, M. Sharpedo, Tyrunt, Tyrantrum, Bruxish, Chewtle, Drednaw, Drednaw Gmax, Yamper, Boltund, and Dracovish": "也是以下宝可梦的隐藏特性: Mega大嘴娃、利牙鱼、巨牙鲨、Mega巨牙鲨、宝宝暴龙、怪颚龙、磨牙彩皮鱼、咬咬龟、暴噬龟、超级巨化暴噬龟、来电汪、逐电犬、鳃鱼龙",
-    "Additionally, appears as the Hidden ability of Magnemite, Magneton, Magnezone, Gastly, Haunter, Gengar, Koffing, Weezing, Misdreavus, Mismagius, Lunatone, Solrock, Baltoy, Claydol, Beldum, Metang, Metagross, Latias, M. Latias, Latios, M. Latios, Bronzor, Bronzong, Rotom, Mesprit, Tynamo, Eelektrik, Eelektross, and Cryogonal": "也是以下宝可梦的隐藏特性: 小磁怪、三合一磁怪、自爆磁怪、鬼斯、鬼斯通、耿鬼、瓦斯弹、双弹瓦斯、梦妖、梦妖魔、月石、太阳岩、天秤偶、念力土偶、铁哑铃、金属怪、巨金怪、拉帝亚斯、Mega拉帝亚斯、拉帝欧斯、Mega拉帝欧斯、铜镜怪、青铜钟、洛托姆、艾姆利多、麻麻小鱼、麻麻鳗、麻麻鳗鱼王、几何雪花",
-    "Additionally, appears as the Hidden ability of Mankey, Primeape, Annihilape, Wurmple, Silcoon, Pidove, Tranquill, Unfezant, Axew, Fraxure, Haxorus, Deino, Zweilous, and Hydreigon": "也是以下宝可梦的隐藏特性: 猴怪、火暴猴、弃世猴、刺尾虫、甲壳茧、豆豆鸽、咕咕鸽、高傲雉鸡、牙牙、斧牙龙、双斧战龙、单首龙、双首暴龙、三首恶龙",
-    "Additionally, appears as the Hidden ability of Meowth, Meowth Gmax, Aln. Meowth, Persian, Aln. Persian, Hitmonlee, Mime Jr, Mr Mime, Scyther, Scizor, M. Scizor, Unown T, Shroomish, Breloom, Kricketot, Kricketune, Marshadow, Toxel, Toxtricity, Toxtricity Gmax, Clobbopus, and Grapploct": "也是以下宝可梦的隐藏特性: 喵喵、超级巨化喵喵、阿罗拉喵喵、猫老大、阿罗拉猫老大、飞腿郎、魔尼尼、魔墙人偶、飞天螳螂、巨钳螳螂、Mega巨钳螳螂、未知图腾T、蘑蘑菇、斗笠菇、圆法师、音箱蟀、玛夏多、毒电婴、颤弦蝾螈、超级巨化颤弦蝾螈、拳拳蛸、八爪武师",
-    "Additionally, appears as the Hidden ability of Minior, Minior Blue, Minior Green, Minior Indigo, Minior Orange, Minior Red, Minior Violet, and Minior Yellow": "也是以下宝可梦的隐藏特性: 小陨星",
-    "Additionally, appears as the Hidden ability of Nidoran F, Nidorina, Nidoqueen, Nidoran M, Nidorino, Nidoking, Onix, Steelix, M. Steelix, Tauros, Totodile, Croconaw, Feraligatr, Slakoth, Vigoroth, Slaking, Makuhita, Hariyama, Numel, Camerupt, M. Camerupt, Trapinch, Vibrava, Flygon, Cranidos, Rampardos, Druddigon, Cufant, Copperajah, and Copperajah Gmax": "也是以下宝可梦的隐藏特性: 尼多兰、尼多娜、尼多后、尼多朗、尼多力诺、尼多王、大岩蛇、大钢蛇、Mega大钢蛇、肯泰罗、小锯鳄、蓝鳄、大力鳄、懒人獭、过动猿、请假王、幕下力士、铁掌力士、呆火驼、喷火驼、Mega喷火驼、大颚蚁、超音波幼虫、沙漠蜻蜓、头盖龙、战槌龙、赤面龙、铜象、大王铜象、超级巨化大王铜象",
-    "Additionally, appears as the Hidden ability of Oddish, Gloom, Vileplume, Bellsprout, Weepinbell, Victreebel, Chikorita, Bayleef, and Meganium": "也是以下宝可梦的隐藏特性: 走路草、臭臭花、霸王花、喇叭芽、口呆花、大食花、菊草叶、月桂叶、大竺葵",
-    "Additionally, appears as the Hidden ability of Pidgey, Pidgeotto, Pidgeot, Tyrogue, Unown U, Hsn. Sneasel, Sneasler, Drifloon, Drifblim, Shelmet, Accelgor, Swirlix, Slurpuff, Hawlucha, and Nickit": "也是以下宝可梦的隐藏特性: 波波、比比鸟、大比鸟、无畏小子、未知图腾U、洗翠狃拉、大狃拉、飘飘球、随风球、小嘴蜗、敏捷虫、绵绵泡芙、胖甜妮、摔角鹰人、偷儿狐",
-    "Additionally, appears as the Hidden ability of Pinsir, Poochyena, Mightyena, Bagon, Shelgon, Salamence, Sandile, Krokorok, Krookodile, Scraggy, Scrafty, Golurk, Litleo, Pyroar, and M. Pyroar": "也是以下宝可梦的隐藏特性: 凯罗斯、土狼犬、大狼犬、宝贝龙、甲壳龙、暴飞龙、黑眼鳄、混混鳄、流氓鳄、滑滑小子、头巾混混、泥偶巨人、小狮狮、火炎狮、Mega火炎狮",
-    "Additionally, appears as the Hidden ability of Psyduck, Golduck, Poliwag, Poliwhirl, Poliwrath, Goldeen, Seaking, Omanyte, Omastar, Kabuto, Kabutops, Mudkip, Marshtomp, Swampert, M. Swampert, Lotad, Lombre, Ludicolo, Huntail, Buizel, Floatzel, Finneon, Lumineon, Tirtouga, Carracosta, Arrokuda, and Barraskewda": "也是以下宝可梦的隐藏特性: 可达鸭、哥达鸭、蚊香蝌蚪、蚊香君、蚊香泳士、角金鱼、金鱼王、菊石兽、多刺菊石兽、化石盔、镰刀盔、水跃鱼、沼跃鱼、巨沼怪、Mega巨沼怪、莲叶童子、莲帽小童、乐天河童、猎斑鱼、泳圈鼬、浮潜鼬、荧光鱼、霓虹鱼、原盖海龟、肋骨海龟、刺梭鱼、戽斗尖梭",
-    "Additionally, appears as the Hidden ability of Regice, Bergmite, and Avalugg": "也是以下宝可梦的隐藏特性: 雷吉艾斯、冰宝、冰岩怪",
-    "Additionally, appears as the Hidden ability of Sandshrew, Sandslash, Rhyhorn, Rhydon, and Rhyperior": "也是以下宝可梦的隐藏特性: 穿山鼠、穿山王、独角犀牛、钻角犀兽、超甲狂犀",
-    "Additionally, appears as the Hidden ability of Slowking, Smoochum, and Jynx": "也是以下宝可梦的隐藏特性: 呆呆王、迷唇娃、迷唇姐",
-    "Additionally, appears as the Hidden ability of Slowpoke, Slowbro, M. Slowbro, and Unown Question": "也是以下宝可梦的隐藏特性: 呆呆兽、呆壳兽、Mega呆壳兽、未知图腾?",
-    "Additionally, appears as the Hidden ability of Slugma and Magcargo": "也是以下宝可梦的隐藏特性: 熔岩虫、熔岩蜗牛",
-    "Additionally, appears as the Hidden ability of Squirtle, Wartortle, Blastoise, Tentacool, and Tentacruel": "也是以下宝可梦的隐藏特性: 杰尼龟、卡咪龟、水箭龟、玛瑙水母、毒刺水母",
-    "Additionally, appears as the Hidden ability of Tangela and Tangrowth": "也是以下宝可梦的隐藏特性: 蔓藤怪、巨蔓藤",
-    "Additionally, appears as the Hidden ability of Thievul": "也是以下宝可梦的隐藏特性: 狐大盗",
-    "Additionally, appears as the Hidden ability of Unown C, Castform, Tornadus, Thundurus, and Landorus": "也是以下宝可梦的隐藏特性: 未知图腾C、飘浮泡泡、龙卷云、雷电云、土地云",
-    "Additionally, appears as the Hidden ability of Voltorb, Electrode, Varoom, and Revavroom": "也是以下宝可梦的隐藏特性: 霹雳电球、顽皮雷弹、噗隆隆、普隆隆姆",
-    "Additionally, appears as the Hidden ability of Weedle, Kakuna, Beedrill, M. Beedrill, Porygon, Porygon2, Porygon Z, Unown A, Riolu, Lucario, M. Lucario, Basculin Red, Basculin Blue, Basculin White, Skrelp, Dragalge, Yungoos, and Gumshoos": "也是以下宝可梦的隐藏特性: 独角虫、铁壳蛹、大针蜂、Mega大针蜂、多边兽、多边兽Ⅱ、多边兽Z、未知图腾A、利欧路、路卡利欧、Mega路卡利欧、野蛮鲈鱼、垃垃藻、毒藻龙、猫鼬少、猫鼬探长",
-    "Additionally, appears as the Hidden ability of Zubat, Golbat, Crobat, and Zapdos": "也是以下宝可梦的隐藏特性: 超音蝠、大嘴蝠、叉字蝠、闪电鸟",
-    "This ability can only appear as the Hidden Ability of Aln. Vulpix, Aln. Ninetales, Snover, Abomasnow, M. Abomasnow, Vanillite, Vanillish, Vanilluxe, Amaura, and Aurorus": "此特性仅作为以下宝可梦的隐藏特性出现: 阿罗拉六尾、阿罗拉九尾、雪笠怪、暴雪王、Mega暴雪王、迷你冰、多多冰、双倍多多冰、冰雪龙、冰雪巨龙",
-    "This ability can only appear as the Hidden Ability of Arceus": "此特性仅作为以下宝可梦的隐藏特性出现: 阿尔宙斯",
-    "This ability can only appear as the Hidden Ability of Aron, Lairon, Aggron, M. Aggron, Relicanth, Shieldon, Bastiodon, and Bouffalant": "此特性仅作为以下宝可梦的隐藏特性出现: 可可多拉、可多拉、波士可多拉、Mega波士可多拉、古空棘鱼、盾甲龙、护城龙、爆炸头水牛",
-    "This ability can only appear as the Hidden Ability of Azurill, Marill, Azumarill, Unown H, Mawile, Meditite, Medicham, Bunnelby, Diggersby, Tinkatink, Tinkatuff, and Tinkaton": "此特性仅作为以下宝可梦的隐藏特性出现: 露力丽、玛力露、玛力露丽、未知图腾H、大嘴娃、玛沙那、恰雷姆、掘掘兔、掘地兔、小锻匠、巧锻匠、巨锻匠",
-    "This ability can only appear as the Hidden Ability of Beautifly, Masquerain, Tropius, Rufflet, Braviary, Fletchling, Fletchinder, and Talonflame": "此特性仅作为以下宝可梦的隐藏特性出现: 狩猎凤蝶、雨翅蛾、热带龙、毛头小鹰、勇士雄鹰、小箭雀、火箭雀、烈箭鹰",
-    "This ability can only appear as the Hidden Ability of Bellossom, Unown D, Spinda, Oricorio Baile, Oricorio Pom Pom, Oricorio Pau, Oricorio Sensu, Quaxly, Quaxwell, and Quaquaval": "此特性仅作为以下宝可梦的隐藏特性出现: 美丽花、未知图腾D、晃晃斑、花舞鸟、润水鸭、涌跃鸭、狂欢浪舞鸭",
-    "This ability can only appear as the Hidden Ability of Caterpie, Metapod, Butterfree, Butterfree Gmax, Hoothoot, Noctowl, Yanma, Yanmega, Treecko, Grovyle, Sceptile, M. Sceptile, Illumise, Mothim, Scatterbug, Spewpa, Vivillon, Vivillon Archipelago, Vivillon Continental, Vivillon Elegant, Vivillon Fancy, Vivillon Garden, Vivillon High Plains, Vivillon Icy Snow, Vivillon Jungle, Vivillon Marine, Vivillon Modern, Vivillon Monsoon, Vivillon Ocean, Vivillon Pokeball, Vivillon Polar, Vivillon River, Vivillon Sandstorm, Vivillon Savanna, Vivillon Sun, Vivillon Tundra, Nymble, and Lokix": "此特性仅作为以下宝可梦的隐藏特性出现: 绿毛虫、铁甲蛹、巴大蝶、超级巨化巴大蝶、咕咕、猫头夜鹰、蜻蜻蜓、远古巨蜓、木守宫、森林蜥蜴、蜥蜴王、Mega蜥蜴王、甜甜萤、绅士蛾、粉蝶虫、粉蝶蛹、彩粉蝶、布土拨、仆刀将军",
-    "This ability can only appear as the Hidden Ability of Gallade, M. Gallade, Piplup, Prinplup, Empoleon, Kingambit, and Eternatus": "此特性仅作为以下宝可梦的隐藏特性出现: 艾路雷朵、Mega艾路雷朵、波加曼、波皇子、帝王拿波、仆刀将军、无极汰那",
-    "This ability can only appear as the Hidden Ability of Gholdengo": "此特性仅作为以下宝可梦的隐藏特性出现: 赛富豪",
-    "This ability can only appear as the Hidden Ability of Great Tusk, Scream Tail, Brute Bonnet, Flutter Mane, Slither Wing, Sandy Shocks, Roaring Moon, Walking Wake, Gouging Fire, and Raging Bolt": "此特性仅作为以下宝可梦的隐藏特性出现: 雄伟牙、吼叫尾、猛恶菇、振翼发、爬地翅、沙铁皮、轰鸣月、波荡水、猛雷鼓、铁斑叶",
-    "This ability can only appear as the Hidden Ability of Grimer, Muk, Gligar, Gliscor, Gulpin, Swalot, Zangoose, Trubbish, Garbodor, and Garbodor Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 臭泥、臭臭泥、天蝎、天蝎王、溶食兽、吞食兽、猫鼬斩、破破袋、灰尘山、超级巨化灰尘山",
-    "This ability can only appear as the Hidden Ability of Happiny, Chansey, Blissey, Togepi, Togetic, Togekiss, Dunsparce, Jirachi, Deerling, Deerling Autumn, Deerling Spring, Deerling Winter, Sawsbuck, Sawsbuck Autumn, Sawsbuck Spring, and Sawsbuck Winter": "此特性仅作为以下宝可梦的隐藏特性出现: 小福蛋、吉利蛋、幸福蛋、波克比、波克基古、波克基斯、土龙弟弟、基拉祈、四季鹿、秋季四季鹿、春季四季鹿、冬季四季鹿、萌芽鹿、秋季萌芽鹿、春季萌芽鹿、冬季萌芽鹿",
-    "This ability can only appear as the Hidden Ability of Hitmontop, Shuckle, Snivy, Servine, Serperior, Enamorus, Inkay, Malamar, Fomantis, Lurantis, Capsakid, Scovillain, and M. Scovillain": "此特性仅作为以下宝可梦的隐藏特性出现: 战舞郎、壶壶、藤藤蛇、青藤蛇、君主蛇、眷恋云、好啦鱿、乌贼王、伪螳草、兰螳花、辣辣藻、狠辣椒、Mega狠辣椒",
-    "This ability can only appear as the Hidden Ability of Hsn. Voltorb, Celebi, Budew, Roselia, Roserade, Tapu Bulu, Grookey, Thwackey, Rillaboom, and Rillaboom Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 洗翠霹雳电球、时拉比、含羞苞、毒蔷薇、罗丝雷朵、卡璞·哞哞、敲音猴、啪咚猴、轰擂金刚猩、超级巨化轰擂金刚猩",
-    "This ability can only appear as the Hidden Ability of Klink, Klang, Klinklang, Durant, Cobalion, and Solgaleo": "此特性仅作为以下宝可梦的隐藏特性出现: 齿轮儿、齿轮组、齿轮怪、铁蚁、勾帕路翁、索尔迦雷欧",
-    "This ability can only appear as the Hidden Ability of Larvitar, Pupitar, Tyranitar, M. Tyranitar, Hippopotas, and Hippowdon": "此特性仅作为以下宝可梦的隐藏特性出现: 幼基拉斯、沙基拉斯、班基拉斯、Mega班基拉斯、沙河马、河马兽",
-    "This ability can only appear as the Hidden Ability of M. Blastoise, Blastoise Gmax, Magmortar, Genesect, Clauncher, Clawitzer, Dreepy, Drakloak, Dragapult, and Armarouge": "此特性仅作为以下宝可梦的隐藏特性出现: Mega水箭龟、超级巨化水箭龟、鸭嘴炎兽、盖诺赛克特、铁臂枪虾、钢炮臂虾、多龙梅西亚、多龙奇、多龙巴鲁托、红莲铠骑",
-    "This ability can only appear as the Hidden Ability of M. Charizard Y, Charizard Gmax, Vulpix, Ninetales, Torkoal, Groudon, Cherubi, and Cherrim": "此特性仅作为以下宝可梦的隐藏特性出现: Mega喷火龙Y、超级巨化喷火龙、六尾、九尾、煤炭龟、固拉多、樱花宝、樱花儿",
-    "This ability can only appear as the Hidden Ability of M. Gengar, Gengar Gmax, Yamask, Cofagrigus, Sinistea, and Polteageist": "此特性仅作为以下宝可梦的隐藏特性出现: Mega耿鬼、超级巨化耿鬼、哭哭面具、死神棺、来悲茶、怖思壶",
-    "This ability can only appear as the Hidden Ability of Magby, Magmar, Cyndaquil, Quilava, and Typhlosion": "此特性仅作为以下宝可梦的隐藏特性出现: 小鸭嘴火兽、鸭嘴火兽、火球鼠、火岩鼠、火暴兽",
-    "This ability can only appear as the Hidden Ability of Murkrow, Honchkrow, Sableye, M. Sableye, Shuppet, Banette, M. Banette, Azelf, Purrloin, Liepard, Thundurus Therian, Impidimp, Morgrem, Grimmsnarl, and Grimmsnarl Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 黑暗鸦、乌鸦头头、勾魂眼、Mega勾魂眼、怨影娃娃、诅咒娃娃、Mega诅咒娃娃、由克希、扒手猫、酷豹、雷电云-灵兽形态、捣蛋小妖、诈唬魔、长毛巨魔、超级巨化长毛巨魔",
-    "This ability can only appear as the Hidden Ability of Pansear, Simisear, Heatmor, Sizzlipede, Centiskorch, and Centiskorch Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 爆香猴、爆香猿、熔蚁兽、烧火蚣、焚焰蚣、超级巨化焚焰蚣",
-    "This ability can only appear as the Hidden Ability of Politoed, Wingull, Pelipper, Gorebyss, Kyogre, Ducklett, and Swanna": "此特性仅作为以下宝可梦的隐藏特性出现: 蚊香蛙皇、长翅鸥、大嘴鸥、樱花鱼、盖欧卡、鸭宝宝、舞天鹅",
-    "This ability can only appear as the Hidden Ability of Salandit, Salazzle, Shroodle, Grafaiai, Glimmet, Glimmora, and M. Glimmora": "此特性仅作为以下宝可梦的隐藏特性出现: 夜盗火蜥、焰后蜥、斯魔茶、涂标客、晶光芽、晶光花、Mega晶光花",
-    "This ability can only appear as the Hidden Ability of Spiky Pichu, Pichu, Pikachu, Pikachu Ash, Pikachu World, Pikachu Hoenn, Pikachu Unova, Pikachu Kalos, Raichu, Hsn. Electrode, Tapu Koko, and Pincurchin": "此特性仅作为以下宝可梦的隐藏特性出现: 刺刺耳皮丘、皮丘、皮卡丘、雷丘、洗翠顽皮雷弹、卡璞·鸣鸣、啪嚓海胆",
-    "This ability can only appear as the Hidden Ability of Spritzee, Aromatisse, Tapu Lele, Tapu Fini, Milcery, Alcremie, and Alcremie Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 粉香香、芳香精、卡璞·蝶蝶、卡璞·鳍鳍、小仙奶、霜奶仙、超级巨化霜奶仙",
-    "This ability can only appear as the Hidden Ability of Torchic, Combusken, Blaziken, M. Blaziken, Nincada, Ninjask, Venipede, Whirlipede, Scolipede, Flittle, and Espathra": "此特性仅作为以下宝可梦的隐藏特性出现: 火稚鸡、力壮鸡、火焰鸡、Mega火焰鸡、土居忍士、铁面忍者、百足蜈蚣、车轮球、蜈蚣王、飘飘雏、超能艳鸵",
-    "This ability can only appear as the Hidden Ability of Unown B, Nihilego, Buzzwole, Pheromosa, Xurkitree, Celesteela, Kartana, Guzzlord, Poipole, Naganadel, Stakataka, and Blacephalon": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾B、虚吾伊德、爆肌蚊、费洛美螂、电束木、铁火辉夜、纸御剑、恶食大王、毒贝比、四颚针龙、垒磊石、砰头小丑",
-    "This ability can only appear as the Hidden Ability of Unown G, Darumaka, Darmanitan, and Passimian": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾G、火红不倒翁、达摩狒狒、投掷猴",
-    "This ability can only appear as the Hidden Ability of Unown Q, Iron Treads, Iron Bundle, Iron Hands, Iron Jugulis, Iron Moth, Iron Thorns, Iron Valiant, Iron Leaves, Iron Boulder, and Iron Crown": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾Q、铁辙迹、铁包袱、铁臂膀、铁脖颈、铁毒蛾、铁荆棘、铁武者、铁斑叶、铁磐岩、铁头壳",
-    "This ability can only appear as the Hidden Ability of Unown W and Shedinja": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾W、脱壳忍者",
-    "This ability can only appear as the Hidden Ability of Venusaur Clone, Charizard Clone, Blastoise Clone, Ditto, Unown I, and Mimikyu": "此特性仅作为以下宝可梦的隐藏特性出现: 妙蛙花克隆体、喷火龙克隆体、水箭龟克隆体、百变怪、未知图腾I、谜拟丘",
-    "This ability can only appear as the Hidden Ability of Whismur, Loudred, Exploud, Chingling, Chimecho, Chatot, Meloetta, Meloetta Pirouette, Noibat, Noivern, Popplio, Brionne, Primarina, Jangmoo, Hakamoo, and Kommoo": "此特性仅作为以下宝可梦的隐藏特性出现: 咕妞妞、吼爆弹、爆音怪、铃铛响、风铃铃、聒噪鸟、美洛耶塔、嗡蝠、音波龙、球球海狮、花漾海狮、西狮海壬、心鳞宝、鳞甲龙、杖尾鳞甲龙",
-    "This ability can only appear as the Hidden Ability of Combee and Vespiquen": "此特性仅作为以下宝可梦的隐藏特性出现: 三蜜蜂、蜂女王",
-    "This ability can only appear as the Hidden Ability of Doduo, Dodrio, Exeggcute, Exeggutor, Cubone, Marowak, M. Kangaskhan, and Unown P": "此特性仅作为以下宝可梦的隐藏特性出现: 嘟嘟、嘟嘟利、蛋蛋、椰蛋树、卡拉卡拉、嘎啦嘎啦、Mega袋兽、未知图腾P",
-    "This ability can only appear as the Hidden Ability of Eevee, Eevee Gmax, Skitty, and Delcatty": "此特性仅作为以下宝可梦的隐藏特性出现: 伊布、超级巨化伊布、向尾喵、优雅猫",
-    "This ability can only appear as the Hidden Ability of Espeon and Unown E": "此特性仅作为以下宝可梦的隐藏特性出现: 太阳伊布、未知图腾E",
-    "This ability can only appear as the Hidden Ability of Flareon, Rotom Heat, and Heatran": "此特性仅作为以下宝可梦的隐藏特性出现: 火伊布、加热洛托姆、席多蓝恩",
-    "This ability can only appear as the Hidden Ability of Glaceon, M. Glalie, Rotom Frost, and Kyurem": "此特性仅作为以下宝可梦的隐藏特性出现: 冰伊布、Mega冰鬼护、结冰洛托姆、酋雷姆",
-    "This ability can only appear as the Hidden Ability of Igglybuff, Jigglypuff, Wigglytuff, Sylveon, Ralts, Kirlia, Gardevoir, M. Gardevoir, and M. Altaria": "此特性仅作为以下宝可梦的隐藏特性出现: 宝宝丁、胖丁、胖可丁、仙子伊布、拉鲁拉丝、奇鲁莉安、沙奈朵、Mega沙奈朵、Mega七夕青鸟",
-    "This ability can only appear as the Hidden Ability of Jolteon": "此特性仅作为以下宝可梦的隐藏特性出现: 雷伊布",
-    "This ability can only appear as the Hidden Ability of Leafeon, Rotom Mow, Shaymin, and Shaymin Sky": "此特性仅作为以下宝可梦的隐藏特性出现: 叶伊布、切割洛托姆、谢米、天空形态谢米",
-    "This ability can only appear as the Hidden Ability of M. Pinsir, M. Salamence, and Rotom Fan": "此特性仅作为以下宝可梦的隐藏特性出现: Mega凯罗斯、Mega暴飞龙、旋转洛托姆",
-    "This ability can only appear as the Hidden Ability of Mew, Kecleon, Froakie, Frogadier, Greninja, Type Null, and Silvally": "此特性仅作为以下宝可梦的隐藏特性出现: 梦幻、变隐龙、呱呱泡蛙、呱头蛙、甲贺忍蛙、属性: 空、银伴战兽",
-    "This ability can only appear as the Hidden Ability of Remoraid, Octillery, Smeargle, Snorunt, Glalie, Lycanroc Midnight, Turtonator, and Morpeko": "此特性仅作为以下宝可梦的隐藏特性出现: 铁炮鱼、章鱼桶、图图犬、雪童子、冰鬼护、黑夜形态鬃岩狼人、爆焰龟兽、莫鲁贝可",
-    "This ability can only appear as the Hidden Ability of Umbreon": "此特性仅作为以下宝可梦的隐藏特性出现: 月亮伊布",
-    "This ability can only appear as the Hidden Ability of Unown S, Surskit, Bidoof, Bibarel, Pachirisu, Woobat, Swoobat, Stunfisk, Eiscue, and Orthworm": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾S、溜溜糖球、大牙狸、大尾狸、帕奇利兹、滚滚蝙蝠、心蝙蝠、泥巴鱼、冰砌鹅、虫甲圣",
-    "This ability can only appear as the Hidden Ability of Vaporeon and Rotom Wash": "此特性仅作为以下宝可梦的隐藏特性出现: 水伊布、清洗洛托姆",
-    "Additionally, appears as the Hidden ability of Dratini, Dragonair, Dragonite, Feebas, Milotic, and Luvdisc": "也是以下宝可梦的隐藏特性: 迷你龙、哈克龙、快龙、丑丑鱼、美纳斯、爱心鱼",
-    "Additionally, appears as the Hidden ability of M. Pidgeot, Unown N, Falinks, and M. Falinks": "也是以下宝可梦的隐藏特性: Mega大比鸟、未知图腾N、列阵兵、Mega列阵兵",
-    "Additionally, appears as the Hidden ability of Rattata, Raticate, Machop, Machoke, Machamp, Machamp Gmax, Teddiursa, Ursaring, Obstagoon, Taillow, Swellow, Shinx, Luxio, Luxray, and Throh": "也是以下宝可梦的隐藏特性: 小拉达、拉达、腕力、豪力、怪力、超级巨化怪力、熊宝宝、圈圈熊、堵拦熊、傲骨燕、大王燕、小猫怪、勒克猫、伦琴猫、投摔鬼",
-    "Additionally, appears as the Hidden ability of Shellder, Cloyster, Aipom, Ambipom, Heracross, M. Heracross, Minccino, Cinccino, Pikipek, Trumbeak, and Toucannon": "也是以下宝可梦的隐藏特性: 大舌贝、刺甲贝、长尾怪手、双尾怪手、赫拉克罗斯、Mega赫拉克罗斯、泡沫栗鼠、奇诺栗鼠、小笃儿、喇叭啄鸟、铳嘴大鸟",
-    "Additionally, appears as the Hidden ability of Sneasel, Weavile, Oshawott, Dewott, Samurott, Pawniard, Bisharp, Honedge, Doublade, Aegislash, and Ceruledge": "也是以下宝可梦的隐藏特性: 狃拉、玛狃拉、水水獭、双刃丸、大剑鬼、驹刀小兵、劈斩司令、独剑鞘、双剑鞘、坚盾剑怪、苍炎刃鬼",
-    "Additionally, appears as the Hidden ability of Unown Exclamation": "也是以下宝可梦的隐藏特性: 未知图腾!",
-    "Additionally, appears as the Hidden ability of Unown F": "也是以下宝可梦的隐藏特性: 未知图腾F",
-    "Additionally, appears as the Hidden ability of Unown J": "也是以下宝可梦的隐藏特性: 未知图腾J",
-    "Additionally, appears as the Hidden ability of Unown L, Scorbunny, Raboot, Cinderace, and Cinderace Gmax": "也是以下宝可梦的隐藏特性: 未知图腾L、炎兔儿、腾蹴小将、闪焰王牌、超级巨化闪焰王牌",
+    "Additionally, appears as the Hidden ability of Appletun and Appletun Gmax": "也是以下宝可梦的隐藏特性: 丰蜜龙、超级巨化丰蜜龙", //龙之防护
+    "Additionally, appears as the Hidden ability of Drowzee, Hypno, and Uxie": "也是以下宝可梦的隐藏特性: 催眠貘、引梦貘人、由克希", //邪恶防护
+    "Additionally, appears as the Hidden ability of Geodude, Graveler, and Golem": "也是以下宝可梦的隐藏特性: 小拳石、隆隆石、隆隆岩", //沙隐
+    "Additionally, appears as the Hidden ability of Magikarp and Moltres": "也是以下宝可梦的隐藏特性: 鲤鱼王、火焰鸟", //流水防护
+    "Additionally, appears as the Hidden ability of Ponyta and Rapidash": "也是以下宝可梦的隐藏特性: 小火马、烈焰马", //火焰防护
+    "Additionally, appears as the Hidden ability of Regirock": "也是以下宝可梦的隐藏特性: 雷吉洛克", //坚硬
+    "Additionally, appears as the Hidden ability of Registeel": "也是以下宝可梦的隐藏特性: 雷吉斯奇鲁", //堡垒
+    "Additionally, appears as the Hidden ability of Spearow and Fearow": "也是以下宝可梦的隐藏特性: 烈雀、大嘴雀", //健壮胸肌
+    "Additionally, appears as the Hidden ability of Staryu and Starmie": "也是以下宝可梦的隐藏特性: 海星星、宝石海星", //同步
+    "Additionally, appears as the Hidden ability of Unown O": "也是以下宝可梦的隐藏特性: 未知图腾O", //我行我素
+    "Additionally, appears as the Hidden ability of Venonat and Venomoth": "也是以下宝可梦的隐藏特性: 毛球、摩鲁蛾", //奇迹皮肤
+    "Additionally, appears as the Hidden ability of Aln. Sandshrew, Aln. Sandslash, Cubchoo, Beartic, Arctozolt, and Arctovish": "也是以下宝可梦的隐藏特性: 阿罗拉穿山鼠、阿罗拉穿山王、喷嚏熊、冻原熊、雷鸟海兽、鳃鱼海兽", //冰雪疾驰
+    "Additionally, appears as the Hidden ability of Articuno": "也是以下宝可梦的隐藏特性: 急冻鸟", //冰河之躯
+    "Additionally, appears as the Hidden ability of Bulbasaur, Ivysaur, Venusaur, M. Venusaur, Venusaur Gmax, Aln. Rattata, Aln. Raticate, Seel, Dewgong, Lickitung, Lickilicky, Munchlax, Snorlax, Snorlax Gmax, Swinub, Piloswine, Mamoswine, Miltank, Spheal, Sealeo, Walrein, Glameow, Purugly, Tepig, Pignite, Emboar, Applin, and Flapple": "也是以下宝可梦的隐藏特性: 妙蛙种子、妙蛙草、妙蛙花、Mega妙蛙花、超级巨化妙蛙花、阿罗拉小拉达、阿罗拉拉达、小海狮、白海狮、大舌头、大舌舔、小卡比兽、卡比兽、超级巨化卡比兽、小山猪、长毛猪、象牙猪、大奶罐、海豹球、海魔狮、帝牙海狮、魅力喵、东施喵、暖暖猪、炒炒猪、炎武王、啃果虫、苹裹龙", //厚脂肪
+    "Additionally, appears as the Hidden ability of Charmander, Charmeleon, Charizard, M. Charizard X, Krabby, Kingler, Kingler Gmax, Aerodactyl, M. Aerodactyl, and M. Metagross": "也是以下宝可梦的隐藏特性: 小火龙、火恐龙、喷火龙、Mega喷火龙X、大钳蟹、巨钳蟹、超极巨巨钳蟹、化石翼龙、Mega化石翼龙、Mega巨金怪", //硬爪
+    "Additionally, appears as the Hidden ability of Cleffa, Clefairy, Clefable, Abra, Kadabra, Alakazam, M. Alakazam, Unown M, Cresselia, Sigilyph, Solosis, Duosion, and Reuniclus": "也是以下宝可梦的隐藏特性: 皮宝宝、皮皮、皮可西、凯西、勇基拉、胡地、Mega胡地、未知图腾M、克雷色利亚、象征鸟、单卵细胞球、双卵细胞球、人造细胞卵", //魔法防守
+    "Additionally, appears as the Hidden ability of Darkrai and Necrozma": "也是以下宝可梦的隐藏特性: 达克莱伊、奈克洛兹玛", //避光
+    "Additionally, appears as the Hidden ability of Tangela": "也是以下宝可梦的隐藏特性: 蔓藤怪(特殊)", //避咒
+    "Additionally, appears as the Hidden ability of Diglett, Dugtrio, Shellos West, Shellos East, Gastrodon, Gastrodon East, Gible, Gabite, Garchomp, M. Garchomp, Roggenrola, Boldore, Gigalith, Drilbur, and Excadrill": "也是以下宝可梦的隐藏特性: 地鼠、三地鼠、海兔兽、圆陆鲨、尖牙陆鲨、烈咬陆鲨、Mega烈咬陆鲨、石丸子、地幔岩、庞岩怪、螺钉地鼠、龙头地鼠", //沙之力
+    "Additionally, appears as the Hidden ability of Duskull, Dusclops, Dusknoir, and Ghost": "也是以下宝可梦的隐藏特性: 夜巡灵、彷徨夜灵、黑夜魔灵、幽灵", //无形
+    "Additionally, appears as the Hidden ability of Ekans, Arbok, Growlithe, Hsn. Growlithe, Arcanine, Hsn. Arcanine, Gyarados, M. Gyarados, Snubbull, Granbull, Qwilfish, Electrike, Manectric, M. Manectric, Lillipup, Herdier, Stoutland, Litten, Torracat, and Incineroar": "也是以下宝可梦的隐藏特性: 阿柏蛇、阿柏怪、卡蒂狗、洗翠卡蒂狗、风速狗、洗翠风速狗、暴鲤龙、Mega暴鲤龙、布鲁、布鲁皇、千针鱼、落雷兽、雷电兽、Mega雷电兽、小约克、哈约克、长毛狗、火斑喵、炎热喵、炽焰咆哮虎", //威吓
+    "Additionally, appears as the Hidden ability of Elekid, Electabuzz, Electivire, Chinchou, Lanturn, Unown V, and F-00": "也是以下宝可梦的隐藏特性: 电击怪、电击兽、电击魔兽、灯笼鱼、电灯怪、未知图腾V、(???)", //蓄电
+    "Additionally, appears as the Hidden ability of Flabebe, Flabebe Blue, Flabebe Orange, Flabebe White, Flabebe Yellow, Floette, Floette Blue, Floette Orange, Floette White, Floette Yellow, Floette Eternal, Florges, Florges Blue, Florges Orange, Florges White, and Florges Yellow": "也是以下宝可梦的隐藏特性: 花蓓蓓、花叶蒂、花洁夫人", //自然回复
+    "Additionally, appears as the Hidden ability of Houndour, Houndoom, and M. Houndoom": "也是以下宝可梦的隐藏特性: 戴鲁比、黑鲁加、Mega黑鲁加", //太阳之力
+    "Additionally, appears as the Hidden ability of Kangaskhan, Buneary, Lopunny, and M. Lopunny": "也是以下宝可梦的隐藏特性: 袋兽、卷卷耳、长耳兔、Mega长耳兔", //胆量
+    "Additionally, appears as the Hidden ability of Lapras, Lapras Gmax, Mantyke, Mantine, Cacnea, Cacturne, and Maractus": "也是以下宝可梦的隐藏特性: 拉普拉斯、超级巨化拉普拉斯、小球飞鱼、巨翅飞鱼、刺球仙人掌、梦歌仙人掌、沙铃仙人掌", //储水
+    "Additionally, appears as the Hidden ability of M. Mawile, Carvanha, Sharpedo, M. Sharpedo, Tyrunt, Tyrantrum, Bruxish, Chewtle, Drednaw, Drednaw Gmax, Yamper, Boltund, and Dracovish": "也是以下宝可梦的隐藏特性: Mega大嘴娃、利牙鱼、巨牙鲨、Mega巨牙鲨、宝宝暴龙、怪颚龙、磨牙彩皮鱼、咬咬龟、暴噬龟、超级巨化暴噬龟、来电汪、逐电犬、鳃鱼龙", //强壮之颚
+    "Additionally, appears as the Hidden ability of Magnemite, Magneton, Magnezone, Gastly, Haunter, Gengar, Koffing, Weezing, Misdreavus, Mismagius, Lunatone, Solrock, Baltoy, Claydol, Beldum, Metang, Metagross, Latias, M. Latias, Latios, M. Latios, Bronzor, Bronzong, Rotom, Mesprit, Tynamo, Eelektrik, Eelektross, and Cryogonal": "也是以下宝可梦的隐藏特性: 小磁怪、三合一磁怪、自爆磁怪、鬼斯、鬼斯通、耿鬼、瓦斯弹、双弹瓦斯、梦妖、梦妖魔、月石、太阳岩、天秤偶、念力土偶、铁哑铃、金属怪、巨金怪、拉帝亚斯、Mega拉帝亚斯、拉帝欧斯、Mega拉帝欧斯、铜镜怪、青铜钟、洛托姆、艾姆利多、麻麻小鱼、麻麻鳗、麻麻鳗鱼王、几何雪花", //漂浮
+    "Additionally, appears as the Hidden ability of Mankey, Primeape, Annihilape, Wurmple, Silcoon, Pidove, Tranquill, Unfezant, Axew, Fraxure, Haxorus, Deino, Zweilous, and Hydreigon": "也是以下宝可梦的隐藏特性: 猴怪、火暴猴、弃世猴、刺尾虫、甲壳茧、豆豆鸽、咕咕鸽、高傲雉鸡、牙牙、斧牙龙、双斧战龙、单首龙、双首暴龙、三首恶龙", //斗争心
+    "Additionally, appears as the Hidden ability of Meowth, Meowth Gmax, Aln. Meowth, Persian, Aln. Persian, Hitmonlee, Mime Jr, Mr Mime, Scyther, Scizor, M. Scizor, Unown T, Shroomish, Breloom, Kricketot, Kricketune, Toxel, Toxtricity, Toxtricity Gmax, Clobbopus, and Grapploct": "也是以下宝可梦的隐藏特性: 喵喵、超极巨喵喵、阿罗拉喵喵、猫老大、阿罗拉猫老大、飞腿郎、魔尼尼、魔墙人偶、飞天螳螂、巨钳螳螂、M.巨钳螳螂、未知图腾T、蘑蘑菇、斗笠菇、圆法师、音箱蟀、毒电婴、颤弦蝾螈、超极巨颤弦蝾螈、拳拳蛸、八爪武师", //技术高手
+    "Additionally, appears as the Hidden ability of Minior, Minior Blue, Minior Green, Minior Indigo, Minior Orange, Minior Red, Minior Violet, and Minior Yellow": "也是以下宝可梦的隐藏特性: 小陨星", //易碎盔甲
+    "Additionally, appears as the Hidden ability of Nidoran F, Nidorina, Nidoqueen, Nidoran M, Nidorino, Nidoking, Onix, Steelix, M. Steelix, Tauros, Totodile, Croconaw, Feraligatr, Slakoth, Vigoroth, Slaking, Makuhita, Hariyama, Numel, Camerupt, M. Camerupt, Trapinch, Vibrava, Flygon, Cranidos, Rampardos, Druddigon, Cufant, Copperajah, and Copperajah Gmax": "也是以下宝可梦的隐藏特性: 尼多兰、尼多娜、尼多后、尼多朗、尼多力诺、尼多王、大岩蛇、大钢蛇、Mega大钢蛇、肯泰罗、小锯鳄、蓝鳄、大力鳄、懒人獭、过动猿、请假王、幕下力士、铁掌力士、呆火驼、喷火驼、Mega喷火驼、大颚蚁、超音波幼虫、沙漠蜻蜓、头盖龙、战槌龙、赤面龙、铜象、大王铜象、超级巨化大王铜象", //强行
+    "Additionally, appears as the Hidden ability of Oddish, Gloom, Vileplume, Bellsprout, Weepinbell, Victreebel, Chikorita, Bayleef, and Meganium": "也是以下宝可梦的隐藏特性: 走路草、臭臭花、霸王花、喇叭芽、口呆花、大食花、菊草叶、月桂叶、大竺葵", //叶绿素
+    "Additionally, appears as the Hidden ability of Pidgey, Pidgeotto, Pidgeot, Tyrogue, Unown U, Hsn. Sneasel, Sneasler, Drifloon, Drifblim, Shelmet, Accelgor, Swirlix, Slurpuff, Hawlucha, and Nickit": "也是以下宝可梦的隐藏特性: 波波、比比鸟、大比鸟、无畏小子、未知图腾U、洗翠狃拉、大狃拉、飘飘球、随风球、小嘴蜗、敏捷虫、绵绵泡芙、胖甜妮、摔角鹰人、偷儿狐", //轻装
+    "Additionally, appears as the Hidden ability of Pinsir, Poochyena, Mightyena, Bagon, Shelgon, Salamence, Sandile, Krokorok, Krookodile, Scraggy, Scrafty, Golurk, Litleo, Pyroar, and M. Pyroar": "也是以下宝可梦的隐藏特性: 凯罗斯、土狼犬、大狼犬、宝贝龙、甲壳龙、暴飞龙、黑眼鳄、混混鳄、流氓鳄、滑滑小子、头巾混混、泥偶巨人、小狮狮、火炎狮、Mega火炎狮", //自信过度
+    "Additionally, appears as the Hidden ability of Psyduck, Golduck, Poliwag, Poliwhirl, Poliwrath, Goldeen, Seaking, Omanyte, Omastar, Kabuto, Kabutops, Mudkip, Marshtomp, Swampert, M. Swampert, Lotad, Lombre, Ludicolo, Huntail, Buizel, Floatzel, Finneon, Lumineon, Tirtouga, Carracosta, Arrokuda, and Barraskewda": "也是以下宝可梦的隐藏特性: 可达鸭、哥达鸭、蚊香蝌蚪、蚊香君、蚊香泳士、角金鱼、金鱼王、菊石兽、多刺菊石兽、化石盔、镰刀盔、水跃鱼、沼跃鱼、巨沼怪、Mega巨沼怪、莲叶童子、莲帽小童、乐天河童、猎斑鱼、泳圈鼬、浮潜鼬、荧光鱼、霓虹鱼、原盖海龟、肋骨海龟、刺梭鱼、戽斗尖梭", //悠游自如
+    "Additionally, appears as the Hidden ability of Regice, Bergmite, and Avalugg": "也是以下宝可梦的隐藏特性: 雷吉艾斯、冰宝、冰岩怪", //冰冻之躯
+    "Additionally, appears as the Hidden ability of Sandshrew, Sandslash, Rhyhorn, Rhydon, and Rhyperior": "也是以下宝可梦的隐藏特性: 穿山鼠、穿山王、独角犀牛、钻角犀兽、超甲狂犀", //风沙疾驰
+    "Additionally, appears as the Hidden ability of Slowking, Smoochum, Jynx and Oranguru": "也是以下宝可梦的隐藏特性: 呆呆王、迷唇娃、迷唇姐、智挥猩", //战术家
+    "Additionally, appears as the Hidden ability of Slowpoke, Slowbro, M. Slowbro, and Unown Question": "也是以下宝可梦的隐藏特性: 呆呆兽、呆壳兽、Mega呆壳兽、未知图腾?", //纯朴
+    "Additionally, appears as the Hidden ability of Slugma and Magcargo": "也是以下宝可梦的隐藏特性: 熔岩虫、熔岩蜗牛", //火焰之躯
+    "Additionally, appears as the Hidden ability of Missingno": "也是以下宝可梦的隐藏特性: Missingno(缺失编号)", //静电
+    "Additionally, appears as the Hidden ability of Squirtle, Wartortle, Blastoise, Tentacool, and Tentacruel": "也是以下宝可梦的隐藏特性: 杰尼龟、卡咪龟、水箭龟、玛瑙水母、毒刺水母", //雨盘
+    "Additionally, appears as the Hidden ability of Tangela and Tangrowth": "也是以下宝可梦的隐藏特性: 蔓藤怪、巨蔓藤", //天然
+    "Additionally, appears as the Hidden ability of Thievul": "也是以下宝可梦的隐藏特性: 狐大盗", //顺手牵羊
+    "Additionally, appears as the Hidden ability of Unown C, Castform, Tornadus, Thundurus, and Landorus": "也是以下宝可梦的隐藏特性: 未知图腾C、飘浮泡泡、龙卷云、雷电云、土地云", //气候战术
+    "Additionally, appears as the Hidden ability of Voltorb, Electrode, Varoom, and Revavroom": "也是以下宝可梦的隐藏特性: 霹雳电球、顽皮雷弹、噗隆隆、普隆隆姆", //超导体
+    "Additionally, appears as the Hidden ability of Weedle, Kakuna, Beedrill, M. Beedrill, Porygon, Porygon2, Porygon Z, Unown A, Riolu, Lucario, M. Lucario, Basculin Red, Basculin Blue, Basculin White, Yungoos, and Gumshoos": "也是以下宝可梦的隐藏特性: 独角虫、铁壳蛹、大针蜂、Mega大针蜂、多边兽、多边兽II、多边兽Z、未知图腾A、利欧路、路卡利欧、Mega路卡利欧、野蛮鲈鱼、猫鼬少、猫鼬探长", //适应力
+    "Additionally, appears as the Hidden ability of Zubat, Golbat, Crobat, and Zapdos": "也是以下宝可梦的隐藏特性: 超音蝠、大嘴蝠、叉字蝠、闪电鸟", //惊吓面容
+    "Additionally, appears as the Hidden ability of Litwick, Lampent, and Chandelure": "也是以下宝可梦的隐藏特性: 灯火幽灵、水晶灯火灵", //迅闪火焰
+    "Additionally, appears as the Hidden ability of Mareep, Flaaffy, Ampharos, M. Ampharos, Tadbulb, and Bellibolt": "也是以下宝可梦的隐藏特性: 咩利羊、茸茸羊、电龙、Mega电龙、光蚪仔、电肚蛙", //迅闪电气
+    "Additionally, appears as the Hidden ability of Galarian Farfetchd, Sirfetchd, Unown R, Starly, Staravia, Staraptor, M. Hawlucha, Falinks, and M. Falinks": "也是以下宝可梦的隐藏特性: 伽勒尔大葱鸭、葱游兵、未知图腾R、姆克儿、姆克鸟、姆克鹰、Mega摔角鹰人、列阵兵、Mega列阵兵", //舍身
+    "Additionally, appears as the Hidden ability of Unown F, Dwebble, Crustle, Goomy, Sliggoo, Hsn. Sliggoo, Goodra, Hsn. Goodra, and Stonjourner": "也是以下宝可梦的隐藏特性: 未知图腾F、石居蟹、岩殿居蟹、黏黏宝、黏美儿、洗翠黏美儿、黏美龙、洗翠黏美龙、巨石丁", //过滤
+    "Additionally, appears as the Hidden ability of Galarian Articuno, Unown J, Gothita, Gothorita, Gothitelle, Wattrel, and Kilowattrel": "也是以下宝可梦的隐藏特性: 伽勒尔急冻鸟、未知图腾J、哥德宝宝、哥德小童、哥德小姐、电海燕、大电海燕", //正义之心
+    "Additionally, appears as the Hidden ability of Tauros Combat, Tauros Blaze, Tauros Aqua, Unown Exclamation, Stufful, and Bewear": "也是以下宝可梦的隐藏特性: 战斗肯泰罗、火肯泰罗、水肯泰罗、未知图腾感叹号、童偶熊、穿着熊", //愤怒穴位
+    "Additionally, appears as the Hidden ability of Unown L, Bounsweet, Steenee, Tsareena, Scorbunny, Raboot, Cinderace, and Cinderace Gmax": "也是以下宝可梦的隐藏特性: 未知图腾L、甜竹竹、甜舞妮、甜冷美后、炎兔儿、腾蹴小将、闪焰王牌、超极巨闪焰王牌", //自由者
+    "Additionally, appears as the Hidden ability of Dratini, Dragonair, Dragonite, Feebas, Milotic, and Luvdisc": "也是以下宝可梦的隐藏特性: 迷你龙、哈克龙、快龙、丑丑鱼、美纳斯、爱心鱼", //多重鳞片
+    "Additionally, appears as the Hidden ability of M. Pidgeot and Unown N": "也是以下宝可梦的隐藏特性: Mega大比鸟、未知图腾N", //无防守
+    "Additionally, appears as the Hidden ability of Rattata, Raticate, Machop, Machoke, Machamp, Machamp Gmax, Teddiursa, Ursaring, Obstagoon, Taillow, Swellow, Shinx, Luxio, Luxray, and Throh": "也是以下宝可梦的隐藏特性: 小拉达、拉达、腕力、豪力、怪力、超级巨化怪力、熊宝宝、圈圈熊、堵拦熊、傲骨燕、大王燕、小猫怪、勒克猫、伦琴猫、投摔鬼", //毅力
+    "Additionally, appears as the Hidden ability of Shellder, Cloyster, Aipom, Ambipom, Heracross, M. Heracross, Minccino, Cinccino, Pikipek, Trumbeak, and Toucannon": "也是以下宝可梦的隐藏特性: 大舌贝、刺甲贝、长尾怪手、双尾怪手、赫拉克罗斯、Mega赫拉克罗斯、泡沫栗鼠、奇诺栗鼠、小笃儿、喇叭啄鸟、铳嘴大鸟", //技能连锁
+    "Additionally, appears as the Hidden ability of Sneasel, Weavile, Oshawott, Dewott, Samurott, Pawniard, Bisharp, Honedge, Doublade, Aegislash, and Ceruledge": "也是以下宝可梦的隐藏特性: 狃拉、玛狃拉、水水獭、双刃丸、大剑鬼、驹刀小兵、劈斩司令、独剑鞘、双剑鞘、坚盾剑怪、苍炎刃鬼", //锋锐
     "Additionally, appears as the Hidden ability of Unown R, Starly, Staravia, Staraptor, and M. Hawlucha": "也是以下宝可梦的隐藏特性: 未知图腾R、姆克儿、姆克鸟、姆克鹰、Mega摔角鹰人",
+    "Additionally, appears as the Hidden ability of Sawk, Binacle, Barbaracle, M. Barbaracle, Wimpod, and Golisopod": "也是以下宝可梦的隐藏特性: 打击鬼、龟脚脚、龟足巨铠、Mega龟足巨铠、胆小虫、具甲武者", //灵巧双手
+    "Additionally, appears as the Hidden ability of Hitmonchan, Ledyba, Ledian, Chimchar, Monferno, Infernape, Timburr, Gurdurr, Conkeldurr, Golett, Pancham, Pangoro, Crabrawler, and Crabominable": "也是以下宝可梦的隐藏特性: 快拳郎、芭瓢虫、安瓢虫、小火焰猴、猛火猴、烈焰猴、搬运小匠、铁骨土人、修建老匠、泥偶小人、顽皮熊猫、流氓熊猫、好胜蟹、好胜毛蟹", //铁拳
+    "This ability can only appear as the Hidden Ability of Aln. Vulpix, Aln. Ninetales, Snover, Abomasnow, M. Abomasnow, Vanillite, Vanillish, Vanilluxe, Amaura, and Aurorus": "此特性仅作为以下宝可梦的隐藏特性出现: 阿罗拉六尾、阿罗拉九尾、雪笠怪、暴雪王、Mega暴雪王、迷你冰、多多冰、双倍多多冰、冰雪龙、冰雪巨龙", //降雪
+    "This ability can only appear as the Hidden Ability of Arceus": "此特性仅作为以下宝可梦的隐藏特性出现: 阿尔宙斯", //千臂
+    "This ability can only appear as the Hidden Ability of Aron, Lairon, Aggron, M. Aggron, Relicanth, Shieldon, Bastiodon, and Bouffalant": "此特性仅作为以下宝可梦的隐藏特性出现: 可可多拉、可多拉、波士可多拉、Mega波士可多拉、古空棘鱼、盾甲龙、护城龙、爆炸头水牛", //铁头
+    "This ability can only appear as the Hidden Ability of Azurill, Marill, Azumarill, Unown H, Mawile, Meditite, Medicham, Bunnelby, Diggersby, Tinkatink, Tinkatuff, and Tinkaton": "此特性仅作为以下宝可梦的隐藏特性出现: 露力丽、玛力露、玛力露丽、未知图腾H、大嘴娃、玛沙那、恰雷姆、掘掘兔、掘地兔、小锻匠、巧锻匠、巨锻匠", //大力士
+    "This ability can only appear as the Hidden Ability of Beautifly, Masquerain, Tropius, Rufflet, Braviary, Fletchling, Fletchinder, and Talonflame": "此特性仅作为以下宝可梦的隐藏特性出现: 狩猎凤蝶、雨翅蛾、热带龙、毛头小鹰、勇士雄鹰、小箭雀、火箭雀、烈箭鹰", //疾风之翼
+    "This ability can only appear as the Hidden Ability of Bellossom, Aln. Marowak, Unown D, Volbeat, Spinda, Oricorio Baile, Oricorio Pom Pom, Oricorio Pau, Oricorio Sensu, Quaxly, Quaxwell, and Quaquaval": "此特性仅作为以下宝可梦的隐藏特性出现: 美丽花、阿罗拉嘎啦嘎啦、未知图腾D、电萤虫、晃晃斑、花舞鸟、润水鸭、涌跃鸭、狂欢浪舞鸭", //舞者
+    "This ability can only appear as the Hidden Ability of Caterpie, Metapod, Butterfree, Butterfree Gmax, Hoothoot, Noctowl, Yanma, Yanmega, Treecko, Grovyle, Sceptile, M. Sceptile, Illumise, Mothim, Joltik, Galvantula, Scatterbug, Spewpa, Vivillon, Vivillon Archipelago, Vivillon Continental, Vivillon Elegant, Vivillon Fancy, Vivillon Garden, Vivillon High Plains, Vivillon Icy Snow, Vivillon Jungle, Vivillon Marine, Vivillon Modern, Vivillon Monsoon, Vivillon Ocean, Vivillon Pokeball, Vivillon Polar, Vivillon River, Vivillon Sandstorm, Vivillon Savanna, Vivillon Sun, Vivillon Tundra, Nymble, and Lokix": "此特性仅作为以下宝可梦的隐藏特性出现: 绿毛虫、铁甲蛹、巴大蝶、超极巨巴大蝶、咕咕、猫头夜鹰、蜻蜻蜓、远古巨蜓、木守宫、森林蜥蜴、蜥蜴王、M.蜥蜴王、甜甜萤、绅士蛾、电电虫、电蜘蛛、粉蝶虫、粉蝶蛹、彩粉蝶、豆蟋蟀、烈腿蝗", //有色眼镜
+    "This ability can only appear as the Hidden Ability of Gallade, M. Gallade, Piplup, Prinplup, Empoleon, Kingambit, and Eternatus": "此特性仅作为以下宝可梦的隐藏特性出现: 艾路雷朵、Mega艾路雷朵、波加曼、波皇子、帝王拿波、仆刀将军、无极汰那", //大将
+    "This ability can only appear as the Hidden Ability of Gholdengo": "此特性仅作为以下宝可梦的隐藏特性出现: 赛富豪", //黄金之躯
+    "This ability can only appear as the Hidden Ability of Great Tusk, Scream Tail, Brute Bonnet, Flutter Mane, Slither Wing, Sandy Shocks, Roaring Moon, Walking Wake, Gouging Fire, and Raging Bolt": "此特性仅作为以下宝可梦的隐藏特性出现: 雄伟牙、吼叫尾、猛恶菇、振翼发、爬地翅、沙铁皮、轰鸣月、波荡水、猛雷鼓、铁斑叶", //古代活性
+    "This ability can only appear as the Hidden Ability of Grimer, Muk, Gligar, Gliscor, Gulpin, Swalot, Zangoose, Trubbish, Garbodor, and Garbodor Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 臭泥、臭臭泥、天蝎、天蝎王、溶食兽、吞食兽、猫鼬斩、破破袋、灰尘山、超级巨化灰尘山", //毒气增幅
+    "This ability can only appear as the Hidden Ability of Happiny, Chansey, Blissey, Togepi, Togetic, Togekiss, Dunsparce, Jirachi, Deerling, Deerling Autumn, Deerling Spring, Deerling Winter, Sawsbuck, Sawsbuck Autumn, Sawsbuck Spring, and Sawsbuck Winter": "此特性仅作为以下宝可梦的隐藏特性出现: 小福蛋、吉利蛋、幸福蛋、波克比、波克基古、波克基斯、土龙弟弟、基拉祈、四季鹿、萌芽鹿", //天恩
+    "This ability can only appear as the Hidden Ability of Hitmontop, Shuckle, Snivy, Servine, Serperior, Enamorus, Inkay, Malamar, Fomantis, Lurantis, Capsakid, Scovillain, and M. Scovillain": "此特性仅作为以下宝可梦的隐藏特性出现: 战舞郎、壶壶、藤藤蛇、青藤蛇、君主蛇、眷恋云、好啦鱿、乌贼王、伪螳草、兰螳花、辣辣藻、狠辣椒、Mega狠辣椒", //唱反调
+    "This ability can only appear as the Hidden Ability of Hsn. Voltorb, Celebi, Budew, Roselia, Roserade, Tapu Bulu, Grookey, Thwackey, Rillaboom, and Rillaboom Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 洗翠霹雳电球、时拉比、含羞苞、毒蔷薇、罗丝雷朵、卡璞·哞哞、敲音猴、啪咚猴、轰擂金刚猩、超级巨化轰擂金刚猩", //青草制造者
+    "This ability can only appear as the Hidden Ability of Klink, Klang, Klinklang, Durant, Cobalion, and Solgaleo": "此特性仅作为以下宝可梦的隐藏特性出现: 齿轮儿、齿轮组、齿轮怪、铁蚁、勾帕路翁、索尔迦雷欧", //金属防护
+    "This ability can only appear as the Hidden Ability of Larvitar, Pupitar, Tyranitar, M. Tyranitar, Hippopotas, and Hippowdon": "此特性仅作为以下宝可梦的隐藏特性出现: 幼基拉斯、沙基拉斯、班基拉斯、Mega班基拉斯、沙河马、河马兽", //扬沙
+    "This ability can only appear as the Hidden Ability of M. Blastoise, Blastoise Gmax, Magmortar, Genesect, Clauncher, Clawitzer, Dreepy, Drakloak, Dragapult, and Armarouge": "此特性仅作为以下宝可梦的隐藏特性出现: Mega水箭龟、超级巨化水箭龟、鸭嘴炎兽、盖诺赛克特、铁臂枪虾、钢炮臂虾、多龙梅西亚、多龙奇、多龙巴鲁托、红莲铠骑", //波动增幅
+    "This ability can only appear as the Hidden Ability of M. Charizard Y, Charizard Gmax, Vulpix, Ninetales, Torkoal, Groudon, Cherubi, and Cherrim": "此特性仅作为以下宝可梦的隐藏特性出现: Mega喷火龙Y、超级巨化喷火龙、六尾、九尾、煤炭龟、固拉多、樱花宝、樱花儿", //日照
+    "This ability can only appear as the Hidden Ability of M. Gengar, Gengar Gmax, Yamask, Cofagrigus, Sinistea, and Polteageist": "此特性仅作为以下宝可梦的隐藏特性出现: Mega耿鬼、超级巨化耿鬼、哭哭面具、死神棺、来悲茶、怖思壶", //制造幽暗
+    "This ability can only appear as the Hidden Ability of Magby, Magmar, Cyndaquil, Quilava, and Typhlosion": "此特性仅作为以下宝可梦的隐藏特性出现: 鸭嘴宝宝、鸭嘴火兽、火球鼠、火岩鼠、火暴兽", //受热激升
+    "This ability can only appear as the Hidden Ability of Murkrow, Honchkrow, Sableye, M. Sableye, Shuppet, Banette, M. Banette, Azelf, Purrloin, Liepard, Thundurus Therian, Impidimp, Morgrem, Grimmsnarl, and Grimmsnarl Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 黑暗鸦、乌鸦头头、勾魂眼、Mega勾魂眼、怨影娃娃、诅咒娃娃、Mega诅咒娃娃、由克希、扒手猫、酷豹、雷电云-灵兽形态、捣蛋小妖、诈唬魔、长毛巨魔、超级巨化长毛巨魔", //恶作剧之心
+    "This ability can only appear as the Hidden Ability of Pansear, Simisear, Heatmor, Sizzlipede, Centiskorch, and Centiskorch Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 爆香猴、爆香猿、熔蚁兽、烧火蚣、焚焰蚣、超级巨化焚焰蚣", //烧焦
+    "This ability can only appear as the Hidden Ability of Politoed, Wingull, Pelipper, Gorebyss, Kyogre, Ducklett, and Swanna": "此特性仅作为以下宝可梦的隐藏特性出现: 蚊香蛙皇、长翅鸥、大嘴鸥、樱花鱼、盖欧卡、鸭宝宝、舞天鹅", //降雨
+    "This ability can only appear as the Hidden Ability of Salandit, Salazzle, Shroodle, Grafaiai, Glimmet, Glimmora, and M. Glimmora": "此特性仅作为以下宝可梦的隐藏特性出现: 夜盗火蜥、焰后蜥、斯魔茶、涂标客、晶光芽、晶光花、Mega晶光花", //腐蚀
+    "This ability can only appear as the Hidden Ability of Spiky Pichu, Pichu, Pikachu, Pikachu Ash, Pikachu World, Pikachu Hoenn, Pikachu Unova, Pikachu Kalos, Raichu, Hsn. Electrode, Tapu Koko, and Pincurchin": "此特性仅作为以下宝可梦的隐藏特性出现: 刺刺耳皮丘、皮丘、皮卡丘、雷丘、洗翠顽皮雷弹、卡璞·鸣鸣、啪嚓海胆", //电气制造者
+    "This ability can only appear as the Hidden Ability of Spritzee, Aromatisse, Tapu Lele, Tapu Fini, Milcery, Alcremie, and Alcremie Gmax": "此特性仅作为以下宝可梦的隐藏特性出现: 粉香香、芳香精、卡璞·蝶蝶、卡璞·鳍鳍、小仙奶、霜奶仙、超级巨化霜奶仙", //薄雾制造者
+    "This ability can only appear as the Hidden Ability of Torchic, Combusken, Blaziken, M. Blaziken, Nincada, Ninjask, Venipede, Whirlipede, Scolipede, Flittle, and Espathra": "此特性仅作为以下宝可梦的隐藏特性出现: 火稚鸡、力壮鸡、火焰鸡、Mega火焰鸡、土居忍士、铁面忍者、百足蜈蚣、车轮球、蜈蚣王、飘飘雏、超能艳鸵", //加速
+    "This ability can only appear as the Hidden Ability of Unown B, Nihilego, Buzzwole, Pheromosa, Xurkitree, Celesteela, Kartana, Guzzlord, Poipole, Naganadel, Stakataka, and Blacephalon": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾B、虚吾伊德、爆肌蚊、费洛美螂、电束木、铁火辉夜、纸御剑、恶食大王、毒贝比、四颚针龙、垒磊石、砰头小丑", //异兽增幅
+    "This ability can only appear as the Hidden Ability of Unown G, Darumaka, Darmanitan, and Passimian": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾G、火红不倒翁、达摩狒狒、投掷猴", //蛮力战术
+    "This ability can only appear as the Hidden Ability of Unown Q, Iron Treads, Iron Bundle, Iron Hands, Iron Jugulis, Iron Moth, Iron Thorns, Iron Valiant, Iron Leaves, Iron Boulder, and Iron Crown": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾Q、铁辙迹、铁包袱、铁臂膀、铁脖颈、铁毒蛾、铁荆棘、铁武者、铁斑叶、铁磐岩、铁头壳", //夸克充能
+    "This ability can only appear as the Hidden Ability of Unown W and Shedinja": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾W、脱壳忍者", //神奇守护
+    "This ability can only appear as the Hidden Ability of Venusaur Clone, Charizard Clone, Blastoise Clone, Ditto, Unown I, Amoonguss, and Mimikyu": "此特性仅作为以下宝可梦的隐藏特性出现: 复制妙蛙花、复制喷火龙、复制水箭龟、百变怪、未知图腾I、败露球菇、谜拟丘", //变身者
+    "This ability can only appear as the Hidden Ability of Whismur, Loudred, Exploud, Chingling, Chimecho, Chatot, Meloetta, Meloetta Pirouette, Noibat, Noivern, Popplio, Brionne, Primarina, Jangmoo, Hakamoo, and Kommoo": "此特性仅作为以下宝可梦的隐藏特性出现: 咕妞妞、吼爆弹、爆音怪、铃铛响、风铃铃、聒噪鸟、美洛耶塔、嗡蝠、音波龙、球球海狮、花漾海狮、西狮海壬、心鳞宝、鳞甲龙、杖尾鳞甲龙", //杂音
+    "This ability can only appear as the Hidden Ability of Combee, Vespiquen, Rellor, and Rabsca": "此特性仅作为以下宝可梦的隐藏特性出现: 三蜜蜂、蜂女王、虫滚泥、虫甲圣", //昆虫皮肤
+    "This ability can only appear as the Hidden Ability of Doduo, Dodrio, Exeggcute, Exeggutor, Cubone, Marowak, M. Kangaskhan, and Unown P": "此特性仅作为以下宝可梦的隐藏特性出现: 嘟嘟、嘟嘟利、蛋蛋、椰蛋树、卡拉卡拉、嘎啦嘎啦、Mega袋兽、未知图腾P", //亲子爱
+    "This ability can only appear as the Hidden Ability of Eevee, Eevee Gmax, Skitty, and Delcatty": "此特性仅作为以下宝可梦的隐藏特性出现: 伊布、超级巨化伊布、向尾喵、优雅猫", //普通皮肤
+    "This ability can only appear as the Hidden Ability of Espeon, Unown E, Spoink, and Grumpig": "此特性仅作为以下宝可梦的隐藏特性出现: 太阳伊布、未知图腾E、跳跳猪、噗噗猪", //超能皮肤
+    "This ability can only appear as the Hidden Ability of Flareon, Rotom Heat, and Heatran": "此特性仅作为以下宝可梦的隐藏特性出现: 火伊布、加热洛托姆、席多蓝恩", //火焰皮肤
+    "This ability can only appear as the Hidden Ability of Glaceon, M. Glalie, Rotom Frost, Kyurem, Snom, and Frosmoth": "此特性仅作为以下宝可梦的隐藏特性出现: 冰伊布、Mega冰鬼护、洛托姆-冰霜形态、酋雷姆、雪吞虫、雪绒蛾", //冷冻
+    "This ability can only appear as the Hidden Ability of Ferroseed, Ferrothorn, Meltan, Melmetal, Melmetal Gmax, Duraludon, Duraludon Gmax, and Archaludon": "此特性仅作为以下宝可梦的隐藏特性出现: 种子铁球、坚果哑铃、美录坦、美录梅塔、超极巨美录梅塔、铝钢龙、超极巨铝钢龙、铝钢桥龙", //钢铁皮肤
+    "This ability can only appear as the Hidden Ability of Igglybuff, Jigglypuff, Wigglytuff, Sylveon, Ralts, Kirlia, Gardevoir, M. Gardevoir, and M. Altaria": "此特性仅作为以下宝可梦的隐藏特性出现: 宝宝丁、胖丁、胖可丁、仙子伊布、拉鲁拉丝、奇鲁莉安、沙奈朵、Mega沙奈朵、Mega七夕青鸟", //妖精皮肤
+    "This ability can only appear as the Hidden Ability of Jolteon": "此特性仅作为以下宝可梦的隐藏特性出现: 雷伊布", //电气皮肤
+    "This ability can only appear as the Hidden Ability of Leafeon, Rotom Mow, Shaymin, and Shaymin Sky": "此特性仅作为以下宝可梦的隐藏特性出现: 叶伊布、切割洛托姆、谢米、天空形态谢米", //青草皮肤
+    "This ability can only appear as the Hidden Ability of M. Pinsir, M. Salamence, Rotom Fan and Flamingo": "此特性仅作为以下宝可梦的隐藏特性出现: Mega凯罗斯、Mega暴飞龙、旋转洛托姆、缠红鹤", //飞行皮肤
+    "This ability can only appear as the Hidden Ability of Mew, Kecleon, Froakie, Frogadier, Greninja, Type Null, and Silvally": "此特性仅作为以下宝可梦的隐藏特性出现: 梦幻、变隐龙、呱呱泡蛙、呱头蛙、甲贺忍蛙、属性: 空、银伴战兽", //变换自如
+    "This ability can only appear as the Hidden Ability of Remoraid, Octillery, Smeargle, Snorunt, Snorunt, Glalie, Lycanroc Midnight, Turtonator, and Morpeko": "此特性仅作为以下宝可梦的隐藏特性出现: 铁炮鱼、章鱼桶、图图犬、雪童子、冰鬼护、鬃岩狼人 黑夜、爆焰龟兽、莫鲁贝可", //心情不定
+    "This ability can only appear as the Hidden Ability of Umbreon": "此特性仅作为以下宝可梦的隐藏特性出现: 月亮伊布", //幽灵皮肤
+    "This ability can only appear as the Hidden Ability of Unown S, Surskit, Bidoof, Bibarel, Pachirisu, Woobat, Swoobat, Stunfisk, Eiscue, and Orthworm": "此特性仅作为以下宝可梦的隐藏特性出现: 未知图腾S、溜溜糖球、大牙狸、大尾狸、帕奇利兹、滚滚蝙蝠、心蝙蝠、泥巴鱼、冰砌鹅、虫甲圣", //单纯
+    "This ability can only appear as the Hidden Ability of Vaporeon and Rotom Wash": "此特性仅作为以下宝可梦的隐藏特性出现: 水伊布、清洗洛托姆", //流水皮肤
+    "This ability can only appear as the Hidden Ability of Skrelp, Dragalge, and M. Dragalge": "此特性仅作为以下宝可梦的隐藏特性出现: 垃垃藻、毒藻龙、M.毒藻龙", //剧毒皮肤
+    "This ability can only appear as the Hidden Ability of Tympole, Palpitoad, Seismitoad, and Galarian Stunfisk": "此特性仅作为以下宝可梦的隐藏特性出现: 圆蝌蚪、蓝蟾蜍、蟾蜍王、伽勒尔泥巴鱼", //大地皮肤
+    "This ability can only appear as the Hidden Ability of Marshadow": "此特性仅作为以下宝可梦的隐藏特性出现: 玛夏多", //灵魂星象
     //技能描述
     "Increases Speed by 50% to the entire team": "整个队伍的速度提升 50%",
     "Increases Special Defense by 50% to the entire team": "整个队伍的特防提升 50%",
@@ -1506,123 +1514,6 @@ var cnItems = {
     "Temporarily adds Ground to the type of the enemy. Replaces other temporary types": "暂时给对手添加地面属性, 会替换其他临时属性",
     "Temporarily adds Psychic to the type of the enemy. Replaces other temporary types": "暂时给对手添加超能力属性, 会替换其他临时属性",
     "Temporarily adds Water to the type of the enemy. Replaces other temporary types": "暂时给对手添加水属性, 会替换其他临时属性",
-    //技能提示
-    "This move can only appear as the Signature Move of ": "此招式仅作为以下宝可梦的招牌招式出现: ",
-    "This move can only appear as the Signature Move of Abra, Kadabra, Alakazam, and M. Alakazam": "此招式仅作为以下宝可梦的招牌招式出现: 凯西、勇基拉、胡地、Mega胡地",
-    "This move can only appear as the Signature Move of Aln. Sandshrew and Aln. Sandslash": "此招式仅作为以下宝可梦的招牌招式出现: 阿罗拉穿山鼠、阿罗拉穿山王",
-    "This move can only appear as the Signature Move of Applin, Flapple, Appletun, and Appletun Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 啃果虫、苹裹龙、丰蜜龙、超级巨化丰蜜龙",
-    "This move can only appear as the Signature Move of Arceus": "此招式仅作为以下宝可梦的招牌招式出现: 阿尔宙斯",
-    "This move can only appear as the Signature Move of Audino and M. Audino": "此招式仅作为以下宝可梦的招牌招式出现: 差不多娃娃、Mega差不多娃娃",
-    "This move can only appear as the Signature Move of Blacephalon": "此招式仅作为以下宝可梦的招牌招式出现: 砰头小丑",
-    "This move can only appear as the Signature Move of Bouffalant": "此招式仅作为以下宝可梦的招牌招式出现: 爆炸头水牛",
-    "This move can only appear as the Signature Move of Bounsweet, Steenee, and Tsareena": "此招式仅作为以下宝可梦的招牌招式出现: 甜竹竹、甜舞妮、甜冷美后",
-    "This move can only appear as the Signature Move of Buizel and Floatzel": "此招式仅作为以下宝可梦的招牌招式出现: 泳圈鼬、浮潜鼬",
-    "This move can only appear as the Signature Move of Bulbasaur, Ivysaur, Venusaur, Venusaur Clone, M. Venusaur, and Venusaur Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 妙蛙种子、妙蛙草、妙蛙花、妙蛙花克隆体、Mega妙蛙花、超级巨化妙蛙花",
-    "This move can only appear as the Signature Move of Cacnea and Cacturne": "此招式仅作为以下宝可梦的招牌招式出现: 刺球仙人掌、梦歌仙人掌",
-    "This move can only appear as the Signature Move of Castform, Castform Sunny, Castform Rainy, and Castform Snowy": "此招式仅作为以下宝可梦的招牌招式出现: 飘浮泡泡",
-    "This move can only appear as the Signature Move of Charmander, Charmeleon, Charizard, Charizard Clone, M. Charizard X, M. Charizard Y, and Charizard Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 小火龙、火恐龙、喷火龙、喷火龙克隆体、Mega喷火龙X、Mega喷火龙Y、超级巨化喷火龙",
-    "This move can only appear as the Signature Move of Chatot": "此招式仅作为以下宝可梦的招牌招式出现: 聒噪鸟",
-    "This move can only appear as the Signature Move of Combee and Vespiquen": "此招式仅作为以下宝可梦的招牌招式出现: 三蜜蜂、蜂女王",
-    "This move can only appear as the Signature Move of Comfey": "此招式仅作为以下宝可梦的招牌招式出现: 花疗环环",
-    "This move can only appear as the Signature Move of Cottonee and Whimsicott": "此招式仅作为以下宝可梦的招牌招式出现: 木棉球、风妖精",
-    "This move can only appear as the Signature Move of Crabrawler and Crabominable": "此招式仅作为以下宝可梦的招牌招式出现: 好胜蟹、好胜毛蟹",
-    "This move can only appear as the Signature Move of Croagunk and Toxicroak": "此招式仅作为以下宝可梦的招牌招式出现: 不良蛙、毒骷蛙",
-    "This move can only appear as the Signature Move of Cryogonal": "此招式仅作为以下宝可梦的招牌招式出现: 几何雪花",
-    "This move can only appear as the Signature Move of Cubone and Marowak": "此招式仅作为以下宝可梦的招牌招式出现: 卡拉卡拉、嘎啦嘎啦",
-    "This move can only appear as the Signature Move of Cyndaquil, Quilava, and Typhlosion": "此招式仅作为以下宝可梦的招牌招式出现: 火球鼠、火岩鼠、火暴兽",
-    "This move can only appear as the Signature Move of Dhelmise": "此招式仅作为以下宝可梦的招牌招式出现: 破破舵轮",
-    "This move can only appear as the Signature Move of Dialga": "此招式仅作为以下宝可梦的招牌招式出现: 帝牙卢卡",
-    "This move can only appear as the Signature Move of Doduo and Dodrio": "此招式仅作为以下宝可梦的招牌招式出现: 嘟嘟、嘟嘟利",
-    "This move can only appear as the Signature Move of Dreepy, Drakloak, and Dragapult": "此招式仅作为以下宝可梦的招牌招式出现: 多龙梅西亚、多龙奇、多龙巴鲁托",
-    "This move can only appear as the Signature Move of Dunsparce": "此招式仅作为以下宝可梦的招牌招式出现: 土龙弟弟",
-    "This move can only appear as the Signature Move of Eevee and Eevee Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 伊布、超级巨化伊布",
-    "This move can only appear as the Signature Move of Espeon": "此招式仅作为以下宝可梦的招牌招式出现: 太阳伊布",
-    "This move can only appear as the Signature Move of Exeggcute and Exeggutor": "此招式仅作为以下宝可梦的招牌招式出现: 蛋蛋、椰蛋树",
-    "This move can only appear as the Signature Move of Froakie, Frogadier, and Greninja": "此招式仅作为以下宝可梦的招牌招式出现: 呱呱泡蛙、呱头蛙、甲贺忍蛙",
-    "This move can only appear as the Signature Move of Fuecoco, Crocalor, and Skeledirge": "此招式仅作为以下宝可梦的招牌招式出现: 呆火鳄、炙烫鳄、骨纹巨声鳄",
-    "This move can only appear as the Signature Move of Giratina": "此招式仅作为以下宝可梦的招牌招式出现: 骑拉帝纳",
-    "This move can only appear as the Signature Move of Grookey, Thwackey, Rillaboom, and Rillaboom Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 敲音猴、啪咚猴、轰擂金刚猩、超级巨化轰擂金刚猩",
-    "This move can only appear as the Signature Move of Happiny, Chansey, and Blissey": "此招式仅作为以下宝可梦的招牌招式出现: 小福蛋、吉利蛋、幸福蛋",
-    "This move can only appear as the Signature Move of Hatenna, Hattrem, Hatterene, and Hatterene Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 迷布莉姆、提布莉姆、布莉姆温、超级巨化布莉姆温",
-    "This move can only appear as the Signature Move of Heatran": "此招式仅作为以下宝可梦的招牌招式出现: 席多蓝恩",
-    "This move can only appear as the Signature Move of Helioptile and Heliolisk": "此招式仅作为以下宝可梦的招牌招式出现: 伞电蜥、光电伞蜥",
-    "This move can only appear as the Signature Move of Heracross and M. Heracross": "此招式仅作为以下宝可梦的招牌招式出现: 赫拉克罗斯、Mega赫拉克罗斯",
-    "This move can only appear as the Signature Move of Honedge, Doublade, and Aegislash": "此招式仅作为以下宝可梦的招牌招式出现: 独剑鞘、双剑鞘、坚盾剑怪",
-    "This move can only appear as the Signature Move of Hsn. Voltorb and Hsn. Electrode": "此招式仅作为以下宝可梦的招牌招式出现: 洗翠霹雳电球、洗翠顽皮雷弹",
-    "This move can only appear as the Signature Move of Jangmoo, Hakamoo, and Kommoo": "此招式仅作为以下宝可梦的招牌招式出现: 心鳞宝、鳞甲龙、杖尾鳞甲龙",
-    "This move can only appear as the Signature Move of Jirachi": "此招式仅作为以下宝可梦的招牌招式出现: 基拉祈",
-    "This move can only appear as the Signature Move of Klink, Klang, and Klinklang": "此招式仅作为以下宝可梦的招牌招式出现: 齿轮儿、齿轮组、齿轮怪",
-    "This move can only appear as the Signature Move of Krabby, Kingler, and Kingler Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 大钳蟹、巨钳蟹、超级巨化巨钳蟹",
-    "This move can only appear as the Signature Move of Kyurem": "此招式仅作为以下宝可梦的招牌招式出现: 酋雷姆",
-    "This move can only appear as the Signature Move of Landorus": "此招式仅作为以下宝可梦的招牌招式出现: 土地云",
-    "This move can only appear as the Signature Move of Larvesta, Volcarona, and Iron Moth": "此招式仅作为以下宝可梦的招牌招式出现: 燃烧虫、火神蛾、铁毒蛾",
-    "This move can only appear as the Signature Move of Latias and M. Latias": "此招式仅作为以下宝可梦的招牌招式出现: 拉帝亚斯、Mega拉帝亚斯",
-    "This move can only appear as the Signature Move of Latios and M. Latios": "此招式仅作为以下宝可梦的招牌招式出现: 拉帝欧斯、Mega拉帝欧斯",
-    "This move can only appear as the Signature Move of Ledyba and Ledian": "此招式仅作为以下宝可梦的招牌招式出现: 芭瓢虫、安瓢虫",
-    "This move can only appear as the Signature Move of Litleo, Pyroar, and M. Pyroar": "此招式仅作为以下宝可梦的招牌招式出现: 小狮狮、火炎狮、Mega火炎狮",
-    "This move can only appear as the Signature Move of Litten, Torracat, and Incineroar": "此招式仅作为以下宝可梦的招牌招式出现: 火斑喵、炎热喵、炽焰咆哮虎",
-    "This move can only appear as the Signature Move of Machop, Machoke, Machamp, and Machamp Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 腕力、豪力、怪力、超级巨化怪力",
-    "This move can only appear as the Signature Move of Magearna and Magearna Original": "此招式仅作为以下宝可梦的招牌招式出现: 玛机雅娜、玛机雅娜初始形态",
-    "This move can only appear as the Signature Move of Magikarp, Magikarp Koi, Magikarp Regal, Magikarp Sakura, Magikarp Skelly, Magikarp Soar, and Magikarp Tiger": "此招式仅作为以下宝可梦的招牌招式出现: 鲤鱼王",
-    "This move can only appear as the Signature Move of Mankey, Primeape, and Annihilape": "此招式仅作为以下宝可梦的招牌招式出现: 猴怪、火暴猴、弃世猴",
-    "This move can only appear as the Signature Move of Meditite, Medicham, and M. Medicham": "此招式仅作为以下宝可梦的招牌招式出现: 玛沙那、恰雷姆、Mega恰雷姆",
-    "This move can only appear as the Signature Move of Meloetta and Meloetta Pirouette": "此招式仅作为以下宝可梦的招牌招式出现: 美洛耶塔、舞步形态美洛耶塔",
-    "This move can only appear as the Signature Move of Meowth, Meowth Gmax, Aln. Meowth, Persian, and Aln. Persian": "此招式仅作为以下宝可梦的招牌招式出现: 喵喵、超级巨化喵喵、阿罗拉喵喵、猫老大、阿罗拉猫老大",
-    "This move can only appear as the Signature Move of Mime Jr, Mr Mime, and Mr Rime": "此招式仅作为以下宝可梦的招牌招式出现: 魔尼尼、魔墙人偶、踏冰人偶",
-    "This move can only appear as the Signature Move of Mudbray and Mudsdale": "此招式仅作为以下宝可梦的招牌招式出现: 泥驴仔、重泥挽马",
-    "This move can only appear as the Signature Move of Munchlax, Snorlax, and Snorlax Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 小卡比兽、卡比兽、超级巨化卡比兽",
-    "This move can only appear as the Signature Move of Necrozma": "此招式仅作为以下宝可梦的招牌招式出现: 奈克洛兹玛",
-    "This move can only appear as the Signature Move of Oddish, Gloom, Vileplume, and Bellossom": "此招式仅作为以下宝可梦的招牌招式出现: 走路草、臭臭花、霸王花、美丽花",
-    "This move can only appear as the Signature Move of Oricorio Baile, Oricorio Pom Pom, Oricorio Pau, and Oricorio Sensu": "此招式仅作为以下宝可梦的招牌招式出现: 花舞鸟",
-    "This move can only appear as the Signature Move of Oshawott, Dewott, and Samurott": "此招式仅作为以下宝可梦的招牌招式出现: 水水獭、双刃丸、大剑鬼",
-    "This move can only appear as the Signature Move of Palkia": "此招式仅作为以下宝可梦的招牌招式出现: 帕路奇亚",
-    "This move can only appear as the Signature Move of Phantump and Trevenant": "此招式仅作为以下宝可梦的招牌招式出现: 小木灵、朽木妖",
-    "This move can only appear as the Signature Move of Pikipek, Trumbeak, and Toucannon": "此招式仅作为以下宝可梦的招牌招式出现: 小笃儿、喇叭啄鸟、铳嘴大鸟",
-    "This move can only appear as the Signature Move of Plusle and Minun": "此招式仅作为以下宝可梦的招牌招式出现: 正电拍拍、负电拍拍",
-    "This move can only appear as the Signature Move of Poochyena and Mightyena": "此招式仅作为以下宝可梦的招牌招式出现: 土狼犬、大狼犬",
-    "This move can only appear as the Signature Move of Popplio, Brionne, and Primarina": "此招式仅作为以下宝可梦的招牌招式出现: 球球海狮、花漾海狮、西狮海壬",
-    "This move can only appear as the Signature Move of Porygon, Porygon2, and Porygon Z": "此招式仅作为以下宝可梦的招牌招式出现: 多边兽、多边兽Ⅱ、多边兽Z",
-    "This move can only appear as the Signature Move of Psyduck and Golduck": "此招式仅作为以下宝可梦的招牌招式出现: 可达鸭、哥达鸭",
-    "This move can only appear as the Signature Move of Pumpkaboo and Gourgeist": "此招式仅作为以下宝可梦的招牌招式出现: 南瓜精、南瓜怪人",
-    "This move can only appear as the Signature Move of Qwilfish, Hsn. Qwilfish, and Overqwil": "此招式仅作为以下宝可梦的招牌招式出现: 千针鱼、洗翠千针鱼、万针鱼",
-    "This move can only appear as the Signature Move of Regirock, Regice, and Registeel": "此招式仅作为以下宝可梦的招牌招式出现: 雷吉洛克、雷吉艾斯、雷吉斯奇鲁",
-    "This move can only appear as the Signature Move of Reshiram": "此招式仅作为以下宝可梦的招牌招式出现: 莱希拉姆",
-    "This move can only appear as the Signature Move of Salandit and Salazzle": "此招式仅作为以下宝可梦的招牌招式出现: 夜盗火蜥、焰后蜥",
-    "This move can only appear as the Signature Move of Seviper": "此招式仅作为以下宝可梦的招牌招式出现: 饭匙蛇",
-    "This move can only appear as the Signature Move of Shellder and Cloyster": "此招式仅作为以下宝可梦的招牌招式出现: 大舌贝、刺甲贝",
-    "This move can only appear as the Signature Move of Smeargle": "此招式仅作为以下宝可梦的招牌招式出现: 图图犬",
-    "This move can only appear as the Signature Move of Smoochum and Jynx": "此招式仅作为以下宝可梦的招牌招式出现: 迷唇娃、迷唇姐",
-    "This move can only appear as the Signature Move of Sneasel and Weavile": "此招式仅作为以下宝可梦的招牌招式出现: 狃拉、玛狃拉",
-    "This move can only appear as the Signature Move of Spiky Pichu, Pichu, Pikachu, Pikachu Gmax, Pikachu Ash, Pikachu World, Pikachu Hoenn, Pikachu Unova, Pikachu Kalos, Pikachu Belle, Pikachu Libre, Pikachu Phd, Pikachu Popstar, Pikachu Rockstar, and Raichu": "此招式仅作为以下宝可梦的招牌招式出现: 皮丘、皮卡丘、超级巨化皮卡丘、雷丘",
-    "This move can only appear as the Signature Move of Spritzee and Aromatisse": "此招式仅作为以下宝可梦的招牌招式出现: 粉香香、芳香精",
-    "This move can only appear as the Signature Move of Stantler": "此招式仅作为以下宝可梦的招牌招式出现: 惊角鹿",
-    "This move can only appear as the Signature Move of Surskit and Masquerain": "此招式仅作为以下宝可梦的招牌招式出现: 溜溜糖球、雨翅蛾",
-    "This move can only appear as the Signature Move of Tandemaus and Maushold": "此招式仅作为以下宝可梦的招牌招式出现: 一对鼠、一家鼠",
-    "This move can only appear as the Signature Move of Teddiursa and Ursaring": "此招式仅作为以下宝可梦的招牌招式出现: 熊宝宝、圈圈熊",
-    "This move can only appear as the Signature Move of Tepig, Pignite, and Emboar": "此招式仅作为以下宝可梦的招牌招式出现: 暖暖猪、炒炒猪、炎武王",
-    "This move can only appear as the Signature Move of Togedemaru": "此招式仅作为以下宝可梦的招牌招式出现: 托戈德玛尔",
-    "This move can only appear as the Signature Move of Uxie, Mesprit, and Azelf": "此招式仅作为以下宝可梦的招牌招式出现: 由克希、艾姆利多、亚克诺姆",
-    "This move can only appear as the Signature Move of Victini": "此招式仅作为以下宝可梦的招牌招式出现: 比克提尼",
-    "This move can only appear as the Signature Move of Wooper and Quagsire": "此招式仅作为以下宝可梦的招牌招式出现: 乌波、沼王",
-    "This move can only appear as the Signature Move of Zekrom": "此招式仅作为以下宝可梦的招牌招式出现: 捷克罗姆",
-    "This move can only appear as the Signature Move of Quaxly, Quaxwell, and Quaquaval": "此招式仅作为以下宝可梦的招牌招式出现: 润水鸭、涌跃鸭、狂欢浪舞鸭",
-    "This move can only appear as the Signature Move of Rhyhorn, Rhydon, and Rhyperior": "此招式仅作为以下宝可梦的招牌招式出现: 独角犀牛、钻角犀兽、超甲狂犀",
-    "This move can only appear as the Signature Move of Scorbunny, Raboot, Cinderace, and Cinderace Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 炎兔儿、腾蹴小将、闪焰王牌、超级巨化闪焰王牌",
-    "This move can only appear as the Signature Move of Sentret and Furret": "此招式仅作为以下宝可梦的招牌招式出现: 尾立、大尾立",
-    "This move can only appear as the Signature Move of Shinx, Luxio, and Luxray": "此招式仅作为以下宝可梦的招牌招式出现: 小猫怪、勒克猫、伦琴猫",
-    "This move can only appear as the Signature Move of Sinistea and Polteageist": "此招式仅作为以下宝可梦的招牌招式出现: 来悲茶、怖思壶",
-    "This move can only appear as the Signature Move of Sizzlipede, Centiskorch, and Centiskorch Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 烧火蚣、焚焰蚣、超级巨化焚焰蚣",
-    "This move can only appear as the Signature Move of Snorunt, Glalie, M. Glalie, and Froslass": "此招式仅作为以下宝可梦的招牌招式出现: 雪童子、冰鬼护、Mega冰鬼护、雪妖女",
-    "This move can only appear as the Signature Move of Sobble, Drizzile, Inteleon, and Inteleon Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 泪眼蜥、变涩蜥、千面避役、超级巨化千面避役",
-    "This move can only appear as the Signature Move of Spinarak and Ariados": "此招式仅作为以下宝可梦的招牌招式出现: 圆丝蛛、阿利多斯",
-    "This move can only appear as the Signature Move of Squirtle, Wartortle, Blastoise, Blastoise Clone, M. Blastoise, and Blastoise Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 杰尼龟、卡咪龟、水箭龟、水箭龟克隆体、Mega水箭龟、超级巨化水箭龟",
-    "This move can only appear as the Signature Move of Starly, Staravia, and Staraptor": "此招式仅作为以下宝可梦的招牌招式出现: 姆克儿、姆克鸟、姆克鹰",
-    "This move can only appear as the Signature Move of Tinkatink, Tinkatuff, and Tinkaton": "此招式仅作为以下宝可梦的招牌招式出现: 小锻匠、巧锻匠、巨锻匠",
-    "This move can only appear as the Signature Move of Togepi, Togetic, and Togekiss": "此招式仅作为以下宝可梦的招牌招式出现: 波克比、波克基古、波克基斯",
-    "This move can only appear as the Signature Move of Torchic, Combusken, Blaziken, and M. Blaziken": "此招式仅作为以下宝可梦的招牌招式出现: 火稚鸡、力壮鸡、火焰鸡、Mega火焰鸡",
-    "This move can only appear as the Signature Move of Voltorb and Electrode": "此招式仅作为以下宝可梦的招牌招式出现: 霹雳电球、顽皮雷弹",
-    "This move can only appear as the Signature Move of Whismur, Loudred, and Exploud": "此招式仅作为以下宝可梦的招牌招式出现: 咕妞妞、吼爆弹、爆音怪",
-    "This ability can only appear as the Hidden Ability of Marshadow": "此特性仅作为以下宝可梦的隐藏特性出现: 玛夏多",
 }
 
 
@@ -1630,6 +1521,7 @@ var cnItems = {
 //例如: Coin: 13、Coin: 14、Coin: 15... 这种有相同开头的语句
 //可以在这里汉化开头: "Coin: ":"金币: "
 var cnPrefix = {
+    "Teach the ability": "传授特性",
     "◇ Move inherited:": "◇ 招式遗传: ",
     "Time left:":"剩余时间: ",
     "Thanks for the": "感谢送来的",
@@ -2051,6 +1943,122 @@ var cnPrefix = {
     "Lock Capsule": "上锁的容器",
     "Permanent Seasonal Theme": "永久季节主题",
     "Wisdom Petal": "智慧花瓣",
+    //招牌招式提示
+    "This move can only appear as the Signature Move of ": "此招式仅作为以下宝可梦的招牌招式出现: ",
+    "This move can only appear as the Signature Move of Abra, Kadabra, Alakazam, and M. Alakazam": "此招式仅作为以下宝可梦的招牌招式出现: 凯西、勇基拉、胡地、Mega胡地",
+    "This move can only appear as the Signature Move of Aln. Sandshrew and Aln. Sandslash": "此招式仅作为以下宝可梦的招牌招式出现: 阿罗拉穿山鼠、阿罗拉穿山王",
+    "This move can only appear as the Signature Move of Applin, Flapple, Appletun, and Appletun Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 啃果虫、苹裹龙、丰蜜龙、超级巨化丰蜜龙",
+    "This move can only appear as the Signature Move of Arceus": "此招式仅作为以下宝可梦的招牌招式出现: 阿尔宙斯",
+    "This move can only appear as the Signature Move of Audino and M. Audino": "此招式仅作为以下宝可梦的招牌招式出现: 差不多娃娃、Mega差不多娃娃",
+    "This move can only appear as the Signature Move of Blacephalon": "此招式仅作为以下宝可梦的招牌招式出现: 砰头小丑",
+    "This move can only appear as the Signature Move of Bouffalant": "此招式仅作为以下宝可梦的招牌招式出现: 爆炸头水牛",
+    "This move can only appear as the Signature Move of Bounsweet, Steenee, and Tsareena": "此招式仅作为以下宝可梦的招牌招式出现: 甜竹竹、甜舞妮、甜冷美后",
+    "This move can only appear as the Signature Move of Buizel and Floatzel": "此招式仅作为以下宝可梦的招牌招式出现: 泳圈鼬、浮潜鼬",
+    "This move can only appear as the Signature Move of Bulbasaur, Ivysaur, Venusaur, Venusaur Clone, M. Venusaur, and Venusaur Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 妙蛙种子、妙蛙草、妙蛙花、妙蛙花克隆体、Mega妙蛙花、超级巨化妙蛙花",
+    "This move can only appear as the Signature Move of Cacnea and Cacturne": "此招式仅作为以下宝可梦的招牌招式出现: 刺球仙人掌、梦歌仙人掌",
+    "This move can only appear as the Signature Move of Castform, Castform Sunny, Castform Rainy, and Castform Snowy": "此招式仅作为以下宝可梦的招牌招式出现: 飘浮泡泡",
+    "This move can only appear as the Signature Move of Charmander, Charmeleon, Charizard, Charizard Clone, M. Charizard X, M. Charizard Y, and Charizard Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 小火龙、火恐龙、喷火龙、喷火龙克隆体、Mega喷火龙X、Mega喷火龙Y、超级巨化喷火龙",
+    "This move can only appear as the Signature Move of Chatot": "此招式仅作为以下宝可梦的招牌招式出现: 聒噪鸟",
+    "This move can only appear as the Signature Move of Combee and Vespiquen": "此招式仅作为以下宝可梦的招牌招式出现: 三蜜蜂、蜂女王",
+    "This move can only appear as the Signature Move of Comfey": "此招式仅作为以下宝可梦的招牌招式出现: 花疗环环",
+    "This move can only appear as the Signature Move of Cottonee and Whimsicott": "此招式仅作为以下宝可梦的招牌招式出现: 木棉球、风妖精",
+    "This move can only appear as the Signature Move of Crabrawler and Crabominable": "此招式仅作为以下宝可梦的招牌招式出现: 好胜蟹、好胜毛蟹",
+    "This move can only appear as the Signature Move of Croagunk and Toxicroak": "此招式仅作为以下宝可梦的招牌招式出现: 不良蛙、毒骷蛙",
+    "This move can only appear as the Signature Move of Cryogonal": "此招式仅作为以下宝可梦的招牌招式出现: 几何雪花",
+    "This move can only appear as the Signature Move of Cubone and Marowak": "此招式仅作为以下宝可梦的招牌招式出现: 卡拉卡拉、嘎啦嘎啦",
+    "This move can only appear as the Signature Move of Cyndaquil, Quilava, and Typhlosion": "此招式仅作为以下宝可梦的招牌招式出现: 火球鼠、火岩鼠、火暴兽",
+    "This move can only appear as the Signature Move of Dhelmise": "此招式仅作为以下宝可梦的招牌招式出现: 破破舵轮",
+    "This move can only appear as the Signature Move of Dialga": "此招式仅作为以下宝可梦的招牌招式出现: 帝牙卢卡",
+    "This move can only appear as the Signature Move of Doduo and Dodrio": "此招式仅作为以下宝可梦的招牌招式出现: 嘟嘟、嘟嘟利",
+    "This move can only appear as the Signature Move of Dreepy, Drakloak, and Dragapult": "此招式仅作为以下宝可梦的招牌招式出现: 多龙梅西亚、多龙奇、多龙巴鲁托",
+    "This move can only appear as the Signature Move of Dunsparce": "此招式仅作为以下宝可梦的招牌招式出现: 土龙弟弟",
+    "This move can only appear as the Signature Move of Eevee and Eevee Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 伊布、超级巨化伊布",
+    "This move can only appear as the Signature Move of Espeon": "此招式仅作为以下宝可梦的招牌招式出现: 太阳伊布",
+    "This move can only appear as the Signature Move of Exeggcute and Exeggutor": "此招式仅作为以下宝可梦的招牌招式出现: 蛋蛋、椰蛋树",
+    "This move can only appear as the Signature Move of Froakie, Frogadier, and Greninja": "此招式仅作为以下宝可梦的招牌招式出现: 呱呱泡蛙、呱头蛙、甲贺忍蛙",
+    "This move can only appear as the Signature Move of Fuecoco, Crocalor, and Skeledirge": "此招式仅作为以下宝可梦的招牌招式出现: 呆火鳄、炙烫鳄、骨纹巨声鳄",
+    "This move can only appear as the Signature Move of Giratina": "此招式仅作为以下宝可梦的招牌招式出现: 骑拉帝纳",
+    "This move can only appear as the Signature Move of Grookey, Thwackey, Rillaboom, and Rillaboom Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 敲音猴、啪咚猴、轰擂金刚猩、超级巨化轰擂金刚猩",
+    "This move can only appear as the Signature Move of Happiny, Chansey, and Blissey": "此招式仅作为以下宝可梦的招牌招式出现: 小福蛋、吉利蛋、幸福蛋",
+    "This move can only appear as the Signature Move of Hatenna, Hattrem, Hatterene, and Hatterene Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 迷布莉姆、提布莉姆、布莉姆温、超级巨化布莉姆温",
+    "This move can only appear as the Signature Move of Heatran": "此招式仅作为以下宝可梦的招牌招式出现: 席多蓝恩",
+    "This move can only appear as the Signature Move of Helioptile and Heliolisk": "此招式仅作为以下宝可梦的招牌招式出现: 伞电蜥、光电伞蜥",
+    "This move can only appear as the Signature Move of Heracross and M. Heracross": "此招式仅作为以下宝可梦的招牌招式出现: 赫拉克罗斯、Mega赫拉克罗斯",
+    "This move can only appear as the Signature Move of Honedge, Doublade, and Aegislash": "此招式仅作为以下宝可梦的招牌招式出现: 独剑鞘、双剑鞘、坚盾剑怪",
+    "This move can only appear as the Signature Move of Hsn. Voltorb and Hsn. Electrode": "此招式仅作为以下宝可梦的招牌招式出现: 洗翠霹雳电球、洗翠顽皮雷弹",
+    "This move can only appear as the Signature Move of Jangmoo, Hakamoo, and Kommoo": "此招式仅作为以下宝可梦的招牌招式出现: 心鳞宝、鳞甲龙、杖尾鳞甲龙",
+    "This move can only appear as the Signature Move of Jirachi": "此招式仅作为以下宝可梦的招牌招式出现: 基拉祈",
+    "This move can only appear as the Signature Move of Klink, Klang, and Klinklang": "此招式仅作为以下宝可梦的招牌招式出现: 齿轮儿、齿轮组、齿轮怪",
+    "This move can only appear as the Signature Move of Krabby, Kingler, and Kingler Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 大钳蟹、巨钳蟹、超级巨化巨钳蟹",
+    "This move can only appear as the Signature Move of Kyurem": "此招式仅作为以下宝可梦的招牌招式出现: 酋雷姆",
+    "This move can only appear as the Signature Move of Landorus": "此招式仅作为以下宝可梦的招牌招式出现: 土地云",
+    "This move can only appear as the Signature Move of Larvesta, Volcarona, and Iron Moth": "此招式仅作为以下宝可梦的招牌招式出现: 燃烧虫、火神蛾、铁毒蛾",
+    "This move can only appear as the Signature Move of Latias and M. Latias": "此招式仅作为以下宝可梦的招牌招式出现: 拉帝亚斯、Mega拉帝亚斯",
+    "This move can only appear as the Signature Move of Latios and M. Latios": "此招式仅作为以下宝可梦的招牌招式出现: 拉帝欧斯、Mega拉帝欧斯",
+    "This move can only appear as the Signature Move of Ledyba and Ledian": "此招式仅作为以下宝可梦的招牌招式出现: 芭瓢虫、安瓢虫",
+    "This move can only appear as the Signature Move of Litleo, Pyroar, and M. Pyroar": "此招式仅作为以下宝可梦的招牌招式出现: 小狮狮、火炎狮、Mega火炎狮",
+    "This move can only appear as the Signature Move of Litten, Torracat, and Incineroar": "此招式仅作为以下宝可梦的招牌招式出现: 火斑喵、炎热喵、炽焰咆哮虎",
+    "This move can only appear as the Signature Move of Machop, Machoke, Machamp, and Machamp Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 腕力、豪力、怪力、超级巨化怪力",
+    "This move can only appear as the Signature Move of Magearna and Magearna Original": "此招式仅作为以下宝可梦的招牌招式出现: 玛机雅娜、玛机雅娜初始形态",
+    "This move can only appear as the Signature Move of Magikarp, Magikarp Koi, Magikarp Regal, Magikarp Sakura, Magikarp Skelly, Magikarp Soar, and Magikarp Tiger": "此招式仅作为以下宝可梦的招牌招式出现: 鲤鱼王",
+    "This move can only appear as the Signature Move of Mankey, Primeape, and Annihilape": "此招式仅作为以下宝可梦的招牌招式出现: 猴怪、火暴猴、弃世猴",
+    "This move can only appear as the Signature Move of Meditite, Medicham, and M. Medicham": "此招式仅作为以下宝可梦的招牌招式出现: 玛沙那、恰雷姆、Mega恰雷姆",
+    "This move can only appear as the Signature Move of Meloetta and Meloetta Pirouette": "此招式仅作为以下宝可梦的招牌招式出现: 美洛耶塔、舞步形态美洛耶塔",
+    "This move can only appear as the Signature Move of Meowth, Meowth Gmax, Aln. Meowth, Persian, and Aln. Persian": "此招式仅作为以下宝可梦的招牌招式出现: 喵喵、超级巨化喵喵、阿罗拉喵喵、猫老大、阿罗拉猫老大",
+    "This move can only appear as the Signature Move of Mime Jr, Mr Mime, and Mr Rime": "此招式仅作为以下宝可梦的招牌招式出现: 魔尼尼、魔墙人偶、踏冰人偶",
+    "This move can only appear as the Signature Move of Mudbray and Mudsdale": "此招式仅作为以下宝可梦的招牌招式出现: 泥驴仔、重泥挽马",
+    "This move can only appear as the Signature Move of Munchlax, Snorlax, and Snorlax Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 小卡比兽、卡比兽、超级巨化卡比兽",
+    "This move can only appear as the Signature Move of Necrozma": "此招式仅作为以下宝可梦的招牌招式出现: 奈克洛兹玛",
+    "This move can only appear as the Signature Move of Oddish, Gloom, Vileplume, and Bellossom": "此招式仅作为以下宝可梦的招牌招式出现: 走路草、臭臭花、霸王花、美丽花",
+    "This move can only appear as the Signature Move of Oricorio Baile, Oricorio Pom Pom, Oricorio Pau, and Oricorio Sensu": "此招式仅作为以下宝可梦的招牌招式出现: 花舞鸟",
+    "This move can only appear as the Signature Move of Oshawott, Dewott, and Samurott": "此招式仅作为以下宝可梦的招牌招式出现: 水水獭、双刃丸、大剑鬼",
+    "This move can only appear as the Signature Move of Palkia": "此招式仅作为以下宝可梦的招牌招式出现: 帕路奇亚",
+    "This move can only appear as the Signature Move of Phantump and Trevenant": "此招式仅作为以下宝可梦的招牌招式出现: 小木灵、朽木妖",
+    "This move can only appear as the Signature Move of Pikipek, Trumbeak, and Toucannon": "此招式仅作为以下宝可梦的招牌招式出现: 小笃儿、喇叭啄鸟、铳嘴大鸟",
+    "This move can only appear as the Signature Move of Plusle and Minun": "此招式仅作为以下宝可梦的招牌招式出现: 正电拍拍、负电拍拍",
+    "This move can only appear as the Signature Move of Poochyena and Mightyena": "此招式仅作为以下宝可梦的招牌招式出现: 土狼犬、大狼犬",
+    "This move can only appear as the Signature Move of Popplio, Brionne, and Primarina": "此招式仅作为以下宝可梦的招牌招式出现: 球球海狮、花漾海狮、西狮海壬",
+    "This move can only appear as the Signature Move of Porygon, Porygon2, and Porygon Z": "此招式仅作为以下宝可梦的招牌招式出现: 多边兽、多边兽Ⅱ、多边兽Z",
+    "This move can only appear as the Signature Move of Psyduck and Golduck": "此招式仅作为以下宝可梦的招牌招式出现: 可达鸭、哥达鸭",
+    "This move can only appear as the Signature Move of Pumpkaboo and Gourgeist": "此招式仅作为以下宝可梦的招牌招式出现: 南瓜精、南瓜怪人",
+    "This move can only appear as the Signature Move of Qwilfish, Hsn. Qwilfish, and Overqwil": "此招式仅作为以下宝可梦的招牌招式出现: 千针鱼、洗翠千针鱼、万针鱼",
+    "This move can only appear as the Signature Move of Regirock, Regice, and Registeel": "此招式仅作为以下宝可梦的招牌招式出现: 雷吉洛克、雷吉艾斯、雷吉斯奇鲁",
+    "This move can only appear as the Signature Move of Reshiram": "此招式仅作为以下宝可梦的招牌招式出现: 莱希拉姆",
+    "This move can only appear as the Signature Move of Salandit and Salazzle": "此招式仅作为以下宝可梦的招牌招式出现: 夜盗火蜥、焰后蜥",
+    "This move can only appear as the Signature Move of Seviper": "此招式仅作为以下宝可梦的招牌招式出现: 饭匙蛇",
+    "This move can only appear as the Signature Move of Shellder and Cloyster": "此招式仅作为以下宝可梦的招牌招式出现: 大舌贝、刺甲贝",
+    "This move can only appear as the Signature Move of Smeargle": "此招式仅作为以下宝可梦的招牌招式出现: 图图犬",
+    "This move can only appear as the Signature Move of Smoochum and Jynx": "此招式仅作为以下宝可梦的招牌招式出现: 迷唇娃、迷唇姐",
+    "This move can only appear as the Signature Move of Sneasel and Weavile": "此招式仅作为以下宝可梦的招牌招式出现: 狃拉、玛狃拉",
+    "This move can only appear as the Signature Move of Spiky Pichu, Pichu, Pikachu, Pikachu Gmax, Pikachu Ash, Pikachu World, Pikachu Hoenn, Pikachu Unova, Pikachu Kalos, Pikachu Belle, Pikachu Libre, Pikachu Phd, Pikachu Popstar, Pikachu Rockstar, and Raichu": "此招式仅作为以下宝可梦的招牌招式出现: 皮丘、皮卡丘、超级巨化皮卡丘、雷丘",
+    "This move can only appear as the Signature Move of Spritzee and Aromatisse": "此招式仅作为以下宝可梦的招牌招式出现: 粉香香、芳香精",
+    "This move can only appear as the Signature Move of Stantler": "此招式仅作为以下宝可梦的招牌招式出现: 惊角鹿",
+    "This move can only appear as the Signature Move of Surskit and Masquerain": "此招式仅作为以下宝可梦的招牌招式出现: 溜溜糖球、雨翅蛾",
+    "This move can only appear as the Signature Move of Tandemaus and Maushold": "此招式仅作为以下宝可梦的招牌招式出现: 一对鼠、一家鼠",
+    "This move can only appear as the Signature Move of Teddiursa and Ursaring": "此招式仅作为以下宝可梦的招牌招式出现: 熊宝宝、圈圈熊",
+    "This move can only appear as the Signature Move of Tepig, Pignite, and Emboar": "此招式仅作为以下宝可梦的招牌招式出现: 暖暖猪、炒炒猪、炎武王",
+    "This move can only appear as the Signature Move of Togedemaru": "此招式仅作为以下宝可梦的招牌招式出现: 托戈德玛尔",
+    "This move can only appear as the Signature Move of Uxie, Mesprit, and Azelf": "此招式仅作为以下宝可梦的招牌招式出现: 由克希、艾姆利多、亚克诺姆",
+    "This move can only appear as the Signature Move of Victini": "此招式仅作为以下宝可梦的招牌招式出现: 比克提尼",
+    "This move can only appear as the Signature Move of Wooper and Quagsire": "此招式仅作为以下宝可梦的招牌招式出现: 乌波、沼王",
+    "This move can only appear as the Signature Move of Zekrom": "此招式仅作为以下宝可梦的招牌招式出现: 捷克罗姆",
+    "This move can only appear as the Signature Move of Quaxly, Quaxwell, and Quaquaval": "此招式仅作为以下宝可梦的招牌招式出现: 润水鸭、涌跃鸭、狂欢浪舞鸭",
+    "This move can only appear as the Signature Move of Rhyhorn, Rhydon, and Rhyperior": "此招式仅作为以下宝可梦的招牌招式出现: 独角犀牛、钻角犀兽、超甲狂犀",
+    "This move can only appear as the Signature Move of Scorbunny, Raboot, Cinderace, and Cinderace Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 炎兔儿、腾蹴小将、闪焰王牌、超级巨化闪焰王牌",
+    "This move can only appear as the Signature Move of Sentret and Furret": "此招式仅作为以下宝可梦的招牌招式出现: 尾立、大尾立",
+    "This move can only appear as the Signature Move of Shinx, Luxio, and Luxray": "此招式仅作为以下宝可梦的招牌招式出现: 小猫怪、勒克猫、伦琴猫",
+    "This move can only appear as the Signature Move of Sinistea and Polteageist": "此招式仅作为以下宝可梦的招牌招式出现: 来悲茶、怖思壶",
+    "This move can only appear as the Signature Move of Sizzlipede, Centiskorch, and Centiskorch Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 烧火蚣、焚焰蚣、超级巨化焚焰蚣",
+    "This move can only appear as the Signature Move of Snorunt, Glalie, M. Glalie, and Froslass": "此招式仅作为以下宝可梦的招牌招式出现: 雪童子、冰鬼护、Mega冰鬼护、雪妖女",
+    "This move can only appear as the Signature Move of Sobble, Drizzile, Inteleon, and Inteleon Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 泪眼蜥、变涩蜥、千面避役、超级巨化千面避役",
+    "This move can only appear as the Signature Move of Spinarak and Ariados": "此招式仅作为以下宝可梦的招牌招式出现: 圆丝蛛、阿利多斯",
+    "This move can only appear as the Signature Move of Squirtle, Wartortle, Blastoise, Blastoise Clone, M. Blastoise, and Blastoise Gmax": "此招式仅作为以下宝可梦的招牌招式出现: 杰尼龟、卡咪龟、水箭龟、水箭龟克隆体、Mega水箭龟、超级巨化水箭龟",
+    "This move can only appear as the Signature Move of Starly, Staravia, and Staraptor": "此招式仅作为以下宝可梦的招牌招式出现: 姆克儿、姆克鸟、姆克鹰",
+    "This move can only appear as the Signature Move of Tinkatink, Tinkatuff, and Tinkaton": "此招式仅作为以下宝可梦的招牌招式出现: 小锻匠、巧锻匠、巨锻匠",
+    "This move can only appear as the Signature Move of Togepi, Togetic, and Togekiss": "此招式仅作为以下宝可梦的招牌招式出现: 波克比、波克基古、波克基斯",
+    "This move can only appear as the Signature Move of Torchic, Combusken, Blaziken, and M. Blaziken": "此招式仅作为以下宝可梦的招牌招式出现: 火稚鸡、力壮鸡、火焰鸡、Mega火焰鸡",
+    "This move can only appear as the Signature Move of Voltorb and Electrode": "此招式仅作为以下宝可梦的招牌招式出现: 霹雳电球、顽皮雷弹",
+    "This move can only appear as the Signature Move of Whismur, Loudred, and Exploud": "此招式仅作为以下宝可梦的招牌招式出现: 咕妞妞、吼爆弹、爆音怪",
     "": "",
     "": "",
     "\n": "\n",
@@ -2101,6 +2109,7 @@ var cnPrefix = {
 //例如: 13 Coin、14 Coin、15 Coin... 这种有相同结尾的语句
 //可以在这里汉化结尾: " Coin":" 金币"
 var cnPostfix = {
+    "Halves the damage received of Ground-type moves": "受到地面属性招式的伤害减半",
     "Ground-type moves": "地面属性招式",
     "the Pokemon Hidden Ability": "宝可梦的隐藏特性",
     "to enter": " 进入",
@@ -2413,6 +2422,13 @@ var cnPostfix = {
     "by using a Fire Stone at level 70+ ❌": "通过使用 火之石 在等级 70+ ❌",
     //技能机提示
     "to all Pokemon": "给所有宝可梦",
+    "to Bug or Grass Pokemon": "对虫或草属性宝可梦",
+    "to Dark, Flying, or Normal Pokemon": "对恶、飞行或一般属性宝可梦",
+    "to Fighting or Normal Pokemon": "对格斗或一般属性宝可梦",
+    "to Fire or Grass Pokemon": "对火或草属性宝可梦",
+    "to Psychic or Fairy Pokemon": "对超能力或妖精属性宝可梦",
+    "to Water or Dragon Pokemon": "对水或龙属性宝可梦",
+    "to Water or Grass Pokemon": "对水或草属性宝可梦",
     "to Bug or Dark Pokemon": "给虫或恶属性宝可梦",
     "to Bug or Flying Pokemon": "给虫或飞行属性宝可梦",
     "to Bug Pokemon": "给虫属性宝可梦",
@@ -3093,6 +3109,8 @@ var cnPostfix = {
     "learnt X Scissor!": "学会了 十字剪!",
     "learnt Spectral Thief!": "学会了 暗影偷盗!",
     //人名后缀
+    "School Kid Aaron": "补习班学生 阿柳",
+    "Aaron": "阿柳",
     "Brock": "小刚",
     "Misty": "小霞",
     "Phoebe": "芙蓉",
@@ -3573,8 +3591,8 @@ var cnRegReplace = new Map([
     [/^Genetics-aiding item: Multiplies by 20 the chance to inherit Special Defense Iv's$/, '遗传辅助道具: 使特防个体值的遗传概率提升20倍'],
     [/^Genetics-aiding item: Multiplies by 20 the chance to inherit Speed Iv's$/, '遗传辅助道具: 使速度个体值的遗传概率提升20倍'],
     [/^Genetics-aiding item: Rerolls the ability of the Host Pokemon. It has an increased chance to reroll uncommon and rare abilities$/, '遗传辅助道具: 重新随机宿主宝可梦的特性。有更高概率随机到不常见和稀有特性'],
-    [/^Genetics-aiding item: Swaps the ability of the Pokemon with the sample. Can only be used with at least one level of compatibility$/, '遗传辅助道具: 将宝可梦的特性与样本交换。只能在至少有一级兼容性时使用'],
-    [/^Genetics-aiding item: Transfers the currently equipped moves of the sample to the movepool of the host. The host will retain both its equipped moves and the newly transferred ones, but the sample will lose it's equipped ones. Can only be used with at least one level of compatibility$/, '遗传辅助道具: 将样本当前已装备的招式转移到宿主的技能池中。宿主将保留其已装备的招式和新转移的招式, 但样本将失去其已装备的招式。只能在至少有一级兼容性时使用'],
+    [/^Genetics-aiding item: Swaps the ability of the Pokemon with the sample. Can only be used with at least one level of compatibility and does not work on hidden abilities$/, '遗传辅助道具: 将宿主宝可梦的特性与样本宝可梦交换。只能在至少有 1 级兼容性时使用，且无法交换隐藏特性'],
+    [/^Genetics-aiding item: Transfers the currently equipped moves of the sample to the movepool of the host. The host will retain both its equipped moves and the newly transferred ones, but the sample will lose it's equipped ones. Can only be used with at least one level of compatibility, and does not work on signature moves$/, '遗传辅助道具: 将样本当前已装备的招式转移到宿主的技能池中。宿主将保留其已装备的招式和新转移的招式, 但样本将失去其已装备的招式。只能在至少有 1 级兼容性时使用，且无法转移专属招式'],
     [/^Increases the damage dealt by M. Abomasnow by x([\d\.]+)$/, 'Mega 暴雪王 造成的伤害提升 $1 倍'],
     [/^Increases the damage dealt by M. Absol by x([\d\.]+)$/, 'Mega 阿勃梭鲁 造成的伤害提升 $1 倍'],
     [/^Increases the damage dealt by M. Aerodactyl by x([\d\.]+)$/, 'Mega 化石翼龙 造成的伤害提升 $1 倍'],
