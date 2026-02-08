@@ -1542,6 +1542,7 @@ var cnPrefix = {
     "Removes": "移除",
     "Changes the weather to": "将天气变为",
     "Damage Dealt": "造成的伤害",
+    "When held: Increases the duration of": "持有时: 增加持续时间",
     "When held: ": "持有时: ",
     //指南前缀
     "Battle: ": "战斗: ",
