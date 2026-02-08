@@ -2060,6 +2060,7 @@ var cnPrefix = {
     "This move can only appear as the Signature Move of Torchic, Combusken, Blaziken, and M. Blaziken": "此招式仅作为以下宝可梦的招牌招式出现: 火稚鸡、力壮鸡、火焰鸡、Mega火焰鸡",
     "This move can only appear as the Signature Move of Voltorb and Electrode": "此招式仅作为以下宝可梦的招牌招式出现: 霹雳电球、顽皮雷弹",
     "This move can only appear as the Signature Move of Whismur, Loudred, and Exploud": "此招式仅作为以下宝可梦的招牌招式出现: 咕妞妞、吼爆弹、爆音怪",
+    "This move can only appear as the Signature Move of Marshadow": "此招式仅作为以下宝可梦的招牌招式出现: 玛夏多",
     "": "",
     "": "",
     "\n": "\n",
