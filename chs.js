@@ -425,6 +425,7 @@ var cnItems = {
     "Genetics can also be influenced by using genetic-aiding items, which you can use at the end of the operation": "你也可在操作结束阶段使用遗传辅助道具, 为遗传的效果提供加成。",
     "You can find more information about the specifics of genetics in the guide section": "你可在指南板块中查看宝可梦遗传机制的详细说明",
     "Warning, high Power Cost! Only 5 out of 6 maximum IV's per stat will be inherited!": "警告! 能量消耗高! 每项个体值最多只能遗传5级 (共6级) !",
+    "Warning, power cost too high! Only 5 out of 6 maximum IV's per stat will be inherited!": "警告! 能量消耗高! 每项个体值最多只能遗传5级 (共6级) !", //不存在的文本??
     "Warning, very high Power Cost! Only 4 out of 6 maximum IV's per stat will be inherited!": "警告：能量消耗极高! 每项个体值最多只能遗传4级 (共6级) !",
     "Select a host Pokemon": "选择宿主宝可梦",
     "Select a sample Pokemon": "选择样本宝可梦",
@@ -1115,9 +1116,9 @@ var cnItems = {
     "- Sinnoh Expedition -": "-| 神奥探险 |-",
     "Alpha Ruins": "阿尔法遗迹",
     "Lake Valor": "立志湖",
-    "Mesprit cavern": "艾姆利多洞窟",
-    "Uxie cavern": "由克希洞窟",
-    "Azelf cavern": "亚克诺姆洞窟",
+    "Mesprit Cavern": "艾姆利多洞窟",
+    "Uxie Cavern": "由克希洞窟",
+    "Azelf Cavern": "亚克诺姆洞窟",
     "Galactic Warehouse": "银河队仓库",
     "Galactic Headquarters": "银河队总部",
     "Dream Plains": "梦之平原",
@@ -1711,6 +1712,7 @@ var cnPrefix = {
     "Increased spe 1 point!": "速度提升 1 级!",
     "Increased spe 2 points!": "速度提升 2 级!",
     //
+    "Unlocked while all obtainable Pokemon have been caught": "当所有可获得的宝可梦均被捕获后解锁",
     "Obtained in the event Charizard Mega-Showdown": "可发现于活动: 喷火龙 Mega激斗",
     "Obtained in the event Charizard X Mega-Showdown": "可发现于活动: 喷火龙 X Mega激斗",
     "Obtained in the event Charizard Y Mega-Showdown": "可发现于活动: 喷火龙 Y Mega激斗",
