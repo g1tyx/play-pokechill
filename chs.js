@@ -45,7 +45,6 @@ var cnItems = {
     "Found randomly in the Wildlife Park wild area": "在旷野地带的野生公园随机出现",
     "This Pokemon is unobtainable": "该宝可梦无法获取",
     "Inflicts": "施加",
-    //"Signature Move": "招牌招式", //特殊排序
     "Flying-Type": "飞行属性",
     "Paralyzed": "麻痹",
     "enabled": "启用",
@@ -2108,7 +2107,6 @@ var cnPostfix = {
     "Ground-type moves": "地面属性招式",
     "the Pokemon Hidden Ability": "宝可梦的隐藏特性",
     "to enter": " 进入",
-    //"Signature Move": "招牌招式",
     "AFK time is being calculated, please wait...\n": "AFK 时间正在计算中, 请稍等...\n",
     "has been unlocked!": "已解锁!",
     "Memory": "记忆",
@@ -3414,7 +3412,7 @@ var cnRegReplace = new Map([
     [/^This move can only appear as the Signature Move of Wo Chien, Chien Pao, Ting Lu, and Chi Yu$/, "此招式仅作为以下宝可梦的招牌招式出现: 古简蜗、古剑豹、古鼎鹿、古玉鱼"],
     [/^This move can only appear as the Signature Move of Galarian Zapdos$/, "此招式仅作为以下宝可梦的招牌招式出现: 伽勒尔闪电鸟"],
     [/^This move can only appear as the Signature Move of Impidimp, Morgrem, Grimmsnarl, and Grimmsnarl Gmax$/, "此招式仅作为以下宝可梦的招牌招式出现: 捣蛋小妖、诈唬魔、长毛巨魔、超极巨长毛巨魔"],
-    //[/\bSignature Move\b/, '招牌招式'], //招牌招式
+    [/\bSignature Move\b/, '招牌招式'], //招牌招式
     [/^Average Time$/, '平均时间'],
     [/^Simple Aura$/, '朴素气场'],
     [/^Moody Aura$/, '变幻气场'],
