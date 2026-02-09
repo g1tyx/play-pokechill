@@ -716,6 +716,7 @@ var cnItems = {
     "Fast-forwards battle time by 10 minutes. Must be used while battling": "战斗时间快进10分钟。必须在战斗时使用",
     "Can be used to catch event Pokemon. Expires after event finishes": "可用于捕捉活动宝可梦。活动结束后消失",
     "Seasonal item, dropped randomly from defeating wild Pokemon. Expires on 2/14": "季节性道具, 击败野生宝可梦随机掉落。有效期至2月14日",
+    "Use: Evolve a certain Pokemon": "使用时: 进化特定的宝可梦",
     "Use: Evolve certain kinds of Pokemon (Must be level 30+)": "使用时: 进化特定种类的宝可梦 (必须是30级以上)",
     "Use: Evolve certain kinds of Pokemon (Must be level 70+)": "使用时: 进化特定种类的宝可梦 (必须是70级以上)",
     "Select a Pokemon to use the Dawn Stone": "选择一只宝可梦来使用 觉醒之石",
