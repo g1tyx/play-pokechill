@@ -4226,6 +4226,7 @@ function setEventAreas() {
         divAreas.addEventListener("click", e => { 
             
             if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) return
+            if (areas[i].encounter && areas[i].difficulty===tier4difficulty && areas.vsUltraEntityLusamine.defeated!=true) return
             saved.currentAreaBuffer = i
             document.getElementById(`preview-team-exit`).style.display = "flex"
             document.getElementById(`team-menu`).style.zIndex = `50`
