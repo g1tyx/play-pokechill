@@ -1082,6 +1082,11 @@ var cnItems = {
     "- Return To Kanto -": "-| 重返关东 |-",
     "Cosplay Convention": "动漫展",
     "Summit Of Seasons": "四季高地",
+    "Suspicious Manor": "可疑庄园",
+    "Cerulean Cave": "华蓝洞窟",
+    "Zapdos Lair": "闪电鸟巢穴",
+    "Articuno Den": "急冻鸟洞窟",
+    "Moltres Roost": "火焰鸟栖木",
     "- Primeval Wilds -": "-| 原始荒野 |-",
     "Lamode Dogwalk": "时尚遛狗道",
     "Primitive Grove": "原始树林",
@@ -1117,7 +1122,7 @@ var cnItems = {
     "Spooky Encounter": "幽灵遭遇战",
     "This is a timed encounter. Your damage will be carried on between fights. Additionally, items needed to enter will be consumed regardless if you defeat the Pokemon or not": "这是一场限时遭遇战。你的伤害将在多次战斗之间保留。此外, 进入地图所需的道具, 无论你是否击败宝可梦都会被消耗",
     //轮换1
-    "Suspicious Manor": "可疑庄园",
+    
     //轮换3
     "Ecosphere": "生态球",
     //
@@ -1644,8 +1649,8 @@ var cnPrefix = {
     //训练
     "Difficulty: ": "难度: ",
     //活动地图提示
-    "Requires a": "需要",
     "Requires an": "需要",
+    "Requires a": "需要",
     "Requires x3": "需要 3个",
     "Grants immunity to": "免疫",
     "Prevents negative status effects while on": "免疫负面异常状态, 当处于",
@@ -4506,6 +4511,7 @@ var cnRegReplace = new Map([
     [/^Venusaur$/gi, '妙蛙花'],
     [/^Charmander$/gi, '小火龙'],
     [/^Charmeleon$/gi, '火恐龙'],
+    [/^Charizard Y$/gi, '喷火龙 Y'],
     [/^Charizard$/gi, '喷火龙'],
     [/^Squirtle$/gi, '杰尼龟'],
     [/^Wartortle$/gi, '卡咪龟'],
@@ -5978,9 +5984,12 @@ var cnRegReplace = new Map([
     [/^\s*Future Contraption\s*$/, "未来机械装置"],
     [/^\s*Wormhole Residue\s*$/, "虫洞残屑"],
     [/^\s*Old Gateau\s*$/, "陈旧糕点"],
-    [/^\s*Wisdom Petal\s*$/, "智慧花瓣"],
     [/^\s*Wisdom Petals\s*$/, "智慧花瓣"],
+    [/^\s*Wisdom Petal\s*$/, "智慧花瓣"],
     [/^\s*Red Chain\s*$/, "红色锁链"],
+    [/^\s*Epoch Feathers\s*$/, "纪元之羽"],
+    [/^\s*Epoch Feather\s*$/, "纪元之羽"],
+    [/^\s*Pokeflute\s*$/, "宝可笛"],
     //特殊排序
     [/\bLight Clay\b/gi, '光之黏土'],
     [/\bClay\b/gi, '菊老大'],
