@@ -3227,6 +3227,7 @@ var cnExcludePostfix = [
 //换行加空格: \n(.+)
 //&nbsp;空格: \xA0
 var cnRegReplace = new Map([
+    [/\bThis Pokemon can last (\d+) turns before fainting from Battle Fatigue at maxium IVs\b/, '在个体值全满的情况下, 这只宝可梦可以在因战斗疲劳而倒下前坚持 $1 个回合'],
     [/\bHighest Spiraling Tower floor reached: (\d+)\b/, '达到的对战塔最高层数: $1 '],
     [/\bNext reward at (\d+) score\b/, '下一个奖励在 $1 分'],
     [/\bLearnable by Bug and Ground types\b/, '虫属性和地面属性宝可梦可学习'],
