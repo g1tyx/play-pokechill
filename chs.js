@@ -25,10 +25,14 @@ var cnItems = {
     //杂项
     "Move": "招式",
     "Split": "分类",
+    "Auto-Refight is active!": "自动再战已激活！",
     "(Requires an": "(需要一个",
     "(Wont use": "(不会消耗",
+    "(Wont consume an": "(不会消耗",
     "Auto-Refight Ticket)": "自动再战票)",
     "Auto-Refight Tickets)": "自动再战票)",
+    "Click to disable it": "点击此处关闭",
+    "Auto-Refight Tickets remaining)": "自动再战剩余次数)",
     "Pokemon": "宝可梦",
     "Z": " Z",
     "caught": "捕捉",
@@ -3182,6 +3186,7 @@ var cnPostfix = {
     ", and nullifies the damage overtime caused by it": "状态时",
     ", and nullifies the stat redution of the condition": "状态时",
     "weather": "天气时",
+    "x25": "x25",
     //活动地图
     "Revival": "活跃点",
     "Mega-Showdown": "Mega激斗",
