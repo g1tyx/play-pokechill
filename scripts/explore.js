@@ -8654,7 +8654,7 @@ function renamePokemon(){
 
         document.getElementById("pkmn-editor-nickname").textContent = pkmn[currentEditedPkmn].nickname
 
-        updatePreviewTeam()
+        if (saved.currentArea == undefined) updatePreviewTeam()
             
 
         closeTooltip()
@@ -8742,5 +8742,7 @@ window.addEventListener('load', function() {
     pkmnWalkCandidates()
     arceusCheck()
     assignShopDecor()
+
+    if (saved.arenaCard1 == undefined) createArenaCards()
     //updateTeamExp()
 });
