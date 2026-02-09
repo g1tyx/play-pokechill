@@ -747,37 +747,43 @@ item.everstone = {
 item.powerAnklet = {
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Speed Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Speed Iv's`},
 }
 
 item.powerBand = {
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Special Defense Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Special Defense Iv's`},
 }
 
 item.powerBelt = {
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Defense Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Defense Iv's`},
 }
 
 item.powerBracer = {
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Attack Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Attack Iv's`},
 }
 
 item.powerLens = {
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit Special Attack Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Special Attack Iv's`},
 }
 
 item.powerWeight = {
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit HP Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit HP Iv's`},
+}
+
+item.machoBrace = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Multiplies by 10 the chance to inherit Iv's`},
 }
 
 item.lockCapsule = {
@@ -802,12 +808,14 @@ item.destinyKnot = {
 
 
 
-item.glalitite = {
+
+
+item.abomasite = {
     
     evo: true,
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
-    heldBonusPkmn: function() { return pkmn.megaGlalie.id },
+    heldBonusPkmn: function() { return pkmn.megaAbomasnow.id },
 }
 
 item.absolite = {
@@ -882,6 +890,14 @@ item.barbaracite = {
     heldBonusPkmn: function() { return pkmn.megaBarbaracle.id },
 }
 
+item.baxcaliburite = {
+    
+    evo: true,
+    info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
+    heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaBaxcalibur.id },
+}
+
 item.beedrillite = {
     
     evo: true,
@@ -931,11 +947,17 @@ item.charizarditeY = {
 }
 
 item.diancite = {
-    
     evo: true,
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaDiancie.id },
+}
+
+item.dragonitite = {
+    evo: true,
+    info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
+    heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaDragonite.id },
 }
 
 item.falinksite = {
@@ -960,6 +982,14 @@ item.garchompite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaGarchomp.id },
+}
+
+item.glalitite = {
+    
+    evo: true,
+    info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
+    heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaGlalie.id },
 }
 
 item.gardevoirite = {
@@ -1107,6 +1137,23 @@ item.pinsirite = {
     heldBonusPkmn: function() { return pkmn.megaPinsir.id },
 }
 
+
+item.raichutiteX = {
+    
+    evo: true,
+    info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
+    heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaRaichuX.id },
+}
+
+item.raichutiteY = {
+    
+    evo: true,
+    info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
+    heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaRaichuY.id },
+}
+
 item.sablenite = {
     
     evo: true,
@@ -1115,13 +1162,7 @@ item.sablenite = {
     heldBonusPkmn: function() { return pkmn.megaSableye.id },
 }
 
-item.abomasite = {
-    
-    evo: true,
-    info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
-    heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
-    heldBonusPkmn: function() { return pkmn.megaAbomasnow.id },
-}
+
 
 item.salamencite = {
     

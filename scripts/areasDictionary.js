@@ -241,7 +241,7 @@ areas.verdantForest = {
     icon: pkmn.caterpie,
     spawns: {
         common : [pkmn.caterpie,pkmn.exeggcute, pkmn.scatterbug],
-        uncommon : [pkmn.sudowoodo],
+        uncommon : [pkmn.bonsly],
         rare : [pkmn.scyther]
     },
     drops: {
@@ -1300,7 +1300,7 @@ areas.victoryRoadII = {
     },
     drops: {
         common : [item.nothing],
-        rare : [item.mentalHerb, item.everstone , item.powerBracer]
+        rare : [item.mentalHerb, item.everstone , item.powerBracer, item.machoBrace]
     },
 }
 
@@ -1552,7 +1552,7 @@ areas.eventMegaBlastoise = {
 areas.eventMegaCharizardY = {
     rotation: 1,
     type: `event`,
-    name: `Charizard Y Mega-Showdown`,
+    name: `Charizard Mega-Showdown Y`,
     background : `gym`,
     icon: pkmn.megaCharizardY,
     trainer: true,
@@ -1760,11 +1760,72 @@ areas.eventMegaAbomasnow = {
     category: 1,
 }
 
+
+
+areas.eventMegaRaichuX = {
+    rotation: 1,
+    type: `event`,
+    name: `Raichu Mega-Showdown X`,
+    background : `gym`,
+    icon: pkmn.megaRaichuX,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.pokeflute.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/pokeflute.png"> Pokeflutes to enter`,
+    unlockRequirement : function() { return item.pokeflute.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.megaRaichuX,
+        slot1Moves : [move.bulkUp.id,move.voltTackle.id, move.icePunch.id, move.crossChop.id],
+    },
+    reward : [item.raichutiteX, pkmn.pichu],
+    category: 2,
+}
+
+areas.eventMegaRaichuY = {
+    rotation: 1,
+    type: `event`,
+    name: `Raichu Mega-Showdown Y`,
+    background : `gym`,
+    icon: pkmn.megaRaichuY,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.pokeflute.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/pokeflute.png"> Pokeflutes to enter`,
+    unlockRequirement : function() { return item.pokeflute.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.megaRaichuY,
+        slot1Moves : [move.calmMind.id,move.voltTackle.id, move.iceBeam.id, move.auraSphere.id],
+    },
+    reward : [item.raichutiteY, pkmn.pichu],
+    category: 2,
+}
+
+areas.eventMegaCharizardX = {
+    rotation: 1,
+    type: `event`,
+    name: `Charizard Mega-Showdown X`,
+    background : `gym`,
+    icon: pkmn.megaCharizardX,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.pokeflute.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/pokeflute.png"> Pokeflutes to enter`,
+    unlockRequirement : function() { return item.pokeflute.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.megaCharizardX,
+        slot1Moves : [move.dragonClaw.id,move.fly.id, move.brutalClaw.id, move.metalClaw.id],
+    },
+    reward : [item.charizarditeX, pkmn.charmander],
+    category: 2,
+}
+
 //rotation 2
-
-
-
-
 
 
 areas.lamodeDogwalk = {
@@ -2002,24 +2063,24 @@ areas.eventMegaGyarados = {
 
 
 
-
-areas.ecosphere = {
+areas.zoologyLab = {
     rotation: 2,
     type: `event`,
-    background : `route`,
-    level : wildAreaLevel5,
-    icon: pkmn.vivillon,
+    background : `lab`,
+    level : wildAreaLevel1,
+    icon: pkmn.tauros,
     spawns: {
-        common : [pkmn.scatterbug],
-        uncommon: [pkmn.vivillon],
-        rare : [pkmn.vivillonArchipelago,pkmn.vivillonContinental,pkmn.vivillonGarden,pkmn.vivillonHighPlains,pkmn.vivillonIcySnow,pkmn.vivillonJungle,pkmn.vivillonMarine, pkmn.vivillonMonsoon, pkmn.vivillonOcean, pkmn.vivillonPolar, pkmn.vivillonRiver, pkmn.vivillonSandstorm, pkmn.vivillonSavanna, pkmn.vivillonTundra]
+        common : [pkmn.tauros],
+        rare : [pkmn.taurosAqua, pkmn.taurosBlaze, pkmn.taurosCombat]
     },
     drops: {
         common : [item.mysteryEgg],
-        rare : [item.silverPowder],
+        rare : [item.silkScarf],
     },
-    category: 2,
+    category: 1,
 }
+
+
 
 
 areas.primalFissure = {
@@ -2108,11 +2169,68 @@ areas.eventTapuBulu = {
 
 
 
+areas.eventMegaPinsir = {
+    rotation: 2,
+    type: `event`,
+    name: `Pinsir Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaPinsir,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.primalEarth.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/primalEarth.png"> Primal Earths to enter`,
+    unlockRequirement : function() { return item.primalEarth.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.megaPinsir,
+        slot1Moves : [move.earthquake.id,move.xScissor.id, move.gigaImpact.id, move.fly.id],
+    },
+    reward : [item.pinsirite, pkmn.pinsir],
+    category: 2,
+}
 
+areas.eventGalarianZapdos = {
+    rotation: 2,
+    type: `event`,
+    name: `Badlands Roost`,
+    background : `desert`,
+    icon: pkmn.galarianZapdos,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.primalEarth.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/primalEarth.png"> Primal Earths to enter`,
+    unlockRequirement : function() { return item.primalEarth.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.galarianZapdos,
+        slot1Moves : [move.featherDance.id,move.thunderousKick.id, move.fly.id, move.steelWing.id],
+    },
+    reward : [pkmn.galarianZapdos],
+    category: 2,
+}
 
-
-
-
+areas.eventTingLu = {
+    rotation: 2,
+    type: `event`,
+    name: `Groundblight Shrine`,
+    background : `cave`,
+    icon: pkmn.tingLu,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.primalEarth.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/primalEarth.png"> Primal Earths to enter`,
+    unlockRequirement : function() { return item.primalEarth.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.tingLu,
+        slot1Moves : [move.ruination.id,move.earthquake.id, move.toxic.id, move.stoneEdge.id],
+    },
+    reward : [pkmn.tingLu],
+    category: 2,
+}
 
 
 
@@ -2408,6 +2526,75 @@ areas.eventMegaSteelix = {
     reward : [item.steelixite, pkmn.onix],
     category: 1,
 }
+
+
+
+areas.eventRegieleki = {
+    rotation: 3,
+    type: `event`,
+    name: `Transistor Ruins`,
+    background : `plant`,
+    icon: pkmn.regieleki,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.steelKeystone.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/steelKeystone.png"> Steel Keystones to enter`,
+    unlockRequirement : function() { return item.steelKeystone.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.regieleki,
+        slot1Moves : [move.thunderCage.id,move.thunderWave.id, move.iceBeam.id, move.bugBuzz.id],
+    },
+    reward : [pkmn.regieleki],
+    category: 2,
+}
+
+areas.eventRegidrago = {
+    rotation: 3,
+    type: `event`,
+    name: `Drago Ruins`,
+    background : `iceCave`,
+    icon: pkmn.regidrago,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.steelKeystone.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/steelKeystone.png"> Steel Keystones to enter`,
+    unlockRequirement : function() { return item.steelKeystone.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.regidrago,
+        slot1Moves : [move.dragonEnergy.id,move.flashCannon.id, move.hyperBeam.id, move.fireBlast.id],
+    },
+    reward : [pkmn.regidrago],
+    category: 2,
+}
+
+areas.eventGougingFire = {
+    rotation: 3,
+    type: `event`,
+    name: `Primeval volcano`,
+    background : `volcano`,
+    icon: pkmn.gougingFire,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.steelKeystone.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/steelKeystone.png"> Steel Keystones to enter`,
+    unlockRequirement : function() { return item.steelKeystone.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.gougingFire,
+        slot1Moves : [move.sunnyDay.id,move.fireBlast.id, move.earthquake.id, move.dracoMeteor.id],
+    },
+    reward : [pkmn.gougingFire],
+    category: 2,
+}
+
+
+
+
 
 //rotation 4
 
@@ -2772,24 +2959,91 @@ areas.eventTapuLele = {
 
 
 
+
+areas.eventChienPao = {
+    rotation: 4,
+    type: `event`,
+    name: `Icerend Shrine`,
+    background : `iceCave`,
+    icon: pkmn.chienPao,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.wormholeResidue.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
+    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.chienPao,
+        slot1Moves : [move.ruination.id,move.icicleCrash.id, move.toxic.id, move.fireFang.id],
+    },
+    reward : [pkmn.chienPao],
+    category: 2,
+}
+
+areas.eventMegaDragonite = {
+    rotation: 4,
+    type: `event`,
+    name: `Dragonite Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaDragonite,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.wormholeResidue.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
+    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.megaDragonite,
+        slot1Moves : [move.dragonDance.id,move.firePunch.id, move.icePunch.id, move.thunderPunch.id],
+    },
+    reward : [item.dragonitite, pkmn.dratini],
+    category: 2,
+}
+
+areas.eventGalarianMoltres = {
+    rotation: 4,
+    type: `event`,
+    name: `Evil Roost`,
+    background : `iceCave`,
+    icon: pkmn.galarianMoltres,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.wormholeResidue.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
+    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.galarianMoltres,
+        slot1Moves : [move.featherDance.id,move.fieryWrath.id, move.fireBlast.id, move.hurricane.id],
+    },
+    reward : [pkmn.galarianMoltres],
+    category: 2,
+}
+
+
+
 //rotation 5
 
 
-areas.zoologyLab = {
+areas.ecosphere = {
     rotation: 5,
     type: `event`,
-    background : `lab`,
-    level : wildAreaLevel1,
-    icon: pkmn.tauros,
+    background : `route`,
+    level : wildAreaLevel5,
+    icon: pkmn.vivillon,
     spawns: {
-        common : [pkmn.tauros],
-        rare : [pkmn.taurosAqua, pkmn.taurosBlaze, pkmn.taurosCombat]
+        common : [pkmn.scatterbug],
+        uncommon: [pkmn.vivillon],
+        rare : [pkmn.vivillonArchipelago,pkmn.vivillonContinental,pkmn.vivillonGarden,pkmn.vivillonHighPlains,pkmn.vivillonIcySnow,pkmn.vivillonJungle,pkmn.vivillonMarine, pkmn.vivillonMonsoon, pkmn.vivillonOcean, pkmn.vivillonPolar, pkmn.vivillonRiver, pkmn.vivillonSandstorm, pkmn.vivillonSavanna, pkmn.vivillonTundra]
     },
     drops: {
         common : [item.mysteryEgg],
-        rare : [item.silkScarf],
+        rare : [item.silverPowder],
     },
-    category: 1,
+    category: 2,
 }
 
 areas.protonCity = {
@@ -3131,6 +3385,74 @@ areas.eventMegaAggron = {
 
 
 
+
+
+areas.eventMegaBaxcalibur = {
+    rotation: 5,
+    type: `event`,
+    name: `Baxcalibur Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaBaxcalibur,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.wormholeResidue.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
+    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.megaBaxcalibur,
+        slot1Moves : [move.icicleCrash.id,move.dracoMeteor.id, move.earthquake.id, move.ironHead.id],
+    },
+    reward : [item.baxcaliburite, pkmn.frigibax],
+    category: 2,
+}
+
+
+areas.eventChiYu = {
+    rotation: 5,
+    type: `event`,
+    name: `Firescourge Shrine`,
+    background : `volcano`,
+    icon: pkmn.chiYu,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.wormholeResidue.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
+    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.chiYu,
+        slot1Moves : [move.ruination.id,move.fireBlast.id, move.toxic.id, move.thunder.id],
+    },
+    reward : [pkmn.chiYu],
+    category: 2,
+}
+
+areas.eventGalarianArticuno = {
+    rotation: 5,
+    type: `event`,
+    name: `Frozen Roost`,
+    background : `snow`,
+    icon: pkmn.galarianArticuno,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.wormholeResidue.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
+    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.galarianArticuno,
+        slot1Moves : [move.featherDance.id,move.freezingGlare.id, move.blizzard.id, move.hurricane.id],
+    },
+    reward : [pkmn.galarianArticuno],
+    category: 2,
+}
+
+
+
 //rotation 6
 
 
@@ -3278,6 +3600,72 @@ areas.eventHeatran = {
     reward : [pkmn.heatran],
     category: 2,
 }
+
+
+
+areas.eventMegaLucario = {
+    rotation: 6,
+    type: `event`,
+    name: `Lucario Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaLucario,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.redChain.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/redChain.png"> Red Chains to enter`,
+    unlockRequirement : function() { return item.redChain.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.megaLucario,
+        slot1Moves : [move.bulkUp.id,move.skyUppercut.id, move.ironHead.id, move.icePunch.id],
+    },
+    reward : [item.lucarionite, pkmn.riolu],
+    category: 2,
+}
+
+areas.eventMegaHeracross = {
+    rotation: 6,
+    type: `event`,
+    name: `Heracross Mega-Showdown`,
+    background : `gym`,
+    icon: pkmn.megaHeracross,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.redChain.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/redChain.png"> Red Chains to enter`,
+    unlockRequirement : function() { return item.redChain.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.megaHeracross,
+        slot1Moves : [move.thunderWave.id,move.xScissor.id, move.fly.id, move.earthquake.id],
+    },
+    reward : [item.heracronite, pkmn.heracross],
+    category: 2,
+}
+
+areas.eventWoChien = {
+    rotation: 6,
+    type: `event`,
+    name: `Grasswither Shrine`,
+    background : `night`,
+    icon: pkmn.woChien,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.redChain.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/redChain.png"> Red Chains to enter`,
+    unlockRequirement : function() { return item.redChain.got>2 },
+    level : 110,
+    team : {
+        slot1 : pkmn.woChien,
+        slot1Moves : [move.ruination.id,move.seedBomb.id, move.toxic.id, move.iceFang.id],
+    },
+    reward : [pkmn.woChien],
+    category: 2,
+}
+
 
 
 
@@ -4325,6 +4713,8 @@ areas.vsUltraEntityLusamine = {
         document.getElementById("tooltipBottom").style.display = `none`
         document.getElementById("tooltipMid").innerHTML = `
         <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(100deg)" >Tier IV Event Raids unlocked</div>
+        <div style="filter:hue-rotate(300deg)" >Master League is now available in the Battle Frontier</div>
         <div style="filter:hue-rotate(0deg)" >New Dungeon: Glistering Cave</div>
         </div>
         `
@@ -4359,7 +4749,7 @@ pkmn.meltan
 
 ]
 
-const rotationFrontierMax = 3;
+let rotationFrontierMax = 3;
 areas.frontierMorty = { //rock
     sprite : `hiker`,
     league: 1,

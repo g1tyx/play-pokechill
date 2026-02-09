@@ -493,6 +493,12 @@ shop.shoppowerWeight = {
     category: `genetics`,
 }
 
+shop.shopmachoBrace = {
+    icon: item.machoBrace.id,
+    price: 10,
+    category: `genetics`,
+}
+
 shop.shopeverstone = {
     icon: item.everstone.id,
     price: 20,

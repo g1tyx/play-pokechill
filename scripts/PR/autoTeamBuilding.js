@@ -189,7 +189,8 @@ function buildEnemyPool(area) {
 const allowedDivisionsByRotation = {
   1: ["C", "D"],
   2: ["B", "C", "D"],
-  3: ["A", "B", "C", "D"]
+  3: ["A", "B", "C", "D"],
+  4: ["SS","S","A", "B", "C", "D"]
 }
 
 /**

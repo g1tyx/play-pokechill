@@ -5789,7 +5789,7 @@ transform: translateY(-1rem);
     0%{top:-2rem}
     5%{top: 0%;}
     95%{top: 0;}
-    100%{top: -1.9rem}
+    100%{top: -33px}
 }
 
 
