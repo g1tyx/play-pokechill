@@ -60,7 +60,7 @@ window.addEventListener("app-update-available", () => {
   updateShown = true;
   saveGame();
   const banner = document.createElement("div");
-  banner.textContent = "A new update is available. Refresh to update.";
+  banner.textContent = "A new update is available";
   banner.style.position = "fixed";  
   banner.style.top = "0";  
   banner.style.left = "0";  

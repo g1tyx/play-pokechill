@@ -768,6 +768,10 @@ ability.flashHerba = {
 
 //hidden
 
+ability.treasureOfRuin = {
+    rarity: 3,
+    info: function() {return `Increases Cross-Power by +0.5`},
+}
 
 ability.thousandArms = {
     rarity: 3,
@@ -1035,6 +1039,11 @@ ability.pixilate = {
 
 ability.verdify = {
     info: function() {return `Normal-type moves become Grass-type moves, and their power is multiplied by x1.3`},
+    rarity: 3,
+}
+
+ability.dragonMaw = {
+    info: function() {return `Normal-type moves become Dragon-type moves, and their power is multiplied by x1.3`},
     rarity: 3,
 }
 
@@ -2562,7 +2571,9 @@ move.muddyWater = {
     split: "special",
     rarity: 3,
     type: "water",
-    power: 100
+    power: 100,
+    info: function() {return `30% chance to decrease enemy Speed by 50%`},
+    hitEffect: function(target) { if (rng(0.30)) moveBuff(target,'spedown1') },
 }
 
 move.hydroPump = {
@@ -2724,6 +2735,17 @@ move.grassyTerrain = {
     power: 0,
     info: function() {return `Changes the weather to ${tagGrassyTerrain}`} ,
     hitEffect: function(target) { changeWeather("grassyTerrain") },
+}
+
+move.leafStorm = {  
+    moveset: [`grass`],
+    split: "special",
+    rarity: 3,
+    type: "grass",
+    power: 150,
+    info: function() {return `Decreases Special Attack by 50%`},
+    hitEffect: function(target) { moveBuff(target,'satkdown1','self') },
+    unaffectedBy: [ability.sheerForce.id],
 }
 
 
@@ -4115,6 +4137,40 @@ move.darkestLariat = {
     power: t4Base,
 }
 
+move.dragonEnergy = {
+    split: "special",
+    type: "dragon",
+    power: t4Base*1.5,
+    timer: defaultPlayerMoveTimer*1.5,
+    info: function() {return `Attacks x1.5 slower than usual`} ,
+}
+
+move.thunderCage = {
+    split: "special",
+    type: "electric",
+    power: t4Base/2,
+    timer: defaultPlayerMoveTimer*0.5,
+    info: function() {return `Attacks x2 faster than usual`} ,
+}
+
+move.darkestLariat = {
+    split: "physical",
+    type: "dark",
+    power: t4Base,
+}
+
+move.ruination = {
+    split: "physical",
+    type: "dark",
+    power: t4Base,
+    info: function() {return `Split changes to match the highest stat of the user`},
+    castEffect: function(target) {
+    if (pkmn[ team[exploreActiveMember].pkmn.id ].bst.atk>pkmn[ team[exploreActiveMember].pkmn.id ].bst.satk){
+        this.split = "physical"
+    } else this.split = "special"
+    },
+}
+
 move.mindBlown = {
     split: "special",
     type: "fire",
@@ -4258,6 +4314,13 @@ move.bitterBlade = { //new
     type: "fire",
     power: t4Base-20,
     affectedBy: [ability.sharpness.id]
+}
+
+move.brutalClaw = { //new
+    split: "physical",
+    type: "fire",
+    power: t4Base-40,
+    affectedBy: [ability.toughClaws.id]
 }
 
 move.noRetreat = { //new
@@ -4609,6 +4672,22 @@ move.thunderousKick = {
     power: t4Base-40,
     info: function() {return `Decreases enemy Defense by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1') },
+}
+
+move.fieryWrath = {
+    split: "special",
+    type: "dark",
+    power: t4Base-40,
+    info: function() {return `Decreases enemy Special Defense by 50%`},
+    hitEffect: function(target) { moveBuff(target,'sdefdown1') },
+}
+
+move.freezingGlare = {
+    split: "special",
+    type: "psychic",
+    power: t4Base-40,
+    info: function() {return `Decreases enemy Speed by 50%`},
+    hitEffect: function(target) { moveBuff(target,'spedown1') },
 }
 
 move.meteorAssault = { //new

@@ -85,7 +85,7 @@ function tooltipData(category, ttdata){
 
 
         document.getElementById("tooltipTop").style.display = "none";
-        document.getElementById("tooltipTitle").style.display = "Area Information";
+        document.getElementById("tooltipTitle").style.display = "none";
         document.getElementById("tooltipMid").style.display = "none";
         document.getElementById("tooltipBottom").style.display = "inline";
         document.getElementById("tooltipBottom").innerHTML = `<div id="area-preview-spawns"><strong>Area Pokemon</strong></div>`;
@@ -159,7 +159,7 @@ function tooltipData(category, ttdata){
 
 
         document.getElementById("tooltipTop").style.display = "none";
-        document.getElementById("tooltipTitle").style.display = "Area Information";
+        document.getElementById("tooltipTitle").style.display = "none";
         document.getElementById("tooltipMid").style.display = "none";
         document.getElementById("tooltipBottom").style.display = "inline";
         document.getElementById("tooltipBottom").innerHTML = `<div id="area-preview-spawns"><strong>Team Preview</strong></div><div id="preview-field-effects"></div>`;
@@ -1629,6 +1629,8 @@ const sortedMovepool = movepool
         document.getElementById("tooltipMid").innerHTML = `
         <span style="display:flex; flex-direction:column">${spawnLocation}<span>
         `
+
+        document.getElementById("tooltipMid").innerHTML += `This Pokemon can last ${(100 + Math.pow(1.15, 6) * (pkmn[ttdata].bst.hp*30 + (pkmn[ttdata].bst.def + pkmn[ttdata].bst.sdef)*15)).toFixed(0)} turns before fainting from Battle Fatigue at maxium IVs`
 
 
 

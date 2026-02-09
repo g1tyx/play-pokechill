@@ -170,7 +170,7 @@ pkmn.megaCharizardX = {
         spe: 100,
     },
     hiddenAbility: ability.toughClaws,
-    signature : move.flameBurst
+    signature : move.brutalClaw
 }
 
 pkmn.megaCharizardY = {
@@ -785,6 +785,12 @@ pkmn.raichu = {
         sdef: 80,
         spe: 110,
     },
+        evolve: function() { 
+        return { 
+            1: { pkmn: pkmn.megaRaichuX, item: item.raichutiteX }, 
+            2: { pkmn: pkmn.megaRaichuY, item: item.raichutiteY },
+        } 
+    },
     hiddenAbility: ability.electricSurge,
     signature : move.voltTackle
 }
@@ -798,31 +804,37 @@ pkmn.alolanRaichu = {
         satk: 95,
         sdef: 85,
         spe: 110,
-    }
+    },
+    hiddenAbility: ability.electricSurge,
+    signature : move.voltTackle,
 }
 
 pkmn.megaRaichuX = {
     type: ["electric"],
     bst: {
-        hp: 60,
-        atk: 135,
+        hp: 120,
+        atk: 175,
         def: 95,
         satk: 90,
         sdef: 95,
-        spe: 110,
-    }
+        spe: 100,
+    },
+    hiddenAbility: ability.ambidextrous,
+    signature : move.voltTackle,
 }
 
 pkmn.megaRaichuY = {
     type: ["electric"],
     bst: {
         hp: 60,
-        atk: 100,
+        atk: 160,
         def: 55,
         satk: 160,
         sdef: 80,
-        spe: 130,
-    }
+        spe: 140,
+    },
+    hiddenAbility: ability.electricSurge,
+    signature : move.voltTackle,
 }
 
 // 027 Sandshrew → Sandslash
@@ -3820,10 +3832,11 @@ pkmn.galarianArticuno = {
         atk: 85,
         def: 85,
         satk: 125,
-        sdef: 100,
+        sdef: 150,
         spe: 95,
     },
     hiddenAbility: ability.justified,
+    signature : move.freezingGlare
 }
 
 // 145 Zapdos
@@ -3849,8 +3862,10 @@ pkmn.galarianZapdos = {
         def: 90,
         satk: 85,
         sdef: 90,
-        spe: 100,
-    }
+        spe: 150,
+    },
+    hiddenAbility: ability.angerPoint,
+    signature : move.thunderousKick
 }
 
 // 146 Moltres
@@ -3874,10 +3889,12 @@ pkmn.galarianMoltres = {
         hp: 90,
         atk: 85,
         def: 90,
-        satk: 100,
+        satk: 150,
         sdef: 125,
         spe: 90,
-    }
+    },
+    hiddenAbility: ability.gloomilate,
+    signature : move.fieryWrath
 }
 
 // 147 Dratini → Dragonair → Dragonite
@@ -3919,6 +3936,7 @@ pkmn.dragonite = {
         sdef: 100,
         spe: 80,
     },
+    evolve: function() { return { 1: { pkmn: pkmn.megaDragonite, item: item.dragonitite } } },
     hiddenAbility: ability.multiscale,
 }
 
@@ -3931,7 +3949,8 @@ pkmn.megaDragonite = {
         satk: 145,
         sdef: 125,
         spe: 100,
-    }
+    },
+    hiddenAbility: ability.multiscale,
 }
 
 // 150 Mewtwo
@@ -17648,12 +17667,14 @@ pkmn.regieleki = {
   type: ["electric"],
   bst: {
     hp: 80,
-    atk: 100,
+    atk: 120,
     def: 50,
-    satk: 100,
+    satk: 120,
     sdef: 50,
     spe: 200,
   },
+    hiddenAbility: ability.galvanize,
+    signature : move.thunderCage
 }
 
 // 895 Regidrago
@@ -17662,11 +17683,14 @@ pkmn.regidrago = {
   bst: {
     hp: 200,
     atk: 100,
-    def: 50,
+    def: 80,
     satk: 100,
-    sdef: 50,
+    sdef: 80,
     spe: 80,
   },
+    hiddenAbility: ability.dragonMaw,
+    signature : move.dragonEnergy
+
 }
 
 // 896 Glastrier
@@ -19035,7 +19059,8 @@ pkmn.frigibax = {
     sdef: 45,
     spe: 55,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.arctibax, level: evolutionLevel2 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.arctibax, level: evolutionLevel2 } } },
+    hiddenAbility: ability.sharpness,
 }
 
 pkmn.arctibax = {
@@ -19048,7 +19073,8 @@ pkmn.arctibax = {
     sdef: 65,
     spe: 62,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.baxcalibur, level: evolutionLevel3 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.baxcalibur, level: evolutionLevel3 } } },
+    hiddenAbility: ability.sharpness,
 }
 
 pkmn.baxcalibur = {
@@ -19060,7 +19086,9 @@ pkmn.baxcalibur = {
     satk: 75,
     sdef: 86,
     spe: 87,
-  }
+  },
+    hiddenAbility: ability.sharpness,
+    evolve: function() { return { 1: { pkmn: pkmn.megaBaxcalibur, item: item.baxcaliburite } } },
 }
 
 pkmn.megaBaxcalibur = {
@@ -19072,7 +19100,8 @@ pkmn.megaBaxcalibur = {
     satk: 105,
     sdef: 101,
     spe: 87,
-  }
+  },
+    hiddenAbility: ability.sharpness,
 }
 
 // 999 Gimmighoul → Gholdengo
@@ -19121,10 +19150,12 @@ pkmn.woChien = {
     hp: 100,
     atk: 100,
     def: 200,
-    satk: 100,
-    sdef: 60,
+    satk: 120,
+    sdef: 120,
     spe: 50,
-  }
+  },
+    hiddenAbility: ability.treasureOfRuin,
+    signature : move.ruination
 }
 
 // 1002 Chien-Pao
@@ -19132,12 +19163,14 @@ pkmn.chienPao = {
   type: ["dark", "ice"],
   bst: {
     hp: 80,
-    atk: 120,
-    def: 80,
+    atk: 175,
+    def: 125,
     satk: 90,
     sdef: 70,
     spe: 110,
-  }
+  },
+    hiddenAbility: ability.treasureOfRuin,
+    signature : move.ruination
 }
 
 // 1003 Ting-Lu
@@ -19145,12 +19178,14 @@ pkmn.tingLu = {
   type: ["dark", "ground"],
   bst: {
     hp: 155,
-    atk: 100,
-    def: 122,
+    atk: 140,
+    def: 152,
     satk: 40,
     sdef: 72,
     spe: 85,
-  }
+  },
+    hiddenAbility: ability.treasureOfRuin,
+    signature : move.ruination
 }
 
 // 1004 Chi-Yu
@@ -19160,10 +19195,12 @@ pkmn.chiYu = {
     hp: 55,
     atk: 80,
     def: 80,
-    satk: 135,
-    sdef: 85,
+    satk: 175,
+    sdef: 125,
     spe: 135,
-  }
+  },
+    hiddenAbility: ability.treasureOfRuin,
+    signature : move.ruination
 }
 
 // 1005 Roaring Moon

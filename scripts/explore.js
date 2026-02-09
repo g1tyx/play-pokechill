@@ -311,6 +311,7 @@ function setWildPkmn(){
     if (rotationFrontierCurrent == 2) divisionToUse = "B"
     if (rotationFrontierCurrent == 3) divisionToUse = "A"
     if (rotationFrontierCurrent == 4) divisionToUse = "S"
+    if (rotationFrontierCurrent == 4 && rng(0.5)) divisionToUse = "SS"
     
     spawnedPkmn = randomDivisionPkmn(divisionToUse, saved.currentSpiralingType, undefined, saved.currentSpiralFloor)
 
@@ -340,7 +341,8 @@ for (let i = 0; i < 4; i++) {
     if (rotationFrontierCurrent == 2) divisionToUse = "B"
     if (rotationFrontierCurrent == 3) divisionToUse = "A"
     if (rotationFrontierCurrent == 4) divisionToUse = "S"
-    
+    if (rotationFrontierCurrent == 4 && rng(0.5)) divisionToUse = "SS"
+
     spawnedPkmn = areas.frontierBattleFactory.icon.id
 
     randomMoves = [move.splash.id]
@@ -2435,6 +2437,7 @@ function exploreCombatPlayer() {
         if (testAbility(`active`, ability.espilate.id) && moveType=="normal") {moveType = "psychic"; totalPower*=1.3}
         if (testAbility(`active`, ability.aerilate.id) && moveType=="normal") {moveType = "flying"; totalPower*=1.3}
         if (testAbility(`active`, ability.pixilate.id) && moveType=="normal") {moveType = "fairy"; totalPower*=1.3}
+        if (testAbility(`active`, ability.dragonMaw.id) && moveType=="normal") {moveType = "dragon"; totalPower*=1.3}
         if (testAbility(`active`, ability.verdify.id) && moveType=="normal") {moveType = "grass"; totalPower*=1.3}
 
 
@@ -2671,7 +2674,7 @@ function exploreCombatPlayer() {
         if (saved.weather=="grassyTerrain" && (!attacker.type.includes("grass") && !attacker.type.includes("bug"))) attacker.playerHp -= attacker.playerHpMax/15
         }
 
-
+        
         if (areas[saved.currentArea].fieldEffect?.includes(field.weakeningCurse.id) && nextMove.split == 'physical') totalPower *= 0.5
         if (areas[saved.currentArea].fieldEffect?.includes(field.fatiguingCurse.id) && nextMove.split == 'special') totalPower *= 0.5
 
@@ -2836,8 +2839,27 @@ function typeEffectiveness(attacking, defending) {
   };
 
   let result = defending.reduce((mul, defType) => mul * (chart[attacking]?.[defType] ?? 1), 1);
-  if ((saved.currentArea == areas.frontierSpiralingTower.id || saved.currentArea == areas.training.id) && result==0) result = 0.5 
-  if (areas[saved.currentArea]?.fieldEffect?.includes(field.noMercy.id) && result==0) result = 0.5 
+
+
+
+  const noImmunities =
+    saved.currentArea == areas.frontierSpiralingTower.id ||
+    saved.currentArea == areas.training.id;
+
+  const fieldNoMercyActive = areas[saved.currentArea]?.fieldEffect?.includes(
+    field.noMercy.id,
+  );
+  //epic code by otpoke
+  if (result == 0) {
+    if (noImmunities || fieldNoMercyActive) {
+      // For cases that immunity is overwritten with 0.5, recalc Type-Effectiveness instead of unconditionally setting to 0.5
+      result = defending.reduce((mul, defType) => {
+        let eff = chart[attacking]?.[defType] ?? 1;
+        if (eff == 0) eff = 0.5;
+        return mul * eff;
+      }, 1);
+    }
+  }
 
 
   if (areas[saved.currentArea]?.fieldEffect?.includes(field.weirdRoom.id)) {
@@ -4204,6 +4226,7 @@ function setEventAreas() {
         divAreas.addEventListener("click", e => { 
             
             if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) return
+            if (areas[i].encounter && areas[i].difficulty===tier4difficulty && areas.vsUltraEntityLusamine.defeated!=true) return
             saved.currentAreaBuffer = i
             document.getElementById(`preview-team-exit`).style.display = "flex"
             document.getElementById(`team-menu`).style.zIndex = `50`
@@ -4223,9 +4246,14 @@ function setEventAreas() {
        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16" opacity="0.5"/><path fill="currentColor" d="M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z"/></svg>
        <span>${areas[i].unlockDescription}</span>
        </span>`
+
        if (areas[i].encounter && areas[i].difficulty===tier2difficulty && areas.vsEliteFourLance.defeated!=true) unlockRequirement =`<span class="ticket-unlock">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16" opacity="0.5"/><path fill="currentColor" d="M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z"/></svg>
        Defeat Elite Four Lance in VS to unlock</span>`
+
+       if (areas[i].encounter && areas[i].difficulty===tier4difficulty && areas.vsUltraEntityLusamine.defeated!=true) unlockRequirement =`<span class="ticket-unlock">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16s0 4.243-.879 5.121C20.243 22 18.828 22 16 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16" opacity="0.5"/><path fill="currentColor" d="M6.75 8a5.25 5.25 0 0 1 10.5 0v2.004c.567.005 1.064.018 1.5.05V8a6.75 6.75 0 0 0-13.5 0v2.055a24 24 0 0 1 1.5-.051z"/></svg>
+       Defeat Ultra Entity Lusamine in VS to unlock</span>`
 
 
        let eventTag ;
@@ -4234,6 +4262,7 @@ function setEventAreas() {
        if (areas[i].encounter && areas[i].difficulty===tier1difficulty) eventTag = `<strong style="filter:hue-rotate(50deg)" class="event-tag">Tier I Raid ❖</strong>`
        if (areas[i].encounter && areas[i].difficulty===tier2difficulty) eventTag = `<strong style="filter:hue-rotate(200deg)" class="event-tag">Tier II Raid ❖</strong>`
        if (areas[i].encounter && areas[i].difficulty===tier3difficulty) eventTag = `<strong style="filter:hue-rotate(300deg)" class="event-tag">Tier III Raid ❖</strong>`
+       if (areas[i].encounter && areas[i].difficulty===tier4difficulty) eventTag = `<strong style="filter:hue-rotate(100deg)" class="event-tag">Tier IV Raid ❖</strong>`
 
        let nameTag = ""
        if (areas[i].encounter) nameTag = `<svg class="event-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m21.838 11.126l-.229 2.436c-.378 4.012-.567 6.019-1.75 7.228C18.678 22 16.906 22 13.36 22h-2.72c-3.545 0-5.317 0-6.5-1.21s-1.371-3.216-1.749-7.228l-.23-2.436c-.18-1.912-.27-2.869.058-3.264a1 1 0 0 1 .675-.367c.476-.042 1.073.638 2.268 1.998c.618.704.927 1.055 1.271 1.11a.92.92 0 0 0 .562-.09c.319-.16.53-.595.955-1.464l2.237-4.584C10.989 2.822 11.39 2 12 2s1.011.822 1.813 2.465l2.237 4.584c.424.87.636 1.304.955 1.464c.176.089.37.12.562.09c.344-.055.653-.406 1.271-1.11c1.195-1.36 1.792-2.04 2.268-1.998a1 1 0 0 1 .675.367c.327.395.237 1.352.057 3.264" opacity="0.5"/><path fill="currentColor" d="m12.952 12.699l-.098-.176c-.38-.682-.57-1.023-.854-1.023s-.474.34-.854 1.023l-.098.176c-.108.194-.162.29-.246.354c-.085.064-.19.088-.4.135l-.19.044c-.738.167-1.107.25-1.195.532s.164.577.667 1.165l.13.152c.143.167.215.25.247.354s.021.215 0 .438l-.02.203c-.076.785-.114 1.178.115 1.352c.23.174.576.015 1.267-.303l.178-.082c.197-.09.295-.136.399-.136s.202.046.399.136l.178.082c.691.319 1.037.477 1.267.303s.191-.567.115-1.352l-.02-.203c-.021-.223-.032-.334 0-.438s.104-.187.247-.354l.13-.152c.503-.588.755-.882.667-1.165c-.088-.282-.457-.365-1.195-.532l-.19-.044c-.21-.047-.315-.07-.4-.135c-.084-.064-.138-.16-.246-.354"/></svg>`
@@ -4322,6 +4351,10 @@ let rotationFrontierCurrent = 1;
 let dailySeed = 0
 
 function getSeed() {
+
+
+  if (areas.vsUltraEntityLusamine.defeated) {rotationFrontierMax = 4} else {rotationFrontierMax = 3}
+
   const now = new Date();
   const utcTime = now.getTime(); 
   const halfDayNumber = Math.floor(utcTime / (1000 * 60 * 60 * 12));
@@ -5964,6 +5997,7 @@ function resetSpiralingTower(){
     if (rotationFrontierCurrent == 2) divisionToUse = "B"
     if (rotationFrontierCurrent == 3) divisionToUse = "A"
     if (rotationFrontierCurrent == 4) divisionToUse = "S"
+    if (rotationFrontierCurrent == 4 && rng(0.5)) divisionToUse = "SS"
 
 
     //factory
@@ -6174,6 +6208,7 @@ for (const i in areas) {
   if (rotationFrontierCurrent == 2) divisionToUse = "B"
   if (rotationFrontierCurrent == 3) divisionToUse = "A"
   if (rotationFrontierCurrent == 4) divisionToUse = "S"
+  if (rotationFrontierCurrent == 4 && rng(0.5)) divisionToUse = "SS"
 
   let pkmn1 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing)]
   let pkmn2 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id])]
@@ -6185,7 +6220,7 @@ for (const i in areas) {
 
   //this is a safefail if they dont find adequate pokemon
   if (rotationFrontierCurrent == 3) divisionToUse = "B"
-  if (rotationFrontierCurrent == 4) divisionToUse = "A"
+  if (rotationFrontierCurrent == 4) divisionToUse = "S"
 
   if (pkmn1 == undefined) pkmn1 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing)]
   if (pkmn2 == undefined) pkmn2 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1])]
@@ -6194,6 +6229,14 @@ for (const i in areas) {
   if (pkmn5 == undefined) pkmn5 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3, pkmn4])]
   if (pkmn6 == undefined) pkmn6 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3, pkmn4, pkmn5])]
 
+
+  if (rotationFrontierCurrent == 4) divisionToUse = "A" //fallback for division 4
+  if (pkmn1 == undefined) pkmn1 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing)]
+  if (pkmn2 == undefined) pkmn2 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1])]
+  if (pkmn3 == undefined) pkmn3 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2])]
+  if (pkmn4 == undefined) pkmn4 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3])]
+  if (pkmn5 == undefined) pkmn5 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3, pkmn4])]
+  if (pkmn6 == undefined) pkmn6 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3, pkmn4, pkmn5])]
 
  areas[i].team = {}
   areas[i].team.slot1 = pkmn1
@@ -6333,7 +6376,7 @@ function updateFrontier() {
     if (rotationFrontierCurrent==1) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Little Cup${cupsvg}</span><div>${returnDivisionLetter("C")} division and below only</div>`
     if (rotationFrontierCurrent==2) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Great League${cupsvg}</span><div>${returnDivisionLetter("B")} division and below only</div>`
     if (rotationFrontierCurrent==3) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Ultra League${cupsvg}</span><div>${returnDivisionLetter("A")} division and below only</div>`
-    if (rotationFrontierCurrent==4) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Master League${cupsvg}</span><div>${returnDivisionLetter("S")} division and below only</div>`
+    if (rotationFrontierCurrent==4) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Master League${cupsvg}</span><div>${returnDivisionLetter("SS")} division and below only</div>`
     
     
     document.getElementById(`frontier-listing`).innerHTML = `<div class="frontier-league">${divisionText}</div>`
@@ -6641,16 +6684,16 @@ function updateWildBuffs(){
     document.getElementById("wild-buff-list").innerHTML = ""
 
 
-    if (areas[saved.currentArea].fieldEffect?.includes(field.harshSun.id)) {saved.weather="sunny"; saved.weatherTimer = 5}
-    if (areas[saved.currentArea].fieldEffect?.includes(field.thickFog.id)) {saved.weather="foggy"; saved.weatherTimer = 5}
-    if (areas[saved.currentArea].fieldEffect?.includes(field.coarseSandstorm.id)) {saved.weather="sandstorm"; saved.weatherTimer = 5}
-    if (areas[saved.currentArea].fieldEffect?.includes(field.fierceHail.id)) {saved.weather="hail"; saved.weatherTimer = 5}
-    if (areas[saved.currentArea].fieldEffect?.includes(field.heavyRain.id)) {saved.weather="rainy"; saved.weatherTimer = 5}
-    if (areas[saved.currentArea].fieldEffect?.includes(field.electricField.id)) {saved.weather="electricTerrain"; saved.weatherTimer = 5}
-    if (areas[saved.currentArea].fieldEffect?.includes(field.grassyField.id)) {saved.weather="grassyTerrain"; saved.weatherTimer = 5}
-    if (areas[saved.currentArea].fieldEffect?.includes(field.mistyField.id)) {saved.weather="mistyTerrain"; saved.weatherTimer = 5}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.harshSun.id)) {saved.weather="sunny"; saved.weatherTimer = 5}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.thickFog.id)) {saved.weather="foggy"; saved.weatherTimer = 5}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.coarseSandstorm.id)) {saved.weather="sandstorm"; saved.weatherTimer = 5}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.fierceHail.id)) {saved.weather="hail"; saved.weatherTimer = 5}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.heavyRain.id)) {saved.weather="rainy"; saved.weatherTimer = 5}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.electricField.id)) {saved.weather="electricTerrain"; saved.weatherTimer = 5}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.grassyField.id)) {saved.weather="grassyTerrain"; saved.weatherTimer = 5}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.mistyField.id)) {saved.weather="mistyTerrain"; saved.weatherTimer = 5}
 
-    if (areas[saved.currentArea].fieldEffect?.includes(field.deltaStream.id)) {saved.weatherTimer = 0}
+    if (areas[saved.currentArea]?.fieldEffect?.includes(field.deltaStream.id)) {saved.weatherTimer = 0}
 
 
     for (const i in wildBuffs) {
@@ -7510,17 +7553,23 @@ if (mod==="end"){
 
     
     let ivChanceHp = ivChance
-    if (item == "powerWeight") ivChanceHp *= 20
+    if (item == "powerWeight") ivChanceHp = 1
+    if (item == "machoBrace") ivChanceHp *= 10
     let ivChanceAtk = ivChance
-    if (item == "powerBracer") ivChanceAtk *= 20
+    if (item == "powerBracer") ivChanceAtk = 1
+    if (item == "machoBrace") ivChanceAtk *= 10
     let ivChanceDef = ivChance
-    if (item == "powerBelt") ivChanceDef *= 20
+    if (item == "powerBelt") ivChanceDef = 1
+    if (item == "machoBrace") ivChanceDef *= 10
     let ivChanceSatk = ivChance
-    if (item == "powerLens") ivChanceSatk *= 20
+    if (item == "powerLens") ivChanceSatk = 1
+    if (item == "machoBrace") ivChanceSatk *= 10
     let ivChanceSdef = ivChance
-    if (item == "powerBand") ivChanceSdef *= 20
+    if (item == "powerBand") ivChanceSdef = 1
+    if (item == "machoBrace") ivChanceSdef *= 10
     let ivChanceSpe = ivChance
-    if (item == "powerAnklet") ivChanceSpe *= 20
+    if (item == "powerAnklet") ivChanceSpe = 1
+    if (item == "machoBrace") ivChanceSpe *= 10
 
     let ivCap = 6
     if (powerCost==6) ivCap = 5
@@ -8241,6 +8290,7 @@ function testAbility(target,id){
         if (testAbility(target, ability.espilate.id)) return true
         if (testAbility(target, ability.aerilate.id)) return true
         if (testAbility(target, ability.pixilate.id)) return true
+        if (testAbility(target, ability.dragonMaw.id)) return true
         if (testAbility(target, ability.verdify.id)) return true
     }
 
