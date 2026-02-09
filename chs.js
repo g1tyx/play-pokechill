@@ -970,7 +970,7 @@ var cnItems = {
     "All of your Pokemon gain": "你的所有宝可梦获得",
     "Iron Body": "钢铁之躯",
     "Super-effective damage on the enemy Pokemon is reduced to neutral": "对敌方宝可梦造成效果绝佳的伤害变为普通伤害",
-    "Weakening  Curse": "虚弱诅咒",
+    "Weakening Curse": "虚弱诅咒",
     "Physical damage dealt to the enemy is halved": "对敌方造成的物理伤害减半",
     "Fatiguing Curse": "疲劳诅咒",
     "Special damage dealt to the enemy is halved": "对敌方造成的特殊伤害减半",
