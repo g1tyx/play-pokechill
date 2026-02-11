@@ -41,6 +41,22 @@ shop.shopheartScale = {
     category: `goods`,
 }
 
+shop.shoptimeCandyXL = {
+    icon: item.timeCandyXL.id,
+    price: 3,
+    currency: item.timeCandy.id,
+    category: `goods`,
+}
+
+shop.shoptimeCandy = {
+    icon: item.timeCandy.id,
+    name: `Time Candy x3`,
+    price: 1,
+    currency: item.timeCandyXL.id,
+    category: `goods`,
+    effect: function() {item.timeCandy.got+=3}
+}
+
 shop.shopepochFeather = {
     icon: item.epochFeather.id,
     name: `Epoch Feather x25`,
@@ -241,6 +257,13 @@ shop.shoplifeOrb = {
 shop.shopshinyCharm = {
     icon: item.shinyCharm.id,
     price: 200,
+    category: `held`,
+}
+
+shop.shopterrainExtender = {
+    icon: item.terrainExtender.id,
+    price: 5,
+    currency: item.goldenBottleCap.id,
     category: `held`,
 }
 
@@ -522,6 +545,71 @@ shop.shopdestinyKnot = {
     price: 50,
     category: `genetics`,
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+shop.shoptrickRoomTm = {
+    icon: item.trickRoomTm.id,
+    price: 5,
+    category: `tm`,
+}
+
+shop.shopweirdRoomTm = {
+    icon: item.weirdRoomTm.id,
+    price: 5,
+    category: `tm`,
+}
+
+shop.shopcrossRoomTm = {
+    icon: item.crossRoomTm.id,
+    price: 5,
+    category: `tm`,
+}
+
+shop.shoplightScreenTm = {
+    icon: item.lightScreenTm.id,
+    price: 5,
+    category: `tm`,
+}
+
+shop.shopsafeguardTm = {
+    icon: item.safeguardTm.id,
+    price: 5,
+    category: `tm`,
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 shop.shoptackleTm = {

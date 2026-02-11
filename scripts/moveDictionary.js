@@ -620,7 +620,7 @@ ability.strategist = {
 ability.sheerForce = {
     type: [`ground`, `steel`, `rock`],
     rarity: 3,
-    info: function() {return `Positive secondary effect of damaging moves are removed, and their damage is multiplied by x1.2`},
+    info: function() {return `Positive secondary effect of damaging moves are removed, and their damage is multiplied by x1.25`},
 }
 
 ability.levitate = {
@@ -2279,6 +2279,17 @@ move.icicleCrash = {
 }
 
 
+move.safeguard = {
+    moveset: [`ice`],
+    split: "special",
+    rarity: 3,
+    type: "ice",
+    power: 0,
+    info: function() {return `Changes the weather to ${tagSafeguard}`} ,
+    hitEffect: function(target) { changeWeather("safeguard") },
+}
+
+
 
 
 //bug
@@ -2436,6 +2447,15 @@ move.uTurn = {
     hitEffect: function(target) { if (target=="wild" && saved.currentArea != "training") switchMemberNext() },
 }
 
+move.weirdRoom = {
+    moveset: [`bug`],
+    split: "special",
+    rarity: 3,
+    type: "bug",
+    power: 0,
+    info: function() {return `Changes the weather to ${tagWeirdRoom}`} ,
+    hitEffect: function(target) { changeWeather("weirdRoom") },
+}
 
 
 
@@ -2742,7 +2762,7 @@ move.leafStorm = {
     split: "special",
     rarity: 3,
     type: "grass",
-    power: 150,
+    power: 180,
     info: function() {return `Decreases Special Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'satkdown1','self') },
     unaffectedBy: [ability.sheerForce.id],
@@ -2858,7 +2878,7 @@ move.hammerArm = {
     split: "physical",
     rarity: 3,
     type: "fighting",
-    power: 150,
+    power: 180,
     info: function() {return `Decreases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1','self') },
     unaffectedBy: [ability.sheerForce.id],
@@ -2926,6 +2946,15 @@ move.focusBlast = {
 }
 
 
+move.crossRoom = {
+    moveset: [`fighting`],
+    split: "special",
+    rarity: 3,
+    type: "fighting",
+    power: 0,
+    info: function() {return `Changes the weather to ${tagCrossRoom}`} ,
+    hitEffect: function(target) { changeWeather("crossRoom") },
+}
 
 
 
@@ -3058,6 +3087,18 @@ move.calmMind = {
     hitEffect: function(target) { moveBuff(target,'sdefup1',"self"); moveBuff(target,'satkup1',"self") },
     restricted: true,
 }
+
+
+/*
+move.reflect = {
+    moveset: [`psychic`],
+    split: "special",
+    rarity: 3,
+    type: "psychic",
+    power: 0,
+    info: function() {return `Changes the weather to ${tagReflect}`} ,
+    hitEffect: function(target) { changeWeather("reflect") },
+}*/
 
 
 
@@ -3401,7 +3442,7 @@ move.dracoMeteor = {
     split: "special",
     rarity: 3,
     type: "dragon",
-    power: 150,
+    power: 180,
     info: function() {return `Decreases Special Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'satkdown1','self') },
     unaffectedBy: [ability.sheerForce.id],
@@ -3562,6 +3603,22 @@ move.memento = {
     unaffectedBy: [ability.sheerForce.id],
 }
 
+
+
+move.trickRoom = {
+    moveset: [`dark`],
+    split: "special",
+    rarity: 3,
+    type: "dark",
+    power: 0,
+    info: function() {return `Changes the weather to ${tagTrickRoom}`} ,
+    hitEffect: function(target) { changeWeather("trickRoom") },
+}
+
+
+
+
+
 //fairy
 
 move.disarmingVoice = {
@@ -3717,7 +3774,15 @@ move.mistyTerrain = {
 }
 
 
-
+move.lightScreen = {
+    moveset: [`fairy`],
+    split: "special",
+    rarity: 3,
+    type: "fairy",
+    power: 0,
+    info: function() {return `Changes the weather to ${tagLightScreen}`} ,
+    hitEffect: function(target) { changeWeather("lightScreen") },
+}
 
 
 //unique skills
@@ -3777,7 +3842,7 @@ move.boomburst = {
 }
 
 move.eggBomb = {
-    split: "physical",
+    split: "special",
     type: "normal",
     power: t4Base,
 }
@@ -4078,7 +4143,7 @@ move.crabhammer = {
 move.iceHammer = {
     split: "physical",
     type: "ice",
-    power: t4Base+20,
+    power: 180+30,
     info: function() {return `Decreases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1','self') },
     unaffectedBy: [ability.sheerForce.id],
@@ -4163,7 +4228,7 @@ move.ruination = {
     split: "physical",
     type: "dark",
     power: t4Base,
-    info: function() {return `Split changes to match the highest stat of the user`},
+    info: function() {return `Attack becomes physical or special to match the highest stat of the user`},
     castEffect: function(target) {
     if (pkmn[ team[exploreActiveMember].pkmn.id ].bst.atk>pkmn[ team[exploreActiveMember].pkmn.id ].bst.satk){
         this.split = "physical"
@@ -4413,7 +4478,7 @@ move.flyingPress = { //new
 move.mountainGale = { //new
     split: "physical",
     type: "ice",
-    power: t4Base+60,
+    power: 180+30,
     info: function() {return `Decreases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1','self') },
     unaffectedBy: [ability.sheerForce.id],
@@ -4506,56 +4571,56 @@ move.fairyLock = { //new
     split: "special",
     type: "fairy",
     power: 0,
-    info: function() {return `Temporarily adds Fairy to the type of the enemy. Replaces other temporary types`},
-    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`fairy`] },
+    info: function() {return `Temporarily adds Fairy to the type of the enemy. Super-effective damage bonus dealt from temporal types is halved, and applying a second temporary type replaces the first one`},
+    hitEffect: function(target) { if (pkmn[saved.currentPkmn].type.includes("fairy")) return; pkmn[saved.currentPkmn].temporalType = [`fairy`] },
 }
 
 move.electrify = {
     split: "special",
     type: "electric",
     power: 0,
-    info: function() {return `Temporarily adds Electric to the type of the enemy. Replaces other temporary types`},
-    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`electric`] },
+    info: function() {return `Temporarily adds Electric to the type of the enemy. Super-effective damage bonus dealt from temporal types is halved, and applying a second temporary type replaces the first one`},
+    hitEffect: function(target) { if (pkmn[saved.currentPkmn].type.includes("electric")) return; pkmn[saved.currentPkmn].temporalType = [`electric`] },
 }
 
 move.forestCurse = {
     split: "special",
     type: "grass",
     power: 0,
-    info: function() {return `Temporarily adds Grass to the type of the enemy. Replaces other temporary types`},
-    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`grass`] },
+    info: function() {return `Temporarily adds Grass to the type of the enemy. Super-effective damage bonus dealt from temporal types is halved, and applying a second temporary type replaces the first one`},
+    hitEffect: function(target) { if (pkmn[saved.currentPkmn].type.includes("grass")) return; pkmn[saved.currentPkmn].temporalType = [`grass`] },
 }
 
 move.trickOrTreat = {
     split: "special",
     type: "ghost",
     power: 0,
-    info: function() {return `Temporarily adds Ghost to the type of the enemy. Replaces other temporary types`},
-    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`ghost`] },
+    info: function() {return `Temporarily adds Ghost to the type of the enemy. Super-effective damage bonus dealt from temporal types is halved, and applying a second temporary type replaces the first one`},
+    hitEffect: function(target) { if (pkmn[saved.currentPkmn].type.includes("ghost")) return; pkmn[saved.currentPkmn].temporalType = [`ghost`] },
 }
 
 move.soak = {
     split: "special",
     type: "water",
     power: 0,
-    info: function() {return `Temporarily adds Water to the type of the enemy. Replaces other temporary types`},
-    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`water`] },
+    info: function() {return `Temporarily adds Water to the type of the enemy. Super-effective damage bonus dealt from temporal types is halved, and applying a second temporary type replaces the first one`},
+    hitEffect: function(target) { if (pkmn[saved.currentPkmn].type.includes("water")) return; pkmn[saved.currentPkmn].temporalType = [`water`] },
 }
 
 move.magicPowder = {
     split: "special",
     type: "psychic",
     power: 0,
-    info: function() {return `Temporarily adds Psychic to the type of the enemy. Replaces other temporary types`},
-    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`psychic`] },
+    info: function() {return `Temporarily adds Psychic to the type of the enemy. Super-effective damage bonus dealt from temporal types is halved, and applying a second temporary type replaces the first one`},
+    hitEffect: function(target) { if (pkmn[saved.currentPkmn].type.includes("psychic")) return; pkmn[saved.currentPkmn].temporalType = [`psychic`] },
 }
 
 move.mudSport = {
     split: "special",
     type: "ground",
     power: 0,
-    info: function() {return `Temporarily adds Ground to the type of the enemy. Replaces other temporary types`},
-    hitEffect: function(target) { pkmn[saved.currentPkmn].temporalType = [`ground`] },
+    info: function() {return `Temporarily adds Ground to the type of the enemy. Super-effective damage bonus dealt from temporal types is halved, and applying a second temporary type replaces the first one`},
+    hitEffect: function(target) { if (pkmn[saved.currentPkmn].type.includes("ground")) return; pkmn[saved.currentPkmn].temporalType = [`ground`] },
 }
 
 move.boneRush = {
@@ -4591,7 +4656,7 @@ move.barbBarrage = {
 }
 
 move.barrage = {
-    split: "physical",
+    split: "special",
     type: "grass",
     power: t4Base/3,
     info: function() {return `Hits 2-5 times`},

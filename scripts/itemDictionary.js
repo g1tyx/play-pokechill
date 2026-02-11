@@ -516,6 +516,12 @@ item.roseliBerry = {
 }
 
 
+item.terrainExtender = {
+    type: "held",
+    info: function() {return `When held: Increases the duration of ${tagTrickRoom}, ${tagWeirdRoom}, ${tagCrossRoom}, ${tagLightScreen} and ${tagSafeguard} by ${this.power()} turns`},
+    power : function() { return 5+(2*returnItemLevel(this.id))}
+}
+
 item.dampRock = {
     type: "held",
     info: function() {return `When held: Increases the duration of ${tagRainy} weather by ${this.power()} turns`},
@@ -1510,6 +1516,16 @@ item.energyBallTm = {}
 item.skyUppercutTm = {}
 item.dracoMeteorTm = {}
 item.spiritBreakTm = {}
+
+
+
+
+item.trickRoomTm = {}
+item.crossRoomTm = {}
+item.weirdRoomTm = {}
+item.safeguardTm = {}
+item.lightScreenTm = {}
+
 
 
 //memory
