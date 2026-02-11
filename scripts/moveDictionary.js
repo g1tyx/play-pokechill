@@ -1453,9 +1453,9 @@ move.overheat = {
     split: "special",
     rarity: 3,
     type: "fire",
-    power: 130,
-    info: function() {return `Decreases Special Attack by 100%`},
-    hitEffect: function(target) { moveBuff(target,'satkdown2','self') },
+    power: 180,
+    info: function() {return `Decreases Special Attack by 50%`},
+    hitEffect: function(target) { moveBuff(target,'satkdown1','self') },
     unaffectedBy: [ability.sheerForce.id],
 }
 

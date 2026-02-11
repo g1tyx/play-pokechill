@@ -2227,12 +2227,15 @@ function exploreCombatPlayer() {
 
     let speedStars = pkmn[team[exploreActiveMember].pkmn.id].bst.spe
     if (areas[saved.currentArea].id == areas.training.id) speedStars = returnDivisionStars(pkmn[team[exploreActiveMember].pkmn.id])
-    if ( saved.gamemodIvs == true) speedStars = 6
+
+
+    let speedIvs = pkmn[team[exploreActiveMember].pkmn.id].ivs.spe
+    if ( saved.gamemodIvs == true) speedIvs = 6
 
     if (areas[saved.currentArea].fieldEffect?.includes(field.trickField.id)) {speedStars = 7 - speedStars}
     if (saved.weatherTimer>0 && saved.weather=="trickRoom") {speedStars = 7 - speedStars}
 
-        barProgressPlayer += 100 / ( (moveTimerPlayer * (Math.pow(0.9, speedStars) * Math.pow(0.95, pkmn[team[exploreActiveMember].pkmn.id].ivs.spe) )     ) / (1000 / 60));
+        barProgressPlayer += 100 / ( (moveTimerPlayer * (Math.pow(0.9, speedStars) * Math.pow(0.95, speedIvs) )     ) / (1000 / 60));
 
     if (barProgressPlayer < 99) {
         //requestAnimationFrame(exploreCombatPlayer)
@@ -3346,7 +3349,7 @@ function exploreCombatWild() {
 
             if ( saved.gamemodIvs == true) {
             totalPower = 
-            ( move[nextMoveWild].power + Math.max(0, (attackerStars * 30) - ( defenderStars * Math.pow(1.1, 6)  ) )  )
+            ( move[nextMoveWild].power + Math.max(0, (attackerStars * 30) - ( (defenderStars * 30 ) * Math.pow(1.1, 6)  ) )  )
             * ( 1+(wildLevel * 0.1) )        
             * 1;
             }
@@ -3372,7 +3375,7 @@ function exploreCombatWild() {
         
             if ( saved.gamemodIvs == true) {
             totalPower = 
-            ( move[nextMoveWild].power + Math.max(0, (attackerStars * 30) - ( defenderStars * Math.pow(1.1, 6)  ) )  )
+            ( move[nextMoveWild].power + Math.max(0, (attackerStars * 30) - ( (defenderStars * 30 ) * Math.pow(1.1, 6)  ) )  )
             * ( 1+(wildLevel * 0.1) )        
             * 1;
             }
@@ -3558,8 +3561,10 @@ function exploreCombatWild() {
 
 
 
-
+        if (saved.weatherTimer>0 && saved.weather=="lightScreen") superEffective = false
         if (testAbility(`active`,  ability.wonderGuard.id) && !superEffective) totalPower*=0.2
+
+
 
 
         pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -= totalPower;
