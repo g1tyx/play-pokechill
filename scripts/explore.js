@@ -75,6 +75,7 @@ function format(input) {
     if (pkmn[input]?.rename) str = String(pkmn[input].rename);
     if (ability[input]?.rename) str = String(ability[input].rename);
     if (item[input]?.rename) str = String(item[input].rename);
+    if (field[input]?.rename) str = String(field[input].rename);
 
     str = str.replace(/hisuian/gi, 'hsn. ');
     str = str.replace(/alolan/gi, 'aln. ');
@@ -454,7 +455,7 @@ for (let i = 0; i < 4; i++) {
             if (areas[saved.currentArea].encounterEffect) areas[saved.currentArea].encounterEffect()
 
             if (areas[saved.currentArea].encounter && areas[saved.currentArea].unlockRequirement && !areas[saved.currentArea].unlockRequirement() ) saved.autoRefight = false
-            if ( saved.currentArea == areas.training.id && /iv1|iv2|iv3/.test(areas.training.currentTraining) && training[areas.training.currentTraining].condition() != true ) saved.autoRefight = false
+            if ( saved.currentArea == areas.training.id && /move|iv1|iv2|iv3/.test(areas.training.currentTraining) && training[areas.training.currentTraining].condition() != true ) saved.autoRefight = false
 
 
             areas[saved.currentArea].defeated = true;
@@ -1197,7 +1198,7 @@ function leaveCombat(){
         `
     } 
 
-    if (  saved.currentArea == areas.training.id && /iv1|iv2|iv3/.test(areas.training.currentTraining) && training[areas.training.currentTraining].condition() == true ) {
+    if (  saved.currentArea == areas.training.id && /move|iv1|iv2|iv3/.test(areas.training.currentTraining) && training[areas.training.currentTraining].condition() == true ) {
         document.getElementById("area-refight").style.display = "flex"
         document.getElementById("area-refight").innerHTML = `
         <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0" clip-rule="evenodd"/></svg>
@@ -1222,7 +1223,7 @@ function leaveCombat(){
         saved.autoRefight = false
     } 
 
-    if (  saved.currentArea == areas.training.id && /iv1|iv2|iv3/.test(areas.training.currentTraining) && training[areas.training.currentTraining].condition() != true ) {
+    if (  saved.currentArea == areas.training.id && /move|iv1|iv2|iv3/.test(areas.training.currentTraining) && training[areas.training.currentTraining].condition() != true ) {
         afkSeconds = 0
         saved.autoRefight = false
     } 
@@ -2228,7 +2229,8 @@ function exploreCombatPlayer() {
     if (areas[saved.currentArea].id == areas.training.id) speedStars = returnDivisionStars(pkmn[team[exploreActiveMember].pkmn.id])
     if ( saved.gamemodIvs == true) speedStars = 6
 
-    if (areas[saved.currentArea].fieldEffect?.includes(field.trickRoom.id)) {speedStars = 7 - speedStars}
+    if (areas[saved.currentArea].fieldEffect?.includes(field.trickField.id)) {speedStars = 7 - speedStars}
+    if (saved.weatherTimer>0 && saved.weather=="trickRoom") {speedStars = 7 - speedStars}
 
         barProgressPlayer += 100 / ( (moveTimerPlayer * (Math.pow(0.9, speedStars) * Math.pow(0.95, pkmn[team[exploreActiveMember].pkmn.id].ivs.spe) )     ) / (1000 / 60));
 
@@ -2327,21 +2329,24 @@ function exploreCombatPlayer() {
         
 
         if (nextMove.split == 'physical') {
+
+
+            let attackerStars = attacker.bst.atk
+            if (areas[saved.currentArea].id == areas.training.id) attackerStars = returnDivisionStars(attacker, "atk")
+            if (saved.weatherTimer>0 && saved.weather=="weirdRoom") attackerStars = Math.max(attackerStars-3,1)
+
+            let defenderStars = defender.bst.def
+            if (areas[saved.currentArea].id == areas.training.id) defenderStars = returnDivisionStars(defender)
+            if (saved.weatherTimer>0 && saved.weather=="weirdRoom") defenderStars = Math.max(defenderStars-3,1)
+
             totalPower = 
-            ( movePower + Math.max(0, ( (attacker.bst.atk * 30) * Math.pow(1.1, attacker.ivs.atk) ) - (defender.bst.def * 30) )  )
+            ( movePower + Math.max(0, ( (attackerStars * 30) * Math.pow(1.1, attacker.ivs.atk) ) - (defenderStars * 30) )  )
             * ( 1+(attacker.level * 0.1) )        
             * 1;
-            
-            if (areas[saved.currentArea].id == areas.training.id){
-            totalPower = 
-            ( movePower + Math.max(0, ( (returnDivisionStars(attacker, "atk") * 30) * Math.pow(1.1, attacker.ivs.atk) ) - ( returnDivisionStars(defender) * 30) )  )
-            * ( 1+(attacker.level * 0.1) )        
-            * 1;
-            }
 
             if ( saved.gamemodIvs == true) {
             totalPower = 
-            ( movePower + Math.max(0, ( (attacker.bst.atk * 30) * Math.pow(1.1, 6) ) - (defender.bst.def * 30) )  )
+            ( movePower + Math.max(0, ( (attackerStars * 30) * Math.pow(1.1, 6) ) - (defenderStars * 30) )  )
             * ( 1+(attacker.level * 0.1) )        
             * 1;
             }
@@ -2351,21 +2356,23 @@ function exploreCombatPlayer() {
 
 
         if (nextMove.split == 'special') {
-            totalPower = 
-            ( movePower +  Math.max(0, ( (attacker.bst.satk * 30) * Math.pow(1.1, attacker.ivs.satk) ) - (defender.bst.sdef * 30) )  )
-            * ( 1+(attacker.level * 0.1) )         
-            * 1;
             
-            if (areas[saved.currentArea].id == areas.training.id){
+            let attackerStars = attacker.bst.satk
+            if (areas[saved.currentArea].id == areas.training.id) attackerStars = returnDivisionStars(attacker, "satk")
+            if (saved.weatherTimer>0 && saved.weather=="weirdRoom") attackerStars = Math.max(attackerStars-3,1)
+
+            let defenderStars = defender.bst.sdef
+            if (areas[saved.currentArea].id == areas.training.id) defenderStars = returnDivisionStars(defender)
+            if (saved.weatherTimer>0 && saved.weather=="weirdRoom") defenderStars = Math.max(defenderStars-3,1)
+
             totalPower = 
-            ( movePower + Math.max(0, ( (returnDivisionStars(attacker, "satk") * 30) * Math.pow(1.1, attacker.ivs.satk) ) - ( returnDivisionStars(defender) * 30) )  )
+            ( movePower + Math.max(0, ( (attackerStars * 30) * Math.pow(1.1, attacker.ivs.satk) ) - (defenderStars * 30) )  )
             * ( 1+(attacker.level * 0.1) )        
             * 1;
-            }
 
             if ( saved.gamemodIvs == true) {
             totalPower = 
-            ( movePower + Math.max(0, ( (attacker.bst.satk * 30) * Math.pow(1.1, 6) ) - (defender.bst.sdef * 30) )  )
+            ( movePower + Math.max(0, ( (attackerStars * 30) * Math.pow(1.1, 6) ) - (defenderStars * 30) )  )
             * ( 1+(attacker.level * 0.1) )        
             * 1;
             }
@@ -2471,7 +2478,10 @@ function exploreCombatPlayer() {
 
         if ( testAbility(`active`, ability.thousandArms.id)) typeMultiplier=1.5
 
-        if (defender.temporalType) typeMultiplier *= typeEffectiveness(moveType, defender.temporalType)
+        if (defender.temporalType) {
+            if (typeEffectiveness(moveType, defender.temporalType)>1) typeMultiplier *= 1.25
+            if (typeEffectiveness(moveType, defender.temporalType)<1) typeMultiplier *= 0.75 
+        } 
 
         //this wont exactly do what the move says it does, but eh, close enough
         if ( nextMove.id == move.freezeDry.id && pkmn[saved.currentPkmn].type=="water" && typeEffectiveness("water", pkmn[saved.currentPkmn].type)==1 ) typeMultiplier+= 0.5
@@ -2484,7 +2494,12 @@ function exploreCombatPlayer() {
         let crossPowerBonus = 1.3
         
         if ( testAbility(`active`, ability.ambidextrous.id)) crossPowerBonus+= 0.3
-        if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) &&  !testAbility(`active`, ability.protean.id) ) totalPower *= crossPowerBonus
+
+        //on successful cross move
+        if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) &&  !testAbility(`active`, ability.protean.id) ) {
+            totalPower *= crossPowerBonus
+            if (saved.weatherTimer>0 && saved.weather=="crossRoom") totalPower *= 1.25
+        }
         
         if (nextMove.power>0) lastCrossStab = nextMove.type
 
@@ -2566,7 +2581,7 @@ function exploreCombatPlayer() {
 
         if ( testAbility(`active`, ability.rivalry.id) && pkmn[saved.currentPkmn].type.some(t => pkmn[team[exploreActiveMember].pkmn.id].type.includes(t)) ) totalPower *= 1.5
         
-        if (testAbility(`active`, ability.sheerForce.id) &&  nextMove.hitEffect) totalPower *= 1.2
+        if (testAbility(`active`, ability.sheerForce.id) &&  nextMove.hitEffect) totalPower *= 1.25
         
         if (testAbility(`active`, ability.hugePower.id) && nextMove.split == 'physical') totalPower *= 2
 
@@ -2622,6 +2637,9 @@ function exploreCombatPlayer() {
         if (saved.weatherTimer>0 && saved.weather=="mistyTerrain" && (moveType == 'fairy' || moveType == 'psychic') ) totalPower *= 1.5
         if (saved.weatherTimer>0 && saved.weather=="grassyTerrain" && (moveType == 'grass' || moveType == 'bug') ) totalPower *= 1.5
         
+
+        if (saved.weatherTimer>0 && saved.weather=="trickRoom") totalPower *= Math.pow(1.07,7 - pkmn[team[exploreActiveMember].pkmn.id].bst.spe)
+
 
 
         if (saved.weatherTimer>0){
@@ -2862,7 +2880,7 @@ function typeEffectiveness(attacking, defending) {
   }
 
 
-  if (areas[saved.currentArea]?.fieldEffect?.includes(field.weirdRoom.id)) {
+  if (areas[saved.currentArea]?.fieldEffect?.includes(field.reverseField.id)) {
     if (result == 0.75) result = 1.25
     else if (result == 0.5) result = 1.5
     else if (result == 1.5) result = 0.75
@@ -3286,7 +3304,8 @@ function exploreCombatWild() {
 
     let speedStars = pkmn[saved.currentPkmn].bst.spe
     if (areas[saved.currentArea].id == areas.training.id) speedStars = returnDivisionStars(pkmn[saved.currentPkmn])
-    if (areas[saved.currentArea].fieldEffect?.includes(field.trickRoom.id)) {speedStars = 7 - speedStars}
+    if (areas[saved.currentArea].fieldEffect?.includes(field.trickField.id)) {speedStars = 7 - speedStars}
+    if (saved.weatherTimer>0 && saved.weather=="trickRoom") {speedStars = 7 - speedStars}
 
     barProgressWild += 100 / ((moveTimerWild * Math.pow(0.9, speedStars)) / (1000 / 60));
 
@@ -3309,21 +3328,25 @@ function exploreCombatWild() {
 
 
         if (move[nextMoveWild].split == 'physical') {
+
+
+            let attackerStars = pkmn[ saved.currentPkmn ].bst.atk
+            if (areas[saved.currentArea].id == areas.training.id) attackerStars = returnDivisionStars(pkmn[ saved.currentPkmn ])
+            if (saved.weatherTimer>0 && saved.weather=="weirdRoom") attackerStars = Math.max(attackerStars-3,1)
+
+            let defenderStars = pkmn[ team[exploreActiveMember].pkmn.id ].bst.def
+            if (areas[saved.currentArea].id == areas.training.id) defenderStars = returnDivisionStars(pkmn[ saved.currentPkmn ])
+            if (saved.weatherTimer>0 && saved.weather=="weirdRoom") defenderStars = Math.max(defenderStars-3,1)
+
             totalPower = 
-            ( move[nextMoveWild].power + Math.max(0, (pkmn[ saved.currentPkmn ].bst.atk * 30) - (  (pkmn[ team[exploreActiveMember].pkmn.id ].bst.def * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.def)  ) )  )
+            ( move[nextMoveWild].power + Math.max(0, (attackerStars * 30) - (  (defenderStars * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.def)  ) )  )
             * ( 1+(wildLevel * 0.1) )        
             * 1;
             
-            if (areas[saved.currentArea].id == areas.training.id){
-            totalPower = 
-            ( move[nextMoveWild].power + Math.max(0, (returnDivisionStars(pkmn[ saved.currentPkmn ]) * 30) - (  (returnDivisionStars(pkmn[ saved.currentPkmn ]) * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.def)  ) )  )
-            * ( 1+(wildLevel * 0.1) )         
-            * 1;
-            }
 
             if ( saved.gamemodIvs == true) {
             totalPower = 
-            ( move[nextMoveWild].power + Math.max(0, (pkmn[ saved.currentPkmn ].bst.atk * 30) - (  (pkmn[ team[exploreActiveMember].pkmn.id ].bst.def * 30) * Math.pow(1.1, 6)  ) )  )
+            ( move[nextMoveWild].power + Math.max(0, (attackerStars * 30) - ( defenderStars * Math.pow(1.1, 6)  ) )  )
             * ( 1+(wildLevel * 0.1) )        
             * 1;
             }
@@ -3331,21 +3354,25 @@ function exploreCombatWild() {
         }
 
         if (move[nextMoveWild].split == 'special') {
-            totalPower = 
-            ( move[nextMoveWild].power + Math.max(0, (pkmn[ saved.currentPkmn ].bst.satk * 30) - (  (pkmn[ team[exploreActiveMember].pkmn.id ].bst.sdef * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.sdef)  ) )  )
-            * ( 1+(wildLevel * 0.1) )         
-            * 1;
-            
-            if (areas[saved.currentArea].id == areas.training.id){
-            totalPower = 
-            ( move[nextMoveWild].power + Math.max(0, (returnDivisionStars(pkmn[ saved.currentPkmn ]) * 30) - (  (returnDivisionStars(pkmn[ saved.currentPkmn ]) * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.sdef)  ) )  )
-            * ( 1+(wildLevel * 0.1) )         
-            * 1;
-            }
 
+
+
+            let attackerStars = pkmn[ saved.currentPkmn ].bst.satk
+            if (areas[saved.currentArea].id == areas.training.id) attackerStars = returnDivisionStars(pkmn[ saved.currentPkmn ])
+            if (saved.weatherTimer>0 && saved.weather=="weirdRoom") attackerStars = Math.max(attackerStars-3,1)
+
+            let defenderStars = pkmn[ team[exploreActiveMember].pkmn.id ].bst.sdef
+            if (areas[saved.currentArea].id == areas.training.id) defenderStars = returnDivisionStars(pkmn[ saved.currentPkmn ])
+            if (saved.weatherTimer>0 && saved.weather=="weirdRoom") defenderStars = Math.max(defenderStars-3,1)
+
+            totalPower = 
+            ( move[nextMoveWild].power + Math.max(0, (attackerStars * 30) - (  (defenderStars * 30) * Math.pow(1.1, pkmn[ team[exploreActiveMember].pkmn.id ].ivs.sdef)  ) )  )
+            * ( 1+(wildLevel * 0.1) )        
+            * 1;
+        
             if ( saved.gamemodIvs == true) {
             totalPower = 
-            ( move[nextMoveWild].power + Math.max(0, (pkmn[ saved.currentPkmn ].bst.satk * 30) - (  (pkmn[ team[exploreActiveMember].pkmn.id ].bst.sdef * 30) * Math.pow(1.1, 6)  ) )  )
+            ( move[nextMoveWild].power + Math.max(0, (attackerStars * 30) - ( defenderStars * Math.pow(1.1, 6)  ) )  )
             * ( 1+(wildLevel * 0.1) )        
             * 1;
             }
@@ -3411,6 +3438,11 @@ function exploreCombatWild() {
         if (typeMultiplier>1 && move[nextMoveWild].power>0 && testAbility(`active`,  ability.angerPoint.id ) ) moveBuff("wild",'atkup2',"self")
         if (typeMultiplier>1 && move[nextMoveWild].power>0 && testAbility(`active`,  ability.justified.id ) ) moveBuff("wild",'satkup2',"self")
         if (typeMultiplier>1 && move[nextMoveWild].power>0 && team[exploreActiveMember].item == item.weaknessPolicy.id ) moveBuff("wild",'speup1',"self")
+
+
+        if (saved.weatherTimer>0 && saved.weather=="lightScreen" && typeMultiplier>1) typeMultiplier = 1
+
+
 
         totalPower *= typeMultiplier
 
@@ -3514,6 +3546,7 @@ function exploreCombatWild() {
         if (saved.weatherTimer>0 && saved.weather=="mistyTerrain" && (move[nextMoveWild].type == 'fairy' || move[nextMoveWild].type == 'psychic') ) totalPower *= 1.5
         if (saved.weatherTimer>0 && saved.weather=="grassyTerrain" && (move[nextMoveWild].type == 'grass' || move[nextMoveWild].type == 'bug') ) totalPower *= 1.5
         
+        if (saved.weatherTimer>0 && saved.weather=="trickRoom" ) totalPower *= Math.pow(1.07,7 - pkmn[saved.currentPkmn].bst.spe)
 
 
 
@@ -6724,6 +6757,13 @@ function updateWildBuffs(){
         if (saved.weather=="grassyTerrain"){ div.style.filter = `hue-rotate(220deg)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M6.356 3.235a1 1 0 0 1 1.168-.087c3.456 2.127 5.35 4.818 6.36 7.78c.25.733.445 1.48.596 2.236c1.029-1.73 2.673-3.102 5.149-4.092a1 1 0 0 1 1.329 1.215l-.181.604C19.417 15.419 19 16.806 19 20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1c0-3.864-.472-6.255-1.949-10.684a1 1 0 0 1 1.32-1.244c1.395.557 2.455 1.301 3.255 2.18a24 24 0 0 0-1.554-5.88a1 1 0 0 1 .284-1.137"/></g></svg>`}
         if (saved.weather=="foggy"){ div.style.filter = `grayscale(1)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8 21.25a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5z"/><path fill="currentColor" d="M12.476 2C9.32 2 6.762 4.528 6.762 7.647c0 .69.125 1.35.354 1.962a4.4 4.4 0 0 0-.83-.08C3.919 9.53 2 11.426 2 13.765c0 .522.096 1.023.271 1.485h18.92A5.57 5.57 0 0 0 22 12.353c0-2.472-1.607-4.573-3.845-5.338C17.837 4.194 15.415 2 12.476 2" opacity="0.5"/><path fill="currentColor" d="M2 15.249a.75.75 0 0 0 0 1.5h20a.75.75 0 0 0 0-1.5z"/><path fill="currentColor" d="M5 18.25a.75.75 0 0 0 0 1.5h14a.75.75 0 0 0 0-1.5z" opacity="0.5"/></svg>`}
 
+        if (saved.weather=="trickRoom"){ div.style.filter = `hue-rotate(70deg)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.23 7.24L12 12L3.77 7.24a2 2 0 0 1 .7-.71L11 2.76c.62-.35 1.38-.35 2 0l6.53 3.77c.29.173.531.418.7.71" opacity="0.25"/><path fill="currentColor" d="M12 12v9.5a2.1 2.1 0 0 1-.91-.21L4.5 17.48a2 2 0 0 1-1-1.73v-7.5a2.06 2.06 0 0 1 .27-1.01z" opacity="0.5"/><path fill="currentColor" d="M20.5 8.25v7.5a2 2 0 0 1-1 1.73l-6.62 3.82c-.275.13-.576.198-.88.2V12l8.23-4.76c.175.308.268.656.27 1.01"/></svg>`}
+        if (saved.weather=="weirdRoom"){ div.style.filter = `hue-rotate(180deg)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M19 11.938V15a7 7 0 0 1-6.25 6.96V15a.75.75 0 0 0-1.5 0v6.96A7 7 0 0 1 5 15v-3.062A3.94 3.94 0 0 1 8.938 8h6.124A3.94 3.94 0 0 1 19 11.938" clip-rule="evenodd" opacity="0.5"/><path fill="currentColor" d="M19 14.75v-1.5h3a.75.75 0 0 1 0 1.5zm-1.504 4.586c.31-.393.58-.82.801-1.276l2.538 1.27a.75.75 0 1 1-.67 1.34zM5.703 18.06q.333.684.801 1.276l-2.669 1.335a.75.75 0 0 1-.67-1.342zM5 13.25H2a.75.75 0 0 0 0 1.5h3zm12.354-4.515l2.81-1.406a.75.75 0 1 1 .671 1.341L18.42 9.88a4 4 0 0 0-1.065-1.144M6.647 8.735c-.427.306-.79.695-1.067 1.144L3.165 8.67a.75.75 0 0 1 .67-1.341zM16.5 8.27V7.5a4.5 4.5 0 1 0-9 0v.77A3.9 3.9 0 0 1 8.938 8h6.124c.508 0 .993.096 1.438.27"/><path fill="currentColor" d="M6.376 1.584a.75.75 0 0 0 .208 1.04l2.36 1.573a4.5 4.5 0 0 1 1.387-.877L7.416 1.376a.75.75 0 0 0-1.04.208m8.68 2.613a4.5 4.5 0 0 0-1.387-.877l2.915-1.944a.75.75 0 1 1 .832 1.248z" opacity="0.5"/><path fill="currentColor" fill-rule="evenodd" d="M12 14.25a.75.75 0 0 1 .75.75v7h-1.5v-7a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/></svg>`}
+        if (saved.weather=="crossRoom"){ div.style.filter = `hue-rotate(100deg)`; weatherIcon = `<svg <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 9a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a1 1 0 0 1 1 1v4a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-4a1 1 0 0 1 1-1h4a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-4a1 1 0 0 1-1-1V4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4a1 1 0 0 1-1 1z"/></svg>`}
+        if (saved.weather=="lightScreen"){ div.style.filter = `hue-rotate(30deg)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><g fill="none"><rect width="15" height="13" x=".5" y="1.5" stroke="currentColor" rx="2.5" stroke-width="1"/><path fill="currentColor" d="M2 4.6c0-.56 0-.84.109-1.05c.096-.188.249-.341.437-.437c.214-.109.494-.109 1.05-.109h.4v7h-2v-5.4z"/><path fill="currentColor" d="M12 3h.4c.56 0 .84 0 1.05.109c.188.096.341.249.437.437c.109.214.109.494.109 1.05v5.4h-2v-7zM2 11h12v.4c0 .56 0 .84-.109 1.05a1 1 0 0 1-.437.437c-.214.109-.494.109-1.05.109h-8.8c-.56 0-.84 0-1.05-.109a1 1 0 0 1-.437-.437c-.109-.214-.109-.494-.109-1.05V11z" opacity="0.3"/></g></svg>`}
+        //if (saved.weather=="reflect"){ div.style.filter = `hue-rotate(-50deg)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h3q.825 0 1.413.588T10 5v14q0 .825-.587 1.413T8 21zm6.288-.288Q11 20.426 11 20t.288-.712T12 19t.713.288T13 20t-.288.713T12 21t-.712-.288m0-4Q11 16.426 11 16t.288-.712T12 15t.713.288T13 16t-.288.713T12 17t-.712-.288m0-4Q11 12.425 11 12t.288-.712T12 11t.713.288T13 12t-.288.713T12 13t-.712-.288m0-4Q11 8.426 11 8t.288-.712T12 7t.713.288T13 8t-.288.713T12 9t-.712-.288m0-4Q11 4.426 11 4t.288-.712T12 3t.713.288T13 4t-.288.713T12 5t-.712-.288m2 14Q13 18.426 13 18t.288-.712T14 17t.713.288T15 18t-.288.713T14 19t-.712-.288m0-4Q13 14.425 13 14t.288-.712T14 13t.713.288T15 14t-.288.713T14 15t-.712-.288m0-4Q13 10.426 13 10t.288-.712T14 9t.713.288T15 10t-.288.713T14 11t-.712-.288m0-4Q13 6.426 13 6t.288-.712T14 5t.713.288T15 6t-.288.713T14 7t-.712-.288m2 14Q15 20.426 15 20t.288-.712T16 19t.713.288T17 20t-.288.713T16 21t-.712-.288m0-4Q15 16.426 15 16t.288-.712T16 15t.713.288T17 16t-.288.713T16 17t-.712-.288m0-4Q15 12.425 15 12t.288-.712T16 11t.713.288T17 12t-.288.713T16 13t-.712-.288m0-4Q15 8.426 15 8t.288-.712T16 7t.713.288T17 8t-.288.713T16 9t-.712-.288m0-4Q15 4.426 15 4t.288-.712T16 3t.713.288T17 4t-.288.713T16 5t-.712-.288M18 19q-.425 0-.712-.288T17 18t.288-.712T18 17t.713.288T19 18t-.288.713T18 19m0-4q-.425 0-.712-.288T17 14t.288-.712T18 13t.713.288T19 14t-.288.713T18 15m0-4q-.425 0-.712-.288T17 10t.288-.712T18 9t.713.288T19 10t-.288.713T18 11m-.712-4.288Q17 6.426 17 6t.288-.712T18 5t.713.288T19 6t-.288.713T18 7t-.712-.288m2 14Q19 20.426 19 20t.288-.712T20 19t.713.288T21 20t-.288.713T20 21t-.712-.288m0-4Q19 16.426 19 16t.288-.712T20 15t.713.288T21 16t-.288.713T20 17t-.712-.288m0-4Q19 12.425 19 12t.288-.712T20 11t.713.288T21 12t-.288.713T20 13t-.712-.288m0-4Q19 8.426 19 8t.288-.712T20 7t.713.288T21 8t-.288.713T20 9t-.712-.288m0-4Q19 4.426 19 4t.288-.712T20 3t.713.288T21 4t-.288.713T20 5t-.712-.288"/></svg>`}
+        if (saved.weather=="safeguard"){ div.style.filter = `hue-rotate(-30deg)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2"/><path d="M6.5 13.5a3 3 0 0 0 5.5 1.659a3 3 0 1 0 2.823-4.642a3 3 0 1 0-5.646 0A3 3 0 0 0 6.5 13.5"/></g></svg>`}
+
         div.innerHTML = format(saved.weather)+weatherIcon;
         document.getElementById("wild-buff-list").appendChild(div);
     }
@@ -6748,6 +6788,8 @@ if (id=="foggy" && team[exploreActiveMember].item == item.foggySeed.id) weatherT
 if (id=="electricTerrain" && team[exploreActiveMember].item == item.electricSeed.id) weatherTurns += item.electricSeed.power()
 if (id=="grassyTerrain" && team[exploreActiveMember].item == item.grassySeed.id) weatherTurns += item.grassySeed.power()
 if (id=="mistyTerrain" && team[exploreActiveMember].item == item.mistySeed.id) weatherTurns += item.mistySeed.power()
+
+if (/safeguard|lightScreen|crossRoom|trickRoom|weirdRoom/.test(id) && team[exploreActiveMember].item == item.terrainExtender.id) weatherTurns += item.terrainExtender.power()
 
 if (testAbility(`active`, ability.climaTact.id)) weatherTurns += 15
 
@@ -6826,6 +6868,14 @@ const tagFoggy = `<span data-buff="foggy"><span  style="color:white;cursor:help;
 const tagElectricTerrain = `<span data-buff="electricTerrain"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("electric")}">Electric Terrain</span></span>`
 const tagGrassyTerrain = `<span data-buff="grassyTerrain"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("grass")}">Grassy Terrain</span></span>`
 const tagMistyTerrain = `<span data-buff="mistyTerrain"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("fairy")}">Misty Terrain</span></span>`
+
+
+const tagTrickRoom = `<span data-buff="trickRoom"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("dark")}">Trick Room</span></span>`
+const tagWeirdRoom = `<span data-buff="weirdRoom"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("bug")}">Weird Room</span></span>`
+const tagCrossRoom = `<span data-buff="crossRoom"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("fighting")}">Cross Room</span></span>`
+//const tagReflect = `<span data-buff="reflect"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("psychic")}">Reflect</span></span>`
+const tagLightScreen = `<span data-buff="lightScreen"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("fairy")}">Light Screen</span></span>`
+const tagSafeguard = `<span data-buff="safeguard"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("ice")}">Safeguard</span></span>`
 
 const wildBuffs = {
   burn: 0,
@@ -6949,7 +6999,7 @@ function moveBuff(target,buff,mod){
         if (testAbility(`active`, ability.fieryPelt.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
         if (testAbility(`active`, ability.pixiePelt.id ) && saved.weather == "foggy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
-
+        if (saved.weatherTimer>0 && saved.weather=="safeguard" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
         for (const slot in team) {
             team[slot].buffs[buff] = affectedTurns
@@ -6995,6 +7045,7 @@ function moveBuff(target,buff,mod){
         if (testAbility(`active`, ability.fieryPelt.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
         if (testAbility(`active`, ability.pixiePelt.id ) && saved.weather == "foggy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
+        if (saved.weatherTimer>0 && saved.weather=="safeguard" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
 
         if (testAbility(`active`, ability.contrary.id) && typeof buff === "string" && (buff.includes("down") || buff.includes("up")) ) {

@@ -290,7 +290,13 @@ function tooltipData(category, ttdata){
         if (ttdata==="grassyTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Grass and Bug-Type moves by 50%`
         if (ttdata==="mistyTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Fairy and Psychic-Type moves by 50%`
 
-        
+        if (ttdata==="trickRoom") document.getElementById("tooltipBottom").innerHTML = `Slower Pokemon become faster, faster Pokemon become slower. Additionally, multiplies the damage based on how slow the Pokemon originally was by x1.0 to x1.5`
+        if (ttdata==="weirdRoom") document.getElementById("tooltipBottom").innerHTML = `Decrease the attack and defense of all active Pokemon by 3 stars`
+        if (ttdata==="crossRoom") document.getElementById("tooltipBottom").innerHTML = `Increases the damage dealt by cross-power by 25%`
+        //if (ttdata==="reflect") document.getElementById("tooltipBottom").innerHTML = `Decreases the damage dealt by physical attacks by 75%`
+        if (ttdata==="lightScreen") document.getElementById("tooltipBottom").innerHTML = `Super-effective damage dealt to your team is reduced to neutral`
+        if (ttdata==="safeguard") document.getElementById("tooltipBottom").innerHTML = `Protects your team from status effects and stat reductions`
+
         
         
         openTooltip()
@@ -1630,8 +1636,8 @@ const sortedMovepool = movepool
         <span style="display:flex; flex-direction:column">${spawnLocation}<span>
         `
 
-        document.getElementById("tooltipMid").innerHTML += `This Pokemon can last ${(100 + Math.pow(1.15, 6) * (pkmn[ttdata].bst.hp*30 + (pkmn[ttdata].bst.def + pkmn[ttdata].bst.sdef)*15)).toFixed(0)} turns before fainting from Battle Fatigue at maxium IVs`
-
+        if (saved.gamemodAfk !=true) document.getElementById("tooltipMid").innerHTML += `This Pokemon can last ${(100 + Math.pow(1.15, 6) * (pkmn[ttdata].bst.hp*30 + (pkmn[ttdata].bst.def + pkmn[ttdata].bst.sdef)*15)).toFixed(0)} turns before fainting from Battle Fatigue at maximum IVs`
+        else document.getElementById("tooltipMid").innerHTML += `This Pokemon can last ${(100 + Math.pow(1.15, 6) * (pkmn[ttdata].bst.hp*30 + (pkmn[ttdata].bst.def + pkmn[ttdata].bst.sdef)*15)).toFixed(0)*3} turns before fainting from Battle Fatigue at maximum IVs`
 
 
         document.getElementById("tooltipBottom").innerHTML = `

@@ -70,13 +70,13 @@ field.electricField = {
 
 
 //neutral, can be both negative, or positive depending on the user
-field.trickRoom = {
+field.trickField = {
     info : function() { return `Slower Pokemon become faster, faster Pokemon become slower`},
     tier: 2
 }
  
-field.weirdRoom = {
-    info : function() { return `Type weaknesses and strenghts are reversed`},
+field.reverseField = {
+    info : function() { return `Type weaknesses and strengths are reversed`},
     tier: 2,
     chance: 0.5
 }
@@ -4705,7 +4705,7 @@ areas.vsUltraEntityLusamine = {
         slot6 : pkmn.necrozma,
         slot6Moves : [move.calmMind.id, move.prismaticLaser.id, move.darkPulse.id, move.shadowBall.id],
     },
-    fieldEffect : [field.weirdRoom.id, field.ironBody.id],
+    fieldEffect : [field.reverseField.id, field.ironBody.id],
     itemReward: { 1 : { item: item.autoRefightTicket.id, amount: 1 }, 2 : { item: item.goldenBottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
