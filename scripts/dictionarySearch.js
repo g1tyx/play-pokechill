@@ -270,6 +270,11 @@ function setSearchTags() {
         if (shop[i].pkmn == undefined) continue
         pkmn[shop[i].pkmn].tagObtainedIn = "mart";
     }
+
+
+    for (const i in move){
+        if (move[i].moveset ==undefined ) move[i].tagSignature = "signature"
+    }
     
     
     //only required for unobtainable pokes

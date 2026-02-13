@@ -763,7 +763,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
 
 
         if (ttdata === `searchDictionary`) document.getElementById("tooltipTitle").innerHTML = `Keywords`
-        if (ttdata === `searchDictionary`) document.getElementById("tooltipBottom").innerHTML = `Operators:<br>![keyword]: Exclude from search<br>[keywordA] or [keywordB]: Search keywordA OR keywordB<br>[keywordA] [keywordB]: Search for keywordA AND keywordB<br><br>Pokemon keywords:<br>unobtainable, wild, park, event, frontier, mart, shiny, caught, signature, eggMove, [type], [hidden ability]<br><br>Move keywords:<br>physical, special, [type], [ability]`
+        if (ttdata === `searchDictionary`) document.getElementById("tooltipBottom").innerHTML = `Operators:<br>![keyword]: Exclude from search<br>[keywordA] or [keywordB]: Search keywordA OR keywordB<br>[keywordA] [keywordB]: Search for keywordA AND keywordB<br><br>Pokemon keywords:<br>unobtainable, wild, park, event, frontier, mart, shiny, caught, signature, eggMove, [type], [hidden ability]<br><br>Move keywords:<br>physical, special, signature, [type], [ability]`
         if (ttdata === `searchDictionary`) document.getElementById("dictionary-search").blur()
 
 
@@ -1565,7 +1565,10 @@ const sortedMovepool = movepool
         if (move[ttdata].info != undefined) document.getElementById("tooltipMid").innerHTML += `<br>${move[ttdata].info()}`
         
         
-        
+        let eggMoveUsers = []
+        for (const i in pkmn) {
+            if (pkmn[i].eggMove?.id == ttdata) eggMoveUsers.push(i)
+        }
         
         
         if (move[ttdata].moveset) {
@@ -1589,6 +1592,10 @@ const sortedMovepool = movepool
         document.getElementById("tooltipBottom").innerHTML = `
         This move can only appear as the Signature Move of ${joinWithAnd(signatureArray)}
         `
+        if (eggMoveUsers.length>0) document.getElementById("tooltipBottom").innerHTML += `
+        and the Egg Move of ${joinWithAnd(eggMoveUsers)}
+        `
+
         }
 
         

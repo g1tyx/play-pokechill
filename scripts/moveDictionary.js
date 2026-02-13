@@ -521,7 +521,7 @@ ability.sandyPelt = {
 ability.icyPelt = {  
     type: [`ice`],
     rarity: 3,
-    info: function() {return `Prevents negative stat changes and status effects while on ${tagSandstorm} weather`},
+    info: function() {return `Prevents negative stat changes and status effects while on ${tagHail} weather`},
 }
 
 ability.moistPelt = {  
