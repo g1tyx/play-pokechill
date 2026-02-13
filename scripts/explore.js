@@ -552,6 +552,11 @@ for (let t of thresholds) {
     * ( 1+(wildLevel * 0.2) )       
     ) * hpMultiplier;
 
+    if (areas[saved.currentArea].difficulty == tier1difficulty) wildPkmnHp = 45250
+    if (areas[saved.currentArea].difficulty == tier2difficulty) wildPkmnHp = 139300
+    if (areas[saved.currentArea].difficulty == tier3difficulty) wildPkmnHp = 398000
+    if (areas[saved.currentArea].difficulty == tier4difficulty) wildPkmnHp = 1302000
+
     
 
     wildPkmnHpMax = wildPkmnHp
@@ -572,7 +577,7 @@ randomMoves = randomMoves.filter(m => m !== undefined).concat(randomMoves.filter
 while (randomMoves.length < 4) randomMoves.push(undefined);
     //
 
-    for (let index = 0; index < randomMoves.length; index++) {
+    for (let index = 0; index < randomMoves.length; index++) {  
     const i = randomMoves[index];
 
     if (i === undefined) {
@@ -585,6 +590,7 @@ while (randomMoves.length < 4) randomMoves.push(undefined);
 
     let signatureIcon = ""
     if (move[i].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[i].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+    if (pkmn[saved.currentPkmn].eggMove?.id == i) signatureIcon = `<svg style="color:${returnTypeColor(move[i].type)}" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGVlQBebkA"><g fill="none"><path fill="#555555" fill-rule="evenodd" stroke="#fff" stroke-width="4" d="M24 44c10.252 0 16-6.954 16-18S31.132 4 24 4S8 14.954 8 26s5.748 18 16 18Z" clip-rule="evenodd"/><path fill="#fff" d="M21 38a3 3 0 1 0 0-6a3 3 0 0 0 0 6"/><path fill="#fff" fill-rule="evenodd" d="M16 29.668a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGVlQBebkA)"/></svg>`
     if (move[i].restricted) signatureIcon += `<svg style="color:${returnTypeColor(move[i].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.832 21.801c3.126-.626 7.168-2.875 7.168-8.69c0-5.291-3.873-8.815-6.658-10.434c-.619-.36-1.342.113-1.342.828v1.828c0 1.442-.606 4.074-2.29 5.169c-.86.559-1.79-.278-1.894-1.298l-.086-.838c-.1-.974-1.092-1.565-1.87-.971C4.461 8.46 3 10.33 3 13.11C3 20.221 8.289 22 10.933 22q.232 0 .484-.015c.446-.056 0 .099 1.415-.185" opacity="0.5"/><path fill="currentColor" d="M8 18.444c0 2.62 2.111 3.43 3.417 3.542c.446-.056 0 .099 1.415-.185C13.871 21.434 15 20.492 15 18.444c0-1.297-.819-2.098-1.46-2.473c-.196-.115-.424.03-.441.256c-.056.718-.746 1.29-1.215.744c-.415-.482-.59-1.187-.59-1.638v-.59c0-.354-.357-.59-.663-.408C9.495 15.008 8 16.395 8 18.445"/></svg>`
 
     const divMove = document.createElement("div");
@@ -1839,6 +1845,11 @@ function updateTeamPkmn(){
         switchMemberNext()
 
 
+        for (const slot in team) {
+        if (testAbility(slot, ability.powerOfAlchemy.id)) pkmn[team[slot].pkmn.id].abilityTemp = pkmn[ team[i].pkmn.id ].ability
+        }
+
+
         //exploreCombatPlayer()
 
     }
@@ -2110,7 +2121,7 @@ function gameLoop(now) {
 
 
 
-
+const statusBuffs = ['burn', 'freeze', 'confused', 'paralysis', 'poisoned', 'sleep', 'embargo'];
 
 
 
@@ -2121,7 +2132,7 @@ let nextMoveBoxPlayer;
 let nextMovePlayer;
 let moveTimerPlayer; 
 let barPlayer;
-
+let embargoSlot = 1;
 
 let lastCrossStab = undefined
 const crossPattern = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='white' fill-opacity='1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
@@ -2173,6 +2184,7 @@ function exploreCombatPlayer() {
 
     if (testAbility(`active`, ability.cacophony.id) && move[nextMovePlayer].affectedBy?.includes(ability.cacophony.id) ) moveTimerPlayer /= 2
     if (testAbility(`active`, ability.dancer.id) && move[nextMovePlayer].affectedBy?.includes(ability.dancer.id) ) moveTimerPlayer /= 2
+    if (testAbility(`active`, ability.windRider.id) && move[nextMovePlayer].affectedBy?.includes(ability.windRider.id) ) moveTimerPlayer /= 2
 
     if (team[exploreActiveMember].item == item.quickClaw.id && move[nextMovePlayer].affectedBy?.includes(ability.libero.id)) moveTimerPlayer /= item.quickClaw.power()
     if (team[exploreActiveMember].item == item.powerHerb.id && move[nextMovePlayer].power == 0) moveTimerPlayer /= item.powerHerb.power()
@@ -2273,6 +2285,7 @@ function exploreCombatPlayer() {
             nextMove =  move[ selectedMove  ]
         } 
         if (nextMove.id == move.meFirst.id) nextMove =  move[ document?.getElementById(`pkmn-movebox-wild-1`).dataset.move  ]
+        if (nextMove.id == move.embargo.id) embargoSlot = team[exploreActiveMember].turn -1
 
 
         if (nextMove.castEffect) nextMove.castEffect()
@@ -2501,7 +2514,7 @@ function exploreCombatPlayer() {
         //on successful cross move
         if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) &&  !testAbility(`active`, ability.protean.id) ) {
             totalPower *= crossPowerBonus
-            if (saved.weatherTimer>0 && saved.weather=="crossRoom") totalPower *= 1.25
+            if (saved.weatherTimer>0 && saved.weather=="crossRoom") totalPower *= 1.3
         }
         
         if (nextMove.power>0) lastCrossStab = nextMove.type
@@ -2590,6 +2603,7 @@ function exploreCombatPlayer() {
 
         if (testAbility(`active`, ability.toxicBoost.id) && team[exploreActiveMember].buffs?.poisoned>0 ) totalPower *= 1.2
         if (testAbility(`active`, ability.flareBoost.id) && team[exploreActiveMember].buffs?.burn>0 ) totalPower *= 1.2
+        if (testAbility(`active`, ability.merciless.id) && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.frozen>0 || team[exploreActiveMember].buffs?.sleep>0) ) totalPower *= 1.35
 
         if (team[exploreActiveMember].item == undefined && testAbility(`active`,  ability.unburden.id )) team[exploreActiveMember].buffs.speup1 = 10
 
@@ -2662,7 +2676,6 @@ function exploreCombatPlayer() {
         }
 
  
-        const statusBuffs = ['burn', 'freeze', 'confused', 'paralysis', 'poisoned', 'sleep'];
 
         const hasAnyStatus = statusBuffs.some(
         buff => team[exploreActiveMember].buffs[buff] > 0
@@ -2809,6 +2822,8 @@ function exploreCombatPlayer() {
         let fatigueDamage = attacker.playerHpMax/fractionDamage
 
         if (team[exploreActiveMember].item == item.leftovers.id) fatigueDamage /= item.leftovers.power();
+
+        if (testAbility(`active`, ability.stamina.id)) fatigueDamage /= 2;
 
         if (  saved.gamemodAfk == true) fatigueDamage /= 3
 
@@ -3325,6 +3340,10 @@ function exploreCombatWild() {
         if (exploreCombatWildTurn >= 5) exploreCombatWildTurn = 1;
         barWild.style.width = `0%`;
 
+
+
+        if (wildBuffs.embargo>0 && embargoSlot == (exploreCombatWildTurn-1)) return
+
         //move execution
 
         let totalPower = 0
@@ -3444,6 +3463,7 @@ function exploreCombatWild() {
 
 
         if (saved.weatherTimer>0 && saved.weather=="lightScreen" && typeMultiplier>1) typeMultiplier = 1
+        if (testAbility(`active`,  ability.shieldsDown.id ) && typeMultiplier>1) typeMultiplier = 1
 
 
 
@@ -3529,12 +3549,17 @@ function exploreCombatWild() {
         if (testAbility(`active`,  ability.effectSpore.id ) && rng(0.05)) moveBuff("wild","sleep")
         if (testAbility(`active`,  ability.glacialBody.id ) && rng(0.05)) moveBuff("wild","freeze")
 
+        if (testAbility(`active`,  ability.gooey.id )) moveBuff("wild","spedown1")
+
         const below50hp = pkmn[team[exploreActiveMember].pkmn.id]?.playerHp < (pkmn[team[exploreActiveMember].pkmn.id]?.playerHpMax * 0.5);
         if (!below50hp && testAbility(`active`,  ability.multiscale.id )) totalPower /= 2
 
         if (testAbility(`active`,  ability.levitate.id ) && move[nextMoveWild].type==="ground") totalPower = 0
         if (testAbility(`active`,  ability.thickFat.id ) && (move[nextMoveWild].type==="fire" || move[nextMoveWild].type==="ice") ) totalPower /= 2
 
+        for (const slot in team){
+            if (testAbility(slot, ability.purifyingSalt.id) && move[nextMoveWild].type == 'ghost' ) totalPower /= 1.25
+        }
 
         //weather
         
@@ -3561,8 +3586,7 @@ function exploreCombatWild() {
 
 
 
-        if (saved.weatherTimer>0 && saved.weather=="lightScreen") superEffective = false
-        if (testAbility(`active`,  ability.wonderGuard.id) && !superEffective) totalPower*=0.2
+        if (testAbility(`active`,  ability.wonderGuard.id) && typeMultiplier<=1) totalPower*=0.2
 
 
 
@@ -3607,6 +3631,14 @@ function exploreCombatWild() {
 }
 
 function initialiseArea(){
+
+
+
+    for (const i in pkmn) if (pkmn[i].battling) pkmn[i].battling==undefined
+
+    for (const slot in team) {
+    if (testAbility(slot, ability.powerOfAlchemy.id)) pkmn[team[slot].pkmn.id].abilityTemp = undefined
+    }
 
 
     if (saved.currentArea == areas.training.id &&  areas.training.tier==1) currentTrainingWave = 30
@@ -4819,6 +4851,7 @@ function updatePokedex(){
         if (document.getElementById(`pokedex-filter-tag`).value !== "hidden" && pkmn[i].tag=="hidden" ) continue
 
         if (document.getElementById(`pokedex-filter-signature`).value == "false" && pkmn[i].signature==undefined ) continue
+        if (document.getElementById(`pokedex-filter-signature`).value == "egg" && pkmn[i].eggMove==undefined ) continue
         
         let missingEvolution = false;
         let missingLevelEvolution = false;
@@ -4880,7 +4913,7 @@ if (sort !== "default") {
 
 
 fusePkmn = new Fuse(sortedPokemon, {
-    keys: [ { name: 'name', getFn: obj => obj.id }, 'type', "level", `ability`, `hiddenAbility.id`, `movepool`,'tagShiny','tagPokerus'],
+    keys: [ { name: 'name', getFn: obj => obj.id }, 'type', "level", `ability`, `hiddenAbility.id`, `eggMove.id`, `movepool`,'tagShiny','tagPokerus', "tagSignature"],
     threshold: 0.1,
     useExtendedSearch: true,
     ignoreLocation: true,
@@ -5703,11 +5736,16 @@ function updateItemBag(){
 
         const div = document.createElement(`div`)
 
+
+        let subtitle = ""
+        if (item[i].subtitle) subtitle = `<text style="opacity:0.6; margin-left:0.2rem">${item[i].subtitle}</text>`
+
+
         div.dataset.item = i
-        if (item[i].type == "tm") div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span class="item-list-name">${format(i)} <strong style="opacity:0.6; font-weight:200; white-space:nowrap; font-size:0.9rem; margin-left:0.2rem"> (${move[item[i].move].power} BP, ${format(move[item[i].move].split).slice(0, 3)})</strong> </span>  <span>x${item[i].got}</span>`
-        else if (item[i].type == "memory") div.innerHTML = `<img src="img/items/${ability[item[i].ability].type[0]}Memory.png"> <span class="item-list-name">${format(i)}</span> <span>x${item[i].got}</span>`
-        else if (item[i].type == "decor") div.innerHTML = `<img src="img/decor/${i}.png" style="scale:1; margin:0 -1rem"> <span class="item-list-name">${format(i)}</span> <span>x${item[i].got}</span>`
-        else div.innerHTML = `<img src="img/items/${i}.png"> <span class="item-list-name">${format(i)}</span> <span>x${item[i].got}</span>`
+        if (item[i].type == "tm") div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span class="item-list-name">${format(i)} ${subtitle}<strong style="opacity:0.6; font-weight:200; white-space:nowrap; font-size:0.9rem; margin-left:0.2rem"> (${move[item[i].move].power} BP, ${format(move[item[i].move].split).slice(0, 3)})</strong> </span>  <span>x${item[i].got}</span>`
+        else if (item[i].type == "memory") div.innerHTML = `<img src="img/items/${ability[item[i].ability].type[0]}Memory.png"> <span class="item-list-name">${format(i)} ${subtitle}</span> <span>x${item[i].got}</span>`
+        else if (item[i].type == "decor") div.innerHTML = `<img src="img/decor/${i}.png" style="scale:1; margin:0 -1rem"> <span class="item-list-name">${format(i)} ${subtitle}</span> <span>x${item[i].got}</span>`
+        else div.innerHTML = `<img src="img/items/${i}.png"> <span class="item-list-name">${format(i)} ${subtitle}</span> <span>x${item[i].got}</span>`
 
 
 
@@ -6865,6 +6903,8 @@ const tagPoisoned = `<span data-buff="poisoned"><span  style="color:white;cursor
 const tagSleep = `<span data-buff="sleep"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("normal")}">Sleep</span></span>`
 const tagConfused = `<span data-buff="confused"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("psychic")}">Confused</span></span>`
 
+const tagEmbargo = `<span data-buff="embargo"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("dark")}">Embargo</span></span>`
+
 const tagSunny = `<span data-buff="sunny"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("fire")}">Sunny</span></span>`
 const tagRainy = `<span data-buff="rainy"><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("water")}">Rainy</span></span>`
 const tagSandstorm = `<span data-buff="sandstorm"><span style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("ground")}">Sandstorm</span></span>`
@@ -6909,6 +6949,7 @@ const wildBuffs = {
   speup2: 0,
   spedown1: 0,
   spedown2: 0,
+  embargo: 0,
 
 
 
@@ -6918,6 +6959,7 @@ const wildBuffs = {
 function formatBuffs(buff,mod) {
 
     if (mod=="hue"){
+    if (buff==="embargo") return `80`
     if (buff==="burn") return `150`
     if (buff==="freeze") return `-50`
     if (buff==="paralysis") return `170`
@@ -6947,6 +6989,7 @@ function formatBuffs(buff,mod) {
     }
 
     if (mod==undefined){
+    if (buff==="embargo") return `EMB`
     if (buff==="burn") return `BRN`
     if (buff==="freeze") return `FRZ`
     if (buff==="paralysis") return `PAR`
@@ -6987,29 +7030,67 @@ function moveBuff(target,buff,mod){
     if (buff == "paralysis") affectedTurns = 2
 
 
+    let shouldReturn = false
+    if (target==="player" || mod=="self")
+    for (const slot in team) {
+    if (testAbility(slot, ability.flowerVeil.id ) && buff == "paralysis") shouldReturn = true
+    if (testAbility(slot, ability.aromaVeil.id ) && buff == "burn") shouldReturn = true
+    if (testAbility(slot, ability.sweetVeil.id ) && buff == "confused") shouldReturn = true
+    if (testAbility(slot, ability.pastelVeil.id ) && buff == "poisoned") shouldReturn = true
+    }
+    if (shouldReturn) return
+
+
+
+
     if (target==="wild" && mod=="team") { 
 
         if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
         if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
         if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
 
+        if (testAbility(`active`, ability.colorSpore.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) affectedTurns *= 3
 
         if (testAbility(`active`, ability.hydratation.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
         if (testAbility(`active`, ability.sandVeil.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
         if (testAbility(`active`, ability.snowCloak.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
 
-        if (testAbility(`active`, ability.grassyPelt.id)  && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
-        if (testAbility(`active`, ability.sandyPelt.id ) && saved.weather == "sunny" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
-        if (testAbility(`active`, ability.moistPelt.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
-        if (testAbility(`active`, ability.fieryPelt.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
-        if (testAbility(`active`, ability.pixiePelt.id ) && saved.weather == "foggy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.grassyPelt.id)  && saved.weather == "grassyTerrain" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.sandyPelt.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.moistPelt.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.fieryPelt.id ) && saved.weather == "sunny" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.pixiePelt.id ) && saved.weather == "mistyTerrain" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.icyPelt.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.blackPelt.id ) && saved.weather == "fog" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.spikyPelt.id ) && saved.weather == "electricTerrain" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
         if (saved.weatherTimer>0 && saved.weather=="safeguard" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
+
+
+
+
         for (const slot in team) {
-            team[slot].buffs[buff] = affectedTurns
+
+        if (testAbility(slot, ability.simple.id) && buff.endsWith("1")) {
+            const upgradedBuff = buff.slice(0, -1) + "2";
+            team[slot].buffs[upgradedBuff] = affectedTurns 
+            continue
         }
-    }
+
+        if (testAbility(slot, ability.stoned.id ) && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) {
+             affectedTurns*=3
+             team[slot].buffs[buff] = affectedTurns
+             continue
+        }
+
+
+
+            team[slot].buffs[buff] = affectedTurns
+        
+        }
+
+}
 
 
     if ((target==="player" && mod=="self") || (mod==undefined && target==="wild")) {
@@ -7034,7 +7115,8 @@ function moveBuff(target,buff,mod){
         if (testAbility(`active`, ability.synchronize.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) { moveBuff("wild",buff); updateWildBuffs()}
 
         if (testAbility(`active`, ability.wonderSkin.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && rng(0.5)) return
-        
+        if (testAbility(`active`, ability.stoned.id ) && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
+
         if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
         if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
         if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
@@ -7044,13 +7126,23 @@ function moveBuff(target,buff,mod){
         if (testAbility(`active`, ability.sandVeil.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
         if (testAbility(`active`, ability.snowCloak.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
 
-        if (testAbility(`active`, ability.grassyPelt.id)  && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
-        if (testAbility(`active`, ability.sandyPelt.id ) && saved.weather == "sunny" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
-        if (testAbility(`active`, ability.moistPelt.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
-        if (testAbility(`active`, ability.fieryPelt.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
-        if (testAbility(`active`, ability.pixiePelt.id ) && saved.weather == "foggy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.grassyPelt.id)  && saved.weather == "grassyTerrain" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.sandyPelt.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.moistPelt.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.fieryPelt.id ) && saved.weather == "sunny" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.pixiePelt.id ) && saved.weather == "mistyTerrain" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.icyPelt.id ) && saved.weather == "hail" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.blackPelt.id ) && saved.weather == "fog" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+        if (testAbility(`active`, ability.spikyPelt.id ) && saved.weather == "electricTerrain" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
         if (saved.weatherTimer>0 && saved.weather=="safeguard" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
+
+        if (/atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff)) {for (const slot in team) { if (testAbility(slot, ability.costar.id)) team[slot].buffs[buff] = affectedTurns }}
+
+
+
+
+
 
 
         if (testAbility(`active`, ability.contrary.id) && typeof buff === "string" && (buff.includes("down") || buff.includes("up")) ) {
@@ -7568,7 +7660,7 @@ if (mod==="end"){
 
     //pass moves
     pkmn[saved.geneticSample].movepool.forEach(moveID => {
-        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID)) && move[moveID].moveset!==undefined ) {
+        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID)) && (move[moveID].moveset!==undefined ||  (   move[moveID].moveset==undefined && pkmn[saved.geneticHost].eggMove?.id == moveID  )    ) ) {
             pkmn[saved.geneticHost].movepool.push(moveID);
             if (pkmn[saved.geneticHost].movepoolMemory == undefined) pkmn[saved.geneticHost].movepoolMemory = []
             pkmn[saved.geneticHost].movepoolMemory.push(moveID);
@@ -8326,11 +8418,13 @@ function testAbility(target,id){
     if (target == "active"){
         if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == id) return true
         if (pkmn[ team[exploreActiveMember].pkmn.id ]?.hiddenAbility?.id == id && pkmn[ team[exploreActiveMember].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
+        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.abilityTemp == id) return true
     }
 
     if (/slot1|slot2|slot3|slot4|slot5|slot6/.test(target)){
-        if (pkmn[ team[target].pkmn.id ]?.ability == id) return true
-        if (pkmn[ team[target].pkmn.id ]?.hiddenAbility?.id == id && pkmn[ team[target].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
+        if (pkmn[ team[target].pkmn?.id ]?.ability == id) return true
+        if (pkmn[ team[target].pkmn?.id ]?.hiddenAbility?.id == id && pkmn[ team[target].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
+        if (pkmn[ team[target].pkmn?.id ]?.abilityTemp == id) return true
     }
 
     if (id == "ate"){ //used for cross bonus

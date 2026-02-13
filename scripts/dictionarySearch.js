@@ -195,6 +195,8 @@ fuseDictionary = new Fuse(dictionaryItems, {
     'tagObtainedIn', 
     'tagCaught', 
     'tagShiny',
+    'eggMove',
+    'tagSignature',
     `affectedBy`
   ],
   threshold: 0.1,
@@ -268,6 +270,11 @@ function setSearchTags() {
         if (shop[i].pkmn == undefined) continue
         pkmn[shop[i].pkmn].tagObtainedIn = "mart";
     }
+
+
+    for (const i in move){
+        if (move[i].moveset ==undefined ) move[i].tagSignature = "signature"
+    }
     
     
     //only required for unobtainable pokes
@@ -288,6 +295,8 @@ function setSearchTags() {
         }
 
         if (e == pkmn.arceus.id) pkmn[e].tagObtainedIn = "arceus";
+        if (pkmn[e].signature) pkmn[e].tagSignature = "signature"
+        if (pkmn[e].eggMove) pkmn[e].tagSignature = "eggMove"
     }
 }
 

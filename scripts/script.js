@@ -203,7 +203,7 @@ function updateGameVersion() {
   }
 
 
-  saved.version = 3.7
+  saved.version = 3.8
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -556,6 +556,7 @@ function learnPkmnMove(id, level, mod, exclude = []) {
         if (exclude.includes(move[chosenMove].id)) continue; // prevents dupes for trainers
         if (move[chosenMove].restricted && pkmn[id].movepool.length<3) continue //prevents restricted moveset locks
         if (saved.currentArea == areas.training.id && mod == "wild" && move[chosenMove].power==0) continue //no setup moves in training
+        if (mod == "wild" && move[chosenMove].notUsableByEnemy) continue
 
 
         return move[chosenMove].id;
@@ -669,7 +670,7 @@ function openTutorial(){
   if (saved.tutorialStep == "intro") document.getElementById("tutorial-text").innerHTML = `Howdy! I have been assigned to show the ropes<br>Let's start by getting new pokemon shall we? Select "Travel" on the top left menu`
   if (saved.tutorialStep == "travel") document.getElementById("tutorial-text").innerHTML = `You can right click/long tap almost everything on the screen for more info! You can also do this within the info itself too. Try going into the first Wild Area to start catching Pokemon`
   if (saved.tutorialStep == "moves") document.getElementById("tutorial-text").innerHTML = `Right click/long tap a pokemon in your team to set their moves, you can also do this while in battle. Press the + symbol next to the Pokemon to assign items<br>Once you are ready, press Save and Go! at the top of the screen`
-  if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell. Once you have more Pokemon in your team, you will be able to switch them arround in a fight`
+  if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats as well. Once you have more Pokemon in your team, you will be able to switch them around in a fight`
   if (saved.tutorialStep == "battleEnd") {document.getElementById("tutorial-text").innerHTML = `You can check a more in-depth explanation about stats and battle mechanics in the Guide menu. For now, I will take a break... Enjoy your stay!`}
   document.getElementById("tutorial").style.display = "flex"
   
@@ -700,7 +701,7 @@ guide.experience = {
 
 guide.moves = {
   name: `Battle: Moves`,
-  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon<br><br>Damaging moves are divided into physical and special moves<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense<br><br>Some Pokemon might have Signature Moves. Signature Moves are species-dependant moves that a Pokemon learn at level 100. Signature Moves can't be inherited through genetics<br><br>Some moves might be restricted. Only one restricted move might be equipped at a time on the active Pokemon`}
+  description: function() { return `Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon<br><br>Damaging moves are divided into physical and special moves<br>The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense<br><br>Some Pokemon might have Signature Moves. Signature Moves are species-dependant moves that a Pokemon learn at level 100. Signature Moves can't be inherited through genetics, unless the host has the corresponding Egg Move<br><br>Some moves might be restricted. Only one restricted move might be equipped at a time on the active Pokemon`}
 }
 
 guide.stab = {
@@ -720,7 +721,12 @@ guide.battleFatigue = {
 
 guide.statusEffects = {
   name: `Battle: Status Effects`,
-  description: function() { return `Certain moves inflict Status Effects such as ${tagConfused}, ${tagBurn}, ${tagPoisoned}, ${tagFreeze}, ${tagParalysis} or ${tagSleep}.<br><br>You can further check their effects by right click/long press<br><br>Status Effects, like temporal stat changes, will count down with turns. You can only apply one Status Effect at a time` }
+  description: function() { return `Certain moves inflict Status Effects such as ${tagConfused}, ${tagBurn}, ${tagPoisoned}, ${tagFreeze}, ${tagParalysis} or ${tagSleep}.<br><br>You can further check their effects by right click/long press<br><br>Status Effects, like temporal stat changes, will count down with turns. You can only apply one Status Effect at a time. They last for 3 turns by default (Except Paralysis)` }
+}
+
+guide.buffsDebuffs = {
+  name: `Battle: Buffs and Debuffs`,
+  description: function() { return `Like status effects, increases or decreases of stats last for 3 turns by default (Except Speed decreases, which last 2)<br><br>Buffs and debuffs of the same magnitude will not stack with each other (IE x2 50% Attack Up), but different ones will (50% + 100% Attack Up)` }
 }
 
 guide.weather = {

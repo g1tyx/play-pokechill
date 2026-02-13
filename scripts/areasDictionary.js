@@ -2067,7 +2067,7 @@ areas.zoologyLab = {
     rotation: 2,
     type: `event`,
     background : `lab`,
-    level : wildAreaLevel1,
+    level : wildAreaLevel5,
     icon: pkmn.tauros,
     spawns: {
         common : [pkmn.tauros],
@@ -2077,7 +2077,7 @@ areas.zoologyLab = {
         common : [item.mysteryEgg],
         rare : [item.silkScarf],
     },
-    category: 1,
+    category: 2,
 }
 
 
@@ -3396,9 +3396,9 @@ areas.eventMegaBaxcalibur = {
     trainer: true,
     encounter: true,
     difficulty: tier4difficulty,
-    encounterEffect : function() {item.wormholeResidue.got-=3},
-    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
-    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    encounterEffect : function() {item.futureContraption.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/futureContraption.png"> Future Contraptions to enter`,
+    unlockRequirement : function() { return item.futureContraption.got>2 },
     level : 110,
     team : {
         slot1 : pkmn.megaBaxcalibur,
@@ -3418,9 +3418,9 @@ areas.eventChiYu = {
     trainer: true,
     encounter: true,
     difficulty: tier4difficulty,
-    encounterEffect : function() {item.wormholeResidue.got-=3},
-    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
-    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    encounterEffect : function() {item.futureContraption.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/futureContraption.png"> Future Contraptions to enter`,
+    unlockRequirement : function() { return item.futureContraption.got>2 },
     level : 110,
     team : {
         slot1 : pkmn.chiYu,
@@ -3439,9 +3439,9 @@ areas.eventGalarianArticuno = {
     trainer: true,
     encounter: true,
     difficulty: tier4difficulty,
-    encounterEffect : function() {item.wormholeResidue.got-=3},
-    unlockDescription : `Requires x3 <img src="img/items/wormholeResidue.png"> Wormhole Residues to enter`,
-    unlockRequirement : function() { return item.wormholeResidue.got>2 },
+    encounterEffect : function() {item.futureContraption.got-=3},
+    unlockDescription : `Requires x3 <img src="img/items/futureContraption.png"> Future Contraptions to enter`,
+    unlockRequirement : function() { return item.futureContraption.got>2 },
     level : 110,
     team : {
         slot1 : pkmn.galarianArticuno,

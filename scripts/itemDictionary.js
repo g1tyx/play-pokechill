@@ -1,6 +1,7 @@
 const item = {}
 
 item.blackBelt = {
+    subtitle: `(Fighting)`,
     type: "held",
      evo: true,
     info: function() {return `When held: Increase the damage of Fighting-Type moves by x${this.power().toFixed(2)}`},
@@ -8,18 +9,21 @@ item.blackBelt = {
 }
 
 item.blackGlasses = {
+    subtitle: `(Dark)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Dark-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.charcoal = {
+    subtitle: `(Fire)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Fire-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.dragonFang = {
+    subtitle: `(Dragon)`,
     type: "held",
     evo: true,
     info: function() {return `When held: Increase the damage of Dragon-Type moves by x${this.power().toFixed(2)}`},
@@ -27,24 +31,28 @@ item.dragonFang = {
 }
 
 item.fairyFeather = {
+    subtitle: `(Fairy)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Fairy-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.hardStone = {
+    subtitle: `(Rock)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Rock-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.magnet = {
+    subtitle: `(Electric)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Electric-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.metalCoat = {
+    subtitle: `(Steel)`,
     type: "held",
     evo: true,
     info: function() {return `When held: Increase the damage of Steel-Type moves by x${this.power().toFixed(2)}`},
@@ -52,60 +60,70 @@ item.metalCoat = {
 }
 
 item.miracleSeed = {
+    subtitle: `(Grass)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Grass-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.mysticWater = {
+    subtitle: `(Water)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Water-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.neverMeltIce = {
+    subtitle: `(Ice)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Ice-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.poisonBarb = {
+    subtitle: `(Poison)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Poison-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.sharpBeak = {
+    subtitle: `(Flying)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Flying-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.silkScarf = {
+    subtitle: `(Normal)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Normal-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.silverPowder = {
+    subtitle: `(Bug)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Bug-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.softSand = {
+    subtitle: `(Ground)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Ground-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.spellTag = {
+    subtitle: `(Ghost)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Ghost-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.twistedSpoon = {
+    subtitle: `(Psychic)`,
     type: "held",
     info: function() {return `When held: Increase the damage of Psychic-Type moves by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.1*returnItemLevel(this.id))}
@@ -113,7 +131,7 @@ item.twistedSpoon = {
 
 item.eviolite = {
     type: "held",
-    info: function() {return `When held: If a Pokemon has not fully evolved, increase overall defense by x${this.power().toFixed(2)}. This does not apply to final-stage Pokemon with a Mega-Evolution`},
+    info: function() {return `When held: If a Pokemon has not fully evolved, decreases damage taken by x${this.power().toFixed(2)}. This does not apply to final-stage Pokemon with a Mega-Evolution`},
     power : function() { return 1+(returnItemLevel(this.id)/5)}
 }
 
@@ -227,7 +245,7 @@ item.weaknessPolicy = {
 
 item.leftovers = {
     type: "held",
-    info: function() {return `When held: Reduces fatigue damage of the user by x${this.power().toFixed(2)}`},
+    info: function() {return `When held: Decreases fatigue damage of the user by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.2*returnItemLevel(this.id))}
 }
 
@@ -397,121 +415,138 @@ item.shinyCharm = {
 
 
 item.occaBerry = {
+    subtitle: `(Fairy)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Fire-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Fire-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.passhoBerry = {
+    subtitle: `(Water)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Water-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Water-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.wacanBerry = {
+    subtitle: `(Electric)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Electric-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Electric-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.rindoBerry = {
+    subtitle: `(Grass)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Grass-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Grass-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.yacheBerry = {
+    subtitle: `(Ice)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Ice-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Ice-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.chopleBerry = {
+    subtitle: `(Fighting)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Fighting-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Fighting-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.kebiaBerry = {
+    subtitle: `(Poison)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Poison-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Poison-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.shucaBerry = {
+    subtitle: `(Ground)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Ground-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Ground-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.cobaBerry = {
+    subtitle: `(Flying)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Flying-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Flying-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.payapaBerry = {
+    subtitle: `(Psychic)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Psychic-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Psychic-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.tangaBerry = {
+    subtitle: `(Bug)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Bug-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Bug-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.chartiBerry = {
+    subtitle: `(Rock)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Rock-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Rock-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.kasibBerry = {
+    subtitle: `(Ghost)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Ghost-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Ghost-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.habanBerry = {
+    subtitle: `(Dragon)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Dragon-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Dragon-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.colburBerry = {
+    subtitle: `(Dark)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Dark-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Dark-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.babiriBerry = {
+    subtitle: `(Steel)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Steel-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Steel-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
 item.roseliBerry = {
+    subtitle: `(Fairy)`,
     type: "held",
     sort: "berry",
-    info: function() {return `When held: Reduces the super-effective damage taken from Fairy-Type moves by ${this.power()}%`},
+    info: function() {return `When held: Decreases the super-effective damage taken from Fairy-Type moves by ${this.power()}%`},
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
@@ -635,7 +670,7 @@ item.abilityCapsule = {
 item.heartScale = {
     type: 'key',
     itemToUse: true,
-    info: function() {return `Use: Re-learn a previously learned move acquired through genetics inheriting (excluding Lock Capsules and signature moves)`},
+    info: function() {return `Use: Re-learn a previously learned move acquired through genetics inheriting (excluding moves inherited through Lock Capsules)`},
 }
 
 item.energyRoot = {
@@ -646,36 +681,42 @@ item.energyRoot = {
 }
 
 item.hpUp = {
+    subtitle: `(Hp)`,
     type: 'key',
     vitamin: true,
     info: function() {return `Use: Increase the HP IV of a Pokemon by 1`},
 }
 
 item.protein = {
+    subtitle: `(Attack)`,
     type: 'key',
     vitamin: true,
     info: function() {return `Use: Increase the Attack IV of a Pokemon by 1`},
 }
 
 item.iron = {
+    subtitle: `(Defense)`,
     type: 'key',
     vitamin: true,
     info: function() {return `Use: Increase the Defense IV of a Pokemon by 1`},
 }
 
 item.calcium = {
+    subtitle: `(Special Attack)`,
     type: 'key',
     vitamin: true,
     info: function() {return `Use: Increase the Special Attack IV of a Pokemon by 1`},
 }
 
 item.zinc = {
+    subtitle: `(Special Defense)`,
     type: 'key',
     vitamin: true,
     info: function() {return `Use: Increase the Special Defense IV of a Pokemon by 1`},
 }
 
 item.carbos = {
+    subtitle: `(Speed)`,
     type: 'key',
     vitamin: true,
     info: function() {return `Use: Increase the Speed IV of a Pokemon by 1`},
@@ -751,36 +792,42 @@ item.everstone = {
 }
 
 item.powerAnklet = {
+    subtitle: `(Speed)`,
     type: "key",
     genetics: true,
     info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Speed Iv's`},
 }
 
 item.powerBand = {
+    subtitle: `(Special Defense)`,
     type: "key",
     genetics: true,
     info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Special Defense Iv's`},
 }
 
 item.powerBelt = {
+    subtitle: `(Defense)`,
     type: "key",
     genetics: true,
     info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Defense Iv's`},
 }
 
 item.powerBracer = {
+    subtitle: `(Attack)`,
     type: "key",
     genetics: true,
     info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Attack Iv's`},
 }
 
 item.powerLens = {
+    subtitle: `(Special Attack)`,
     type: "key",
     genetics: true,
     info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Special Attack Iv's`},
 }
 
 item.powerWeight = {
+    subtitle: `(Hp)`,
     type: "key",
     genetics: true,
     info: function() {return `Genetics-aiding item: Guarantees the chance to inherit HP Iv's`},

@@ -373,6 +373,7 @@
             <select id="pokedex-filter-signature">
                 <option value="all">signature       </option>
                 <option value=false>has signature   </option>
+                <option value="egg">has egg move   </option>
             </select>
 
             <select id="pokedex-filter-ribbon">
@@ -488,7 +489,7 @@
             onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Game Modifiers`
         document.getElementById("tooltipMid").style.display = `none`
-        document.getElementById("tooltipBottom").innerHTML = `<div id="tooltip-modifiers-list"><div style="pointer-events:none; background:#AD5957; color:white">Challenges</div> <div data-help="ModNuzloke"><span>Nuzloke Mode</span> <input type="checkbox" id="checkbox-mode-nuzloke" onclick="updateSettings(true)"></div>  <div data-help="ModHard"><span>Hard Mode</span> <input type="checkbox" id="checkbox-mode-hard" onclick="updateSettings(true)"></div> <div style="pointer-events:none; background:#57AD5D; color:white">Cheats</div>  <div data-help="ModNoIvs"><span>No IVs</span><input type="checkbox" id="checkbox-mode-ivs" onclick="updateSettings(true)"></div>  <div data-help="ModAfk"><span>Longer AFK</span><input type="checkbox" id="checkbox-mode-afk" onclick="updateSettings(true)"></div> </div>`
+        document.getElementById("tooltipBottom").innerHTML = `Right Click/Long press to see the details<div id="tooltip-modifiers-list"><div style="pointer-events:none; background:#AD5957; color:white">Challenges</div> <div data-help="ModNuzloke"><span>Nuzloke Mode</span> <input type="checkbox" id="checkbox-mode-nuzloke" onclick="updateSettings(true)"></div>  <div data-help="ModHard"><span>Hard Mode</span> <input type="checkbox" id="checkbox-mode-hard" onclick="updateSettings(true)"></div> <div style="pointer-events:none; background:#57AD5D; color:white">Cheats</div>  <div data-help="ModNoIvs"><span>No IVs</span><input type="checkbox" id="checkbox-mode-ivs" onclick="updateSettings(true)"></div>  <div data-help="ModAfk"><span>Longer AFK</span><input type="checkbox" id="checkbox-mode-afk" onclick="updateSettings(true)"></div> </div>`
         openTooltip(); updateSettings()'
         
         >Game modifiers</div>
@@ -1240,7 +1241,7 @@ Game Guide
 
                 <div class="pkmn-stats-stat-abilities" id="pkmn-stats-stat-signature">
 
-                    Signature Move
+                    <text id="pkmn-edit-signature-text">Signature Move</text>
                         <span style="display: flex; gap: 1rem;">
                     <div id="pkmn-edit-signature">
                         [Coming Soon]

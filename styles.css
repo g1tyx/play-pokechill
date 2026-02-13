@@ -5984,3 +5984,22 @@ transform: translateY(-1rem);
    scale: 0.9;
    image-rendering: pixelated;
 }
+
+.move-tooltip-dictionary{
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: var(--light2);
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.move-tooltip-dictionary:hover{
+    background: var(--light1);
+    color: var(--light2);
+
+}
+

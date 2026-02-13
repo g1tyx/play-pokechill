@@ -280,6 +280,8 @@ function tooltipData(category, ttdata){
         if (ttdata==="freeze") document.getElementById("tooltipBottom").innerHTML = `Moves fail to deal damage`
         if (ttdata==="confused") document.getElementById("tooltipBottom").innerHTML = `50% chance for moves to fail to deal damage`
         if (ttdata==="paralysis") document.getElementById("tooltipBottom").innerHTML = `25% chance for moves to fail to deal damage and Speed is reduced by 75%`
+
+        if (ttdata==="embargo") document.getElementById("tooltipBottom").innerHTML = `Prevents the enemy to use the move in the slot embargo was used`
         
         if (ttdata==="sunny") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Fire-Type moves by 50% and decreases the damage of Water-Type moves by 50%`
         if (ttdata==="rainy") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Water-Type moves by 50% and decreases the damage of Fire-Type moves by 50%`
@@ -292,7 +294,7 @@ function tooltipData(category, ttdata){
 
         if (ttdata==="trickRoom") document.getElementById("tooltipBottom").innerHTML = `Slower Pokemon become faster, faster Pokemon become slower. Additionally, multiplies the damage based on how slow the Pokemon originally was by x1.0 to x1.5`
         if (ttdata==="weirdRoom") document.getElementById("tooltipBottom").innerHTML = `Decrease the attack and defense of all active Pokemon by 3 stars`
-        if (ttdata==="crossRoom") document.getElementById("tooltipBottom").innerHTML = `Increases the damage dealt by cross-power by 25%`
+        if (ttdata==="crossRoom") document.getElementById("tooltipBottom").innerHTML = `Increases the damage dealt by cross-power by 30%`
         //if (ttdata==="reflect") document.getElementById("tooltipBottom").innerHTML = `Decreases the damage dealt by physical attacks by 75%`
         if (ttdata==="lightScreen") document.getElementById("tooltipBottom").innerHTML = `Super-effective damage dealt to your team is reduced to neutral`
         if (ttdata==="safeguard") document.getElementById("tooltipBottom").innerHTML = `Protects your team from status effects and stat reductions`
@@ -761,12 +763,12 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
 
 
         if (ttdata === `searchDictionary`) document.getElementById("tooltipTitle").innerHTML = `Keywords`
-        if (ttdata === `searchDictionary`) document.getElementById("tooltipBottom").innerHTML = `Operators:<br>![keyword]: Exclude from search<br>[keywordA] or [keywordB]: Search keywordA OR keywordB<br>[keywordA] [keywordB]: Search for keywordA AND keywordB<br><br>Pokemon keywords:<br>unobtainable, wild, park, event, frontier, mart, shiny, caught, [type], [hidden ability]<br><br>Move keywords:<br>physical, special, [type], [ability]`
+        if (ttdata === `searchDictionary`) document.getElementById("tooltipBottom").innerHTML = `Operators:<br>![keyword]: Exclude from search<br>[keywordA] or [keywordB]: Search keywordA OR keywordB<br>[keywordA] [keywordB]: Search for keywordA AND keywordB<br><br>Pokemon keywords:<br>unobtainable, wild, park, event, frontier, mart, shiny, caught, signature, eggMove, [type], [hidden ability]<br><br>Move keywords:<br>physical, special, signature, [type], [ability]`
         if (ttdata === `searchDictionary`) document.getElementById("dictionary-search").blur()
 
 
         if (ttdata === `searchPokedex`) document.getElementById("tooltipTitle").innerHTML = `Keywords`
-        if (ttdata === `searchPokedex`) document.getElementById("tooltipBottom").innerHTML = `Operators:<br>![keyword]: Exclude from search<br>[keywordA] or [keywordB]: Search keywordA OR keywordB<br>[keywordA] [keywordB]: Search for keywordA AND keywordB<br><br>Keywords:<br>shiny, pokerus, [type], [ability], [hidden ability], [level], [move]`
+        if (ttdata === `searchPokedex`) document.getElementById("tooltipBottom").innerHTML = `Operators:<br>![keyword]: Exclude from search<br>[keywordA] or [keywordB]: Search keywordA OR keywordB<br>[keywordA] [keywordB]: Search for keywordA AND keywordB<br><br>Keywords:<br>shiny, pokerus, signature, eggMove, [type], [ability], [hidden ability], [level], [move]`
         if (ttdata === `searchPokedex`) document.getElementById("pokedex-search").blur()
 
         if (ttdata === `Main Challenges`) document.getElementById("tooltipTitle").innerHTML = `Main Challenges`
@@ -802,6 +804,11 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         if (ability[ttdata].rarity===2) document.getElementById("tooltipMid").innerHTML = `Uncommon Ability`
         if (ability[ttdata].rarity===3) document.getElementById("tooltipMid").innerHTML = `Rare Ability`
         document.getElementById("tooltipBottom").innerHTML = ability[ttdata].info()
+
+
+        document.getElementById("tooltipMid").innerHTML += `<svg onclick="tooltipData('dictionaryAbility', '${ttdata}')" class="move-tooltip-dictionary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m6.006 11.823l1.123-3.06h.05l1.123 3.06zm6.494 5.496q1.216-.678 2.453-.98t2.547-.3q.9 0 1.618.111t1.267.296q.23.096.423-.029t.192-.394V7.008q0-.173-.096-.308q-.096-.134-.327-.23q-.825-.293-1.501-.4T17.5 5.961q-1.31 0-2.613.386q-1.304.387-2.387 1.16zm-6.78-4.763h2.869l.474 1.306q.05.111.137.17t.204.059q.198 0 .303-.158t.043-.35L7.739 8.24q-.05-.131-.169-.212t-.255-.081h-.323q-.136 0-.254.08t-.169.213l-2.011 5.361q-.062.173.043.33t.303.159q.117 0 .206-.06q.09-.058.14-.175zm6.28 5.9q-.235 0-.432-.059t-.376-.15q-1.09-.595-2.27-.902T6.5 17.04q-.78 0-1.534.13q-.753.131-1.466.42q-.544.217-1.022-.131T2 16.496V6.831q0-.371.195-.689t.547-.442q.887-.383 1.836-.56T6.5 4.962q1.47 0 2.866.423q1.398.423 2.634 1.23q1.237-.807 2.634-1.23t2.866-.423q.973 0 1.922.178q.95.177 1.836.56q.352.125.547.442t.195.689v9.665q0 .614-.516.943q-.517.328-1.1.111q-.693-.27-1.418-.39q-.724-.121-1.466-.121q-1.24 0-2.421.306t-2.271.901q-.18.093-.376.151q-.197.059-.432.059m1.885-9.508q0-.11.076-.222t.18-.168q.763-.346 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.154-1.46.43q-.257.099-.42-.005t-.162-.362m0 5.423q0-.11.076-.231q.076-.123.18-.178q.725-.346 1.613-.52q.888-.173 1.746-.173q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.784 0-1.544.16q-.76.161-1.45.457q-.258.118-.44-.003t-.181-.397m0-2.692q0-.11.076-.222t.18-.168q.763-.347 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.134q.096.104.096.258q0 .252-.15.366t-.402.051q-.37-.075-.757-.102q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.153-1.46.43q-.257.098-.42-.005q-.162-.105-.162-.362"/></svg>`
+        if (document.getElementById("pkmn-editor").style.display == "flex" && pkmn[currentEditedPkmn].hiddenAbility?.id == ttdata ) document.getElementById("tooltipBottom").innerHTML += `<br><br>This is a Hidden Ability. Hidden abilities are unlocked via Ability Capsules or via Training, and they work alongside your regular ability`
+
         openTooltip()
     }
 
@@ -849,6 +856,14 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         document.getElementById("tooltipMid").innerHTML = `${format(move[ttdata].type)}, ${move[ttdata].power} Power, ${format(move[ttdata].split)}${affectedText}`
         if (move[ttdata].info == undefined) document.getElementById("tooltipBottom").innerHTML = `No additional effects`
         else document.getElementById("tooltipBottom").innerHTML = move[ttdata].info()
+
+        document.getElementById("tooltipMid").innerHTML += `<svg onclick="tooltipData('dictionaryMove', '${ttdata}')" class="move-tooltip-dictionary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m6.006 11.823l1.123-3.06h.05l1.123 3.06zm6.494 5.496q1.216-.678 2.453-.98t2.547-.3q.9 0 1.618.111t1.267.296q.23.096.423-.029t.192-.394V7.008q0-.173-.096-.308q-.096-.134-.327-.23q-.825-.293-1.501-.4T17.5 5.961q-1.31 0-2.613.386q-1.304.387-2.387 1.16zm-6.78-4.763h2.869l.474 1.306q.05.111.137.17t.204.059q.198 0 .303-.158t.043-.35L7.739 8.24q-.05-.131-.169-.212t-.255-.081h-.323q-.136 0-.254.08t-.169.213l-2.011 5.361q-.062.173.043.33t.303.159q.117 0 .206-.06q.09-.058.14-.175zm6.28 5.9q-.235 0-.432-.059t-.376-.15q-1.09-.595-2.27-.902T6.5 17.04q-.78 0-1.534.13q-.753.131-1.466.42q-.544.217-1.022-.131T2 16.496V6.831q0-.371.195-.689t.547-.442q.887-.383 1.836-.56T6.5 4.962q1.47 0 2.866.423q1.398.423 2.634 1.23q1.237-.807 2.634-1.23t2.866-.423q.973 0 1.922.178q.95.177 1.836.56q.352.125.547.442t.195.689v9.665q0 .614-.516.943q-.517.328-1.1.111q-.693-.27-1.418-.39q-.724-.121-1.466-.121q-1.24 0-2.421.306t-2.271.901q-.18.093-.376.151q-.197.059-.432.059m1.885-9.508q0-.11.076-.222t.18-.168q.763-.346 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.154-1.46.43q-.257.099-.42-.005t-.162-.362m0 5.423q0-.11.076-.231q.076-.123.18-.178q.725-.346 1.613-.52q.888-.173 1.746-.173q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.784 0-1.544.16q-.76.161-1.45.457q-.258.118-.44-.003t-.181-.397m0-2.692q0-.11.076-.222t.18-.168q.763-.347 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.134q.096.104.096.258q0 .252-.15.366t-.402.051q-.37-.075-.757-.102q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.153-1.46.43q-.257.098-.42-.005q-.162-.105-.162-.362"/></svg>`
+
+        if (document.getElementById("pkmn-editor").style.display == "flex" && pkmn[currentEditedPkmn].signature?.id == ttdata ) document.getElementById("tooltipBottom").innerHTML += `<br><br>This is a Signature Move. Signature moves will automatically be learnt at level 100`
+        if (document.getElementById("pkmn-editor").style.display == "flex" && pkmn[currentEditedPkmn].eggMove?.id == ttdata ) document.getElementById("tooltipBottom").innerHTML += `<br><br>This is an Egg Move. Egg moves can be learnt with genetics, using a sample that knows said move, at regular move transfer odds`
+
+
+
         openTooltip()
 
     }
@@ -885,7 +900,8 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         document.getElementById("tooltipTitle").style.display = "none";
         let hiddenAbility = `WIP`
         let signatureMove = ""
-        if (pkmn[ttdata].signature != undefined) signatureMove = `<div id="inpect-pkmn-signature" style="box-shadow: none; outline:none"> <svg style="margin: 0 0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg> Signature Move: ${format(pkmn[ttdata].signature.id)} </div>`
+        if (pkmn[ttdata].signature != undefined) signatureMove = `<div id="inpect-pkmn-signature" style="box-shadow: none; outline:none"> <svg style="margin: 0 0.3rem; opacity:0.8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg> Signature Move: ${format(pkmn[ttdata].signature.id)} </div>`
+        if (pkmn[ttdata].eggMove != undefined) signatureMove = `<div id="inpect-pkmn-signature" style="box-shadow: none; outline:none"> <svg style="margin: 0 0.3rem; opacity:0.8" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><defs><mask id="SVGVlQBebkA"><g fill="none"><path fill="#555555" fill-rule="evenodd" stroke="#fff" stroke-width="4" d="M24 44c10.252 0 16-6.954 16-18S31.132 4 24 4S8 14.954 8 26s5.748 18 16 18Z" clip-rule="evenodd"/><path fill="#fff" d="M21 38a3 3 0 1 0 0-6a3 3 0 0 0 0 6"/><path fill="#fff" fill-rule="evenodd" d="M16 29.668a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGVlQBebkA)"/></svg> Egg Move: ${format(pkmn[ttdata].eggMove.id)} </div>`
         if (pkmn[ttdata].hiddenAbility != undefined) hiddenAbility = format(pkmn[ttdata].hiddenAbility.id)
 
         document.getElementById("tooltipMid").innerHTML = `<div style="display:flex; flex-wrap:wrap; justify-content:center;align-items:center; overflow-y:scroll; max-height:15rem">${returnTypeMultipliers(pkmn[ttdata])}</div>`;
@@ -1217,11 +1233,20 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
     if (pkmn[ttdata].signature) {
         signatureIcon = `<svg style="color:${returnTypeColor(move[pkmn[ttdata].signature.id].type)}; margin:0 0.25rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
         document.getElementById("pkmn-stats-stat-signature").style.display = "flex"
+        document.getElementById("pkmn-edit-signature-text").textContent = "Signature Move"
         document.getElementById("pkmn-edit-signature").innerHTML = `${signatureIcon} ${format(pkmn[ttdata].signature.id)}`
         if (pkmn[ttdata].movepool.includes(pkmn[ttdata].signature.id)) document.getElementById("pkmn-edit-signature").innerHTML = `${signatureIcon} ${format(pkmn[ttdata].signature.id)} ✔️`
         document.getElementById("pkmn-edit-signature").dataset.move = pkmn[ttdata].signature.id
 
-    } else document.getElementById("pkmn-stats-stat-signature").style.display = "none"
+    } else if (pkmn[ttdata].eggMove) {
+        signatureIcon = `<svg style="color:${returnTypeColor(move[pkmn[ttdata].eggMove.id].type)}; margin:0 0.25rem" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGVlQBebkA"><g fill="none"><path fill="#555555" fill-rule="evenodd" stroke="#fff" stroke-width="4" d="M24 44c10.252 0 16-6.954 16-18S31.132 4 24 4S8 14.954 8 26s5.748 18 16 18Z" clip-rule="evenodd"/><path fill="#fff" d="M21 38a3 3 0 1 0 0-6a3 3 0 0 0 0 6"/><path fill="#fff" fill-rule="evenodd" d="M16 29.668a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGVlQBebkA)"/></svg>`
+        document.getElementById("pkmn-stats-stat-signature").style.display = "flex"
+        document.getElementById("pkmn-edit-signature-text").textContent = "Egg Move"
+        document.getElementById("pkmn-edit-signature").innerHTML = `${signatureIcon} ${format(pkmn[ttdata].eggMove.id)}`
+        if (pkmn[ttdata].movepool.includes(pkmn[ttdata].eggMove.id)) document.getElementById("pkmn-edit-signature").innerHTML = `${signatureIcon} ${format(pkmn[ttdata].eggMove.id)} ✔️`
+        document.getElementById("pkmn-edit-signature").dataset.move = pkmn[ttdata].eggMove.id
+
+    }  else document.getElementById("pkmn-stats-stat-signature").style.display = "none"
 
 
     let abilityHiddenIcon = `<svg style="margin-right:0.3rem"xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>`
@@ -1315,6 +1340,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
 
     let signatureIcon = ""
     if (move[moveId].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+    if (pkmn[ttdata].eggMove?.id == moveId) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGVlQBebkA"><g fill="none"><path fill="#555555" fill-rule="evenodd" stroke="#fff" stroke-width="4" d="M24 44c10.252 0 16-6.954 16-18S31.132 4 24 4S8 14.954 8 26s5.748 18 16 18Z" clip-rule="evenodd"/><path fill="#fff" d="M21 38a3 3 0 1 0 0-6a3 3 0 0 0 0 6"/><path fill="#fff" fill-rule="evenodd" d="M16 29.668a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGVlQBebkA)"/></svg>`
     if (move[moveId].restricted) signatureIcon += `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.832 21.801c3.126-.626 7.168-2.875 7.168-8.69c0-5.291-3.873-8.815-6.658-10.434c-.619-.36-1.342.113-1.342.828v1.828c0 1.442-.606 4.074-2.29 5.169c-.86.559-1.79-.278-1.894-1.298l-.086-.838c-.1-.974-1.092-1.565-1.87-.971C4.461 8.46 3 10.33 3 13.11C3 20.221 8.289 22 10.933 22q.232 0 .484-.015c.446-.056 0 .099 1.415-.185" opacity="0.5"/><path fill="currentColor" d="M8 18.444c0 2.62 2.111 3.43 3.417 3.542c.446-.056 0 .099 1.415-.185C13.871 21.434 15 20.492 15 18.444c0-1.297-.819-2.098-1.46-2.473c-.196-.115-.424.03-.441.256c-.056.718-.746 1.29-1.215.744c-.415-.482-.59-1.187-.59-1.638v-.59c0-.354-.357-.59-.663-.408C9.495 15.008 8 16.395 8 18.445"/></svg>`
 
 
@@ -1386,7 +1412,7 @@ const sortedMovepool = movepool
     }
 
 
-    if (areas[saved.currentArea]?.trainer && saved.currentArea != undefined ||  areas[saved.currentArea]?.type == "frontier" ||  saved.currentArea == areas.training.id) {
+    if ((areas[saved.currentArea]?.trainer && saved.currentArea != undefined ||  areas[saved.currentArea]?.type == "frontier" ||  saved.currentArea == areas.training.id) && pkmn[ttdata].battling==true) {
 
         document.getElementById("tooltipTop").style.display = "none"
         document.getElementById("tooltipBottom").style.display = "none"
@@ -1398,7 +1424,7 @@ const sortedMovepool = movepool
     }
 
 
-    if (move[moveId].restricted && saved.currentArea != undefined){
+    if (move[moveId].restricted && saved.currentArea != undefined && pkmn[ttdata].battling==true){
 
 
         document.getElementById("tooltipTop").style.display = "none"
@@ -1439,6 +1465,7 @@ const sortedMovepool = movepool
 
     let signatureIcon = ""
     if (move[moveId].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+    if (pkmn[ttdata].eggMove?.id == moveId) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGVlQBebkA"><g fill="none"><path fill="#555555" fill-rule="evenodd" stroke="#fff" stroke-width="4" d="M24 44c10.252 0 16-6.954 16-18S31.132 4 24 4S8 14.954 8 26s5.748 18 16 18Z" clip-rule="evenodd"/><path fill="#fff" d="M21 38a3 3 0 1 0 0-6a3 3 0 0 0 0 6"/><path fill="#fff" fill-rule="evenodd" d="M16 29.668a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGVlQBebkA)"/></svg>`
     if (move[moveId].restricted) signatureIcon += `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.832 21.801c3.126-.626 7.168-2.875 7.168-8.69c0-5.291-3.873-8.815-6.658-10.434c-.619-.36-1.342.113-1.342.828v1.828c0 1.442-.606 4.074-2.29 5.169c-.86.559-1.79-.278-1.894-1.298l-.086-.838c-.1-.974-1.092-1.565-1.87-.971C4.461 8.46 3 10.33 3 13.11C3 20.221 8.289 22 10.933 22q.232 0 .484-.015c.446-.056 0 .099 1.415-.185" opacity="0.5"/><path fill="currentColor" d="M8 18.444c0 2.62 2.111 3.43 3.417 3.542c.446-.056 0 .099 1.415-.185C13.871 21.434 15 20.492 15 18.444c0-1.297-.819-2.098-1.46-2.473c-.196-.115-.424.03-.441.256c-.056.718-.746 1.29-1.215.744c-.415-.482-.59-1.187-.59-1.638v-.59c0-.354-.357-.59-.663-.408C9.495 15.008 8 16.395 8 18.445"/></svg>`
 
 
@@ -1539,7 +1566,10 @@ const sortedMovepool = movepool
         if (move[ttdata].info != undefined) document.getElementById("tooltipMid").innerHTML += `<br>${move[ttdata].info()}`
         
         
-        
+        let eggMoveUsers = []
+        for (const i in pkmn) {
+            if (pkmn[i].eggMove?.id == ttdata) eggMoveUsers.push(i)
+        }
         
         
         if (move[ttdata].moveset) {
@@ -1563,6 +1593,10 @@ const sortedMovepool = movepool
         document.getElementById("tooltipBottom").innerHTML = `
         This move can only appear as the Signature Move of ${joinWithAnd(signatureArray)}
         `
+        if (eggMoveUsers.length>0) document.getElementById("tooltipBottom").innerHTML += `
+        and the Egg Move of ${joinWithAnd(eggMoveUsers)}
+        `
+
         }
 
         
