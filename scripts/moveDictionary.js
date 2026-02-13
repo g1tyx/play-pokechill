@@ -5021,11 +5021,12 @@ move.tropKick = {
 }
 
 move.fireLash = {
-    split: "physical",
+    rename: `noxiousLash`,
+    split: "special",
     type: "fire",
-    power: t4Base-50,
-    info: function() {return `Decreases enemy Defense by 50%`},
-    hitEffect: function(target) { moveBuff(target,'defdown1') },
+    power: t4Base-60,
+    info: function() {return `Inflicts ${tagPoisoned}`},
+    hitEffect: function(target) { moveBuff(target,'poisoned') },
 }
 
 move.clangingScales = {

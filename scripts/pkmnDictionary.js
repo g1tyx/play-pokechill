@@ -12697,7 +12697,7 @@ pkmn.heatmor = {
   type: ["fire"],
   bst: {
     hp: 85,
-    atk: 97,
+    atk: 105,
     def: 66,
     satk: 105,
     sdef: 66,
