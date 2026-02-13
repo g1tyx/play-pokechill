@@ -435,7 +435,7 @@ var cnItems = {
     "Genetics can also be influenced by using genetic-aiding items, which you can use at the end of the operation": "你也可在操作结束阶段使用遗传辅助道具, 为遗传的效果提供加成。",
     "You can find more information about the specifics of genetics in the guide section": "你可在指南板块中查看宝可梦遗传机制的详细说明",
     "Warning, high Power Cost! Only 5 out of 6 maximum IV's per stat will be inherited!": "警告! 能量消耗高! 每项个体值最多只能遗传5级 (共6级) !",
-    "Warning, power cost too high! Only 5 out of 6 maximum IV's per stat will be inherited!": "警告! 能量消耗高! 每项个体值最多只能遗传5级 (共6级) !", //不存在的文本??
+    "Warning, power cost too high! Only 5 out of 6 maximum IV's per stat will be inherited!": "警告! 能量消耗很高! 每项个体值最多只能遗传5级 (共6级) !", //不存在的文本??
     "Warning, very high Power Cost! Only 4 out of 6 maximum IV's per stat will be inherited!": "警告：能量消耗极高! 每项个体值最多只能遗传4级 (共6级) !",
     "Select a host Pokemon": "选择宿主宝可梦",
     "Select a sample Pokemon": "选择样本宝可梦",
@@ -444,12 +444,12 @@ var cnItems = {
     "Time to complete operation": "完成操作所需时间",
     "% for shiny mutation": "闪光突变概率",
     "% to inherit a move from the sample": "遗传一个样本招式概率",
-    "% to inherit sample's Speed Iv's": "遗传样本的 速度 个体值(IV) 的概率",
-    "% to inherit sample's S. Defense Iv's": "遗传样本的 特防 个体值(IV) 的概率",
-    "% to inherit sample's S. Attack Iv's": "遗传样本的 特攻 个体值(IV) 的概率",
-    "% to inherit sample's HP Iv's": "遗传样本的 生命值 个体值(IV) 的概率",
-    "% to inherit sample's Attack Iv's": "遗传样本的 攻击 个体值(IV) 的概率",
-    "% to inherit sample's Defense Iv's": "遗传样本的 防御 个体值(IV) 的概率",
+    "% to inherit sample's Speed Iv's": "遗传样本的 速度 个体值 的概率",
+    "% to inherit sample's S. Defense Iv's": "遗传样本的 特防 个体值的概率",
+    "% to inherit sample's S. Attack Iv's": "遗传样本的 特攻 个体值的概率",
+    "% to inherit sample's HP Iv's": "遗传样本的 生命 个体值的概率",
+    "% to inherit sample's Attack Iv's": "遗传样本的 攻击 个体值的概率",
+    "% to inherit sample's Defense Iv's": "遗传样本的 防御 个体值的概率",
     "Pokerus detected on the host! Genetic compatibility is increased by one level!": "检测到宿主感染宝可梦病毒! 遗传兼容性提升 1 级!",
     "Are you sure you want to abort the operation?": "你确定要中止操作吗？",
     "Nothing but time will be lost": "除了时间之外不会有任何损失",
@@ -2118,6 +2118,7 @@ var cnPrefix = {
 //例如: 13 Coin、14 Coin、15 Coin... 这种有相同结尾的语句
 //可以在这里汉化结尾: " Coin":" 金币"
 var cnPostfix = {
+    "⛔": "⛔",
     "is now level 100!": "到达 100 级!",
     "Halves the damage received of Ground-type moves": "受到地面属性招式的伤害减半",
     "Ground-type moves": "地面属性招式",
@@ -3038,7 +3039,6 @@ var cnPostfix = {
     "Aqua Jet!": "水流喷射!",
     "Vine Whip!": "藤鞭!",
     "Confusion!": "念力!",
-    "Peck!": "啄!",
     "Tackle!": "撞击!",
     "Rock Smash!": "碎岩!",
     "Swagger!": "虚张声势!",
@@ -3052,7 +3052,6 @@ var cnPostfix = {
     "Magical Leaf!": "魔法叶!",
     "Water Pulse!": "水之波动!",
     "Ancient Power!": "原始之力!",
-    "Cut!": "居合劈!",
     "Water Gun!": "水枪!",
     "Psybeam!": "幻象光线!",
     "Silver Wind!": "银色旋风!",
@@ -3376,6 +3375,7 @@ var cnPostfix = {
     "Whirlpool!": "潮旋!",
     "Seed Bomb!": "种子炸弹!",
     "Drill Peck!": "啄钻!",
+    "Peck!": "啄!",
     "Fire Blast!": "大字爆炎!",
     "Fire Fang!": "火焰牙!",
     "Flamethrower!": "喷射火焰!",
@@ -3389,6 +3389,7 @@ var cnPostfix = {
     "String Shot!": "吐丝!",
     "X Scissor!": "十字剪!",
     "Spectral Thief!": "暗影偷盗!",
+    "Cut!": "居合劈!",
     //人名后缀
     "School Kid Aaron": "补习班学生 阿柳",
     "Aaron": "阿柳",
@@ -3545,7 +3546,6 @@ var cnPostfix = {
     " ▼▼": " ▼▼",
     "✔️": "✔️",
     " Tm": " Tm",
-    "⛔": "⛔",
 }
 
 //需排除的, 正则匹配
