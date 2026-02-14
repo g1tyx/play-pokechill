@@ -349,6 +349,8 @@ var cnItems = {
     "Experience gain is proportional to the level difference. A level difference of +-5 levels will net the same amount, while more than 5 levels of difference will greatly increase the amount received.": "经验值获取量与等级差成正比。等级差在 ±5 级以内将获得相同数量, 而超过5级的等级差会大幅增加获得的经验值",
     "A Pokemon 10 levels higher will not yield any experience": "超过对手 10 级的宝可梦不会获得任何经验",
     //战斗: 招式
+    "This is an Egg Move. Egg moves can be learnt with genetics, using a sample that knows said move, at regular move transfer odds.": "这是一个蛋招式。蛋招式可以通过遗传学习。请使用一个已学会该招式的宝可梦作为样本, 且按照常规招式遗传几率进行遗传。",
+    "Some Pokemon might have Signature Moves. Signature Moves are species-dependant moves that a Pokemon learn at level 100. Signature Moves can't be inherited through genetics, unless the host has the corresponding Egg Move": "有些宝可梦可能拥有专属技能, 这是特定物种的宝可梦在100级时学习的技能。专属技能无法通过遗传继承, 除非该宝可梦拥有对应的蛋招式。",
     "Moves are learnt every 7 levels. Moves can be switched by right click/long press on a team pokemon": "每 7 级学习一次招式。招式可以通过 右键/长按 队伍宝可梦切换",
     "Damaging moves are divided into physical and special moves": "伤害型招式分为物理招式和特殊招式",
     "The category of the move determines whether the move's damage depends on the user's Attack or Special Attack stat and the target's Defense or Special Defense": "招式的类别决定了招式的伤害是否取决于使用者的攻击或特攻属性, 以及目标的防御或特殊防御",
