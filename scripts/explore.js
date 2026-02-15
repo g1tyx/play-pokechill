@@ -2191,6 +2191,7 @@ function exploreCombatPlayer() {
 
     if (areas[saved.currentArea].fieldEffect?.includes(field.averageTime.id)) {moveTimerPlayer = defaultPlayerMoveTimer}
 
+
     //buff modifiers
     if (team[exploreActiveMember].buffs?.paralysis > 0) moveTimerPlayer *=  1.75
     if (team[exploreActiveMember].buffs?.spedown1 > 0) moveTimerPlayer *= 1.5
@@ -2327,10 +2328,11 @@ function exploreCombatPlayer() {
         movePower *= multihit
 
 
+        let mimicHasBeenUsed = false
         if (nextMove.id == move.mimic.id) {
-            nextMove =  move[ document?.getElementById(`pkmn-movebox-wild-1`).dataset.move  ]
+            nextMove = move[ document?.getElementById(`pkmn-movebox-wild-1`).dataset.move  ]
             movePower = move[ document?.getElementById(`pkmn-movebox-wild-1`).dataset.move  ].power
-            movePower*=2
+            mimicHasBeenUsed = true
         }
 
         if (team[exploreActiveMember].item == item.assaultVest.id && nextMove.power==0) nextMove = move.splash
@@ -2519,6 +2521,8 @@ function exploreCombatPlayer() {
         
         if (nextMove.power>0) lastCrossStab = nextMove.type
 
+        if (mimicHasBeenUsed==true) totalPower *= 2
+
 
         //items
         if (team[exploreActiveMember].item == item.blackBelt.id && moveType == 'fighting') totalPower *= item.blackBelt.power()
@@ -2597,7 +2601,7 @@ function exploreCombatPlayer() {
 
         if ( testAbility(`active`, ability.rivalry.id) && pkmn[saved.currentPkmn].type.some(t => pkmn[team[exploreActiveMember].pkmn.id].type.includes(t)) ) totalPower *= 1.5
         
-        if (testAbility(`active`, ability.sheerForce.id) &&  nextMove.hitEffect) totalPower *= 1.25
+        if (testAbility(`active`, ability.sheerForce.id) && nextMove.hitEffect && !nextMove.unaffectedBy?.includes(ability.sheerForce.id) ) totalPower *= 1.25
         
         if (testAbility(`active`, ability.hugePower.id) && nextMove.split == 'physical') totalPower *= 2
 

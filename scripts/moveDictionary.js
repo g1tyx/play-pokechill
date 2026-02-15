@@ -4097,17 +4097,17 @@ move.metronome = {
 
 move.mimic = {
     split: "special",
-    type: "normal",
+    type: "psychic",
     power: 0,
-    info: function() {return `Perform the first move of the oponent, at double the base power`},
+    info: function() {return `Perform the first move of the oponent, at double the damage`},
 }
 
 move.meFirst = {
     split: "special",
     type: "normal",
     power: 0,
-    timer: defaultPlayerMoveTimer*0.5,
-    info: function() {return `Perform the first move of the oponent. Attacks x2 faster than usual`} ,
+    timer: defaultPlayerMoveTimer/3,
+    info: function() {return `Perform the first move of the oponent. Attacks x3 faster than usual`} ,
 }
 
 move.burnUp = {
@@ -4651,10 +4651,11 @@ move.chillyReception = {
 
 move.camouflage = { 
     split: "special",
-    type: "normal",
+    type: "bug",
     power: 0,
-    info: function() {return `Changes the type of the user corresponding to the weather`},
+    info: function() {return `Changes the type of the user corresponding to the weather, and increases Speed by 75%`},
     hitEffect: function(target) {
+        moveBuff(target,'speup2',"self");
         if (saved.weatherTimer>0){
             if (saved.weather=="sunny") pkmn[ team[exploreActiveMember].pkmn.id ].type = "fire"
             if (saved.weather=="rainy") pkmn[ team[exploreActiveMember].pkmn.id ].type = "water"
@@ -4664,8 +4665,14 @@ move.camouflage = {
             if (saved.weather=="electricTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = "electric"
             if (saved.weather=="mistyTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = "psychic"
             if (saved.weather=="grassyTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = "grass"
+            if (saved.weather=="trickRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = "dark"
+            if (saved.weather=="weirdRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = "bug"
+            if (saved.weather=="crossRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = "fighting"
+            if (saved.weather=="safeguard") pkmn[ team[exploreActiveMember].pkmn.id ].type = "normal"
+            if (saved.weather=="lightScreen") pkmn[ team[exploreActiveMember].pkmn.id ].type = "fairy"
         }
      },
+     restricted: true,
 }
 
 
@@ -4779,7 +4786,8 @@ move.howl = {
     power: 0,
     info: function() {return `Increases Attack by 100% to the entire team`},
     hitEffect: function(target) { moveBuff(target,'atkup2',"team")},
-    affectedBy: [ability.cacophony.id]
+    affectedBy: [ability.cacophony.id],
+    restricted : true,
 }
 
 move.aromaticMist = {
@@ -5231,8 +5239,9 @@ move.conversion = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `Changes the type of the user to the type of the first move slot`},
-    hitEffect: function(target) { pkmn[ team[exploreActiveMember].pkmn.id ].type = [ move[ pkmn[ team[exploreActiveMember].pkmn.id] .moves.slot1  ].type  ] },
+    info: function() {return `Changes the type of the user to the type of the first move slot, and increases Speed by 75%`},
+    hitEffect: function(target) { moveBuff(target,'speup2',"self"); pkmn[ team[exploreActiveMember].pkmn.id ].type = [ move[ pkmn[ team[exploreActiveMember].pkmn.id] .moves.slot1  ].type  ] },
+    restricted: true,
 }
 
 move.flameBurst = {
@@ -5275,7 +5284,7 @@ for (const i in move){
     if (move[i].power>0 && move[i].hitEffect && !move[i].unaffectedBy?.includes(ability.sheerForce.id) && move[i].buildup==undefined) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.sheerForce.id)} else move[i].affectedBy = [ability.sheerForce.id] }
     //serene grace/pbond
     if (move[i].hitEffect && move[i].hitEffect?.toString().includes('rng(')) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.sereneGrace.id)} else move[i].affectedBy = [ability.sereneGrace.id] }
-    if (move[i].hitEffect && move[i].hitEffect?.toString().includes('rng(')) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.parentalBond.id)} else move[i].affectedBy = [ability.parentalBond.id] }
+    //if (move[i].hitEffect && move[i].hitEffect?.toString().includes('rng(')) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.parentalBond.id)} else move[i].affectedBy = [ability.parentalBond.id] }
     //technician
     if (move[i].power>0 && move[i].power<=60) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.technician.id)} else move[i].affectedBy = [ability.technician.id] }
     //skill link

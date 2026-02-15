@@ -415,7 +415,7 @@ item.shinyCharm = {
 
 
 item.occaBerry = {
-    subtitle: `(Fairy)`,
+    subtitle: `(Fire)`,
     type: "held",
     sort: "berry",
     info: function() {return `When held: Decreases the super-effective damage taken from Fire-Type moves by ${this.power()}%`},

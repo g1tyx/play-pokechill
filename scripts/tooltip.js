@@ -1670,8 +1670,11 @@ const sortedMovepool = movepool
         <span style="display:flex; flex-direction:column">${spawnLocation}<span>
         `
 
-        if (saved.gamemodAfk !=true) document.getElementById("tooltipMid").innerHTML += `This Pokemon can last ${(100 + Math.pow(1.15, 6) * (pkmn[ttdata].bst.hp*30 + (pkmn[ttdata].bst.def + pkmn[ttdata].bst.sdef)*15)).toFixed(0)} turns before fainting from Battle Fatigue at maximum IVs`
-        else document.getElementById("tooltipMid").innerHTML += `This Pokemon can last ${(100 + Math.pow(1.15, 6) * (pkmn[ttdata].bst.hp*30 + (pkmn[ttdata].bst.def + pkmn[ttdata].bst.sdef)*15)).toFixed(0)*3} turns before fainting from Battle Fatigue at maximum IVs`
+        let staminaMult = 1
+        if (pkmn[ttdata].ability == ability.stamina.id ||  (  pkmn[ttdata].hiddenAbility?.id == ability.stamina.id && pkmn[ttdata].hiddenAbilityUnlocked ) ) staminaMult = 2
+
+        if (saved.gamemodAfk !=true) document.getElementById("tooltipMid").innerHTML += `This Pokemon can last ${(100 + Math.pow(1.15, 6) * (pkmn[ttdata].bst.hp*30 + (pkmn[ttdata].bst.def + pkmn[ttdata].bst.sdef)*15)*staminaMult).toFixed(0)} turns before fainting from Battle Fatigue at maximum IVs`
+        else document.getElementById("tooltipMid").innerHTML += `This Pokemon can last ${(100 + Math.pow(1.15, 6) * (pkmn[ttdata].bst.hp*30 + (pkmn[ttdata].bst.def + pkmn[ttdata].bst.sdef)*15)*staminaMult).toFixed(0)*3} turns before fainting from Battle Fatigue at maximum IVs`
 
 
         document.getElementById("tooltipBottom").innerHTML = `
