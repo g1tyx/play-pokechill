@@ -143,6 +143,12 @@ function tooltipData(category, ttdata){
 
         }
 
+
+
+
+
+
+
         
         if (ttdata == areas.wildlifePark.id) {
             document.getElementById("tooltipBottom").innerHTML += `Pokemon in the Wildlife Park rotate every 12 hours`
@@ -151,6 +157,9 @@ function tooltipData(category, ttdata){
 
 
         openTooltip()
+
+
+
 
     }
 
@@ -265,6 +274,23 @@ function tooltipData(category, ttdata){
 
 
         openTooltip()
+
+
+        //dynamic apricorn code. not a sentence i wish i had to type
+        if (areas[ttdata].type == "event" && (areas[ttdata].difficulty == tier3difficulty || areas[ttdata].difficulty == tier4difficulty)){
+            let itemToAdd = ""
+            if (areas[ttdata].ticketIndex==3 || areas[ttdata].ticketIndex==6) itemToAdd = item.yellowApricorn.id
+            if (areas[ttdata].ticketIndex==4 || areas[ttdata].ticketIndex==7) itemToAdd = item.pinkApricorn.id
+            if (areas[ttdata].ticketIndex==5 || areas[ttdata].ticketIndex==8) itemToAdd = item.greenApricorn.id
+            if (itemToAdd == "") return
+            const div = document.createElement("div");
+            div.dataset.item = itemToAdd
+            let tag = "";
+            if (areas[ttdata].difficulty == tier3difficulty) tag = `<span>Uncommon!</span>`; 
+            div.className = "area-preview";
+            div.innerHTML = `<img style="scale:2" src="img/items/${itemToAdd}.png">` + tag;
+            document.getElementById("area-preview-items").appendChild(div);
+        }
 
     }
 
@@ -807,6 +833,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
 
 
         document.getElementById("tooltipMid").innerHTML += `<svg onclick="tooltipData('dictionaryAbility', '${ttdata}')" class="move-tooltip-dictionary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m6.006 11.823l1.123-3.06h.05l1.123 3.06zm6.494 5.496q1.216-.678 2.453-.98t2.547-.3q.9 0 1.618.111t1.267.296q.23.096.423-.029t.192-.394V7.008q0-.173-.096-.308q-.096-.134-.327-.23q-.825-.293-1.501-.4T17.5 5.961q-1.31 0-2.613.386q-1.304.387-2.387 1.16zm-6.78-4.763h2.869l.474 1.306q.05.111.137.17t.204.059q.198 0 .303-.158t.043-.35L7.739 8.24q-.05-.131-.169-.212t-.255-.081h-.323q-.136 0-.254.08t-.169.213l-2.011 5.361q-.062.173.043.33t.303.159q.117 0 .206-.06q.09-.058.14-.175zm6.28 5.9q-.235 0-.432-.059t-.376-.15q-1.09-.595-2.27-.902T6.5 17.04q-.78 0-1.534.13q-.753.131-1.466.42q-.544.217-1.022-.131T2 16.496V6.831q0-.371.195-.689t.547-.442q.887-.383 1.836-.56T6.5 4.962q1.47 0 2.866.423q1.398.423 2.634 1.23q1.237-.807 2.634-1.23t2.866-.423q.973 0 1.922.178q.95.177 1.836.56q.352.125.547.442t.195.689v9.665q0 .614-.516.943q-.517.328-1.1.111q-.693-.27-1.418-.39q-.724-.121-1.466-.121q-1.24 0-2.421.306t-2.271.901q-.18.093-.376.151q-.197.059-.432.059m1.885-9.508q0-.11.076-.222t.18-.168q.763-.346 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.154-1.46.43q-.257.099-.42-.005t-.162-.362m0 5.423q0-.11.076-.231q.076-.123.18-.178q.725-.346 1.613-.52q.888-.173 1.746-.173q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.784 0-1.544.16q-.76.161-1.45.457q-.258.118-.44-.003t-.181-.397m0-2.692q0-.11.076-.222t.18-.168q.763-.347 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.134q.096.104.096.258q0 .252-.15.366t-.402.051q-.37-.075-.757-.102q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.153-1.46.43q-.257.098-.42-.005q-.162-.105-.162-.362"/></svg>`
+        if (ability[ttdata].nerf) document.getElementById("tooltipBottom").innerHTML += `<br><font style="opacity:0.7">${ability[ttdata].nerf}</font>`
         if (document.getElementById("pkmn-editor").style.display == "flex" && pkmn[currentEditedPkmn].hiddenAbility?.id == ttdata ) document.getElementById("tooltipBottom").innerHTML += `<br><br>This is a Hidden Ability. Hidden abilities are unlocked via Ability Capsules or via Training, and they work alongside your regular ability`
 
         openTooltip()
@@ -872,7 +899,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
 
         document.getElementById("tooltipTop").style.display = "flex"
         if (item[ttdata].type == "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${format(move[item[ttdata].move].type)}.png">`
-        else if (item[ttdata].type == "memory") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ability[item[ttdata].ability].type[0]}Memory.png">`
+        else if (item[ttdata].type == "memory") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${item[ttdata].image}Memory.png">`
         else if (item[ttdata].type == "decor") document.getElementById("tooltipTop").innerHTML = `<img src="img/decor/${ttdata}.png" style="scale:2">`
         else  document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ttdata}.png">`
 
@@ -1706,7 +1733,7 @@ const sortedMovepool = movepool
         document.getElementById("tooltipMid").style.display = "inline"
 
         if (item[ttdata].type == "tm") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/tm${format(move[item[ttdata].move].type)}.png">`
-        else if (item[ttdata].type == "memory") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ability[item[ttdata].ability].type[0]}Memory.png">`
+        else if (item[ttdata].type == "memory") document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${item[ttdata].image}Memory.png">`
         else if (item[ttdata].type == "decor") document.getElementById("tooltipTop").innerHTML = `<img src="img/decor/${ttdata}.png" style="scale:2">`
         else  document.getElementById("tooltipTop").innerHTML = `<img src="img/items/${ttdata}.png">`
 

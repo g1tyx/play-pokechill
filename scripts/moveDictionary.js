@@ -777,6 +777,12 @@ ability.flashHerba = {
     info: function() {return `Nullifies received Grass-type moves and increases Speed by 50% after being hit with one`},
 }
 
+ability.stoned = {
+    type: [`rock`],
+    rarity: 3,
+    info: function() {return `Positive stats up last x3 longer`},
+}
+
 
 
 //hidden
@@ -784,11 +790,7 @@ ability.flashHerba = {
 
 //new
 
-ability.stoned = {
-    type: [`rock`],
-    rarity: 3,
-    info: function() {return `Positive stats up last x3 longer`},
-}
+
 
 ability.powerOfAlchemy = {
     rarity: 3,
@@ -833,11 +835,13 @@ ability.shieldsDown = {
 ability.colorSpore = {
     rarity: 3,
     info: function() {return `Status effects applied to the target last x3 longer`},
+    nerf: `When slotted as a non-hidden ability: Turns reduced to x2`
 }
 
 ability.merciless = {
     rarity: 3,
     info: function() {return `Multiply the damage dealt by x1.35 if the target has a status effect`},
+    nerf: `When slotted as a non-hidden ability: Damage reduced to x1.25`
 }
 
 ability.costar = {
@@ -901,11 +905,13 @@ ability.speedBoost = {
 ability.scorch = {
     rarity: 3,
     info: function() {return `Enemy damage over time from ${tagBurn} is doubled while this Pokemon is active`},
+    nerf: `When slotted as a non-hidden ability: Damage reduced to x1.5`
 }
 
 ability.corrosion = {
     rarity: 3,
     info: function() {return `Enemy damage over time from ${tagPoisoned} is doubled while this Pokemon is active`},
+    nerf: `When slotted as a non-hidden ability: Damage reduced to x1.5`
 }
 
 ability.dancer = {
@@ -1149,10 +1155,39 @@ for (const i in ability){
 
 
 
+const berryMemoryRare = [ ability.flashHerba.id, ability.flashFae.id, ability.flashPsycha.id, ability.flashCryo.id, ability.flashVenum.id, ability.flashUmbra.id,
+    ability.flashPyro.id, ability.flashAqua.id, ability.flashElectro.id, ability.libero.id, ability.reckless.id, ability.filter.id, ability.justified.id,
+    ability.angerPoint.id, ability.sharpness.id, ability.skillLink.id, ability.guts.id, ability.multiscale.id, ability.noGuard.id, ability.ambidextrous.id,
+    ability.adaptability.id, ability.thickFat.id, ability.levitate.id, ability.sheerForce.id, ability.strategist.id, ability.moxie.id, ability.unburden.id,
+    ability.dauntingLook.id, ability.intimidate.id, ability.sandRush.id, ability.swiftSwim.id, ability.slushRush.id, ability.moltShed.id, ability.faeRush.id,
+    ability.hyperconductor.id, ability.intangible.id, ability.climaTact.id, ability.spikyPelt.id, ability.blackPelt.id, ability.pixiePelt.id, ability.fieryPelt.id,
+    ability.moistPelt.id, ability.icyPelt.id, ability.sandyPelt.id, ability.grassyPelt.id, ability.stoned.id,
+ ]
+
+ //todo
+ //nerf non HA HA's
+ //buff protean make it receive crosspower
+ 
 
 
+ const apricornMemoryHA1 = [  ability.stamina.id, ability.gooey.id, ability.shieldsDown.id, ability.costar.id, ability.purifyingSalt.id, ability.scorch.id, ability.corrosion.id, ability.megaLauncher.id, ability.metalhead.id,
+    ability.moody.id, ability.merciless.id, ability.colorSpore.id, ability.sandStream.id, ability.snowWarning.id, ability.somberField.id,
+ ]
 
+ const apricornMemoryHA2 = [   ability.treasureOfRuin.id, ability.dancer.id, ability.cacophony.id, 
+    ability.imposter.id, ability.quarkDrive.id, ability.protosynthesis.id, ability.drizzle.id, ability.drought.id,  ability.electricSurge.id, ability.grassySurge.id, ability.mistySurge.id, 
+    ability.ferrilate.id, ability.glaciate.id, ability.terralate.id, ability.toxilate.id,
+    ability.hydrolate.id, ability.pyrolate.id, ability.chrysilate.id, ability.galvanize.id, ability.gloomilate.id, ability.espilate.id, ability.aerilate.id, ability.pixilate.id,
+    ability.verdify.id, ability.dragonMaw.id,
+ ]
 
+ const apricornMemoryHA3 = [   ability.windRider.id, ability.tintedLens.id, ability.prankster.id, ability.galeWings.id, ability.speedBoost.id,
+    ability.toxicBoost.id, ability.flareBoost.id, ability.fullMetalBody.id, ability.supremeOverlord.id, ability.gorillaTactics.id, ability.beastBoost.id, ability.sereneGrace.id,
+    ability.contrary.id, ability.simple.id, ability.normalize.id, 
+ ]
+
+ const apricornMemoryHA4 = [  ability.hugePower.id, ability.powerOfAlchemy.id, ability.wonderGuard.id, ability.protean.id, ability.parentalBond.id,
+ ]
 
 
 
@@ -1200,7 +1235,7 @@ move.quickAttack = {
     rarity: 1,
     type: "normal",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -1289,7 +1324,7 @@ move.swift = {
     rarity: 2,
     type: "normal",
     power: 60,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -1359,7 +1394,7 @@ move.extremeSpeed = {
     rarity: 3,
     type: "normal",
     power: 75,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -1832,7 +1867,7 @@ move.bulletPunch = {
     rarity: 1,
     type: "steel",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`},
     affectedBy: [ability.ironFist.id]
 }
@@ -2274,7 +2309,7 @@ move.iceShard = {
     rarity: 1,
     type: "ice",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`},
     affectedBy: [ability.sharpness.id]
 }
@@ -2603,6 +2638,19 @@ move.savageStinger = {  //new
     unaffectedBy: [ability.sheerForce.id],
 }
 
+move.quiverDance = {
+    moveset: [`bug`],
+    split: "special",
+    rarity: 3,
+    type: "bug",
+    power: 0,
+    timer: defaultPlayerMoveTimer*1.4,
+    info: function() {return `Increases Special Attack and Speed by 50%. Attacks x1.4 slower than usual`},
+    hitEffect: function(target) { moveBuff(target,'speup1',"self"); moveBuff(target,'satkup1',"self") },
+    affectedBy: [ability.dancer.id],
+    restricted: true,
+}
+
 
 //water
 move.waterGun = {
@@ -2619,7 +2667,7 @@ move.aquaJet = {
     rarity: 1,
     type: "water",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -2943,7 +2991,7 @@ move.vacuumWave = {
     rarity: 1,
     type: "fighting",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -2954,7 +3002,7 @@ move.machPunk = {
     rarity: 1,
     type: "fighting",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`},
     affectedBy: [ability.ironFist.id]
 }
@@ -3122,7 +3170,7 @@ move.confusion = {
     rarity: 1,
     type: "psychic",
     power: 35,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -3287,7 +3335,7 @@ move.accelerock = {
     rarity: 1,
     type: "rock",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -3432,7 +3480,7 @@ move.shadowSneak = {
     rarity: 1,
     type: "ghost",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -3679,7 +3727,7 @@ move.feintAttack = {
     rarity: 2,
     type: "dark",
     power: 40,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`},
 }
 
@@ -3829,7 +3877,7 @@ move.disarmingVoice = {
     type: "fairy",
     power: 40,
     affectedBy: [ability.cacophony.id],
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.2,
     info: function() {return `Attacks x1.2 faster than usual`} ,
 }
 
@@ -4183,7 +4231,7 @@ move.electroBall = {
     split: "special",
     type: "electric",
     power: t4Base/2,
-    timer: defaultPlayerMoveTimer*0.5,
+    timer: defaultPlayerMoveTimer/2,
     info: function() {return `Attacks x2 faster than usual`} ,
 }
 
@@ -4293,7 +4341,7 @@ move.pyroBall = {
     split: "physical",
     type: "fire",
     power: t4Base/2,
-    timer: defaultPlayerMoveTimer*0.5,
+    timer: defaultPlayerMoveTimer/2,
     info: function() {return `Attacks x2 faster than usual`} ,
     affectedBy: [ability.megaLauncher.id]
 
@@ -4329,6 +4377,22 @@ move.snipeShot = {
     split: "special",
     type: "water",
     power: t4Base,
+}
+
+move.moongeistBeam = {
+    split: "special",
+    type: "ghost",
+    power: t4Base,
+    info: function() {return `Bypasses all defense buffs`},
+    defenseBypass : true,
+}
+
+move.sunsteelStrike = {
+    split: "physical",
+    type: "steel",
+    power: t4Base,
+    info: function() {return `Bypasses all defense buffs`},
+    defenseBypass : true,
 }
 
 move.rockWrecker = {
@@ -4438,7 +4502,7 @@ move.thunderCage = {
     split: "special",
     type: "electric",
     power: t4Base/2,
-    timer: defaultPlayerMoveTimer*0.5,
+    timer: defaultPlayerMoveTimer/2,
     info: function() {return `Attacks x2 faster than usual`} ,
 }
 
@@ -4657,19 +4721,19 @@ move.camouflage = {
     hitEffect: function(target) {
         moveBuff(target,'speup2',"self");
         if (saved.weatherTimer>0){
-            if (saved.weather=="sunny") pkmn[ team[exploreActiveMember].pkmn.id ].type = "fire"
-            if (saved.weather=="rainy") pkmn[ team[exploreActiveMember].pkmn.id ].type = "water"
-            if (saved.weather=="sandstorm") pkmn[ team[exploreActiveMember].pkmn.id ].type = "ground"
-            if (saved.weather=="hail") pkmn[ team[exploreActiveMember].pkmn.id ].type = "ice"
-            if (saved.weather=="foggy") pkmn[ team[exploreActiveMember].pkmn.id ].type = "ghost"
-            if (saved.weather=="electricTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = "electric"
-            if (saved.weather=="mistyTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = "psychic"
-            if (saved.weather=="grassyTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = "grass"
-            if (saved.weather=="trickRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = "dark"
-            if (saved.weather=="weirdRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = "bug"
-            if (saved.weather=="crossRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = "fighting"
-            if (saved.weather=="safeguard") pkmn[ team[exploreActiveMember].pkmn.id ].type = "normal"
-            if (saved.weather=="lightScreen") pkmn[ team[exploreActiveMember].pkmn.id ].type = "fairy"
+            if (saved.weather=="sunny") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["fire"]
+            if (saved.weather=="rainy") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["water"]
+            if (saved.weather=="sandstorm") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["ground"]
+            if (saved.weather=="hail") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["ice"]
+            if (saved.weather=="foggy") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["ghost"]
+            if (saved.weather=="electricTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["electric"]
+            if (saved.weather=="mistyTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["psychic"]
+            if (saved.weather=="grassyTerrain") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["grass"]
+            if (saved.weather=="trickRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["dark"]
+            if (saved.weather=="weirdRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["bug"]
+            if (saved.weather=="crossRoom") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["fighting"]
+            if (saved.weather=="safeguard") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["normal"]
+            if (saved.weather=="lightScreen") pkmn[ team[exploreActiveMember].pkmn.id ].type = ["fairy"]
         }
      },
      restricted: true,
@@ -4718,7 +4782,7 @@ move.jetPunch = {
     split: "physical",
     type: "water",
     power: t4Base/1.5,
-    timer: defaultPlayerMoveTimer*0.8,
+    timer: defaultPlayerMoveTimer/1.5,
     info: function() {return `Attacks x1.5 faster than usual`},
     unaffectedBy: [ability.ironFist.id],
 }
@@ -4917,16 +4981,6 @@ move.sketch = {
     power: 0,
     info: function() {return `Executes the first move slot. Attacks x1.5 slower than usual`},
     timer: defaultPlayerMoveTimer*1.5,
-}
-
-move.quiverDance = {
-    split: "special",
-    type: "bug",
-    power: 0,
-    info: function() {return `Increases Special Defense and Special Attack by 50%, and Speed by 100%`},
-    hitEffect: function(target) { moveBuff(target,'speup2',"self"); moveBuff(target,'sdefup1',"self"); moveBuff(target,'satkup1',"self") },
-    affectedBy: [ability.dancer.id],
-    restricted: true,
 }
 
 move.prismaticLaser = {
@@ -5188,6 +5242,14 @@ move.torchSong = {
     info: function() {return `Increases Special Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'satkup1',"self") },
     affectedBy: [ability.cacophony.id]
+}
+
+move.seedFlare = {
+    split: "special",
+    type: "grass",
+    power: t4Base-40,
+    info: function() {return `Decreases enemy Special Defense by 50%`},
+    hitEffect: function(target) { moveBuff(target,'sdefdown1') },
 }
 
 

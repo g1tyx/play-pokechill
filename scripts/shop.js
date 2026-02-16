@@ -1125,8 +1125,6 @@ shop.shoppickPocketMemory = {
 
 //assume 25 currency per battle
 
-
-
 saved.halloweenThemeUnlocked = false
 shop.eventhalloweenTheme = {
     icon: item.oldGateau.id,
@@ -1255,6 +1253,189 @@ shop.shopwealthyCoins = {
 
 
 
+//apricorn shop
+
+const shopApricornCostDefault = 3
+
+
+shop.shopApricornItem1 = {
+    icon: item.autoRefightTicket.id,
+    price: 2,
+    stock: 3,
+    currency: item.yellowApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornItem2 = {
+    icon: item.heartScale.id,
+    price: 1,
+    stock: 5,
+    currency: item.pinkApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornItem3 = {
+    icon: item.energyRoot.id,
+    price: 1,
+    stock: 10,
+    currency: item.greenApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornItem4 = {
+    icon: item.fashionCase.id,
+    price: 1,
+    stock: 5,
+    currency: item.yellowApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory1 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.yellowApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory2 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.yellowApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory3 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.yellowApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory4 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.pinkApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory5 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.pinkApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory6 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.pinkApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory7 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.greenApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory8 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.greenApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemory9 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.greenApricorn.id,
+    category: `apricorn`
+}
+
+
+
+
+
+
+
+
+
+
+
+saved.lastShopApricornReset = undefined
+saved.shopApricornMemoryRotation = undefined
+function assignShopApricorn(){
+
+    if (saved.lastShopApricornReset != rotationWildCurrent){
+    saved.lastShopApricornReset = rotationWildCurrent
+
+
+    const memoryPool = []
+
+    for (const i in item){
+        if (item[i].type !== "memory") continue
+        if (item[i].rarity == "rare" && rng(0.1)) memoryPool.push(i)
+        if (item[i].rarity == "common") memoryPool.push(i)
+    }
+
+
+    saved.shopApricornMemoryRotation = arrayPick(memoryPool,9)
+
+
+
+    shop.shopApricornMemory1.stock = 3
+    shop.shopApricornMemory2.stock = 3
+    shop.shopApricornMemory3.stock = 3
+    shop.shopApricornMemory4.stock = 3
+    shop.shopApricornMemory5.stock = 3
+    shop.shopApricornMemory6.stock = 3
+    shop.shopApricornMemory7.stock = 3
+    shop.shopApricornMemory8.stock = 3
+    shop.shopApricornMemory9.stock = 3
+
+
+    shop.shopApricornItem1.stock = 3
+    shop.shopApricornItem2.stock = 5
+    shop.shopApricornItem3.stock = 10
+    shop.shopApricornItem4.stock = 5
+
+    }
+
+    
+    shop.shopApricornMemory1.icon = saved.shopApricornMemoryRotation[0]
+    shop.shopApricornMemory2.icon = saved.shopApricornMemoryRotation[1]
+    shop.shopApricornMemory3.icon = saved.shopApricornMemoryRotation[2]
+    shop.shopApricornMemory4.icon = saved.shopApricornMemoryRotation[3]
+    shop.shopApricornMemory5.icon = saved.shopApricornMemoryRotation[4]
+    shop.shopApricornMemory6.icon = saved.shopApricornMemoryRotation[5]
+    shop.shopApricornMemory7.icon = saved.shopApricornMemoryRotation[6]
+    shop.shopApricornMemory8.icon = saved.shopApricornMemoryRotation[7]
+    shop.shopApricornMemory9.icon = saved.shopApricornMemoryRotation[8]
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
 
 saved.lastShopDecorReset = undefined
 saved.shopDecorRotation = undefined
@@ -1273,6 +1454,7 @@ function assignShopDecor(){
         if (item[i].rarity == "rare") rareDecor.push(i)
         if (item[i].rarity == "common") commonDecor.push(i)
     }
+
 
 
     saved.shopDecorRotation = [...arrayPick(commonDecor,5), arrayPick(rareDecor,1)]
@@ -1295,6 +1477,25 @@ function assignShopDecor(){
 let shopCategory = undefined
 
 function updateItemShop(){
+
+
+
+
+    if (areas.vsLegendTrainerBrendan.defeated== false){
+        document.getElementById("shop-apricorn-exchange").style.filter = "brightness(0.3)"
+        if (shopCategory == "apricorn") {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `Defeat Legend Trainer Brendan in VS mode to unlock`
+        openTooltip()
+        return
+        }
+    } else document.getElementById("shop-apricorn-exchange").style.filter = "brightness(1)"
+
+
+    assignShopApricorn()
+    assignShopDecor()
 
     document.getElementById("shop-currency").innerHTML = `<img src="img/items/bottleCap.png"> x${item.bottleCap.got}`
     document.getElementById("shop-currency-gold").innerHTML = `<img src="img/items/goldenBottleCap.png"> x${item.goldenBottleCap.got}`
@@ -1334,7 +1535,18 @@ function updateItemShop(){
     <svg style="scale:0.7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z"/><rect width="2" height="7" x="11" y="6" fill="currentColor" rx="1"><animateTransform attributeName="transform" dur="450s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></rect><rect width="2" height="9" x="11" y="11" fill="currentColor" rx="1"><animateTransform attributeName="transform" dur="37.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></rect></svg>
     Available decor will rotate in <font style="margin-left:0.3rem" class="time-counter-event">...</font>`
     document.getElementById("shop-listing").appendChild(decorTimer);
+    }
 
+
+    if (shopCategory == "apricorn") {
+    const decorTimer = document.createElement("div")
+    decorTimer.id = "shop-back"
+    decorTimer.style.outline = "none"
+    decorTimer.style.border = "none"
+    decorTimer.innerHTML =`
+    <svg style="scale:0.7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z"/><rect width="2" height="7" x="11" y="6" fill="currentColor" rx="1"><animateTransform attributeName="transform" dur="450s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></rect><rect width="2" height="9" x="11" y="11" fill="currentColor" rx="1"><animateTransform attributeName="transform" dur="37.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></rect></svg>
+    Available items will rotate in <font style="margin-left:0.3rem" class="time-counter-daily">...</font>`
+    document.getElementById("shop-listing").appendChild(decorTimer);
     }
 
 
@@ -1395,7 +1607,7 @@ function updateItemShop(){
         x${shop[i].price}
     </strong>
     `;} else if (item[shopItem] && item[shopItem].type=="memory"){ div.innerHTML = `
-    <img src="img/items/${ability[item[shopItem].ability].type[0]}Memory.png">
+    <img src="img/items/${item[shopItem].image}Memory.png">
         <span>${name}${stockTag}</span>
     <strong id="shop-currency-${i}">
         <img src="img/items/${currency}.png">

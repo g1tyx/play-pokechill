@@ -28,6 +28,7 @@ function saveGame() {
     data[i] = {};
     data[i].defeated = areas[i].defeated;
     data[i].hpPercentage = areas[i].hpPercentage;
+    if (areas[i].type=="event" && areas[i].encounter) data[i].ticketIndex = areas[i].ticketIndex;
 
     if (areas[i].type=="frontier") data[i].level = areas[i].level;
     if (areas[i].type=="frontier") data[i].team = areas[i].team;
@@ -102,6 +103,7 @@ function loadGame() {
   for (const i in areas) {
     if (data[i]) {
     areas[i].defeated = data[i].defeated;
+    if (areas[i].type=="event" && areas[i].encounter) areas[i].ticketIndex = data[i].ticketIndex;
     if (data[i].hpPercentage!==undefined) areas[i].hpPercentage = data[i].hpPercentage;
 
     if (areas[i].type=="frontier") areas[i].level = data[i].level;

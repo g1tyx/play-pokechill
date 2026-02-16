@@ -452,6 +452,21 @@ for (let i = 0; i < 4; i++) {
 
 
 
+
+            //apricorn code
+            if (areas[saved.currentArea].type == "event" && (areas[saved.currentArea].difficulty == tier3difficulty || areas[saved.currentArea].difficulty == tier4difficulty)){
+            let itemToAdd = ""
+            if (areas[saved.currentArea].ticketIndex==3 || areas[saved.currentArea].ticketIndex==6) itemToAdd = item.yellowApricorn.id
+            if (areas[saved.currentArea].ticketIndex==4 || areas[saved.currentArea].ticketIndex==7) itemToAdd = item.pinkApricorn.id
+            if (areas[saved.currentArea].ticketIndex==5 || areas[saved.currentArea].ticketIndex==8) itemToAdd = item.greenApricorn.id
+            if (areas[saved.currentArea].difficulty == tier3difficulty && rng(0.20) || areas[saved.currentArea].difficulty == tier4difficulty){
+                item[itemToAdd].got++
+                item[itemToAdd].newItem++
+            }
+            }
+
+
+
             if (areas[saved.currentArea].encounterEffect) areas[saved.currentArea].encounterEffect()
 
             if (areas[saved.currentArea].encounter && areas[saved.currentArea].unlockRequirement && !areas[saved.currentArea].unlockRequirement() ) saved.autoRefight = false
@@ -2202,7 +2217,7 @@ function exploreCombatPlayer() {
 
 
 
-    if (afkSeconds <= 0 && lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && barPlayer.style.backgroundImage != crossPattern && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) &&  !testAbility(`active`, ability.protean.id) ) barPlayer.style.backgroundImage = crossPattern
+    if (afkSeconds <= 0 && lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && barPlayer.style.backgroundImage != crossPattern && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) ) barPlayer.style.backgroundImage = crossPattern
 
 
 
@@ -2512,9 +2527,10 @@ function exploreCombatPlayer() {
         let crossPowerBonus = 1.3
         
         if ( testAbility(`active`, ability.ambidextrous.id)) crossPowerBonus+= 0.3
+        if ( testAbility(`active`, ability.treasureOfRuin.id)) crossPowerBonus+= 0.5
 
         //on successful cross move
-        if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) &&  !testAbility(`active`, ability.protean.id) ) {
+        if (lastCrossStab!=undefined && lastCrossStab!=move[nextMovePlayer].type && /*pkmn[team[exploreActiveMember].pkmn.id].type.includes(move[nextMovePlayer].type) &&*/ move[nextMovePlayer].power>0 && ( !testAbility(`active`, "ate") ||  move[nextMovePlayer].type!=="normal" ) ) {
             totalPower *= crossPowerBonus
             if (saved.weatherTimer>0 && saved.weather=="crossRoom") totalPower *= 1.3
         }
@@ -2607,7 +2623,8 @@ function exploreCombatPlayer() {
 
         if (testAbility(`active`, ability.toxicBoost.id) && team[exploreActiveMember].buffs?.poisoned>0 ) totalPower *= 1.2
         if (testAbility(`active`, ability.flareBoost.id) && team[exploreActiveMember].buffs?.burn>0 ) totalPower *= 1.2
-        if (testAbility(`active`, ability.merciless.id) && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.frozen>0 || team[exploreActiveMember].buffs?.sleep>0) ) totalPower *= 1.35
+        if (testAbility(`active`, ability.merciless.id) && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.frozen>0 || team[exploreActiveMember].buffs?.sleep>0 || team[exploreActiveMember].buffs?.embargo>0) ) totalPower *= 1.35
+        if (testAbility(`active`, ability.merciless.id) == "nerf" && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.frozen>0 || team[exploreActiveMember].buffs?.sleep>0 || team[exploreActiveMember].buffs?.embargo>0) ) totalPower *= 1.25
 
         if (team[exploreActiveMember].item == undefined && testAbility(`active`,  ability.unburden.id )) team[exploreActiveMember].buffs.speup1 = 10
 
@@ -2784,8 +2801,15 @@ function exploreCombatPlayer() {
 
         if (testAbility(`active`, ability.moody.id)) {
         let picked = arrayPick(["atkup2","satkup2","defup2","sdefup2","speup2"],2)
+
+        if (testAbility(`active`, ability.stoned.id)) {
+        team[exploreActiveMember].buffs[picked[0]] = 2
+        team[exploreActiveMember].buffs[picked[1]] = 2
+        } else {
         team[exploreActiveMember].buffs[picked[0]] = 1
         team[exploreActiveMember].buffs[picked[1]] = 1
+        }
+
         }
 
 
@@ -3497,7 +3521,7 @@ function exploreCombatWild() {
 
         if (team[exploreActiveMember].item == item.assaultVest.id) totalPower /= item.assaultVest.power();
 
-        if (team[exploreActiveMember].item == item.mentalHerb.id) {totalPower /= (item.mentalHerb.power() /100) +1}
+        if (team[exploreActiveMember].item == item.mentalHerb.id) totalPower /= item.mentalHerb.power()
 
         if (move[nextMoveWild].power === 0) totalPower = 0
 
@@ -3606,7 +3630,9 @@ function exploreCombatWild() {
 
 
         if (wildBuffs.burn>0 && testAbility("active",  ability.scorch.id) ) dotDamage /= 2
+        if (wildBuffs.burn>0 && testAbility("active",  ability.scorch.id) == "nerf" ) dotDamage /= 1.5
         if (wildBuffs.poisoned>0 && testAbility("active",  ability.corrosion.id) ) dotDamage /= 2
+        if (wildBuffs.poisoned>0 && testAbility("active",  ability.corrosion.id) == "nerf" ) dotDamage /= 1.5
 
         if (saved.currentArea == areas.frontierBattleFactory.id){ wildBuffs.poisoned = 0; wildBuffs.burn = 0; }
 
@@ -4349,6 +4375,9 @@ function setEventAreas() {
         if (areas[i].encounter) levelrange = areas[i].level
         ticketIndex++
 
+        //this is used to determine apricorn drops
+        areas[i].ticketIndex = ticketIndex
+
         divAreas.innerHTML = `
 
 
@@ -5023,10 +5052,13 @@ if (document.getElementById("pokedex-search").value!="") {
         if (memoryToTeach != undefined) {
 
         //filter pokemon by being able to learn
-        if (!ability[memoryToTeach].type.includes("all") &&  !ability[memoryToTeach].type.some(t => pkmn[i].type.includes(t))) continue;
+        if (item[memoryToTeach+"Memory"].typings == undefined && !ability[memoryToTeach].type.includes("all") &&  !ability[memoryToTeach].type.some(t => pkmn[i].type.includes(t))) continue;
+        if (item[memoryToTeach+"Memory"].typings != undefined && !item[memoryToTeach+"Memory"].typings.some(t => pkmn[i].type.includes(t))) continue;
 
         //filter pokemon out that already have the move
         if (pkmn[i].ability == memoryToTeach) continue;
+
+
             div.addEventListener("click", e => { 
                 pkmn[i].ability = memoryToTeach
                 item[memoryToTeach+"Memory"].got--
@@ -5747,7 +5779,7 @@ function updateItemBag(){
 
         div.dataset.item = i
         if (item[i].type == "tm") div.innerHTML = `<img src="img/items/tm${format(move[item[i].move].type)}.png"> <span class="item-list-name">${format(i)} ${subtitle}<strong style="opacity:0.6; font-weight:200; white-space:nowrap; font-size:0.9rem; margin-left:0.2rem"> (${move[item[i].move].power} BP, ${format(move[item[i].move].split).slice(0, 3)})</strong> </span>  <span>x${item[i].got}</span>`
-        else if (item[i].type == "memory") div.innerHTML = `<img src="img/items/${ability[item[i].ability].type[0]}Memory.png"> <span class="item-list-name">${format(i)} ${subtitle}</span> <span>x${item[i].got}</span>`
+        else if (item[i].type == "memory") div.innerHTML = `<img src="img/items/${item[i].image}Memory.png"> <span class="item-list-name">${format(i)} ${subtitle}</span> <span>x${item[i].got}</span>`
         else if (item[i].type == "decor") div.innerHTML = `<img src="img/decor/${i}.png" style="scale:1; margin:0 -1rem"> <span class="item-list-name">${format(i)} ${subtitle}</span> <span>x${item[i].got}</span>`
         else div.innerHTML = `<img src="img/items/${i}.png"> <span class="item-list-name">${format(i)} ${subtitle}</span> <span>x${item[i].got}</span>`
 
@@ -5874,8 +5906,11 @@ function updateItemBag(){
         document.getElementById("item-menu-remove").style.display = "inline"
         document.getElementById("pokedex-filters-remove").style.display = "flex"
 
-        if (item[i].type !== "held" && item[i].heldBonusPower===undefined ) continue
-        //prevents equipping duplicated items
+        if (item[i].type !== "held") {
+            if (item[i].heldBonusPower === undefined) continue;
+            if (saved.previewTeams[saved.currentPreviewTeam][dexTeamSelect].pkmn!==item[i].heldBonusPkmn?.()) continue;
+        }
+              //prevents equipping duplicated items
         if (saved.previewTeams[saved.currentPreviewTeam].slot1.item == i) continue
         if (saved.previewTeams[saved.currentPreviewTeam].slot2.item == i) continue
         if (saved.previewTeams[saved.currentPreviewTeam].slot3.item == i) continue
@@ -7047,13 +7082,10 @@ function moveBuff(target,buff,mod){
 
 
 
-    if (target==="wild" && mod=="team") { 
+    if (target==="wild" && mod=="team") { //player to team
 
-        if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
         if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
         if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
-
-        if (testAbility(`active`, ability.colorSpore.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) affectedTurns *= 3
 
         if (testAbility(`active`, ability.hydratation.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
         if (testAbility(`active`, ability.sandVeil.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
@@ -7076,6 +7108,11 @@ function moveBuff(target,buff,mod){
 
         for (const slot in team) {
 
+        affectedTurns = 3
+        if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
+        if (team[slot].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
+
+
         if (testAbility(slot, ability.simple.id) && buff.endsWith("1")) {
             const upgradedBuff = buff.slice(0, -1) + "2";
             team[slot].buffs[upgradedBuff] = affectedTurns 
@@ -7097,10 +7134,12 @@ function moveBuff(target,buff,mod){
 }
 
 
-    if ((target==="player" && mod=="self") || (mod==undefined && target==="wild")) {
+    if ((target==="player" && mod=="self") || (mod==undefined && target==="wild")) { //self from wild, or player to wild
 
         //if (buff == "paralysis" && pkmn[saved.currentPkmn].type.includes("electric")) return
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (wildBuffs.burn>0 || wildBuffs.freeze>0 || wildBuffs.confused>0 || wildBuffs.paralysis>0 || wildBuffs.poisoned>0 || wildBuffs.sleep>0 )) return
+        if (testAbility(`active`, ability.colorSpore.id ) && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 3
+        if (testAbility(`active`, ability.colorSpore.id ) == "nerf" && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 2
 
         wildBuffs[buff] = affectedTurns
 
@@ -7111,7 +7150,7 @@ function moveBuff(target,buff,mod){
     } 
 
 
-    if ((target==="wild" && mod=="self") || (mod==undefined && target==="player")) {
+    if ((target==="wild" && mod=="self") || (mod==undefined && target==="player")) { //self buffs from player
 
         //if (buff == "paralysis" && pkmn[team[exploreActiveMember].pkmn.id].type.includes("electric")) return
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.sleep>0 )) return
@@ -7667,9 +7706,10 @@ if (mod==="end"){
         if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID)) && (move[moveID].moveset!==undefined ||  (   move[moveID].moveset==undefined && pkmn[saved.geneticHost].eggMove?.id == moveID  )    ) ) {
             pkmn[saved.geneticHost].movepool.push(moveID);
             if (pkmn[saved.geneticHost].movepoolMemory == undefined) pkmn[saved.geneticHost].movepoolMemory = []
-            pkmn[saved.geneticHost].movepoolMemory.push(moveID);
+            if (!pkmn[saved.geneticHost].movepoolMemory.includes(moveID)) pkmn[saved.geneticHost].movepoolMemory.push(moveID);
             
-            summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(moveID)}!</div>`
+            if (move[moveID].moveset==undefined && pkmn[saved.geneticHost].eggMove?.id == moveID) summaryTags += `<div style="filter:hue-rotate(200deg)">⟐ Egg Move inherited: ${format(moveID)}!</div>`
+            else summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(moveID)}!</div>`
         }
     });
 
@@ -8420,13 +8460,15 @@ function testAbility(target,id){
     if (areas[saved.currentArea]?.fieldEffect?.includes(field.neutralisingGas.id)) return false
 
     if (target == "active"){
-        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == id) return true
+        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == id && ability[id].type!=undefined) return true
+        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == id && ability[id].type==undefined) return "nerf"
         if (pkmn[ team[exploreActiveMember].pkmn.id ]?.hiddenAbility?.id == id && pkmn[ team[exploreActiveMember].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
         if (pkmn[ team[exploreActiveMember].pkmn.id ]?.abilityTemp == id) return true
     }
 
     if (/slot1|slot2|slot3|slot4|slot5|slot6/.test(target)){
-        if (pkmn[ team[target].pkmn?.id ]?.ability == id) return true
+        if (pkmn[ team[target].pkmn?.id ]?.ability == id && ability[id].type!=undefined) return true
+        if (pkmn[ team[target].pkmn?.id ]?.ability == id && ability[id].type==undefined) return "nerf"
         if (pkmn[ team[target].pkmn?.id ]?.hiddenAbility?.id == id && pkmn[ team[target].pkmn.id ]?.hiddenAbilityUnlocked == true) return true
         if (pkmn[ team[target].pkmn?.id ]?.abilityTemp == id) return true
     }
@@ -8946,6 +8988,7 @@ window.addEventListener('load', function() {
     pkmnWalkCandidates()
     arceusCheck()
     assignShopDecor()
+    assignShopApricorn()
 
     if (saved.arenaCard1 == undefined) createArenaCards()
     //updateTeamExp()

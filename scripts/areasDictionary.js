@@ -4021,7 +4021,7 @@ areas.vsGymLeaderMisty = {
         slot6Moves : [move.psychic.id, move.auroraBeam.id, move.waterPulse.id],
     },
     //reward : [item.mysticWater, item.goldenBottleCap],
-    itemReward: { 1 : { item: item.mysticWater.id, amount: 1 }, 2 : { item: item.bottleCap.id, amount: 10 }},
+    itemReward: { 1 : { item: item.mysticWater.id, amount: 1 }, 2 : { item: item.fashionCase.id, amount: 3 }, 3 : { item: item.bottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -4131,7 +4131,7 @@ areas.vsGymLeaderPhoebe = {
         slot6Moves : [move.dragonClaw.id, move.hex.id, move.shadowBall.id, move.dragonDance.id],
     },
     //reward : [item.spellTag, item.goldenBottleCap],
-    itemReward: { 1 : { item: item.spellTag.id, amount: 1 }, 2 : { item: item.bottleCap.id, amount: 10 }},
+    itemReward: { 1 : { item: item.spellTag.id, amount: 1 }, 2 : { item: item.fashionCase.id, amount: 3 }, 3 : { item: item.bottleCap.id, amount: 10 }},
     encounterEffect: function() {
         document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
@@ -4716,6 +4716,122 @@ areas.vsUltraEntityLusamine = {
         <div style="filter:hue-rotate(100deg)" >Tier IV Event Raids unlocked</div>
         <div style="filter:hue-rotate(300deg)" >Master League is now available in the Battle Frontier</div>
         <div style="filter:hue-rotate(0deg)" >New Dungeon: Glistering Cave</div>
+        </div>
+        `
+        openTooltip()
+    }
+}
+
+
+areas.vsLegendTrainerLillie = {
+    name: `Legend Trainer Lillie`,
+    background : `gym`,
+    sprite : `lillie`,
+    difficulty : 19,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.alolanNinetales,
+        slot1Moves : [move.mistyTerrain.id,move.iceBeam.id, move.moonblast.id],
+        slot2 : pkmn.tapuLele,
+        slot2Moves : [move.calmMind.id, move.psychic.id, move.flamethrower.id],
+        slot3 : pkmn.eeveeGmax,
+        slot3Moves : [move.bulkUp.id, move.facade.id, move.crunch.id],
+        slot4 : pkmn.cosmoem,
+        slot4Moves : [move.agility.id, move.zenHeadbut.id, move.thunderWave.id],
+        slot5 : pkmn.solgaleo,
+        slot5Moves : [move.sunsteelStrike.id, move.flareBlitz.id, move.willOWisp.id],
+        slot6 : pkmn.lunala,
+        slot6Moves : [move.amnesia.id, move.hurricane.id, move.moongeistBeam.id],
+    },
+    fieldEffect : [field.fatiguingCurse.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsLegendTrainerDawn = {
+    name: `Legend Trainer Dawn`,
+    background : `gym`,
+    sprite : `dawn`,
+    difficulty : 20,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.empoleon,
+        slot1Moves : [move.ironDefense.id,move.ironHead.id, move.muddyWater.id],
+        slot2 : pkmn.megaLopunny,
+        slot2Moves : [move.bulkUp.id, move.closeCombat.id, move.hyperBeam.id],
+        slot3 : pkmn.laprasGmax,
+        slot3Moves : [move.bulkUp.id, move.icicleCrash.id, move.earthquake.id],
+        slot4 : pkmn.togekiss,
+        slot4Moves : [move.agility.id, move.moonblast.id, move.shadowBall.id],
+        slot5 : pkmn.jirachi,
+        slot5Moves : [move.ironDefense.id, move.doomDesire.id, move.zenHeadbut.id],
+        slot6 : pkmn.shayminSky,
+        slot6Moves : [move.cottonSpore.id, move.seedFlare.id, move.airShlash.id],
+    },
+    fieldEffect : [field.weakeningCurse.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsLegendTrainerSilver = {
+    name: `Legend Trainer Silver`,
+    background : `gym`,
+    sprite : `silver`,
+    difficulty : 21,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.typhlosion,
+        slot1Moves : [move.nastyPlot.id,move.inferno.id, move.earthPower.id],
+        slot2 : pkmn.weavile,
+        slot2Moves : [move.dragonDance.id, move.earthquake.id, move.icicleCrash.id],
+        slot3 : pkmn.megaAlakazam,
+        slot3Moves : [move.amnesia.id, move.psychic.id, move.bugBuzz.id],
+        slot4 : pkmn.megaMeganium,
+        slot4Moves : [move.stunSpore.id, move.leafStorm.id, move.spiritBreak.id],
+        slot5 : pkmn.lugia,
+        slot5Moves : [move.calmMind.id, move.aeroblast.id, move.psychic.id],
+        slot6 : pkmn.hooh,
+        slot6Moves : [move.bulkUp.id, move.sacredFire.id, move.fly.id],
+    },
+    fieldEffect : [field.neutralisingGas.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsLegendTrainerBrendan = {
+    name: `Legend Trainer Brendan`,
+    background : `gym`,
+    sprite : `brendan`,
+    difficulty : 22,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.megaAggron,
+        slot1Moves : [move.ironDefense.id,move.ironHead.id, move.rockSlide.id, move.ironTail.id],
+        slot2 : pkmn.megaSceptile,
+        slot2Moves : [move.thunderWave.id, move.cottonSpore.id, move.leafBlade.id, move.dragonDance.id],
+        slot3 : pkmn.megaCamerupt,
+        slot3Moves : [move.bulkUp.id, move.willOWisp.id, move.stoneEdge.id, move.crunch.id],
+        slot4 : pkmn.megaManectric,
+        slot4Moves : [move.charge.id, move.thunderbolt.id, move.flamethrower.id, move.iceBeam.id],
+        slot5 : pkmn.megaSalamence,
+        slot5Moves : [move.dragonClaw.id, move.fly.id, move.screech.id, move.earthquake.id],
+        slot6 : pkmn.megaLatios,
+        slot6Moves : [move.calmMind.id, move.dragonPulse.id, move.psychic.id, move.flashCannon.id],
+    },
+    fieldEffect : [field.unnerve.id, field.deltaStream.id],
+    itemReward: { 1 : { item: item.autoRefightTicket.id, amount: 1 }, 2 : { item: item.goldenBottleCap.id, amount: 10 }},
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(100deg)" >Apricorn exchange in the Poke-Mart is now available!</div>
         </div>
         `
         openTooltip()

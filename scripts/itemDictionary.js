@@ -643,6 +643,23 @@ item.goldenBottleCap = {
     info: function() {return `Obtained in the Battle Frontier`},
 }
 
+
+item.yellowApricorn = {
+    type: "key",
+    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
+}
+
+item.pinkApricorn = {
+    type: "key",
+    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
+}
+
+item.greenApricorn = {
+    type: "key",
+    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
+}
+
+
 item.autoRefightTicket = {
     type: "key",
     info: function() {return `Can be used to automatically refight battles. Cannot refight while the browser is closed. Consumed once a battle is won`},
@@ -678,6 +695,46 @@ item.energyRoot = {
     usable: true,
     effect: function() {  if(saved.geneticOperation > 1) {afkSecondsGenetics += 30*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
     info: function() {return `Use: Fast-forward genetic operation time by 30 minutes. Must be used while an active operation is ongoing`},
+}
+
+item.fashionCase = {
+    type: 'key',
+    usable: true,
+    info: function() {return `Use: Get a random Decor`},
+    effect: function() {
+
+    let pickedDecor = []
+
+    for (const i in item){
+        if (item[i].type !== "decor") continue
+        if (item[i].rarity == undefined) continue
+        if (item[i].rarity == "rare" && rng(0.1)) pickedDecor.push(i)
+        if (item[i].rarity == "common") pickedDecor.push(i)
+    }
+
+    pickedDecor = arrayPick(pickedDecor)
+
+
+        document.getElementById("tooltipTop").style.display = `inline`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").style.display = "inline"
+        document.getElementById("tooltipTop").innerHTML = `<img src="img/decor/${pickedDecor}.png" style="scale:2">`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(100deg)" >${format(pickedDecor)} Decor got!</div>
+        </div>
+        `
+
+    item[pickedDecor].got++
+    this.got--;
+    updateItemBag()
+    openTooltip()
+
+
+    
+
+    },
 }
 
 item.hpUp = {
@@ -1395,6 +1452,14 @@ item.pokeflute = {
 }
 
 
+
+
+
+
+
+
+
+
 item.oldGateau = {
     type: "key",
     event: `halloween`,
@@ -1687,6 +1752,85 @@ item.gorgeousSpecs = { type: "decor", rarity: `rare` }
 item.mysticSmoke = { type: "decor", rarity: `rare` } 
 
 
+
+
+
+
+
+
+
+
+
+
+
+item.flashHerbaMemory = { rarity: "common", }
+item.flashFaeMemory = { rarity: "common", }
+item.flashPsychaMemory = { rarity: "common", }
+item.flashCryoMemory = { rarity: "common", }
+item.flashVenumMemory = { rarity: "common", }
+item.flashUmbraMemory = { rarity: "common", }
+item.flashPyroMemory = { rarity: "common", }
+item.flashAquaMemory = { rarity: "common", }
+item.flashElectroMemory = { rarity: "common", }
+item.liberoMemory = { rarity: "common", }
+item.recklessMemory = { rarity: "common", }
+item.filterMemory = { rarity: "common", }
+item.justifiedMemory = { rarity: "common", }
+item.angerPointMemory = { rarity: "common", }
+item.sharpnessMemory = { rarity: "common", }
+item.gutsMemory = { rarity: "common", }
+item.multiscaleMemory = { rarity: "common", }
+item.noGuardMemory = { rarity: "common",  typings : ["fighting"] }
+item.ambidextrousMemory = { rarity: "common",  typings : ["bug"] }
+item.adaptabilityMemory = { rarity: "common",  typings : ["normal"] }
+item.thickFatMemory = { rarity: "common", }
+item.levitateMemory = { rarity: "common", }
+item.sheerForceMemory = { rarity: "common", }
+item.strategistMemory = { rarity: "common", }
+item.moxieMemory = { rarity: "common", }
+item.unburdenMemory = { rarity: "common", }
+item.dauntingLookMemory = { rarity: "common", }
+item.intimidateMemory = { rarity: "common", }
+item.sandRushMemory = { rarity: "common", }
+item.swiftSwimMemory = { rarity: "common", }
+item.slushRushMemory = { rarity: "common", }
+item.moltShedMemory = { rarity: "common", }
+item.faeRushMemory = { rarity: "common", }
+item.hyperconductorMemory = { rarity: "common", }
+item.intangibleMemory = { rarity: "common", }
+item.climaTactMemory = { rarity: "common", }
+item.spikyPeltMemory = { rarity: "common", }
+item.blackPeltMemory = { rarity: "common", }
+item.pixiePeltMemory = { rarity: "common", rename:`fuzzyPeltMemory`}
+item.fieryPeltMemory = { rarity: "common", }
+item.moistPeltMemory = { rarity: "common", }
+item.icyPeltMemory = { rarity: "common", }
+item.sandyPeltMemory = { rarity: "common", }
+item.grassyPeltMemory = { rarity: "common", }
+item.stonedMemory = { rarity: "common", }
+
+
+
+
+//has
+
+item.staminaMemory = { typings : ["fighting"], rarity: "rare" }
+item.gooeyMemory = { typings : ["poison"], rarity: "rare" }
+item.shieldsDownMemory = { typings : ["steel"], rarity: "rare" }
+item.costarMemory = { typings : ["fairy"], rarity: "rare" }
+item.purifyingSaltMemory = { typings : ["rock"], rarity: "rare" }
+item.scorchMemory = { typings : ["fire"], rarity: "rare" }
+item.corrosionMemory = { typings : ["poison"], rarity: "rare" }
+item.megaLauncherMemory = { typings : ["electric"], rarity: "rare" }
+item.metalheadMemory = { typings : ["steel"], rarity: "rare" }
+item.moodyMemory = { typings : ["normal"], rarity: "rare" }
+item.mercilessMemory = { typings : ["dark"], rarity: "rare" }
+item.colorSporeMemory = { typings : ["grass"], rarity: "rare" }
+item.sandStreamMemory = { typings : ["ground"], rarity: "rare" }
+item.snowWarningMemory = { typings : ["ice"], rarity: "rare" }
+item.somberFieldMemory = { typings : ["dark"], rarity: "rare" }
+
+
 /*
 item.blackCape = { type: "decor" } 
 item.crown = { type: "decor" } 
@@ -1718,7 +1862,14 @@ for (const i in item){
         item[i].ability = i.slice(0, -6); 
         item[i].type = "memory";
         
-        item[i].info = function () { return `Use: Teach the ability <span data-ability="${ability[item[i].ability].id}" ><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor(ability[item[i].ability].type[0])}">${format(ability[item[i].ability].id)}</span></span> to ${joinWithOr(ability[item[i].ability].type)} Pokemon`}        
+        item[i].image = "dark"
+        
+
+        if (item[i].typings && item[i].typings[0]!="normal") item[i].image = item[i].typings[0]
+        else if (item[i].typings== undefined && ability[item[i].ability].type[0]!="all" && ability[item[i].ability].type[0]!="normal") item[i].image = ability[item[i].ability].type[0]
+
+        if (item[i].typings!=undefined) item[i].info = function () { return `Use: Teach the ability <span data-ability="${ability[item[i].ability].id}" ><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor(item[i].image)}">${format(ability[item[i].ability].id)}</span></span> to ${joinWithOr(item[i].typings)} Pokemon`}        
+        else item[i].info = function () { return `Use: Teach the ability <span data-ability="${ability[item[i].ability].id}" ><span  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor(item[i].image)}">${format(ability[item[i].ability].id)}</span></span> to ${joinWithOr(ability[item[i].ability].type)} Pokemon`}        
     }
 
     if (item[i].type == "decor") {

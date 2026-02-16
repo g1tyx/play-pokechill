@@ -203,7 +203,7 @@ function updateGameVersion() {
   }
 
 
-  saved.version = 3.8
+  saved.version = 3.9
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 

@@ -6662,7 +6662,6 @@ pkmn.surskit = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.masquerain, level: evolutionLevel1 } } },
     hiddenAbility: ability.simple,
-    signature : move.quiverDance
 }
 
 pkmn.masquerain = {
@@ -6676,7 +6675,6 @@ pkmn.masquerain = {
         spe: 80,
     },
     hiddenAbility: ability.galeWings,
-    signature : move.quiverDance
 }
 
 // 285 Shroomish → Breloom
@@ -8504,9 +8502,9 @@ pkmn.jirachi = {
     type: ["steel","psychic"],
     bst: {
         hp: 100,
-        atk: 100,
+        atk: 125,
         def: 100,
-        satk: 100,
+        satk: 125,
         sdef: 100,
         spe: 100,
     },
@@ -10083,8 +10081,8 @@ pkmn.shaymin = {
         hp: 100,
         atk: 100,
         def: 100,
-        satk: 100,
-        sdef: 100,
+        satk: 125,
+        sdef: 125,
         spe: 100,
     },
     hiddenAbility: ability.verdify,
@@ -10097,9 +10095,9 @@ pkmn.shayminSky = {
         hp: 100,
         atk: 103,
         def: 75,
-        satk: 120,
+        satk: 170,
         sdef: 75,
-        spe: 127,
+        spe: 170,
     },
     hiddenAbility: ability.verdify,
     lore: `Embodying gratitude and the renewal of life, It moves across barren lands, leaving fields of flowers in its wake and restoring the vitality of nature, bringing growth and bloom to places long abandoned.`
@@ -16174,6 +16172,7 @@ pkmn.solgaleo = {
     spe: 97,
   },
     hiddenAbility: ability.fullMetalBody,
+    signature : move.sunsteelStrike
 }
 
 pkmn.lunala = {
@@ -16186,6 +16185,7 @@ pkmn.lunala = {
     sdef: 107,
     spe: 97,
   },
+    signature : move.moongeistBeam
 }
 
 // 793 Nihilego
