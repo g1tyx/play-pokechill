@@ -1686,11 +1686,8 @@ var cnItems = {
     "This ability can only appear as the Hidden Ability of Pineco, Forretress, Miltank, Wailmer, Wailord, Virizion, Mudbray, Mudsdale, Duraludon, Duraludon Gmax, and Archaludon": "此特性仅可作为以下宝可梦的隐藏特性出现: 榛果球、佛烈托斯、大奶罐、吼吼鲸、吼鲸王、毕力吉翁、泥驴仔、重泥挽马、铝钢龙、超极巨铝钢龙、铝钢桥龙", //持久力
     "This ability can only appear as the Hidden Ability of Aln. Grimer, Aln. Muk, Baltoy, Claydol, Spiritomb, Galarian Yamask, and Runerigus": "此特性仅可作为以下宝可梦的隐藏特性出现: 阿罗拉臭泥、阿罗拉臭臭泥、天秤偶、念力土偶、花岩怪、伽勒尔哭哭面具、死神板", //化学之力
     "Additionally, appears as the Hidden ability of Geodude, Aln. Geodude, Graveler, Aln. Graveler, Golem, Aln. Golem, and Stonjourner": "也是以下宝可梦的隐藏特性: 小拳石、阿罗拉小拳石、隆隆石、阿罗拉隆隆石、隆隆岩、阿罗拉隆隆岩、巨石丁", //石化
-
-
     //招式描述
     //技能描述
-
     "Bypasses all defense buffs": "无视所有防御能力变化",
     "Increases Special Attack and Speed by 50%. Attacks x1.4 slower than usual": "特攻和速度提升 50%, 此招式出招速度比通常慢 1.4 倍",
     "Prevents the enemy to use the move in the slot embargo was used. This is treated as a status effect": "对手无法使用被查封的招式位上的招式。此效果被视为一种异常状态",
@@ -1703,21 +1700,21 @@ var cnItems = {
     "Increase all Stats by 50%": "所有能力值提升 50%",
     "Increases base power by 30 for every unique stat up of the user": "使用者每有一项能力值提升, 招式威力增加 30",
     "Increases Special Attack by 150%. Attacks x1.5 slower than usual": "特攻提升 150%。此招式出招速度比通常慢 1.5 倍",
-    "Power increases by x1.2-1.5 if Speed is risen": "若速度提升, 威力增加 1.2-1.5 倍",
+    "Power increases by x1.2-1.5 if Speed is risen": "若速度提升, 招式威力 x1.2-1.5",
     "Increases Speed by 50% to the entire team": "整个队伍的速度提升 50%",
     "Increases Special Defense by 50% to the entire team": "整个队伍的特防提升 50%",
-    "Power doubles if the user is Paralyzed, Burned or Poisoned": "如果使用者处于麻痹、灼伤或中毒状态, 则威力翻倍",
-    "Power increases by x1.2-1.5 if Defense/Special Defense is risen": "如果防御或特防提升, 威力会乘以 1.2~1.5",
+    "Power doubles if the user is Paralyzed, Burned or Poisoned": "如果使用者处于麻痹、灼伤或中毒状态, 则招式威力翻倍",
+    "Power increases by x1.2-1.5 if Defense/Special Defense is risen": "如果防御或特防提升, 招式威力 x1.2~1.5",
     "Hits 2-5 times": "攻击 2-5 次",
     "Steals the stat changes of the enemy": "窃取对手的能力变化",
     "Switches to the next party member": "切换到队伍中的下一只宝可梦",
     "Power randomly varies from x1 to x8": "威力随机在 1-8 倍之间变化",
-    "Power increases by x1.2-1.5 if Defense/Special Defense is risen": "如果防御或特防提升, 威力会上升 1.2~1.5 倍",
-    "Attacks x1.2 slower than usual. Power increases by x1.2-1.5 if Defense/Special Defense is risen": "此招式出招速度比通常慢 1.2 倍。如果防御或特防提升, 威力会上升 1.2~1.5 倍",
-    "Power doubles if the user is not holding any item": "如果使用者未携带任何物品, 则威力加倍",
+    "Power increases by x1.2-1.5 if Defense/Special Defense is risen": "如果防御或特防提升, 招式威力 x1.2~1.5",
+    "Attacks x1.2 slower than usual. Power increases by x1.2-1.5 if Defense/Special Defense is risen": "此招式出招速度比通常慢 1.2 倍。如果防御或特防提升, 招式威力 x1.2~1.5",
+    "Power doubles if the user is not holding any item": "如果使用者未携带任何物品, 则招式威力加倍",
     "Increases Speed by 50% to the entire team. Attacks x1.5 slower than usual": "全队速度提升 50%。此招式出招速度比通常慢 1.5 倍",
-    "Decreases enemy Special Attack by 50%. Power increases by x1.2-1.5 if Defense/Special Defense is risen": "降低对手特攻 50%。如果防御或特防提升, 威力会上升 1.2~1.5 倍",
-    "Power doubles if the target has a status condition": "如果目标处于异常状态, 则威力加倍",
+    "Decreases enemy Special Attack by 50%. Power increases by x1.2-1.5 if Defense/Special Defense is risen": "降低对手特攻 50%。如果防御或特防提升, 招式威力 x1.2~1.5",
+    "Power doubles if the target has a status condition": "如果目标处于异常状态, 则招式威力加倍",
     "Increases Attack and Speed by 50%. Attacks x1.4 slower than usual": "攻击和速度提升 50%, 此招式出招速度比通常慢 1.4 倍",
     "Faints the user and decreases enemy Attack and Special Attack by 100%": "使用者濒死, 并减少对手的攻击和特攻 100%",
     "Raises by 100% two random stats": "随机提升两个能力100%",
@@ -1727,7 +1724,7 @@ var cnItems = {
     "Once used,increases the weight of rare Pokemon by 1% for the current battle. Multiple uses wont stack. Works always for everyone regardless of the user": "使用一次后, 当前战斗中稀有宝可梦出现的权重提升 1%, 多次使用不会叠加, 效果始终对队伍中所有人有效, 无论使用者是谁",
     "User performs any move at random": "随机使用任何招式",
     "Perform the first move of the oponent, at double the base damage": "使用对手的第一个招式, 并使招式威力翻倍",
-    "Perform the first move of the oponent. Attacks x2 faster than usual": "使用对手的第一个招式,。此招式出招速度比通常快 2 倍",
+    "Perform the first move of the oponent. Attacks x2 faster than usual": "使用对手的第一个招式, 此招式出招速度比通常快 2 倍",
     "Super-effective against Water-types": "对水属性宝可梦效果绝佳",
     "Removes all status effect for the entire party": "移除全队所有异常状态",
     "Can hit regardless of the typing": "必定命中",
