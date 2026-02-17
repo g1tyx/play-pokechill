@@ -1009,6 +1009,7 @@ var cnItems = {
     "New Dungeon: Glistering Cave": "新迷宫: 光辉洞穴",
     "New Wild Area unlocked": "新旷野地带 已解锁",
     "Poke-Mart unlocked": "友好商店 已解锁",
+    "Apricorn exchange in the Poke-Mart is now available!": "友好商店的球果交换现已开放!",
     "Defeat Team Leader Giovanni in VS mode to unlock": "在对战中击败 首领 坂木 以解锁",
     "Defeat Master Trainer Geeta in VS mode to unlock": "在对战中击败 大师训练家 也慈 以解锁",
     "Defeat Elite Four Lance in VS mode to unlock": "在对战中击败 四天王 阿渡 以解锁",
