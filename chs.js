@@ -915,6 +915,7 @@ var cnItems = {
     "common": "普通",
     "uncommon": "罕见",
     "Uncommon": "罕见",
+    "Uncommon!" : "罕见!",
     "rare": "稀有",
     "Rare!": "稀有!",
     "locked HA": "锁定隐藏特性",
@@ -1688,6 +1689,7 @@ var cnItems = {
     "Additionally, appears as the Hidden ability of Geodude, Aln. Geodude, Graveler, Aln. Graveler, Golem, Aln. Golem, and Stonjourner": "也是以下宝可梦的隐藏特性: 小拳石、阿罗拉小拳石、隆隆石、阿罗拉隆隆石、隆隆岩、阿罗拉隆隆岩、巨石丁", //石化
     //招式描述
     //技能描述
+    "Attack becomes physical or special to match the highest stat of the user": "招式类型会变为物理或特殊, 以匹配使用者最高的攻击属性",
     "Bypasses all defense buffs": "无视所有防御能力变化",
     "Increases Special Attack and Speed by 50%. Attacks x1.4 slower than usual": "特攻和速度提升 50%, 此招式出招速度比通常慢 1.4 倍",
     "Prevents the enemy to use the move in the slot embargo was used. This is treated as a status effect": "对手无法使用被查封的招式位上的招式。此效果被视为一种异常状态",
@@ -2703,6 +2705,8 @@ var cnPostfix = {
     "to Water or Psychic Pokemon": "给水或超能力属性宝可梦",
     "to Water Pokemon": "给水属性宝可梦",
     //技能提示
+    "Affected by Wind Rider": "受以下特性影响: 乘风",
+    "Affected by Wind Rider and Technician": "受以下特性影响: 乘风、技术高手",
     "Affected by M. Launcher and Sheer Force": "受以下特性影响: 波动增幅、强行",
     "Affected by Cacophony": "受以下特性影响: 杂音",
     "Affected by Clima Tact": "受以下特性影响: 气候战术",
@@ -2716,6 +2720,7 @@ var cnPostfix = {
     "Affected by Sheer Force": "受以下特性影响: 强行",
     "Affected by Sheer Force and Technician": "受以下特性影响: 强行、技术高手",
     "Affected by Sheer Force, Serene Grace, and Parental Bond": "受以下特性影响: 强行、天恩、亲子爱",
+    "Affected by Sheer Force, Serene Grace, and Technician": "受以下特性影响: 强行、天恩、技术高手",
     "Affected by Sheer Force, Serene Grace, Parental Bond, and Technician": "受以下特性影响: 强行、天恩、亲子爱、技术高手",
     "Affected by Strong Jaw, Sheer Force, Serene Grace, and Parental Bond": "受以下特性影响: 强壮之颚、强行、天恩、亲子爱",
     "Affected by Technician": "受以下特性影响: 技术高手",
@@ -2728,6 +2733,7 @@ var cnPostfix = {
     "Affected by Strong Jaw, Sheer Force, Serene Grace, Parental Bond, and Technician": "受以下特性影响: 强壮之颚、强行、天恩、亲子爱、技术高手",
     "Affected by Tough Claws and Technician": "受以下特性影响: 硬爪、技术高手",
     "Affected by Tough Claws, Sheer Force, Serene Grace, and Parental Bond": "受以下特性影响: 硬爪、强行、天恩、亲子爱",
+    "Affected by Tough Claws, Sheer Force, Serene Grace, and Technician": "受以下特性影响: 硬爪、强行、天恩、技术高手",
     "Affected by Tough Claws, Sheer Force, Serene Grace, Parental Bond, and Technician": "受以下特性影响: 硬爪、强行、天恩、亲子爱、技术高手",
     "Affected by Cacophony, Sheer Force, and Technician": "受以下特性影响: 杂音、强行、技术高手",
     "Affected by Cacophony, Sheer Force, Serene Grace, and Parental Bond": "受以下特性影响: 杂音、强行、天恩、亲子爱",
@@ -4130,7 +4136,7 @@ var cnRegReplace = new Map([
     [/^You have until December (\d+) to claim$/, '领取截止日期为 12 月 $1 日'],
     [/^Use: Fast-forward battle time by (\d+) minutes. Must be used while battling$/, '使用时: 使战斗时间快进 $1 分钟。必须在战斗中使用'],
     [/^Use: Fast-forward genetic operation time by 30 minutes. Must be used while an active operation is ongoing$/, '使用时: 使遗传操作时间快进30分钟。必须在有操作进行时使用'],
-    [/^Re-learns a previously learned move acquired through genetics inheriting (excluding Lock Capsules)$/, '重新学会一个通过遗传获得的招式（不包括上锁的容器遗传的招式）'],
+    [/^Use: Re-learn a previously learned move acquired through genetics inheriting (excluding moves inherited through Lock Capsules)$/, '使用时: 重新学会一个通过遗传获得的招式(不包括使用上锁的容器遗传的招式)'],
     [/^Genetics-aiding item: Guarantees the chance to inherit Attack Iv's$/, "遗传辅助道具: 确保能遗传攻击个体值"],
     [/^Genetics-aiding item: Guarantees the chance to inherit Defense Iv's$/, "遗传辅助道具: 确保能遗传防御个体值"],
     [/^Genetics-aiding item: Guarantees the chance to inherit HP Iv's$/, "遗传辅助道具: 确保能遗传生命个体值"],
