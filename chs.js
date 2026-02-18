@@ -3528,8 +3528,6 @@ var cnPostfix = {
     "Razor Shell!": "贝壳刃!",
     "Triple Dive!": "三连钻!",
     "Electro Ball!": "电球!",
-    "Charge!": "充电!",
-    "Ionise!": "电离!",
     "Apple Acid!": "苹果酸!",
     "Chloroblast!": "叶绿爆震!",
     "Frenzy Plant!": "疯狂植物!",
@@ -3652,6 +3650,8 @@ var cnPostfix = {
     "Cut!": "居合劈!",
     "Slash!": "劈开!",
     "Acid!": "溶解液!",
+    "Charge!": "充电!",
+    "Ionise!": "电离!",
     //人名后缀
     "School Kid Aaron": "补习班学生 阿柳",
     "Aaron": "阿柳",
