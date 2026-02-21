@@ -3032,7 +3032,7 @@ areas.ecosphere = {
     rotation: 5,
     type: `event`,
     background : `route`,
-    level : wildAreaLevel5,
+    level : wildAreaLevel1,
     icon: pkmn.vivillon,
     spawns: {
         common : [pkmn.scatterbug],
@@ -3043,7 +3043,7 @@ areas.ecosphere = {
         common : [item.mysteryEgg],
         rare : [item.silverPowder],
     },
-    category: 2,
+    category: 1,
 }
 
 areas.protonCity = {
