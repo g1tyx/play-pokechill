@@ -42,7 +42,7 @@ ability.waterGuard = {
 ability.flameGuard = {
     type: [`fire`],
     rarity: 1,
-    info: function() {return `Halves the damage received of Flame-type moves`},
+    info: function() {return `Halves the damage received of Fire-type moves`},
 }
 
 ability.curseGuard = {

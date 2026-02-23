@@ -128,6 +128,29 @@ var cnItem = function (text, node) {
     //调整收录的词条，0=收录原文，1=收录去除前后缀的文本
     let save_cfg = 1;
     let save_text = save_cfg ? text : textori;
+    
+    //检查是否被en-cn.js翻译（避免重复记录未翻译文本）
+    function canTranslateByEnCn(txt) {
+        //检查en-cn.js的DICT翻译（如果全局可访问）
+        if (typeof window.EN_CN_DICT !== 'undefined' && window.EN_CN_DICT[txt]) {
+            return true;
+        }
+        //检查en-cn.js的正则规则（如果全局可访问）
+        if (typeof window.EN_CN_REGEX_RULES !== 'undefined') {
+            for (const [regex] of window.EN_CN_REGEX_RULES) {
+                if (regex.test(txt)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    //如果en-cn.js能翻译，则不记录到生词表
+    if (canTranslateByEnCn(save_text)) {
+        return text_prefix + text + text_reg_exclude_postfix + text_postfix;
+    }
+    
     //遍历生词表是否收录
     for (
         let i = 0; i < cnItems._OTHER_.length; i++
