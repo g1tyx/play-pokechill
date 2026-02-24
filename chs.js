@@ -14,14 +14,11 @@ var cnItems = {
     _OTHER_: [],
     //未分类: 
     //新手教程
-    "Grass Type": "草属性",
-    "Fire Type": "火属性",
-    "Water Type": "水属性",
-    "Howdy! I have been assigned to show the ropes": "你好呀！我是来给你做新手指导的。",
-    "Let's start by getting new pokemon shall we? Select \"Travel\" on the top left menu": "我们先去收服新的宝可梦吧？在左上角菜单中选择 \"旅行\" ",
+    
+
     "This Pokemon is marked as Special, and cannot receive shiny mutations through genetics!": "此宝可梦被标记为特殊宝可梦, 无法通过遗传获得闪光突变!",
     "While in combat, Pokemon get tired and lose a very small fraction of their hp yada yada.": "在战斗中, 宝可梦会感到疲劳, 并失去一小部分生命值。",
-    "Complete the tutorial first": "先完成这个教程吧",
+    
     //杂项
     "Move": "招式",
     "Split": "分类",
@@ -602,19 +599,7 @@ var cnItems = {
     "New Wild Area unlocked": "新旷野地带 已解锁",
     "Poke-Mart unlocked": "友好商店 已解锁",
     "Apricorn exchange in the Poke-Mart is now available!": "友好商店的球果交换现已开放!",
-    "Defeat Team Leader Giovanni in VS mode to unlock": "在对战中击败 首领 坂木 以解锁",
-    "Defeat Master Trainer Geeta in VS mode to unlock": "在对战中击败 大师训练家 也慈 以解锁",
-    "Defeat Elite Four Lance in VS mode to unlock": "在对战中击败 四天王 阿渡 以解锁",
-    "Defeat Gym Leader Brock in VS mode to unlock": "在对战中击败 道馆馆主 小刚 以解锁",
-    "Defeat Gym Leader Misty in VS mode to unlock": "在对战中击败 道馆馆主 小霞 以解锁",
-    "Defeat Gym Leader Brock in VS to unlock": "在对战中击败 道馆馆主 小刚 以解锁",
-    "Defeat Gym Leader Misty in VS to unlock": "在对战中击败 道馆馆主 小霞 以解锁",
-    "Defeat Gym Leader Phoebe in VS to unlock": "在对战中击败 道馆馆主 芙蓉 以解锁",
-    "Defeat Elite Four Lance in VS to unlock": "在对战中击败 四天王 阿渡 以解锁",
-    "Defeat Elite Trainer Cynthia in VS to unlock": "在对战中击败 大师训练家 竹兰 以解锁",
-    "Defeat Master Trainer Geeta in VS to unlock": "在对战中击败 大师训练家 也慈 以解锁",
-    "Defeat Ultra Entity Lusamine in VS to unlock": "在对战中击败 究极异兽 露莎米奈 以解锁",
-    "Defeat Legend Trainer Brendan in VS mode to unlock": "在对战中击败 传说训练家 小悠 以解锁",
+    
     //对战开拓区
     "VS Frontier": "对战开拓区",
     "Little Cup": "小小联盟",
@@ -754,11 +739,8 @@ var cnItems = {
     "Nope": "不要",
     "Obtained as a random reward in the Battle Frontier": "在 对战开拓区 作为随机奖励获得",
     "Complete the tutorial to access events": "完成教程以参与活动",
-    "You can right click/long tap almost everything on the screen for more info! You can also do this within the info itself too. Try going into the first Wild Area to start catching Pokemon": "你可以右键单击/长按屏幕上几乎任何项目以获取更多信息！在信息面板内也可以进行此操作。尝试进入第一个旷野地带开始捕捉宝可梦吧",
-    "Right click/long tap a pokemon in your team to set their moves, you can also do this while in battle. Press the + symbol next to the Pokemon to assign items": "右键单击/长按你队伍中的宝可梦可以设置其招式, 在战斗中也可进行此操作。点击宝可梦旁边的+号图标可以分配道具",
-    "Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell. Once you have more Pokemon in your team, you will be able to switch them arround in a fight": "你的队伍会按照设定模式自动攻击, 即使在你切换标签页或关闭浏览器后也会继续！你也可以右键单击/长按招式或宝可梦来查看其状态。一旦你队伍中有更多宝可梦, 就能在战斗中替换它们",
-    "You can check a more in-depth explanation about stats and battle mechanics in the Guide menu. For now, I will take a break... Enjoy your stay!": "你可以在指南菜单中查看关于能力值与战斗机制的更深入说明。现在, 我要休息一下……祝你游玩愉快！",
-    "Once you are ready, press Save and Go! at the top of the screen": "当你准备好后, 点击屏幕顶部的“保存并出发！”按钮",
+
+
     "Select a Pokemon add to team": "请选择一只宝可梦加入队伍",
     "No new items or Pokemon :(": "暂无新物品或宝可梦 :(",
     "First team slot must not be empty!": "第一个队伍位置不能为空！",
@@ -866,9 +848,9 @@ var cnItems = {
     "Decreases the damage of all ghost moves by 25% (Can stack). Works always for everyone regardless of the user": "所有幽灵属性招式造成的伤害降低 25%（可叠加）。始终对全体有效, 与使用者无关",
     
     "(Heat Wave, Sandstorm, Gust, Tailwind, Hurricane, Icy Wind, Blizzard, Silver Wind, Leaf Storm, Ominous Wind, Fairy Wind, Magma Storm, Aeroblast, and Sandsear Storm)": "（热风、沙暴、起风、顺风、暴风、冰冻之风、暴风雪、银色旋风、飞叶风暴、奇异之风、妖精之风、熔岩风暴、气旋攻击、热沙风暴）",
-    "Increases Cross-Power by +0.5": "使\"交叉之力\"加成 +0.5",
+    
     "Multiplies by x1.1 the damage of Ghost-type moves of all team members": "全队幽灵属性招式的伤害  x1.1",
-    "Increases Cross-Power by +0.3": "使\"交叉之力\"加成 +0.3",
+    
     "Multiplies by x1.1 the power of Dark-type moves of all team members": "全队的恶属性招式伤害 x1.1",
 
     "All moves become Normal-type moves, and their power is multiplied by x1.2": "所有属性招式会变为一般属性, 且伤害 x1.2",
@@ -921,9 +903,9 @@ var cnItems = {
     
     
     
-    "Halves damage received from Fire and Ice-type moves": "所受火、冰属性招式伤害减半",
+    
     "Multiplies Same-Type-Attack-Bonus by x1.2": "本系加成再 x1.2",
-    "Moves always hit regardless of the type": "招式无视属性相性, 必定命中",
+    
     "Damage received is halved when over 50% HP": "自身生命高于 50% 时, 所受伤害减半",
     
     
@@ -1004,9 +986,9 @@ var cnPrefix = {
     "◇ Move inherited:": "◇ 招式遗传: ",
     "⟐ Egg Move inherited: ": "⟐ 蛋招式遗传: ",
     "Time left:":"剩余时间: ",
-    "Thanks for the": "感谢送来的",
+
     "Long Press/Right click the present below to receive a gift": "长按/右击下方礼物, 即可获得礼物: ",
-    "Select a pokemon to teach ": "选择一个宝可梦传授 ",
+
     "Current Type Rotation:": "当前轮换属性:",
     "Moves for ": "可学习的招式-",
     "This move is restricted (": "这个招式是受限的（",
@@ -1270,7 +1252,7 @@ var cnRegReplace = new Map([
     [/^Trainer (\d+)\/5$/, '训练家: $1/5'],
     [/^Defeated: (\d+)\/5$/, '已击败: $1/5'],
     [/^Caught: (\d+)$/, '捕获数: $1'],
-    [/^Increases Same-Type-Attack-Bonus by \+([\d\.]+)$/, '本系加成(STAB) +$1'],
+    
     //天气
     [/^Increases the damage of Fire-Type moves by (\d+)% and decreases the damage of Water-Type moves by (\d+)%$/, '火属性招式的伤害提高 $1%, 水属性招式的伤害降低 $2%'],
     [/^Increases the damage of Water-Type moves by (\d+)% and decreases the damage of Fire-Type moves by (\d+)%$/, '水属性招式的伤害提高 $1%, 火属性招式的伤害降低 $2%'],

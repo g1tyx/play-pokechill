@@ -20,6 +20,22 @@
         //纯数字: (\d+)
         //不限定: (.+)
 
+        //新手指引
+        [/^Howdy! I have been assigned to show the ropes/i, '你好呀! 我是来给你做新手指导的'],
+        [/^Let's start by getting new pokemon shall we\? Select "Travel" on the top left menu/i, '让我们先来收服宝可梦吧? 在左上角菜单中选择"旅行"'],
+        [/^You can right click\/long tap almost everything on the screen for more info! You can also do this within the info itself too. Try going into the first Wild Area to start catching Pokemon/i,
+         '你可以 右键/长按 游戏内的任何内容获取更多信息! 尝试进入旷野地带来捕捉宝可梦'],
+        [/^Right click\/long tap a pokemon in your team to set their moves, you can also do this while in battle. Press the \+ symbol next to the Pokemon to assign items/i,
+         '右键/长按 队伍中的宝可梦来设置招式, 也可以在战斗中进行设置。点击宝可梦旁边的 + 号来分配道具'],
+        [/^Once you are ready, press Save and Go! at the top of the screen/i, '准备就绪后, 点击屏幕顶部的"保存并出发!"'],
+        [/^Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click\/long press on moves or pokemon to see their stats as well. Once you have more Pokemon in your team, you will be able to switch them around in a fight/i,
+         '你的队伍会自动攻击, 即使在你切换标签页或关闭浏览器后也会如此！你也可以 右键/长按 招式或宝可梦来查看其状态。如果你队伍中有更多宝可梦, 就能在战斗中交换它们'],
+        [/^You can check a more in-depth explanation about stats and battle mechanics in the Guide menu. For now, I will take a break... Enjoy your stay!/i,
+         '你可以在 "游戏指南" 菜单中查看关于能力值与战斗机制的更深入说明。现在, 我要休息一下……祝你游戏愉快！'],
+        [/Defeat (.+) in VS to unlock/i, '在对战中击败 $1 可解锁'],
+        [/Defeat (.+) in VS mode to unlock/i, '在对战中击败 $1 可解锁'],
+        [/^Complete the tutorial first/i, '请先完成新手教程'],
+
         //图鉴
         [/^Unlocks (.+) by using a (.+) at level (\d+)\+?(?=\s*[✔️❌]|$)/i, '在等级 $3 及以上时使用 $2 解锁 $1'],
         [/^Unlocks (.+) at level (\d+)(?=\s*[✔️❌]|$)/i, '在等级 $2 时解锁 $1'],
@@ -144,8 +160,8 @@
         [/^(.+) against (\w+)-types/i, '对$2属性$1'],
         [/^Power doubles if the target is /i, '威力翻倍若目标状态效果处于'],
         
-        [/^Complete the (.+) first/i, '请先完成$1'],
-        [/^Defeat (.+) in (.+) to unlock/i, '在$2中击败$1即可解锁'],
+        
+        
         //训练
         [/^(.+) is now level (\d+)!/i, '$1 达到了 $2 级!'],
         [/^(.+) now has (.+)!/i, '$1 领悟了特性 $2 !'],
@@ -190,7 +206,7 @@
         [/Every (\d+)h you might receive a random pokemon/i,
          '每 $1 小时你都能获得一只随机宝可梦'],
         [/Thanks for the (.+)!/i,
-         '获得了$1!'],
+         '感谢你送来的 $1!'],
 
         //对战塔
         [/The (.+) is an infinitely-scaling challenge in which every Pokemon defeated will increase the difficulty. Type Immunities inside this challenge will be instead converted to resistances/i,
@@ -588,6 +604,7 @@
         [/^([\s\S]*?)Wormhole Residue([\s\S]*?)$/i, '$1虫洞残留物$2'],
         [/^([\s\S]*?)Old Gateau([\s\S]*?)$/i, '$1陈旧糕点$2'],
     ];
+
     function regexWeight(regex) {
         const src = regex.source;
         const groupCount = (src.match(/\(/g) || []).length;
@@ -661,6 +678,9 @@
         "Sunny": "大晴天",
         "Trick Room": "戏法空间",
         //杂项
+        "Grass Type": "草属性",
+        "Fire Type": "火属性",
+        "Water Type": "水属性",
         ", and": ",",
         "and the Egg Move of": "。是以下宝可梦的蛋招式: ",
         "and": ",",
@@ -834,7 +854,7 @@
         "Veteran Trainer": "资深训练家",
         "Gym Leader": "道馆馆主",
         "Ace Trainer": "王牌训练家",
-        "Elite Trainer": "大师训练家",
+        "Elite Trainer": "精英训练家",
         "Master Trainer": "大师训练家",
         "Legend Trainer": "传奇训练家",
         "Elite Four": "四天王",
