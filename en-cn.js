@@ -65,12 +65,6 @@
         '解锁$1'],
         [/^New Dungeon: (.+)/i,
         '解锁新迷宫: $1'],
-        
-
-
-
-
-
         [/^Tier ([IVX]+) Event Raids unlocked/i,
         '阶级$1团体战 已解锁'],
         [/^Genetics unlocked/i,
@@ -122,6 +116,10 @@
         [/Pokemon in Dungeons can't be caught, but they can drop useful items and EXP\. Dungeons rotate every day aswell/i,
         '迷宫内的宝可梦无法捕获, 但会掉落实用道具和经验值。迷宫同样每天轮换'],
         //事件指引
+        [/^Limited Area Until (\d+)\/(\d+)$/,
+        '限时区域, 截止至$1月$2日'],
+        [/^HP Remaining: (\d+)%$/,
+        '生命值剩余: $1%'],
         [/Events might house both items and Pokemon to get. Events marked with a skull signify powerful foes that usually require an item to catch \(The item wont be consumed if failed to defeat\) that can be acquired in the collection events. All Events rotate every three days./i,
         '事件中可获取道具与宝可梦。带有标记的事件代表强大的对手, 通常需要特定道具才能进行战斗捕捉 (若未击败对手, 道具不会消耗)。这些所需道具可以在收集品事件中获得。所有事件每 3 天轮换一次'],
         [/Tier ([IVX]+) Raid/i,
@@ -441,6 +439,38 @@
         '$1 可学习的招式'],
         [/^Same-Type:/i,
         '同属性招式:'],
+        //神兽介绍
+        [/Believed to be a result of an attempt to replicate the ancestor of all Pokémon\. The experiment did not achieve its intended goal, and the creature that emerged was deemed a failure/i, '据信是为了复现万灵始祖而进行实验的产物。实验未能达成其预定目标，诞生于此的存在亦被判定为失败之作'],
+        [/The cold of winter\. Air chills and frost gathers in its wake\. Snowfall follows as it passes, and mountains are left sealed in ice where it lingers\./i, '凛冬之寒。所经之处空气凝结，霜华渐聚。其行过时大雪纷至，驻足之地群山覆冰，冰封长驻'],
+        [/The storm of summer\. Thunder rolls with its cry, and lightning strikes in time with its wings\. The skies darken as it passes, and violent storms follow its soar/i, '盛夏之雷暴。鸣响携雷声滚滚，振翅引电光灼灼。其翼展时天幕晦暗，翔掠之处暴风骤雨相随'],
+        [/The warmth of spring\. Its fire does not scorch the world, but stirs it awake, melting snow and kindling new life\. The cold loosens its hold as it passes, and the land is renewed by heat and light\./i, '阳春之温煦。其火不灼万物，反催苏生，融雪绽新。所过之处寒意消弭，大地因光热而万象更迭'],
+        [/Shaped by human hands, bears the weight of creation twisted\. Though it carries the memory of life that came before, it walks a path apart, questioning the bounds of its own existence\./i, '由人类之手塑造，承载着扭曲创造的重量。虽铭刻着过往生灵的记忆，却踽踽独行于殊途，不断叩问自身存在的边界'],
+        [/The origin from which all Pokemon as we know trace their beginnings\. Its form, small and gentle, carries the memory of every creature that would follow/i, '我们所知一切宝可梦皆可追溯的起源。其形虽小而温顺，却承载着后世万千生灵的记忆'],
+        [/Traveling through time and appearing where the past and future meet, it preserves the natural order, ensuring that the cycles of life, growth, and seasons continue uninterrupted/i, '穿越时空，现身于过去与未来的交汇之处。它维系着自然的秩序，确保生命、成长与季节的循环永续不辍'],
+        [/A reminder of the power that once carved the seas\. Its ancient rivalry with Groudon lingers quietly, a balance written into the land and water\./i, '那股曾开凿海洋之伟力的残响。它与固拉多的古老争斗悄然延续，化作了大地与流水间书写的不变均衡'],
+        [/The oceans made visible, and the force that first shaped the seas across the world\. Waves rise and storms gather at its will\./i, '海洋之形显化，亦是首度塑成寰宇间汪洋的伟力。波涛随其心意涌起，风暴亦应其意志汇集'],
+        [/A reminder of the power that once carved the lands\. Its ancient rivalry with Kyogre lingers quietly, a balance written into the land and water\./i, '那股曾塑造大地之伟力的残响。它与盖欧卡的古老争斗悄然延续，化作了大地与流水间书写的不变均衡'],
+        [/The continents made whole, and the force that first shaped the land across the world\. Mountains rise and deserts stretch at its will\./i, '大陆之形显化，亦是首度塑成世间万土的伟力。山峦随其心意隆起，荒漠亦应其意志延展'],
+        [/The force that watches over the world from above\. It tempers the chaos of the seas and the land, acting as a mediator between Kyogre and Groudon\. The winds and currents obey its passage, and it stands as guardian of the skies\./i, '自苍穹之上俯瞰并守护世界的伟力。它调和海洋与陆地的混沌，作为盖欧卡与固拉多之间的调停者。风云与洋流皆顺从它的轨迹，它即是守护苍穹的卫士'],
+        [/Ascending through the atmosphere, its reach extending into the upper skies\. Protecting not only the world below but also the space above, guarding against threats from beyond\./i, '其存在升腾于大气，影响力直达高天之上。守护的不仅是下方的世界，还包括头顶的太空，抵御着来自天外的威胁'],
+        [/The embodiment of wishing, awakening only once in a thousand years\. In those brief moments, it listens to the desires carried in the hearts of others, and its power brings those wishes into reality\./i, '愿望的化身，千年方得一度苏醒。在那短暂的时刻，它聆听着众生心中承载的渴望，并以自身之力令那些祈愿化为现实'],
+        [/Emerged to give shape to knowledge\. When the world was still new, it shared understanding with humanity, allowing thought and memory to take root\. Its presence quiets turmoil to the gods of time and space\./i, '为赋予知识以形态而诞生。当世界尚处新生，它将智慧分享予人类，让思想与记忆得以扎根。它的存在，能平息时空二神的纷乱'],
+        [/Emerged to give shape to emotion\. When the world was still new, it shared feeling with humanity, allowing joy, sorrow, and empathy to take root\. Its presence soothes unrest to the gods of time and space\./i, '为赋予情感以形态而诞生。当世界尚处新生，它将感受分享予人类，让喜悦、悲伤与共鸣得以扎根。它的存在，能抚慰时空二神的不安'],
+        [/Emerged to give shape to will\. When the world was still new, it granted resolve to humanity, allowing action, choice, and determination to take form\. Its presence steels the spirit of the gods of time and space\./i, '为赋予意志以形态而诞生。当世界尚处新生，它将决心授予人类，让行动、抉择与决断得以成形。它的存在，能为时空二神注入坚毅'],
+        [/Bound by weight and limit, a shape time itself can endure\. Its power yet governs past and future, though restrained, for the world cannot withstand the full measure of eternity given form\./i, '被重力与限度所束缚，是时间本身所能承载的形态。其力量依然司掌过去与未来，但被加以制约，因这世界无法承受具象化的永恒之全部威能'],
+        [/Shaped by the Original One, when the universe had yet to know its first moment, It was brought forth to give law to duration\. By its heartbeat, time began to flow; by its will, past and future were torn apart and given order\. Without It, all life trapped by eternal stillness\./i, '由太初之物所塑，于宇宙尚未知晓其第一刻时被创造，为"延续"订立法则。随其心跳，时间开始流动；凭其意志，过去与未来被撕裂并赋予秩序。若无它，一切生命都将困于永恒的静止'],
+        [/Bound by weight and limit, a shape space itself can sustain\. Its power yet governs distance and separation, though restrained, for the world cannot bear the weight of infinite breadth given form\./i, '被重力与限度所束缚，是空间本身所能承载的形态。其力量依然司掌距离与分离，但被加以制约，因这世界无法承受具象化的无限宽广之全部重量'],
+        [/Shaped by the Original One, when the universe was yet unmeasured, It was brought forth to give form to expanse\. By its existence, space became vast; by its will, distance gained meaning\. Without It, the world would have no breadth, no separation between sky and land, nor any path for life to walk\./i, '由太初之物所塑，于宇宙尚不可度量时被创造，为"广袤"赋予形态。因它的存在，空间变得辽阔；凭它的意志，距离有了意义。若无它，世界便无宽广，天与地将无分隔，生命亦无路可行'],
+        [/Formed within the depths of the earth, it moves through molten stone and scorched caverns, shaping volcanoes among the land through heat and pressure\./i, '诞生于地底深处，穿行于熔岩与焦灼的洞窟之中。它以热力与压力塑造大地上的火山'],
+        [/Regigigas moved the continents into place, hauling landmasses with ropes of stone and ice, shaping the world through sheer strength\. From this labor came the order of the land, after which it fell into long slumber\./i, '雷吉奇拉斯曾拉动大陆，以石与冰的缆绳拖曳地壳，凭纯粹伟力塑造世界。陆地的秩序自此而生，而后它便陷入长眠'],
+        [/Bound by weight and limit, a shape reality can tolerate\. Its power yet governs antimatter and opposition, though restrained, for the world cannot endure the force that unravels all creation made whole\./i, '被重力与限度所束缚，是现实本身所能容忍的形态。其力量依然司掌反物质与对立，但被加以制约，因这世界无法承受那足以令一切创造物分崩离析的力量'],
+        [/Shaped by the Original One, when the laws of creation first took form, It was born in defiance of them\. Given dominion over antithesis of matter, It was cast away for its violence, bound to a world where logic collapses and direction has no meaning\./i, '由太初之物所塑，于创造之法则初显时诞生，却是为了与这些法则相悖而生。被赋予主宰物质对立面的权能，因其狂暴而被放逐，囚禁于逻辑崩塌、方向失却意义的破碎世界'],
+        [/The embodiment of moon light\. From the earliest ages, it has watched over sleep and dreams, bringing peaceful rest where darkness gathers\. Its feathers dispel nightmares born by Darkrai, as they balance the quiet rhythm of night that was set into the world\./i, '月华之化身。自太初之时，便守护着睡眠与梦境，在黑暗汇聚处带来安宁的休憩。其翎羽能驱散由达克莱伊所生的梦魇，以此维系着铭刻于世间的、静谧的夜的韵律'],
+        [/The prince of the seas, the chosen of its kind, born with a bond that links all ocean life\. It guides the creatures of the waters, preserving harmony beneath the waves\./i, '沧海之王子，其族裔中的天选者，生来便与所有海洋生灵存在着羁绊。它指引着水中的万千生命，维系着波涛之下的和谐'],
+        [/The embodiment of night shadow\. From the earliest ages, it has been bound to dreams, drawing forth fear and unrest where its presence lingers\. Nightmares follow in its wake, not by intent, but as a reflection of its nature\./i, '夜影之化身。自太初之时，便与梦境紧密相连，其所在之处，恐惧与不安随之滋生。梦魇随其踪迹而来，非其本意，实为其天性之映照'],
+        [/Embodying gratitude and the renewal of life, It moves across barren lands, leaving fields of flowers in its wake and restoring the vitality of nature, bringing growth and bloom to places long abandoned\./i, '象征着感恩与生命之复苏，它行经荒芜大地，所过之处花田绽放，令自然的生机重返，为久被遗弃之地带来生长与繁花'],
+        [/Embodying gratitude and the renewal of life, It moves across barren lands, leaving fields of flowers in its wake and restoring the vitality of nature, bringing growth and bloom to places long abandoned\./i, '象征着感恩与生命之复苏，它行经荒芜大地，所过之处花田绽放，令自然的生机重返，为久被遗弃之地带来生长与繁花'],
+        [/Emerging from nothing, existence was created from its birth\. Pillars that govern reality shaped by its will, and yet, only a vessel for the eye to see, and the mind to comprehend\./i, '自虚无中诞生，存在因它的出生而被创造。统御现实的基石由其意志塑造，然而，这仅仅是为肉眼所见、为心智所能理解的容器'],
         
         //招式描述
         [/([\d\.]+) BP, Physical/i, '$1 威力, 物理'],
@@ -584,6 +614,8 @@
         '给我方全员'],
         
         //特性描述
+        [/^When slotted as a non-hidden ability: Turns reduced to x([\d\.]+)/i, '作为非隐藏特性时: 回合数 x$1'],
+        [/^When slotted as a non-hidden ability: Damage reduced to x([\d\.]+)/i, '作为非隐藏特性时: 伤害 x$1'],
         [/^Prevents negative status effects while on/i,
         '免疫异常状态, 当处于'],
         [/^ weather$/i,
@@ -884,7 +916,6 @@
         '对大部分元素 右键点击/长按 可查看详情。你还可对说明内的次级信息再次 右键点击/长按 查看更多内容。'],
         [/^Some elements that can be inspected include areas, trainers, moves, status effects, wild pokemon, team pokemon and items$/i,
         '可查看详情的元素包括区域、训练家、招式、异常状态、野生宝可梦、队伍宝可梦和道具'],
-
         //能力值指南
         [/^Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level$/i,
         '同一种宝可梦有相同的种族值, 种族值决定了宝可梦在特定等级下的实际能力值'],
@@ -894,13 +925,11 @@
         '个体值(IV)会增强能力值, 可以通过获得多个相同的宝可梦来提高'],
         [/^Depending on their base stats, a Division will be asigned to them\. You might use this Division letter to quickly assess which Pokemon can perform better on the short term$/i,
         '根据种族值, 宝可梦会被分配到相应评级。你可以通过评级判断哪些宝可梦在短期内表现更出色。'],
-
         //特性指南
         [/^Abilities are traits that a Pokemon can have\. While they are randomised, some abilities can only appear on specific typings\. Abilities are sorted in three categories; (.+)$/i,
         '特性是宝可梦拥有的特质。特性随机生成, 但部分特性仅特定属性的宝可梦可拥有。特性品质分为$1'],
         [/^Hidden abilities are innate species-dependant traits that need to be unlocked with an Ability Capsule\. Once unlocked, their effect will permanently be active alongside their other ability. Same Hidden Ability and Ability wont stack with eachother$/i,
         '隐藏特性是宝可梦天生的物种专属特质, 需使用特性胶囊解锁。解锁后, 其效果将与其他特性同时生效。相同的特性与隐藏特性不会相互叠加'],
-
         //经验值指南
         [/^Pokemon gain experience by defeating foes, and share a portion of it among the team\. This will also be the case even if the team Pokemon are defeated$/i,
         '宝可梦通过击败对手获得经验值, 且会与队伍中的其他宝可梦分享部分经验值。即使队伍中的宝可梦被击败, 也能获得经验值'],
@@ -908,7 +937,6 @@
         '经验值获取量与等级差成正比。等级差在±$1级以内获得的经验值相同, 超过$2级则获得的经验值会大幅增加'],
         [/^A Pokemon (\d+) levels higher will not yield any experience$/i,
         '击败比自身低$1级以上的宝可梦将无法获得经验值'],
-
         //招式指南
         [/^Moves are learnt every (\d+) levels\. Moves can be switched by right click\/long press on a team pokemon$/i,
         '宝可梦每$1级可学习新招式。右键单击/长按 队伍中的宝可梦可切换招式'],
@@ -920,7 +948,6 @@
         '某些宝可梦可能拥有招牌技。招牌技是特定种类宝可梦的专属的招式, 特定种类宝可梦在$1级时习得。招牌技无法通过遗传获得, 除非宿主拥有相应的蛋招式'],
         [/^Some moves might be restricted. Only one restricted move might be equipped at a time on the active Pokemon/i,
         '部分招式属于受限制的招式。每只正在上场的宝可梦同一时间只能装备一个受限制的招式'],
-
         //本系加成指南
         [/^If a Pokemon uses a damaging move that has the same type as one of that Pokemon'?s types, the move'?s damage is increased by x(\d+(?:\.\d+)?)$/i,
         '如果宝可梦使用的进攻招式与自身其中一个属性相同, 该招式的伤害 x$1'],
@@ -928,15 +955,12 @@
         '这就是本系加成'],
         [/^Furthermore, Pokemon with a single typing will receive \+(\d+(?:\.\d+)?) extra STAB damage$/i,
         '此外, 单属性宝可梦的本系加成 +$1'],
-
         //交叉之力指南
         [/^If a Pokemon uses a damaging move that is preceded \(immediately or not\) by a damaging move of a different type of the executed move, it will receive a (\d+(?:\.\d+)?)x damage multiplier. This is indicated with a cross pattern on the move bar of the affected move$/i,
         '如果宝可梦使用的伤害型招式之前(无论是否紧接着)曾使用过属性不同的伤害型招式, 则该招式造成的伤害 x$1。受影响的招式会在招式栏上以交错纹样进行标识'],
-
         //战斗疲劳指南
         [/^Pokemon lose a very small fraction of their maximum health when attacking\. This damage can be mitigated by a sum of the HP, Defense and Special Defense of the Pokemon, meaning bulkier Pokemon can battle for longer$/i,
         '宝可梦在攻击时会损失极小比例的最大生命值。该伤害可通过宝可梦的生命值、物防和特防的总和来抵消, 这意味着体格更健壮的宝可梦能持续战斗更久。'],
-
         //异常状态指南
         [/^Certain moves inflict status effects such as/i,
         '部分招式会对目标施加异常状态, 如'],
@@ -951,14 +975,12 @@
         [/^Moves fail to deal damage/i,
         '招式无法造成伤害'],
         [/^(\d+)% chance for moves to fail to deal damage and Speed is reduced by (\d+)%/i,
-        '招式有 $1% 概率无法造成伤害, 并且速度降低 $2%'],
-        
+        '招式有 $1% 概率无法造成伤害, 并且速度降低 $2%'],  
         //能力值变化指南
         [/^Like status effects, increases or decreases of stats last for 3 turns by default \(Except Speed decreases, which last 2\)/i,
         '与异常状态一样, 能力值提升或降低默认持续 3 回合(除了速度降低, 持续2回合)'],
         [/Buffs and debuffs of the same magnitude will not stack with each other \(IE x2 50% Attack Up\), but different ones will \(50% \+ 100% Attack Up\)/i,
         '相同幅度的能力值变化不会叠加(例如两次 50% 的攻击提升), 但不同幅度的变化会叠加(50%+100%的攻击提升)'],
-
         //天气指南
         [/^Certain moves can change the weather to altered ones such as $/i,
         '部分招式可将天气改变为'],
@@ -982,7 +1004,6 @@
         '你的队伍受到的效果绝佳的伤害变为普通伤害'],
         [/^Protects your team from status effects and stat reductions/i,
         '保护你的队伍免受异常状态和能力值降低'],
-
         //闪光宝可梦指南
         [/^At a rate of (\d+)\/(\d+), Pokemon can be shiny\. These odds can be boosted through different means$/i,
         '宝可梦出现闪光的概率为$1/$2, 可通过多种方式提高该概率'],
@@ -990,7 +1011,6 @@
         '闪光宝可梦的伤害提高 $1%。可在菜单中切换是否显示闪光视觉特效, 这不会影响其伤害加成'],
         [/^Shiny Pokemon do not carry over their evolutions\. Instead, genetics must be used$/i,
         '闪光宝可梦的进化形态不会继承闪光突变。需通过遗传系统获得进化形态的闪光突变'],
-
         //遗传快捷指南
         [/Genetics allows you to modify a Pokemon beyond what is considered normal for the species, here is a quick overview of what you can achieve with operations:/i,
         '遗传培育允许你对宝可梦进行超越其物种常规限制的调整, 以下是可通过各类操作实现的功能概览: '],
@@ -1006,7 +1026,6 @@
         '招式遗传: 这是前者的进阶版本。宿主宝可梦可以从样本宝可梦身上遗传到原本无法通过学习获得的招式, 样本宝可梦的所有技能均有概率遗传(无需携带)'],
         [/Ability Inheriting:\s*Using a (.+), you can swap abilities with the sample, getting access to otherwise-impossible combinations/i,
         '特性遗传: 使用$1后, 宿主宝可梦与样本宝可梦交换特性, 从而获得无法自然获取的特性'],
-
         //遗传兼容性指南
         [/^Compatibility determines how similar the sample is to the host\. This influences various parameters such as the chances of inherit, or shiny mutations \(only if the sample is shiny\)$/i,
         '兼容性决定了样本宝可梦与宿主宝可梦的相似程度, 会影响遗传概率、闪光突变(仅当样本宝可梦为闪光宝可梦时)等多个参数'],
@@ -1014,7 +1033,6 @@
         '样本宝可梦与宿主宝可梦共享一种属性可获得 1级 兼容性, 共享两种属性可获得 2级 兼容性'],
         [/^Additionally, if the sample is of the same evolutive line as the host, it will recieve maximum compatibility$/i,
         '此外, 若样本宝可梦与宿主宝可梦属于同一进化链, 将获得最高等级 3级 兼容性'],
-
         //遗传能量消耗指南
         [/^Power cost determines how taxing it is to modify the host\. This influences the time to complete the operation$/i,
         '能量消耗决定修改宿主宝可梦的难度, 其会影响遗传所需的时间'],
@@ -1229,6 +1247,7 @@
         "IV's Stats": "个体值",
         "Abilities": "特性",
         "WIP": "(未完成)",
+        "Expand Lore": "神话传说",
         "Pokerus": "宝可病毒",
         "PKRS": "宝可病毒",
         "Learnt Moves": "已学会的招式",
