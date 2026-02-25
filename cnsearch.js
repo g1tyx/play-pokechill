@@ -15,8 +15,20 @@
     'use strict';
 
     const EN_TO_CN = {
-        //其他
-        "Pokerus": "病毒",
+        //和搜索插件同步
+        //关键词搜索
+        "shiny": "闪光",
+        "pokerus": "宝可病毒",
+        "signature": "招牌技",
+        "eggmove": "蛋招式",
+        "hidden ability": "隐藏特性",
+        "unobtainable": "无法获取",
+        "wild": "野生",
+        "park": "公园",
+        "event": "事件",
+        "frontier": "开拓区",
+        "mart": "商店",
+        "caught": "已捕捉",
         //宝可梦译名
         "Bulbasaur": "妙蛙种子",
         "Ivysaur": "妙蛙草",
@@ -1428,31 +1440,7 @@
         "Blastoise Clone": "水箭龟 复制体",
         //四季鹿, 萌芽鹿
         "Deerling": "四季鹿",
-        "Deerling Spring": "四季鹿 春",
-        "Deerling Summer": "四季鹿 夏",
-        "Deerling Autumn": "四季鹿 秋",
-        "Deerling Winter": "四季鹿 冬",
         "Sawsbuck": "萌芽鹿",
-        "Sawsbuck Spring": "萌芽鹿 春",
-        "Sawsbuck Summer": "萌芽鹿 夏",
-        "Sawsbuck Autumn": "萌芽鹿 秋",
-        "Sawsbuck Winter": "萌芽鹿 冬",
-        //花蓓蓓, 花叶蒂, 花洁夫人
-        "Flabebe": "花蓓蓓",
-        "Flabebe Blue": "花蓓蓓 蓝色",
-        "Flabebe Orange": "花蓓蓓 橙色",
-        "Flabebe White": "花蓓蓓 白色",
-        "Flabebe Yellow": "花蓓蓓 黄色",
-        "Floette": "花叶蒂",
-        "Floette Blue": "花叶蒂 蓝色",
-        "Floette Orange": "花叶蒂 橙色",
-        "Floette White": "花叶蒂 白色",
-        "Floette Yellow": "花叶蒂 黄色",
-        "Florges": "花洁夫人",
-        "Florges Blue": "花洁夫人 蓝色",
-        "Florges Orange": "花洁夫人 橙色",
-        "Florges White": "花洁夫人 白色",
-        "Florges Yellow": "花洁夫人 黄色",
         //特性
         "Stoned": "石化",
         "Stamina": "耐力",
@@ -1647,7 +1635,10 @@
         "Soul Asterism": "灵魂星象",
         "Noxious": "恶臭",
 
-        // 招式
+        //招式
+        "Sunny": "大晴天",
+        "Foggy": "起雾",
+        "Trick Room": "戏法空间",
         "Seed Flare": "种子闪光",
         "Moongeist Beam": "暗影之光",
         "Sunsteel Strike": "流星闪冲",
@@ -1805,6 +1796,7 @@
         "Misty Terrain": "薄雾场地",
         "Grassy Terrain": "青草场地",
         "Electric Terrain": "电气场地",
+        "Weird Room": "怪异空间",
         "Double Hit": "二连击",
         "Double Slap": "连环巴掌",
         "Extrasensory": "神通力",
@@ -2282,7 +2274,7 @@
         "Lock Capsule": "上锁的容器",
         "Macho Brace": "强制锻炼器",
         //其他
-        "Time Candy": "时光糖果",
+        "Time Candy": "时间糖果",
         "Bottle Cap": "银色王冠",
         "Golden Bottle Cap": "金色王冠",
         "Heart Scale": "心之鳞片",
@@ -2330,7 +2322,6 @@
         "Red Headdress": "红色头饰",
         "Red Scarf": "红色围巾",
         "Red Star": "红色星星",
-        "Save Changes": "保存更改",
         "Silver Tiara": "银色头冠",
         "Spotlight": "聚光灯",
         "Striped Tie": "条纹领带",
