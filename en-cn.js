@@ -1039,9 +1039,9 @@
         [/^Increases the damage of (\w+)-Type moves by (\d+)%/i,
         '$1属性招式伤害提高 $2%'],
         [/^Slower Pokemon become faster, faster Pokemon become slower. Additionally, multiplies the damage based on how slow the Pokemon originally was by x1.0 to x1.5/i,
-        '慢速宝可梦速度变快, 快速宝可梦速度变慢。此外, 根据宝可梦的初始速度, 其伤害 x1.0-1.5'],
-        [/^Decrease the (\w+) and (\w+) of all active Pokemon by 3 stars/i,
-        '所有宝可梦的$1和$2降低 3 星'],
+        '慢速宝可梦速度变快, 快速宝可梦速度变慢。此外, 宝可梦的速度种族值越低, 伤害加成越高, 伤害 x1.0-1.5'],
+        [/^Decrease the attack and defense of all active Pokemon by 3 stars/i,
+        '在场宝可梦的攻击、特攻、防御、特防种族值减 3 星 (最低1星)'], //怪异空间，实际是特攻特防也会减去3星
         [/^Increases the damage dealt by cross-power by 30%/i,
         '"交叉之力"加成提高 30%'],
         [/^Super-effective damage dealt to your team is reduced to neutral/i,
