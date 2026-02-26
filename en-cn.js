@@ -95,21 +95,19 @@
         '新$1!'],
         [/^(.+) Up!/i,
         '$1提高!'],
-        //自动重战
-        [/\bAuto-Refight is active!\s*/i,
-        '自动重战已激活'],
-        [/Auto-Refight Tickets remaining\)/i,
-        '自动重战券)'],
-        [/^([\s\S]*?)Auto[- ]?Refight[- ]?Ticket[s ]?([\s\S]*?)$/i,
-        '$1自动重战券$2'],
-        [/^([\s\S]*?)Auto[- ]?Refight([\s\S]*?)$/i,
-        '$1自动重战$2'],
+        //自动再战
+        [/Auto-Refight is active!\s*/i,
+        '自动再战已激活'],
         [/\(Wont consume an/i,
         '(不会消耗'],
+        [/Auto-Refight Tickets?([\s\S]*?)\)/i,
+        '自动再战券)'],
         [/\(Wont use/i,
-        '(不会消耗'],
+        '(不会使用'],
         [/\(x(\d+)/i,
         '(还剩$1个'],
+        [/Auto-Refight Tickets remaining\)/i,
+        '自动再战券)'],
         [/Click to disable it/i,
         '点击以取消'],
         //旷野地带指引
@@ -1133,7 +1131,8 @@
         regex,
         repl,
         weight: regexWeight(regex)
-    }));
+    }))
+    .sort((a, b) => b.weight - a.weight);
 
     function applyRegexRules(text) {
         for (const r of REGEX_RULES) {
@@ -1166,6 +1165,7 @@
         "Leave Combat": "离开战斗",
         "Save and exit": "保存并退出",
         "Fight Again": "再次战斗",
+        "Auto-Refight": "自动再战",
         "Battle Summary": "战斗总结",
         "Damage Dealt": "伤害统计",
         "Start": "开始",
@@ -1176,7 +1176,7 @@
         "Cancel": "取消",
         "Remove": "移除",
         "Close": "关闭",
-
+        
         //旅行
         "Rotation": "轮次",
         "Area Items": "区域道具",
