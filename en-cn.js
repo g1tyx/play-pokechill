@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] EN-CN
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.3
+// @version      3.9.4
 // @description  Pokechill 全页面离线简体中文汉化
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT

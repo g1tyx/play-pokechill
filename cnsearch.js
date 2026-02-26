@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] CN-SEARCH
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.3
+// @version      3.9.4
 // @description  Pokechill 中文模糊匹配搜索
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
