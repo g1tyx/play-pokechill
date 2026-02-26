@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] EN-CN
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.4
+// @version      3.9.5
 // @description  Pokechill 全页面离线简体中文汉化
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -4023,7 +4023,7 @@
         "Bottle Cap": "银色王冠",
         "Golden Bottle Cap": "金色王冠",
         "Heart Scale": "心之鳞片",
-        "Auto Refight Ticket": "自动重战券",
+        "Auto Refight Ticket": "自动再战券",
         "Rare Candy": "神奇糖果",
         "Ability Patch": "特性膏药",
         "Ability Capsule": "特性胶囊",
