@@ -1,14 +1,13 @@
 // ==UserScript==
 // @name         [Pokechill] CN-SEARCH
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.2
-// @description  Pokechill 中文模糊匹配 + 提示条 + Enter / ↑↓ / 数字键 / 鼠标 选择 + 输入框左键点击清空
-// @author       GPT-DiamondMoo
+// @version      3.9.3
+// @description  Pokechill 中文模糊匹配搜索
+// @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
+// @icon         https://play-pokechill.github.io/img/icons/icon.png
 // @match        https://play-pokechill.github.io/*
 // @match        https://g1tyx.github.io/play-pokechill/*
-// @downloadURL https://update.greasyfork.org/scripts/561799/%5BPokechill%5D%20CN-SEARCH.user.js
-// @updateURL https://update.greasyfork.org/scripts/561799/%5BPokechill%5D%20CN-SEARCH.meta.js
 // ==/UserScript==
 
 (function () {
@@ -2278,7 +2277,7 @@
         "Bottle Cap": "银色王冠",
         "Golden Bottle Cap": "金色王冠",
         "Heart Scale": "心之鳞片",
-        "Auto Refight Ticket": "自动再战票",
+        "Auto Refight Ticket": "自动重战券",
         "Rare Candy": "神奇糖果",
         "Ability Patch": "特性膏药",
         "Ability Capsule": "特性胶囊",

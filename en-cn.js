@@ -1,14 +1,13 @@
 // ==UserScript==
 // @name         [Pokechill] EN-CN
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.2
+// @version      3.9.3
 // @description  Pokechill 全页面离线简体中文汉化
-// @author       GPT-DiamondMoo
+// @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
 // @icon         https://play-pokechill.github.io/img/icons/icon.png
 // @match        https://play-pokechill.github.io/*
-// @downloadURL https://update.greasyfork.org/scripts/560169/%5BPokechill%5D%20EN-CN.user.js
-// @updateURL https://update.greasyfork.org/scripts/560169/%5BPokechill%5D%20EN-CN.meta.js
+// @match        https://g1tyx.github.io/play-pokechill/*
 // ==/UserScript==
 
 (function () {
@@ -97,14 +96,20 @@
         [/^(.+) Up!/i,
         '$1提高!'],
         //自动重战
+        [/\bAuto-Refight is active!\s*/i,
+        '自动重战已激活'],
+        [/Auto-Refight Tickets remaining\)/i,
+        '自动重战券)'],
         [/^([\s\S]*?)Auto[- ]?Refight[- ]?Ticket[s ]?([\s\S]*?)$/i,
         '$1自动重战券$2'],
         [/^([\s\S]*?)Auto[- ]?Refight([\s\S]*?)$/i,
         '$1自动重战$2'],
-        [/^Auto-Refight is active!/i,
-        '自动重战已激活!'],
         [/\(Wont consume an/i,
         '(不会消耗'],
+        [/\(Wont use/i,
+        '(不会消耗'],
+        [/\(x(\d+)/i,
+        '(还剩$1个'],
         [/Click to disable it/i,
         '点击以取消'],
         //旷野地带指引
@@ -948,6 +953,8 @@
         '未孵化的蛋。战斗结束后去发现其中的内容'],
         [/^Permanent Seasonal Theme/i,
         '永久季节主题'],
+        [/Can\'t do that right now/i,
+        '现在无法使用'],
 
         //游戏指南
         //查看详情指南
@@ -1126,8 +1133,7 @@
         regex,
         repl,
         weight: regexWeight(regex)
-    }))
-    .sort((a, b) => b.weight - a.weight);
+    }));
 
     function applyRegexRules(text) {
         for (const r of REGEX_RULES) {
@@ -4017,7 +4023,7 @@
         "Bottle Cap": "银色王冠",
         "Golden Bottle Cap": "金色王冠",
         "Heart Scale": "心之鳞片",
-        "Auto Refight Ticket": "自动再战票",
+        "Auto Refight Ticket": "自动重战券",
         "Rare Candy": "神奇糖果",
         "Ability Patch": "特性膏药",
         "Ability Capsule": "特性胶囊",
