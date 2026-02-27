@@ -808,7 +808,7 @@
         [/^Moves are executed a second time, at half power/i,
         '招式执行两次, 第二次执行的招式伤害变为原来的一半'],
         [/^Every turn, raises two stats by (\d+)% for one turn/i,
-        '每回合随机2项能力值提高 $2%, 持续 1 回合'],
+        '每回合使随机 2 项能力值提高 $1% , 持续 1 回合'],
         [/^Multiplies by x([\d\.]+) the power of (\w+)-type moves of all team members/i,
         '我方全员的$2属性招式伤害 x$1'],
         [/^Multiplies by x([\d\.]+) the damage of (\w+)-type moves of all team members/i,
