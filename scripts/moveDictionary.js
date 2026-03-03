@@ -777,20 +777,18 @@ ability.flashHerba = {
     info: function() {return `Nullifies received Grass-type moves and increases Speed by 50% after being hit with one`},
 }
 
-ability.stoned = {
-    type: [`rock`],
-    rarity: 3,
-    info: function() {return `Positive stats up last x3 longer`},
-}
+
 
 
 
 //hidden
 
 
-//new
-
-
+ability.stoned = {
+    rarity: 3,
+    info: function() {return `Positive stats up last x3 longer`},
+    nerf: `When slotted as a non-hidden ability: Decreases Speed by 75%`
+}
 
 ability.powerOfAlchemy = {
     rarity: 3,
@@ -1067,7 +1065,7 @@ ability.soulAsterism = {
 
 
 ability.normalize = {
-    info: function() {return `All moves become Normal-type moves, and their power is multiplied by x1.2`},
+    info: function() {return `All moves become Normal-type moves, and their power is multiplied by x1.3`},
     rarity: 3,
 }
 
@@ -1161,7 +1159,7 @@ const berryMemoryRare = [ ability.flashHerba.id, ability.flashFae.id, ability.fl
     ability.adaptability.id, ability.thickFat.id, ability.levitate.id, ability.sheerForce.id, ability.strategist.id, ability.moxie.id, ability.unburden.id,
     ability.dauntingLook.id, ability.intimidate.id, ability.sandRush.id, ability.swiftSwim.id, ability.slushRush.id, ability.moltShed.id, ability.faeRush.id,
     ability.hyperconductor.id, ability.intangible.id, ability.climaTact.id, ability.spikyPelt.id, ability.blackPelt.id, ability.pixiePelt.id, ability.fieryPelt.id,
-    ability.moistPelt.id, ability.icyPelt.id, ability.sandyPelt.id, ability.grassyPelt.id, ability.stoned.id,
+    ability.moistPelt.id, ability.icyPelt.id, ability.sandyPelt.id, ability.grassyPelt.id,
  ]
 
  //todo
@@ -1171,7 +1169,7 @@ const berryMemoryRare = [ ability.flashHerba.id, ability.flashFae.id, ability.fl
 
 
  const apricornMemoryHA1 = [  ability.stamina.id, ability.gooey.id, ability.shieldsDown.id, ability.costar.id, ability.purifyingSalt.id, ability.scorch.id, ability.corrosion.id, ability.megaLauncher.id, ability.metalhead.id,
-    ability.moody.id, ability.merciless.id, ability.colorSpore.id, ability.sandStream.id, ability.snowWarning.id, ability.somberField.id,
+    ability.moody.id, ability.merciless.id, ability.colorSpore.id, ability.sandStream.id, ability.snowWarning.id, ability.somberField.id, ability.stoned.id,
  ]
 
  const apricornMemoryHA2 = [   ability.treasureOfRuin.id, ability.dancer.id, ability.cacophony.id, 

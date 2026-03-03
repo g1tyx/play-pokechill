@@ -1349,11 +1349,20 @@ item.venusaurite = {
 
 
 
+item.megaShard = {
+    type: "key",
+    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
+}
 
+item.megaPiece = {
+    type: "key",
+    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
+}
 
-
-
-
+item.megaChunk = {
+    type: "key",
+    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
+}
 
 
 item.primalEarth = {
@@ -1807,13 +1816,12 @@ item.moistPeltMemory = { rarity: "common", }
 item.icyPeltMemory = { rarity: "common", }
 item.sandyPeltMemory = { rarity: "common", }
 item.grassyPeltMemory = { rarity: "common", }
-item.stonedMemory = { rarity: "common", }
 
 
 
 
 //has
-
+item.stonedMemory = { typings : ["rock"], rarity: "rare" }
 item.staminaMemory = { typings : ["fighting"], rarity: "rare" }
 item.gooeyMemory = { typings : ["poison"], rarity: "rare" }
 item.shieldsDownMemory = { typings : ["steel"], rarity: "rare" }

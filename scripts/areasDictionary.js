@@ -95,6 +95,9 @@ field.noMercy = {
 
 
 
+
+
+
 //negative, but not maiming enough to consider using other pokemon
 
 field.deltaStream = {
@@ -159,12 +162,35 @@ for (const i in field){
 
 
 
+const skill = {}
 
 
 
+skill.ironWill = {
+    info : function() { return `Increase Defense by 100% for 15 turns`},
+    effect : function () { moveBuff("wild","defup2",undefined,15) }
+}
+
+skill.ironSpirit = {
+    info : function() { return `Increase Special Defense by 100% for 15 turns`},
+    effect : function () { moveBuff("wild","sdefup2",undefined,15) }
+}
+
+skill.electroblast = {
+    info : function() { return `Inflict ${tagParalysis} on your entire team for 10 turns`},
+    effect : function () { moveBuff("wild",'paralysis',"team",10) }
+}
+
+skill.suddenDeath = {
+    info : function() { return `Faints your currently active Pokemon`},
+    effect : function () { pkmn[ team[exploreActiveMember].pkmn.id ].playerHp = 0; updateTeamPkmn() }
+}
 
 
 
+for (const i in skill){
+    skill[i].id = i
+}
 
 
 
@@ -4832,6 +4858,7 @@ areas.vsLegendTrainerBrendan = {
         document.getElementById("tooltipMid").innerHTML = `
         <div class="genetics-overview-tags" >
         <div style="filter:hue-rotate(100deg)" >Apricorn exchange in the Poke-Mart is now available!</div>
+        <div style="filter:hue-rotate(200deg)" >Mega-Dimension unlocked</div>
         </div>
         `
         openTooltip()
@@ -5486,6 +5513,147 @@ areas.frontierBattleFactory = {
     background : `lab`,
     record : 1,
     icon: pkmn.pikachu,
+}
+
+
+
+
+
+
+
+
+
+let rotationDimensionMax = 1;
+
+
+
+
+areas.dimensionRift1 = {
+    tier : 1,
+    type: `dimension`,
+    name: `Weak Dimensional Rift`,
+    background : `space`,
+    level : 100,
+    difficulty: 7,
+    uncatchable: true,
+    icon: pkmn.magikarp,
+    spawns: {
+        common : [pkmn.magikarp],
+    },
+    drops: {
+        common : [item.nothing],
+        uncommon : [item.megaShard]
+    },
+}
+
+areas.dimensionRaid1 = {
+    tier: 1,
+    type: `dimension`,
+    name: `Strange Wormhole`,
+    background : `dimension1`,
+    icon: pkmn.nihilego,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.megaShard.got-=1},
+    unlockDescription : `Requires a <img src="img/items/megaShard.png"> Mega-Shard to enter`,
+    unlockRequirement : function() { return item.megaShard.got>0 },
+    level : 100,
+    team : {
+        slot1 : pkmn.nihilego,
+        slot1Moves : [move.amnesia.id,move.sludgeWave.id, move.powerGem.id, move.earthPower.id],
+    },
+    reward : [pkmn.nihilego],
+}
+
+
+
+
+
+areas.dimensionRift2 = {
+    tier : 2,
+    type: `dimension`,
+    name: `Dimensional Rift`,
+    background : `space`,
+    level : 100,
+    difficulty: 10,
+    uncatchable: true,
+    icon: pkmn.magikarp,
+    spawns: {
+        common : [pkmn.magikarp],
+    },
+    drops: {
+        common : [item.nothing],
+        uncommon : [item.megaPiece]
+    },
+}
+
+areas.dimensionRaid2 = {
+    tier: 2,
+    type: `dimension`,
+    name: `Strange Wormhole`,
+    background : `dimension1`,
+    icon: pkmn.nihilego,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.megaPiece.got-=1},
+    unlockDescription : `Requires a <img src="img/items/megaPiece.png"> Mega-Piece to enter`,
+    unlockRequirement : function() { return item.megaPiece.got>0 },
+    level : 100,
+    team : {
+        slot1 : pkmn.nihilego,
+        slot1Moves : [move.amnesia.id,move.sludgeWave.id, move.powerGem.id, move.earthPower.id],
+    },
+    reward : [pkmn.nihilego],
+}
+
+
+
+
+/*
+field effects:
+t1: noMercy + stealth rocks
+t2: + t3
+
+
+
+
+*/
+
+
+//rotation 1
+
+areas.dimensionPalkia = {
+    type: `dimensionBlueprint`,
+    icon: pkmn.palkia,
+    tier: 1,
+    rotation: 1,
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.palkia,
+        slot1Moves : [move.hydroPump.id,move.spacialRend.id, move.earthPower.id, move.iceBeam.id],
+    },
+    reward : [pkmn.palkia],
+    fieldEffect : [field.noMercy.id, field.stealthRocks.id],
+    skills : {1 : skill.ironWill.id}
+}
+
+areas.dimensionPikachuGmax = {
+    type: `dimensionBlueprint`,
+    icon: pkmn.pikachuGmax,
+    tier: 2,
+    rotation: 1,
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.pikachuGmax,
+        slot1Moves : [move.voltTackle.id,move.gigaImpact.id, move.earthquake.id, move.ironTail.id],
+    },
+    reward : [pkmn.pikachuGmax],
+    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.unnerve.id ],
+    skills : {1 : skill.ironSpirit.id, 2 : skill.suddenDeath.id, 3 : skill.electroblast.id}
 }
 
 

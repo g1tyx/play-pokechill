@@ -6003,3 +6003,254 @@ transform: translateY(-1rem);
 
 }
 
+
+
+
+
+
+
+
+#dimension-menu{
+    position: fixed;
+    height: 100%;
+    width: 50%;
+    background-image: url(img/bg/dimension-1.jpg);
+    background-size: 400px;
+    z-index: 150;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    z-index: 30;
+
+
+}
+
+#dimension-bg{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+        background-image: url(img/bg/dimension-2.jpg);
+    background-size: 400px;
+    animation: dimension-fade 3s infinite ease-in-out;
+    z-index: 0;
+
+}
+
+
+@keyframes dimension-fade {
+
+    0%,100%{opacity: 1;}
+    50%{opacity: 0;}
+}
+
+
+
+@media (max-width: 1000px) {
+    #dimension-menu {
+        width: 100%;
+    }
+}
+
+
+#dimension-menu-header{
+    height: 5rem;
+    width: 100%;
+    background: transparent;
+    image-rendering: pixelated;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: end;
+    text-align: end;
+    flex-shrink: 0;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 4rem;
+    padding: 0.4rem 2%;
+    border-radius: 0 0 0.5rem 0.5rem ;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 4px 4px 0;
+    z-index: 3;
+}
+
+#dimension-menu-header span {
+    height: 2rem;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--dark1);
+    color: white;
+    border: rgba(255, 255, 255, 0.7) 1px solid;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.3rem 1rem;
+    font-weight: 100;
+    flex-shrink: 0;
+}
+
+#dimension-menu-header span svg{
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+}
+
+#dimension-menu-header span strong{
+    margin-left: 0.2rem;
+    font-weight: 200;
+}
+
+
+.dimension-pokemon{
+    height: 12rem;
+    width: 12rem;
+    z-index: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+
+
+.dimension-sprite{
+    animation: pkmn-active 1.5s infinite;
+    image-rendering: pixelated;
+    scale: 2;
+    opacity: 0.8;
+}
+
+.dimension-bhole{
+    position: absolute;
+    height: 20rem !important;
+    width: 20rem !important;
+    animation: rotate 20s infinite linear;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+#dimension-indicator{
+    height: 1.5rem;
+    width: auto;
+    padding: 1rem 1.2rem;
+    background: #c23c3c75;
+    border-radius: 100px;
+    position: absolute;
+    top: -1rem;
+    z-index: 3;
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#dimension-portal-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+    align-content: start;
+    justify-items: start;
+    flex-wrap: wrap;
+}
+
+#dimension-portal-wrapper .dimension-pokemon{
+    scale: 0.8;
+}
+
+@media (max-width: 1000px) {
+#dimension-portal-wrapper .dimension-pokemon{
+    scale: 0.6;
+    margin: -1rem;
+}
+}
+
+
+
+#dimension-listing{
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#dimension-listing .explore-ticket div{
+
+    background-image: url(img/bg/dimension1.png);
+    background-size: cover;
+    border-color: white;
+}
+
+.dimension-return{
+    width: auto;
+    height: 2.5rem;
+    color: white;
+    font-size: 2rem;
+    z-index: 1;
+    border-radius: 4px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-image: url(img/bg/dimension1.png);
+    background-size: cover;
+    cursor: pointer;
+    transition: 0.1s;
+    image-rendering: pixelated;
+    margin-right: auto;
+    padding-right: 1rem;
+}
+
+.dimension-return:hover{
+    filter: brightness(1.2);
+}
+
+.dimension-return svg{
+    height: 2rem;
+    width: 2rem;
+    margin: 0 0.5rem;
+}
+
+
+.dimension-info{
+    height: 3rem;
+    width: 3rem;
+    rotate: 45deg;
+    background: rgb(200, 117, 207);
+    position: absolute;
+    right: -3rem;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    outline: rgba(255, 255, 255, 0.692) solid 3px;
+    border-radius: 4px;
+    transition: 0.1s;
+    animation: tooltipBoxAppear 0.7s 1;
+}
+
+.dimension-info svg{
+    height: 3rem;
+    color: white;
+    rotate: -45deg;
+    cursor: help;
+    pointer-events: none;
+}
+
+.dimension-info:hover{
+    scale: 1.1;
+}

@@ -731,11 +731,49 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
 
     openTooltip()
        
-
-        
-        
-        
     }
+
+
+
+    if (category == "fieldEffects") {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipMid").style.display = `inline`
+        document.getElementById("tooltipMid").innerHTML = `<div id="arena-card-effect-list"></div>`
+        document.getElementById("tooltipBottom").innerHTML = "These effects will permanently be active for all stages"
+
+ 
+    for (const i of areas[ttdata].fieldEffect) {
+        const div = document.createElement("div")
+        div.className = `arena-card-info`
+        div.innerHTML = `<span style="filter:hue-rotate(${returnFieldHue(i)}deg)">${format(i)}</span><div>${field[i].info()}</div>`
+        document.getElementById("arena-card-effect-list").appendChild(div)
+    }
+
+    openTooltip()
+       
+    }
+
+
+    if (category == "skills") {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipMid").style.display = `inline`
+        document.getElementById("tooltipMid").innerHTML = `<div id="arena-card-effect-list"></div>`
+        document.getElementById("tooltipBottom").style.display = `none`
+
+ 
+    for (const i in areas[ttdata].skills) {
+        const div = document.createElement("div")
+        div.className = `arena-card-info`
+        div.innerHTML = `<span>On HP bar Nº${i} depleted</span><div>${skill[areas[ttdata].skills[i]].info()}</div>`
+        document.getElementById("arena-card-effect-list").appendChild(div)
+    }
+
+    openTooltip()
+       
+    }
+
 
 
 
@@ -774,6 +812,9 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
 
         if (ttdata === `Events`) document.getElementById("tooltipTitle").innerHTML = `Events`
         if (ttdata === `Events`) document.getElementById("tooltipBottom").innerHTML = `Events might house both items and Pokemon to get. Events marked with a skull signify powerful foes that usually require an item to catch (The item wont be consumed if failed to defeat) that can be acquired in the collection events. All Events rotate every three days.`
+
+        if (ttdata === `Dimension`) document.getElementById("tooltipTitle").innerHTML = `Mega-Dimension`
+        if (ttdata === `Dimension`) document.getElementById("tooltipBottom").innerHTML = `Welcome valiant trainer to the final frontier, the Mega-Dimension, housing only the strongest Pokemon of all the universe!<br><br>Wormholes have each separate rules, having both unique areas, field effects and skills. Field effects will also be applied to the dimensional rift of the wormhole, whereas skills will exclusively trigger while fighting the boss<br><br>The Pokemon appearing on the rift are random and will change on each rotation`
 
         if (ttdata === `Genetics`) document.getElementById("tooltipTitle").innerHTML = `Genetics`
         if (ttdata === `Genetics`) document.getElementById("tooltipBottom").innerHTML = `With genetics, you can modify the parameters of a level 100 Pokemon (the host) and influence them based on another Pokemon (the sample)<br><br>Doing so, the level of the host will reset back to 1 while keeping all 4 of its currently selected moves, and a chance to increase its IV's<br><br>Genetics can also be influenced by using genetic-aiding items, which you can use at the end of the operation<br><br>You can find more information about the specifics of genetics in the guide section`
@@ -1008,6 +1049,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         `
         if (pkmn[ttdata].hiddenAbility != undefined) document.getElementById("inpect-pkmn-ability").dataset.ability = pkmn[ttdata].hiddenAbility.id
         if (pkmn[ttdata].signature != undefined) document.getElementById("inpect-pkmn-signature").dataset.move = pkmn[ttdata].signature.id
+        if (pkmn[ttdata].eggMove != undefined) document.getElementById("inpect-pkmn-signature").dataset.move = pkmn[ttdata].eggMove.id
 
         if (pkmn[ttdata].caught>0) {
 
@@ -1891,6 +1933,14 @@ document.addEventListener("contextmenu", e => {
 
     if (el.dataset.arenaCard !== undefined) {
         tooltipData("arenaCard", el.dataset.arenaCard)
+    }
+
+    if (el.dataset.fieldEffects !== undefined) {
+        tooltipData("fieldEffects", el.dataset.fieldEffects)
+    }
+
+    if (el.dataset.skills !== undefined) {
+        tooltipData("skills", el.dataset.skills)
     }
 
     if (el.dataset.seasonPreview !== undefined) {

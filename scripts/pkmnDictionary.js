@@ -622,7 +622,7 @@ pkmn.pikachu = {
 }
 
 pkmn.pikachuGmax = {
-    type: ["electric","psychic"],
+    type: ["electric"],
     bst: {
         hp: 200,
         atk: 120,
@@ -631,7 +631,8 @@ pkmn.pikachuGmax = {
         sdef: 90,
         spe: 110,
     },
-    signature : move.voltTackle
+    signature : move.voltTackle,
+    hiddenAbility: ability.electricSurge,
 }
 
 pkmn.pikachuAsh = {
@@ -2569,7 +2570,7 @@ pkmn.hisuianElectrode = {
         sdef: 80,
         spe: 150,
     },
-    hiddenAbility: ability.electricSurge,
+    hiddenAbility: ability.grassySurge,
     signature : move.chloroblast
 }
 
@@ -3772,7 +3773,7 @@ pkmn.kabuto = {
         spe: 55,
     },
     evolve: function() { return { 1: { pkmn: pkmn.kabutops, level: evolutionLevel3 } } },
-    hiddenAbility: ability.swiftSwim,
+    hiddenAbility: ability.stoned,
 }
 
 pkmn.kabutops = {
@@ -3785,7 +3786,7 @@ pkmn.kabutops = {
         sdef: 70,
         spe: 80,
     },
-    hiddenAbility: ability.swiftSwim,
+    hiddenAbility: ability.stoned,
 }
 
 // 142 Aerodactyl
@@ -7475,7 +7476,7 @@ pkmn.swablu = {
         spe: 50,
     },
     evolve: function() { return { 1: { pkmn: pkmn.altaria, level: evolutionLevel2 } } },
-    hiddenAbility: ability.pixilate,
+    hiddenAbility: ability.normalize,
     eggMove: move.aromaticMist,
 }
 
@@ -7490,7 +7491,7 @@ pkmn.altaria = {
         spe: 80,
     },
     evolve: function() { return { 1: { pkmn: pkmn.megaAltaria, item: item.altarianite } } },
-    hiddenAbility: ability.pixilate,
+    hiddenAbility: ability.dragonMaw,
     eggMove: move.aromaticMist,
 }
 
@@ -9919,6 +9920,7 @@ pkmn.palkia = {
         spe: 100,
     },
     signature : move.spacialRend,
+    hiddenAbility: ability.supremeOverlord,
     lore: `Bound by weight and limit, a shape space itself can sustain. Its power yet governs distance and separation, though restrained, for the world cannot bear the weight of infinite breadth given form.`
 }
 
@@ -11576,6 +11578,8 @@ pkmn.archen = {
     spe: 70,
   },
   evolve: function() { return { 1: { pkmn: pkmn.archeops, level: evolutionLevel2 } } },
+    hiddenAbility: ability.stoned,
+
 }
 
 pkmn.archeops = {
@@ -11588,6 +11592,7 @@ pkmn.archeops = {
     sdef: 65,
     spe: 110,
   },
+    hiddenAbility: ability.stoned,
 }
 
 // 568 Trubbish → Garbodor

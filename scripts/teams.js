@@ -279,6 +279,7 @@ let dexTeamSelect = undefined
 //--Swaps the preset team into the real team, executed when entering battle 
 function injectPreviewTeam(){
 
+            document.getElementById(`dimension-menu`).style.display = `none`
 
     if (saved.previewTeams[saved.currentPreviewTeam].slot1.pkmn == pkmn.unownG.id
         && saved.previewTeams[saved.currentPreviewTeam].slot2.pkmn == pkmn.unownH.id

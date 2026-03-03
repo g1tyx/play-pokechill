@@ -43,6 +43,8 @@ function saveGame() {
     if (areas[i].id=="wildlifePark") data[i].spawns = areas[i].spawns;
     if (areas[i].id=="wildlifePark") data[i].icon = areas[i].icon;
     if (areas[i].id==areas.frontierBattleFactory.id) data[i].icon = areas[i].icon;
+    if (areas[i].type=="dimension") data[i].spawns = areas[i].spawns;
+
   }
 
   // Pokémon
@@ -119,6 +121,7 @@ function loadGame() {
     if (areas[i].id=="wildlifePark") areas[i].spawns = data[i].spawns;
     if (areas[i].id=="wildlifePark") areas[i].icon = data[i].icon;
     if (areas[i].id==areas.frontierBattleFactory.id) areas[i].icon = data[i].icon;
+    if (areas[i].type=="dimension") areas[i].spawns = data[i].spawns;
 
   }
   }
