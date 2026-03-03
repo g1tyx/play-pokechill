@@ -215,7 +215,6 @@
         [/^If an active team Pokemon typing does not match the current Weather, deal periodic damage/i,
         '如果出战宝可梦的属性与当前天气不匹配, 会定期受到伤害'],
 
-
         //队伍指引
         [/^Select a Pokemon to add to the team/i,
         '选择要添加到队伍里的宝可梦'],
@@ -377,8 +376,8 @@
         '遗传结果'],
         [/(.+) Iv's increased/i,
         '$1个体值提高'],
-        [/(.+) Iv's inherited/i,
-        '遗传$1个体值'],
+        [/❖ (.+) Iv's inherited!/i,
+        '❖ 遗传$1个体值!'],
         [/Egg Move inherited/i,
         '遗传蛋招式'],
         [/Move inherited/i,
@@ -450,6 +449,26 @@
         '可以在 友好商店 购买'],
         [/^This item is currently unobtainable/i,
         '此道具目前无法获得'],
+
+        //超级次元
+        [/^Welcome valiant trainer to the final frontier, the Mega-Dimension, housing only the strongest Pokemon of all the universe!/i,
+        '欢迎你, 勇敢的训练家, 踏入终焉前沿, 超级维度, 这里栖息着全宇宙最强大的宝可梦！'],
+        [/^Wormholes have each separate rules, having both unique areas, field effects and skills. Field effects will also be applied to the dimensional rift of the wormhole, whereas skills will exclusively trigger while fighting the boss/i,
+        '每个虫洞都拥有独立的规则，包括独特的区域、场地效果和战斗技能。场地效果将作用于虫洞的维度裂隙之中，而战斗技能则仅在对抗首领时触发'],
+        [/^The Pokemon appearing on the rift are random and will change on each rotation/i,
+        '在裂隙中出现的宝可梦是随机的，并会在每次轮换时发生变化'],
+        [/^These effects will permanently be active for all stages/i,
+        '这些效果将永久作用于所有阶段'],
+        [/^On HP bar Nº(\d+) depleted/i, 
+        '第 $1 条生命值耗尽时'],
+        [/^Increase (.+) by (\d+)% for (\d+) turns/i,
+        '$1提高 $2%, 持续 $3 回合'],
+        [/^Faints your currently active Pokemon/i,
+        '立刻击败我方在场的宝可梦'],
+        [/^Inflict/i, 
+        '施加'],
+        [/on your entire team for (\d+) turns/i,
+        '给我方整个队伍, 持续 $1 回合'],
 
         //宝可梦
         [/^Check learnable moves/i,
@@ -959,6 +978,8 @@
         '选择一只宝可梦使用 $1'],
         [/^Can be used to catch event Pokemon\. Expires after event finishes/i,
         '用于捕捉事件中的宝可梦。事件结束后消失'],
+        [/^Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends/i,
+        '用于捕捉超级次元中的宝可梦。超级次元轮换后消失'],
         [/^Seasonal item, dropped randomly from defeating wild Pokemon\. Expires on (\d+)\/(\d+)$/i,
         '季节性道具, 击败野生宝可梦随机掉落。有效期至 $1月$2日'],
         [/^An unhatched egg. Leave combat to discover the contents/i,
@@ -1131,7 +1152,9 @@
         [/^([\s\S]*?)Wormhole Residue([\s\S]*?)$/i, '$1虫洞残留物$2'],
         [/^([\s\S]*?)Wisdom Petals?([\s\S]*?)$/i, '$1智慧花瓣$2'],
         [/^([\s\S]*?)Red Chains?([\s\S]*?)$/i, '$1红色锁链$2'],
-        [/^([\s\S]*?)Old Gateau([\s\S]*?)$/i, '$1陈旧糕点$2'],
+        [/^([\s\S]*?)Mega-Shards?([\s\S]*?)$/i, '$1超级碎块$2'],
+        [/^([\s\S]*?)Mega-Pieces?([\s\S]*?)$/i, '$1超级碎片$2'],
+        [/^([\s\S]*?)Old Gateaus?([\s\S]*?)$/i, '$1陈旧糕点$2'],
     ];
 
     function regexWeight(regex) {
@@ -1169,6 +1192,8 @@
         "Genetics": "遗传",
         "Export Reward": "导出奖励",
         "Wonder Trade": "奇迹交换",
+        "Mega Dimension": "超级次元",
+        "Mega-Dimension": "超级次元",
         "Mystery Gift": "神秘礼物",
         "Dictionary": "百科",
         "Guide": "游戏指南",
@@ -1663,6 +1688,12 @@
         "Dream Plains": "梦之平原",
         "Stark Mountain": "严酷山",
         "Grasswither Shrine": "草枯祠堂",
+        //超级次元
+        "Field Effects": "场地效果",
+        "Weak Dimensional Rift": "薄弱次元裂隙",
+        "Dimensional Rift": "次元裂隙",
+        "Strange Wormhole": "奇异虫洞",
+
         //限时事件
         "Hallowed Gala": "神圣庆典",
         "Tricky Forest": "诡计森林",
@@ -4015,6 +4046,10 @@
         "Glimmorite": "晶光花进化石",
         "Dondozite": "米立龙进化石",
         "Baxcaliburite": "戟脊龙进化石",
+        //超级次元
+        "M. Shard": "超级碎片",
+        "M. Piece": "超级碎块",
+        "M. Chunk": "超级晶块",
         //遗传
         "Energy Root": "能量根",
         "Hp Up": "生命增强剂",
