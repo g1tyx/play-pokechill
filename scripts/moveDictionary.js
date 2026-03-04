@@ -4066,7 +4066,7 @@ move.batonPass = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `User transfers all of its stat changes and status to a the entire team`},
+    info: function() {return `User transfers all of its stat changes and status to a the entire team. This move can only be present once per team`},
     hitEffect: function(target) { 
     for (const member in team){
         for (const i in team[exploreActiveMember].buffs){
@@ -4636,6 +4636,12 @@ move.lovelyKiss = {
     power: t4Base,
     info: function() {return `10% chance to inflict ${tagConfused}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'confused') },
+}
+
+move.crushGrip = {
+    split: "physical",
+    type: "normal",
+    power: t4Base+20
 }
 
 move.spacialRend = {

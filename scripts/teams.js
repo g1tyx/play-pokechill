@@ -359,6 +359,47 @@ function injectPreviewTeam(){
 
 
 
+
+
+
+    let batonPassError = false
+    let batonPassCount = 0
+    for (const i in currentTeam) {
+        if (currentTeam[i].pkmn == undefined) continue
+
+    for (const activeMoves in pkmn[currentTeam[i].pkmn].moves) {
+        if (pkmn[currentTeam[i].pkmn].moves[activeMoves] == undefined) continue
+        if (pkmn[currentTeam[i].pkmn].moves[activeMoves] == move.batonPass.id) batonPassCount++
+    }
+
+    if (batonPassCount>1) batonPassError = true
+
+    }
+
+    if (batonPassError) {
+        document.getElementById("tooltipTop").style.display = "none"
+        document.getElementById("tooltipBottom").style.display = "none"
+        document.getElementById("tooltipTitle").innerHTML = `Baton Pass Clause`
+        document.getElementById("tooltipMid").innerHTML = `You can only have one Baton Pass in your team`
+        openTooltip()
+        return
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     saved.currentArea = saved.currentAreaBuffer
 
     if (saved.tutorial && saved.tutorialStep === "moves") {saved.tutorialStep = "battle"; openTutorial(); item.mysteryEgg.got++; item.mysteryEgg.newItem++ }

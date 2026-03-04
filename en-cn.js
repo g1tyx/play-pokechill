@@ -613,8 +613,8 @@
         '使对手无法使用"查封"所在招式槽的招式。这被视为异常状态'],
         [/^Raises by (\d+)% two random stats/i,
         '使自身的随机 2 项能力值提高 $1%'],
-        [/^User transfers all of its stat changes and status to a the entire team/i,
-        '将自身所有的能力变化和状态赋予我方全队'], //老鸭写错的
+        [/^User transfers all of its stat changes and status to a the entire team. This move can only be present once per team/i,
+        '将自身所有的能力变化和状态赋予我方全队。每支队伍中只能有一个成员携带此技能'], //老鸭写错的
         [/^User transfers all of its stat changes and status to the entire team/i,
         '将自身所有的能力变化和状态赋予我方全队'],
         [/^Increases (.+) by (\d+)% but decreases (.+) and (.+) by (\d+)%/i,
@@ -3429,6 +3429,7 @@
         "Sunny": "大晴天",
         "Foggy": "起雾",
         "Trick Room": "戏法空间",
+        "Crush Grip": "捏碎",
         "Seed Flare": "种子闪光",
         "Moongeist Beam": "暗影之光",
         "Sunsteel Strike": "流星闪冲",
