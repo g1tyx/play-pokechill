@@ -698,6 +698,8 @@
         '作为非隐藏特性时: 回合数 x$1'],
         [/^When slotted as a non-hidden ability: Damage reduced to x([\d\.]+)/i,
         '作为非隐藏特性时: 伤害 x$1'],
+        [/^When slotted as a non-hidden ability: Decreases Speed by (\d+)%/i,
+        '作为非隐藏特性时: 持有者速度降低 $1%'],
         [/^Prevents negative status effects while on/i,
         '免疫异常状态, 当处于'],
         [/^ weather$/i,
@@ -1658,8 +1660,10 @@
         "- Ancients Awoken -": "=✦ 远古觉醒 ✦=", //轮换3
         "Exotic Pond": "珍奇池塘",
         "Ancient Tomb": "古代坟墓",
+        "Regirock Tomb": "雷吉洛克坟墓",
+        "Registeel Tomb": "雷吉斯奇鲁坟墓",
+        "Regice Tomb": "雷吉艾斯坟墓",
         "Steel Tomb": "钢铁坟墓",
-        "Tomb": "坟墓",
         "Transistor Ruins": "晶管遗迹",
         "Drago Ruins": "龙裔遗迹",
         "Primeval volcano": "太古火山",
@@ -1702,7 +1706,6 @@
         "Weak Dimensional Rift": "薄弱次元裂隙",
         "Dimensional Rift": "次元裂隙",
         "Strange Wormhole": "奇异虫洞",
-
         //限时事件
         "Hallowed Gala": "神圣庆典",
         "Tricky Forest": "诡计森林",
@@ -4057,8 +4060,8 @@
         "Dondozite": "米立龙进化石",
         "Baxcaliburite": "戟脊龙进化石",
         //超级次元
-        "M. Shard": "超级碎片",
-        "M. Piece": "超级碎块",
+        "M. Piece": "超级碎片",
+        "M. Shard": "超级碎块",
         "M. Chunk": "超级晶块",
         //遗传
         "Energy Root": "能量根",
