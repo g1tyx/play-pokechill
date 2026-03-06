@@ -68,6 +68,8 @@
         '解锁新迷宫: $1'],
         [/^Tier ([IVX]+) Event Raids unlocked/i,
         '阶级$1团体战 已解锁'],
+        [/^Master League is now available in the Battle Frontier/i,
+        '对战开拓区现在开放 大师联盟'],
         [/^Genetics unlocked/i,
         '遗传功能 已解锁'],
 
