@@ -2673,8 +2673,6 @@ function exploreCombatPlayer() {
 
         if (testAbility(`active`, ability.gorillaTactics.id)) totalPower *= 1.2
 
-        if (testAbility("active", ability.stoned.id) == "nerf") {moveBuff("wild",'spedown2',"self")}
-
 
         if ( ( testAbility(`active`,  ability.quarkDrive.id) && saved.weatherTimer>0 && saved.weather=="electricTerrain" )
         || ( testAbility(`active`,  ability.protosynthesis.id) && saved.weatherTimer>0 && saved.weather=="sunny" ) ){
@@ -3676,6 +3674,7 @@ function exploreCombatWild() {
         if (areas[saved.currentArea]?.encounter) dotDamage = 100
         if (areas[saved.currentArea]?.difficulty >= tier4difficulty) dotDamage = 150
         if (areas[saved.currentArea]?.difficulty >= tier4difficulty && areas[saved.currentArea]?.type == "dimension") dotDamage = 200
+        if (areas[saved.currentArea]?.difficulty >= tier4difficulty && areas[saved.currentArea]?.type == "dimension" &&  (   areas[saved.currentArea]?.tier == 3 || areas[saved.currentArea]?.tier == 4    )) dotDamage = 400
 
 
 
@@ -3719,7 +3718,7 @@ function initialiseArea(){
 
 
 
-    for (const i in pkmn) if (pkmn[i].battling) pkmn[i].battling==undefined
+    for (const i in pkmn) if (pkmn[i].battling) pkmn[i].battling=undefined
 
     for (const slot in team) {
     if (testAbility(slot, ability.powerOfAlchemy.id)) pkmn[team[slot].pkmn.id].abilityTemp = undefined
@@ -6567,7 +6566,7 @@ function updateFrontier() {
     if (rotationFrontierCurrent==1) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Little Cup${cupsvg}</span><div>${returnDivisionLetter("C")} division and below only</div>`
     if (rotationFrontierCurrent==2) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Great League${cupsvg}</span><div>${returnDivisionLetter("B")} division and below only</div>`
     if (rotationFrontierCurrent==3) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Ultra League${cupsvg}</span><div>${returnDivisionLetter("A")} division and below only</div>`
-    if (rotationFrontierCurrent==4) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Master League${cupsvg}</span><div>${returnDivisionLetter("SS")} division and below only</div>`
+    if (rotationFrontierCurrent==4) divisionText = `<span style="font-size: 1.5rem; padding:0">${cupsvg}Master League${cupsvg}</span><div>${returnDivisionLetter("SSS")} division and below only</div>`
     
     
     document.getElementById(`frontier-listing`).innerHTML = `<div class="frontier-league">${divisionText}</div>`
@@ -7200,7 +7199,8 @@ function moveBuff(target,buff,mod,turnOverride){
         }
 
         if (testAbility(slot, ability.stoned.id ) && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) {
-             affectedTurns*=3
+             if (testAbility(slot, ability.stoned.id ) === true) affectedTurns*=3
+             if (testAbility(slot, ability.stoned.id ) === `nerf`) affectedTurns*=2
              team[slot].buffs[buff] = affectedTurns
              continue
         }
@@ -7238,7 +7238,8 @@ function moveBuff(target,buff,mod,turnOverride){
         if (testAbility(`active`, ability.synchronize.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) { moveBuff("wild",buff); updateWildBuffs()}
 
         if (testAbility(`active`, ability.wonderSkin.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && rng(0.5)) return
-        if (testAbility(`active`, ability.stoned.id ) && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
+        if (testAbility(`active`, ability.stoned.id ) === true && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
+        if (testAbility(`active`, ability.stoned.id ) === "nerf" && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
 
         if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
         if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--

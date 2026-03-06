@@ -5902,7 +5902,7 @@ areas.dimensionMegaRayquaza = {
         slot1Moves : [move.flareBlitz.id, move.fly.id, move.dracoMeteor.id, move.earthquake.id],
     },
     reward : [pkmn.magikarp],
-    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.ironBody.id, field.wonderWard.id, field.deltaStream.id ],
+    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.ironBody.id, field.wonderWard.id ],
     skills : {1 : skill.omniboost.id, 2 : skill.pyroblast.id, 3 : skill.suddenDeath.id}
 }
 

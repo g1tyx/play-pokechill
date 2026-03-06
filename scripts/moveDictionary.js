@@ -787,7 +787,7 @@ ability.flashHerba = {
 ability.stoned = {
     rarity: 3,
     info: function() {return `Positive stats up last x3 longer`},
-    nerf: `When slotted as a non-hidden ability: Decreases Speed by 75%`
+    nerf: `When slotted as a non-hidden ability: Turns reduced to x2`
 }
 
 ability.powerOfAlchemy = {
@@ -4066,7 +4066,7 @@ move.batonPass = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `User transfers all of its stat changes and status to a the entire team. This move can only be present once per team`},
+    info: function() {return `User transfers all of its stat changes and status to a the entire team and faints. This move can only be present once per team`},
     hitEffect: function(target) { 
     for (const member in team){
         for (const i in team[exploreActiveMember].buffs){
@@ -4079,6 +4079,10 @@ move.batonPass = {
         if (team[exploreActiveMember].buffs[i]>0) team[exploreActiveMember].buffs[i] = 0;
     }
     updateTeamBuffs();
+
+            pkmn[ team[exploreActiveMember].pkmn.id ].playerHp = 0;
+        updateTeamPkmn()
+
 },
 }
 

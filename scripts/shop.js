@@ -452,30 +452,39 @@ shop.shoplinkStone = {
 
 shop.shopbarbaracite = {
     icon: item.barbaracite.id,
-    price: 50,
+    name: `Barbaracite x21`,
+    price: 150,
     currency: item.goldenBottleCap.id,
     category: `evolution`,
+    effect: function() {item.barbaracite.got+=21}
+
 }
 
 shop.shophawluchanite = {
     icon: item.hawluchanite.id,
-    price: 50,
+    name: `Hawluchanite x21`,
+    price: 150,
     currency: item.goldenBottleCap.id,
     category: `evolution`,
+    effect: function() {item.hawluchanite.got+=21}
 }
 
 shop.shoppyroarite = {
     icon: item.pyroarite.id,
-    price: 50,
+    name: `Pyroarite x21`,
+    price: 150,
     currency: item.goldenBottleCap.id,
     category: `evolution`,
+    effect: function() {item.pyroarite.got+=21}
 }
 
 shop.shopfalinksite = {
     icon: item.falinksite.id,
-    price: 50,
+    name: `Falinksite x21`,
+    price: 150,
     currency: item.goldenBottleCap.id,
     category: `evolution`,
+    effect: function() {item.falinksite.got+=21}
 }
 
 
