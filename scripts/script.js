@@ -203,7 +203,15 @@ function updateGameVersion() {
   }
 
 
-  saved.version = 4.0
+
+  if (saved.version<4.0){
+  saved.lastDimensionRotation = 10
+  assignMegaDimension()
+  }
+
+
+
+  saved.version = 4.1
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 

@@ -9969,14 +9969,16 @@ pkmn.megaHeatran = {
 pkmn.regigigas = {
     type: ["normal"],
     bst: {
-        hp: 110,
+        hp: 200,
         atk: 160,
         def: 110,
         satk: 80,
         sdef: 110,
-        spe: 100,
+        spe: 50,
     },
-    lore: `Regigigas moved the continents into place, hauling landmasses with ropes of stone and ice, shaping the world through sheer strength. From this labor came the order of the land, after which it fell into long slumber.`
+    lore: `Regigigas moved the continents into place, hauling landmasses with ropes of stone and ice, shaping the world through sheer strength. From this labor came the order of the land, after which it fell into long slumber.`,
+    hiddenAbility: ability.normalize,
+    signature : move.crushGrip,
 }
 
 // 487 Giratina

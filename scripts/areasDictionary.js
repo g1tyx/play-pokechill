@@ -154,6 +154,122 @@ field.unnerve = {
 
 
 
+
+
+
+
+
+
+field.firePledge = {
+    info : function() { return `Pokemon with no Fire-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.fightingPledge = {
+    info : function() { return `Pokemon with no Fighting-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.darkPledge = {
+    info : function() { return `Pokemon with no Dark-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.dragonPledge = {
+    info : function() { return `Pokemon with no Dragon-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.fairyPledge = {
+    info : function() { return `Pokemon with no Fairy-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.rockPledge = {
+    info : function() { return `Pokemon with no Rock-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.electricPledge = {
+    info : function() { return `Pokemon with no Electric-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.steelPledge = {
+    info : function() { return `Pokemon with no Steel-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.grassPledge = {
+    info : function() { return `Pokemon with no Grass-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.waterPledge = {
+    info : function() { return `Pokemon with no Water-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.IcePledge = {
+    info : function() { return `Pokemon with no Ice-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.poisonPledge = {
+    info : function() { return `Pokemon with no Poison-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.flyingPledge = {
+    info : function() { return `Pokemon with no Flying-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.normalPledge = {
+    info : function() { return `Pokemon with no Normal-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.bugPledge = {
+    info : function() { return `Pokemon with no Bug-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.groundPledge = {
+    info : function() { return `Pokemon with no Ground-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.ghostPledge = {
+    info : function() { return `Pokemon with no Ghost-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+field.psychicPledge = {
+    info : function() { return `Pokemon with no Psychic-type can't participate`},
+    tier: 4,
+    chance: 0
+}
+
+
+
 for (const i in field){
     field[i].id = i
 }
@@ -176,9 +292,29 @@ skill.ironSpirit = {
     effect : function () { moveBuff("wild","sdefup2",undefined,15) }
 }
 
+skill.omniboost = {
+    info : function() { return `Increase all Stats by 50% for 10 turns`},
+    effect : function () { moveBuff("wild","defup1",undefined,10); moveBuff("wild","sdefup1",undefined,10); moveBuff("wild","speup1",undefined,10); moveBuff("wild","atkup1",undefined,10); moveBuff("wild","satkup1",undefined,10); }
+}
+
 skill.electroblast = {
     info : function() { return `Inflict ${tagParalysis} on your entire team for 10 turns`},
     effect : function () { moveBuff("wild",'paralysis',"team",10) }
+}
+
+skill.pyroblast = {
+    info : function() { return `Inflict ${tagBurn} on your entire team for 15 turns`},
+    effect : function () { moveBuff("wild",'burn',"team",15) }
+}
+
+skill.cryoblast = {
+    info : function() { return `Inflict ${tagFreeze} on your entire team for 10 turns`},
+    effect : function () { moveBuff("wild",'freeze',"team",15) }
+}
+
+skill.toxiblast = {
+    info : function() { return `Inflict ${tagPoisoned} on your entire team for 15 turns`},
+    effect : function () { moveBuff("wild",'poisoned',"team",15) }
 }
 
 skill.suddenDeath = {
@@ -5608,13 +5744,89 @@ areas.dimensionRaid2 = {
     reward : [pkmn.nihilego],
 }
 
+areas.dimensionRift3 = {
+    tier : 3,
+    type: `dimension`,
+    name: `Savage Dimensional Rift`,
+    background : `space`,
+    level : 100,
+    difficulty: 13,
+    uncatchable: true,
+    icon: pkmn.magikarp,
+    spawns: {
+        common : [pkmn.magikarp],
+    },
+    drops: {
+        common : [item.nothing],
+        uncommon : [item.megaChunk]
+    },
+}
 
+areas.dimensionRaid3 = {
+    tier: 3,
+    type: `dimension`,
+    name: `Strange Wormhole`,
+    background : `dimension1`,
+    icon: pkmn.nihilego,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.megaChunk.got-=1},
+    unlockDescription : `Requires a <img src="img/items/megaChunk.png"> Mega-Chunk to enter`,
+    unlockRequirement : function() { return item.megaChunk.got>0 },
+    level : 100,
+    team : {
+        slot1 : pkmn.nihilego,
+        slot1Moves : [move.amnesia.id,move.sludgeWave.id, move.powerGem.id, move.earthPower.id],
+    },
+    reward : [pkmn.nihilego],
+}
+
+areas.dimensionRift4 = {
+    tier : 4,
+    type: `dimension`,
+    name: `Critical Dimensional Rift`,
+    background : `space`,
+    level : 100,
+    difficulty: 16,
+    uncatchable: true,
+    icon: pkmn.magikarp,
+    spawns: {
+        common : [pkmn.magikarp],
+    },
+    drops: {
+        common : [item.nothing],
+        uncommon : [item.megaCluster]
+    },
+}
+
+areas.dimensionRaid4 = {
+    tier: 4,
+    type: `dimension`,
+    name: `Strange Wormhole`,
+    background : `dimension1`,
+    icon: pkmn.nihilego,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    encounterEffect : function() {item.megaCluster.got-=1},
+    unlockDescription : `Requires a <img src="img/items/megaCluster.png"> Mega-Cluster to enter`,
+    unlockRequirement : function() { return item.megaCluster.got>0 },
+    level : 100,
+    team : {
+        slot1 : pkmn.nihilego,
+        slot1Moves : [move.amnesia.id,move.sludgeWave.id, move.powerGem.id, move.earthPower.id],
+    },
+    reward : [pkmn.nihilego],
+}
 
 
 /*
 field effects:
-t1: noMercy + stealth rocks
-t2: + t3
+t1: noMercy + stealth rocks + thematic
+t2: noMercy + stealth rocks + unerve/curse
+t3: noMercy + stealth rocks + pledge
+t4: omniboost + wonder guard
 
 
 
@@ -5623,6 +5835,11 @@ t2: + t3
 
 
 //rotation 1
+
+//t1: box legends, ash greninja, rayquaza
+//t2: gmax,  mewtwo, regigigas, etc
+//t3: mega legends, primals, dawn wings, etc
+//t4: u necrozam
 
 areas.dimensionPalkia = {
     type: `dimensionBlueprint`,
@@ -5636,8 +5853,8 @@ areas.dimensionPalkia = {
         slot1Moves : [move.hydroPump.id,move.spacialRend.id, move.earthPower.id, move.iceBeam.id],
     },
     reward : [pkmn.palkia],
-    fieldEffect : [field.noMercy.id, field.stealthRocks.id],
-    skills : {1 : skill.ironWill.id}
+    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.reverseField.id],
+    skills : {1 : skill.ironSpirit.id}
 }
 
 areas.dimensionPikachuGmax = {
@@ -5652,8 +5869,41 @@ areas.dimensionPikachuGmax = {
         slot1Moves : [move.voltTackle.id,move.gigaImpact.id, move.earthquake.id, move.ironTail.id],
     },
     reward : [pkmn.pikachuGmax],
-    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.unnerve.id ],
-    skills : {1 : skill.ironSpirit.id, 2 : skill.suddenDeath.id, 3 : skill.electroblast.id}
+    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.weakeningCurse.id ],
+    skills : {1 : skill.ironWill.id, 2 : skill.electroblast.id}
+}
+
+areas.dimensionKyuremWhite = {
+    type: `dimensionBlueprint`,
+    icon: pkmn.kyuremWhite,
+    tier: 3,
+    rotation: 1,
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.kyuremWhite,
+        slot1Moves : [move.blueFlare.id,move.iceBeam.id, move.dragonPulse.id, move.thunder.id],
+    },
+    reward : [pkmn.magikarp],
+    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.wonderWard.id ],
+    skills : {1 : skill.ironWill.id, 2 : skill.pyroblast.id, 3 : skill.suddenDeath.id}
+}
+
+
+areas.dimensionMegaRayquaza = {
+    type: `dimensionBlueprint`,
+    icon: pkmn.megaRayquaza,
+    tier: 4,
+    rotation: 1,
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.megaRayquaza,
+        slot1Moves : [move.flareBlitz.id, move.fly.id, move.dracoMeteor.id, move.earthquake.id],
+    },
+    reward : [pkmn.magikarp],
+    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.ironBody.id, field.wonderWard.id, field.deltaStream.id ],
+    skills : {1 : skill.omniboost.id, 2 : skill.pyroblast.id, 3 : skill.suddenDeath.id}
 }
 
 

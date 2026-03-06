@@ -740,7 +740,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         document.getElementById("tooltipTitle").style.display = `none`
         document.getElementById("tooltipMid").style.display = `inline`
         document.getElementById("tooltipMid").innerHTML = `<div id="arena-card-effect-list"></div>`
-        document.getElementById("tooltipBottom").innerHTML = "These effects will permanently be active for all stages"
+        document.getElementById("tooltipBottom").style.display = `none`
 
  
     for (const i of areas[ttdata].fieldEffect) {
@@ -814,7 +814,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         if (ttdata === `Events`) document.getElementById("tooltipBottom").innerHTML = `Events might house both items and Pokemon to get. Events marked with a skull signify powerful foes that usually require an item to catch (The item wont be consumed if failed to defeat) that can be acquired in the collection events. All Events rotate every three days.`
 
         if (ttdata === `Dimension`) document.getElementById("tooltipTitle").innerHTML = `Mega-Dimension`
-        if (ttdata === `Dimension`) document.getElementById("tooltipBottom").innerHTML = `Welcome valiant trainer to the final frontier, the Mega-Dimension, housing only the strongest Pokemon of all the universe!<br><br>Wormholes have each separate rules, having both unique areas, field effects and skills. Field effects will also be applied to the dimensional rift of the wormhole, whereas skills will exclusively trigger while fighting the boss<br><br>The Pokemon appearing on the rift are random and will change on each rotation`
+        if (ttdata === `Dimension`) document.getElementById("tooltipBottom").innerHTML = `Welcome valiant trainer to the final frontier, the Mega-Dimension, housing only the strongest Pokemon of all the universe!<br><br>Wormholes have each separate rules, having both unique areas, field effects and skills. In addition to field effects, skills will trigger while fighting the boss<br><br>The Pokemon appearing on the rift are random and will change on each rotation`
 
         if (ttdata === `Genetics`) document.getElementById("tooltipTitle").innerHTML = `Genetics`
         if (ttdata === `Genetics`) document.getElementById("tooltipBottom").innerHTML = `With genetics, you can modify the parameters of a level 100 Pokemon (the host) and influence them based on another Pokemon (the sample)<br><br>Doing so, the level of the host will reset back to 1 while keeping all 4 of its currently selected moves, and a chance to increase its IV's<br><br>Genetics can also be influenced by using genetic-aiding items, which you can use at the end of the operation<br><br>You can find more information about the specifics of genetics in the guide section`

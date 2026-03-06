@@ -473,9 +473,12 @@ function setPkmnTeamHp(){
     
     if (saved.currentArea == areas.training.id) { //if its training
 
+    let healthIvs = pkmn[team[i].pkmn.id].ivs.hp
+    if ( saved.gamemodIvs == true) healthIvs = 6
+
     //health ivs count less on training
     pkmn[team[i].pkmn.id].playerHp =
-    (100 + ( (returnDivisionStars(pkmn[team[i].pkmn.id]) * 30) * Math.pow(1.05, pkmn[team[i].pkmn.id].ivs.hp) )
+    (100 + ( (returnDivisionStars(pkmn[team[i].pkmn.id]) * 30) * Math.pow(1.05, healthIvs) )
     * ( 1+(pkmn[team[i].pkmn.id].level * 0.2) )       
     ) * hpMultiplier;
 
@@ -483,8 +486,12 @@ function setPkmnTeamHp(){
     } else { //if its not training
 
 
+    let healthIvs = pkmn[team[i].pkmn.id].ivs.hp
+    if ( saved.gamemodIvs == true) healthIvs = 6
+
+
     pkmn[team[i].pkmn.id].playerHp =
-    (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, pkmn[team[i].pkmn.id].ivs.hp) )
+    (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, healthIvs) )
     * ( 1+(pkmn[team[i].pkmn.id].level * 0.2) )       
     ) * hpMultiplier;
 

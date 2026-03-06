@@ -5257,12 +5257,21 @@ move.seedFlare = {
 }
 
 
-move.vCreate = { //same w dragon ascent, fleur canon, etc
+move.vCreate = { 
     split: "physical",
     type: "fire",
-    power: demeritBp+60,
+    power: demeritBp+120,
     info: function() {return `Decreases Defense, Special Defense and Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'defdown1',`self`); moveBuff(target,'sdefdown1',`self`); moveBuff(target,'spedown1',`self`); },
+    unaffectedBy: [ability.sheerForce.id],
+}
+
+move.dragonAscent = { 
+    split: "physical",
+    type: "flying",
+    power: demeritBp+60,
+    info: function() {return `Decreases Defense, Special Defense 50%`},
+    hitEffect: function(target) { moveBuff(target,'defdown1',`self`); moveBuff(target,'sdefdown1',`self`); },
     unaffectedBy: [ability.sheerForce.id],
 }
 

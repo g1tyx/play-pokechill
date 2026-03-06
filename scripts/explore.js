@@ -3399,13 +3399,26 @@ function exploreCombatWild() {
 
         barProgressWild = 0
         if (afkSeconds <= 0) voidAnimation(`pkmn-movebox-wild-${exploreCombatWildTurn}`, "moveboxFire 1 0.3s");
+
+        if (wildBuffs.embargo>0 && embargoSlot == (exploreCombatWildTurn)) {
+
+
+        exploreCombatWildTurn++;
+        if (exploreCombatWildTurn >= 5) exploreCombatWildTurn = 1;
+        barWild.style.width = `0%`;
+
+        return
+        } 
+
+
         exploreCombatWildTurn++;
         if (exploreCombatWildTurn >= 5) exploreCombatWildTurn = 1;
         barWild.style.width = `0%`;
 
 
 
-        if (wildBuffs.embargo>0 && embargoSlot == (exploreCombatWildTurn-1)) return
+
+
 
         //move execution
 
@@ -7148,8 +7161,8 @@ function moveBuff(target,buff,mod,turnOverride){
 
     if (target==="wild" && mod=="team") { //player to team
 
-        if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
-        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
+        if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
+        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
 
         if (testAbility(`active`, ability.hydratation.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
         if (testAbility(`active`, ability.sandVeil.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
@@ -7228,8 +7241,8 @@ function moveBuff(target,buff,mod,turnOverride){
         if (testAbility(`active`, ability.stoned.id ) && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
 
         if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
-        if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
-        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
+        if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
+        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
 
         //if (pkmn[team[exploreActiveMember].pkmn.id].ability == ability.hydratation.id && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
         if (testAbility(`active`, ability.hydratation.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
@@ -9006,7 +9019,7 @@ function assignMegaDimension(){
         areas[`dimensionRaid`+areas[i].tier].icon = areas[i].icon
 
          
-        areas[`dimensionRift`+areas[i].tier].fieldEffect = areas[i].fieldEffect
+        areas[`dimensionRift`+areas[i].tier].fieldEffect = undefined
         areas[`dimensionRaid`+areas[i].tier].fieldEffect = areas[i].fieldEffect
         areas[`dimensionRaid`+areas[i].tier].skills = areas[i].skills
 
@@ -9021,6 +9034,7 @@ function assignMegaDimension(){
     item.megaShard.got = 0
     item.megaPiece.got = 0
     item.megaChunk.got = 0
+    item.megaCluster.got = 0
 
     const allTypes = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 
                       'fighting', 'poison', 'ground', 'flying', 'psychic', 
@@ -9036,9 +9050,13 @@ function assignMegaDimension(){
         common : [pkmn[randomDivisionPkmn("S",arrayPick(allTypes))], pkmn[randomDivisionPkmn("S",arrayPick(allTypes))], pkmn[randomDivisionPkmn("S",arrayPick(allTypes))]],
     }
 
+    areas.dimensionRift3.spawns = {
+        common : [pkmn[randomDivisionPkmn("S",arrayPick(allTypes))], pkmn[randomDivisionPkmn("S",arrayPick(allTypes))], pkmn[randomDivisionPkmn("S",arrayPick(allTypes))]],
+    }
 
-
-
+    areas.dimensionRift4.spawns = {
+        common : [pkmn[randomDivisionPkmn("S",arrayPick(allTypes))], pkmn[randomDivisionPkmn("S",arrayPick(allTypes))], pkmn[randomDivisionPkmn("S",arrayPick(allTypes))]],
+    }
 
 
 
@@ -9074,6 +9092,8 @@ function updateMegaDimension(tier){
 
     areas.dimensionRift1.icon = arrayPick(areas.dimensionRift1.spawns.common)
     areas.dimensionRift2.icon = arrayPick(areas.dimensionRift2.spawns.common)
+    areas.dimensionRift3.icon = arrayPick(areas.dimensionRift3.spawns.common)
+    areas.dimensionRift4.icon = arrayPick(areas.dimensionRift4.spawns.common)
 
 
     if (tier==undefined) {
@@ -9120,6 +9140,8 @@ function updateMegaDimension(tier){
 
         let dimensionIndicator = `<div style="filter:hue-rotate(100deg)" id="dimension-indicator">★</div>`
         if (areas[i].tier == 2) dimensionIndicator = `<div style="filter:hue-rotate(0deg)" id="dimension-indicator">★★</div>`
+        if (areas[i].tier == 3) dimensionIndicator = `<div style="filter:hue-rotate(200deg)" id="dimension-indicator">★★★</div>`
+        if (areas[i].tier == 4) dimensionIndicator = `<div style="filter:hue-rotate(300deg)" id="dimension-indicator">★★★★</div>`
 
 
         div.innerHTML = `
@@ -9188,6 +9210,8 @@ function updateMegaDimension(tier){
 
         let dimensionIndicator = `<div style="filter:hue-rotate(100deg)" id="dimension-indicator">★</div>`
         if (areas[i].tier == 2) dimensionIndicator = `<div style="filter:hue-rotate(0deg)" id="dimension-indicator">★★</div>`
+        if (areas[i].tier == 3) dimensionIndicator = `<div style="filter:hue-rotate(200deg)" id="dimension-indicator">★★★</div>`
+        if (areas[i].tier == 4) dimensionIndicator = `<div style="filter:hue-rotate(300deg)" id="dimension-indicator">★★★★</div>`
 
 
         div.dataset.pkmn = areas[i].icon.id
