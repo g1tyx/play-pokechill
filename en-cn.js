@@ -583,6 +583,8 @@
         '使自身的$1提高 $2%'],
         [/^Decreases (.+) by (\d+)%/i,
         '使自身的$1降低 $2%'],
+        [/^Decreases (.+), (.+) (\d+)%/i,
+        '使自身的$1和$2降低 $3%'],
         [/^(\d+)% chance to increase (?!all Stats|All Stats)(.+) by (\d+)%/i,
         '有 $1% 概率使自身的$2提高 $3%'],
         [/^Switches to the next party member/i,
@@ -1161,8 +1163,10 @@
         [/^([\s\S]*?)Wormhole Residue([\s\S]*?)$/i, '$1虫洞残留物$2'],
         [/^([\s\S]*?)Wisdom Petals?([\s\S]*?)$/i, '$1智慧花瓣$2'],
         [/^([\s\S]*?)Red Chains?([\s\S]*?)$/i, '$1红色锁链$2'],
-        [/^([\s\S]*?)Mega-Shards?([\s\S]*?)$/i, '$1超级碎块$2'],
-        [/^([\s\S]*?)Mega-Pieces?([\s\S]*?)$/i, '$1超级碎片$2'],
+        [/^([\s\S]*?)Mega-Shards?([\s\S]*?)$/i, '$1超级碎片$2'],
+        [/^([\s\S]*?)Mega-Pieces?([\s\S]*?)$/i, '$1超级碎块$2'],
+        [/^([\s\S]*?)Mega-Chunks?([\s\S]*?)$/i, '$1超级晶块$2'],
+        [/^([\s\S]*?)Mega-Clusters?([\s\S]*?)$/i, '$1超级晶簇$2'],
         [/^([\s\S]*?)Old Gateaus?([\s\S]*?)$/i, '$1陈旧糕点$2'],
     ];
 
@@ -1705,6 +1709,8 @@
         "Field Effects": "场地效果",
         "Weak Dimensional Rift": "薄弱次元裂隙",
         "Dimensional Rift": "次元裂隙",
+        "Savage Dimensional Rift": "狂暴次元裂隙",
+        "Critical Dimensional Rift": "临界次元裂隙",
         "Strange Wormhole": "奇异虫洞",
         //限时事件
         "Hallowed Gala": "神圣庆典",
@@ -3441,6 +3447,7 @@
         "Sunny": "大晴天",
         "Foggy": "起雾",
         "Trick Room": "戏法空间",
+        "Dragon Ascent": "画龙点睛",
         "Crush Grip": "捏碎",
         "Seed Flare": "种子闪光",
         "Moongeist Beam": "暗影之光",
@@ -4060,9 +4067,10 @@
         "Dondozite": "米立龙进化石",
         "Baxcaliburite": "戟脊龙进化石",
         //超级次元
-        "M. Piece": "超级碎片",
-        "M. Shard": "超级碎块",
+        "M. Piece": "超级碎块",
+        "M. Shard": "超级碎片",
         "M. Chunk": "超级晶块",
+        "M. Cluster": "超级晶簇",
         //遗传
         "Energy Root": "能量根",
         "Hp Up": "生命增强剂",
