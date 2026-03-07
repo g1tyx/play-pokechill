@@ -833,13 +833,13 @@ ability.shieldsDown = {
 ability.colorSpore = {
     rarity: 3,
     info: function() {return `Status effects applied to the target last x3 longer`},
-    nerf: `When slotted as a non-hidden ability: Turns reduced to x2`
+    //nerf: `When slotted as a non-hidden ability: Turns reduced to x2`
 }
 
 ability.merciless = {
     rarity: 3,
-    info: function() {return `Multiply the damage dealt by x1.35 if the target has a status effect`},
-    nerf: `When slotted as a non-hidden ability: Damage reduced to x1.25`
+    info: function() {return `Multiply the damage dealt by x1.5 if the target has a status effect`},
+    nerf: `When slotted as a non-hidden ability: Damage reduced to x1.35`
 }
 
 ability.costar = {
@@ -852,10 +852,7 @@ ability.purifyingSalt = {
     info: function() {return `Decreases the damage of all ghost moves by 25% (Can stack). Works always for everyone regardless of the user`},
 }
 
-ability.windRider = {
-    rarity: 3,
-    info: function() {return `"Wind"-related moves are executed twice as fast <span style="opacity:0.7">(${joinWithAnd(movesAffectedByWindRider)})<span>`},
-}
+
 
 
 
@@ -915,11 +912,19 @@ ability.corrosion = {
 ability.dancer = {
     rarity: 3,
     info: function() {return `"Dance"-related moves are executed twice as fast <span style="opacity:0.7">(${joinWithAnd(movesAffectedByDancer)})<span>`},
+    nerf: `When slotted as a non-hidden ability: Speed reduced to x1.5`
 }
 
 ability.cacophony = {
     rarity: 3,
     info: function() {return `"Sound"-related moves are executed twice as fast <span style="opacity:0.7">(${joinWithAnd(movesAffectedByCacophony)})<span>`},
+    nerf: `When slotted as a non-hidden ability: Speed reduced to x1.5`
+}
+
+ability.windRider = {
+    rarity: 3,
+    info: function() {return `"Wind"-related moves are executed twice as fast <span style="opacity:0.7">(${joinWithAnd(movesAffectedByWindRider)})<span>`},
+    nerf: `When slotted as a non-hidden ability: Speed reduced to x1.5`
 }
 
 ability.megaLauncher = {
@@ -958,7 +963,8 @@ ability.supremeOverlord = {
 }
 
 ability.gorillaTactics = {
-    info: function() {return `Increases the Attack by x1.2, but prevents them from switching`},
+    info: function() {return `Increases the Attack by x1.5, but prevents them from switching`},
+    nerf: `When slotted as a non-hidden ability: Damage reduced to x1.35`,
     rarity: 3,
 }
 
@@ -1168,19 +1174,37 @@ const berryMemoryRare = [ ability.flashHerba.id, ability.flashFae.id, ability.fl
  
 
 
- const apricornMemoryHA1 = [  ability.stamina.id, ability.gooey.id, ability.shieldsDown.id, ability.costar.id, ability.purifyingSalt.id, ability.scorch.id, ability.corrosion.id, ability.megaLauncher.id, ability.metalhead.id,
-    ability.moody.id, ability.merciless.id, ability.colorSpore.id, ability.sandStream.id, ability.snowWarning.id, ability.somberField.id, ability.stoned.id,
+ const apricornMemoryHA1 = [ 
+    ability.stamina.id, ability.gooey.id, ability.shieldsDown.id, ability.costar.id,
+    ability.purifyingSalt.id, ability.scorch.id, ability.corrosion.id, ability.megaLauncher.id,
+    ability.metalhead.id, ability.moody.id, ability.merciless.id, ability.colorSpore.id, ability.sandStream.id,
+    ability.snowWarning.id, ability.somberField.id, ability.stoned.id,
  ]
 
- const apricornMemoryHA2 = [   ability.treasureOfRuin.id, ability.dancer.id, ability.cacophony.id, 
+
+
+ //ability.quarkDrive.id, ability.protosynthesis.id,
+
+
+ const apricornMemoryHA2 = [  
+    ability.dancer.id, ability.cacophony.id, ability.windRider.id, ability.gorillaTactics.id,
+    ability.imposter.id,
+    ability.drizzle.id, ability.drought.id, ability.electricSurge.id,
+    ability.grassySurge.id, ability.mistySurge.id, ability.ferrilate.id, ability.glaciate.id,
+    ability.terralate.id, ability.toxilate.id, ability.hydrolate.id, ability.pyrolate.id, ability.chrysilate.id,
+    ability.galvanize.id, ability.gloomilate.id, ability.espilate.id, ability.aerilate.id, ability.pixilate.id,
+    ability.verdify.id, ability.dragonMaw.id,
+ ]
+
+ /*const apricornMemoryHA2 = [   ability.treasureOfRuin.id, ability.dancer.id, ability.cacophony.id, 
     ability.imposter.id, ability.quarkDrive.id, ability.protosynthesis.id, ability.drizzle.id, ability.drought.id,  ability.electricSurge.id, ability.grassySurge.id, ability.mistySurge.id, 
     ability.ferrilate.id, ability.glaciate.id, ability.terralate.id, ability.toxilate.id,
     ability.hydrolate.id, ability.pyrolate.id, ability.chrysilate.id, ability.galvanize.id, ability.gloomilate.id, ability.espilate.id, ability.aerilate.id, ability.pixilate.id,
     ability.verdify.id, ability.dragonMaw.id,
- ]
+ ]*/
 
- const apricornMemoryHA3 = [   ability.windRider.id, ability.tintedLens.id, ability.prankster.id, ability.galeWings.id, ability.speedBoost.id,
-    ability.toxicBoost.id, ability.flareBoost.id, ability.fullMetalBody.id, ability.supremeOverlord.id, ability.gorillaTactics.id, ability.beastBoost.id, ability.sereneGrace.id,
+ const apricornMemoryHA3 = [   ability.tintedLens.id, ability.prankster.id, ability.galeWings.id, ability.speedBoost.id,
+    ability.toxicBoost.id, ability.flareBoost.id, ability.fullMetalBody.id, ability.supremeOverlord.id, ability.beastBoost.id, ability.sereneGrace.id,
     ability.contrary.id, ability.simple.id, ability.normalize.id, 
  ]
 
@@ -4859,6 +4883,16 @@ move.howl = {
     info: function() {return `Increases Attack by 100% to the entire team`},
     hitEffect: function(target) { moveBuff(target,'atkup2',"team")},
     affectedBy: [ability.cacophony.id],
+    restricted : true,
+}
+
+move.lunarDance = {
+    split: "special",
+    type: "psychic",
+    power: 0,
+    info: function() {return `Increases Special Attack by 100% to the entire team`},
+    hitEffect: function(target) { moveBuff(target,'satkup2',"team")},
+    affectedBy: [ability.dancer.id],
     restricted : true,
 }
 

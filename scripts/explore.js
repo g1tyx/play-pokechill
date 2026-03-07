@@ -392,6 +392,7 @@ for (let i = 0; i < 4; i++) {
                 if (saved.arenaActiveCard==2) {item.goldenBottleCap.got+=3; item.goldenBottleCap.newItem +=3; }
                 if (saved.arenaActiveCard==3) {item.goldenBottleCap.got+=4; item.goldenBottleCap.newItem +=4; }
 
+                if (item.battlePass.got>0) {item.goldenBottleCap.got+=3; item.goldenBottleCap.newItem +=3; }
 
 
 
@@ -2230,9 +2231,15 @@ function exploreCombatPlayer() {
     if (testAbility(`active`, ability.galeWings.id) && testAbility(`active`, ability.aerilate.id) && move[nextMovePlayer].type == "normal" ) moveTimerPlayer /= 1.5
     if (testAbility(`active`, ability.galeWings.id) && testAbility(`active`, ability.chrysilate.id) && move[nextMovePlayer].type == "normal" ) moveTimerPlayer /= 1.5
 
-    if (testAbility(`active`, ability.cacophony.id) && move[nextMovePlayer].affectedBy?.includes(ability.cacophony.id) ) moveTimerPlayer /= 2
-    if (testAbility(`active`, ability.dancer.id) && move[nextMovePlayer].affectedBy?.includes(ability.dancer.id) ) moveTimerPlayer /= 2
-    if (testAbility(`active`, ability.windRider.id) && move[nextMovePlayer].affectedBy?.includes(ability.windRider.id) ) moveTimerPlayer /= 2
+    if (testAbility(`active`, ability.cacophony.id) == true && move[nextMovePlayer].affectedBy?.includes(ability.cacophony.id) ) moveTimerPlayer /= 2
+    if (testAbility(`active`, ability.cacophony.id) == "nerf" && move[nextMovePlayer].affectedBy?.includes(ability.cacophony.id) ) moveTimerPlayer /= 1.5
+
+    if (testAbility(`active`, ability.dancer.id) == true && move[nextMovePlayer].affectedBy?.includes(ability.dancer.id) ) moveTimerPlayer /= 2
+    if (testAbility(`active`, ability.dancer.id) == "nerf" && move[nextMovePlayer].affectedBy?.includes(ability.dancer.id) ) moveTimerPlayer /= 1.5
+
+
+    if (testAbility(`active`, ability.windRider.id) == true && move[nextMovePlayer].affectedBy?.includes(ability.windRider.id) ) moveTimerPlayer /= 2
+    if (testAbility(`active`, ability.windRider.id) == "nerf" && move[nextMovePlayer].affectedBy?.includes(ability.windRider.id) ) moveTimerPlayer /= 1.5
 
     if (team[exploreActiveMember].item == item.quickClaw.id && move[nextMovePlayer].affectedBy?.includes(ability.libero.id)) moveTimerPlayer /= item.quickClaw.power()
     if (team[exploreActiveMember].item == item.powerHerb.id && move[nextMovePlayer].power == 0) moveTimerPlayer /= item.powerHerb.power()
@@ -2656,8 +2663,8 @@ function exploreCombatPlayer() {
 
         if (testAbility(`active`, ability.toxicBoost.id) && team[exploreActiveMember].buffs?.poisoned>0 ) totalPower *= 1.2
         if (testAbility(`active`, ability.flareBoost.id) && team[exploreActiveMember].buffs?.burn>0 ) totalPower *= 1.2
-        if (testAbility(`active`, ability.merciless.id) == true && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.frozen>0 || team[exploreActiveMember].buffs?.sleep>0 || team[exploreActiveMember].buffs?.embargo>0) ) totalPower *= 1.35
-        if (testAbility(`active`, ability.merciless.id) == "nerf" && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.frozen>0 || team[exploreActiveMember].buffs?.sleep>0 || team[exploreActiveMember].buffs?.embargo>0) ) totalPower *= 1.25
+        if (testAbility(`active`, ability.merciless.id) == true && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.frozen>0 || team[exploreActiveMember].buffs?.sleep>0 || team[exploreActiveMember].buffs?.embargo>0) ) totalPower *= 1.5
+        if (testAbility(`active`, ability.merciless.id) == "nerf" && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.frozen>0 || team[exploreActiveMember].buffs?.sleep>0 || team[exploreActiveMember].buffs?.embargo>0) ) totalPower *= 1.35
 
         if (team[exploreActiveMember].item == undefined && testAbility(`active`,  ability.unburden.id )) team[exploreActiveMember].buffs.speup1 = 10
 
@@ -2671,7 +2678,8 @@ function exploreCombatPlayer() {
             totalPower *= overlordBoost
         }
 
-        if (testAbility(`active`, ability.gorillaTactics.id)) totalPower *= 1.2
+        if (testAbility(`active`, ability.gorillaTactics.id) == true) totalPower *= 1.5
+        if (testAbility(`active`, ability.gorillaTactics.id) == "nerf") totalPower *= 1.35
 
 
         if ( ( testAbility(`active`,  ability.quarkDrive.id) && saved.weatherTimer>0 && saved.weather=="electricTerrain" )
@@ -7219,7 +7227,7 @@ function moveBuff(target,buff,mod,turnOverride){
         //if (buff == "paralysis" && pkmn[saved.currentPkmn].type.includes("electric")) return
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (wildBuffs.burn>0 || wildBuffs.freeze>0 || wildBuffs.confused>0 || wildBuffs.paralysis>0 || wildBuffs.poisoned>0 || wildBuffs.sleep>0 )) return
         if (testAbility(`active`, ability.colorSpore.id ) == true && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 3
-        if (testAbility(`active`, ability.colorSpore.id ) == "nerf" && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 2
+        //if (testAbility(`active`, ability.colorSpore.id ) == "nerf" && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 2
 
         wildBuffs[buff] = affectedTurns
 
@@ -7336,12 +7344,19 @@ function claimExportReward(){
         divCandy.innerHTML = `<img style="scale:2; image-rendering: pixelated; cursor:help" src="img/items/${item.timeCandy.id}.png">`;
         document.getElementById("reward-items-display").appendChild(divCandy);
 
+        if (item.magazineSubscription.got > 0) {
+        const divF = document.createElement("div");
+        divF.dataset.item = item.fashionCase.id
+        divF.innerHTML = `<img style="scale:2; image-rendering: pixelated; cursor:help" src="img/items/${item.fashionCase.id}.png">`;
+        document.getElementById("reward-items-display").appendChild(divF);
+        }
 
         saved.claimedExportReward = true;
         saveGame()
         exportData()
         item[reward].got++
         item.timeCandy.got++
+        if (item.magazineSubscription.got > 0) item.fashionCase.got++
         openMenu()
 
         
@@ -7587,7 +7602,7 @@ function assignPokerus(){
 saved.geneticPokerus = false
 
 
-function setGeneticMenu(mod, item){
+function setGeneticMenu(mod, itemUsed){
 
     
 
@@ -7666,7 +7681,8 @@ document.getElementById("genetics-bar-power").style.width = `${(powerCost / 8) *
 if (powerCost >= 6) document.getElementById("genetics-bar-power").style.backgroundColor = `coral`
 else {document.getElementById("genetics-bar-power").style.backgroundColor = `rgb(229, 143, 255)`}
 
-const timeNeeded = ( 10 * powerCost ) *60
+let timeNeeded = ( 10 * powerCost ) *60
+if (item.replicatorUpgradeS.got>0) { timeNeeded = Math.max(10, ( 10 * powerCost )-30 ) *60 }
 const [h, m, x] = [
   (timeNeeded / 3600) | 0,
   ((timeNeeded % 3600) / 60) | 0,
@@ -7766,7 +7782,7 @@ if (mod==="end"){
 
     if (rng(shinyChance)) {pkmn[saved.geneticHost].shiny = true; summaryTags += `<div style="filter:hue-rotate(100deg)">✦ Shiny Mutation!</div>` }
 
-    if (item == "destinyKnot"){ //ability swap
+    if (itemUsed == "destinyKnot"){ //ability swap
     const hostAbility = pkmn[saved.geneticHost].ability
     const sampleAbility = pkmn[saved.geneticSample].ability
     pkmn[saved.geneticHost].ability = sampleAbility
@@ -7774,7 +7790,7 @@ if (mod==="end"){
     summaryTags += `<div style="filter:hue-rotate(-50deg)">★ Ability swapped!</div>`
     } else {
     const newAbility = learnPkmnAbility(saved.geneticHost,10) //boosted chance
-    if (item=="everstone") {pkmn[saved.geneticHost].ability = newAbility; summaryTags += `<div style="filter:hue-rotate(-50deg)">★ New ability: ${format(newAbility)}!</div>`}
+    if (itemUsed=="everstone") {pkmn[saved.geneticHost].ability = newAbility; summaryTags += `<div style="filter:hue-rotate(-50deg)">★ New ability: ${format(newAbility)}!</div>`}
     }
 
     pkmn[saved.geneticHost].movepool = []
@@ -7797,7 +7813,7 @@ if (mod==="end"){
     });
 
 
-    if (item==`lockCapsule`){
+    if (itemUsed==`lockCapsule`){
         //transfer moves from sample to host pool
         if (pkmn[saved.geneticSample].moves.slot1 !== undefined && !pkmn[saved.geneticHost].movepool.includes(pkmn[saved.geneticSample].moves.slot1) && move[pkmn[saved.geneticSample].moves.slot1].moveset!==undefined)  pkmn[saved.geneticHost].movepool.push(pkmn[saved.geneticSample].moves.slot1)
         if (pkmn[saved.geneticSample].moves.slot2 !== undefined && !pkmn[saved.geneticHost].movepool.includes(pkmn[saved.geneticSample].moves.slot2) && move[pkmn[saved.geneticSample].moves.slot2].moveset!==undefined)  pkmn[saved.geneticHost].movepool.push(pkmn[saved.geneticSample].moves.slot2)
@@ -7828,23 +7844,23 @@ if (mod==="end"){
 
     
     let ivChanceHp = ivChance
-    if (item == "powerWeight") ivChanceHp = 1
-    if (item == "machoBrace") ivChanceHp *= 10
+    if (itemUsed == "powerWeight") ivChanceHp = 1
+    if (itemUsed == "machoBrace") ivChanceHp *= 10
     let ivChanceAtk = ivChance
-    if (item == "powerBracer") ivChanceAtk = 1
-    if (item == "machoBrace") ivChanceAtk *= 10
+    if (itemUsed == "powerBracer") ivChanceAtk = 1
+    if (itemUsed == "machoBrace") ivChanceAtk *= 10
     let ivChanceDef = ivChance
-    if (item == "powerBelt") ivChanceDef = 1
-    if (item == "machoBrace") ivChanceDef *= 10
+    if (itemUsed == "powerBelt") ivChanceDef = 1
+    if (itemUsed == "machoBrace") ivChanceDef *= 10
     let ivChanceSatk = ivChance
-    if (item == "powerLens") ivChanceSatk = 1
-    if (item == "machoBrace") ivChanceSatk *= 10
+    if (itemUsed == "powerLens") ivChanceSatk = 1
+    if (itemUsed == "machoBrace") ivChanceSatk *= 10
     let ivChanceSdef = ivChance
-    if (item == "powerBand") ivChanceSdef = 1
-    if (item == "machoBrace") ivChanceSdef *= 10
+    if (itemUsed == "powerBand") ivChanceSdef = 1
+    if (itemUsed == "machoBrace") ivChanceSdef *= 10
     let ivChanceSpe = ivChance
-    if (item == "powerAnklet") ivChanceSpe = 1
-    if (item == "machoBrace") ivChanceSpe *= 10
+    if (itemUsed == "powerAnklet") ivChanceSpe = 1
+    if (itemUsed == "machoBrace") ivChanceSpe *= 10
 
     let ivCap = 6
     if (powerCost==6) ivCap = 5
@@ -8585,14 +8601,14 @@ saved.wonderTradeClaimed = undefined
 
 const mysteryGift = {
     effect: function() {  
-        const id = pkmn.porygon.id
+        const id = pkmn.kecleon.id
         if (pkmn[id].caught==0) givePkmn(pkmn[id],1)
         pkmn[id].shiny = true
         giveRibbon(pkmn[id],"souvenir")
       },
-    duration: new Date(2026, 2 - 1, 20),
-    info: `Long Press/Right click the present below to receive a gift Porygon!<br>It will be shiny and carrying a Souvenir Ribbon`,
-    icon: pkmn.porygon.id
+    duration: new Date(2026, 3 - 1, 20),
+    info: `Long Press/Right click the present below to receive a gift Kecleon!<br>It will be shiny and carrying a Souvenir Ribbon`,
+    icon: pkmn.kecleon.id
 }
 
 function numericDivision(letter,mod){
@@ -9350,9 +9366,18 @@ updateMegaDimension()
 window.addEventListener('load', function() {
 
 
+    
+
+
     loadGame();
     getSeed();
     seasonCheck();
+
+
+    if (saved.shopApricornMemoryRotationWhite == undefined) {
+            saved.lastShopApricornReset = 100
+    updateItemShop()
+    }
 
     //this safefail prevents loading into unexistiing areas
     if (!areas[saved.currentArea]) saved.currentArea = undefined

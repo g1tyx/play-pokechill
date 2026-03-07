@@ -1003,6 +1003,7 @@ pkmn.cleffa = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.clefairy, level: evolutionLevel1 } } },
     hiddenAbility: ability.magicGuard,
+    eggMove : move.lunarDance
 }
 
 pkmn.clefairy = {
@@ -1017,6 +1018,7 @@ pkmn.clefairy = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.clefable, item: item.moonStone } } },
     hiddenAbility: ability.magicGuard,
+    eggMove : move.lunarDance
 }
 
 pkmn.clefable = {
@@ -1030,6 +1032,7 @@ pkmn.clefable = {
         spe: 60,
     },
     hiddenAbility: ability.magicGuard,
+    eggMove : move.lunarDance
 }
 
 pkmn.megaClefable = {
@@ -1041,7 +1044,9 @@ pkmn.megaClefable = {
         satk: 135,
         sdef: 110,
         spe: 70,
-    }
+    },
+    hiddenAbility: ability.magicGuard,
+    eggMove : move.lunarDance
 }
 
 // 037 Vulpix → Ninetales
@@ -7166,7 +7171,7 @@ pkmn.volbeat = {
         spe: 85,
     },
     hiddenAbility: ability.dancer,
-    signature : move.tailGlow
+    eggMove : move.lunarDance
 }
 
 // 314 Illumise
@@ -7549,6 +7554,7 @@ pkmn.lunatone = {
         spe: 70,
     },
     hiddenAbility: ability.levitate,
+    eggMove : move.lunarDance,
 }
 
 // 338 Solrock
@@ -7917,6 +7923,7 @@ pkmn.chingling = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.chimecho, item: item.shinyStone } } },
     hiddenAbility: ability.cacophony,
+    eggMove: move.howl,
 }
 
 pkmn.chimecho = {
@@ -7930,6 +7937,7 @@ pkmn.chimecho = {
         spe: 65,
     },
     hiddenAbility: ability.cacophony,
+    eggMove: move.howl,
 }
 
 pkmn.megaChimecho = {
@@ -7943,6 +7951,7 @@ pkmn.megaChimecho = {
         spe: 65,
     },
     hiddenAbility: ability.cacophony,
+    eggMove: move.howl,
 }
 
 // 359 Absol
@@ -10021,6 +10030,7 @@ pkmn.cresselia = {
         spe: 85,
     },
     hiddenAbility: ability.magicGuard,
+    signature : move.lunarDance,
     lore: `The embodiment of moon light. From the earliest ages, it has watched over sleep and dreams, bringing peaceful rest where darkness gathers. Its feathers dispel the nightmares born by Darkrai, as they balance the quiet rhythm of night that was set into the world.`
 }
 
@@ -15837,6 +15847,8 @@ pkmn.minior = {
     spe: 60,
   },
     hiddenAbility: ability.shieldsDown,
+    eggMove : move.lunarDance
+
 }
 
 pkmn.miniorBlue = {
@@ -15850,6 +15862,8 @@ pkmn.miniorBlue = {
     spe: 60,
   },
     hiddenAbility: ability.brittleArmor,
+    eggMove : move.lunarDance
+
 }
 
 pkmn.miniorGreen = {
@@ -15863,6 +15877,8 @@ pkmn.miniorGreen = {
     spe: 60,
   },
     hiddenAbility: ability.brittleArmor,
+    eggMove : move.lunarDance
+
 }
 
 pkmn.miniorIndigo = {
@@ -15876,6 +15892,8 @@ pkmn.miniorIndigo = {
     spe: 60,
   },
     hiddenAbility: ability.brittleArmor,
+    eggMove : move.lunarDance
+
 }
 
 pkmn.miniorOrange = {
@@ -15889,6 +15907,8 @@ pkmn.miniorOrange = {
     spe: 60,
   },
     hiddenAbility: ability.brittleArmor,
+    eggMove : move.lunarDance
+
 }
 
 pkmn.miniorRed = {
@@ -15902,6 +15922,8 @@ pkmn.miniorRed = {
     spe: 60,
   },
     hiddenAbility: ability.brittleArmor,
+    eggMove : move.lunarDance
+
 }
 
 pkmn.miniorViolet = {
@@ -15915,6 +15937,8 @@ pkmn.miniorViolet = {
     spe: 60,
   },
     hiddenAbility: ability.brittleArmor,
+    eggMove : move.lunarDance
+
 }
 
 pkmn.miniorYellow = {
@@ -15928,6 +15952,8 @@ pkmn.miniorYellow = {
     spe: 60,
   },
     hiddenAbility: ability.brittleArmor,
+    eggMove : move.lunarDance
+
 }
 
 // 775 Komala

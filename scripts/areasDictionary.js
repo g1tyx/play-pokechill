@@ -5852,7 +5852,7 @@ areas.dimensionPalkia = {
         slot1 : pkmn.palkia,
         slot1Moves : [move.hydroPump.id,move.spacialRend.id, move.earthPower.id, move.iceBeam.id],
     },
-    reward : [pkmn.palkia],
+    reward : [pkmn.palkia, item.whiteApricorn],
     fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.reverseField.id],
     skills : {1 : skill.ironSpirit.id}
 }
@@ -5868,7 +5868,7 @@ areas.dimensionPikachuGmax = {
         slot1 : pkmn.pikachuGmax,
         slot1Moves : [move.voltTackle.id,move.gigaImpact.id, move.earthquake.id, move.ironTail.id],
     },
-    reward : [pkmn.pikachuGmax],
+    reward : [pkmn.pikachuGmax, item.whiteApricorn],
     fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.weakeningCurse.id ],
     skills : {1 : skill.ironWill.id, 2 : skill.electroblast.id}
 }

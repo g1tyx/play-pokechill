@@ -1371,18 +1371,61 @@ shop.shopApricornMemory9 = {
     category: `apricorn`
 }
 
+shop.shopApricornMemoryWhite1 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.whiteApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemoryWhite2 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.whiteApricorn.id,
+    category: `apricorn`
+}
+
+shop.shopApricornMemoryWhite3 = {
+    icon: item.googlySpecs.id,
+    price: shopApricornCostDefault,
+    stock: 3,
+    currency: item.whiteApricorn.id,
+    category: `apricorn`
+}
 
 
+shop.shopMagazineSubscription = {
+    icon: item.magazineSubscription.id,
+    price: 10,
+    stock: 1,
+    currency: item.whiteApricorn.id,
+    category: `apricorn`
+}
 
+shop.shopBattlePass = {
+    icon: item.battlePass.id,
+    price: 20,
+    stock: 1,
+    currency: item.whiteApricorn.id,
+    category: `apricorn`
+}
 
-
-
+shop.shopReplicatorUpgradeS = {
+    icon: item.replicatorUpgradeS.id,
+    price: 30,
+    stock: 1,
+    currency: item.whiteApricorn.id,
+    category: `apricorn`
+}
 
 
 
 
 saved.lastShopApricornReset = undefined
 saved.shopApricornMemoryRotation = undefined
+saved.shopApricornMemoryRotationWhite = undefined
 function assignShopApricorn(){
 
     if (saved.lastShopApricornReset != rotationWildCurrent){
@@ -1390,15 +1433,21 @@ function assignShopApricorn(){
 
 
     const memoryPool = []
+    const memoryPoolWhite = []
 
     for (const i in item){
         if (item[i].type !== "memory") continue
         if (item[i].rarity == "rare" && rng(0.1)) memoryPool.push(i)
         if (item[i].rarity == "common") memoryPool.push(i)
+
+        if (item[i].rarity == "rare") memoryPoolWhite.push(i)
+        if (item[i].rarity == "white") memoryPoolWhite.push(i)
+
     }
 
 
     saved.shopApricornMemoryRotation = arrayPick(memoryPool,9)
+    saved.shopApricornMemoryRotationWhite = arrayPick(memoryPoolWhite,3)
 
 
 
@@ -1431,6 +1480,9 @@ function assignShopApricorn(){
     shop.shopApricornMemory8.icon = saved.shopApricornMemoryRotation[7]
     shop.shopApricornMemory9.icon = saved.shopApricornMemoryRotation[8]
 
+    shop.shopApricornMemoryWhite1.icon = saved.shopApricornMemoryRotationWhite[0]
+    shop.shopApricornMemoryWhite2.icon = saved.shopApricornMemoryRotationWhite[1]
+    shop.shopApricornMemoryWhite3.icon = saved.shopApricornMemoryRotationWhite[2]
 
 
 

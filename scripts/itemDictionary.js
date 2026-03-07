@@ -659,6 +659,15 @@ item.greenApricorn = {
     info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
 }
 
+item.whiteApricorn = {
+    type: "key",
+    info: function() {return `Obtained in ★ and ★★ mega-dimension raids. Exchanged in the Poke-Mart`},
+}
+
+item.blackApricorn = {
+    type: "key",
+    info: function() {return `Obtained in ★★★ and ★★★★ mega-dimension raids. Exchanged in the Poke-Mart`},
+}
 
 item.autoRefightTicket = {
     type: "key",
@@ -1480,6 +1489,29 @@ item.oldGateau = {
 }
 
 
+
+
+
+
+item.magazineSubscription = {
+    type: "key",
+    info: function() {return `Daily export rewards award an extra Fashion Case`},
+}
+
+item.battlePass = {
+    type: "key",
+    info: function() {return `Trainers in the battle frontier award +3 extra Golden Bottle Caps`},
+}
+
+item.replicatorUpgradeS = {
+    type: "key",
+    info: function() {return `Decrease the time required for genetic operations by 30 minutes (Up to a minimum of 10 minutes)`},
+}
+
+
+
+
+
 item.mysteryEgg = {
     info: function() {return `An unhatched egg. Leave combat to discover the contents!`},
     hidden:true
@@ -1841,6 +1873,35 @@ item.colorSporeMemory = { typings : ["grass"], rarity: "rare" }
 item.sandStreamMemory = { typings : ["ground"], rarity: "rare" }
 item.snowWarningMemory = { typings : ["ice"], rarity: "rare" }
 item.somberFieldMemory = { typings : ["dark"], rarity: "rare" }
+
+
+//white exclusive
+item.dancerMemory = { typings : ["fighting"], rarity: "white" }
+item.cacophonyMemory = { typings : ["normal"], rarity: "white" }
+item.windRiderMemory = { typings : ["flying"], rarity: "white" }
+item.gorillaTacticsMemory = { typings : ["fighting"], rarity: "white" }
+item.imposterMemory = { typings : ["dark"], rarity: "white" }
+item.drizzleMemory = { typings : ["water"], rarity: "white" }
+item.droughtMemory = { typings : ["fire"], rarity: "white" }
+item.electricSurgeMemory = { typings : ["electric"], rarity: "white" }
+item.grassySurgeMemory = { typings : ["grass"], rarity: "white" }
+item.mistySurgeMemory = { typings : ["psychic"], rarity: "white" }
+item.ferrilateMemory = { typings : ["steel"], rarity: "white" }
+item.glaciateMemory = { typings : ["ice"], rarity: "white" }
+item.terralateMemory = { typings : ["ground"], rarity: "white" }
+item.toxilateMemory = { typings : ["poison"], rarity: "white" }
+item.hydrolateMemory = { typings : ["water"], rarity: "white" }
+item.pyrolateMemory = { typings : ["fire"], rarity: "white" }
+item.chrysilateMemory = { typings : ["bug"], rarity: "white" }
+item.galvanizeMemory = { typings : ["electric"], rarity: "white" }
+item.gloomilateMemory = { typings : ["dark"], rarity: "white" }
+item.espilateMemory = { typings : ["psychic"], rarity: "white" }
+item.aerilateMemory = { typings : ["flying"], rarity: "white" }
+item.pixilateMemory = { typings : ["fairy"], rarity: "white" }
+item.verdifyMemory = { typings : ["grass"], rarity: "white" }
+item.dragonMawMemory = { typings : ["dragon"], rarity: "white" }
+
+
 
 
 /*

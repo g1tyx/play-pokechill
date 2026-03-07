@@ -209,9 +209,15 @@ function updateGameVersion() {
   assignMegaDimension()
   }
 
+  if (saved.version<4.3){
+    saved.lastShopApricornReset = 100
+    updateItemShop()
+    saved.mysteryGiftClaimed = false
+  }
 
 
-  saved.version = 4.2
+
+  saved.version = 4.3
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
