@@ -2506,7 +2506,7 @@ function exploreCombatPlayer() {
         if (testAbility(`active`, ability.normalize.id) && moveType!=="normal") {moveType = "normal"; totalPower*=1.3}
 
         if (testAbility(`active`, ability.ferrilate.id) && moveType=="normal") {moveType = "steel"; totalPower*=1.3}
-        if (testAbility(`active`, ability.glaciate.id) && moveType=="normal") {moveType = "ice"; totalPower*=1.3}
+        if (testAbility(`active`, ability.refrigerate.id) && moveType=="normal") {moveType = "ice"; totalPower*=1.3}
         if (testAbility(`active`, ability.terralate.id) && moveType=="normal") {moveType = "ground"; totalPower*=1.3}
         if (testAbility(`active`, ability.toxilate.id) && moveType=="normal") {moveType = "poison"; totalPower*=1.3}
         if (testAbility(`active`, ability.hydrolate.id) && moveType=="normal") {moveType = "water"; totalPower*=1.3}
@@ -2615,7 +2615,7 @@ function exploreCombatPlayer() {
 
         if (team[exploreActiveMember].item == item.loadedDice.id && nextMove.affectedBy?.includes(ability.skillLink.id)) totalPower *= 1.2
         if (team[exploreActiveMember].item == item.luckyPunch.id && nextMove.affectedBy?.includes(ability.ironFist.id)) totalPower *= item.luckyPunch.power()
-        if (team[exploreActiveMember].item == item.metronome.id && nextMove.buildup !== undefined) totalPower *= item.metronome.power()
+        if (team[exploreActiveMember].item == item.metronomei.id && nextMove.buildup !== undefined) totalPower *= item.metronomei.power()
         if (team[exploreActiveMember].item == item.laggingTail.id && nextMove.affectedBy?.includes(ability.reckless.id)) totalPower *= item.laggingTail.power()
 
         if (team[exploreActiveMember].item?.endsWith('Gem')) totalPower *= item[team[exploreActiveMember].item].power()
@@ -8574,7 +8574,7 @@ function testAbility(target,id){
 
     if (id == "ate"){ //used for cross bonus
         if (testAbility(target, ability.ferrilate.id)) return true
-        if (testAbility(target, ability.glaciate.id)) return true
+        if (testAbility(target, ability.refrigerate.id)) return true
         if (testAbility(target, ability.terralate.id)) return true
         if (testAbility(target, ability.toxilate.id)) return true
         if (testAbility(target, ability.hydrolate.id)) return true

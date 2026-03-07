@@ -213,7 +213,7 @@ item.loadedDice = {
     power : function() { return 0+(1*returnItemLevel(this.id))}
 }
 
-item.metronome = {
+item.metronomei = {
     type: "held",
     info: function() {return `When held: Moves that get more powerful the more stacks they have deal x${this.power().toFixed(2)} more damage`},
     power : function() { return 1.1+(0.15*returnItemLevel(this.id))}
@@ -1887,7 +1887,7 @@ item.electricSurgeMemory = { typings : ["electric"], rarity: "white" }
 item.grassySurgeMemory = { typings : ["grass"], rarity: "white" }
 item.mistySurgeMemory = { typings : ["psychic"], rarity: "white" }
 item.ferrilateMemory = { typings : ["steel"], rarity: "white" }
-item.glaciateMemory = { typings : ["ice"], rarity: "white" }
+item.refrigerateMemory = { typings : ["ice"], rarity: "white" }
 item.terralateMemory = { typings : ["ground"], rarity: "white" }
 item.toxilateMemory = { typings : ["poison"], rarity: "white" }
 item.hydrolateMemory = { typings : ["water"], rarity: "white" }

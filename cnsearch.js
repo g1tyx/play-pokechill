@@ -1441,6 +1441,7 @@
         "Deerling": "四季鹿",
         "Sawsbuck": "萌芽鹿",
         //特性
+        "Refrigerate": "冰冻皮肤",
         "Stoned": "石化",
         "Stamina": "耐力",
         "Flower Veil": "花幕",
@@ -1976,7 +1977,7 @@
         "Shadow Force": "暗影潜袭",
         "Blue Flare": "青焰",
         "Bolt Strike": "雷击",
-        "Refrigerate": "冷冻",
+        "Glaciate": "冰封世界",
         "Electrify": "输电",
         "Trick Or Treat": "万圣夜",
         "Forest Curse": "森林咒术",

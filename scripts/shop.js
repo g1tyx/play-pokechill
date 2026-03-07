@@ -323,8 +323,8 @@ shop.shoploadedDice = {
     category: `held`,
 }
 
-shop.shopmetronome = {
-    icon: item.metronome.id,
+shop.shopmetronomei = {
+    icon: item.metronomei.id,
     price: 5,
     currency: item.goldenBottleCap.id,
     category: `held`,
