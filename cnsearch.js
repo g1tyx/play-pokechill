@@ -2093,6 +2093,7 @@
         "Eject Button": "逃脱按键",
         "Quick Claw": "先制之爪",
         "Loaded Dice": "机变骰子",
+        "Metronomei": "节拍器",
         "Power Herb": "强力香草",
         "Lucky Punch": "吉利拳",
         "Lagging Tail": "后攻之尾",
