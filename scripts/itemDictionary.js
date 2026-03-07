@@ -1495,17 +1495,17 @@ item.oldGateau = {
 
 item.magazineSubscription = {
     type: "key",
-    info: function() {return `Daily export rewards award an extra Fashion Case`},
+    info: function() {return `Permanent Upgrade: Daily export rewards award an extra Fashion Case`},
 }
 
 item.battlePass = {
     type: "key",
-    info: function() {return `Trainers in the battle frontier award +3 extra Golden Bottle Caps`},
+    info: function() {return `Permanent Upgrade: Trainers in the battle frontier award +3 extra Golden Bottle Caps`},
 }
 
 item.replicatorUpgradeS = {
     type: "key",
-    info: function() {return `Decrease the time required for genetic operations by 30 minutes (Up to a minimum of 10 minutes)`},
+    info: function() {return `Permanent Upgrade: Decrease the time required for genetic operations by 30 minutes (Up to a minimum of 10 minutes)`},
 }
 
 
@@ -1900,6 +1900,7 @@ item.aerilateMemory = { typings : ["flying"], rarity: "white" }
 item.pixilateMemory = { typings : ["fairy"], rarity: "white" }
 item.verdifyMemory = { typings : ["grass"], rarity: "white" }
 item.dragonMawMemory = { typings : ["dragon"], rarity: "white" }
+item.iaidoMemory = { typings : ["steel"], rarity: "white" }
 
 
 

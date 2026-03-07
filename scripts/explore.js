@@ -2224,12 +2224,19 @@ function exploreCombatPlayer() {
     
 
     //abilities
+    
     if (testAbility(`active`, ability.prankster.id) && (move[nextMovePlayer].type == "dark" || move[nextMovePlayer].type == "ghost")) moveTimerPlayer /= 1.5
     if (testAbility(`active`, ability.galeWings.id) && (move[nextMovePlayer].type == "flying" || move[nextMovePlayer].type == "bug")) moveTimerPlayer /= 1.5
+    if (testAbility(`active`, ability.neuroforce.id) && (move[nextMovePlayer].type == "psychic" || move[nextMovePlayer].type == "fairy")) moveTimerPlayer /= 1.5
 
     if (testAbility(`active`, ability.prankster.id) && testAbility(`active`, ability.gloomilate.id) && move[nextMovePlayer].type == "normal" ) moveTimerPlayer /= 1.5
     if (testAbility(`active`, ability.galeWings.id) && testAbility(`active`, ability.aerilate.id) && move[nextMovePlayer].type == "normal" ) moveTimerPlayer /= 1.5
     if (testAbility(`active`, ability.galeWings.id) && testAbility(`active`, ability.chrysilate.id) && move[nextMovePlayer].type == "normal" ) moveTimerPlayer /= 1.5
+    if (testAbility(`active`, ability.neuroforce.id) && testAbility(`active`, ability.espilate.id) && move[nextMovePlayer].type == "normal" ) moveTimerPlayer /= 1.5
+    if (testAbility(`active`, ability.neuroforce.id) && testAbility(`active`, ability.pixilate.id) && move[nextMovePlayer].type == "normal" ) moveTimerPlayer /= 1.5
+
+
+
 
     if (testAbility(`active`, ability.cacophony.id) == true && move[nextMovePlayer].affectedBy?.includes(ability.cacophony.id) ) moveTimerPlayer /= 2
     if (testAbility(`active`, ability.cacophony.id) == "nerf" && move[nextMovePlayer].affectedBy?.includes(ability.cacophony.id) ) moveTimerPlayer /= 1.5
@@ -2240,6 +2247,10 @@ function exploreCombatPlayer() {
 
     if (testAbility(`active`, ability.windRider.id) == true && move[nextMovePlayer].affectedBy?.includes(ability.windRider.id) ) moveTimerPlayer /= 2
     if (testAbility(`active`, ability.windRider.id) == "nerf" && move[nextMovePlayer].affectedBy?.includes(ability.windRider.id) ) moveTimerPlayer /= 1.5
+
+    if (testAbility(`active`, ability.iaido.id) == true && move[nextMovePlayer].affectedBy?.includes(ability.sharpness.id) ) moveTimerPlayer /= 2
+    if (testAbility(`active`, ability.iaido.id) == "nerf" && move[nextMovePlayer].affectedBy?.includes(ability.sharpness.id) ) moveTimerPlayer /= 1.5
+
 
     if (team[exploreActiveMember].item == item.quickClaw.id && move[nextMovePlayer].affectedBy?.includes(ability.libero.id)) moveTimerPlayer /= item.quickClaw.power()
     if (team[exploreActiveMember].item == item.powerHerb.id && move[nextMovePlayer].power == 0) moveTimerPlayer /= item.powerHerb.power()
@@ -2546,7 +2557,7 @@ function exploreCombatPlayer() {
 
 
         if ( testAbility(`active`, ability.scrappy.id) && pkmn[saved.currentPkmn].type.includes("ghost") && (moveType == 'fighting' || moveType == 'normal')  ) typeMultiplier=1
-        if ( testAbility(`active`, ability.tintedLens.id) && (typeMultiplier == 0.5 || typeMultiplier == 0.25) ) typeMultiplier=1
+        if ( testAbility(`active`, ability.tintedLens.id) && (typeMultiplier <1 && typeMultiplier>0) ) typeMultiplier=1
         if ( testAbility(`active`, ability.noGuard.id) && typeMultiplier == 0 ) typeMultiplier=1
 
         if ( testAbility(`active`, ability.thousandArms.id)) typeMultiplier=1.5
@@ -2557,7 +2568,7 @@ function exploreCombatPlayer() {
         } 
 
         //this wont exactly do what the move says it does, but eh, close enough
-        if ( nextMove.id == move.freezeDry.id && pkmn[saved.currentPkmn].type=="water" && typeEffectiveness("water", pkmn[saved.currentPkmn].type)==1 ) typeMultiplier+= 0.5
+        if ( nextMove.id == move.freezeDry.id && pkmn[saved.currentPkmn].type.includes("water") && typeEffectiveness(["water"], pkmn[saved.currentPkmn].type)==1 ) typeMultiplier *= 1.5
 
 
 

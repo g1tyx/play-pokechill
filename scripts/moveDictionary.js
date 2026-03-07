@@ -884,12 +884,17 @@ ability.tintedLens = {
 
 ability.prankster = {
     rarity: 3,
-    info: function() {return `Ghost and Dark-type moves are x1.5 faster than usual`},
+    info: function() {return `Ghost and Dark-type moves are executed x1.5 faster than usual`},
 }
 
 ability.galeWings = {
     rarity: 3,
-    info: function() {return `Flying and Bug moves are x1.5 faster than usual`},
+    info: function() {return `Flying and Bug moves are executed x1.5 faster than usual`},
+}
+
+ability.neuroforce = {
+    rarity: 3,
+    info: function() {return `Psychic and Fairy moves are executed x1.5 faster than usual`},
 }
 
 ability.speedBoost = {
@@ -926,6 +931,17 @@ ability.windRider = {
     info: function() {return `"Wind"-related moves are executed twice as fast <span style="opacity:0.7">(${joinWithAnd(movesAffectedByWindRider)})<span>`},
     nerf: `When slotted as a non-hidden ability: Speed reduced to x1.5`
 }
+
+
+ability.iaido = {
+    rarity: 3,
+    info: function() {return `"Sharp"-related moves are executed twice as fast <span style="opacity:0.7">(${joinWithAnd(movesAffectedBySharpness)})<span>`},
+    nerf: `When slotted as a non-hidden ability: Speed reduced to x1.5`
+}
+
+
+
+
 
 ability.megaLauncher = {
     rarity: 3,
@@ -1193,7 +1209,7 @@ const berryMemoryRare = [ ability.flashHerba.id, ability.flashFae.id, ability.fl
     ability.grassySurge.id, ability.mistySurge.id, ability.ferrilate.id, ability.refrigerate.id,
     ability.terralate.id, ability.toxilate.id, ability.hydrolate.id, ability.pyrolate.id, ability.chrysilate.id,
     ability.galvanize.id, ability.gloomilate.id, ability.espilate.id, ability.aerilate.id, ability.pixilate.id,
-    ability.verdify.id, ability.dragonMaw.id,
+    ability.verdify.id, ability.dragonMaw.id, ability.iaido.id,
  ]
 
  /*const apricornMemoryHA2 = [   ability.treasureOfRuin.id, ability.dancer.id, ability.cacophony.id, 
@@ -4130,7 +4146,7 @@ move.boomburst = {
 move.eggBomb = {
     split: "special",
     type: "normal",
-    power: t4Base,
+    power: t4Base+30,
 }
 
 move.cometPunch = {
@@ -4248,7 +4264,7 @@ move.razorShell = {
 move.tripleDive = {  
     split: "physical",
     type: "water",
-    power: t4Base/3,
+    power: (t4Base+30)/3,
     info: function() {return `Hits 3 times`},
     multihit: [3,3],
 }
@@ -4290,7 +4306,7 @@ move.appleAcid = {
 move.chloroblast = {
     split: "special",
     type: "grass",
-    power: t4Base,
+    power: t4Base+20,
     affectedBy: [ability.megaLauncher.id]
 }
 
@@ -4305,7 +4321,7 @@ move.frenzyPlant = {
 move.trailblaze = {
     split: "physical",
     type: "grass",
-    power: t4Base-60,
+    power: t4Base-30,
     info: function() {return `Increases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'speup1','self') },
 }
@@ -4313,7 +4329,7 @@ move.trailblaze = {
 move.auraWheel = { 
     split: "physical",
     type: "electric",
-    power: t4Base-60,
+    power: t4Base-40,
     info: function() {return `Increases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'speup1','self') },
 }
@@ -4321,7 +4337,7 @@ move.auraWheel = {
 move.freezeDry = {
     split: "special",
     type: "ice",
-    power: t4Base-20,
+    power: t4Base,
     info: function() {return `Super-effective against Water-types`} ,
 }
 
@@ -4402,7 +4418,7 @@ move.spectralThief = {
 move.snipeShot = {
     split: "special",
     type: "water",
-    power: t4Base,
+    power: t4Base+20,
 }
 
 move.moongeistBeam = {
@@ -4431,14 +4447,14 @@ move.rockWrecker = {
 move.aeroblast = {
     split: "special",
     type: "flying",
-    power: t4Base+10,
+    power: t4Base,
     affectedBy: [ability.windRider.id]
 }
 
 move.sacredFire = {
     split: "physical",
     type: "fire",
-    power: t4Base+10,
+    power: t4Base,
     info: function() {return `10% chance to inflict ${tagBurn}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'burn') },
 }
@@ -4472,7 +4488,7 @@ move.dragonDarts = {
 move.hiJumpKick = {
     split: "physical",
     type: "fighting",
-    power: t4Base,
+    power: t4Base+20,
 }
 
 move.falseSurrender = { 
@@ -4616,15 +4632,16 @@ move.weatherBall = { //añade forecast ability guarro
 }
 
 
-//left it here
 
 move.poisonTail = {
     split: "physical",
     type: "poison",
-    power: t4Base-10,
+    power: t4Base+20,
     info: function() {return `20% chance to inflict ${tagPoisoned}`},
     hitEffect: function(target) { if (rng(0.20)) moveBuff(target,'poisoned') },
 }
+
+
 
 move.heatCrash = {
     split: "physical",
@@ -4638,7 +4655,7 @@ move.heatCrash = {
 move.chatter = {
     split: "special",
     type: "flying",
-    power: t4Base-10,
+    power: t4Base+30,
     info: function() {return `20% chance to inflict ${tagConfused}`},
     hitEffect: function(target) { if (rng(0.20)) moveBuff(target,'confused') },
     affectedBy: [ability.cacophony.id]
@@ -4655,13 +4672,14 @@ move.voltTackle = {
 move.zingZap = {
     split: "physical",
     type: "electric",
-    power: t4Base,
+    power: t4Base+20,
+    affectedBy: [ability.strongJaw.id]
 }
 
 move.lovelyKiss = {
     split: "physical",
     type: "fairy",
-    power: t4Base,
+    power: t4Base+30,
     info: function() {return `10% chance to inflict ${tagConfused}`},
     hitEffect: function(target) { if (rng(0.10)) moveBuff(target,'confused') },
 }
@@ -4682,21 +4700,21 @@ move.spacialRend = {
 move.fishiousRend = { 
     split: "physical",
     type: "water",
-    power: 80,
+    power: 100,
     affectedBy: [ability.strongJaw.id]
 }
 
 move.armorCannon = { 
     split: "special",
     type: "fire",
-    power: t4Base-20,
+    power: t4Base-10,
     affectedBy: [ability.megaLauncher.id]
 }
 
 move.bitterBlade = { 
     split: "physical",
     type: "fire",
-    power: t4Base-20,
+    power: t4Base-10,
     affectedBy: [ability.sharpness.id]
 }
 
@@ -4786,7 +4804,7 @@ move.tailGlow = {
 move.luminaCrash = { 
     split: "special",
     type: "psychic",
-    power: t4Base/1.2,
+    power: t4Base,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Power increases by x1.2-1.5 if Speed is risen`},
     powerMod : function() { if (team[exploreActiveMember].buffs?.speup2 > 0) { return 1.5} else if (team[exploreActiveMember].buffs?.speup1 > 0) {return 1.2} else return 1 },
@@ -4804,7 +4822,7 @@ move.flyingPress = {
 move.mountainGale = { 
     split: "physical",
     type: "ice",
-    power: demeritBp+30,
+    power: demeritBp+50,
     info: function() {return `Decreases Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1','self') },
     unaffectedBy: [ability.sheerForce.id],
@@ -4987,7 +5005,7 @@ move.waterShuriken = {
 move.barbBarrage = {
     split: "physical",
     type: "poison",
-    power: t4Base/3,
+    power: (t4Base+10)/3,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -4995,7 +5013,7 @@ move.barbBarrage = {
 move.barrage = {
     split: "special",
     type: "grass",
-    power: t4Base/3,
+    power: (t4Base+30)/3,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }
@@ -5021,9 +5039,9 @@ move.sketch = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `Executes the first move slot. Attacks x1.5 slower than usual`},
-    timer: defaultPlayerMoveTimer*1.5,
+    info: function() {return `Executes the first move slot`},
 }
+
 
 move.prismaticLaser = {
     split: "special",
@@ -5085,7 +5103,7 @@ move.freezingGlare = {
 move.meteorAssault = { 
     split: "physical",
     type: "fighting",
-    power: t4Base*1.2,
+    power: (t4Base+20)*1.2,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`},
 }
@@ -5110,7 +5128,7 @@ move.kingsShield = {
 move.drumBeating = {
     split: "physical",
     type: "grass",
-    power: t4Base-40,
+    power: t4Base-30,
     info: function() {return `Decreases enemy Speed by 50%`},
     hitEffect: function(target) { moveBuff(target,'spedown1') },
     affectedBy: [ability.dancer.id]
@@ -5119,7 +5137,7 @@ move.drumBeating = {
 move.tropKick = {
     split: "physical",
     type: "grass",
-    power: t4Base-20,
+    power: t4Base,
     info: function() {return `Decreases enemy Attack by 50%`},
     hitEffect: function(target) { moveBuff(target,'atkdown1') },
 }
@@ -5128,7 +5146,7 @@ move.fireLash = {
     rename: `noxiousLash`,
     split: "special",
     type: "fire",
-    power: t4Base-60,
+    power: t4Base-40,
     info: function() {return `Inflicts ${tagPoisoned}`},
     hitEffect: function(target) { moveBuff(target,'poisoned') },
 }
@@ -5190,7 +5208,7 @@ move.zapCannon = {
 move.triAttack = {
     split: "special",
     type: "normal",
-    power: t4Base,
+    power: t4Base+10,
     info: function() {return `10% chance to inflict ${tagBurn},${tagParalysis} or ${tagFreeze}`},
     hitEffect: function(target) { if (rng(0.10)){ if (rng(0.33)) {moveBuff(target,'burn')} else if (rng(0.50)) { moveBuff(target,'paralysis')} else moveBuff(target,'freeze') }},
 }
@@ -5215,7 +5233,7 @@ move.rageFist = {
 move.iceBall = {
     split: "physical",
     type: "ice",
-    power: t4Base/2,
+    power: (t4Base+30)/3,
     info: function() {return `Multiplies base power by 1.2x everytime its used, up to 5 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.2,this.buildup) },
@@ -5230,12 +5248,14 @@ move.tripleAxel = {
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.3,this.buildup) },
     hitEffect: function(target) { if (this.buildup<3) this.buildup++;   },
+    affectedBy: [ability.sharpness.id]
+
 }
 
 move.attackOrder = { 
     split: "physical",
     type: "bug",
-    power: t4Base/3,
+    power: (t4Base+30)/3,
     info: function() {return `Multiplies base power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.15,this.buildup) },
@@ -5245,7 +5265,7 @@ move.attackOrder = {
 move.populationBomb = { 
     split: "physical",
     type: "normal",
-    power: t4Base/3,
+    power: (t4Base+30)/3,
     info: function() {return `Multiplies base power by 1.15x everytime its used, up to 10 times. Depletes all stacks upon switching Pokemon`},
     buildup: 0,
     powerMod : function() { return 1 * Math.pow(1.15,this.buildup) },
@@ -5256,15 +5276,18 @@ move.nobleRoar = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `Decreases enemy Attack by 100% and Special Attack by 50%`},
-    hitEffect: function(target) { moveBuff(target,'atkdown2'); moveBuff(target,'satkdown1') },
+    info: function() {return `Decreases enemy Attack by 100% and Special Attack by 100%`},
+    hitEffect: function(target) { moveBuff(target,'atkdown2'); moveBuff(target,'satkdown2') },
 }
 
 move.hyperDrill = { 
     split: "physical",
     type: "normal",
-    power: t4Base+10
+    power: t4Base+80
 }
+
+
+//aqui me queo
 
 
 
