@@ -1441,6 +1441,8 @@
         "Deerling": "四季鹿",
         "Sawsbuck": "萌芽鹿",
         //特性
+        "Neuroforce": "脑核之力",
+        "Iaido": "居合道",
         "Refrigerate": "冰冻皮肤",
         "Stoned": "石化",
         "Stamina": "耐力",
