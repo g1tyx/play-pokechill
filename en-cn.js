@@ -148,6 +148,8 @@
         '击败越来越强的训练家, 闯出自己的成名之路! 随着你的进度推进, 你还将解锁更多可探索的区域。'],
         [/^All trainers defeated/i,
         '已击败所有训练家'],
+        [/^All trainers defeated for now/i,
+        '已击败本轮所有训练家'],
         [/^How about the Battle Frontier/i,
         '要不要去对战开拓区试试'],
         //对战开拓区指引
