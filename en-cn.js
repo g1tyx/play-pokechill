@@ -1173,7 +1173,7 @@
         [/^([\s\S]*?)Ancient Keystones?([\s\S]*?)$/i, '$1古代钥石$2'],
         [/^([\s\S]*?)Steel Keystones?([\s\S]*?)$/i, '$1钢铁钥石$2'],
         [/^([\s\S]*?)Aether Keycards?([\s\S]*?)$/i, '$1以太钥匙卡$2'],
-        [/^([\s\S]*?)Wormhole Residue([\s\S]*?)$/i, '$1虫洞残留物$2'],
+        [/^([\s\S]*?)Wormhole Residues?([\s\S]*?)$/i, '$1虫洞残留物$2'],
         [/^([\s\S]*?)Wisdom Petals?([\s\S]*?)$/i, '$1智慧花瓣$2'],
         [/^([\s\S]*?)Red Chains?([\s\S]*?)$/i, '$1红色锁链$2'],
         [/^([\s\S]*?)Mega-Shards?([\s\S]*?)$/i, '$1超级碎片$2'],
@@ -3267,13 +3267,13 @@
         //颤弦蝾螈
         "Toxtricity Amped": "颤弦蝾螈 高调的样子",
         "Toxtricity Low Key": "颤弦蝾螈 低调的样子",
-        // 克隆体
+        //克隆体
         "Venusaur Clone": "妙蛙花 复制体",
         "Charizard Clone": "喷火龙 复制体",
         "Blastoise Clone": "水箭龟 复制体",
-        //四季鹿, 萌芽鹿
-        "Deerling": "四季鹿",
-        "Sawsbuck": "萌芽鹿",
+        //错误宝可梦
+        "Humanoid": "人形物",
+        "Crystal Onix": "水晶大岩蛇",
         //特性
         "Neuroforce": "脑核之力",
         "Iaido": "居合道",
