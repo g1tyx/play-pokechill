@@ -948,7 +948,7 @@
         [/^Genetics-aiding item: Swaps the ability of the Pokemon with the sample. Can only be used with at least one level of compatibility and does not work on hidden abilities$/,
         '遗传辅助道具: 将宿主宝可梦的特性与样本宝可梦交换。只能在至少有 1 级兼容性时使用，且无法交换隐藏特性'],
         [/^Genetics-aiding item: Transfers the currently equipped moves of the sample to the movepool of the host. The host will retain both its equipped moves and the newly transferred ones, but the sample will lose it's equipped ones. Can only be used with at least one level of compatibility, and does not work on signature moves$/,
-        '遗传辅助道具: 将样本当前已装备的招式转移到宿主的技能池中。宿主将保留其已装备的招式和新转移的招式, 但样本将失去其已装备的招式。只能在至少有 1 级兼容性时使用，且无法转移专属招式'],
+        '遗传辅助道具: 将样本当前已装备的招式转移到宿主的技能池中。宿主将保留其已装备的招式和新转移的招式, 但样本将失去其已装备的招式。只能在至少有 1 级兼容性时使用，且无法转移招牌技'],
         //其他道具
         [/^Permanent Upgrade: Daily export rewards award an extra Fashion Case/i,
         '永久升级: 每日导出奖励额外奖励 1 个饰品盒'],
