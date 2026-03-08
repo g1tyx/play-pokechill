@@ -5446,6 +5446,10 @@ for (const i in move){
     if (move[i].affectedBy?.includes(ability.metalhead.id)) movesAffectedByMetalhead.push(i)
 
 
+    if (move[i].affectedBy?.includes(ability.sharpness.id)) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.iaido.id); } else move[i].affectedBy = [ability.iaido.id] }
+
+
+
     move[i].id = i
     if (move[i].timer == undefined) move[i].timer = defaultPlayerMoveTimer
 }

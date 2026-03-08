@@ -12,7 +12,9 @@ shop.exchange1 = {
     price: 1,
     currency: item.goldenBottleCap.id,
     category: `all`,
-    effect: function() {item.bottleCap.got+=2}
+    effect: function() {item.bottleCap.got+=2},
+    bulkBuy : true,
+
 }
 
 
@@ -1461,6 +1463,9 @@ function assignShopApricorn(){
     shop.shopApricornMemory8.stock = 3
     shop.shopApricornMemory9.stock = 3
 
+    shop.shopApricornMemoryWhite1.stock = 3
+    shop.shopApricornMemoryWhite2.stock = 3
+    shop.shopApricornMemoryWhite3.stock = 3
 
     shop.shopApricornItem1.stock = 3
     shop.shopApricornItem2.stock = 5
@@ -1745,12 +1750,47 @@ div.addEventListener("click", () => {
     document.getElementById("tooltipMid").style.display = "none"
 
     document.getElementById("tooltipBottom").innerHTML = `
+        <span style="display:flex; justify-content:center; width:100%; flex-wrap:wrap">
+            <div data-amount="1"  style="cursor:pointer; font-size:2rem; width:30%" id="prevent-tooltip-exit">x1</div>
+            <div data-amount="5"  style="cursor:pointer; font-size:2rem; width:30%">x5</div>
+            <div data-amount="10" style="cursor:pointer; font-size:2rem; width:30%">x10</div>
+            <span style="flex-basis: 100%; height:2rem"></span>
+            <div data-amount="25" style="cursor:pointer; font-size:2rem; width:30%">x25</div>
+            <div data-amount="50" style="cursor:pointer; font-size:2rem; width:30%">x50</div>
+            <div data-amount="100" style="cursor:pointer; font-size:2rem; width:30%">x100</div>
+        </span>
+    `
+
+    if (item[shop[i].icon]?.type == "held" && item[shop[i].icon]?.got < 20) document.getElementById("tooltipBottom").innerHTML = `
         <span style="display:flex; justify-content:center; width:100%">
             <div data-amount="1"  style="cursor:pointer; font-size:2rem; width:40%" id="prevent-tooltip-exit">x1</div>
             <div data-amount="5"  style="cursor:pointer; font-size:2rem; width:40%">x5</div>
-            <div data-amount="10" style="cursor:pointer; font-size:2rem; width:40%">x10</div>
+            <div data-amount="${20-item[shop[i].icon].got}" style="cursor:pointer; font-size:2rem; width:40%">x${20-item[shop[i].icon].got}</div>        </span>
+    `
+
+    if (shop[i].stock) document.getElementById("tooltipBottom").innerHTML = `
+        <span style="display:flex; justify-content:center; width:100%">
+            <div data-amount="1"  style="cursor:pointer; font-size:2rem; width:40%" id="prevent-tooltip-exit">x1</div>
+            <div data-amount="5"  style="cursor:pointer; font-size:2rem; width:40%">x5</div>
+            <div data-amount="${shop[i].stock}" style="cursor:pointer; font-size:2rem; width:40%">x${shop[i].stock}</div>
         </span>
     `
+
+
+    if (shop[i].stock<=5) document.getElementById("tooltipBottom").innerHTML = `
+        <span style="display:flex; justify-content:center; width:100%">
+            <div data-amount="1"  style="cursor:pointer; font-size:2rem; width:40%" id="prevent-tooltip-exit">x1</div>
+            <div data-amount="${shop[i].stock}" style="cursor:pointer; font-size:2rem; width:40%">x${shop[i].stock}</div>
+        </span>
+    `
+
+    if (shop[i].stock==1) document.getElementById("tooltipBottom").innerHTML = `
+        <span style="display:flex; justify-content:center; width:100%">
+            <div data-amount="1"  style="cursor:pointer; font-size:2rem; width:40%" id="prevent-tooltip-exit">x1</div>
+        </span>
+    `
+
+
 
     document
         .querySelectorAll("#tooltipBottom div")

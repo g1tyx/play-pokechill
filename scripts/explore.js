@@ -2567,8 +2567,7 @@ function exploreCombatPlayer() {
             if (typeEffectiveness(moveType, defender.temporalType)<1) typeMultiplier *= 0.75 
         } 
 
-        //this wont exactly do what the move says it does, but eh, close enough
-        if ( nextMove.id == move.freezeDry.id && pkmn[saved.currentPkmn].type.includes("water") && typeEffectiveness(["water"], pkmn[saved.currentPkmn].type)==1 ) typeMultiplier *= 1.5
+        if ( nextMove.id == move.freezeDry.id && pkmn[saved.currentPkmn].type.includes("water") ) typeMultiplier *= 1.5
 
 
 
@@ -2614,8 +2613,8 @@ function exploreCombatPlayer() {
         if (team[exploreActiveMember].item == item.lightClay.id) totalPower *= item.lightClay.power()
         if (team[exploreActiveMember].item == item.weaknessPolicy.id) totalPower *= item.weaknessPolicy.power()
         
-        if (team[exploreActiveMember].item == item.flameOrb.id) {totalPower *= item.flameOrb.power(); team[exploreActiveMember].buffs.burn = 3 }
-        if (team[exploreActiveMember].item == item.toxicOrb.id) {totalPower *= item.toxicOrb.power(); team[exploreActiveMember].buffs.poisoned = 3}
+        if (team[exploreActiveMember].item == item.flameOrb.id) {totalPower *= item.flameOrb.power(); moveBuff("wild",'burn',"self",2)}
+        if (team[exploreActiveMember].item == item.toxicOrb.id) {totalPower *= item.toxicOrb.power(); moveBuff("wild",'poisoned',"self",2)}
 
         if (team[exploreActiveMember].item == item.choiceSpecs.id && nextMove.split == 'special') totalPower *= item.choiceSpecs.power()
         if (team[exploreActiveMember].item == item.choiceBand.id && nextMove.split == 'physical') totalPower *= item.choiceBand.power()
@@ -2639,11 +2638,11 @@ function exploreCombatPlayer() {
 
         if (nextMove.power === 0) totalPower = 0
 
-        if (areas[saved.currentArea].id != areas.training.id){
-        if (team[exploreActiveMember].buffs?.confused>0 && rng(0.5)) totalPower = 0
-        if (team[exploreActiveMember].buffs?.paralysis>0 && rng(0.25)) totalPower = 0
-        if (team[exploreActiveMember].buffs?.freeze>0 ) totalPower = 0
-        if (team[exploreActiveMember].buffs?.sleep>0 ) totalPower = 0
+        if (areas[saved.currentArea].id != areas.training.id && totalPower>0){
+        if (team[exploreActiveMember].buffs?.confused>0 && rng(0.5)) totalPower = 1
+        if (team[exploreActiveMember].buffs?.paralysis>0 && rng(0.25)) totalPower = 1
+        if (team[exploreActiveMember].buffs?.freeze>0 ) totalPower = 1
+        if (team[exploreActiveMember].buffs?.sleep>0 ) totalPower = 1
         }
 
 
@@ -7245,7 +7244,8 @@ function moveBuff(target,buff,mod,turnOverride){
     if ((target==="player" && mod=="self") || (mod==undefined && target==="wild")) { //self from wild, or player to wild
 
         //if (buff == "paralysis" && pkmn[saved.currentPkmn].type.includes("electric")) return
-        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (wildBuffs.burn>0 || wildBuffs.freeze>0 || wildBuffs.confused>0 || wildBuffs.paralysis>0 || wildBuffs.poisoned>0 || wildBuffs.sleep>0 )) return
+        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && Object.keys(wildBuffs).some(key => /burn|freeze|confused|paralysis|poisoned|sleep/.test(key) && wildBuffs[key] > 0 && key !== buff)) return
+
         if (testAbility(`active`, ability.colorSpore.id ) == true && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 3
         //if (testAbility(`active`, ability.colorSpore.id ) == "nerf" && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 2
 
@@ -7261,7 +7261,7 @@ function moveBuff(target,buff,mod,turnOverride){
     if ((target==="wild" && mod=="self") || (mod==undefined && target==="player")) { //self buffs from player
 
         //if (buff == "paralysis" && pkmn[team[exploreActiveMember].pkmn.id].type.includes("electric")) return
-        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && (team[exploreActiveMember].buffs?.burn>0 || team[exploreActiveMember].buffs?.freeze>0 || team[exploreActiveMember].buffs?.confused>0 || team[exploreActiveMember].buffs?.paralysis>0 || team[exploreActiveMember].buffs?.poisoned>0 || team[exploreActiveMember].buffs?.sleep>0 )) return
+        if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && Object.keys(team[exploreActiveMember].buffs || {}).some(key => /burn|freeze|confused|paralysis|poisoned|sleep/.test(key) && team[exploreActiveMember].buffs[key] > 0 && key !== buff)) return
 
         if (testAbility(`active`, ability.synchronize.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) { moveBuff("wild",buff); updateWildBuffs()}
 
@@ -9402,6 +9402,24 @@ function updateMegaDimension(tier){
 
 
 updateMegaDimension()
+
+
+
+
+
+
+window.addEventListener('beforeunload', function(event) {
+
+    if (afkSeconds > 10 && areas[saved.currentArea] != undefined){
+        event.preventDefault();
+        event.returnValue = ''; 
+        return ''; // Add this for older Firefox versions
+    }
+
+});
+
+
+
 
 
 

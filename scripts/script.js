@@ -215,9 +215,11 @@ function updateGameVersion() {
     saved.mysteryGiftClaimed = false
   }
 
+  if (saved.version<4.5){
+    saved.lastShopApricornReset = 101
+  }
 
-
-  saved.version = 4.4
+  saved.version = 4.5
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
