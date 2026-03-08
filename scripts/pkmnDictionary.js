@@ -20083,12 +20083,12 @@ pkmn.f00 = {
     rename: `F-00`,
     type: ["steel","normal"],
     bst: {
-        hp: 10,
-        atk: 40,
-        def: 10,
-        satk: 50,
-        sdef: 10,
-        spe: 50,
+        hp: 45,
+        atk: 63,
+        def: 37,
+        satk: 65,
+        sdef: 55,
+        spe: 95,
     },
     hiddenAbility: ability.voltAbsorb,
     hidden: true
@@ -20097,14 +20097,72 @@ pkmn.f00 = {
 pkmn.ghost = {
     type: ["ghost"],
     bst: {
-        hp: 30,
-        atk: 10,
-        def: 10,
-        satk: 80,
-        sdef: 10,
-        spe: 80,
+        hp: 45,
+        atk: 50,
+        def: 45,
+        satk: 115,
+        sdef: 55,
+        spe: 95,
     },
     hiddenAbility: ability.intangible,
+    hidden: true
+}
+
+pkmn.kabutopsB = {
+    rename: `Kabutops-B`,
+    type: ["rock","ghost"],
+    bst: {
+        hp: 60,
+        atk: 115,
+        def: 105,
+        satk: 65,
+        sdef: 70,
+        spe: 80,
+    },
+    hiddenAbility: ability.powerOfAlchemy,
+    hidden: true
+}
+
+pkmn.aerodactylB = {
+    rename: `Aerodactyl-B`,
+    type: ["rock","ghost"],
+    bst: {
+        hp: 80,
+        atk: 105,
+        def: 65,
+        satk: 60,
+        sdef: 75,
+        spe: 130,
+    },
+    hiddenAbility: ability.powerOfAlchemy,
+    hidden: true
+}
+
+pkmn.humanoid = {
+    type: ["dark"],
+    bst: {
+        hp: 80,
+        atk: 100,
+        def: 70,
+        satk: 50,
+        sdef: 60,
+        spe: 45,
+    },
+    hiddenAbility: ability.gooey,
+    hidden: true
+}
+
+pkmn.crystalOnix = {
+    type: ["rock","ice"],
+    bst: {
+        hp: 35,
+        atk: 45,
+        def: 160,
+        satk: 30,
+        sdef: 45,
+        spe: 70,
+    },
+    hiddenAbility: ability.brittleArmor,
     hidden: true
 }
 

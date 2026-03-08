@@ -1381,6 +1381,7 @@ item.megaCluster = {
 item.primalEarth = {
     type: "key",
     rotation: 2,
+    itemToUse : true,
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
 }
 
@@ -1416,6 +1417,7 @@ item.ancientKeystone = {
     type: "key",
     rotation: 3,
     info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+    
 }
 
 item.steelKeystone = {

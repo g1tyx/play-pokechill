@@ -5005,7 +5005,7 @@ move.waterShuriken = {
 move.barbBarrage = {
     split: "physical",
     type: "poison",
-    power: (t4Base+10)/3,
+    power: 40,
     info: function() {return `Hits 2-5 times`},
     multihit: [2,5],
 }

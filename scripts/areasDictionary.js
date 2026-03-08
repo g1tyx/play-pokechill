@@ -5922,6 +5922,7 @@ function secretFight(area){
     document.getElementById("explore-menu").style.display = "none"
     document.getElementById("settings-menu").style.display = "none"
     document.getElementById("dictionary-menu").style.display = "none"
+    setWildAreas()
 }
 
 areas.missingArea = {
@@ -5964,6 +5965,62 @@ areas.secretGhost = {
         slot1Moves : [move.fog.id,move.shadowBall.id, move.nightDaze.id, move.confuseRay.id],
     },
     reward : [pkmn.ghost],
+}
+
+areas.secretOnix = {
+    background : `iceCave`,
+    trainer: true,
+    encounter: true,
+    unlockRequirement : function() { return true },
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.crystalOnix,
+        slot1Moves : [move.avalanche.id,move.earthquake.id, move.dig.id, move.mirrorShot.id],
+    },
+    reward : [pkmn.crystalOnix],
+}
+
+areas.secretHumanoid = {
+    background : `space`,
+    trainer: true,
+    encounter: true,
+    unlockRequirement : function() { return true },
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.humanoid,
+        slot1Moves : [move.confuseRay.id,move.nightDaze.id, move.amnesia.id, move.sludgeWave.id],
+    },
+    reward : [pkmn.humanoid],
+}
+
+areas.secretAerodactly = {
+    background : `cave`,
+    trainer: true,
+    encounter: true,
+    unlockRequirement : function() { return true },
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.aerodactylB,
+        slot1Moves : [move.rockSlide.id,move.earthquake.id, move.fly.id, move.shadowClaw.id],
+    },
+    reward : [pkmn.aerodactylB],
+}
+
+areas.secretKabutops = {
+    background : `cave`,
+    trainer: true,
+    encounter: true,
+    unlockRequirement : function() { return true },
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.kabutopsB,
+        slot1Moves : [move.rockSlide.id,move.earthquake.id, move.fly.id, move.shadowClaw.id],
+    },
+    reward : [pkmn.kabutopsB],
 }
 
 

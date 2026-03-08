@@ -2224,7 +2224,7 @@ function exploreCombatPlayer() {
     
 
     //abilities
-    
+
     if (testAbility(`active`, ability.prankster.id) && (move[nextMovePlayer].type == "dark" || move[nextMovePlayer].type == "ghost")) moveTimerPlayer /= 1.5
     if (testAbility(`active`, ability.galeWings.id) && (move[nextMovePlayer].type == "flying" || move[nextMovePlayer].type == "bug")) moveTimerPlayer /= 1.5
     if (testAbility(`active`, ability.neuroforce.id) && (move[nextMovePlayer].type == "psychic" || move[nextMovePlayer].type == "fairy")) moveTimerPlayer /= 1.5
@@ -5226,6 +5226,8 @@ if (document.getElementById("pokedex-search").value!="") {
 
         if (itemToUse != undefined) {
 
+
+
             
             if (itemToUse == item.rareCandy.id){
                 if (pkmn[i].level >= 100) continue
@@ -5977,6 +5979,13 @@ function updateItemBag(){
 
         if (item[i].itemToUse && dexTeamSelect==undefined) {
             div.addEventListener("click", e => { 
+
+            if (i == item.primalEarth.id) {
+            document.getElementById(`item-menu`).style.display = "none"
+                secretFight(areas.secretAerodactly.id);
+                return
+            }
+
             document.getElementById(`pokedex-menu`).style.display = "flex"
             document.getElementById(`pokedex-menu`).style.zIndex = "40"
 
@@ -8837,12 +8846,26 @@ function pkmnWalk(){
     
     pickedPkmn = arrayPick(walkingPkmn)
 
+
+    const now = new Date();
+    if (now.getHours() === 20 && now.getMinutes() < 30) {
+    if (rng(1/80)) pickedPkmn = `ufo`
+    }
+
     if (pickedPkmn == undefined) return
 
     let shiny = `sprite`
-    if (pkmn[pickedPkmn].shiny) shiny = `shiny`
+    if (pkmn[pickedPkmn]?.shiny) shiny = `shiny`
 
-    if (pkmn[pickedPkmn].type.includes("flying")){
+    if (pickedPkmn !== `ufo`) div.style.pointerEvents = "none"
+    if (pickedPkmn == `ufo`){
+       div.addEventListener("click", e => { 
+            secretFight(areas.secretHumanoid.id);
+        })
+    }
+
+
+    if (pkmn[pickedPkmn]?.type.includes("flying") || pickedPkmn == `ufo`){
 
     let position = random(5,50)
     div.style.top = `${position}%`
@@ -9006,6 +9029,17 @@ function renamePokemon(){
     document.getElementById("team-name-field").addEventListener("keydown", e => {
         if (e.key === "Enter") {
         pkmn[currentEditedPkmn].nickname = document.getElementById("team-name-field").value
+
+
+        if (currentEditedPkmn == pkmn.onix.id && ["crystal", "Crystal", "crystal onix", "Crystal Onix"].includes(document.getElementById("team-name-field").value)){
+                secretFight(areas.secretOnix.id);
+                document.getElementById("pkmn-editor").style.display = "none"
+                document.getElementById("pokedex-menu").style.display = "none"
+                document.getElementById(`pkmn-editor-current-moves`).innerHTML = ""
+
+        }
+
+
         document.getElementById("team-name-field").blur()
 
         document.getElementById("pkmn-editor-nickname").textContent = pkmn[currentEditedPkmn].nickname
