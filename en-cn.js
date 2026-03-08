@@ -494,7 +494,7 @@
         [/^Same-Type:/i,
         '同属性招式:'],
         //神兽介绍
-        [/Believed to be a result of an attempt to replicate the ancestor of all Pokémon\. The experiment did not achieve its intended goal, and the creature that emerged was deemed a failure/i,
+        [/Believed to be a result of an attempt to replicate the ancestor of all Pokemon\. The experiment did not achieve its intended goal, and the creature that emerged was deemed a failure/i,
         '据信是为了复现万灵始祖而进行实验的产物。实验未能达成其预定目标，诞生于此的存在亦被判定为失败之作'],
         [/The cold of winter\. Air chills and frost gathers in its wake\. Snowfall follows as it passes, and mountains are left sealed in ice where it lingers\./i,
         '凛冬之寒。所经之处空气凝结，霜华渐聚。其行过时大雪纷至，驻足之地群山覆冰，冰封长驻'],
