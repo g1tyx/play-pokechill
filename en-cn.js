@@ -99,6 +99,10 @@
         '新$1!'],
         [/^Iv's Up!/i,
         '个体值提高!'],
+        [/^Moves cannot be freely switched at this moment/i,
+        '招式现在无法自由切换'],
+        [/^Restricted moves cannot be freely switched during combat/i,
+        '受限制的招式在战斗中无法自由切换'],
         
         //自动再战
         [/Auto-Refight is active!\s*/i,
@@ -243,6 +247,7 @@
         '在等级 $2 时解锁 $1'],
         [/^(.+) has learnt (.+)!/i,
         '$1 学会了招式: $2 !'],
+
         [/^This is a Hidden Ability. Hidden abilities are unlocked via Ability Capsules or via Training, and they work alongside your regular ability/i,
         '这是一个隐藏特性。隐藏特性可通过特性胶囊或通过训练解锁, 与普通特性共同生效'],
         [/^This is a Signature Move. Signature moves will automatically be learnt at level 100/i,
@@ -698,7 +703,6 @@
         '给我方全员'],
         
         //特性描述
-
         [/^When slotted as a non-hidden ability: Turns reduced to x([\d\.]+)/i,
         '作为非隐藏特性时: 回合数 x$1'],
         [/^When slotted as a non-hidden ability: Damage reduced to x([\d\.]+)/i,
@@ -1362,6 +1366,8 @@
         "Smile Ribbon": "微笑缎带",
         "Souvenir Ribbon": "纪念缎带",
         "Endurance Ribbon": "耐力缎带",
+        "Restricted Action": "限制行动",
+        "Restricted Move": "限制招式",
 
         //友好商店
         "Goods": "商品",
