@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] EN-CN
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.5
+// @version      3.9.6
 // @description  Pokechill 全页面离线简体中文汉化
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -485,6 +485,10 @@
         '施加'],
         [/on your entire team for (\d+) turns/i,
         '给我方整个队伍, 持续 $1 回合'],
+        [/Removes all team buffs/i,
+        '移除我方所有增益效果'],
+        [/Increase all Stats by (\d+)% for (\d+) turns/i,
+        '所有属性提高 $1%, 持续 $2 回合'],
 
         //宝可梦
         [/^Check learnable moves/i,

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] CN-SEARCH
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.5
+// @version      3.9.6
 // @description  Pokechill 中文模糊匹配搜索
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -1433,13 +1433,13 @@
         //颤弦蝾螈
         "Toxtricity Amped": "颤弦蝾螈 高调的样子",
         "Toxtricity Low Key": "颤弦蝾螈 低调的样子",
-        // 克隆体
+        //克隆体
         "Venusaur Clone": "妙蛙花 复制体",
         "Charizard Clone": "喷火龙 复制体",
         "Blastoise Clone": "水箭龟 复制体",
-        //四季鹿, 萌芽鹿
-        "Deerling": "四季鹿",
-        "Sawsbuck": "萌芽鹿",
+        //错误宝可梦
+        "Humanoid": "人形物",
+        "Crystal Onix": "水晶大岩蛇",
         //特性
         "Neuroforce": "脑核之力",
         "Iaido": "居合道",
@@ -1641,6 +1641,9 @@
         "Sunny": "大晴天",
         "Foggy": "起雾",
         "Trick Room": "戏法空间",
+        "Lunar Dance": "新月舞",
+        "Dragon Ascent": "画龙点睛",
+        "Crush Grip": "捏碎",
         "Seed Flare": "种子闪光",
         "Moongeist Beam": "暗影之光",
         "Sunsteel Strike": "流星闪冲",
@@ -1853,7 +1856,7 @@
         "Metal Sound": "金属音",
         "Sunny Day": "大晴天",
         "Will OWisp": "磷火",
-        "Air Shlash": "空气之刃",
+        "Air Slash": "空气之刃",
         "Alluring Voice": "魅诱之声",
         "Iron Head": "铁头",
         "Zen Headbutt": "意念头锤",
@@ -2106,6 +2109,7 @@
         "Misty Seed": "薄雾种子",
         "Foggy Seed": "浓雾种子",
         "Terrain Extender": "大地膜",
+        "Heavy Duty Boots": "厚底靴",
         //宝石
         "Bug Gem": "虫之宝石",
         "Dragon Gem": "龙之宝石",
@@ -2258,6 +2262,11 @@
         "Glimmorite": "晶光花进化石",
         "Dondozite": "米立龙进化石",
         "Baxcaliburite": "戟脊龙进化石",
+        //超级次元
+        "M. Piece": "超级碎块",
+        "M. Shard": "超级碎片",
+        "M. Chunk": "超级晶簇",
+        "M. Cluster": "超级晶块",
         //遗传
         "Energy Root": "能量根",
         "Hp Up": "生命增强剂",
@@ -2287,8 +2296,14 @@
         "Green Apricorn": "绿色球果",
         "Pink Apricorn": "粉色球果",
         "Yellow Apricorn": "黄色球果",
+        "White Apricorn": "白色球果",
+        "Black Apricorn": "黑色球果",
+        "Magazine Subscription": "订阅杂志",
+        "Battle Pass": "战斗通行证",
+        "Replicator Upgrade S": "复制器升级工具S",
         "Fashion Case": "饰品盒",
         "Memory": "记忆碟",
+        "Festival Ticket": "圆庆票",
         //装饰
         "Chef Hat": "厨师帽",
         "Colored Parasol": "彩绘阳伞",
