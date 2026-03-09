@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] CN-SEARCH
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.6
+// @version      3.9.7
 // @description  Pokechill 中文模糊匹配搜索
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -1856,7 +1856,7 @@
         "Metal Sound": "金属音",
         "Sunny Day": "大晴天",
         "Will OWisp": "磷火",
-        "Air Slash": "空气之刃",
+        "Air Shlash": "空气之刃", //作者拼错了
         "Alluring Voice": "魅诱之声",
         "Iron Head": "铁头",
         "Zen Headbutt": "意念头锤",
