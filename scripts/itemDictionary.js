@@ -209,14 +209,14 @@ item.quickClaw = {
 
 item.loadedDice = {
     type: "held",
-    info: function() {return `When held: Multi-hit moves are guaranteed to hit +${this.power()} times and deal x1.2 more damage. Multi-hit moves cannot exceed their maximum hit count`},
+    info: function() {return `When held: Multi-hit moves are guaranteed to hit +${this.power()} times and deal x1.35 more damage. Multi-hit moves cannot exceed their maximum hit count`},
     power : function() { return 0+(1*returnItemLevel(this.id))}
 }
 
 item.metronomei = {
     type: "held",
     info: function() {return `When held: Moves that get more powerful the more stacks they have deal x${this.power().toFixed(2)} more damage`},
-    power : function() { return 1.1+(0.15*returnItemLevel(this.id))}
+    power : function() { return 1+(0.2*returnItemLevel(this.id))}
 }
 
 item.powerHerb = {
@@ -228,7 +228,7 @@ item.powerHerb = {
 item.luckyPunch = {
     type: "held",
     info: function() {return `When held: Moves affected by Iron Fist deal x${this.power().toFixed(2)} more damage, and their secondary effects are executed twice`},
-    power : function() { return 1+(0.15*returnItemLevel(this.id))}
+    power : function() { return 1.1+(0.15*returnItemLevel(this.id))}
 }
 
 item.laggingTail = {
@@ -239,7 +239,13 @@ item.laggingTail = {
 
 item.weaknessPolicy = {
     type: "held",
-    info: function() {return `When held: Inceases damage dealt by x${this.power().toFixed(2)} and increases Speed by 50% when hit by a Super-Effective move`},
+    info: function() {return `When held: Inceases damage dealt by x${this.power().toFixed(2)} and increases Speed by 50% for 8 turns when hit by a Super-Effective move`},
+    power : function() { return 1+(0.06*returnItemLevel(this.id))}
+}
+
+item.heavyDutyBoots = {
+    type: "held",
+    info: function() {return `When held: Prevents the damage from Stealth Rocks field effect and decreases damage taken by x${this.power().toFixed(2)}`},
     power : function() { return 1+(0.06*returnItemLevel(this.id))}
 }
 
@@ -612,7 +618,15 @@ item.foggySeed = {
 
 
 
+item.bottleCap = {
+    type: "key",
+    info: function() {return `Obtained when acquiring an exceeding number of items (20+ for held items) or exchanged with other currencies`},
+}
 
+item.goldenBottleCap = {
+    type: "key",
+    info: function() {return `Obtained in the Battle Frontier`},
+}
 
 
 
@@ -631,48 +645,18 @@ item.timeCandyXL = {
     info: function() {return `Use: Fast-forward battle time by 30 minutes. Must be used while battling`},
 }
 
-
-
-item.bottleCap = {
+item.festivalTicket = {
     type: "key",
-    info: function() {return `Obtained when acquiring an exceeding number of items (20+ for held items) or exchanged with other currencies`},
-}
-
-item.goldenBottleCap = {
-    type: "key",
-    info: function() {return `Obtained in the Battle Frontier`},
+    usable: true,
+    effect: function() {
+        seasonalSwitch() 
+    },
+    info: function() {return `Use: Triggers a specified seasonal event for the next 10 days. It will last for the 10 following days, and will get replaced by currently-ongoing ones. However, the seasonal shop of that event wont open`},
 }
 
 
-item.yellowApricorn = {
-    type: "key",
-    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
-}
 
-item.pinkApricorn = {
-    type: "key",
-    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
-}
 
-item.greenApricorn = {
-    type: "key",
-    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
-}
-
-item.whiteApricorn = {
-    type: "key",
-    info: function() {return `Obtained in ★ and ★★ mega-dimension raids. Exchanged in the Poke-Mart`},
-}
-
-item.blackApricorn = {
-    type: "key",
-    info: function() {return `Obtained in ★★★ and ★★★★ mega-dimension raids. Exchanged in the Poke-Mart`},
-}
-
-item.autoRefightTicket = {
-    type: "key",
-    info: function() {return `Can be used to automatically refight battles. Cannot refight while the browser is closed. Consumed once a battle is won`},
-}
 
 
 item.rareCandy = {
@@ -745,6 +729,219 @@ item.fashionCase = {
 
     },
 }
+
+
+
+
+
+
+item.autoRefightTicket = {
+    type: "key",
+    info: function() {return `Can be used to automatically refight battles. Cannot refight while the browser is closed. Consumed once a battle is won`},
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+item.yellowApricorn = {
+    type: "key",
+    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
+}
+
+item.pinkApricorn = {
+    type: "key",
+    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
+}
+
+item.greenApricorn = {
+    type: "key",
+    info: function() {return `Obtained in T3 and T4 raids. Exchanged in the Poke-Mart`},
+}
+
+item.whiteApricorn = {
+    type: "key",
+    info: function() {return `Obtained in ★ and ★★ mega-dimension raids. Exchanged in the Poke-Mart`},
+}
+
+item.blackApricorn = {
+    type: "key",
+    info: function() {return `Obtained in ★★★ and ★★★★ mega-dimension raids. Exchanged in the Poke-Mart`},
+}
+
+
+
+
+
+
+
+item.megaShard = {
+    type: "key",
+    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
+}
+
+item.megaPiece = {
+    type: "key",
+    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
+}
+
+item.megaChunk = {
+    type: "key",
+    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
+}
+
+item.megaCluster = {
+    type: "key",
+    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
+}
+
+item.primalEarth = {
+    type: "key",
+    rotation: 2,
+    itemToUse : true,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+
+item.thunderousRock = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.articRock = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.ancientOrchid = {
+    type: "key",
+    rotation: 2,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.futureDisk = {
+    type: "key",
+    rotation: 5,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.ancientKeystone = {
+    type: "key",
+    rotation: 3,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+    
+}
+
+item.steelKeystone = {
+    type: "key",
+    rotation: 3,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.frozenKeystone = {
+    type: "key",
+    rotation: 3,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.aetherKeycard = {
+    type: "key",
+    rotation: 4,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.wormholeResidue = {
+    type: "key",
+    rotation: 4,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.futureContraption = {
+    type: "key",
+    rotation: 5,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+
+item.redChain = {
+    type: "key",
+    rotation: 6,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.wisdomPetal = {
+    type: "key",
+    rotation: 6,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.epochFeather = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+item.pokeflute = {
+    type: "key",
+    rotation: 1,
+    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
+}
+
+
+
+
+
+
+
+
+
+
+item.oldGateau = {
+    type: "key",
+    event: `halloween`,
+    info: function() {return `Seasonal item, dropped randomly from defeating wild Pokemon. Expires on ${season[saved.currentSeason].end.month}/${season[saved.currentSeason].end.day}`},
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 item.hpUp = {
     subtitle: `(Hp)`,
@@ -1358,140 +1555,6 @@ item.venusaurite = {
 
 
 
-item.megaShard = {
-    type: "key",
-    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
-}
-
-item.megaPiece = {
-    type: "key",
-    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
-}
-
-item.megaChunk = {
-    type: "key",
-    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
-}
-
-item.megaCluster = {
-    type: "key",
-    info: function() {return `Can be used to catch Pokemon in the Mega-Dimension. Expires after the current Mega-Dimension rotation ends`},
-}
-
-item.primalEarth = {
-    type: "key",
-    rotation: 2,
-    itemToUse : true,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-
-item.thunderousRock = {
-    type: "key",
-    rotation: 1,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-
-
-
-item.articRock = {
-    type: "key",
-    rotation: 1,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.ancientOrchid = {
-    type: "key",
-    rotation: 2,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.futureDisk = {
-    type: "key",
-    rotation: 5,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.ancientKeystone = {
-    type: "key",
-    rotation: 3,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-    
-}
-
-item.steelKeystone = {
-    type: "key",
-    rotation: 3,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.frozenKeystone = {
-    type: "key",
-    rotation: 3,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.aetherKeycard = {
-    type: "key",
-    rotation: 4,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.wormholeResidue = {
-    type: "key",
-    rotation: 4,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.futureContraption = {
-    type: "key",
-    rotation: 5,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-
-item.redChain = {
-    type: "key",
-    rotation: 6,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.wisdomPetal = {
-    type: "key",
-    rotation: 6,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.epochFeather = {
-    type: "key",
-    rotation: 1,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-item.pokeflute = {
-    type: "key",
-    rotation: 1,
-    info: function() {return `Can be used to catch event Pokemon. Expires after event finishes`},
-}
-
-
-
-
-
-
-
-
-
-
-item.oldGateau = {
-    type: "key",
-    event: `halloween`,
-    info: function() {return `Seasonal item, dropped randomly from defeating wild Pokemon. Expires on ${season[saved.currentSeason].end.month}/${season[saved.currentSeason].end.day}`},
-}
-
-
-
 
 
 
@@ -1606,6 +1669,7 @@ item.shadowBallTm = {}
 item.twisterTm = {}
 item.dragonTailTm = {}
 item.dragonRushTm = {}
+item.dragonPulseTm = {}
 //fighting
 item.pursuitTm = {}
 item.biteTm = {}

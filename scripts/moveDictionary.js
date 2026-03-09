@@ -4805,7 +4805,6 @@ move.luminaCrash = {
     split: "special",
     type: "psychic",
     power: t4Base,
-    timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Power increases by x1.2-1.5 if Speed is risen`},
     powerMod : function() { if (team[exploreActiveMember].buffs?.speup2 > 0) { return 1.5} else if (team[exploreActiveMember].buffs?.speup1 > 0) {return 1.2} else return 1 },
 }

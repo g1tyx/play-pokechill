@@ -629,7 +629,12 @@ function setPkmnTeam(){
 
     div.addEventListener("click", e => { //change team member
 
-        
+            if (areas[saved.currentArea].fieldEffect?.includes(field.stealthRocks.id)) {
+                if (team[i].item != item.heavyDutyBoots.id && i != exploreActiveMember) {
+                pkmn[ team[i].pkmn.id ].playerHp -= pkmn[ team[i].pkmn.id ].playerHpMax/5
+                updateTeamPkmn()
+                }
+            }
 
         switchMember(i)
 
@@ -638,10 +643,7 @@ function setPkmnTeam(){
                 updateTeamPkmn()
             }
 
-            if (areas[saved.currentArea].fieldEffect?.includes(field.stealthRocks.id)) {
-                pkmn[ team[exploreActiveMember].pkmn.id ].playerHp -= pkmn[ team[exploreActiveMember].pkmn.id ].playerHpMax/5
-                updateTeamPkmn()
-            }
+
 
         
         

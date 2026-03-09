@@ -1572,6 +1572,9 @@ const sortedMovepool = movepool
         if (ability[ttdata].rarity===2) document.getElementById("tooltipMid").innerHTML = `Uncommon Ability<br>${ability[ttdata].info()}`
         if (ability[ttdata].rarity===3) document.getElementById("tooltipMid").innerHTML = `Rare Ability<br>${ability[ttdata].info()}`
         
+        if (ability[ttdata].nerf) document.getElementById("tooltipMid").innerHTML += `<br><font style="opacity:0.7">${ability[ttdata].nerf}</font>`
+
+
         if (ability[ttdata].type){
 
         let signatureText = ""

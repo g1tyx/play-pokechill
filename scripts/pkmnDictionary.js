@@ -5272,6 +5272,7 @@ pkmn.girafarig = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.farigiraf, item: item.oddRock } } },
     hiddenAbility: ability.neuroforce,
+    eggMove : move.psyshieldBash
 
 }
 
@@ -14874,7 +14875,7 @@ pkmn.noivern = {
     spe: 123,
   },
     hiddenAbility: ability.cacophony,
-    eggMove : move.boomburst
+    eggMove : move.roarOfTime
 }
 
 // 716 Xerneas

@@ -572,6 +572,7 @@ for (let t of thresholds) {
     if (areas[saved.currentArea].difficulty == tier2difficulty) wildPkmnHp = 139300
     if (areas[saved.currentArea].difficulty == tier3difficulty) wildPkmnHp = 398000
     if (areas[saved.currentArea].difficulty == tier4difficulty) wildPkmnHp = 1302000
+    if (areas[saved.currentArea].difficulty == tier4difficulty && areas[saved.currentArea].type == `dimension` && areas[saved.currentArea].tier == 4) wildPkmnHp = 1302000*0.7
 
     
 
@@ -2623,7 +2624,7 @@ function exploreCombatPlayer() {
         if (team[exploreActiveMember].item == item.ejectButton.id) totalPower *= item.ejectButton.power()
         if (team[exploreActiveMember].item == item.ejectPack.id) totalPower *= item.ejectPack.power()
 
-        if (team[exploreActiveMember].item == item.loadedDice.id && nextMove.affectedBy?.includes(ability.skillLink.id)) totalPower *= 1.2
+        if (team[exploreActiveMember].item == item.loadedDice.id && nextMove.affectedBy?.includes(ability.skillLink.id)) totalPower *= 1.35
         if (team[exploreActiveMember].item == item.luckyPunch.id && nextMove.affectedBy?.includes(ability.ironFist.id)) totalPower *= item.luckyPunch.power()
         if (team[exploreActiveMember].item == item.metronomei.id && nextMove.buildup !== undefined) totalPower *= item.metronomei.power()
         if (team[exploreActiveMember].item == item.laggingTail.id && nextMove.affectedBy?.includes(ability.reckless.id)) totalPower *= item.laggingTail.power()
@@ -3551,7 +3552,7 @@ function exploreCombatWild() {
         
         if (typeMultiplier>1 && move[nextMoveWild].power>0 && testAbility(`active`,  ability.angerPoint.id ) ) moveBuff("wild",'atkup2',"self")
         if (typeMultiplier>1 && move[nextMoveWild].power>0 && testAbility(`active`,  ability.justified.id ) ) moveBuff("wild",'satkup2',"self")
-        if (typeMultiplier>1 && move[nextMoveWild].power>0 && team[exploreActiveMember].item == item.weaknessPolicy.id ) moveBuff("wild",'speup1',"self")
+        if (typeMultiplier>1 && move[nextMoveWild].power>0 && team[exploreActiveMember].item == item.weaknessPolicy.id ) moveBuff("wild",'speup1',"self",8)
 
 
         if (saved.weatherTimer>0 && saved.weather=="lightScreen" && typeMultiplier>1) typeMultiplier = 1
@@ -3586,6 +3587,7 @@ function exploreCombatWild() {
         if (team[exploreActiveMember].item == item.assaultVest.id) totalPower /= item.assaultVest.power();
 
         if (team[exploreActiveMember].item == item.mentalHerb.id) totalPower /= item.mentalHerb.power()
+        if (team[exploreActiveMember].item == item.heavyDutyBoots.id) totalPower /= item.heavyDutyBoots.power()
 
         if (move[nextMoveWild].power === 0) totalPower = 0
 
@@ -3759,9 +3761,11 @@ function initialiseArea(){
     saved.weatherCooldown = 0
     saved.weatherTimer = 0
     
-    for (const i in team[exploreActiveMember].buffs){
-     team[exploreActiveMember].buffs[i] = 0
+    for (const slot in team) {
+    for (const i in team[slot].buffs){
+     team[slot].buffs[i] = 0
     } 
+    }
 
     //reset move buildup, ie rollout
     for (const moveID in move) if(move[moveID].buildup!==undefined) move[moveID].buildup = 0
@@ -3920,13 +3924,20 @@ function setWildAreas() {
     const div = document.createElement("div");
     div.className = "explore-ticket frontier-ticket";
     div.style.filter = `hue-rotate(${season[i].hue}deg)`
+
+
+
+    let seasonTimer = `Limited Area Until ${season[saved.currentSeason].end.month}/${season[saved.currentSeason].end.day}`
+    if (saved.temporalSeason != undefined) seasonTimer = `Limited Area Until ${saved.temporalSeason.end.month}/${saved.temporalSeason.end.day}`
+
+
     div.innerHTML = `
         <span class="hitbox"></span>
         <div style="width: 100%;">
         ${season[i].svg}
         <span class="explore-ticket-left">
-        <span style="font-size:1.2rem">Hallowed Gala</span>
-        <span><strong style="background:#964646ff">Limited Area Until ${season[saved.currentSeason].end.month}/${season[saved.currentSeason].end.day}</strong><span></span></span>
+        <span style="font-size:1.2rem">${season[i].name}</span>
+        <span><strong style="background:#964646ff">${seasonTimer}</strong><span></span></span>
         </span>
         </div>
         <div style="width: 8rem;" class="explore-ticket-right">
@@ -7246,7 +7257,7 @@ function moveBuff(target,buff,mod,turnOverride){
         //if (buff == "paralysis" && pkmn[saved.currentPkmn].type.includes("electric")) return
         if (/burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && Object.keys(wildBuffs).some(key => /burn|freeze|confused|paralysis|poisoned|sleep/.test(key) && wildBuffs[key] > 0 && key !== buff)) return
 
-        if (testAbility(`active`, ability.colorSpore.id ) == true && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 3
+        if (testAbility(`active`, ability.colorSpore.id ) && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 3
         //if (testAbility(`active`, ability.colorSpore.id ) == "nerf" && /burn|freeze|confused|paralysis|poisoned|sleep|embargo/.test(buff)) affectedTurns *= 2
 
         wildBuffs[buff] = affectedTurns
@@ -8950,7 +8961,80 @@ function arceusCheck(){
 
 
 
+function seasonalSwitch(){
 
+
+
+    //document.getElementById("tooltipTop").innerHTML = `<img src="img/pkmn/shiny/${mysteryGift.icon}.png">`
+    document.getElementById("tooltipTitle").innerHTML = `Select an event`
+    document.getElementById("tooltipMid").innerHTML = `Select the seasonal event to start. It will last for the 10 following days, and will get replaced by currently-ongoing ones. However, the seasonal shop of that event wont open`
+    document.getElementById("tooltipBottom").innerHTML = `<div id="seasonal-pick-listing"></div>`
+    openTooltip()
+
+
+
+    for (const i in season){
+
+        const div = document.createElement(`div`)
+
+        div.className = `season-pick`
+
+        div.style.filter = `hue-rotate(${season[i].hue}deg)`
+        div.innerHTML = `
+        <img style="filter:hue-rotate(-${season[i].hue}deg)" class="sprite-trim" src="img/pkmn/sprite/${season[i].icon.id}.png">
+        <span>${season[i].name}</span>
+        `
+
+        document.getElementById(`seasonal-pick-listing`).appendChild(div)
+
+
+
+        div.addEventListener("click", e => { 
+
+         closeTooltip()
+         item.festivalTicket.got--
+         updateItemBag()
+
+
+         const endDate = new Date()
+         endDate.setDate(endDate.getDate() + 10)
+         
+         saved.temporalSeason = {
+            season: i,
+            end: { 
+                month: endDate.getMonth() + 1,
+                day: endDate.getDate() 
+            },
+        }
+
+        seasonCheck()
+        changeTheme()
+
+
+
+        })
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+}
 
 
 
@@ -8974,6 +9058,10 @@ function seasonCheck() {
             : current >= start && current <= end;
         
         if (inRange) {
+            if (saved.temporalSeason){
+            delete saved.temporalSeason
+            newSeason = true;
+            }
             matchedSeason = key;
             break;  // Stop after finding a match
         }
@@ -8983,6 +9071,36 @@ function seasonCheck() {
     if (saved.currentSeason === undefined && matchedSeason !== undefined) {
         newSeason = true;
     }
+
+
+
+
+
+
+    //temporal season check, for festive tickets
+    if (saved.temporalSeason) {
+        const endDate = saved.temporalSeason.end.month * 100 + saved.temporalSeason.end.day;
+        
+        // check if today is less than or equal to the end date
+        if (current <= endDate) {
+            matchedSeason = saved.temporalSeason.season;
+        } else {
+            // temporal season has expired, remove it
+            delete saved.temporalSeason;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     
     saved.currentSeason = matchedSeason;
     
@@ -9004,7 +9122,7 @@ function seasonCheck() {
     if (saved.halloweenThemeUnlocked == true) document.getElementById('settings-theme').innerHTML += '<option value="spooky">spooky</option>';
 
 
-    if (saved.currentSeason !== undefined) {
+    if (saved.currentSeason !== undefined && saved.temporalSeason == undefined) {
     document.getElementById('shop-categories').innerHTML += `<div onclick="shopCategory = 'limited'; updateItemShop() "><img src="img/items/cherishball.png">Limited</div>`;
     }
     

@@ -4184,6 +4184,12 @@ background:
     overflow: hidden;
 }
 
+@media (max-width: 1000px) {
+    #shop-menu div span{
+        font-size: 0.85rem;
+    }
+}
+
 #shop-listing div span{
     background: var(--dark2);
     z-index: 2;
@@ -6254,3 +6260,58 @@ transform: translateY(-1rem);
 .dimension-info:hover{
     scale: 1.1;
 }
+
+
+#seasonal-pick-listing{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.season-pick{
+    background: 
+    url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23bcb0ff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")
+    , #484657
+    ;
+    border: solid 2px #bcb0ff;
+
+    height: 8rem;
+    width: 6rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 5px;
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.season-pick:hover{
+    scale: 1.1;
+}
+
+.season-pick img{
+    flex-shrink: 0;
+}
+
+.season-pick span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--dark2);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+.shop-apricorn-counter{
+    pointer-events: none;
+}
+
+

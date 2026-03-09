@@ -297,6 +297,8 @@ skill.omniboost = {
     effect : function () { moveBuff("wild","defup1",undefined,10); moveBuff("wild","sdefup1",undefined,10); moveBuff("wild","speup1",undefined,10); moveBuff("wild","atkup1",undefined,10); moveBuff("wild","satkup1",undefined,10); }
 }
 
+
+
 skill.electroblast = {
     info : function() { return `Inflict ${tagParalysis} on your entire team for 10 turns`},
     effect : function () { moveBuff("wild",'paralysis',"team",10) }
@@ -317,9 +319,22 @@ skill.toxiblast = {
     effect : function () { moveBuff("wild",'poisoned',"team",15) }
 }
 
+
+
 skill.suddenDeath = {
     info : function() { return `Faints your currently active Pokemon`},
     effect : function () { pkmn[ team[exploreActiveMember].pkmn.id ].playerHp = 0; updateTeamPkmn() }
+}
+
+skill.demoralisingRoar = {
+    info : function() { return `Removes all team buffs`},
+    effect : function () {
+    for (const slot in team) {
+    for (const i in team[slot].buffs){
+     team[slot].buffs[i] = 0
+    } 
+    }
+    }
 }
 
 
@@ -1550,7 +1565,7 @@ areas.expertDojoIII = {
     },
     drops: {
         common : [item.nothing],
-        uncommon : [item.psychicTm, item.powerGemTm, item.shadowBallTm, item.dragonRushTm, item.darkPulseTm, item.playRoughTm]
+        uncommon : [item.psychicTm, item.powerGemTm, item.shadowBallTm, item.dragonPulseTm, item.darkPulseTm, item.playRoughTm]
     },
 }
 
@@ -5854,7 +5869,7 @@ areas.dimensionPalkia = {
     },
     reward : [pkmn.palkia, item.whiteApricorn],
     fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.reverseField.id],
-    skills : {1 : skill.ironSpirit.id}
+    skills : {3 : skill.ironSpirit.id}
 }
 
 areas.dimensionPikachuGmax = {
@@ -5870,7 +5885,7 @@ areas.dimensionPikachuGmax = {
     },
     reward : [pkmn.pikachuGmax, item.whiteApricorn],
     fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.weakeningCurse.id ],
-    skills : {1 : skill.ironWill.id, 2 : skill.electroblast.id}
+    skills : {3 : skill.ironWill.id, 2 : skill.electroblast.id}
 }
 
 areas.dimensionKyuremWhite = {
@@ -5886,7 +5901,7 @@ areas.dimensionKyuremWhite = {
     },
     reward : [pkmn.magikarp],
     fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.wonderWard.id ],
-    skills : {1 : skill.ironWill.id, 2 : skill.pyroblast.id, 3 : skill.suddenDeath.id}
+    skills : {3 : skill.ironWill.id, 2 : skill.suddenDeath.id, 1 : skill.demoralisingRoar.id}
 }
 
 
@@ -5903,7 +5918,7 @@ areas.dimensionMegaRayquaza = {
     },
     reward : [pkmn.magikarp],
     fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.ironBody.id, field.wonderWard.id ],
-    skills : {1 : skill.omniboost.id, 2 : skill.pyroblast.id, 3 : skill.suddenDeath.id}
+    skills : {3 : skill.omniboost.id, 2 : skill.suddenDeath.id, 1 : skill.demoralisingRoar.id}
 }
 
 
@@ -6149,6 +6164,7 @@ season.halloween = {
     svg: `<svg class="frontier-flair" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m13.894 7.994l4.997-6.835l1.345 2.611l2.896.49l-3.973 5.434"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 8.9a3.27 3.27 0 0 1-.077-3.59c1.035-1.49 3.322-1.69 5.109-.448A3.756 3.756 0 0 1 13.59 9.48M5.293.75C7.08 1.992 7.81 4.033 6.923 5.31s-3.055 1.3-4.842.063l2.068-1.99z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.63 8.8a4.2 4.2 0 0 0-2.63.976a4.2 4.2 0 0 0-2.624-.976a4.2 4.2 0 0 0-2.627.974A4.2 4.2 0 0 0 6.122 8.8C3.22 8.8.868 12.036.868 16.026S3.22 23.25 6.122 23.25a4.2 4.2 0 0 0 2.627-.974c.763.572 1.676.91 2.627.974A4.2 4.2 0 0 0 14 22.276c.738.616 1.666.96 2.627.974c2.9 0 5.253-3.234 5.253-7.224S19.531 8.8 16.63 8.8"/><path stroke-linecap="round" stroke-linejoin="round" d="m7.435 17.339l1.971 1.314l1.97-1.314l1.97 1.314l1.97-1.314"/><path d="M8.457 14.151a.5.5 0 0 1 0-1m0 1a.5.5 0 0 0 0-1m5.893 1a.5.5 0 0 1 0-1m0 1a.5.5 0 0 0 0-1"/></g></svg>`,
     start: { month: 2, day: 4 }, 
     end: { month: 2, day: 14 },
+    name: `Hallowed Gala`,
 }
 
 for (const i in season){

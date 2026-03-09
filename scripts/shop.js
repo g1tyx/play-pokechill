@@ -374,6 +374,13 @@ shop.shopassaultVest = {
     category: `held`,
 }
 
+shop.shopheavyDutyBoots = {
+    icon: item.heavyDutyBoots.id,
+    price: 5,
+    currency: item.goldenBottleCap.id,
+    category: `held`,
+}
+
 shop.shopleftovers = {
     icon: item.leftovers.id,
     price: 20,
@@ -871,6 +878,12 @@ shop.shopchargeBeamTm = {
 }
 shop.shopdischargeTm = {
     icon: item.dischargeTm.id,
+    price: 15,
+    currency: item.goldenBottleCap.id,
+    category: `tm`,
+}
+shop.shopdragonRushTm = {
+    icon: item.dragonRushTm.id,
     price: 15,
     currency: item.goldenBottleCap.id,
     category: `tm`,
@@ -1422,6 +1435,13 @@ shop.shopReplicatorUpgradeS = {
     category: `apricorn`
 }
 
+shop.shopfestivalTicket = {
+    icon: item.festivalTicket.id,
+    price: 150,
+    currency: item.whiteApricorn.id,
+    category: `apricorn`
+}
+
 
 
 
@@ -1545,6 +1565,11 @@ let shopCategory = undefined
 function updateItemShop(){
 
 
+    document.getElementById("shop-listing").innerHTML = ""
+
+
+
+
 
 
     if (areas.vsLegendTrainerBrendan.defeated== false){
@@ -1578,7 +1603,6 @@ function updateItemShop(){
         return
     }
 
-    document.getElementById("shop-listing").innerHTML = ""
 
     const goBack = document.createElement("div")
     goBack.id = "shop-back"
@@ -1614,6 +1638,21 @@ function updateItemShop(){
     Available items will rotate in <font style="margin-left:0.3rem" class="time-counter-daily">...</font>`
     document.getElementById("shop-listing").appendChild(decorTimer);
     }
+
+
+    if (shopCategory == "apricorn"){
+    const apricornCounter = document.createElement("div")
+    apricornCounter.className = "shop-apricorn-counter"
+    apricornCounter.innerHTML =`
+    <div><img src="img/items/yellowApricorn.png">${item.yellowApricorn.got}</div>
+    <div><img src="img/items/pinkApricorn.png">${item.pinkApricorn.got}</div>
+    <div><img src="img/items/greenApricorn.png">${item.greenApricorn.got}</div>
+    <div><img src="img/items/whiteApricorn.png">${item.whiteApricorn.got}</div>
+    `
+    document.getElementById("shop-listing").appendChild(apricornCounter);
+
+    }
+
 
 
     document.getElementById("shop-categories").style.display = "none"
