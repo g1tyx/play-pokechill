@@ -369,7 +369,7 @@
         [/Pokerus detected on the host! Genetic compatibility is increased by one level/i,
         '检测到宿主宝可梦携带宝可病毒! 遗传兼容性提高 1 级'],
         [/Warning, (.+) Power Cost! Only (\d+) out of (\d+) maximum IV's per stat will be inherited!/i,
-        '警告: 能量消耗$1!每项个体值最高仅可继承 $2星 的个体值!'],
+        '警告: 能量消耗$1! 每项个体值最高仅可继承 $2星 的个体值!'],
         [/This Pokemon is marked as Special, and cannot receive shiny mutations through genetics/i,
         '这只宝可梦被标记为特殊宝可梦, 无法通过遗传获得闪光突变'],
         [/^Are you sure you want to abort the operation/i,
