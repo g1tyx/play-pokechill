@@ -398,6 +398,8 @@
         '★ 特性交换!'],
         [/^★ New ability: (.+)!/i, 
         '★ 新特性: $1!'],
+        [/^No new genetic changes/i,
+        '没有新的遗传变化'],
 
         //设置
         [/^Automatically hides got Pokemon that are not new after a battle. Excluded from this setting are: New Pokemon, Iv's Ups and Shiny Pokemon/i,
@@ -1407,8 +1409,6 @@
         "very high": "很高",
         "extreme": "极高",
         "Shiny Mutation": "闪光突变",
-        "Ability swapped": "特性交换",
-        "Moves transferred": "招式交换",
 
         //导出奖励
         "Reward Received": "收到奖励",
