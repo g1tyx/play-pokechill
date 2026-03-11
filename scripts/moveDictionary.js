@@ -277,13 +277,13 @@ ability.voltage = {
 ability.hyperCutter = {
     type: [`bug`],
     rarity: 1,
-    info: function() {return `Prevents the lowering of the Attack stat`},
+    info: function() {return `Prevents the lowering of any Attack stat`},
 }
 
 ability.bigPecks = {
     type: [`flying`],
     rarity: 1,
-    info: function() {return `Prevents the lowering of the Defense stat`},
+    info: function() {return `Prevents the lowering of any Defense stat`},
 }
 
 ability.wonderSkin = {
@@ -328,25 +328,25 @@ ability.sandForce = {
 ability.static = {
     type: [`electric`],
     rarity: 2,
-    info: function() {return `10% chance to inflict ${tagParalysis} when attacked`},
+    info: function() {return `15% chance to inflict ${tagParalysis} when attacked`},
 }
 
 ability.flameBody = {
     type: [`fire`],
     rarity: 2,
-    info: function() {return `10% chance to inflict ${tagBurn} when attacked`},
+    info: function() {return `15% chance to inflict ${tagBurn} when attacked`},
 }
 
 ability.poisonPoint = {
     type: [`poison`],
     rarity: 2,
-    info: function() {return `10% chance to inflict ${tagPoisoned} when attacked`},
+    info: function() {return `15% chance to inflict ${tagPoisoned} when attacked`},
 }
 
 ability.strangeCharm = {
     type: [`psychic`, `fairy`],
     rarity: 2,
-    info: function() {return `10% chance to inflict ${tagConfused} when attacked`},
+    info: function() {return `15% chance to inflict ${tagConfused} when attacked`},
 }
 
 ability.effectSpore = {
@@ -4139,7 +4139,7 @@ move.bellyDrum = {
 move.boomburst = {
     split: "special",
     type: "normal",
-    power: t4Base,
+    power: t4Base+15,
     affectedBy: [ability.cacophony.id]
 }
 

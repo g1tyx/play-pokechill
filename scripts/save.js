@@ -71,6 +71,9 @@ function saveGame() {
     data[i].nickname = pkmn[i].nickname;
     data[i].decor = pkmn[i].decor;
     data[i].decorOwned = pkmn[i].decorOwned;
+    data[i].starsign = pkmn[i].starsign;
+    data[i].starsignList = pkmn[i].starsignList;
+
   }
 
   localStorage.setItem("gameData", JSON.stringify(data));
@@ -149,6 +152,8 @@ function loadGame() {
       pkmn[i].nickname = data[i].nickname;
       pkmn[i].decor = data[i].decor;
       pkmn[i].decorOwned = data[i].decorOwned;
+      pkmn[i].starsign = data[i].starsign;
+      pkmn[i].starsignList = data[i].starsignList;
     }
   }
 

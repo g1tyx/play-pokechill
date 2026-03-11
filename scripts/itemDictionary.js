@@ -209,8 +209,8 @@ item.quickClaw = {
 
 item.loadedDice = {
     type: "held",
-    info: function() {return `When held: Multi-hit moves are guaranteed to hit +${this.power()} times and deal x1.35 more damage. Multi-hit moves cannot exceed their maximum hit count`},
-    power : function() { return 0+(1*returnItemLevel(this.id))}
+    info: function() {return `When held: Multi-hit moves are guaranteed to hit their maximum amount of times and deal x${this.power().toFixed(2)} more damage`},
+    power : function() { return 1+(0.1*returnItemLevel(this.id))}
 }
 
 item.metronomei = {
@@ -239,7 +239,7 @@ item.laggingTail = {
 
 item.weaknessPolicy = {
     type: "held",
-    info: function() {return `When held: Inceases damage dealt by x${this.power().toFixed(2)} and increases Speed by 50% for 8 turns when hit by a Super-Effective move`},
+    info: function() {return `When held: Increases damage dealt by x${this.power().toFixed(2)} and increases Speed by 50% for 8 turns when hit by a Super-Effective move`},
     power : function() { return 1+(0.06*returnItemLevel(this.id))}
 }
 
@@ -1551,6 +1551,16 @@ item.venusaurite = {
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaVenusaur.id },
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

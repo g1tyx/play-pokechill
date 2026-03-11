@@ -367,7 +367,9 @@
             <select id="pokedex-filter-shiny">
                 <option value="all">shiny</option>
                 <option value=true>is shiny</option>
-                <option value=undefined>not shiny</option>
+                <option value=false>not shiny</option>
+                <option value="sign">has star sign</option>
+                <option value="signall">all star sign</option>
             </select>
 
             <select id="pokedex-filter-signature">
@@ -794,6 +796,28 @@ Game Guide
         </div>
 
 
+        <div id="shop-curry">
+        <h1 id="curry-title">Select ingredients to add to the curry! [5/5]</h1>
+        <span id="curry-ingredients">
+            <img src="img/items/boiledEgg.png">
+            <img src="img/items/boiledEgg.png">
+            <img src="img/items/bread.png">
+            <img src="img/items/freshCream.png">
+            <img src="img/items/freshCream.png">
+        </span>
+        <img id="curry-pot" src="img/icons/curry.png">
+        <div id="curry-effects">
+            <span>~ Current Effects ~</span>
+            <div>x1.2 Item drop</div>
+            <div>x1.4 Cross power damage</div>
+            <div>x2 STAB damage</div>
+        </div>
+        <div id="curry-buttons">
+            <div onclick='curryIngredientList = []; updateCurry()'>Reset</div>
+            <div id='curry-pay' onclick='makeCurry()'>Pay and cook (25 <img src="img/items/goldenBottleCap.png">)</div>
+        </div>
+
+        </div>
 
 
         <div id="shop-categories">
@@ -828,6 +852,10 @@ Game Guide
 
             <div onclick="shopCategory = 'decor'; updateItemShop() ">
                 <img src="img/items/blackGlasses.png">Decor
+            </div>
+
+            <div onclick="shopCategory = 'restaurant'; updateItemShop() " id="shop-restaurant">
+                <img src="img/items/boiledEgg.png">Restaurant
             </div>
 
             <div onclick="shopCategory = 'apricorn'; updateItemShop() " id="shop-apricorn-exchange">
@@ -1420,6 +1448,17 @@ Game Guide
   <path d="M3 12h6" stroke-width="2"></path>
   <path d="M15 12h6" stroke-width="2"></path>
 </svg>
+
+
+    <div id="curry-timer" onclick='
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `During raids: Gained the next abilities for everyone in your team:`
+        document.getElementById("tooltipBottom").innerHTML = joinWithAnd(saved.curry.effect)
+        openTooltip()
+        '>
+        <img src="img/items/friedFood.png"> 38:21
+    </div>
 
     <div id="menu-items">
 

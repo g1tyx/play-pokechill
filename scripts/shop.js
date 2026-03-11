@@ -1445,6 +1445,87 @@ shop.shopfestivalTicket = {
 
 
 
+
+
+
+//restaurant
+
+const ingredient = {}
+
+ingredient.boiledEgg = {
+    ability: ability.wonderSkin.id,
+    price: 10,
+}
+
+ingredient.bread = {
+    ability: ability.bigPecks.id,
+    price: 10,
+}
+
+ingredient.coconutMilk = {
+    ability: ability.hyperCutter.id,
+    price: 10
+}
+
+ingredient.freshCream = {
+    ability: ability.synchronize.id,
+    price: 10
+}
+
+ingredient.brittleBones = {
+    ability: ability.naturalCure.id,
+    price: 10
+}
+
+
+
+ingredient.moomooCheese = {
+    ability: ability.unaware.id,
+    price: 20
+}
+
+ingredient.fruitBunch = {
+    ability: ability.magicGuard.id,
+    price: 20
+}
+
+ingredient.friedFood = {
+    ability: ability.rivalry.id,
+    price: 20
+}
+
+ingredient.mixedMushrooms = {
+    ability: ability.filter.id,
+    price: 20
+}
+
+ingredient.pasta = {
+    ability: ability.flameBody.id,
+    price: 20
+}
+
+ingredient.sausages = {
+    ability: ability.poisonPoint.id,
+    price: 20
+}
+
+ingredient.potatoes = {
+    ability: ability.imposter.id,
+    price: 20
+}
+
+
+ingredient.packagedCurry = {
+    ability: ability.ambidextrous.id,
+    price: 30
+}
+
+ingredient.precookedBurger = {
+    ability: ability.adaptability.id,
+    price: 30
+}
+
+
 saved.lastShopApricornReset = undefined
 saved.shopApricornMemoryRotation = undefined
 saved.shopApricornMemoryRotationWhite = undefined
@@ -1566,6 +1647,8 @@ function updateItemShop(){
 
 
     document.getElementById("shop-listing").innerHTML = ""
+    document.getElementById(`shop-curry`).style.display = "none"
+
 
 
 
@@ -1583,6 +1666,19 @@ function updateItemShop(){
         return
         }
     } else document.getElementById("shop-apricorn-exchange").style.filter = "brightness(1)"
+
+
+    if (areas.vsLegendTrainerBrendan.defeated== false){
+        document.getElementById("shop-restaurant").style.filter = "brightness(0.3)"
+        if (shopCategory == "restaurant") {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `Defeat Legend Trainer Brendan in VS mode to unlock`
+        openTooltip()
+        return
+        }
+    } else document.getElementById("shop-restaurant").style.filter = "brightness(1)"
 
 
     assignShopApricorn()
@@ -1614,6 +1710,12 @@ function updateItemShop(){
     shopCategory = undefined
     updateItemShop()
     })
+
+
+
+
+    if (shopCategory == `restaurant`) updateIngredientShop()
+
 
 
     if (shopCategory == "decor") {
@@ -1659,6 +1761,7 @@ function updateItemShop(){
     document.getElementById("shop-listing").style.display = "flex"
 
 
+    if (shopCategory == "restaurant") return
 
 
     for (let i in shop){
@@ -1883,5 +1986,191 @@ div.addEventListener("click", () => {
 
 
 
+
+}
+
+
+let curryIngredientList = []
+
+
+function updateIngredientShop(){
+
+
+    document.getElementById(`shop-curry`).style.display = "flex"
+    updateCurry()
+
+
+    for (let i in ingredient){
+
+
+    const div = document.createElement("div");
+
+
+    div.dataset.ability = ingredient[i].ability
+
+    div.innerHTML = `
+        <img src="img/items/${i}.png">
+            <span>${format(i)} (${format(ingredient[i].ability)})</span>
+        <strong id="shop-currency-${i}">
+            <img src="img/items/goldenBottleCap.png">
+            x${ingredient[i].price}
+        </strong>
+    `
+
+
+    document.getElementById("shop-listing").appendChild(div);
+
+
+    div.addEventListener("click", () => {
+
+
+        if (curryIngredientList.length>2) return
+        if (curryIngredientList.includes(i)) return
+
+        curryIngredientList.push(i)
+        updateCurry()
+
+
+    })
+
+    }
+
+
+}
+
+
+function updateCurry(){
+
+
+
+   if (saved.lastCurryRotation == rotationWildCurrent){
+        document.getElementById("curry-buttons").style.display = `none`
+        document.getElementById("curry-ingredients").style.display = `none`
+        document.getElementById("curry-effects").style.display = `none`
+        document.getElementById(`curry-title`).innerHTML = `Come back in <span class="time-counter-daily"></span>`
+        updateDailyCounters()
+        return
+    } else {
+        document.getElementById("curry-buttons").style.display = `flex`
+        document.getElementById("curry-effects").style.display = `flex`
+        document.getElementById("curry-ingredients").style.display = `flex`
+    }
+
+
+
+    document.getElementById(`curry-ingredients`).innerHTML = ``
+    document.getElementById(`curry-title`).innerHTML = `Select ingredients to add to the curry! [${curryIngredientList.length}/3]`
+    
+    
+    
+    
+    let totalPrice = 0
+    for (const i of curryIngredientList){
+        totalPrice += ingredient[i].price
+    }
+    
+    document.getElementById(`curry-pay`).innerHTML = `Pay and cook (${totalPrice} <img src="img/items/goldenBottleCap.png">)`
+
+    document.getElementById(`curry-effects`).innerHTML = `
+    <svg data-help="curry" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M10 8.484C10.5 7.494 11 7 12 7c1.246 0 2 .989 2 1.978s-.5 1.483-2 2.473V13m0 3.5v.5"/></g></svg>
+    <span>~ Current Effects ~</span>
+    `
+
+
+    for (const i of curryIngredientList){
+
+
+        const ingr = document.createElement(`img`)
+        ingr.src = `img/items/${i}.png`
+        document.getElementById(`curry-ingredients`).appendChild(ingr)
+
+        const effect = document.createElement(`div`)
+        effect.innerHTML = format(ingredient[i].ability)
+        document.getElementById(`curry-effects`).appendChild(effect)
+
+    }
+
+}
+
+
+saved.lastCurryRotation = 100
+
+
+function makeCurry(){
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+    if (curryIngredientList.length==0){
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `Select at least one ingredient first`
+        openTooltip()
+        return
+    }
+
+
+    let totalPrice = 0
+    let curryAbilities = []
+    for (const i of curryIngredientList){
+        totalPrice += ingredient[i].price
+        curryAbilities.push(ingredient[i].ability)
+    }
+
+
+
+
+    if (item.goldenBottleCap.got < totalPrice){
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `You can't afford this`
+        openTooltip()
+        return
+    }
+
+    saved.curry = {
+        time : 60*60,
+        effect : curryAbilities,
+    }
+
+
+    document.getElementById(`curry-ingredients`).style.animation = `curry-drop 0.8s ease-in-out`
+
+    setTimeout(() => {
+    document.getElementById(`curry-pot`).style.animation = `itemShake 0.4s ease-in-out`
+    document.getElementById(`curry-ingredients`).innerHTML = ``
+    }, 700);
+
+    setTimeout(() => {
+        document.getElementById(`curry-ingredients`).style.animation = ``
+        document.getElementById(`curry-pot`).style.animation = ``
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `During raids: Temporarily gained the next abilities for everyone in your team:`
+        document.getElementById("tooltipBottom").innerHTML = joinWithAnd(curryAbilities)
+        openTooltip()
+        item.goldenBottleCap.got -= totalPrice
+            document.getElementById("shop-currency-gold").innerHTML = `<img src="img/items/goldenBottleCap.png"> x${item.goldenBottleCap.got}`
+        saved.lastCurryRotation = rotationWildCurrent
+        curryIngredientList = []
+        updateCurry()
+
+
+
+    }, 1200);
 
 }

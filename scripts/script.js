@@ -219,7 +219,7 @@ function updateGameVersion() {
     saved.lastShopApricornReset = 101
   }
 
-  saved.version = 4.6
+  saved.version = 4.7
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -752,7 +752,7 @@ guide.weather = {
 
 guide.shiny = {
   name: `Shiny Pokemon`,
-  description: function() { return `At a rate of 1/400, Pokemon can be shiny. These odds can be boosted through different means<br><br>Shiny Pokemon deal 15% more damage. The visual distinction can be toggled from their move menu. This wont affect the damage bonus they get<br><br>Shiny Pokemon do not carry over their evolutions. Instead, genetics must be used`}
+  description: function() { return `At a rate of 1/400, Pokemon can be shiny. These odds can be boosted through different means<br><br>Shiny Pokemon deal 15% more damage. The visual distinction can be toggled from their move menu. This wont affect the damage bonus they get<br><br>Shiny Pokemon do not carry over their evolutions. Instead, genetics must be used.<br><br>If the stars align, a shiny pokemon can receive a star sign, an even rarer pigmentation. This does not have any practical benefit, and can't be inherited or mutated trough genetics`}
 }
 
 guide.genetics = {

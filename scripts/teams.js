@@ -670,6 +670,11 @@ function setPkmnTeam(){
     if (pkmn[team[i].pkmn.id].shiny) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/shiny/${team[i].pkmn.id}.png" id="explore-team-member-${i}-sprite">`
     if (pkmn[team[i].pkmn.id].shiny && pkmn[team[i].pkmn.id].shinyDisabled == true) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${team[i].pkmn.id}.png" id="explore-team-member-${i}-sprite">`
 
+    if (pkmn[team[i].pkmn.id].starsign){
+    pkmnSprite = `<img  style="filter:hue-rotate(${starsign[pkmn[team[i].pkmn.id].starsign].hue}deg)" class="sprite-trim" src="img/pkmn/sprite/${team[i].pkmn.id}.png" id="explore-team-member-${i}-sprite">`
+    if (pkmn[team[i].pkmn.id].shiny) pkmnSprite = `<img style="filter:hue-rotate(${starsign[pkmn[team[i].pkmn.id].starsign].hue}deg)" class="sprite-trim" src="img/pkmn/shiny/${team[i].pkmn.id}.png" id="explore-team-member-${i}-sprite">`
+    if (pkmn[team[i].pkmn.id].shiny && pkmn[team[i].pkmn.id].shinyDisabled == true) pkmnSprite = `<img style="filter:hue-rotate(${starsign[pkmn[team[i].pkmn.id].starsign].hue}deg)" class="sprite-trim" src="img/pkmn/sprite/${team[i].pkmn.id}.png" id="explore-team-member-${i}-sprite">`
+    }
 
     let decorSprite = ""
     if (pkmn[team[i].pkmn.id].decor) {
@@ -886,6 +891,15 @@ function updatePreviewTeam(){
             let pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
             if (pkmn[currentTeam[i].pkmn].shiny) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/shiny/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
             if (pkmn[currentTeam[i].pkmn].shiny && pkmn[currentTeam[i].pkmn].shinyDisabled == true) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
+
+            if (pkmn[currentTeam[i].pkmn].starsign){
+            pkmnSprite = `<img  style="filter:hue-rotate(${starsign[pkmn[currentTeam[i].pkmn].starsign].hue}deg)" class="sprite-trim" src="img/pkmn/sprite/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
+            if (pkmn[currentTeam[i].pkmn].shiny) pkmnSprite = `<img style="filter:hue-rotate(${starsign[pkmn[currentTeam[i].pkmn].starsign].hue}deg)" class="sprite-trim" src="img/pkmn/shiny/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
+            if (pkmn[currentTeam[i].pkmn].shiny && pkmn[currentTeam[i].pkmn].shinyDisabled == true) pkmnSprite = `<img style="filter:hue-rotate(${starsign[pkmn[currentTeam[i].pkmn].starsign].hue}deg)" class="sprite-trim" src="img/pkmn/sprite/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
+            }
+
+
+
 
             let decorSprite = ""
             if (pkmn[currentTeam[i].pkmn].decor) {

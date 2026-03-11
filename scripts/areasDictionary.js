@@ -5008,7 +5008,8 @@ areas.vsLegendTrainerBrendan = {
         document.getElementById("tooltipBottom").style.display = `none`
         document.getElementById("tooltipMid").innerHTML = `
         <div class="genetics-overview-tags" >
-        <div style="filter:hue-rotate(100deg)" >Apricorn exchange in the Poke-Mart is now available!</div>
+        <div style="filter:hue-rotate(100deg)" >Apricorn exchange is now available in the Poke-Mart</div>
+        <div style="filter:hue-rotate(300deg)" >Restaurant is now available in the Poke-Mart</div>
         <div style="filter:hue-rotate(200deg)" >Mega-Dimension unlocked</div>
         </div>
         `

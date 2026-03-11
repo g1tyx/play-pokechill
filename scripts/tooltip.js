@@ -319,7 +319,7 @@ function tooltipData(category, ttdata){
         if (ttdata==="mistyTerrain") document.getElementById("tooltipBottom").innerHTML = `Increases the damage of Fairy and Psychic-Type moves by 50%`
 
         if (ttdata==="trickRoom") document.getElementById("tooltipBottom").innerHTML = `Slower Pokemon become faster, faster Pokemon become slower. Additionally, multiplies the damage based on how slow the Pokemon originally was by x1.0 to x1.5`
-        if (ttdata==="weirdRoom") document.getElementById("tooltipBottom").innerHTML = `Decrease the attack and defense of all active Pokemon by 3 stars`
+        if (ttdata==="weirdRoom") document.getElementById("tooltipBottom").innerHTML = `Copies all attack and defense base stats of the enemy`
         if (ttdata==="crossRoom") document.getElementById("tooltipBottom").innerHTML = `Increases the damage dealt by cross-power by 30%`
         //if (ttdata==="reflect") document.getElementById("tooltipBottom").innerHTML = `Decreases the damage dealt by physical attacks by 75%`
         if (ttdata==="lightScreen") document.getElementById("tooltipBottom").innerHTML = `Super-effective damage dealt to your team is reduced to neutral`
@@ -856,6 +856,10 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         if (ttdata === `ModAfk`) document.getElementById("tooltipTitle").innerHTML = `Longer AFK`
         if (ttdata === `ModAfk`) document.getElementById("tooltipBottom").innerHTML = `Fatigue damage is reduced by x3<br><br>There are no side-effects to this modifier`
 
+        if (ttdata === `curry`) document.getElementById("tooltipTitle").innerHTML = `Curry`
+        if (ttdata === `curry`) document.getElementById("tooltipBottom").innerHTML = `Every 12h you can select up to three abilities to be active for your entire team during raids for 1 hour. These abilities follow the same rules as regular abilities, and wont stack with already existing ones`
+
+
         openTooltip()
     }
 
@@ -1105,9 +1109,13 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
     if (pkmn[currentEditedPkmn].tag) document.getElementById("explore-pkmn-tag").value = pkmn[currentEditedPkmn].tag;
     else document.getElementById("explore-pkmn-tag").value = "none";
 
-        if (pkmn[poke.id].shiny) document.getElementById("pkmn-edit-buttons").innerHTML += `<svg id="pkmn-shiny-switch" onclick="switchShiny()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.685 5.25h.03a.75.75 0 0 1 0 1.5c-1.292 0-2.275 0-3.058.063c-.785.063-1.283.183-1.636.371a3.94 3.94 0 0 0-1.677 1.764c-.19.394-.304.88-.363 1.638c-.06.764-.06 1.738-.06 3.094v.11l1.12-1.12a.75.75 0 0 1 1.06 1.06l-2.4 2.4a.75.75 0 0 1-1.086-.027l-2.171-2.4a.75.75 0 0 1 1.112-1.006l.865.956v-.005c0-1.317 0-2.35.065-3.179c.066-.844.202-1.542.509-2.176a5.44 5.44 0 0 1 2.319-2.431c.625-.335 1.37-.476 2.224-.544c.85-.068 1.891-.068 3.147-.068"/><path fill="currentColor" d="M17.847 7.65a.75.75 0 0 1 .538.247l2.171 2.4a.75.75 0 0 1-1.112 1.006l-.866-.956v.005c0 1.317 0 2.35-.064 3.179c-.066.844-.202 1.542-.509 2.176a5.44 5.44 0 0 1-2.319 2.431c-.625.335-1.37.476-2.224.544c-.85.068-1.891.068-3.147.068h-.03a.75.75 0 0 1 0-1.5c1.292 0 2.275 0 3.058-.063c.784-.063 1.283-.183 1.636-.372a3.94 3.94 0 0 0 1.677-1.763c.19-.394.304-.88.363-1.637c.059-.765.06-1.74.06-3.095v-.11l-1.12 1.12a.75.75 0 0 1-1.06-1.06l2.4-2.4a.75.75 0 0 1 .548-.22" opacity="0.5"/></svg>`
+    if (pkmn[poke.id].shiny) document.getElementById("pkmn-edit-buttons").innerHTML += `<svg id="pkmn-shiny-switch" onclick="switchShiny()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.685 5.25h.03a.75.75 0 0 1 0 1.5c-1.292 0-2.275 0-3.058.063c-.785.063-1.283.183-1.636.371a3.94 3.94 0 0 0-1.677 1.764c-.19.394-.304.88-.363 1.638c-.06.764-.06 1.738-.06 3.094v.11l1.12-1.12a.75.75 0 0 1 1.06 1.06l-2.4 2.4a.75.75 0 0 1-1.086-.027l-2.171-2.4a.75.75 0 0 1 1.112-1.006l.865.956v-.005c0-1.317 0-2.35.065-3.179c.066-.844.202-1.542.509-2.176a5.44 5.44 0 0 1 2.319-2.431c.625-.335 1.37-.476 2.224-.544c.85-.068 1.891-.068 3.147-.068"/><path fill="currentColor" d="M17.847 7.65a.75.75 0 0 1 .538.247l2.171 2.4a.75.75 0 0 1-1.112 1.006l-.866-.956v.005c0 1.317 0 2.35-.064 3.179c-.066.844-.202 1.542-.509 2.176a5.44 5.44 0 0 1-2.319 2.431c-.625.335-1.37.476-2.224.544c-.85.068-1.891.068-3.147.068h-.03a.75.75 0 0 1 0-1.5c1.292 0 2.275 0 3.058-.063c.784-.063 1.283-.183 1.636-.372a3.94 3.94 0 0 0 1.677-1.763c.19-.394.304-.88.363-1.637c.059-.765.06-1.74.06-3.095v-.11l-1.12 1.12a.75.75 0 0 1-1.06-1.06l2.4-2.4a.75.75 0 0 1 .548-.22" opacity="0.5"/></svg>`
 
 
+    if (pkmn[poke.id].starsignList && pkmn[poke.id].shiny) document.getElementById("pkmn-edit-buttons").innerHTML += `<svg onclick="changePkmnStarsign(); openTooltip()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.395 11.734c1.251-.355 1.877-.533 2.212-.198c.335.334.157.96-.199 2.211l-.092.324c-.1.355-.151.533-.127.708s.12.326.31.629l.174.276c.673 1.066 1.01 1.6.78 2.035s-.872.487-2.158.587l-.333.026c-.365.029-.548.043-.708.127s-.278.228-.515.516l-.216.263c-.836 1.014-1.254 1.522-1.73 1.456c-.476-.065-.696-.66-1.135-1.848l-.114-.308c-.125-.338-.187-.507-.31-.63c-.123-.122-.292-.185-.63-.31l-.307-.113c-1.19-.44-1.784-.66-1.849-1.136s.442-.894 1.457-1.73l.262-.215c.288-.238.433-.356.517-.516s.098-.342.126-.708l.026-.333c.1-1.286.15-1.929.587-2.158c.436-.23.97.107 2.036.78l.276.174c.303.191.454.287.629.31c.174.025.352-.026.707-.127z"/><path stroke-linecap="round" d="M21.83 19.982c1.01-2.155-2.57-7.028-8-10.884C8.403 5.242 3.183 3.863 2.17 6.018m19.66 13.964c-.49 1.044-1.97 1.259-3.981.763m3.98-.763c.533-1.136-.21-3.029-1.829-5.13m1.83 5.13c-.631 1.344-2.897 1.314-5.83.166M2.17 6.018c-.532 1.136.211 3.028 1.83 5.129m-1.83-5.13c.49-1.044 1.97-1.258 3.981-.763m-3.98.764c-.707 1.506.83 4.341 3.675 7.229" opacity="0.5"/><path stroke-linecap="round" d="M18.895 3.395c.099.924.486 1.79 1.105 2.47m-1.105-2.47c-.93.767-1.23.909-2.402 1.135m2.402-1.135L19.204 3m-1.607 4a4.35 4.35 0 0 0-1.105-2.47m0 0L16 4.514"/></g></svg>`
+    
+    if (pkmn[poke.id].starsign) document.getElementById("pkmn-editor-sprite").style.filter = `hue-rotate(${starsign[pkmn[poke.id].starsign].hue}deg)`
+    else document.getElementById("pkmn-editor-sprite").style.filter = `hue-rotate(0deg)`
 
 
 
@@ -1949,8 +1957,6 @@ document.addEventListener("contextmenu", e => {
     if (el.dataset.seasonPreview !== undefined) {
         tooltipData("seasonPreview", el.dataset.seasonPreview)
     }
-
-
 
 
 });
