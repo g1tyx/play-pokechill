@@ -72,6 +72,10 @@
         '对战开拓区现在开放 大师联盟'],
         [/^Genetics unlocked/i,
         '遗传功能 已解锁'],
+        [/^Apricorn exchange is now available in the Poke-Mart/i,
+        '友好商店的 交换物品 功能已开放'],
+        [/^Restaurant is now available in the Poke-Mart/i,
+        '友好商店的 餐厅 功能已开放'],
 
         //指引
         //神秘礼物
@@ -276,6 +280,10 @@
         '移除装扮'],
         [/^Save Changes/i,
         '保存更改'],
+        [/^Remove star sign/i,
+        '移除星座'],
+        [/^Preview shiny/i,
+        '预览闪光'],
         //宝可病毒指引
         [/^Every (\d+) hours, some of your Pokemon will contract Pokerus. This virus is entirely beneficial, and will add one level of compatibility to the Pokemon in genetics when used as a host/i,
         '每 $1 小时, 你的一些宝可梦会感染宝可病毒。该病毒完全有益, 在作为宿主宝可梦进行遗传操作时, 会为该宝可梦额外增加 1级 兼容性。'],
@@ -729,8 +737,10 @@
         '陷入异常状态时, $1提高 $2%'],
         [/^Increases the power of (.+)-type moves by (\d+)% below (\d+)% HP/i,
         '生命低于 $3% 时, $1属性招式的伤害提高 $2%'],
-        [/^Prevents the lowering of the (.+) stat/i,
-        '$1不会被降低'],
+        [/^Prevents the lowering of any Attack stat/i,
+        '攻击和特攻能力值不会被降低'],
+        [/^Prevents the lowering of any Defense stat/i,
+        '防御和特防能力值不会被降低'],
         [/^(\d+)% chance for received Status Effects to miss/i,
         '被施加异常状态时, 有 $1% 概率使其失效'],
         [/^Inflicts active status effects to the attacker aswell on the moment of application/i,
@@ -921,8 +931,8 @@
         '持有时: 伤害 x$1, 但所有招式执行完毕后, 交换至下一名队伍成员'],
         [/When held: Moves that attack faster than usual are executed x([\d\.]+) (\w+)/i,
         '持有时: 速攻招式的出招速度再 x$1'],
-        [/When held: Multi-hit moves are guaranteed to hit \+([\d\.]+) times and deal x([\d\.]+) more damage. Multi-hit moves cannot exceed their maximum hit count/i,
-        '持有时: 多次攻击的招式额外攻击 $1 次, 且伤害 x$2。攻击次数不会超过其最大次数'],
+        [/When held: Multi-hit moves are guaranteed to hit their maximum amount of times and deal x([\d\.]+) more damage/i,
+        '持有时: 多段攻击技能必定打出最大次数, 且造成的伤害 x$1'],
         [/When held: Moves that get more powerful the more stacks they have deal x([\d\.]+) more damage/i,
         '持有时: 随层数提高招式威力的招式, 其伤害 x$1'],
         [/When held: Moves that have 0 power execute x([\d\.]+) faster/i,
@@ -931,7 +941,7 @@
         '持有时: 受"铁拳"影响的招式的伤害 x$1, 且招式的追加效果触发 2 次'],
         [/When held: Moves that attack slower than usual deal x([\d\.]+) more damage/i,
         '持有时: 慢速招式造成的伤害 x$1'],
-        [/When held: Inceases damage dealt by x([\d\.]+) and increases Speed by ([\d\.]+)% for 8 turns when hit by a Super-Effective move/i,
+        [/When held: Increases damage dealt by x([\d\.]+) and increases Speed by ([\d\.]+)% for 8 turns when hit by a Super-Effective move/i,
         '持有时: 伤害 x$1。被效果绝佳的招式命中时, 速度在 8 回合内提高 $2%'],
         [/When held: Decreases fatigue damage of the user by x([\d\.]+)/i,
         '持有时: 疲劳伤害 ÷$1'],
@@ -1128,8 +1138,10 @@
         '宝可梦出现闪光的概率为$1/$2, 可通过多种方式提高该概率'],
         [/^Shiny Pokemon deal (\d+)% more damage\. The visual distinction can be toggled from their move menu\. This won'?t affect the damage bonus they get$/i,
         '闪光宝可梦的伤害提高 $1%。可在菜单中切换是否显示闪光视觉特效, 这不会影响其伤害加成'],
-        [/^Shiny Pokemon do not carry over their evolutions\. Instead, genetics must be used$/i,
+        [/^Shiny Pokemon do not carry over their evolutions. Instead, genetics must be used.$/i,
         '闪光宝可梦的进化形态不会继承闪光突变。需通过遗传系统获得进化形态的闪光突变'],
+        [/^If the stars align, a shiny pokemon can receive a star sign, an even rarer pigmentation. This does not have any practical benefit, and can't be inherited trough genetics/i,
+        '如果符合条件, 闪光宝可梦可能会获得星座, 这是一种更稀有的变异。这不会带来实际益处, 也无法通过遗传继承'],
         //遗传快捷指南
         [/Genetics allows you to modify a Pokemon beyond what is considered normal for the species, here is a quick overview of what you can achieve with operations:/i,
         '遗传培育允许你对宝可梦进行超越其物种常规限制的调整, 以下是可通过各类操作实现的功能概览: '],
@@ -1340,6 +1352,9 @@
         "shiny": "闪光",
         "is shiny": "闪光",
         "not shiny": "非闪光",
+        "star sign": "星座",
+        "has star sign": "有星座",
+        "all star sign": "全部星座",
         "ribbon": "缎带",
         "has ribbon": "有缎带",
         "signature": "招牌技",
@@ -1380,6 +1395,8 @@
         "Endurance Ribbon": "耐力缎带",
         "Restricted Action": "限制行动",
         "Restricted Move": "限制招式",
+        
+
 
         //友好商店
         "Goods": "商品",
@@ -1391,6 +1408,7 @@
         "Memory": "记忆碟",
         "Limited": "限量物品",
         "Decor": "装扮",
+        "Restaurant": "餐厅",
         "Exchange": "交换物品",
         "Go Back": "返回",
         "Stock": "库存",
@@ -4218,6 +4236,21 @@
         "Blue Flower": "蓝色花朵",
         "Blue Scarf": "蓝色围巾",
         "Blue Tie": "蓝色领带",
+        //食材
+        "Boiled Egg": "水煮蛋",
+        "Bread": "吐司面包",
+        "Coconut Milk": "椰奶",
+        "Fresh Cream": "鲜鲜奶油",
+        "Brittle Bones": "细骨",
+        "Moomoo Cheese": "哞哞乳酪",
+        "Fruit Bunch": "袋装果实",
+        "Fried Food": "炸物拼盘",
+        "Mixed Mushrooms": "袋装蕈菇",
+        "Pasta": "通心粉",
+        "Sausages": "粗绞肉香肠",
+        "Potatoes": "袋装土豆",
+        "Packaged Curry": "即食咖喱",
+        "Precooked Burger": "即食肉排",
     };
 
     function buildTrie(dict) {
