@@ -78,6 +78,9 @@
         '友好商店的 餐厅 功能已开放'],
 
         //指引
+        //咖喱饭
+        [/^During raids: Gained the next abilities for everyone in your team:/i,
+        '在团体战中: 我方队伍成员会获得以下特性的增益效果'],
         //神秘礼物
         [/^Long Press\/Right click the present below to receive a gift (.+)!/i,
         '长按/右键点击 下方礼物即可获得$1!'],
@@ -281,7 +284,9 @@
         [/^Save Changes/i,
         '保存更改'],
         [/^Remove star sign/i,
-        '移除星座'],
+        '移除星象'],
+        [/^Switch shiny/i,
+        '切换闪光'],
         [/^Preview shiny/i,
         '预览闪光'],
         //宝可病毒指引
@@ -306,6 +311,16 @@
         '你暂时买不起此商品'],
         [/Available (.+) will rotate in/i,
         '在售的$1将轮换于'],
+        [/^Every 12h you can select up to three abilities to be active for your entire team during raids for 1 hour. These abilities follow the same rules as regular abilities, and wont stack with already existing ones/i,
+        '每12小时, 你选择最多3个特性为你的队伍在团体战中提供增益, 持续1小时。这些特性遵循与普通特性相同的规则, 不会与已存在的特性叠加。'],
+        [/^Select ingredients to add to the curry! \[(\d+)\/(\d+)\]/i,
+        '选择要添加到咖喱饭中的食材! [$1/$2]'],
+        [/^~ Current Effects ~/i,
+        '~ 当前效果 ~'],
+        [/^Reset/i,
+        '重置'],
+        [/^Pay and cook/i,
+        '支付并烹饪'],
         
         //训练指引
         [/Challenge your Pokemon against waves of foes in order to get stronger\. You will naturally have typing advantage against Pokemon fought against, and their level will scale to yours\. Type Immunities inside training will be instead converted to resistances./i,
@@ -507,6 +522,8 @@
         '$1 可学习的招式'],
         [/^Same-Type:/i,
         '同属性招式:'],
+        [/Star signs are unlocked for all the evolutive family as long as they are shiny/i,
+        '此闪光宝可梦拥有星象后, 其进化系的其他的闪光宝可梦也会获得星象'],
         //神兽介绍
         [/Believed to be a result of an attempt to replicate the ancestor of all Pokemon\. The experiment did not achieve its intended goal, and the creature that emerged was deemed a failure/i,
         '据信是为了复现万灵始祖而进行实验的产物。实验未能达成其预定目标，诞生于此的存在亦被判定为失败之作'],
@@ -917,8 +934,10 @@
         '持有时: 负面效果持续时间降低 1 回合。受到的伤害 ÷$1'],
         [/^When held: Increases the Damage of the user by x([\d\.]+), but inflicts/i,
         '持有时: 伤害 x$1, 但会陷入'],
-        [/^When held: Increases the (.+) of the user by x([\d\.]+), but prevents them from switching/i,
-        '持有时: $1 x$2, 但无法交换'],
+        [/^When held: Increases the Attack of the user by x([\d\.]+), but prevents them from switching/i,
+        '持有时: 物理伤害 x$1, 但无法交换宝可梦'],
+        [/^When held: Increases the Special Attack of the user by x([\d\.]+), but prevents them from switching/i,
+        '持有时: 特殊伤害 x$1, 但无法交换宝可梦'],
         [/^When held: Increases the Damage of the user by x([\d\.]+), but loses (.+) of its max HP per turn/i,
         '持有时: 伤害 x$1, 但每回合会损失 $2 最大生命值'],
         [/When held: Increase overall defense by x([\d\.]+), but the user cannot use moves with 0 power/i,
@@ -1125,8 +1144,8 @@
         '$1属性招式伤害提高 $2%'],
         [/^Slower Pokemon become faster, faster Pokemon become slower. Additionally, multiplies the damage based on how slow the Pokemon originally was by x1.0 to x1.5/i,
         '慢速宝可梦速度变快, 快速宝可梦速度变慢。此外, 宝可梦的速度种族值越低, 伤害加成越高, 伤害 x1.0-1.5'],
-        [/^Decrease the attack and defense of all active Pokemon by 3 stars/i,
-        '在场宝可梦的攻击、特攻、防御、特防种族值减 3 星 (最低1星)'], //怪异空间，实际是特攻特防也会减去3星
+        [/^Copies all attack and defense base stats of the enemy/i,
+        '复制敌方宝可梦的攻击、特攻、防御、特防种族值'], //怪异空间，实际是特攻特防也会减去3星
         [/^Increases the damage dealt by cross-power by 30%/i,
         '"交叉之力"加成提高 30%'],
         [/^Super-effective damage dealt to your team is reduced to neutral/i,
@@ -1140,8 +1159,8 @@
         '闪光宝可梦的伤害提高 $1%。可在菜单中切换是否显示闪光视觉特效, 这不会影响其伤害加成'],
         [/^Shiny Pokemon do not carry over their evolutions. Instead, genetics must be used.$/i,
         '闪光宝可梦的进化形态不会继承闪光突变。需通过遗传系统获得进化形态的闪光突变'],
-        [/^If the stars align, a shiny pokemon can receive a star sign, an even rarer pigmentation. This does not have any practical benefit, and can't be inherited trough genetics/i,
-        '如果符合条件, 闪光宝可梦可能会获得星座, 这是一种更稀有的变异。这不会带来实际益处, 也无法通过遗传继承'],
+        [/^If the stars align, a shiny pokemon can receive a star sign, an even rarer pigmentation. This does not have any practical benefit, and can't be inherited or mutated trough genetics/i,
+        '如果符合条件, 闪光宝可梦可能会获得星象, 这是一种更稀有的变异。这不会带来实际益处, 也无法通过遗传或变异继承'],
         //遗传快捷指南
         [/Genetics allows you to modify a Pokemon beyond what is considered normal for the species, here is a quick overview of what you can achieve with operations:/i,
         '遗传培育允许你对宝可梦进行超越其物种常规限制的调整, 以下是可通过各类操作实现的功能概览: '],
@@ -1352,9 +1371,9 @@
         "shiny": "闪光",
         "is shiny": "闪光",
         "not shiny": "非闪光",
-        "star sign": "星座",
-        "has star sign": "有星座",
-        "all star sign": "全部星座",
+        "star sign": "星象",
+        "has star sign": "有星象",
+        "all star sign": "有全部星象",
         "ribbon": "缎带",
         "has ribbon": "有缎带",
         "signature": "招牌技",
@@ -1395,9 +1414,13 @@
         "Endurance Ribbon": "耐力缎带",
         "Restricted Action": "限制行动",
         "Restricted Move": "限制招式",
-        
-
-
+        //星象
+        "Sol": "太阳",
+        "Luna": "月亮",
+        "Pluto": "冥王",
+        "Ceres": "谷神",
+        "Terra": "泰拉",
+        "Eris": "阋神",
         //友好商店
         "Goods": "商品",
         "Held": "携带物",
@@ -1409,10 +1432,10 @@
         "Limited": "限量物品",
         "Decor": "装扮",
         "Restaurant": "餐厅",
+        "Curry": "咖喱饭",
         "Exchange": "交换物品",
         "Go Back": "返回",
         "Stock": "库存",
-
         //训练
         "Level Training": "等级训练",
         "IV Training": "个体值训练",
