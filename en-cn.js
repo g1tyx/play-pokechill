@@ -256,7 +256,6 @@
         '在等级 $2 时解锁 $1'],
         [/^(.+) has learnt (.+)!/i,
         '$1 学会了招式: $2 !'],
-
         [/^This is a Hidden Ability. Hidden abilities are unlocked via Ability Capsules or via Training, and they work alongside your regular ability/i,
         '这是一个隐藏特性。隐藏特性可通过特性胶囊或通过训练解锁, 与普通特性共同生效'],
         [/^This is a Signature Move. Signature moves will automatically be learnt at level 100/i,
@@ -1343,21 +1342,19 @@
         "Heavy Weather": "猛烈天气",
         "Average Time": "平均时间",
         "Simple Aura": "单纯气场",
-        
+        "Moody Aura": "多变气场",
         //背包
         "Evo": "进化",
         "Memo": "记忆碟",
         "Berry": "树果",
         "Gems": "宝石",
         "Key": "贵重物",
-
         //队伍
         "Add Pokemon": "添加宝可梦",
         "Copy team": "复制队伍",
         "Duplicate Team": "复制队伍",
         "Team Auto-Build": "自动构建队伍",
         "Auto-Build": "自动构建",
-
         //图鉴
         "Filters": "筛选",
         "type": "属性",
