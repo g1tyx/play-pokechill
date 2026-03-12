@@ -732,6 +732,11 @@ item.fashionCase = {
 
 
 
+item.neutralMint = {
+    type: 'key',
+    itemToUse: true,
+    info: function() {return `Use: Removes the nature of a Pokemon`},
+}
 
 
 

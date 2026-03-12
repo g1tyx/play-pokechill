@@ -43,6 +43,13 @@ shop.shopheartScale = {
     category: `goods`,
 }
 
+shop.shopneutralMint = {
+    icon: item.neutralMint.id,
+    price: 5,
+    currency: item.goldenBottleCap.id,
+    category: `goods`,
+}
+
 shop.shoptimeCandyXL = {
     icon: item.timeCandyXL.id,
     price: 3,

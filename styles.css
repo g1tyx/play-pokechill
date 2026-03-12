@@ -837,17 +837,13 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     align-items: center;
 }
 
-.editor-stat-number{
-    width: 1.6rem;
-    text-align: end;
-    margin-right: 3px;
-}
+
 
 .pkmn-stats-panel-bst svg{
     color: var(--dark2);
     height: 1.5rem;
     width: 1.5rem;
-    margin-right: 0.5rem;
+    margin-right: 0rem;
 }
 
 .pkmn-stats-panel-bst {
@@ -858,7 +854,18 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     background: transparent;
     color: var(--light1);
     font-size: 0.9rem;
+    gap: 5px;
 }
+
+.pkmn-stats-panel-bst span{
+    width: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
 
 .inspect-pkmn-types div{
     background: transparent !important;
@@ -876,9 +883,20 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     margin-top: -2rem;
 }
 
+.nature-text{
+    color: var(--light1);
+}
+
 
 .pkmn-stats-panel-info span{
    color: var(--dark1);
+}
+
+.editor-stat-number{
+    width: 1.6rem;
+    text-align: end !important;
+    justify-content: end !important;
+    margin-right: -2px;
 }
 
 .pkmn-stats-panel-info .explore-sprite{
@@ -6471,6 +6489,7 @@ transform: translateY(-1rem);
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    padding-top: 6px;
 }
 
 #starsign-list div{

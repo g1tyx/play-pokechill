@@ -1980,6 +1980,19 @@ function returnPkmnTypes(id){
     else return `<div style="background:${returnTypeColor(pkmn[id].type[0])}">${format(pkmn[id].type[0])}</div>`
 }
 
+
+
+const nature = {
+    adamant : { atk: +1, satk: -1 },
+    modest : { satk: +1, atk: -1 },
+    jolly : { spe: +1, def: -1, sdef: -1 },
+    relaxed : { spe: -1, hp: +1 },
+    quiet : { atk: -1, satk: -1, hp: +1 },
+    bold : { def: +1, sdef: +1, hp: -1 },
+}
+
+
+
 function returnStatDots(id, stat){
 
     const val = pkmn[id].bst[stat];
@@ -1993,19 +2006,61 @@ function returnStatDots(id, stat){
     return `<span style="color:#29A1E5">${filled}</span><strong style="margin-left: 0.3rem">${empty}</strong>`;
 }
 
-function returnIVDots(id, stat){
+function returnStatDots(id, stat){
+    let val = pkmn[id].bst[stat];
+    const max = 6;
+    const pokemonNature = pkmn[id].nature;
+    
+    // Check if this stat is affected by nature
+    let natureModifier = 0;
+    if (pokemonNature && nature[pokemonNature]) {
+        natureModifier = nature[pokemonNature][stat] || 0;
+    }
+    
+    // Apply nature modifier to display value (without modifying original bst)
+    val = val + natureModifier;
+    
+    // Clamp value between 0 and max
+    val = Math.max(0, Math.min(max, val));
+    
+    if (val === 0) {
+        return Array(max).fill('<span>·</span>').join("");
+    }
+    
+    // Build the stars
+    let stars = '';
+    
+    if (natureModifier !== 0 && val > 0) {
+        // Regular stars (all but last)
+        const regularStars = val > 1 ? Array(val - 1).fill('<span style="color:#29A1E5">★</span>').join("") : '';
+        
+        // Last star colored by nature
+        const natureColor = natureModifier > 0 ? '#82dba4' : '#e060b6';
+        const lastStar = `<span style="color:${natureColor}">★</span>`;
+        
+        stars = regularStars + lastStar;
+    } else {
+        // No nature modifier, all stars are blue
+        stars = Array(val).fill('<span style="color:#29A1E5">★</span>').join("");
+    }
+    
+    const empty = Array(max - val).fill('<span>·</span>').join("");
+    
+    if (val === max) return stars;
+    return stars + empty;
+}   
 
+
+
+
+function returnIVDots(id, stat){
     const val = Math.min(pkmn[id].ivs[stat],6);
     const max = 6;
-
     
-
-    const filled = Array(val).fill("★ ").join(" ");
-    const empty  = Array(max - val).fill("·").join(" ");
-
-    if (val === max) return `<span style="color:#F4607C">${filled}</span>`;
-
-    return `<span style="color:#F4607C">${filled}</span><strong style="margin-left: 0.3rem">${empty}</strong>`;
+    const filled = Array(val).fill('<span style="color:#F4607C">★</span>').join("");
+    const empty  = Array(max - val).fill('<span>·</span>').join("");
+    if (val === max) return filled;
+    return filled + empty;
 }
 
 
@@ -2434,6 +2489,9 @@ function exploreCombatPlayer() {
 
 
             let attackerStars = attacker.bst.atk
+            if (attacker.nature == "adamant") attackerStars++
+            if (attacker.nature == "modest") attackerStars--
+            if (attacker.nature == "quiet") attackerStars--
             if (areas[saved.currentArea].id == areas.training.id) attackerStars = returnDivisionStars(attacker, "atk")
             if (saved.weatherTimer>0 && saved.weather=="weirdRoom") attackerStars = Math.max(defender.bst.atk-2,1)
 
@@ -2460,6 +2518,9 @@ function exploreCombatPlayer() {
         if (nextMove.split == 'special') {
             
             let attackerStars = attacker.bst.satk
+            if (attacker.nature == "adamant") attackerStars--
+            if (attacker.nature == "modest") attackerStars++
+            if (attacker.nature == "quiet") attackerStars--
             if (areas[saved.currentArea].id == areas.training.id) attackerStars = returnDivisionStars(attacker, "satk")
             if (saved.weatherTimer>0 && saved.weather=="weirdRoom") attackerStars = Math.max(defender.bst.satk-2,1)
 
@@ -3418,6 +3479,8 @@ function exploreCombatWild() {
     }
 
     let speedStars = pkmn[saved.currentPkmn].bst.spe
+    if (pkmn[saved.currentPkmn].nature == "jolly") speedStars++
+    if (pkmn[saved.currentPkmn].nature == "relaxed") speedStars--
     if (areas[saved.currentArea].id == areas.training.id) speedStars = returnDivisionStars(pkmn[saved.currentPkmn])
     if (areas[saved.currentArea].fieldEffect?.includes(field.trickField.id)) {speedStars = 7 - speedStars}
     if (saved.weatherTimer>0 && saved.weather=="trickRoom") {speedStars = 7 - speedStars}
@@ -3467,6 +3530,8 @@ function exploreCombatWild() {
             //if (saved.weatherTimer>0 && saved.weather=="weirdRoom") attackerStars = Math.max(attackerStars-3,1)
 
             let defenderStars = pkmn[ team[exploreActiveMember].pkmn.id ].bst.def
+            if (pkmn[ team[exploreActiveMember].pkmn.id ].nature == "jolly") defenderStars--
+            if (pkmn[ team[exploreActiveMember].pkmn.id ].nature == "bold") defenderStars++
             if (areas[saved.currentArea].id == areas.training.id) defenderStars = returnDivisionStars(pkmn[ saved.currentPkmn ])
             if (saved.weatherTimer>0 && saved.weather=="weirdRoom") defenderStars = Math.max(pkmn[ saved.currentPkmn ].bst.def-2,1)
 
@@ -3494,6 +3559,8 @@ function exploreCombatWild() {
             //if (saved.weatherTimer>0 && saved.weather=="weirdRoom") attackerStars = Math.max(attackerStars-3,1)
 
             let defenderStars = pkmn[ team[exploreActiveMember].pkmn.id ].bst.sdef
+            if (pkmn[ team[exploreActiveMember].pkmn.id ].nature == "jolly") defenderStars--
+            if (pkmn[ team[exploreActiveMember].pkmn.id ].nature == "bold") defenderStars++
             if (areas[saved.currentArea].id == areas.training.id) defenderStars = returnDivisionStars(pkmn[ saved.currentPkmn ])
             if (saved.weatherTimer>0 && saved.weather=="weirdRoom") defenderStars = Math.max(pkmn[ saved.currentPkmn ].bst.sdef-2,1)
 
@@ -4991,7 +5058,7 @@ function updatePokedex(){
 
         if (document.getElementById(`pokedex-filter-shiny`).value == "true" && pkmn[i].shiny != true) continue
         if (document.getElementById(`pokedex-filter-shiny`).value == "false" && pkmn[i].shiny == true) continue
-        if (document.getElementById(`pokedex-filter-shiny`).value == "sign" && pkmn[i].starsignList == undefined) continue
+        if (document.getElementById(`pokedex-filter-shiny`).value == "sign" && (pkmn[i].starsignList == undefined || pkmn[i].shiny != true || giveStarsign(i,"check") == "complete") ) continue
         if (document.getElementById(`pokedex-filter-shiny`).value == "signall" && giveStarsign(i,"check") != "complete") continue
 
         
@@ -5148,6 +5215,7 @@ if (document.getElementById("pokedex-search").value!="") {
         if (dexTeamSelect!==undefined) { //preview team display
             document.getElementById(`pokedex-filters-cancel`).style.display = "flex"
         }
+
 
 
         if (tmToTeach != undefined) {
@@ -5381,6 +5449,25 @@ if (document.getElementById("pokedex-search").value!="") {
             }
 
 
+            if (itemToUse == item.neutralMint.id){
+                if (pkmn[i].nature == undefined) continue
+
+                div.addEventListener("click", e => { 
+
+                pkmn[i].nature = undefined
+                item.neutralMint.got--
+                updatePokedex()  
+
+
+                if (item.neutralMint.got<=0){
+                updateItemBag()
+                exitTmTeaching()
+                }
+                })
+                
+            }
+
+
             if (itemToUse == item.abilityCapsule.id){
                 if (pkmn[i].hiddenAbility == undefined) continue
                 if (pkmn[i].hiddenAbilityUnlocked == true) continue
@@ -5567,6 +5654,19 @@ if (document.getElementById("pokedex-search").value!="") {
     if (document.getElementById("pokedex-search").value!="") document.getElementById(`pokedex-total`).style.display = "none"
 
 }
+
+
+document.addEventListener('click', (event) => {
+  const pkmnElement = event.target.closest('[data-pkmn-editor]');
+  
+  if (pkmnElement && pkmnElement.closest('#pokedex-list')) {
+    if (document.getElementById(`pokedex-filters-cancel`).style.display !== "none") return
+    if (document.getElementById(`pokedex-filters-title`).style.display !== "none") return
+    tooltipData('pkmnEditor', pkmnElement.dataset.pkmnEditor);
+  }
+});
+
+
 
 function exitTmTeaching(mod){ //what a fucking disgrace of a code i wrote here
 
@@ -7492,7 +7592,7 @@ function changePkmnStarsign(){
     document.getElementById("tooltipMid").innerHTML = `
     <div style="height:1.5rem; margin-bottom:0.5rem; display:flex; justify-content:center;align-items:center; margin-top:-0rem" class="auto-build-confirm" onclick='pkmn[currentEditedPkmn].starsign = undefined;document.getElementById("pkmn-editor-sprite").style.filter = "hue-rotate(0deg)"; closeTooltip(); updatePokedex(); if (saved.currentArea == undefined) updatePreviewTeam()'>Remove star sign</div>
     <div style="height:1.5rem; margin-bottom:0.5rem; display:flex; justify-content:center;align-items:center; margin-top:-0rem" class="auto-build-confirm" onclick='if (!previewStarsignShiny) {previewStarsignShiny=true; changePkmnStarsign(); return} if (previewStarsignShiny) {previewStarsignShiny=false; changePkmnStarsign(); return}'>Switch shiny</div><div id="starsign-list" ></div>
-    Star signs are unlocked for all the evolutive family as long as they are shiny
+    <br>Star signs are unlocked for all the evolutive family as long as they are shiny
     `
 
 
@@ -8462,6 +8562,39 @@ training.move = { //disapears if you have 20+ moves or smth
         setTimeout(() => {
         const div = document.createElement("span");
         div.innerHTML = `${format(saved.trainingPokemon)} learnt ${format(learntMove)}!`
+        document.getElementById("area-end-moves-title").appendChild(div);
+        document.getElementById("area-end-moves-title").style.display = "flex"
+        document.getElementById("area-end-item-title").style.display = "none"
+        }, 10);
+
+    }
+}
+
+training.nature = {
+    name: `Nature Training`,
+    info: `Grants, rerolls and removes natures, which modify BST Stars: <br><br>Adamant: Atk ▲, S.Atk ▼<br>Modest: S.Atk ▲, Atk ▼<br>Jolly: Spe ▲, Def ▼, S.Def ▼<br>Relaxed: HP ▲, Spe ▼<br>Quiet: HP ▲, Atk ▼, S.Atk ▼<br>Bold: Def ▲, S.Def ▲, HP ▼<br><br>Adamant and Modest can't be rolled if they'd buff the highest offensive stat of the Pokemon`,
+    tier: 3,
+    color: `#DF7A69`,
+    effect: function() {
+        
+
+        const natureList = []
+
+        if (pkmn[saved.trainingPokemon].bst.atk<=pkmn[saved.trainingPokemon].bst.satk && pkmn[saved.trainingPokemon].nature != "adamant" && pkmn[saved.trainingPokemon].bst.atk<6) natureList.push("adamant")
+        if (pkmn[saved.trainingPokemon].bst.satk<=pkmn[saved.trainingPokemon].bst.atk && pkmn[saved.trainingPokemon].nature != "modest" && pkmn[saved.trainingPokemon].bst.satk<6) natureList.push("modest")
+        if (pkmn[saved.trainingPokemon].bst.def>1 && pkmn[saved.trainingPokemon].bst.sdef>1 && pkmn[saved.trainingPokemon].nature != "jolly" && pkmn[saved.trainingPokemon].bst.spe<6) natureList.push("jolly")
+        if (pkmn[saved.trainingPokemon].bst.spe>1 && pkmn[saved.trainingPokemon].nature != "relaxed" && pkmn[saved.trainingPokemon].bst.hp<6) natureList.push("relaxed")
+        if (pkmn[saved.trainingPokemon].bst.atk>1 && pkmn[saved.trainingPokemon].bst.satk>1 && pkmn[saved.trainingPokemon].nature != "quiet" && pkmn[saved.trainingPokemon].bst.hp<6) natureList.push("quiet")
+        if (pkmn[saved.trainingPokemon].bst.def>1 && pkmn[saved.trainingPokemon].bst.sdef>1 && pkmn[saved.trainingPokemon].nature != "bold" && pkmn[saved.trainingPokemon].bst.def<6 && pkmn[saved.trainingPokemon].bst.sdef<6) natureList.push("bold")
+
+            console.log(natureList)
+    
+        let pickedNature = arrayPick(natureList)
+        pkmn[saved.trainingPokemon].nature = pickedNature
+
+        setTimeout(() => {
+        const div = document.createElement("span");
+        div.innerHTML = `${format(saved.trainingPokemon)} now has a ${format(pickedNature)} nature!`
         document.getElementById("area-end-moves-title").appendChild(div);
         document.getElementById("area-end-moves-title").style.display = "flex"
         document.getElementById("area-end-item-title").style.display = "none"

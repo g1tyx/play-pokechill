@@ -486,12 +486,18 @@ function setPkmnTeamHp(){
     } else { //if its not training
 
 
+    let hpStars = pkmn[team[i].pkmn.id].bst.hp
+    if (pkmn[team[i].pkmn.id].nature == "quiet") hpStars++
+    if (pkmn[team[i].pkmn.id].nature == "bold") hpStars--
+    if (pkmn[team[i].pkmn.id].nature == "relaxed") hpStars++
+
+
     let healthIvs = pkmn[team[i].pkmn.id].ivs.hp
     if ( saved.gamemodIvs == true) healthIvs = 6
 
 
     pkmn[team[i].pkmn.id].playerHp =
-    (100 + ( (pkmn[team[i].pkmn.id].bst.hp * 30) * Math.pow(1.1, healthIvs) )
+    (100 + ( (hpStars * 30) * Math.pow(1.1, healthIvs) )
     * ( 1+(pkmn[team[i].pkmn.id].level * 0.2) )       
     ) * hpMultiplier;
 

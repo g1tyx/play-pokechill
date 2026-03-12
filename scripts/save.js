@@ -73,6 +73,7 @@ function saveGame() {
     data[i].decorOwned = pkmn[i].decorOwned;
     data[i].starsign = pkmn[i].starsign;
     data[i].starsignList = pkmn[i].starsignList;
+    data[i].nature = pkmn[i].nature;
 
   }
 
@@ -154,6 +155,7 @@ function loadGame() {
       pkmn[i].decorOwned = data[i].decorOwned;
       pkmn[i].starsign = data[i].starsign;
       pkmn[i].starsignList = data[i].starsignList;
+      pkmn[i].nature = data[i].nature;
     }
   }
 

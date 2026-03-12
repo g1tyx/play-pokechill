@@ -4462,9 +4462,10 @@ move.sacredFire = {
 move.crabhammer = {
     split: "physical",
     type: "water",
-    power: t4Base*1.2,
+    power: (t4Base+10)*1.2,
     timer: defaultPlayerMoveTimer*1.2,
     info: function() {return `Attacks x1.2 slower than usual`} ,
+    affectedBy: [ability.toughClaws.id]
 }
 
 move.iceHammer = {
