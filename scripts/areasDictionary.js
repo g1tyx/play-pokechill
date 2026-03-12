@@ -17,7 +17,7 @@ field.simpleAura = {
 }
 
 field.moodyAura = {
-    info : function() { return `All of your Pokemon gain <strong data-ability="${ability.moody.id}" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("normal")}">${format(ability.simple.id)}</strong></strong>`},
+    info : function() { return `All of your Pokemon gain <strong data-ability="${ability.moody.id}" ><strong  style="color:white;cursor:help;padding: 0.1rem 0.7rem; border-radius: 0.2rem; font-size:1.1rem; width: auto; background: ${returnTypeColor("normal")}">${format(ability.moody.id)}</strong></strong>`},
     tier: 1
 }
 
