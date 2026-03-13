@@ -297,6 +297,10 @@ function setSearchTags() {
         if (e == pkmn.arceus.id) pkmn[e].tagObtainedIn = "arceus";
         if (pkmn[e].signature) pkmn[e].tagSignature = "signature"
         if (pkmn[e].eggMove) pkmn[e].tagSignature = "eggMove"
+
+        pkmn[e].dictionaryTagIvSum = pkmn[e].ivs.hp + pkmn[e].ivs.atk + pkmn[e].ivs.satk + pkmn[e].ivs.spe + pkmn[e].ivs.sdef + pkmn[e].ivs.def
+        pkmn[e].dictionaryTagBstSum = pkmn[e].ivs.hp + pkmn[e].ivs.atk + pkmn[e].ivs.satk + pkmn[e].ivs.spe + pkmn[e].ivs.sdef + pkmn[e].ivs.def
+
     }
 }
 

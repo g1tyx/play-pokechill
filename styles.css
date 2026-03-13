@@ -2321,8 +2321,18 @@ z-index: 0;
     z-index: 0;
     border-radius: 0.3rem;
     color: var(--light1);
-        transition: 0.1s;
+    transition: 0.1s;
+}
 
+#pokedex-list div strong{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pokedex-list div svg{
+    height: 1rem;
+    width: 1rem;
 }
 
 #pokedex-list img{
@@ -6747,7 +6757,7 @@ transform: translateY(-1rem);
         .tag-system-tag-remove{
             height: 2.2rem !important;
             width: 2.2rem !important;
-            margin-right: -1rem;
+            margin-right: -1.1rem;
         }
 
         #remove-tag-menu{
@@ -6791,7 +6801,7 @@ transform: translateY(-1rem);
         }
 
         .tag-system-inactive{
-            opacity: 0.4;
+            opacity: 0.5;
         }
 
 
