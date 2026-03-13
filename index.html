@@ -383,7 +383,7 @@
                 <option value=true>has ribbon</option>
             </select>
 
-              <select id="pokedex-filter-tag">
+              <select id="pokedex-filter-tag" style="display: none;">
                 <option value="all">tag</option>
                 <option value="none">none</option>
                 <option value="red">red</option>
@@ -422,6 +422,9 @@
             </select>
            
             <div class="clear-filters" onClick="resetPokedexFilters(); updatePokedex()" style="background: rgb(155, 102, 77); cursor: pointer;">Clear Filters</div>
+            <div class="clear-filters" onClick="tagMenu()" style="background: rgb(77, 117, 155); cursor: pointer;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 7A1.5 1.5 0 0 1 4 5.5A1.5 1.5 0 0 1 5.5 4A1.5 1.5 0 0 1 7 5.5A1.5 1.5 0 0 1 5.5 7m15.91 4.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.11 0-2 .89-2 2v7c0 .55.22 1.05.59 1.41l8.99 9c.37.36.87.59 1.42.59s1.05-.23 1.41-.59l7-7c.37-.36.59-.86.59-1.41c0-.56-.23-1.06-.59-1.42"/></svg>    
+            Tags</div>
 
             </div>
             </div>
@@ -1274,7 +1277,7 @@ Game Guide
             
             </div>
 
-            <div class="explore-pkmn-tag">Tag: <select id="explore-pkmn-tag">
+            <div style="display: none;" class="explore-pkmn-tag">Tag: <select id="explore-pkmn-tag">
                 <option value="none">none</option>
                 <option value="red">red</option>
                 <option value="orange">orange</option>
@@ -1286,8 +1289,14 @@ Game Guide
                 <option value="pink">pink</option>
                 <option value="magenta">magenta</option>
                 <option value="hidden">hidden</option>
-            </select>            
+            </select>
+
         </div>
+
+                    
+            <div id="tag-system-editor-tags" onclick="tagMenuAssign()">
+                Click here to add tags
+            </div>
 
         </div>
 

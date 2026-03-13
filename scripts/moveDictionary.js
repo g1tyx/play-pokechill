@@ -1,6 +1,6 @@
 
 
-const demeritBp = 130
+const demeritBp = 150
 const t4Base = 120
 
 const ability = {}

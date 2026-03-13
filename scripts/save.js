@@ -74,6 +74,7 @@ function saveGame() {
     data[i].starsign = pkmn[i].starsign;
     data[i].starsignList = pkmn[i].starsignList;
     data[i].nature = pkmn[i].nature;
+    data[i].tagList = pkmn[i].tagList;
 
   }
 
@@ -156,6 +157,7 @@ function loadGame() {
       pkmn[i].starsign = data[i].starsign;
       pkmn[i].starsignList = data[i].starsignList;
       pkmn[i].nature = data[i].nature;
+      pkmn[i].tagList = data[i].tagList;
     }
   }
 

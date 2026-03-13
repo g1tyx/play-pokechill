@@ -219,7 +219,11 @@ function updateGameVersion() {
     saved.lastShopApricornReset = 101
   }
 
-  saved.version = 4.8
+  if (saved.version<4.9){
+    saved.tagSystemTags = [];
+  }
+
+  saved.version = 4.9
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 

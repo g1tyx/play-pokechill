@@ -1372,7 +1372,7 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
     if (document.getElementById("pkmn-edit-ability-hidden").dataset.ability) delete document.getElementById("pkmn-edit-ability-hidden").dataset.ability;
     }
 
-
+    updateEditorTags()
 
 
     function updateMoves() {

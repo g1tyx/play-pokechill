@@ -1160,13 +1160,21 @@ function leaveCombat(){
     divPkmn.dataset.pkmnEditor = i
 
 
+
+    pkmn[i].caught++
+    pkmn[i].newPokemon = undefined
+
+
+    if (areas[saved.currentArea]?.encounter == true && saved.hideGotPkmn == "true" && divTag=="") continue
+    noPkmn = false
+
+
+
     divPkmn.innerHTML = `<img class="sprite-trim" src="img/pkmn/sprite/${i}.png">`+divTag;
     if (divTag == `<span>✦Shiny✦!</span>`) divPkmn.innerHTML = `<img class="sprite-trim" src="img/pkmn/shiny/${i}.png">`+divTag;
     document.getElementById("area-end-pkmn-list").appendChild(divPkmn);
 
-    pkmn[i].caught++
-    noPkmn = false
-    pkmn[i].newPokemon = undefined
+
 
     }
 
@@ -4800,8 +4808,11 @@ document.getElementById("pokedex-filter-evolution").addEventListener("change", e
 });
 
 function resetPokedexFilters(){
+    tagSystemTagSearch = []
+
+
     document.getElementById("pokedex-search").value = ""
-    document.getElementById("pokedex-filter-tag").value = "all";
+    //document.getElementById("pokedex-filter-tag").value = "all";
     document.getElementById("pokedex-filter-type").value = "all";
     document.getElementById("pokedex-filter-type-2").value = "all";
     document.getElementById("pokedex-filter-level").value = "all";
@@ -5048,10 +5059,10 @@ function updatePokedex(){
         
         
         if (document.getElementById(`pokedex-filter-division`).value !== "all" && returnPkmnDivision(pkmn[i]) !=  document.getElementById(`pokedex-filter-division`).value   ) continue
-        if (document.getElementById(`pokedex-filter-tag`).value !== "all" && document.getElementById(`pokedex-filter-tag`).value !== "none" && pkmn[i].tag!==document.getElementById(`pokedex-filter-tag`).value ) continue
-        if (document.getElementById(`pokedex-filter-tag`).value == "none" && pkmn[i].tag!=undefined ) continue
+        //if (document.getElementById(`pokedex-filter-tag`).value !== "all" && document.getElementById(`pokedex-filter-tag`).value !== "none" && pkmn[i].tag!==document.getElementById(`pokedex-filter-tag`).value ) continue
+        //if (document.getElementById(`pokedex-filter-tag`).value == "none" && pkmn[i].tag!=undefined ) continue
         if (document.getElementById(`pokedex-filter-ribbon`).value !== "all" && pkmn[i].ribbons==undefined ) continue
-        if (document.getElementById(`pokedex-filter-tag`).value !== "hidden" && pkmn[i].tag=="hidden" ) continue
+        //if (document.getElementById(`pokedex-filter-tag`).value !== "hidden" && pkmn[i].tag=="hidden" ) continue
 
         if (document.getElementById(`pokedex-filter-signature`).value == "false" && pkmn[i].signature==undefined ) continue
         if (document.getElementById(`pokedex-filter-signature`).value == "egg" && pkmn[i].eggMove==undefined ) continue
@@ -5060,6 +5071,18 @@ function updatePokedex(){
         if (document.getElementById(`pokedex-filter-shiny`).value == "false" && pkmn[i].shiny == true) continue
         if (document.getElementById(`pokedex-filter-shiny`).value == "sign" && (pkmn[i].starsignList == undefined || pkmn[i].shiny != true || giveStarsign(i,"check") == "complete") ) continue
         if (document.getElementById(`pokedex-filter-shiny`).value == "signall" && giveStarsign(i,"check") != "complete") continue
+
+
+        if (tagSystemTagSearch.length > 0) { //tag system
+        if (!pkmn[i].tagList || pkmn[i].tagList.length === 0) continue;
+        
+        const hasMatchingTag = pkmn[i].tagList.some(pkmnTag => 
+            tagSystemTagSearch.some(searchTag => 
+                pkmnTag.name === searchTag.name && pkmnTag.color === searchTag.color
+            )
+        );
+        if (!hasMatchingTag) continue;
+        }
 
         
         let missingEvolution = false;
@@ -5172,6 +5195,7 @@ if (document.getElementById("pokedex-search").value!="") {
 
         let nameMarks = ""
         let markColor = "#FF4671" //default shiny star color
+        /*
         if (pkmn[i].tag=="red") markColor = `#FF4942`
         if (pkmn[i].tag=="orange") markColor = `#FFAD42`
         if (pkmn[i].tag=="yellow") markColor = `#FFFF5E`
@@ -5181,8 +5205,12 @@ if (document.getElementById("pokedex-search").value!="") {
         if (pkmn[i].tag=="teal") markColor = `#6BEAA4`
         if (pkmn[i].tag=="pink") markColor = `pink`
         if (pkmn[i].tag=="magenta") markColor = `#CA478F`
+        */
 
         if (pkmn[i].shiny) nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">✦</strong>`
+        
+
+        /*
         else{
         if (pkmn[i].tag=="red") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
         if (pkmn[i].tag=="orange") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
@@ -5194,6 +5222,7 @@ if (document.getElementById("pokedex-search").value!="") {
         if (pkmn[i].tag=="pink") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
         if (pkmn[i].tag=="magenta") nameMarks += `<strong style="color:${markColor}; margin-left:0.2rem">⬤</strong>`
         }
+        */
 
 
         if (pkmn[i].pokerus==true) nameMarks += `<strong style="color:${returnTypeColor("poison")}; margin-left:0.2rem; transform:translateY(8%)"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M8.793.365a.75.75 0 0 1 .806.69c.042.55.225 1.33.645 2.429c1.29.492 2.132.657 2.681.656a.75.75 0 0 1 .003 1.5c-.567 0-1.245-.113-2.068-.36c.21.825.274 1.549.199 2.198c-.121 1.045-.592 1.816-1.218 2.442c-.732.731-1.647 1.236-2.933 1.248a.75.75 0 1 1-.015-1.5c.524-.005.937-.126 1.296-.339L4.4 5.539a2.4 2.4 0 0 0-.318.963c-.078.67.055 1.603.6 2.964c.61 1.526.882 2.667.88 3.54a.75.75 0 0 1-1.5-.002c.001-.549-.163-1.392-.656-2.68c-1.059-.405-1.82-.59-2.368-.641a.75.75 0 1 1 .14-1.494a8.4 8.4 0 0 1 1.613.338c-.21-.825-.274-1.548-.199-2.198c.121-1.045.592-1.815 1.218-2.441c.769-.77 1.735-1.281 3.11-1.247a.75.75 0 0 1-.037 1.5c-.586-.015-1.036.108-1.422.338l3.79 3.79a2.4 2.4 0 0 0 .319-.963c.077-.671-.055-1.604-.6-2.964c-.53-1.327-.803-2.356-.866-3.17a.75.75 0 0 1 .69-.807" clip-rule="evenodd"/></svg></strong>`
@@ -5648,7 +5677,7 @@ if (document.getElementById("pokedex-search").value!="") {
 
     document.getElementById(`pokedex-total`).style.display = "flex"
     if (document.getElementById(`pokedex-filter-level`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
-    if (document.getElementById(`pokedex-filter-tag`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
+    //if (document.getElementById(`pokedex-filter-tag`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
     if (document.getElementById(`pokedex-filter-ability`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
     if (document.getElementById(`pokedex-filter-evolution`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
     if (document.getElementById("pokedex-search").value!="") document.getElementById(`pokedex-total`).style.display = "none"
@@ -5665,6 +5694,438 @@ document.addEventListener('click', (event) => {
     tooltipData('pkmnEditor', pkmnElement.dataset.pkmnEditor);
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function tagMenuAssign(){
+    document.getElementById("tooltipTop").style.display = `none`
+    document.getElementById("tooltipTitle").style.display = `none`
+    document.getElementById("tooltipBottom").style.display = "none"
+    document.getElementById("tooltipMid").innerHTML = `<div id="tag-listing"></div>`
+    document.getElementById("tooltipMid").style.display = "flex"
+    openTooltip()
+    
+    // Initialize tagList if it doesn't exist
+    if (!pkmn[currentEditedPkmn].tagList) {
+        pkmn[currentEditedPkmn].tagList = [];
+    }
+
+    
+    // Check if there are no tags available
+    if (!saved.tagSystemTags || saved.tagSystemTags.length === 0) {
+        document.getElementById("tag-listing").innerHTML = 'No tags created yet';
+        return;
+    }
+    
+
+    
+    saved.tagSystemTags.forEach((i, index) => {
+        const div = document.createElement(`div`)
+        
+        // Check if this tag is already assigned by comparing name (or use id if available)
+        const isActive = pkmn[currentEditedPkmn].tagList.some(tag => 
+            tag.name === i.name && tag.color === i.color
+        );
+        div.className = isActive ? `tag-system-tag` : `tag-system-tag tag-system-inactive`
+        
+        div.style.color = i.color
+        div.style.outlineColor = i.color
+        div.innerHTML = `${i.icon}${i.name}`
+        document.getElementById(`tag-listing`).appendChild(div)
+        
+        div.addEventListener('click', (event) => {
+            // Toggle the class
+            if (div.className === `tag-system-tag tag-system-inactive`) {
+                div.className = `tag-system-tag`
+                // Add tag object to the list
+                const alreadyExists = pkmn[currentEditedPkmn].tagList.some(tag => 
+                    tag.name === i.name && tag.color === i.color
+                );
+                if (!alreadyExists) {
+                    pkmn[currentEditedPkmn].tagList.push(i);
+                }
+            } else {
+                div.className = `tag-system-tag tag-system-inactive`
+                // Remove tag object from the list
+                const tagIndex = pkmn[currentEditedPkmn].tagList.findIndex(tag => 
+                    tag.name === i.name && tag.color === i.color
+                );
+                if (tagIndex > -1) {
+                    pkmn[currentEditedPkmn].tagList.splice(tagIndex, 1);
+                }
+            }
+            updateEditorTags()
+        });
+    });
+}
+
+
+function updateEditorTags(){
+    if (pkmn[currentEditedPkmn].tagList?.length > 0) {
+        document.getElementById(`tag-system-editor-tags`).innerHTML = `` // Has tags, show nothing
+    } else {
+        document.getElementById(`tag-system-editor-tags`).innerHTML = `Click here to add tags` // No tags, show prompt
+        return
+    }
+    
+    const maxTags = 7;
+    const tagsToShow = pkmn[currentEditedPkmn].tagList.slice(0, maxTags);
+    const hasMoreTags = pkmn[currentEditedPkmn].tagList.length > maxTags;
+    
+    tagsToShow.forEach((i, index) => {
+        document.getElementById(`tag-system-editor-tags`).innerHTML += `<span style="color:${i.color}">${i.icon}</span>`
+    });
+    
+    if (hasMoreTags) {
+        const remainingCount = pkmn[currentEditedPkmn].tagList.length - maxTags;
+        document.getElementById(`tag-system-editor-tags`).innerHTML += `<span style="color:#999"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 10c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m14 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m-7 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2"/></svg></span>`
+    }
+}
+
+
+
+
+// Create the array outside the function
+let tagSystemTagSearch = [];
+
+function tagMenu(){
+
+
+    tagSystemTagSearch = []
+    updatePokedex()
+
+    document.getElementById("tooltipTop").style.display = `none`
+    document.getElementById("tooltipTitle").style.display = `none`
+    document.getElementById("tooltipMid").style.display = "flex"
+    document.getElementById("tooltipMid").innerHTML = `<div class="tag-button" onclick="tagMenuCreate()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity="0.25"/><path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.2" d="M12 8v8m4-4H8"/></g></svg>Create new tag</div>`
+    document.getElementById("tooltipBottom").innerHTML = `<div id="tag-listing"></div>`
+    document.getElementById("tooltipBottom").style.display = "flex"
+    openTooltip()
+    
+    saved.tagSystemTags.forEach((i, index) => {
+        const div = document.createElement(`div`)
+        
+        // Start with inactive class
+        div.className = `tag-system-tag tag-system-inactive`
+        
+        div.style.color = i.color
+        div.style.outlineColor = i.color
+        const removeButton = `<svg class="tag-system-tag-remove" onclick="tagMenuRemove(${index})" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m5 11.59L15.59 17L12 13.41L8.41 17L7 15.59L10.59 12L7 8.41L8.41 7L12 10.59L15.59 7L17 8.41L13.41 12z" opacity="0.3"/><path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m3.59-13L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41z"/></svg>`
+        div.innerHTML = `${i.icon}${i.name}${removeButton}`
+        document.getElementById(`tag-listing`).appendChild(div)
+        
+        // Add click event to toggle active/inactive
+        div.addEventListener('click', (event) => {
+            // Don't toggle if clicking the remove button
+            if (event.target.closest('.tag-system-tag-remove')) return;
+            
+            // Toggle the class
+            if (div.className === `tag-system-tag tag-system-inactive`) {
+                div.className = `tag-system-tag`
+                // Add tag object to search array
+                if (!tagSystemTagSearch.includes(i)) {
+                    tagSystemTagSearch.push(i);
+                }
+            } else {
+                div.className = `tag-system-tag tag-system-inactive`
+                // Remove tag object from search array
+                const tagIndex = tagSystemTagSearch.indexOf(i);
+                if (tagIndex > -1) {
+                    tagSystemTagSearch.splice(tagIndex, 1);
+                }
+            }
+
+            updatePokedex()
+        });
+    });
+}
+
+
+function tagMenuRemove(id){
+    document.getElementById("tooltipBottom").style.display = "none"
+    document.getElementById("tooltipMid").innerHTML = `<div id="remove-tag-menu" style="display:flex; flex-direction:column">Are you sure you want to delete this tag? It will be removed from all Pokemon</div>`
+    const div = document.createElement(`div`)
+    div.className = `tag-system-tag`
+    div.style.color = saved.tagSystemTags[id].color
+    div.style.outlineColor = saved.tagSystemTags[id].color
+    div.innerHTML = `${saved.tagSystemTags[id].icon}${saved.tagSystemTags[id].name}`
+    document.getElementById(`remove-tag-menu`).appendChild(div)
+    document.getElementById(`remove-tag-menu`).innerHTML+= `<div class="tag-system-delete" onclick="tagMenuRemoveConfirm(${id})">Delete tag</div>`
+}
+
+function tagMenuRemoveConfirm(id){
+    const tagToRemove = saved.tagSystemTags[id];
+    
+    // Remove the tag from all Pokemon
+    for (const i in pkmn) {
+        if (pkmn[i].tagList && pkmn[i].tagList.length > 0) {
+            // Filter out the tag that matches the one being deleted
+            pkmn[i].tagList = pkmn[i].tagList.filter(tag => 
+                !(tag.name === tagToRemove.name && tag.color === tagToRemove.color)
+            );
+        }
+    }
+    
+    // Remove the tag from the saved tags list
+    saved.tagSystemTags.splice(id, 1);
+    
+    // Reopen the tag menu
+    tagMenu();
+}
+
+function tagMenuCreate(){
+
+    document.getElementById("tooltipBottom").style.display = "none"
+
+
+    document.getElementById("tooltipMid").innerHTML = `
+        <div class="tag-system-container">        
+        <div class="tag-system-form-section">
+            <div class="tag-system-form-group">
+                <label for="tag-system-tagName">Tag Name</label>
+                <input type="text" id="tag-system-tagName" placeholder="Enter tag name...">
+            </div>
+ 
+            <div class="tag-system-form-group">
+                <label>Select Icon</label>
+                <div class="tag-system-icon-grid" id="tag-system-iconGrid"></div>
+            </div>
+ 
+            <div class="tag-system-form-group">
+                <label for="tag-system-tagColor">Tag Color</label>
+                <div class="tag-system-color-picker-wrapper">
+                    <input type="color" id="tag-system-tagColor" value="#667eea">
+                    <span class="tag-system-color-value" id="tag-system-colorValue">#667eea</span>
+                </div>
+            </div>
+ 
+            <button class="tag-system-save-btn" onclick="tagSystemSaveTag()">Save Tag</button>
+        </div>
+    </div>
+    `
+
+        tagSystemInitIconGrid();
+
+        // Update color value display
+        document.getElementById('tag-system-tagColor').addEventListener('input', (e) => {
+            document.getElementById('tag-system-colorValue').textContent = e.target.value;
+        });
+
+
+}
+
+
+
+        const tagSystemIcons = [
+            { name: 'star', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' },
+            { name: 'heart', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>' },
+            { name: 'bookmark', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>' },
+            { name: 'tag', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>' },
+            { name: 'flag', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>' },
+            { name: 'circle', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>' },
+            { name: 'square', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>' },
+            { name: 'check', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>' },
+            { name: 'lightning', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>' },
+            { name: 'code', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>' },
+            { name: 'folder', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>' },
+            { name: 'music', svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>' }
+        ];
+
+
+ 
+        // Store tags
+        saved.tagSystemTags = [];
+        let tagSystemSelectedIcon = null;
+ 
+        // Initialize icon grid
+        function tagSystemInitIconGrid() {
+            const iconGrid = document.getElementById('tag-system-iconGrid');
+            tagSystemIcons.forEach((icon, index) => {
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'tag-system-icon-option';
+                iconDiv.innerHTML = icon.svg;
+                iconDiv.onclick = () => tagSystemSelectIcon(index);
+                iconGrid.appendChild(iconDiv);
+            });
+        }
+ 
+        // Select icon
+        function tagSystemSelectIcon(index) {
+            document.querySelectorAll('.tag-system-icon-option').forEach(el => el.classList.remove('tag-system-selected'));
+            document.querySelectorAll('.tag-system-icon-option')[index].classList.add('tag-system-selected');
+            tagSystemSelectedIcon = tagSystemIcons[index];
+        }
+ 
+
+ 
+        // Save tag
+        function tagSystemSaveTag() {
+
+
+
+
+
+
+            const tagName = document.getElementById('tag-system-tagName').value.trim();
+            const tagColor = document.getElementById('tag-system-tagColor').value;
+ 
+            if (!tagName) {
+                alert('Please enter a tag name');
+                return;
+            }
+ 
+            if (!tagSystemSelectedIcon) {
+                alert('Please select an icon');
+                return;
+            }
+ 
+            const newTag = {
+                name: tagName,
+                color: tagColor,
+                icon: tagSystemSelectedIcon.svg
+            };
+ 
+            saved.tagSystemTags.push(newTag);
+
+
+            tagMenu()
+
+
+            //tagSystemRenderTags();
+            //tagSystemResetForm();
+        }
+ 
+        // Render tags
+        function tagSystemRenderTags() {
+            const tagsList = document.getElementById('tag-system-tagsList');
+            
+            if (saved.tagSystemTags.length === 0) {
+                tagsList.innerHTML = '<div class="tag-system-empty-state">No tags created yet. Create your first tag above!</div>';
+                return;
+            }
+ 
+            tagsList.innerHTML = saved.tagSystemTags.map(tag => `
+                <div class="tag-system-tag" style="background-color: ${tag.color}">
+                    ${tag.icon}
+                    <span>${tag.name}</span>
+                </div>
+            `).join('');
+        }
+ 
+        // Reset form
+        /*
+        function tagSystemResetForm() {
+            document.getElementById('tag-system-tagName').value = '';
+            document.getElementById('tag-system-tagColor').value = '#667eea';
+            document.getElementById('tag-system-colorValue').textContent = '#667eea';
+            document.querySelectorAll('.tag-system-icon-option').forEach(el => el.classList.remove('tag-system-selected'));
+            tagSystemSelectedIcon = null;
+        }
+        */
+ 
+        // Initialize
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -5703,6 +5703,7 @@ areas.dimensionRaid1 = {
     tier: 1,
     type: `dimension`,
     name: `Strange Wormhole`,
+    timed: 60*5,
     background : `dimension1`,
     icon: pkmn.nihilego,
     trainer: true,
@@ -5745,6 +5746,7 @@ areas.dimensionRaid2 = {
     tier: 2,
     type: `dimension`,
     name: `Strange Wormhole`,
+    timed: 60*5,
     background : `dimension1`,
     icon: pkmn.nihilego,
     trainer: true,
@@ -5782,6 +5784,7 @@ areas.dimensionRift3 = {
 areas.dimensionRaid3 = {
     tier: 3,
     type: `dimension`,
+    timed: 60*5,
     name: `Strange Wormhole`,
     background : `dimension1`,
     icon: pkmn.nihilego,
@@ -5820,6 +5823,7 @@ areas.dimensionRift4 = {
 areas.dimensionRaid4 = {
     tier: 4,
     type: `dimension`,
+    timed: 60*5,
     name: `Strange Wormhole`,
     background : `dimension1`,
     icon: pkmn.nihilego,

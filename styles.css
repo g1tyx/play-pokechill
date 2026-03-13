@@ -2381,6 +2381,18 @@ z-index: 0;
     
 }
 
+.clear-filters{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clear-filters svg{
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-right: 0.3rem;
+}
+
 .pokedex-filters-menu{
     display: flex;
     justify-content: center;
@@ -4297,8 +4309,6 @@ background:
     border-radius: 0.2rem;
     padding: 0 1rem;
     margin-left: auto;
-
-
 }
 
 
@@ -6522,4 +6532,297 @@ transform: translateY(-1rem);
 
 
 
+.tag-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    width: 100%;
+    cursor: pointer;
+}
 
+.tag-button svg{
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+        .tag-system-container {
+            background: transparent;
+            border-radius: 16px;
+            width: 100%;
+        }
+ 
+        .tag-system-container h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+ 
+        .tag-system-form-section {
+            background: transparent;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+ 
+        .tag-system-form-group {
+            margin-bottom: 20px;
+        }
+ 
+        .tag-system-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light2);
+            font-weight: 600;
+        }
+ 
+        .tag-system-form-group input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+ 
+        .tag-system-form-group input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+ 
+        .tag-system-color-picker-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+ 
+        .tag-system-color-picker-wrapper input[type="color"] {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+ 
+        .tag-system-color-value {
+            color: var(--light1);
+            font-size: 14px;
+        }
+ 
+        .tag-system-icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+ 
+        .tag-system-icon-option {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.1s;
+            background: var(--light2);
+        }
+ 
+        .tag-system-icon-option:hover {
+            background: white;
+        }
+ 
+        .tag-system-icon-option.tag-system-selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+ 
+        .tag-system-icon-option svg {
+            width: 30px;
+            height: 30px;
+        }
+ 
+        .tag-system-save-btn {
+            background: var(--light1);
+            color: var(--light2);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+
+        .tag-system-save-btn:hover{
+            background: var(--light2);
+            color: var(--dark2);
+            
+        }
+
+ 
+        .tag-system-tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+ 
+        .tag-system-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+ 
+        .tag-system-tag svg {
+            width: 18px;
+            height: 18px;
+        }
+ 
+        .tag-system-tags-header {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+ 
+        .tag-system-empty-state {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        #tag-listing{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag-system-tag{
+            height: 1.8rem;
+            justify-content: center;
+            align-items: center;
+            padding: 0 0.8rem;
+            background: var(--dark1);
+            outline: solid red 2px;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+
+        .tag-system-tag:hover{
+            scale: 1.05;
+        }
+
+
+        .tag-system-tag svg{
+            height: 1.2rem;
+            width: 1.2rem;
+        }
+
+        .tag-system-tag-remove{
+            height: 2.2rem !important;
+            width: 2.2rem !important;
+            margin-right: -1rem;
+        }
+
+        #remove-tag-menu{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #remove-tag-menu .tag-system-tag{
+            margin-top: 0.5rem;
+            cursor: initial;
+        }
+
+        #remove-tag-menu .tag-system-tag:hover{
+            scale: 1;
+        }
+
+        .tag-system-delete{
+            background: var(--light1);
+            color: white;
+            width: auto;
+            padding: 0 1rem;
+            font-size: 1.2rem;
+            height: 2rem;
+            margin-top: 0.5rem;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+
+        .tag-system-delete:hover{
+            background: rgb(221, 77, 77);
+
+
+        }
+
+        .tag-system-inactive{
+            opacity: 0.4;
+        }
+
+
+#tag-system-editor-tags{
+    font-size: 1rem;
+    padding: 0 0rem;
+    height: 2rem;
+    background: var(--light2);
+    color: var(--dark1);
+    border-radius: 0.2rem;
+    white-space: nowrap;
+    width: 100%;
+    margin-top: 0.3rem;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    gap: 5px;
+}
+
+#tag-system-editor-tags span{
+    height: 1.5rem;
+    width: 1.5rem;
+    background: var(--dark2);
+    border-radius: 3px;
+    padding: 3px;
+}
+
+
+#tag-system-editor-tags svg{
+    height: 100%;
+    width: 100%;
+}
