@@ -5846,10 +5846,10 @@ function tagMenu(){
 
     document.getElementById("tooltipTop").style.display = `none`
     document.getElementById("tooltipTitle").style.display = `none`
-    document.getElementById("tooltipMid").style.display = "flex"
-    document.getElementById("tooltipMid").innerHTML = `<div class="tag-button" onclick="tagMenuCreate()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity="0.25"/><path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.2" d="M12 8v8m4-4H8"/></g></svg>Create new tag</div>`
-    document.getElementById("tooltipBottom").innerHTML = `<div id="tag-listing"></div>`
     document.getElementById("tooltipBottom").style.display = "flex"
+    document.getElementById("tooltipBottom").innerHTML = `<div class="tag-button" onclick="tagMenuCreate()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity="0.25"/><path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.2" d="M12 8v8m4-4H8"/></g></svg>Create new tag</div>`
+    document.getElementById("tooltipMid").innerHTML = `<div id="tag-listing"></div>`
+    document.getElementById("tooltipMid").style.display = "flex"
     openTooltip()
     
     saved.tagSystemTags.forEach((i, index) => {
@@ -9088,8 +9088,12 @@ function setTrainingMenu() {
 
 
     if (saved.trainingPokemon != undefined) {
-        document.getElementById("training-sprite-div").innerHTML = `<img class="sprite-trim" style="z-index: 1; transform-origin: bottom; margin-top: auto; position: absolute; bottom: 0rem;" id="genetics-host" src="img/pkmn/sprite/${saved.trainingPokemon}.png">`
-        if (pkmn[saved.trainingPokemon].shiny) {document.getElementById("genetics-host").src = `img/pkmn/shiny/${saved.trainingPokemon}.png`;}
+        document.getElementById("training-sprite-div").innerHTML = `<img class="sprite-trim" style="z-index: 1; transform-origin: bottom; margin-top: auto; position: absolute; bottom: 0rem;" id="training-host" src="img/pkmn/sprite/${saved.trainingPokemon}.png">`
+        if (pkmn[saved.trainingPokemon].shiny) {document.getElementById("training-host").src = `img/pkmn/shiny/${saved.trainingPokemon}.png`;}
+        if (pkmn[saved.trainingPokemon].starsign){
+        document.getElementById("training-host").style.filter = `hue-rotate(${starsign[pkmn[saved.trainingPokemon].starsign].hue}deg)`
+        }
+
         voidAnimation("training-sack", "train-sack 1.5s infinite")
     } else {
         document.getElementById("training-sprite-div").innerHTML = `<svg style="color:white; scale:2; opacity:0.8; margin-bottom:-2rem;" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGjidSMeWm"><g fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="4"><path fill="#555555" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path stroke-linecap="round" d="M24 16v16m-8-8h16"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGjidSMeWm)"/></svg>`
