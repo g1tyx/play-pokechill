@@ -8312,6 +8312,7 @@ training.level = {
     info: `Fully max a Pokemon's level. Can only be done with less than Level 100`,
     tier: 2,
     color: `#dfc969`,
+    errorText: `Defeat Elite Trainer Cynthia in VS mode to unlock, or alread max level reached`,
     condition: function() { if (pkmn[saved.trainingPokemon].level<100 && areas.vsEliteTrainerCynthia.defeated == true) return true },
     effect: function() {
 
@@ -8359,6 +8360,7 @@ training.iv1 = { //disapears if you have more than x ivs
         const totalSum = id.ivs.hp + id.ivs.atk + id.ivs.satk + id.ivs.def + id.ivs.sdef + id.ivs.spe
         if (totalSum<10) return true
     },
+    errorText: `You must have less than 10 IV stars, or alread max IVs reached`,
     effect: function() {
         
     const i = saved.trainingPokemon
@@ -8412,6 +8414,7 @@ training.iv2 = { //doesnt appear until you have more than x ivs
         const totalSum = id.ivs.hp + id.ivs.atk + id.ivs.satk + id.ivs.def + id.ivs.sdef + id.ivs.spe
         if (totalSum<22) return true
     },
+    errorText: `You must have less than 22 IV stars, or alread max IVs reached`,
     effect: function() {
         
     const i = saved.trainingPokemon
@@ -8465,6 +8468,7 @@ training.iv3 = { //doesnt appear until you have more than x ivs
         const totalSum = id.ivs.hp + id.ivs.atk + id.ivs.satk + id.ivs.def + id.ivs.sdef + id.ivs.spe
         if (totalSum<36) return true
     },
+    errorText: `You already have the maximum possible IVs`,
     effect: function() {
         
     const i = saved.trainingPokemon
@@ -8534,6 +8538,7 @@ training.hiddenAbility = {
     tier: 2,
     color: `#69df96`,
     condition: function() { if (pkmn[saved.trainingPokemon].hiddenAbility && pkmn[saved.trainingPokemon].hiddenAbilityUnlocked!=true) return true },
+    errorText: `You already unlocked the Pokemon hidden ability`,
     effect: function() {
         pkmn[saved.trainingPokemon].hiddenAbilityUnlocked = true
 
@@ -8554,6 +8559,7 @@ training.move = { //disapears if you have 20+ moves or smth
     tier: 1,
     color: `#cf79c1`,
     condition: function() { if (learnPkmnMove(pkmn[saved.trainingPokemon].id, pkmn[saved.trainingPokemon].level)!=undefined && pkmn[saved.trainingPokemon].movepool.length<20) return true },
+    errorText: `You already learnt more than 20 moves, or there is no more learnable moves at this level`,
     effect: function() {
         let learntMove = learnPkmnMove(pkmn[saved.trainingPokemon].id, pkmn[saved.trainingPokemon].level)
 
@@ -8572,9 +8578,11 @@ training.move = { //disapears if you have 20+ moves or smth
 
 training.nature = {
     name: `Nature Training`,
-    info: `Grants, rerolls and removes natures, which modify BST Stars: <br><br>Adamant: Atk ▲, S.Atk ▼<br>Modest: S.Atk ▲, Atk ▼<br>Jolly: Spe ▲, Def ▼, S.Def ▼<br>Relaxed: HP ▲, Spe ▼<br>Quiet: HP ▲, Atk ▼, S.Atk ▼<br>Bold: Def ▲, S.Def ▲, HP ▼<br><br>Adamant and Modest can't be rolled if they'd buff the highest offensive stat of the Pokemon`,
+    info: `Grants, rerolls and removes natures, which modify BST Stars: <br><br>Adamant: Atk ▲, S.Atk ▼<br>Modest: S.Atk ▲, Atk ▼<br>Jolly: Spe ▲, Def ▼, S.Def ▼<br>Relaxed: HP ▲, Spe ▼<br>Quiet: HP ▲, Atk ▼, S.Atk ▼<br>Bold: Def ▲, S.Def ▲, HP ▼<br><br>Adamant and Modest can't be rolled if they'd buff the highest offensive stat of the Pokemon, neither a nature can exceed 6 stars`,
     tier: 3,
     color: `#DF7A69`,
+    condition: function() { if (areas.vsLegendTrainerBrendan.defeated == true) return true },
+    errorText: `Defeat Legend Trainer Brendan in VS mode to unlock`,
     effect: function() {
         
 
@@ -8663,6 +8671,14 @@ function setTrainingMenu() {
     div.addEventListener("click", e => { 
 
 
+    if (training[i].condition && training[i].condition()!=true && training[i].errorText) {
+        document.getElementById("tooltipTop").style.display = "none"
+        document.getElementById("tooltipBottom").style.display = "none"
+        document.getElementById("tooltipTitle").style.display = "none"
+        document.getElementById("tooltipMid").innerHTML = `${training[i].errorText}`
+        openTooltip()
+        return
+    }
 
 
 

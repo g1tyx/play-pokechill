@@ -5011,6 +5011,7 @@ areas.vsLegendTrainerBrendan = {
         <div style="filter:hue-rotate(100deg)" >Apricorn exchange is now available in the Poke-Mart</div>
         <div style="filter:hue-rotate(300deg)" >Restaurant is now available in the Poke-Mart</div>
         <div style="filter:hue-rotate(200deg)" >Mega-Dimension unlocked</div>
+        <div style="filter:hue-rotate(50deg)" >Nature Training unlocked</div>
         </div>
         `
         openTooltip()
