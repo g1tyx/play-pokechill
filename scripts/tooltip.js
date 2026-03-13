@@ -265,7 +265,7 @@ function tooltipData(category, ttdata){
         }
 
 
-        if (areas[ttdata].timed){
+        if (areas[ttdata].hpPercentage){
             document.getElementById("tooltipBottom").innerHTML += `This is a timed encounter. Your damage will be carried on between fights. Additionally, items needed to enter will be consumed regardless if you defeat the Pokemon or not`;
         }
 

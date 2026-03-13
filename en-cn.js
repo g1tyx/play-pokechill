@@ -78,9 +78,11 @@
         '友好商店的 餐厅 功能已开放'],
 
         //指引
+
         //咖喱饭
         [/^During raids: Gained the next abilities for everyone in your team:/i,
         '在团体战中: 我方队伍成员会获得以下特性的增益效果'],
+
         //神秘礼物
         [/^Long Press\/Right click the present below to receive a gift (.+)!/i,
         '长按/右键点击 下方礼物即可获得$1!'],
@@ -112,6 +114,8 @@
         '招式现在无法自由切换'],
         [/^Restricted moves cannot be freely switched during combat/i,
         '受限制的招式在战斗中无法自由切换'],
+        [/Time left:/i,
+        '剩余时间:'],
         
         //自动再战
         [/Auto-Refight is active!\s*/i,
@@ -167,6 +171,7 @@
         '对战开拓区包含多种挑战, 设有特定分级限制, 每3天轮换一次。在此处遇到的训练家每天重置'],
         [/division and below only/i,
         '仅限该评级及以下'],
+
         //对战塔
         [/^Current Type Rotation: (.+)/i,
         '当前对战塔属性: $1'],
@@ -182,6 +187,7 @@
         '你的最高抵达层数将被记录, 在联盟轮换时重置。每当刷新最高层数后, 战斗结束时你都将获得奖励'],
         [/^There is a maximum of 100 Golden Bottlecaps achievable/i,
         '最多可以获得 100 个金色王冠'],
+
         //对战工厂
         [/^Score: (\d+)/i,
         '分数: $1'],
@@ -199,6 +205,7 @@
         '每次进入时, 你的分数都会重置, 但你可以不限次数地进行挑战'],
         [/^Your highest reached score will be saved, and reset when the league rotation changes. You will be rewarded for your highest score reached at the end of the battle/i,
         '你的最高分数会被记录, 在联盟轮换时重置。战斗结束时, 根据本次的最高分数获得相应奖励'],
+
         //对战竞技场
         [/^The Battle Arena features five trainers in which you can select their difficulty for higher rewards. Field effects, battle modifiers, will also be randomised alongside the trainers. Trainers fought here will reset every day/i,
         '对战竞技场有5位训练家, 你可以选择他们的难度以获得更高的奖励。场地效果和对战选项将和训练家一起随机生成。在这里对战的训练家每天都会重置'],
@@ -291,9 +298,29 @@
         '切换闪光'],
         [/^Preview shiny/i,
         '预览闪光'],
+        [/^Create new tag/i,
+        '创建新标签'],
+        [/^Tag Name/i,
+        '标签名称'],
+        [/^Select Icon/i,
+        '选择图标'],
+        [/^Tag Color/i,
+        '标签颜色'],
+        [/^Save Tag/i,
+        '保存标签'],
+        [/^Delete Tag/i,
+        '删除标签'],
+        [/^Are you sure you want to delete this tag\? It will be removed from all Pokemon/i,
+        '你确定要删除这个标签吗? 它将从所有宝可梦中移除'],
+        [/^Click here to add tags/i,
+        '点击这里添加标签'],
+        [/^No tags created yet/i,
+        '还没有创建标签'],
+
         //宝可病毒指引
         [/^Every (\d+) hours, some of your Pokemon will contract Pokerus. This virus is entirely beneficial, and will add one level of compatibility to the Pokemon in genetics when used as a host/i,
         '每 $1 小时, 你的一些宝可梦会感染宝可病毒。该病毒完全有益, 在作为宿主宝可梦进行遗传操作时, 会为该宝可梦额外增加 1级 兼容性。'],
+        
         //缎带
         [/^Awarded in special occasions/i,
         '因特殊情况授予'],
@@ -1423,6 +1450,7 @@
         "BST": "种族值",
         "IV's": "个体值",
         "Clear Filters": "清空筛选",
+        "Tags": "标签",
         "Keywords": "关键词",
         "Operators:": "搜索技巧",
         "eggMove": "蛋招式",
@@ -1454,6 +1482,7 @@
         "Endurance Ribbon": "耐力缎带",
         "Restricted Action": "限制行动",
         "Restricted Move": "限制招式",
+
         //星象
         "Sol": "太阳",
         "Luna": "月亮",
@@ -1461,6 +1490,7 @@
         "Ceres": "谷神",
         "Terra": "泰拉",
         "Eris": "阋神",
+
         //友好商店
         "Goods": "商品",
         "Held": "携带物",
@@ -1476,6 +1506,7 @@
         "Exchange": "交换物品",
         "Go Back": "返回",
         "Stock": "库存",
+
         //训练
         "Level Training": "等级训练",
         "IV Training": "个体值训练",
