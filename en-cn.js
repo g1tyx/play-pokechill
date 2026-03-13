@@ -114,6 +114,8 @@
         '招式现在无法自由切换'],
         [/^Restricted moves cannot be freely switched during combat/i,
         '受限制的招式在战斗中无法自由切换'],
+        [/^This is a timed encounter. Your damage will be carried on between fights. Additionally, items needed to enter will be consumed regardless if you defeat the Pokemon or not/i,
+        '这是一个限时战斗。你的伤害将在战斗之间保留。另外, 解锁战斗的道具, 无论是否击败宝可梦, 都会被消耗'],
         [/Time left:/i,
         '剩余时间:'],
         
