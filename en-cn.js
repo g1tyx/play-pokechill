@@ -106,7 +106,7 @@
         '没有新道具或新宝可梦 :('],
         [/^New (.+)!/i,
         '新$1!'],
-        [/^Iv's Up!/i,
+        [/^Ivs Up!/i,
         '个体值提高!'],
         [/^☉Signed☉!/i,
         '☉星象☉!'],
@@ -134,18 +134,21 @@
         '自动再战券)'],
         [/Click to disable it/i,
         '点击以取消'],
+
         //旷野地带指引
         [/Pokemon in the Wildlife Park rotate every 12 hours/i,
         '野生公园中的宝可梦每 12 小时轮换一次'],
         [/All Pokemon in Wild Areas might be caught by defeating them\. Wild Areas rotate every day, so be sure to check out what can be caught today!/i,
         '旷野地带内的所有宝可梦均可通过击败捕获。旷野地带每天轮换, 记得查看轮换后可捕获的宝可梦哦!'],
+
         //迷宫指引
         [/Pokemon in Dungeons can't be caught, but they can drop useful items and EXP\. Dungeons rotate every day aswell/i,
         '迷宫内的宝可梦无法捕获, 但会掉落实用道具和经验值。迷宫同样每天轮换'],
+
         //事件指引
-        [/^Limited Area Until (\d+)\/(\d+)$/,
+        [/^Limited Area Until (\d+)\/(\d+)$/i,
         '限时区域, 截止至$1月$2日'],
-        [/^HP Remaining: (\d+)%$/,
+        [/^HP Remaining: (\d+)%$/i,
         '生命值剩余: $1%'],
         [/^Time left:/i,
         '剩余时间:'],
@@ -280,6 +283,8 @@
         '[关键词A] or [关键词B]: 搜索关键词A或关键词B'],
         [/^\[keywordA\] \[keywordB\]: Search for keywordA AND keywordB/i,
         '[关键词A] [关键词B]: 搜索同时包含关键词A和关键词B'],
+        [/^ivsum\(\< \= \>\)\[number\]\: Check sum of IVs \(IE\: ivsum\<36\)/i,
+        'ivsum(< = >)[数值]: 检查个体值总和 (例如: ivsum<36)'],
         [/^Select a move below and replace it with one of the list of learnt moves/i,
         '点击选择下方的招式, 可替换为列表中的招式'],
         [/^This move is restricted \(/i,
