@@ -432,7 +432,7 @@
         [/^Bold: Def ▲, S.Def ▲, HP ▼/i,
         '大胆: 防御 ▲, 特防 ▲, 生命 ▼'],
         [/^Adamant and Modest can't be rolled if they'd buff the highest offensive stat of the Pokemon, neither a nature can exceed 6 stars/i,
-        '如果固执和内敛性格会提升宝可梦最高的攻击能力, 则无法随机到这两种性格。所有性格最多仅可使种族值提高至 6 星'],
+        '所有性格最多仅可使种族值提高至 6 星。如果宝可梦的种族值 攻击>特攻, 则无法获得固执性格; 如果宝可梦的种族值 特攻>攻击, 则无法获得内敛性格'],
         [/^(.+) now has a (.+) nature!/i,
         '$1 现在是 $2 性格!'],
         
