@@ -593,8 +593,8 @@
         [/Star signs are unlocked for all the evolutive family as long as they are shiny/i,
         '此闪光宝可梦拥有星象后, 其进化系的其他的闪光宝可梦也会获得星象'],
         //神兽介绍
-        [/Believed to be a result of an attempt to replicate the ancestor of all Pokemon\. The experiment did not achieve its intended goal, and the creature that emerged was deemed a failure/i,
-        '据信是为了复现万灵始祖而进行实验的产物。实验未能达成其预定目标，诞生于此的存在亦被判定为失败之作'],
+        [/Believed to be the result of an attempt to replicate the ancestor of all Pokémon. The experiment did not achieve its intended goal, and the creature that emerged was deemed a failure./i,
+        '据说是为了复现万灵始祖而进行实验的产物。实验未能达成其预定目标，诞生于此的存在亦被判定为失败之作'],
         [/The cold of winter\. Air chills and frost gathers in its wake\. Snowfall follows as it passes, and mountains are left sealed in ice where it lingers\./i,
         '凛冬之寒。所经之处空气凝结，霜华渐聚。其行过时大雪纷至，驻足之地群山覆冰，冰封长驻'],
         [/The storm of summer\. Thunder rolls with its cry, and lightning strikes in time with its wings\. The skies darken as it passes, and violent storms follow its soar/i,
