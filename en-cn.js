@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] EN-CN
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.9
+// @version      4.0
 // @description  Pokechill 全页面离线简体中文汉化
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -800,8 +800,8 @@
         '我方全员的$1和$2提高 $3%'],
         [/^Decreases enemy (.+) by (\d+)% and (.+) by (\d+)%/i,
         '使对手的$1降低 $2%, $3降低 $4%'],
-        [/^Changes the type of the user to the type of the first move slot, and increases Speed by 75%/i,
-        '使自身的属性变为第一个招式槽的属性, 且速度提高 75%'],
+        [/^Temporarily changes the type of the user to the type of the first move slot, and increases Speed by 75%/i,
+        '使自身的属性临时变为第一个招式槽的属性, 且速度提高 75%'],
         [/^ to the entire team/i,
         '给我方全员'],
         
