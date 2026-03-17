@@ -567,6 +567,14 @@ flex-direction: column;
     100%{rotate:0deg; transform: scale(1);}
 }
 
+
+@keyframes z-move {
+    0%{ filter: brightness(1); transform: scale(1);}
+    30%{filter: brightness(10); transform: scale(1.2); translate: -5% -5%;}
+    70%{ filter: brightness(1);}
+    100%{ filter: brightness(1); transform: scale(1);}
+}
+
 .explore-item span{
     position: absolute;
     bottom: -1rem;
@@ -2458,6 +2466,28 @@ z-index: 0;
     font-size: 1rem;
 }
 
+#pokedex-menu-return{
+    all: initial;
+    height: 4rem;
+    width: 4rem;
+    background: var(--light2);
+    color: var(--dark1);
+    position: fixed;
+    margin: auto;
+    left: 0%;
+    right: 0%;
+    bottom: 2rem;
+    z-index: 1000;
+    border-radius: 100%;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+#pokedex-menu-return:hover{
+    opacity: 1 !important;
+}
+
 .pokedex-menu-flair {
     position: fixed;
     height: 150%;
@@ -2887,6 +2917,7 @@ z-index: 0;
     padding-bottom: 0.3rem;
     pointer-events: none;
     background: transparent;
+    transform-origin: top left;
 }
 
 .team-held-item img{

@@ -360,6 +360,7 @@ function setSearchTags() {
 
 
 
+
 //banger formulas submitted by Enyxiel
 
 function stripHTML(str) {

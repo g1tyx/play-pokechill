@@ -1068,6 +1068,8 @@ function leaveCombat(){
         if (newIv>ivId) {
             pkmn[hatchedPkmn].ivs[iv] = newIv
              divTag = `<span>Ivs Up!</span>`
+            pkmn[hatchedPkmn].dictionaryTagIvSum = pkmn[hatchedPkmn].ivs.hp + pkmn[hatchedPkmn].ivs.atk + pkmn[hatchedPkmn].ivs.satk + pkmn[hatchedPkmn].ivs.spe + pkmn[hatchedPkmn].ivs.sdef + pkmn[hatchedPkmn].ivs.def
+
         }
     }
 
@@ -1132,6 +1134,8 @@ function leaveCombat(){
         if (newIv>ivId) {
             pkmn[i].ivs[iv] = newIv
              divTag = `<span>Iv's Up!</span>`
+            pkmn[i].dictionaryTagIvSum = pkmn[i].ivs.hp + pkmn[i].ivs.atk + pkmn[i].ivs.satk + pkmn[i].ivs.spe + pkmn[i].ivs.sdef + pkmn[i].ivs.def
+
         }
     }
 
@@ -1178,7 +1182,6 @@ function leaveCombat(){
 
     }
 
-    setSearchTags()
 
 
 
@@ -2260,6 +2263,7 @@ let nextMovePlayer;
 let moveTimerPlayer; 
 let barPlayer;
 let embargoSlot = 1;
+let zCrystalTurn = 0
 
 let lastCrossStab = undefined
 const crossPattern = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='white' fill-opacity='1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
@@ -2383,6 +2387,8 @@ function exploreCombatPlayer() {
     }
 
     let speedStars = pkmn[team[exploreActiveMember].pkmn.id].bst.spe
+    if (pkmn[team[exploreActiveMember].pkmn.id].nature == "jolly") speedStars++
+    if (pkmn[team[exploreActiveMember].pkmn.id].nature == "relaxed") speedStars--
     if (areas[saved.currentArea].id == areas.training.id) speedStars = returnDivisionStars(pkmn[team[exploreActiveMember].pkmn.id])
 
 
@@ -2794,6 +2800,104 @@ function exploreCombatPlayer() {
         for (const member in team) {
             if (team[member].pkmn==undefined) continue
             if (testAbility(member, ability.soulAsterism.id) && moveType == 'ghost') totalPower *= 1.1
+
+
+
+
+
+
+            if (team[member].item && item[team[member].item].zType) {
+                zCrystalTurn++
+
+
+
+
+            //z move executed
+            if (zCrystalTurn == item[team[member].item].power()){
+                zCrystalTurn = 0
+
+
+            if (afkSeconds<10){
+            const heldItem = document.getElementById(`team-${member}-held-item`)
+            heldItem.style.animation = 'none'
+            void heldItem.offsetWidth
+            heldItem.style.animation = 'z-move 0.3s 1'
+            }
+
+
+            const zUser = team[member].pkmn
+            let zTotalPower = 0
+            let zPower = 30
+            let zTyping = item[team[member].item].zType
+
+            let zSplit = `physical`
+            let zPhysStars = zUser.bst.atk
+            if (zUser.nature == "adamant") zPhysStars++
+            if (zUser.nature == "modest") zPhysStars--
+            if (zUser.nature == "quiet") zPhysStars--
+            let zSpaStars = zUser.bst.satk
+            if (zUser.nature == "adamant") zSpaStars--
+            if (zUser.nature == "modest") zSpaStars++
+            if (zUser.nature == "quiet") zSpaStars--
+
+            if (zPhysStars<zSpaStars) zSplit = `special`
+            if (zPhysStars==zSpaStars) zSplit = `random`
+
+
+            if (zSplit == "physical" || (zSplit == "random" && rng(0.5)) ){
+            zTotalPower = 
+            ( zPower + Math.max(0, ( (zUser.bst.atk * 30) * Math.pow(1.1, zUser.ivs.atk) ) - (defender.bst.def * 30) )  )
+            * ( 1+(zUser.level * 0.1) )        
+            * 1;
+            
+
+            if (wildBuffs.defup1 > 0) zTotalPower /=1.5
+            if (wildBuffs.defup2 > 0) zTotalPower /=2
+
+            if (wildBuffs.defdown1 > 0) zTotalPower *=1.5
+            if (wildBuffs.defdown2 > 0) zTotalPower *=2  
+
+
+            } else {
+            zTotalPower = 
+            ( zPower + Math.max(0, ( (zUser.bst.satk * 30) * Math.pow(1.1, zUser.ivs.satk) ) - (defender.bst.sdef * 30) )  )
+            * ( 1+(zUser.level * 0.1) )        
+            * 1;
+            
+            if (wildBuffs.sdefup1 > 0) zTotalPower /=1.5
+            if (wildBuffs.sdefup2 > 0) zTotalPower /=2
+
+            if (wildBuffs.sdefdown1 > 0) zTotalPower *=1.5
+            if (wildBuffs.sdefdown2 > 0) zTotalPower *=2  
+
+            
+            } 
+
+            zTotalPower *= 10
+
+            if (zUser.type.includes(zTyping)) zTotalPower *= 1.5
+
+            let zTypeMultiplier = typeEffectiveness(zTyping, pkmn[saved.currentPkmn].type)
+            zTotalPower *= zTypeMultiplier
+
+
+  
+
+
+            if (zSplit == `random`) zTotalPower *= 1.25
+            wildPkmnHp -= zTotalPower;
+
+            if (afkSeconds<10){
+            console.info(`Z-move executed: Dealt ${zTotalPower.toFixed(0)} damage`)
+            if (zUser.type.includes(zTyping)) console.info(`- Z-move stab multiplier: Yes (x1.5)`)
+            if (zSplit == `random`) console.info(`- Z-move random split bonus: Yes (x1.25)`)
+            console.info(`- Z-move enemy type multiplier: ${zTypeMultiplier}`)
+            }
+
+            }
+
+            } 
+
         }
 
 
@@ -2899,7 +3003,7 @@ function exploreCombatPlayer() {
 
 
         wildPkmnHp -= totalPower;
-       
+
 
 
 
@@ -3484,8 +3588,6 @@ function exploreCombatWild() {
     }
 
     let speedStars = pkmn[saved.currentPkmn].bst.spe
-    if (pkmn[saved.currentPkmn].nature == "jolly") speedStars++
-    if (pkmn[saved.currentPkmn].nature == "relaxed") speedStars--
     if (areas[saved.currentArea].id == areas.training.id) speedStars = returnDivisionStars(pkmn[saved.currentPkmn])
     if (areas[saved.currentArea].fieldEffect?.includes(field.trickField.id)) {speedStars = 7 - speedStars}
     if (saved.weatherTimer>0 && saved.weather=="trickRoom") {speedStars = 7 - speedStars}
@@ -3826,7 +3928,7 @@ function exploreCombatWild() {
 function initialiseArea(){
 
 
-
+    zCrystalTurn = 0
     for (const i in pkmn) if (pkmn[i].battling) pkmn[i].battling=undefined
 
     for (const slot in team) {
@@ -5358,7 +5460,7 @@ if (document.getElementById("pokedex-search").value!="") {
 
                 pkmn[i].ivs[statToRise]++
                 item[vitaminToUse].got--
-                setSearchTags()
+                pkmn[i].dictionaryTagIvSum = pkmn[i].ivs.hp + pkmn[i].ivs.atk + pkmn[i].ivs.satk + pkmn[i].ivs.spe + pkmn[i].ivs.sdef + pkmn[i].ivs.def
                 updatePokedex()
                 
                 if (item[vitaminToUse].got<=0){
@@ -7569,7 +7671,7 @@ function updateWildBuffs(){
         //if (saved.weather=="reflect"){ div.style.filter = `hue-rotate(-50deg)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h3q.825 0 1.413.588T10 5v14q0 .825-.587 1.413T8 21zm6.288-.288Q11 20.426 11 20t.288-.712T12 19t.713.288T13 20t-.288.713T12 21t-.712-.288m0-4Q11 16.426 11 16t.288-.712T12 15t.713.288T13 16t-.288.713T12 17t-.712-.288m0-4Q11 12.425 11 12t.288-.712T12 11t.713.288T13 12t-.288.713T12 13t-.712-.288m0-4Q11 8.426 11 8t.288-.712T12 7t.713.288T13 8t-.288.713T12 9t-.712-.288m0-4Q11 4.426 11 4t.288-.712T12 3t.713.288T13 4t-.288.713T12 5t-.712-.288m2 14Q13 18.426 13 18t.288-.712T14 17t.713.288T15 18t-.288.713T14 19t-.712-.288m0-4Q13 14.425 13 14t.288-.712T14 13t.713.288T15 14t-.288.713T14 15t-.712-.288m0-4Q13 10.426 13 10t.288-.712T14 9t.713.288T15 10t-.288.713T14 11t-.712-.288m0-4Q13 6.426 13 6t.288-.712T14 5t.713.288T15 6t-.288.713T14 7t-.712-.288m2 14Q15 20.426 15 20t.288-.712T16 19t.713.288T17 20t-.288.713T16 21t-.712-.288m0-4Q15 16.426 15 16t.288-.712T16 15t.713.288T17 16t-.288.713T16 17t-.712-.288m0-4Q15 12.425 15 12t.288-.712T16 11t.713.288T17 12t-.288.713T16 13t-.712-.288m0-4Q15 8.426 15 8t.288-.712T16 7t.713.288T17 8t-.288.713T16 9t-.712-.288m0-4Q15 4.426 15 4t.288-.712T16 3t.713.288T17 4t-.288.713T16 5t-.712-.288M18 19q-.425 0-.712-.288T17 18t.288-.712T18 17t.713.288T19 18t-.288.713T18 19m0-4q-.425 0-.712-.288T17 14t.288-.712T18 13t.713.288T19 14t-.288.713T18 15m0-4q-.425 0-.712-.288T17 10t.288-.712T18 9t.713.288T19 10t-.288.713T18 11m-.712-4.288Q17 6.426 17 6t.288-.712T18 5t.713.288T19 6t-.288.713T18 7t-.712-.288m2 14Q19 20.426 19 20t.288-.712T20 19t.713.288T21 20t-.288.713T20 21t-.712-.288m0-4Q19 16.426 19 16t.288-.712T20 15t.713.288T21 16t-.288.713T20 17t-.712-.288m0-4Q19 12.425 19 12t.288-.712T20 11t.713.288T21 12t-.288.713T20 13t-.712-.288m0-4Q19 8.426 19 8t.288-.712T20 7t.713.288T21 8t-.288.713T20 9t-.712-.288m0-4Q19 4.426 19 4t.288-.712T20 3t.713.288T21 4t-.288.713T20 5t-.712-.288"/></svg>`}
         if (saved.weather=="safeguard"){ div.style.filter = `hue-rotate(-30deg)`; weatherIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2"/><path d="M6.5 13.5a3 3 0 0 0 5.5 1.659a3 3 0 1 0 2.823-4.642a3 3 0 1 0-5.646 0A3 3 0 0 0 6.5 13.5"/></g></svg>`}
 
-        div.innerHTML = format(saved.weather)+weatherIcon;
+        div.innerHTML = `${format(saved.weather)} ${saved.weatherTimer} ${weatherIcon}`;
         document.getElementById("wild-buff-list").appendChild(div);
     }
 
@@ -7644,7 +7746,7 @@ function updateTeamBuffs(){
 
 
 
-        if (testAbility(slot, ability.fullMetalBody.id) && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2/.test(i) ) team[slot].buffs[i] = 0
+        if (testAbility(slot, ability.fullMetalBody.id) && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|satkdown2|sdefdown1|sdefdown2|spedown1|spedown2/.test(i) ) team[slot].buffs[i] = 0
 
         const div = document.createElement("span");
         div.className = "buff-tag";
@@ -7808,8 +7910,8 @@ function moveBuff(target,buff,mod,turnOverride){
 
     if (target==="wild" && mod=="team") { //player to team
 
-        if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
-        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
+        if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|satkdown2|sdefdown1|sdefdown2|spedown1|spedown2|burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
+        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|satkdown2|sdefdown1|sdefdown2|spedown1|spedown2|burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
 
         if (testAbility(`active`, ability.hydratation.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
         if (testAbility(`active`, ability.sandVeil.id ) && saved.weather == "sandstorm" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
@@ -7836,8 +7938,8 @@ function moveBuff(target,buff,mod,turnOverride){
         if (turnOverride != undefined) affectedTurns = turnOverride
 
 
-        if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
-        if (team[slot].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
+        if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|satkup1|satkup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
+        if (team[slot].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|satkup1|satkup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
 
         if (testAbility(`active`, ability.synchronize.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) { moveBuff("wild",buff); updateWildBuffs()}
         if (testAbility(`active`, ability.wonderSkin.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && rng(0.5)) continue
@@ -7849,7 +7951,7 @@ function moveBuff(target,buff,mod,turnOverride){
             continue
         }
 
-        if (testAbility(slot, ability.stoned.id ) && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) {
+        if (testAbility(slot, ability.stoned.id ) && /atkup1|atkup2|defup1|defup2|satkup1|satkup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) {
              if (testAbility(slot, ability.stoned.id ) === true) affectedTurns*=3
              if (testAbility(slot, ability.stoned.id ) === `nerf`) affectedTurns*=2
              team[slot].buffs[buff] = affectedTurns
@@ -7875,9 +7977,8 @@ function moveBuff(target,buff,mod,turnOverride){
 
         wildBuffs[buff] = affectedTurns
 
-        //if (testAbility(`active`, ability.imposter.id ) &&  /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff)) team[exploreActiveMember].buffs[buff] = affectedTurns;
         for (const slot in team) {
-        if (testAbility(slot, ability.imposter.id ) &&  /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff)) team[slot].buffs[buff] = 3  ;
+        if (testAbility(slot, ability.imposter.id ) &&  /atkup1|atkup2|defup1|defup2|satkup1|satkup2|sdefup1|sdefup2|speup1|speup2/.test(buff)) team[slot].buffs[buff] = 3  ;
         }
 
 
@@ -7893,12 +7994,12 @@ function moveBuff(target,buff,mod,turnOverride){
 
         if (testAbility(`active`, ability.synchronize.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) { moveBuff("wild",buff); updateWildBuffs()}
         if (testAbility(`active`, ability.wonderSkin.id ) && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) && rng(0.5)) return
-        if (testAbility(`active`, ability.stoned.id ) === true && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
-        if (testAbility(`active`, ability.stoned.id ) === "nerf" && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
+        if (testAbility(`active`, ability.stoned.id ) === true && /atkup1|atkup2|defup1|defup2|satkup1|satkup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
+        if (testAbility(`active`, ability.stoned.id ) === "nerf" && /atkup1|atkup2|defup1|defup2|satkup1|satkup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns*=3
 
-        if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
-        if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
-        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|stakdown2|sdefdown1|sdefdown2|spedown1|spedown2 | burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
+        if (team[exploreActiveMember].item == item.lightClay.id && /atkup1|atkup2|defup1|defup2|satkup1|satkup2|sdefup1|sdefup2|speup1|speup2/.test(buff) ) affectedTurns++
+        if (team[exploreActiveMember].item == item.mentalHerb.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|satkdown2|sdefdown1|sdefdown2|spedown1|spedown2|burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns--
+        if (team[exploreActiveMember].item == item.clearAmulet.id && /atkdown1|atkdown2|defdown1|defdown2|stakdown1|satkdown2|sdefdown1|sdefdown2|spedown1|spedown2|burn|freeze|confused|paralysis|poisoned|sleep/.test(buff) ) affectedTurns-= Math.max( Math.floor(item.clearAmulet.power()) ,0)
 
         //if (pkmn[team[exploreActiveMember].pkmn.id].ability == ability.hydratation.id && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
         if (testAbility(`active`, ability.hydratation.id ) && saved.weather == "rainy" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep/.test(buff)) {return}
@@ -7916,7 +8017,7 @@ function moveBuff(target,buff,mod,turnOverride){
 
         if (saved.weatherTimer>0 && saved.weather=="safeguard" && saved.weatherTimer>0 && /burn|freeze|confused|paralysis|poisoned|sleep|defdown1|defdown2|atkdown1|atkdown2|sdefdown1|sdefdown2|satkdown1|satkdown2|spedown1|spedown2/.test(buff)) {return}
 
-        if (/atkup1|atkup2|defup1|defup2|stakup1|stakup2|sdefup1|sdefup2|speup1|speup2/.test(buff)) {for (const slot in team) { if (testAbility(slot, ability.costar.id)) team[slot].buffs[buff] = affectedTurns }}
+        if (/atkup1|atkup2|defup1|defup2|satkup1|satkup2|sdefup1|sdefup2|speup1|speup2/.test(buff)) {for (const slot in team) { if (testAbility(slot, ability.costar.id)) team[slot].buffs[buff] = affectedTurns }}
 
 
 
@@ -8465,6 +8566,10 @@ if (sharedType === 2) compability = 3;
 
 if (samplePkmn.id === "ditto") compability++
 
+document.getElementById("genetics-compat-text").innerHTML = `Compatibility <font style="color:#E58FFF; margin-left:0.3rem">[${compability-1}]</font>`
+
+
+
 document.getElementById("pokerus-warning").style.display = "none"
 if (pkmn[saved.geneticHost].pokerus || saved.geneticPokerus==true) compability++
 if (pkmn[saved.geneticHost].pokerus || saved.geneticPokerus==true) document.getElementById("pokerus-warning").style.display = "flex"
@@ -8612,13 +8717,15 @@ if (mod==="end"){
 
 
     //pass moves
+    
     pkmn[saved.geneticSample].movepool.forEach(moveID => {
-        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID)) && (move[moveID].moveset!==undefined ||  (   move[moveID].moveset==undefined && pkmn[saved.geneticHost].eggMove?.id == moveID  )    ) ) {
+        if (rng(moveChance) && !(pkmn[saved.geneticHost].movepool.includes(moveID)) && (move[moveID].moveset!==undefined ||  (   move[moveID].moveset==undefined && pkmn[saved.geneticHost].eggMove?.id == moveID  )    ||   ( move[moveID].moveset==undefined && ["B", "C", "D"].includes(returnPkmnDivision(pkmn[saved.geneticHost])) && item.replicatorUpgradeE.got>0 && compability>=3   )   ) ) {
+
             pkmn[saved.geneticHost].movepool.push(moveID);
             if (pkmn[saved.geneticHost].movepoolMemory == undefined) pkmn[saved.geneticHost].movepoolMemory = []
             if (!pkmn[saved.geneticHost].movepoolMemory.includes(moveID)) pkmn[saved.geneticHost].movepoolMemory.push(moveID);
             
-            if (move[moveID].moveset==undefined && pkmn[saved.geneticHost].eggMove?.id == moveID) summaryTags += `<div style="filter:hue-rotate(200deg)">⟐ Egg Move inherited: ${format(moveID)}!</div>`
+            if (move[moveID].moveset==undefined && (pkmn[saved.geneticSample].signature?.id == moveID || pkmn[saved.geneticSample].eggMove?.id == moveID)  ) summaryTags += `<div style="filter:hue-rotate(200deg)">⟐ Egg Move inherited: ${format(moveID)}!</div>`
             else summaryTags += `<div style="filter:hue-rotate(0deg)">◇ Move inherited: ${format(moveID)}!</div>`
         }
     });
@@ -8686,7 +8793,10 @@ if (mod==="end"){
     if (rng(ivChanceSdef) && pkmn[saved.geneticHost].ivs.sdef<Math.min(ivCap, pkmn[saved.geneticSample].ivs.sdef)) {pkmn[saved.geneticHost].ivs.sdef = Math.min(ivCap, pkmn[saved.geneticSample].ivs.sdef) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Special Defense Iv's inherited!</div>`}
     if (rng(ivChanceSpe) && pkmn[saved.geneticHost].ivs.spe<Math.min(ivCap, pkmn[saved.geneticSample].ivs.spe)) {pkmn[saved.geneticHost].ivs.spe = Math.min(ivCap, pkmn[saved.geneticSample].ivs.spe) ; summaryTags += `<div style="filter:hue-rotate(200deg)">❖ Speed Iv's inherited!</div>`}
 
-    setSearchTags()
+    pkmn[saved.geneticHost].dictionaryTagIvSum = pkmn[saved.geneticHost].ivs.hp + pkmn[saved.geneticHost].ivs.atk + pkmn[saved.geneticHost].ivs.satk + pkmn[saved.geneticHost].ivs.spe + pkmn[saved.geneticHost].ivs.sdef + pkmn[saved.geneticHost].ivs.def
+
+
+
     for (const iv in pkmn[saved.geneticHost].ivs){
         const ivId = pkmn[saved.geneticHost].ivs[iv]
         //let maxIv = 3
@@ -8725,7 +8835,6 @@ if (mod==="end"){
     saved.geneticPokerus = false
 
     setGeneticMenu()
-    setSearchTags()
 
 }
 
@@ -8860,7 +8969,7 @@ training.iv1 = { //disapears if you have more than x ivs
 
     let text = `Increased ${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}!`
     if (parts.length === 1) text = `Increased ${parts[0]}!`;
-    setSearchTags()
+    pkmn[i].dictionaryTagIvSum = pkmn[i].ivs.hp + pkmn[i].ivs.atk + pkmn[i].ivs.satk + pkmn[i].ivs.spe + pkmn[i].ivs.sdef + pkmn[i].ivs.def
 
         setTimeout(() => {
         const div = document.createElement("span");
@@ -8914,7 +9023,7 @@ training.iv2 = { //doesnt appear until you have more than x ivs
 
     let text = `Increased ${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}!`
     if (parts.length === 1) text = `Increased ${parts[0]}!`;
-    setSearchTags()
+    pkmn[i].dictionaryTagIvSum = pkmn[i].ivs.hp + pkmn[i].ivs.atk + pkmn[i].ivs.satk + pkmn[i].ivs.spe + pkmn[i].ivs.sdef + pkmn[i].ivs.def
 
         setTimeout(() => {
         const div = document.createElement("span");
@@ -8968,7 +9077,7 @@ training.iv3 = { //doesnt appear until you have more than x ivs
 
     let text = `Increased ${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}!`
     if (parts.length === 1) text = `Increased ${parts[0]}!`;
-    setSearchTags()
+    pkmn[i].dictionaryTagIvSum = pkmn[i].ivs.hp + pkmn[i].ivs.atk + pkmn[i].ivs.satk + pkmn[i].ivs.spe + pkmn[i].ivs.sdef + pkmn[i].ivs.def
 
         setTimeout(() => {
         const div = document.createElement("span");
@@ -9047,7 +9156,7 @@ training.move = { //disapears if you have 20+ moves or smth
 
 training.nature = {
     name: `Nature Training`,
-    info: `Grants, rerolls and removes natures, which modify BST Stars: <br><br>Adamant: Atk ▲, S.Atk ▼<br>Modest: S.Atk ▲, Atk ▼<br>Jolly: Spe ▲, Def ▼, S.Def ▼<br>Relaxed: HP ▲, Spe ▼<br>Quiet: HP ▲, Atk ▼, S.Atk ▼<br>Bold: Def ▲, S.Def ▲, HP ▼<br><br>Adamant and Modest can't be rolled if they'd buff the highest offensive stat of the Pokemon, neither a nature can exceed 6 stars`,
+    info: `Grants, rerolls and removes natures, which modify BST Stars: <br><br>Adamant: Atk ▲, S.Atk ▼<br>Modest: S.Atk ▲, Atk ▼<br>Jolly: Spe ▲, Def ▼, S.Def ▼<br>Relaxed: HP ▲, Spe ▼<br>Quiet: HP ▲, Atk ▼, S.Atk ▼<br>Bold: Def ▲, S.Def ▲, HP ▼<br><br>Adamant and Modest can't be rolled if they'd buff the highest offensive stat of the Pokemon, neither a nature can exceed 6 stars or result in 0 speed stars`,
     tier: 3,
     color: `#DF7A69`,
     condition: function() { if (areas.vsLegendTrainerBrendan.defeated == true) return true },

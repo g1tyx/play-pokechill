@@ -1588,7 +1588,10 @@ item.replicatorUpgradeS = {
     info: function() {return `Permanent Upgrade: Decrease the time required for genetic operations by 30 minutes (Up to a minimum of 10 minutes)`},
 }
 
-
+item.replicatorUpgradeE = {
+    type: "key",
+    info: function() {return `Permanent Upgrade: Allows ALL moves to be inheritable to a host of B division and below (including Signature and Egg moves). For this to happen, at least two levels of compatibility are needed<br><br>Two or more exact Egg Moves transferred this way can't be present at the same time on a single team, unless the user of the move has said move as an inherent Egg Move or Signature Move`},
+}
 
 
 
@@ -1610,12 +1613,149 @@ item.nothing = {
 
 
 
+item.buginiumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Bug-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `bug`
+}
 
+item.darkiniumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Dark-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `dark`
+}
 
+item.dragoniumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Dragon-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `dragon`
+}
 
+item.electriumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Electric-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `electric`
+}
 
+item.fairiumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Fairy-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `fairy`
+}
 
+item.fightiniumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Fighting-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `fighting`
+}
 
+item.firiumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Fire-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `fire`
+}
+
+item.flyiniumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Flying-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `flying`
+}
+
+item.ghostiumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Ghost-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `ghost`
+}
+
+item.grassiumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Grass-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `grass`
+}
+
+item.groundiumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Ground-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `ground`
+}
+
+item.iciumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Ice-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `ice`
+}
+
+item.normaliumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Normal-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `normal`
+}
+
+item.poisoniumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Poison-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `poison`
+}
+
+item.psychiumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Psychic-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `psychic`
+}
+
+item.rockiumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Rock-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `rock`
+}
+
+item.steeliumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Steel-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `steel`
+}
+
+item.wateriumZ = {
+    type: "held",
+    sort: "gem",
+    info: function() {return `When held: Regardless of the holder, every ${this.power()} turns, executes a coordinated Water-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder (If they are equal, it will be random, but deal x1.25 more damage). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team`},
+    power : function() { return 20-(2*returnItemLevel(this.id))},
+    zType: `water`
+}
 
 
 

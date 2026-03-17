@@ -13379,6 +13379,21 @@ pkmn.greninja = {
     signature : move.waterShuriken
 }
 
+pkmn.greninjaAsh = {
+  rename: `Ash Greninja`,
+  type: ["water","dark"],
+  bst: {
+    hp: 72,
+    atk: 125,
+    def: 77,
+    satk: 133,
+    sdef: 81,
+    spe: 142,
+  },
+    hiddenAbility: ability.protean,
+    signature : move.waterShuriken
+}
+
 pkmn.megaGreninja = {
   type: ["water","dark"],
   bst: {
@@ -13958,10 +13973,10 @@ pkmn.floetteEternal = {
 pkmn.megaFloette = {
   type: ["fairy"],
   bst: {
-    hp: 74,
+    hp: 120,
     atk: 85,
     def: 87,
-    satk: 155,
+    satk: 205,
     sdef: 148,
     spe: 102,
   }

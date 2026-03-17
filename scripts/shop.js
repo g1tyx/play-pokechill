@@ -1442,6 +1442,14 @@ shop.shopReplicatorUpgradeS = {
     category: `apricorn`
 }
 
+shop.shopreplicatorUpgradeE = {
+    icon: item.replicatorUpgradeE.id,
+    price: 40,
+    stock: 1,
+    currency: item.whiteApricorn.id,
+    category: `apricorn`
+}
+
 shop.shopfestivalTicket = {
     icon: item.festivalTicket.id,
     price: 150,

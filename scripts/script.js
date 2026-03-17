@@ -223,7 +223,7 @@ function updateGameVersion() {
     saved.tagSystemTags = [];
   }
 
-  saved.version = 4.9
+  saved.version = 5.0
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -655,7 +655,14 @@ function learnPkmnAbility(id,boost=1) {
 }
 
 
-
+document.getElementById('pokedex-menu').addEventListener('scroll', function() {
+  const scrolled = this.scrollTop;
+  const remInPixels = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  const threshold = 30 * remInPixels;
+  
+  const returnButton = document.getElementById('pokedex-menu-return');
+  returnButton.style.opacity = scrolled >= threshold ? '0.5' : '0';
+});
 
 
 //--Tutorial stuff

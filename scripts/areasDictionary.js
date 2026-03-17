@@ -1393,6 +1393,24 @@ areas.glisteringCaveI = {
     },
 }
 
+areas.sunkenTempleI = {
+    rotation : 1,
+    type: `dungeon`,
+    background : `trench`,
+    level : 100,
+    difficulty: 5,
+    unlockDescription : `Defeat Pokemon Professor Oak in VS to unlock`,
+    unlockRequirement : function() { return areas.vsPokemonProfessorOak.defeated },
+    icon: item.darkiniumZ,
+    spawns: {
+        common : [pkmn.megaHawlucha,pkmn.ironBundle, pkmn.baxcalibur],
+    },
+    drops: {
+        common : [item.nothing],
+        rare : [item.buginiumZ, item.darkiniumZ, item.dragoniumZ, item.electriumZ, item.fairiumZ, item.fightiniumZ]
+    },
+}
+
 
 //rotation 2
 
@@ -1496,6 +1514,24 @@ areas.glisteringCaveII = {
     drops: {
         common : [item.nothing],
         rare : [item.fireGem, item.flyingGem, item.ghostGem, item.grassGem, item.groundGem, item.iceGem]
+    },
+}
+
+areas.sunkenTempleII = {
+    rotation : 2,
+    type: `dungeon`,
+    background : `trench`,
+    level : 100,
+    difficulty: 5,
+    unlockDescription : `Defeat Pokemon Professor Oak in VS to unlock`,
+    unlockRequirement : function() { return areas.vsPokemonProfessorOak.defeated },
+    icon: item.flyiniumZ,
+    spawns: {
+        common : [pkmn.nihilego,pkmn.roaringMoon, pkmn.megaMalamar],
+    },
+    drops: {
+        common : [item.nothing],
+        rare : [item.firiumZ, item.flyiniumZ, item.ghostiumZ, item.grassiumZ, item.groundiumZ, item.iciumZ]
     },
 }
 
@@ -1608,7 +1644,23 @@ areas.glisteringCaveIII = {
 //        common : [item.strengthTm, item.flamethrowerTm, item.thunderboltTm, item.earthquakeTm, item.flashCannonTm, item.flyTm, item.sludgeBombTm, item.iceBeamTm, item.bugBuzzTm, item.aquaTailTm, item.leafBladeTm, item.auraSphereTm, item.psychicTm, item.powerGemTm, item.phantomForceTm, item.dragonRushTm, item.darkPulseTm, item.playRoughTm]
 
 
-
+areas.sunkenTempleIII = {
+    rotation : 3,
+    type: `dungeon`,
+    background : `trench`,
+    level : 100,
+    difficulty: 5,
+    unlockDescription : `Defeat Pokemon Professor Oak in VS to unlock`,
+    unlockRequirement : function() { return areas.vsPokemonProfessorOak.defeated },
+    icon: item.flyiniumZ,
+    spawns: {
+        common : [pkmn.megaSharpedo,pkmn.stakataka, pkmn.megaAbomasnow],
+    },
+    drops: {
+        common : [item.nothing],
+        rare : [item.normaliumZ, item.poisoniumZ, item.psychiumZ, item.rockiumZ, item.steeliumZ, item.wateriumZ]
+    },
+}
 
 
 
@@ -5019,6 +5071,120 @@ areas.vsLegendTrainerBrendan = {
 }
 
 
+areas.vsLegendTrainerAZ = {
+    name: `Legend Trainer AZ`,
+    background : `gym`,
+    sprite : `az`,
+    difficulty : 22,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.ironBoulder,
+        slot1Moves : [move.earthquake.id,move.rockSlide.id, move.ironHead.id],
+        slot2 : pkmn.floetteEternal,
+        slot2Moves : [move.calmMind.id, move.solarBeam.id, move.iceBeam.id],
+        slot3 : pkmn.megaAltaria,
+        slot3Moves : [move.flamethrower.id, move.dragonPulse.id, move.airShlash.id],
+        slot4 : pkmn.tapuFini,
+        slot4Moves : [move.calmMind.id, move.earthPower.id, move.scald.id],
+        slot5 : pkmn.enamorusTherian,
+        slot5Moves : [move.sweetKiss.id, move.airShlash.id, move.psychic.id],
+        slot6 : pkmn.megaFloette,
+        slot6Moves : [move.thunderWave.id, move.fireBlast.id, move.lightOfRuin.id],
+    },
+    fieldEffect : [field.heavyWeather.id, field.mistyField.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsLegendTrainerAsh = {
+    name: `Legend Trainer Ash`,
+    background : `gym`,
+    sprite : `ash`,
+    difficulty : 24,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.megaDragonite,
+        slot1Moves : [move.dracoMeteor.id,move.icePunch.id, move.fly.id],
+        slot2 : pkmn.gengarGmax,
+        slot2Moves : [move.confuseRay.id, move.shadowBall.id, move.darkPulse.id],
+        slot3 : pkmn.kinglerGmax,
+        slot3Moves : [move.crabhammer.id, move.machPunk.id, move.xScissor.id],
+        slot4 : pkmn.charizardGmax,
+        slot4Moves : [move.ironDefense.id, move.ironTail.id, move.flamethrower.id],
+        slot5 : pkmn.pikachuGmax,
+        slot5Moves : [move.extremeSpeed.id, move.ironTail.id, move.voltTackle.id],
+        slot6 : pkmn.greninjaAsh,
+        slot6Moves : [move.waterShuriken.id, move.darkPulse.id, move.hydroCannon.id],
+    },
+    fieldEffect : [field.noMercy.id, field.neutralisingGas.id, field.deltaStream.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsLegendTrainerBlue = {
+    name: `Legend Trainer Blue`,
+    background : `gym`,
+    sprite : `blue`,
+    difficulty : 25,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.megaPidgeot,
+        slot1Moves : [move.tailwind.id,move.hyperVoice.id, move.braveBird.id],
+        slot2 : pkmn.megaBlastoise,
+        slot2Moves : [move.fireBlast.id, move.focusBlast.id, move.hydroCannon.id],
+        slot3 : pkmn.megaGyarados,
+        slot3Moves : [move.crunch.id, move.aquaTail.id, move.bounce.id],
+        slot4 : pkmn.megaMagearna,
+        slot4Moves : [move.ironDefense.id, move.flashCannon.id, move.dazzlingGleam.id],
+        slot5 : pkmn.venusaurGmax,
+        slot5Moves : [move.frenzyPlant.id, move.sludgeWave.id, move.earthPower.id],
+        slot6 : pkmn.megaLucarioZ,
+        slot6Moves : [move.auraSphere.id, move.flashCannon.id, move.fireBlast.id],
+    },
+    fieldEffect : [field.noMercy.id, field.stealthRocks.id, field.ironBody.id],
+    reward : [item.autoRefightTicket, item.goldenBottleCap]
+}
+
+areas.vsPokemonProfessorOak = {
+    name: `Pokemon Professor Oak`,
+    background : `gym`,
+    sprite : `oak`,
+    difficulty : 26,
+    trainer: true,
+    type: `vs`,
+    level : 150,
+    team : {
+        slot1 : pkmn.rotomWash,
+        slot1Moves : [move.amnesia.id,move.iceBeam.id, move.willOWisp.id, move.hydroCannon.id],
+        slot2 : pkmn.alolanRaichu,
+        slot2Moves : [move.thunderbolt.id, move.psychic.id, move.moonblast.id, move.iceBeam.id],
+        slot3 : pkmn.regidrago,
+        slot3Moves : [move.dragonEnergy.id, move.flameBurst.id, move.earthPower.id, move.flashCannon.id],
+        slot4 : pkmn.megaKangaskhan,
+        slot4Moves : [move.bulkUp.id, move.zenHeadbut.id, move.shadowPunch.id, move.knockOff.id],
+        slot5 : pkmn.venusaurGmax,
+        slot5Moves : [move.frenzyPlant.id, move.sludgeWave.id, move.earthquake.id, move.savageStinger.id],
+        slot6 : pkmn.miraidon,
+        slot6Moves : [move.electricTerrain.id, move.voltTackle.id, move.flashCannon.id, move.iceBeam.id],
+    },
+    fieldEffect : [field.noMercy.id, field.wonderWard.id],
+    itemReward: { 1 : { item: item.autoRefightTicket.id, amount: 1 }, 2 : { item: item.goldenBottleCap.id, amount: 10 }},
+    encounterEffect: function() {
+        document.getElementById("tooltipTop").style.display = `none`
+        document.getElementById("tooltipTitle").innerHTML = `New features unlocked!`
+        document.getElementById("tooltipBottom").style.display = `none`
+        document.getElementById("tooltipMid").innerHTML = `
+        <div class="genetics-overview-tags" >
+        <div style="filter:hue-rotate(0deg)" >New Dungeon: Sunken Temple</div>
+        </div>
+        `
+        openTooltip()
+    }
+}
 
 
 

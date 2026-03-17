@@ -4691,6 +4691,14 @@ move.crushGrip = {
     power: t4Base+20
 }
 
+move.lightOfRuin = {
+    split: "special",
+    type: "fairy",
+    power: 300,
+    timer: defaultPlayerMoveTimer*2,
+    info: function() {return `Attacks x2 slower than usual`} ,
+}
+
 move.spacialRend = {
     split: "special",
     type: "dragon",
@@ -5164,8 +5172,8 @@ move.shiftGear = {
     split: "special",
     type: "steel", 
     power: 0,
-    info: function() {return `Increases Attack by 100% and Speed by 50%`},
-    hitEffect: function(target) { moveBuff(target,'atkup2',"self"); moveBuff(target,'speup1',"self") },
+    info: function() {return `Increases Attack by 50% and Speed by 50%`},
+    hitEffect: function(target) { moveBuff(target,'atkup1',"self"); moveBuff(target,'speup1',"self") },
     restricted: true,
 }
 
