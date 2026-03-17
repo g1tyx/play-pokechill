@@ -8566,13 +8566,14 @@ if (sharedType === 2) compability = 3;
 
 if (samplePkmn.id === "ditto") compability++
 
-document.getElementById("genetics-compat-text").innerHTML = `Compatibility <font style="color:#E58FFF; margin-left:0.3rem">[${compability-1}]</font>`
 
 
 
 document.getElementById("pokerus-warning").style.display = "none"
 if (pkmn[saved.geneticHost].pokerus || saved.geneticPokerus==true) compability++
 if (pkmn[saved.geneticHost].pokerus || saved.geneticPokerus==true) document.getElementById("pokerus-warning").style.display = "flex"
+
+document.getElementById("genetics-compat-text").innerHTML = `Compatibility <font style="color:#E58FFF; margin-left:0.3rem">[${compability-1}]</font>`
 
 
 const familyHost = getEvolutionFamily(hostPkmn);

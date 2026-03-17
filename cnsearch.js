@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] CN-SEARCH
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.7
+// @version      3.9.8
 // @description  Pokechill 中文模糊匹配搜索
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -14,7 +14,7 @@
     'use strict';
 
     const EN_TO_CN = {
-        //和搜索插件同步
+        //搜索插件
         //关键词搜索
         "shiny": "闪光",
         "pokerus": "宝可病毒",
@@ -687,6 +687,7 @@
         "Froakie": "呱呱泡蛙",
         "Frogadier": "呱头蛙",
         "Greninja": "甲贺忍蛙",
+        "Ash Greninja": "小智的甲贺忍蛙",
         "Bunnelby": "掘掘兔",
         "Diggersby": "掘地兔",
         "Fletchling": "小箭雀",
@@ -1641,6 +1642,7 @@
         "Sunny": "大晴天",
         "Foggy": "起雾",
         "Trick Room": "戏法空间",
+        "Light of Ruin": "破灭之光",
         "Lunar Dance": "新月舞",
         "Dragon Ascent": "画龙点睛",
         "Crush Grip": "捏碎",
@@ -1856,7 +1858,7 @@
         "Metal Sound": "金属音",
         "Sunny Day": "大晴天",
         "Will OWisp": "磷火",
-        "Air Shlash": "空气之刃", //作者拼错了
+        "Air Slash": "空气之刃",
         "Alluring Voice": "魅诱之声",
         "Iron Head": "铁头",
         "Zen Headbutt": "意念头锤",
@@ -2110,6 +2112,7 @@
         "Foggy Seed": "浓雾种子",
         "Terrain Extender": "大地膜",
         "Heavy Duty Boots": "厚底靴",
+
         //宝石
         "Bug Gem": "虫之宝石",
         "Dragon Gem": "龙之宝石",
@@ -2129,6 +2132,27 @@
         "Poison Gem": "毒之宝石",
         "Rock Gem": "岩石宝石",
         "Water Gem": "水之宝石",
+
+        //Z纯晶
+        "Buginium Z": "虫Z",
+        "Dragonium Z": "龙Z",
+        "Fairium Z": "妖精Z",
+        "Firium Z": "火Z",
+        "Ghostium Z": "幽灵Z",
+        "Groundium Z": "地面Z",
+        "Normalium Z": "一般Z",
+        "Psychium Z": "超能力Z",
+        "Steelium Z": "钢Z",
+        "Darkinium Z": "恶Z",
+        "Electrium Z": "电Z",
+        "Fightinium Z": "格斗Z",
+        "Flyinium Z": "飞行Z",
+        "Grassium Z": "草Z",
+        "Icium Z": "冰Z",
+        "Poisonium Z": "毒Z",
+        "Rockium Z": "岩石Z",
+        "Waterium Z": "水Z",
+
         //树果, 岩石
         "Charti Berry": "草蚕果",
         "Shuca Berry": "腰木果",
@@ -2151,6 +2175,7 @@
         "Damp Rock": "潮湿岩石",
         "Heat Rock": "炽热岩石",
         "Icy Rock": "冰冷岩石",
+
         //进化
         "Odd Rock": "奇怪的石头",
         "Oval Stone": "浑圆之石",
@@ -2165,6 +2190,7 @@
         "Thunder Stone": "雷之石",
         "Water Stone": "水之石",
         "Fire Stone": "火之石",
+
         //进化石
         "Charizardite Y": "喷火龙进化石Y",
         "Charizardite X": "喷火龙进化石X",
@@ -2262,11 +2288,13 @@
         "Glimmorite": "晶光花进化石",
         "Dondozite": "米立龙进化石",
         "Baxcaliburite": "戟脊龙进化石",
+
         //超级次元
         "M. Piece": "超级碎块",
         "M. Shard": "超级碎片",
         "M. Chunk": "超级晶簇",
         "M. Cluster": "超级晶块",
+
         //遗传
         "Energy Root": "能量根",
         "Hp Up": "生命增强剂",
@@ -2284,6 +2312,7 @@
         "Neverstone": "不变之石",
         "Lock Capsule": "上锁的容器",
         "Macho Brace": "强制锻炼器",
+
         //其他
         "Time Candy": "时间糖果",
         "Bottle Cap": "银色王冠",
@@ -2300,10 +2329,12 @@
         "Black Apricorn": "黑色球果",
         "Magazine Subscription": "订阅杂志",
         "Battle Pass": "战斗通行证",
-        "Replicator Upgrade S": "复制器升级工具S",
+        "Replicator Upgrade": "复制器升级工具",
         "Fashion Case": "饰品盒",
         "Memory": "记忆碟",
         "Festival Ticket": "圆庆票",
+        "Neutral Mint": "性格薄荷",
+
         //装饰
         "Chef Hat": "厨师帽",
         "Colored Parasol": "彩绘阳伞",
@@ -2368,6 +2399,21 @@
         "Blue Flower": "蓝色花朵",
         "Blue Scarf": "蓝色围巾",
         "Blue Tie": "蓝色领带",
+        //食材
+        "Boiled Egg": "水煮蛋",
+        "Bread": "吐司面包",
+        "Coconut Milk": "椰奶",
+        "Fresh Cream": "鲜鲜奶油",
+        "Brittle Bones": "细骨",
+        "Moomoo Cheese": "哞哞乳酪",
+        "Fruit Bunch": "袋装果实",
+        "Fried Food": "炸物拼盘",
+        "Mixed Mushrooms": "袋装蕈菇",
+        "Pasta": "通心粉",
+        "Sausages": "粗绞肉香肠",
+        "Potatoes": "袋装土豆",
+        "Packaged Curry": "即食咖喱",
+        "Precooked Burger": "即食肉排",
 };
 
     const SEARCH_INPUT_IDS = [

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] EN-CN
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.6
+// @version      3.9.8
 // @description  Pokechill 全页面离线简体中文汉化
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -259,6 +259,8 @@
         '左边 = 防守, 右边 = 进攻'],
         [/Lock (.+) \(Slot (\d+)\)/i,
         '锁定 $1 (槽位 $2)'],
+        [/This will replace/i,
+        '这将替换'],
         
         //图鉴指引
         [/Level (\d+)/i,
@@ -275,8 +277,8 @@
         '这是一个隐藏特性。隐藏特性可通过特性胶囊或通过训练解锁, 与普通特性共同生效'],
         [/^This is a Signature Move. Signature moves will automatically be learnt at level 100/i,
         '这是一个招牌技。招牌技将在等级100时自动学会'],
-        [/^This is an Egg Move. Egg moves can be learnt with genetics, using a sample that knows said move, at regular move transfer odds/i, 
-        '这是一个蛋招式。蛋招式可通过遗传学会。请用拥有此招牌技的宝可梦作为样本, 按照普通招式的遗传概率进行遗传学习'],
+        [/^This is an Egg Move. Egg moves can be learnt with genetics when using this Pokemon as a host, using a sample that knows said egg move \(usually in the form of Signature moves\), at regular move transfer odds/i, 
+        '这是一个蛋招式。蛋招式可通过遗传来学习, 在使用该宝可梦作为宿主时, 使用一个拥有该招式(通常为招牌技)的宝可梦作为样本, 以常规的招式转移几率来学习'],
         [/^\!\[keyword\]: Exclude from search/i,
         '![关键词]: 从搜索中排除'],
         [/^\[keywordA\] or \[keywordB\]: Search keywordA OR keywordB/i,
@@ -1034,6 +1036,8 @@
         '持有时: 疲劳伤害 ÷$1'],
         [/When held: Prevents the damage from Stealth Rocks field effect and decreases damage taken by x([\d\.]+)/i,
         '持有时: 受到的伤害 ÷$1。不受隐形岩的场地效果的影响'],
+        [/When held: Regardless of the holder, every (\d+) turns, executes a coordinated (.+)-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder \(If they are equal, it will be random, but deal x1.25 more damage\). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team/i,
+        '持有时: 每隔 $1 回合, 如果持有者未倒下, 则使用 $2属性 的连携Z招式。Z招式的类型取决于持有者的最高能力值 (如果能力值相同则招式类型随机, 但伤害 x1.25)。Z招式的威力受持有者的能力值、个体值、等级影响, 但不受特性或能力值提升效果的影响。每个队伍只允许携带 1 个 Z 纯晶'],
         //岩石, 种子
         [/^When held: Increases the duration of/i,
         '持有时: 持有者改变的'],
@@ -1055,6 +1059,10 @@
         [/^Genetics-aiding item: Transfers the currently equipped moves of the sample to the movepool of the host. The host will retain both its equipped moves and the newly transferred ones, but the sample will lose it's equipped ones. Can only be used with at least one level of compatibility, and does not work on signature moves$/,
         '遗传辅助道具: 将样本当前已装备的招式转移到宿主的技能池中。宿主将保留其已装备的招式和新转移的招式, 但样本将失去其已装备的招式。只能在至少有 1 级兼容性时使用, 且无法转移招牌技'],
         //其他道具
+        [/^Permanent Upgrade\: Allows ALL moves to be inheritable to a host of B division and below \(including Signature and Egg moves\)\. For this to happen\, at least two levels of compatibility are needed/i,
+        '永久升级: 允许所有招式被遗传到 B 级及之下评级的宝可梦 (包括招牌技和蛋招式)。但至少需要 2 级的兼容性'],
+        [/^Two or more exact Egg Moves transferred this way can\'t be present at the same time on a single team\, unless the user of the move has said move as an inherent Egg Move or Signature Move/i,
+        '通过这种方式遗传的 2 个或以上数量的相同蛋招式不能同时存在于同一队伍中, 除非宝可梦的招牌技或蛋招式原来就是这个招式'],
         [/^Permanent Upgrade: Daily export rewards award an extra Fashion Case/i,
         '永久升级: 每日导出奖励额外奖励 1 个饰品盒'],
         [/^Permanent Upgrade: Trainers in the battle frontier award \+3 extra Golden Bottle Caps/i,
@@ -1426,6 +1434,8 @@
         "Duplicate Team": "复制队伍",
         "Team Auto-Build": "自动构建队伍",
         "Auto-Build": "自动构建",
+        "Overwrite Team": "覆盖队伍",
+        "Overwrite": "覆盖",
         //图鉴
         "Filters": "筛选",
         "type": "属性",
@@ -1654,6 +1664,7 @@
         "spe": "速度",
 
         //天气
+        "Field Effect": "场地效果",
         "weather": "天气",
         "Sunny": "大晴天",
         "Rainy": "下雨",
@@ -1803,6 +1814,7 @@
         "Expert Dojo": "专家道场",
         "Victory Road": "冠军之路",
         "Glistering Cave": "光辉洞穴",
+        "Sunken Temple": "沉没神殿",
         //事件
         "Elite": "精英级",
         "Novice": "新手级",
@@ -1905,6 +1917,10 @@
         "Legend Trainer": "传奇训练家",
         "Elite Four": "四天王",
         "Team Leader": "首领",
+        "Pokemon Professor": "宝可梦博士",
+        "Ash": "小智",
+        "Blue": "小茂",
+        "Oak": "大木",
         "Clay": "菊老大",
         "Aaron": "阿柳",
         "Brock": "小刚",
@@ -1990,7 +2006,7 @@
         "Dawn": "小光",
         "Silver": "银",
         "Brendan": "小悠",
-        //和搜索插件同步
+        //搜索插件
         //关键词搜索
         "shiny": "闪光",
         "pokerus": "宝可病毒",
@@ -2663,6 +2679,7 @@
         "Froakie": "呱呱泡蛙",
         "Frogadier": "呱头蛙",
         "Greninja": "甲贺忍蛙",
+        "Ash Greninja": "小智的甲贺忍蛙",
         "Bunnelby": "掘掘兔",
         "Diggersby": "掘地兔",
         "Fletchling": "小箭雀",
@@ -3617,6 +3634,7 @@
         "Sunny": "大晴天",
         "Foggy": "起雾",
         "Trick Room": "戏法空间",
+        "Light of Ruin": "破灭之光",
         "Lunar Dance": "新月舞",
         "Dragon Ascent": "画龙点睛",
         "Crush Grip": "捏碎",
@@ -4086,6 +4104,7 @@
         "Foggy Seed": "浓雾种子",
         "Terrain Extender": "大地膜",
         "Heavy Duty Boots": "厚底靴",
+
         //宝石
         "Bug Gem": "虫之宝石",
         "Dragon Gem": "龙之宝石",
@@ -4105,6 +4124,27 @@
         "Poison Gem": "毒之宝石",
         "Rock Gem": "岩石宝石",
         "Water Gem": "水之宝石",
+
+        //Z纯晶
+        "Buginium Z": "虫Z",
+        "Dragonium Z": "龙Z",
+        "Fairium Z": "妖精Z",
+        "Firium Z": "火Z",
+        "Ghostium Z": "幽灵Z",
+        "Groundium Z": "地面Z",
+        "Normalium Z": "一般Z",
+        "Psychium Z": "超能力Z",
+        "Steelium Z": "钢Z",
+        "Darkinium Z": "恶Z",
+        "Electrium Z": "电Z",
+        "Fightinium Z": "格斗Z",
+        "Flyinium Z": "飞行Z",
+        "Grassium Z": "草Z",
+        "Icium Z": "冰Z",
+        "Poisonium Z": "毒Z",
+        "Rockium Z": "岩石Z",
+        "Waterium Z": "水Z",
+
         //树果, 岩石
         "Charti Berry": "草蚕果",
         "Shuca Berry": "腰木果",
@@ -4127,6 +4167,7 @@
         "Damp Rock": "潮湿岩石",
         "Heat Rock": "炽热岩石",
         "Icy Rock": "冰冷岩石",
+
         //进化
         "Odd Rock": "奇怪的石头",
         "Oval Stone": "浑圆之石",
@@ -4141,6 +4182,7 @@
         "Thunder Stone": "雷之石",
         "Water Stone": "水之石",
         "Fire Stone": "火之石",
+
         //进化石
         "Charizardite Y": "喷火龙进化石Y",
         "Charizardite X": "喷火龙进化石X",
@@ -4238,11 +4280,13 @@
         "Glimmorite": "晶光花进化石",
         "Dondozite": "米立龙进化石",
         "Baxcaliburite": "戟脊龙进化石",
+
         //超级次元
         "M. Piece": "超级碎块",
         "M. Shard": "超级碎片",
         "M. Chunk": "超级晶簇",
         "M. Cluster": "超级晶块",
+
         //遗传
         "Energy Root": "能量根",
         "Hp Up": "生命增强剂",
@@ -4260,6 +4304,7 @@
         "Neverstone": "不变之石",
         "Lock Capsule": "上锁的容器",
         "Macho Brace": "强制锻炼器",
+
         //其他
         "Time Candy": "时间糖果",
         "Bottle Cap": "银色王冠",
@@ -4276,11 +4321,12 @@
         "Black Apricorn": "黑色球果",
         "Magazine Subscription": "订阅杂志",
         "Battle Pass": "战斗通行证",
-        "Replicator Upgrade S": "复制器升级工具S",
+        "Replicator Upgrade": "复制器升级工具",
         "Fashion Case": "饰品盒",
         "Memory": "记忆碟",
         "Festival Ticket": "圆庆票",
         "Neutral Mint": "性格薄荷",
+
         //装饰
         "Chef Hat": "厨师帽",
         "Colored Parasol": "彩绘阳伞",
