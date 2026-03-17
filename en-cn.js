@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] EN-CN
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.8
+// @version      3.9.9
 // @description  Pokechill 全页面离线简体中文汉化
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -1918,14 +1918,13 @@
         "Elite Four": "四天王",
         "Team Leader": "首领",
         "Pokemon Professor": "宝可梦博士",
+        "Legend Trainer Blue": "传奇训练家 小茂",
         "Ash": "小智",
-        "Blue": "小茂",
         "Oak": "大木",
         "Clay": "菊老大",
         "Aaron": "阿柳",
         "Brock": "小刚",
         "Misty": "小霞",
-        "Phoebe": "芙蓉",
         "Phoebe": "芙蓉",
         "Ricardo": "里卡多",
         "Lily": "莉莉",
