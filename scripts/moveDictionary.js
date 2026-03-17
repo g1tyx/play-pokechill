@@ -4776,7 +4776,7 @@ move.camouflage = {
     split: "special",
     type: "bug",
     power: 0,
-    info: function() {return `Changes the type of the user corresponding to the weather, and increases Speed by 75%`},
+    info: function() {return `Temporarily changes the type of the user corresponding to the weather, and increases Speed by 75%`},
     hitEffect: function(target) {
         moveBuff(target,'speup2',"self");
         if (saved.weatherTimer>0){
@@ -5383,7 +5383,7 @@ move.conversion = {
     split: "special",
     type: "normal",
     power: 0,
-    info: function() {return `Changes the type of the user to the type of the first move slot, and increases Speed by 75%`},
+    info: function() {return `Temporarily changes the type of the user to the type of the first move slot, and increases Speed by 75%`},
     hitEffect: function(target) { moveBuff(target,'speup2',"self"); pkmn[ team[exploreActiveMember].pkmn.id ].type = [ move[ pkmn[ team[exploreActiveMember].pkmn.id] .moves.slot1  ].type  ] },
     restricted: true,
 }

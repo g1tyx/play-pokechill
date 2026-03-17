@@ -2484,9 +2484,7 @@ z-index: 0;
     transition: opacity 0.3s ease;
 }
 
-#pokedex-menu-return:hover{
-    opacity: 1 !important;
-}
+
 
 .pokedex-menu-flair {
     position: fixed;
