@@ -358,6 +358,23 @@ function injectPreviewTeam(){
     }
 
 
+    let zCrystalError = 0
+    for (const i in currentTeam) {
+        if (currentTeam[i].pkmn == undefined) continue
+        if (currentTeam[i].item == undefined) continue
+
+        if (item[currentTeam[i].item].zType) zCrystalError++
+    
+    }
+
+    if (zCrystalError>1) {
+        document.getElementById("tooltipTop").style.display = "none"
+        document.getElementById("tooltipBottom").style.display = "none"
+        document.getElementById("tooltipTitle").innerHTML = `Restricted Z Moves`
+        document.getElementById("tooltipMid").innerHTML = `Multiple Z-Crystals cannot be equiped in a single team`
+        openTooltip()
+        return
+    }
 
 
 
