@@ -1097,7 +1097,7 @@ ability.ferrilate = {
     rarity: 3,
 }
 
-ability.refrigerate = {
+ability.glaciate = {
     rename: `refrigerate`,
     info: function() {return `Normal-type moves become Ice-type moves, and their power is multiplied by x1.3`},
     rarity: 3,
@@ -1206,7 +1206,7 @@ const berryMemoryRare = [ ability.flashHerba.id, ability.flashFae.id, ability.fl
     ability.dancer.id, ability.cacophony.id, ability.windRider.id, ability.gorillaTactics.id,
     ability.imposter.id,
     ability.drizzle.id, ability.drought.id, ability.electricSurge.id,
-    ability.grassySurge.id, ability.mistySurge.id, ability.ferrilate.id, ability.refrigerate.id,
+    ability.grassySurge.id, ability.mistySurge.id, ability.ferrilate.id, ability.glaciate.id,
     ability.terralate.id, ability.toxilate.id, ability.hydrolate.id, ability.pyrolate.id, ability.chrysilate.id,
     ability.galvanize.id, ability.gloomilate.id, ability.espilate.id, ability.aerilate.id, ability.pixilate.id,
     ability.verdify.id, ability.dragonMaw.id, ability.iaido.id,
@@ -1214,7 +1214,7 @@ const berryMemoryRare = [ ability.flashHerba.id, ability.flashFae.id, ability.fl
 
  /*const apricornMemoryHA2 = [   ability.treasureOfRuin.id, ability.dancer.id, ability.cacophony.id, 
     ability.imposter.id, ability.quarkDrive.id, ability.protosynthesis.id, ability.drizzle.id, ability.drought.id,  ability.electricSurge.id, ability.grassySurge.id, ability.mistySurge.id, 
-    ability.ferrilate.id, ability.refrigerate.id, ability.terralate.id, ability.toxilate.id,
+    ability.ferrilate.id, ability.glaciate.id, ability.terralate.id, ability.toxilate.id,
     ability.hydrolate.id, ability.pyrolate.id, ability.chrysilate.id, ability.galvanize.id, ability.gloomilate.id, ability.espilate.id, ability.aerilate.id, ability.pixilate.id,
     ability.verdify.id, ability.dragonMaw.id,
  ]*/

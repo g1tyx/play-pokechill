@@ -769,7 +769,7 @@
         [/^Bypasses all defense buffs/i,
         '无视所有防御加成'],
         [/^Attack becomes physical or special to match the highest stat of the user/i,
-        '招式类型根据自身的最高能力值, 变为物理或特殊'],
+        '招式类型根据自身的最高进攻能力值, 变为物理或特殊'],
         [/^Removes/i,
         '移除'],
         [/^ for the entire party/i,
@@ -1041,7 +1041,7 @@
         [/When held: Prevents the damage from Stealth Rocks field effect and decreases damage taken by x([\d\.]+)/i,
         '持有时: 受到的伤害 ÷$1。不受隐形岩的场地效果的影响'],
         [/When held: Regardless of the holder, every (\d+) turns, executes a coordinated (.+)-type attack if the holder isnt fainted. Whether its physical or special depends on the highest stat of the holder \(If they are equal, it will be random, but deal x1.25 more damage\). This attack benefits from holder stats and typing but not from their abilities nor buffs. Only one Z crystal can be equipped per team/i,
-        '持有时: 每隔 $1 回合, 如果持有者未倒下, 则使用 $2属性 的连携Z招式。Z招式的类型取决于持有者的最高能力值 (如果能力值相同则招式类型随机, 但伤害 x1.25)。Z招式的威力受持有者的能力值、个体值、等级影响, 但不受特性或能力值提升效果的影响。每个队伍只允许携带 1 个 Z 纯晶'],
+        '持有时: 每隔 $1 回合, 如果持有者未倒下, 则使用 $2属性 的协同Z招式。Z招式的类型取决于持有者的最高进攻能力值 (如果物攻和特攻相同, 则招式类型随机, 但伤害 x1.25)。Z招式的威力受持有者的能力值、个体值、等级影响, 但不受特性或能力值提升效果的影响。每个队伍只允许携带 1 个 Z 纯晶'],
         //岩石, 种子
         [/^When held: Increases the duration of/i,
         '持有时: 持有者改变的'],
@@ -3439,7 +3439,7 @@
         //特性
         "Neuroforce": "脑核之力",
         "Iaido": "居合道",
-        "Refrigerate": "冰冻皮肤",
+        "Refrigerate": "冰封世界",
         "Stoned": "石化",
         "Stamina": "耐力",
         "Flower Veil": "花幕",

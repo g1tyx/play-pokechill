@@ -3693,7 +3693,7 @@ pkmn.glaceon = {
         sdef: 95,
         spe: 65,
     },
-    hiddenAbility: ability.refrigerate,
+    hiddenAbility: ability.glaciate,
     eggMove : move.snowscape
 }
 
@@ -8101,7 +8101,7 @@ pkmn.megaGlalie = {
         sdef: 80,
         spe: 100,
     },
-    hiddenAbility: ability.refrigerate,
+    hiddenAbility: ability.glaciate,
     signature : move.snowscape
 }
 
@@ -9863,7 +9863,7 @@ pkmn.rotomFrost = {
         sdef: 107,
         spe: 86,
     },
-    hiddenAbility: ability.refrigerate,
+    hiddenAbility: ability.glaciate,
     eggMove : move.freezeDry
 }
 
@@ -13071,7 +13071,7 @@ pkmn.kyurem = {
     sdef: 90,
     spe: 95,
   },
-    hiddenAbility: ability.refrigerate,
+    hiddenAbility: ability.glaciate,
     signature : move.glaciate
 }
 
@@ -17731,7 +17731,7 @@ pkmn.snom = {
     spe: 20,
   },
   evolve: function() { return { 1: { pkmn: pkmn.frosmoth, level: evolutionLevel3 } } },
-    hiddenAbility: ability.refrigerate,
+    hiddenAbility: ability.glaciate,
     eggMove : move.snowscape
 }
 
@@ -17745,7 +17745,7 @@ pkmn.frosmoth = {
     sdef: 90,
     spe: 65,
   },
-    hiddenAbility: ability.refrigerate,
+    hiddenAbility: ability.glaciate,
     eggMove : move.snowscape
 }
 
