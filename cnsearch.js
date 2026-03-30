@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Pokechill] CN-SEARCH
 // @namespace    https://play-pokechill.github.io/
-// @version      3.9.8
+// @version      3.9.9
 // @description  Pokechill 中文模糊匹配搜索
 // @author       GPT-DiamondMoo, CCC, 黄黄, Reso
 // @license      MIT
@@ -1444,7 +1444,7 @@
         //特性
         "Neuroforce": "脑核之力",
         "Iaido": "居合道",
-        "Refrigerate": "冰冻皮肤",
+        "Refrigerate": "冰封世界",
         "Stoned": "石化",
         "Stamina": "耐力",
         "Flower Veil": "花幕",
